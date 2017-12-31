@@ -1,0 +1,147 @@
+{
+  "name": "uikit-for-react",
+  "version": "0.0.1",
+  "description": "React component library for UIkit CSS framework.",
+  "main": "index.js",
+  "repository": "https://github.com/wolfspace/uikit-for-react.git",
+  "author": "Mike Rourke <mike.w.rourke@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "lodash": "^4.17.4",
+    "prop-types": "^15.6.0",
+    "recompose": "^0.26.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^3.2.19",
+    "@storybook/addon-info": "^3.2.19",
+    "@storybook/addon-links": "^3.2.19",
+    "@storybook/addon-storyshots": "^3.2.19",
+    "@storybook/react": "^3.2.19",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.1.0",
+    "babel-jest": "^22.0.4",
+    "babel-plugin-import": "^1.6.3",
+    "babel-preset-env": "^1.6.1",
+    "css-loader": "^0.28.7",
+    "eslint": "^4.14.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
+    "file-loader": "^1.1.6",
+    "jest": "^22.0.4",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-test-renderer": "^16.2.0",
+    "style-loader": "^0.19.1",
+    "uikit": "^3.0.0-beta.35",
+    "url-loader": "^0.6.2"
+  },
+  "peerDependencies": {
+    "react": ">=15",
+    "react-dom": ">=15",
+    "uikit": ">=3"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": "8"
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      [
+        "import",
+        [
+          {
+            "libraryName": "lodash"
+          }
+        ]
+      ]
+    ]
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": [
+      "airbnb",
+      "plugin:import/errors",
+      "plugin:import/warnings"
+    ],
+    "globals": {
+      "__DEV__": true,
+      "analytics": true,
+      "winston": true
+    },
+    "env": {
+      "browser": true,
+      "es6": true
+    },
+    "plugins": [
+      "react"
+    ],
+    "rules": {
+      "class-methods-use-this": "off",
+      "function-paren-newline": "off",
+      "object-curly-newline": "off",
+      "max-len": [
+        "error",
+        {
+          "code": 100,
+          "ignoreComments": true,
+          "ignoreRegExpLiterals": true,
+          "ignoreStrings": true,
+          "ignoreTemplateLiterals": true,
+          "ignoreTrailingComments": true,
+          "ignoreUrls": true
+        }
+      ],
+      "import/no-extraneous-dependencies": [
+        "error",
+        {
+          "devDependencies": true
+        }
+      ],
+      "react/jsx-filename-extension": [
+        "warn",
+        {
+          "extensions": [
+            ".js",
+            ".jsx"
+          ]
+        }
+      ],
+      "react/prefer-stateless-function": "off",
+      "react/no-unused-prop-types": "off",
+      "react/prop-types": [
+        "error",
+        {
+          "ignore": [
+            "className",
+            "children"
+          ]
+        }
+      ]
+    },
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "extensions": [
+            ".js"
+          ],
+          "moduleDirectory": [
+            "./",
+            "node_modules"
+          ]
+        }
+      }
+    }
+  }
+}
