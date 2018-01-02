@@ -1,7 +1,6 @@
 import {
   flatten,
   get,
-  has,
   isBoolean,
   isNull,
   isObjectLike,
@@ -11,7 +10,7 @@ import {
   some,
   startsWith,
 } from 'lodash';
-import { STYLES } from '../components/constants';
+import { UIK } from './constants';
 
 /**
  * Loops through the props for the component and determines if the "default" class should be
@@ -27,7 +26,7 @@ import { STYLES } from '../components/constants';
  * > This would return true for checkIfDefaultStyle because no style boolean was set.
  */
 export const getIfDefaultStyle = (props) => {
-  const booleanCount = STYLES.reduce((acc, styleName) => {
+  const booleanCount = UIK.BUTTON_STYLES.reduce((acc, styleName) => {
     const hasStyle = get(props, styleName, false);
     return (hasStyle) ? (acc + 1) : acc;
   }, 0);
@@ -83,32 +82,35 @@ export const buildClassName = (...args) => {
 /**
  * Returns the UIkit class name(s) that corresponds to a specific position.
  * @param {string} ukName String value to prepend to the class.
- * @param {Object} positionProp Prop containing the position key/value pairs (x, y).
+ * @param {Object} positionProp Prop containing the position key/value pairs (horizontal, vertical).
  * @param {Object} options Additional options for returning class names.
  * @returns {string|Array}
  *
  * @example
- * this.props.background = { x: 'left', y: 'top' };
+ * this.props.background = { horizontal: 'left', vertical: 'top' };
  * console.log(buildPositionClassNames(this.props.background, 'background'));
  * > uk-background-top-left
  */
 export const buildPositionClassNames = (ukName, positionProp, options = { omitCenter: false }) => {
   if (isNull(positionProp) || isUndefined(positionProp)) return '';
-  const isNotPosition = (ukName !== 'position');
-  const yProp = get(positionProp, 'y', null);
-  const xProp = get(positionProp, 'x', null);
+  if (!isObjectLike(positionProp)) return buildClassName(ukName, positionProp);
 
-  // If the "omitCenter" is set to true in the options parameter and both the x and y props are
-  // set to "center", return an empty string. This is used for the transform-origin prop.
-  if (options.omitCenter === true && (yProp === 'center' && xProp === 'center')) return '';
+  const isNotPosition = (ukName !== 'position');
+  const vertProp = get(positionProp, 'vertical', null);
+  const horizProp = get(positionProp, 'horizontal', null);
+
+  // If the "omitCenter" is set to true in the options parameter and both the horizontal and
+  // vertical props are set to "center", return an empty string. This is used for the
+  // transform-origin prop.
+  if (options.omitCenter === true && (vertProp === 'center' && horizProp === 'center')) return '';
 
   const positionLocationClass = buildClassName([
     ukName,
-    yProp,
-    // When setting the "position" prop for a base element, if both x and y are centered, only
-    // one "center" is required (uk-position-center).  If it's not a base element (e.g. background
-    // position), both "center" values are included (uk-background-center-center).
-    (isNotPosition && xProp === 'center') ? 'center' : null,
+    vertProp,
+    // When setting the "position" prop for a base element, if both horizontal and vertical are
+    // centered, only one "center" is required (uk-position-center).  If it's not a base element
+    // (e.g. background position), both "center" values are included (uk-background-center-center).
+    (isNotPosition && horizProp === 'center') ? 'center' : null,
   ]);
 
   if (isNotPosition) return positionLocationClass;
@@ -139,6 +141,7 @@ export const buildObjectOrValueClassNames = (ukName, objectProp) => {
   return keys(objectProp).map((propName) => {
     if (propName.length === 1) return '';
     let suffix = propName;
+    // This is done to ensure the breakpoint value is valid.
     if (startsWith(propName, 'at')) suffix = propName.toLowerCase().replace('at', '@');
     return buildClassName(ukName, get(objectProp, propName), suffix);
   });

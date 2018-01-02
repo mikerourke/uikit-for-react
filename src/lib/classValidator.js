@@ -129,6 +129,24 @@ const PADDING_CLASSES = [
   'uk-padding-remove-horizontal',
 ];
 
+const TRANSITION_CLASSES = [
+  'uk-transition-fade',
+  'uk-transition-scale-up',
+  'uk-transition-scale-down',
+  'uk-transition-slide-top',
+  'uk-transition-slide-bottom',
+  'uk-transition-slide-left',
+  'uk-transition-slide-right',
+  'uk-transition-slide-top-small',
+  'uk-transition-slide-bottom-small',
+  'uk-transition-slide-left-small',
+  'uk-transition-slide-right-small',
+  'uk-transition-slide-top-medium',
+  'uk-transition-slide-bottom-medium',
+  'uk-transition-slide-left-medium',
+  'uk-transition-slide-right-medium',
+];
+
 const validateClasses = (classList, overrideEnv = false) => {
   if (process.env.NODE_ENV !== 'development' || overrideEnv === false) return;
 
@@ -138,6 +156,7 @@ const validateClasses = (classList, overrideEnv = false) => {
     BACKGROUND_CLASSES,
     MARGIN_CLASSES,
     PADDING_CLASSES,
+    TRANSITION_CLASSES,
   );
 
   const providedClasses = split(classList, ' ');

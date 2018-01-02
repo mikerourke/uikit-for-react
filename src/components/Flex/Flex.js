@@ -3,15 +3,11 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { get } from 'lodash';
 import {
-  BREAKPOINTS,
-  FLEX_HORIZONTAL_MODIFIERS,
-  FLEX_VERTICAL_MODIFIERS,
-  HTML_BLOCK_ELEMENTS,
-} from '../constants';
-import {
   buildClassName,
   buildObjectOrValueClassNames,
   getElementType,
+  HTML,
+  UIK,
 } from '../../lib';
 import Root from '../Root';
 
@@ -22,10 +18,10 @@ class Flex extends Root {
   };
 
   static propTypes = {
-    alignItems: PropTypes.oneOf(FLEX_VERTICAL_MODIFIERS),
+    alignItems: PropTypes.oneOf(UIK.FLEX_VERTICAL_MODIFIERS),
 
     /** HTML element to use for the component. */
-    as: PropTypes.oneOf(HTML_BLOCK_ELEMENTS),
+    as: PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
 
     /** Contents to display in the element. */
     children: PropTypes.node.isRequired,
@@ -41,19 +37,19 @@ class Flex extends Root {
     inline: PropTypes.bool,
 
     justifyContent: PropTypes.oneOfType([
-      PropTypes.oneOf(FLEX_HORIZONTAL_MODIFIERS),
+      PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
       PropTypes.shape({
-        around: PropTypes.oneOf(BREAKPOINTS),
-        between: PropTypes.oneOf(BREAKPOINTS),
-        left: PropTypes.oneOf(BREAKPOINTS),
-        center: PropTypes.oneOf(BREAKPOINTS),
-        right: PropTypes.oneOf(BREAKPOINTS),
+        around: PropTypes.oneOf(UIK.BREAKPOINTS),
+        between: PropTypes.oneOf(UIK.BREAKPOINTS),
+        left: PropTypes.oneOf(UIK.BREAKPOINTS),
+        center: PropTypes.oneOf(UIK.BREAKPOINTS),
+        right: PropTypes.oneOf(UIK.BREAKPOINTS),
       }),
     ]),
 
     wrap: PropTypes.shape({
       type: PropTypes.oneOf(['nowrap', 'reverse', 'wrap']),
-      alignment: PropTypes.oneOf(FLEX_VERTICAL_MODIFIERS),
+      alignment: PropTypes.oneOf(UIK.FLEX_VERTICAL_MODIFIERS),
     }),
   };
 

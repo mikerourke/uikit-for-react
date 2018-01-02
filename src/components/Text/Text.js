@@ -1,38 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { without } from 'lodash';
-import {
-  getElementType,
-  UIK,
-} from '../../lib';
-import Root from '../Root';
+import { keys, omit } from 'lodash';
+import { textPropTypes, getTextClassNames } from '../props/forText';
+import { getElementType, HTML } from '../../lib';
 
-class Grid extends Root {
+class Text extends React.Component {
   static meta = {
-    name: 'Grid',
-    ukClass: 'uk-grid',
+    name: 'Text',
+    ukClass: 'uk-text',
   };
 
   static propTypes = {
+    ...textPropTypes,
+
     /** HTML element to use for the component. */
-    as: PropTypes.string,
+    as: PropTypes.oneOf(HTML.TEXT_ELEMENTS),
 
     /** Contents to display in the element. */
-    children: PropTypes.node.isRequired,
+    children: PropTypes.oneOfType([
+      PropTypes.node,
+      PropTypes.string,
+    ]).isRequired,
 
     /** Additional classes to apply to element. */
     className: PropTypes.string,
-
-    divider: PropTypes.bool,
-
-    gutter: PropTypes.oneOf([...without(UIK.SIZES, 'xlarge'), 'collapse']),
-
-    matchChild: PropTypes.bool,
   };
 
   static defaultProps = {
-    as: 'div',
+    as: 'span',
     className: '',
   };
 
@@ -44,16 +40,18 @@ class Grid extends Root {
       ...rest
     } = this.props;
 
+    const validProps = omit(rest, keys(textPropTypes));
+
     const classes = classnames(
       className,
-      Grid.meta.ukClass,
-      this.getRootClassNames(),
+      Text.meta.ukClass,
+      getTextClassNames(this.props),
     );
 
-    const Element = getElementType(Grid, as);
+    const Element = getElementType(Text, as);
     return (
       <Element
-        {...this.getValidProps(rest)}
+        {...validProps}
         className={classes}
       >
         {children}
@@ -62,4 +60,4 @@ class Grid extends Root {
   }
 }
 
-export default Grid;
+export default Text;

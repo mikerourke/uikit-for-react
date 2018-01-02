@@ -4,9 +4,9 @@ import classnames from 'classnames';
 import {
   buildClassName,
   getElementType,
+  HTML,
 } from '../../lib';
 import Root from '../Root';
-import { HTML_BLOCK_ELEMENTS } from '../constants';
 
 class Container extends Root {
   static meta = {
@@ -16,7 +16,7 @@ class Container extends Root {
 
   static propTypes = {
     /** HTML element to use for the component. */
-    as: PropTypes.oneOf(HTML_BLOCK_ELEMENTS),
+    as: PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
 
     /** Contents to display in the element. */
     children: PropTypes.node.isRequired,

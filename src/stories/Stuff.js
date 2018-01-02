@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import Base from '../components/Base';
 import Button from '../components/Button';
 import Panel from '../components/Panel';
 import Container from '../components/Container';
@@ -11,8 +12,8 @@ const backgroundProps = {
   size: 'contain',
   imageUrl: 'https://getuikit.com/docs/images/dark.jpg',
   position: {
-    x: 'center',
-    y: 'top',
+    horizontal: 'center',
+    vertical: 'top',
   },
   norepeat: true,
   fixed: true,
@@ -24,11 +25,11 @@ storiesOf('Margin', module)
   .add('Basic Usage', () => (
     <div>
       <Flex margin={{ all: 'large' }}>
-        <div>Hooray</div>
-        <div>Hooray</div>
-        <div>Hooray</div>
-        <div>Hooray</div>
-        <div>Hooray</div>
+        <Base as="div" width="1/5">Hooray</Base>
+        <Base as="div" width="1/5">Hooray</Base>
+        <Base as="div" width="1/5">Hooray</Base>
+        <Base as="div" width="1/5">Hooray</Base>
+        <Base as="div" width="1/5">Hooray</Base>
       </Flex>
       <Container size="large" width={{ atXl: '1/2' }}>
         <Badge>100</Badge>
