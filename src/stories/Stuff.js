@@ -1,6 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import Alert from '../components/Alert';
+import Article from '../components/Article';
 import Base from '../components/Base';
+import Breadcrumb from '../components/Breadcrumb';
 import Button from '../components/Button';
 import Panel from '../components/Panel';
 import Container from '../components/Container';
@@ -24,6 +27,11 @@ const backgroundProps = {
 storiesOf('Margin', module)
   .add('Basic Usage', () => (
     <div>
+      <Breadcrumb>
+        <Breadcrumb.Item>Test</Breadcrumb.Item>
+        <Breadcrumb.Item>Test 2</Breadcrumb.Item>
+        <Breadcrumb.Item>Test 3</Breadcrumb.Item>
+      </Breadcrumb>
       <Flex margin={{ all: 'large' }}>
         <Base as="div" width="1/5">Hooray</Base>
         <Base as="div" width="1/5">Hooray</Base>
@@ -31,7 +39,7 @@ storiesOf('Margin', module)
         <Base as="div" width="1/5">Hooray</Base>
         <Base as="div" width="1/5">Hooray</Base>
       </Flex>
-      <Container size="large" width={{ atXl: '1/2' }}>
+      <Container size="large">
         <Badge>100</Badge>
         <Button margin padding="remove">Button</Button>
         <Button padding={{ size: 'large', removeVertical: true }}>Button</Button>
@@ -65,5 +73,12 @@ storiesOf('Margin', module)
           deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing
           elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
       </Panel>
+      <Alert closeable>
+        This is an alert test
+      </Alert>
+      <Article boxShadow="large">
+        <Article.Title>Test</Article.Title>
+        <Article.Meta>Test</Article.Meta>
+      </Article>
     </div>
   ));

@@ -1,67 +1,20 @@
 import React from 'react';
-import classnames from 'classnames';
+import PropTypes from 'prop-types';
 import { get, keys, omit } from 'lodash';
 import {
-  alignPropTypes,
-  animationPropTypes,
-  backgroundPropTypes,
-  flexPropTypes,
-  marginPropTypes,
-  paddingPropTypes,
-  positionPropTypes,
-  textPropTypes,
-  utilityPropTypes,
-  visibilityPropTypes,
-  widthPropTypes,
-  getAlignClassNames,
-  getAnimationClassNames,
-  getBackgroundClassNames,
-  getFlexClassNames,
-  getMarginClassNames,
-  getPaddingClassNames,
-  getPositionClassNames,
-  getTextClassNames,
-  getUtilityClassNames,
-  getVisibilityClassNames,
-  getWidthClassNames,
-  getMarginComponentAttributes,
-  getHeightMatchComponentAttributes,
-  getHeightViewportComponentAttributes,
-  getLeaderComponentAttributes,
+  sharedPropTypes,
+  getSharedClassNames,
+  getSharedAttributes,
 } from '../props';
 
 const getStyle = Symbol('getStyle');
 const getAttributes = Symbol('getAttributes');
 
 class Root extends React.Component {
-  static propTypes = {
-    ...alignPropTypes,
-    ...animationPropTypes,
-    ...backgroundPropTypes,
-    ...flexPropTypes,
-    ...marginPropTypes,
-    ...paddingPropTypes,
-    ...positionPropTypes,
-    ...utilityPropTypes,
-    ...visibilityPropTypes,
-    ...widthPropTypes,
-    text: textPropTypes,
-  };
+  static propTypes = sharedPropTypes;
 
-  getRootClassNames() {
-    return classnames(
-      getAlignClassNames(get(this.props, 'align')),
-      getAnimationClassNames(get(this.props, 'animation')),
-      getBackgroundClassNames(get(this.props, 'background')),
-      getFlexClassNames(get(this.props, 'align')),
-      getMarginClassNames(get(this.props, 'margin')),
-      getPaddingClassNames(get(this.props, 'padding')),
-      getPositionClassNames(get(this.props, 'position')),
-      getTextClassNames(get(this.props, 'text')),
-      getUtilityClassNames(this.props),
-      getVisibilityClassNames(this.props),
-      getWidthClassNames(get(this.props, 'width')),
-    ).trim();
+  getRootClassNames(options = { exclude: '', include: '' }) {
+    return getSharedClassNames(this.props, options);
   }
 
   [getStyle]() {
@@ -73,15 +26,11 @@ class Root extends React.Component {
   }
 
   [getAttributes]() {
-    return {
-      ...getMarginComponentAttributes(this.props),
-      ...getHeightMatchComponentAttributes(this.props),
-      ...getHeightViewportComponentAttributes(this.props),
-      ...getLeaderComponentAttributes(this.props),
-    };
+    return getSharedAttributes(this.props)
   }
 
   getValidProps(currentProps) {
+    console.log(Root.propTypes);
     const style = this[getStyle]();
     const attributes = this[getAttributes]();
     const omittedPropNames = keys(Root.propTypes);

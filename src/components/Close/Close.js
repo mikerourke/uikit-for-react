@@ -28,7 +28,7 @@ class Close extends Root {
   };
 
   static defaultProps = {
-    as: 'div',
+    as: 'a',
     className: '',
   };
 
@@ -56,6 +56,7 @@ class Close extends Root {
       <Element
         {...this.getValidProps(rest)}
         className={classes}
+        data-uk-close
       />
     );
   }

@@ -3,7 +3,7 @@ import 'uikit/src/less/uikit.theme.less';
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons.min';
 import React from 'react';
-import { configure, setAddon } from '@storybook/react';
+import { configure, setAddon } from '@storybook/react'; // eslint-disable-line
 
 UIkit.use(Icons);
 

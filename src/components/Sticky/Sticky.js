@@ -103,7 +103,7 @@ class Sticky extends Root {
 
     const classes = classnames(
       className,
-      this.getRootClassNames(),
+      this.getRootClassNames({ exclude: 'animation' }),
     );
 
     const componentOptions = getOptionsString({

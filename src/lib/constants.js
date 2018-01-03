@@ -73,6 +73,14 @@ const HTML_BLOCK_ELEMENTS = [
 
 const HTML_EMBEDDED_ELEMENTS = ['audio', 'canvas', 'img', 'svg', 'video'];
 
+const HTML_HEADING_ELEMENTS = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+
+const HTML_INLINE_ELEMENTS = [
+  'a', 'abbr', 'acronym', 'b', 'bdo', 'big', 'br', 'button', 'cite', 'code', 'dfn', 'em', 'i',
+  'img', 'input', 'kbd', 'label', 'map', 'object', 'q', 'samp', 'script', 'select', 'small',
+  'span', 'strong', 'sub', 'sup', 'textarea', 'time', 'tt', 'var',
+];
+
 const HTML_TEXT_ELEMENTS = [
   'abbr', 'b', 'cite', 'code', 'del', 'dfn', 'em', 'i', 'ins', 'kbd', 'mark', 'q', 's', 'samp',
   'small', 'span', 'strong', 'sub', 'sup', 'u', 'var',
@@ -82,9 +90,12 @@ export const HTML = {
   ALL_ELEMENTS: [
     ...HTML_BLOCK_ELEMENTS,
     ...HTML_EMBEDDED_ELEMENTS,
+    ...HTML_INLINE_ELEMENTS,
     ...HTML_TEXT_ELEMENTS,
   ],
   BLOCK_ELEMENTS: HTML_BLOCK_ELEMENTS,
   EMBEDDED_ELEMENTS: HTML_EMBEDDED_ELEMENTS,
+  HEADING_ELEMENTS: HTML_HEADING_ELEMENTS,
+  INLINE_ELEMENTS: HTML_INLINE_ELEMENTS,
   TEXT_ELEMENTS: HTML_TEXT_ELEMENTS,
 };
