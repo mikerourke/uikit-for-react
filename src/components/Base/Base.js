@@ -1,16 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { getElementType, HTML } from '../../lib';
-import Root from '../Root';
+import { without } from 'lodash';
+import {
+  buildClassName,
+  buildObjectOrValueClassNames,
+  commonPropTypes,
+  getElementType,
+  HTML,
+  UIK,
+} from '../../lib';
 
-class Base extends Root {
+class Base extends React.Component {
   static propTypes = {
     /** HTML element to use for the component. */
     as: PropTypes.oneOf(HTML.ALL_ELEMENTS),
 
+    children: PropTypes.node,
+
     /** Additional classes to apply to element. */
     className: PropTypes.string,
+
+    height: PropTypes.oneOf(['full', ...without(UIK.SIZES, 'xlarge')]),
+    width: commonPropTypes.width,
   };
 
   static defaultProps = {
@@ -23,18 +35,21 @@ class Base extends Root {
       as,
       children,
       className,
+      height,
+      width,
       ...rest
     } = this.props;
 
     const classes = classnames(
       className,
-      this.getRootClassNames(),
+      buildClassName((height === 'full') ? ['height', '1', '1'] : ['height', height]),
+      buildObjectOrValueClassNames('width', width),
     );
 
     const Element = getElementType(Base, as);
     return (
       <Element
-        {...this.getValidProps(rest)}
+        {...rest}
         className={classes}
       >
         {children}

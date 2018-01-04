@@ -4,13 +4,14 @@ import classnames from 'classnames';
 import { invoke } from 'lodash';
 import {
   buildClassName,
+  buildObjectOrValueClassNames,
+  commonPropTypes,
   getElementType,
   getIfDefaultStyle,
 } from '../../lib';
-import Root from '../Root';
 import ButtonGroup from './ButtonGroup';
 
-export class Button extends Root {
+class Button extends React.Component {
   static meta = {
     name: 'Button',
     ukClass: 'uk-button',
@@ -34,6 +35,9 @@ export class Button extends Root {
 
     /** Makes a <button> look like an <a> element. */
     link: PropTypes.bool,
+
+    margin: commonPropTypes.margin,
+    padding: commonPropTypes.padding,
 
     /**
      * Called after user's click.
@@ -78,6 +82,8 @@ export class Button extends Root {
       danger,
       disabled,
       link,
+      margin,
+      padding,
       primary,
       secondary,
       size,
@@ -94,14 +100,15 @@ export class Button extends Root {
       buildClassName('button', 'danger', danger),
       buildClassName('button', 'text', text),
       buildClassName('button', 'link', link),
+      buildObjectOrValueClassNames('margin', margin),
+      buildObjectOrValueClassNames('padding', padding),
       buildClassName('button', size),
-      this.getRootClassNames(),
     );
 
     const Element = getElementType(Button, as);
     return (
       <Element
-        {...this.getValidProps(rest)}
+        {...rest}
         className={classes}
         disabled={(disabled && as === 'button') || undefined}
         onClick={this.handleClick}

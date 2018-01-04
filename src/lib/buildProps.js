@@ -7,6 +7,7 @@ import {
   isUndefined,
   kebabCase,
   keys,
+  pick,
   some,
   startsWith,
 } from 'lodash';
@@ -60,6 +61,7 @@ export const buildClassName = (...args) => {
   const classString = classElements
     .reduce((acc, element) => {
       if (isBoolean(element)) return acc;
+      if (element === 'nameOf') return acc;
       const validElement = (/@/.test(element)) ? element : kebabCase(element);
       return [
         ...acc,
@@ -83,15 +85,14 @@ export const buildClassName = (...args) => {
  * Returns the UIkit class name(s) that corresponds to a specific position.
  * @param {string} ukName String value to prepend to the class.
  * @param {Object} positionProp Prop containing the position key/value pairs (horizontal, vertical).
- * @param {Object} options Additional options for returning class names.
  * @returns {string|Array}
  *
  * @example
  * this.props.background = { horizontal: 'left', vertical: 'top' };
- * console.log(buildPositionClassNames(this.props.background, 'background'));
+ * console.log(buildPositionClassNames('background', this.props.background));
  * > uk-background-top-left
  */
-export const buildPositionClassNames = (ukName, positionProp, options = { omitCenter: false }) => {
+export const buildPositionClassNames = (ukName, positionProp) => {
   if (isNull(positionProp) || isUndefined(positionProp)) return '';
   if (!isObjectLike(positionProp)) return buildClassName(ukName, positionProp);
 
@@ -99,10 +100,9 @@ export const buildPositionClassNames = (ukName, positionProp, options = { omitCe
   const vertProp = get(positionProp, 'vertical', null);
   const horizProp = get(positionProp, 'horizontal', null);
 
-  // If the "omitCenter" is set to true in the options parameter and both the horizontal and
-  // vertical props are set to "center", return an empty string. This is used for the
-  // transform-origin prop.
-  if (options.omitCenter === true && (vertProp === 'center' && horizProp === 'center')) return '';
+  // If both the horizontal and vertical props are set to "center", for the transform-origin
+  // return an empty string.
+  if (ukName === 'transform-origin' && (vertProp === 'center' && horizProp === 'center')) return '';
 
   const positionLocationClass = buildClassName([
     ukName,
@@ -122,6 +122,33 @@ export const buildPositionClassNames = (ukName, positionProp, options = { omitCe
   ];
 };
 
+const buildObjectClassNames = (ukName, objectProp) => keys(objectProp).map((propName) => {
+  if (propName.length === 1) return '';
+  const propValue = get(objectProp, propName);
+  if (propName === 'position') return buildPositionClassNames(ukName, propValue);
+  let suffix = propName;
+  // This is done to ensure the breakpoint value is valid.
+  if (startsWith(propName, 'at')) suffix = propName.toLowerCase().replace('at', '@');
+  return buildClassName(ukName, propValue, suffix);
+});
+
+const buildMarginClassNames = (marginProps) => {
+  const marginAllProp = get(marginProps, 'all', null);
+  return (isNull(marginAllProp))
+    ? buildObjectClassNames('margin', marginProps)
+    : UIK.LOCATIONS.map(location => buildClassName('margin', marginAllProp, location));
+};
+
+const buildBackgroundClassNames = (backgroundProps) => {
+  const validProps = pick(backgroundProps, ['fixed', 'norepeat', 'position']);
+  return [
+    ...buildObjectClassNames('background', validProps),
+    buildClassName('background', 'blend', get(backgroundProps, 'blendMode')),
+    buildClassName('background', 'image', get(backgroundProps, 'breakpoint')),
+    buildClassName('background', get(backgroundProps, 'size')),
+  ];
+};
+
 /**
  * Loops through the keys associated with the specified prop value and builds the class
  *    names with the appropriate values based on the key. If the prop is a string or boolean value,
@@ -137,12 +164,17 @@ export const buildPositionClassNames = (ukName, positionProp, options = { omitCe
  */
 export const buildObjectOrValueClassNames = (ukName, objectProp) => {
   if (!isObjectLike(objectProp)) return buildClassName(ukName, objectProp);
+  if (ukName === 'margin') return buildMarginClassNames(objectProp);
+  if (ukName === 'background') return buildBackgroundClassNames(objectProp);
+  return buildObjectClassNames(ukName, objectProp);
+};
 
-  return keys(objectProp).map((propName) => {
-    if (propName.length === 1) return '';
-    let suffix = propName;
-    // This is done to ensure the breakpoint value is valid.
-    if (startsWith(propName, 'at')) suffix = propName.toLowerCase().replace('at', '@');
-    return buildClassName(ukName, get(objectProp, propName), suffix);
-  });
+export const buildStyles = (props) => {
+  const style = get(props, 'style', {});
+  const imageUrl = get(props, ['background', 'imageUrl'], null);
+
+  return {
+    ...style,
+    backgroundImage: (isNull(imageUrl)) ? undefined : `url(${imageUrl})`,
+  };
 };

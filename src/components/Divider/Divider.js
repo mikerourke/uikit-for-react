@@ -5,9 +5,8 @@ import {
   buildClassName,
   getElementType,
 } from '../../lib';
-import Root from '../Root';
 
-class Divider extends Root {
+class Divider extends React.Component {
   static meta = {
     name: 'Divider',
     ukClass: 'uk-divider',
@@ -45,13 +44,12 @@ class Divider extends Root {
       className,
       buildClassName('divider', 'icon', icon),
       buildClassName('divider', 'small', small),
-      this.getRootClassNames(),
     );
 
     const Element = getElementType(Divider, as);
     return (
       <Element
-        {...this.getValidProps(rest)}
+        {...rest}
         className={classes}
       />
     );

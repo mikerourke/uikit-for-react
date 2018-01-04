@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import Root from '../Root';
 
-class ArticleLead extends Root {
+class ArticleLead extends React.Component {
   static meta = {
     name: 'ArticleLead',
     ukClass: 'uk-text-lead',
@@ -31,12 +30,11 @@ class ArticleLead extends Root {
     const classes = classnames(
       className,
       ArticleLead.meta.ukClass,
-      this.getRootClassNames(),
     );
 
     return (
       <p
-        {...this.getValidProps(rest)}
+        {...rest}
         className={classes}
       >
         {children}

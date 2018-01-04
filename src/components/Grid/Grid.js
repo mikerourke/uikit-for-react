@@ -6,9 +6,8 @@ import {
   getElementType,
   UIK,
 } from '../../lib';
-import Root from '../Root';
 
-class Grid extends Root {
+class Grid extends React.Component {
   static meta = {
     name: 'Grid',
     ukClass: 'uk-grid',
@@ -47,13 +46,12 @@ class Grid extends Root {
     const classes = classnames(
       className,
       Grid.meta.ukClass,
-      this.getRootClassNames(),
     );
 
     const Element = getElementType(Grid, as);
     return (
       <Element
-        {...this.getValidProps(rest)}
+        {...rest}
         className={classes}
       >
         {children}

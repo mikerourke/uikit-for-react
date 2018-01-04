@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { getElementType } from '../../lib';
-import Root from '../Root';
 
-class Badge extends Root {
+class Badge extends React.Component {
   static meta = {
     name: 'Badge',
     ukClass: 'uk-badge',
@@ -37,13 +36,12 @@ class Badge extends Root {
     const classes = classnames(
       className,
       Badge.meta.ukClass,
-      this.getRootClassNames(),
     );
 
     const Element = getElementType(Badge, as);
     return (
       <Element
-        {...this.getValidProps(rest)}
+        {...rest}
         className={classes}
       >
         {children}

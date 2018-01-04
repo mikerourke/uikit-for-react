@@ -1,18 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import Root from '../Root';
 import BreadcrumbItem from './BreadcrumbItem';
-import { sharedPropTypes } from '../props';
 
-class Breadcrumb extends Root {
+class Breadcrumb extends React.Component {
   static meta = {
     name: 'Breadcrumb',
     ukClass: 'uk-breadcrumb',
   };
 
   static propTypes = {
-    margin: sharedPropTypes.margin,
     /** Contents to display in the element. */
     children: PropTypes.node.isRequired,
 
@@ -36,12 +33,11 @@ class Breadcrumb extends Root {
     const classes = classnames(
       className,
       Breadcrumb.meta.ukClass,
-      this.getRootClassNames(),
     );
 
     return (
       <ul
-        {...this.getValidProps(rest)}
+        {...rest}
         className={classes}
       >
         {children}

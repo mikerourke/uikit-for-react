@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {
-  buildClassName,
+  buildClassName, buildObjectOrValueClassNames,
+  commonPropTypes,
   getElementType,
 } from '../../lib';
-import Root from '../Root';
 
-class Close extends Root {
+class Close extends React.Component {
   static meta = {
     name: 'Close',
     ukClass: 'uk-close',
@@ -24,6 +24,9 @@ class Close extends Root {
 
     large: PropTypes.bool,
 
+    margin: commonPropTypes.margin,
+    padding: commonPropTypes.padding,
+
     modal: PropTypes.bool,
   };
 
@@ -38,7 +41,9 @@ class Close extends Root {
       as,
       className,
       large,
+      margin,
       modal,
+      padding,
       ...rest
     } = this.props;
 
@@ -47,14 +52,15 @@ class Close extends Root {
       Close.meta.ukClass,
       buildClassName('alert', 'close', alert),
       buildClassName('close', 'large', large),
+      buildObjectOrValueClassNames('margin', margin),
+      buildObjectOrValueClassNames('padding', padding),
       buildClassName('modal', 'close', 'default', modal),
-      this.getRootClassNames(),
     );
 
     const Element = getElementType(Close, as);
     return (
       <Element
-        {...this.getValidProps(rest)}
+        {...rest}
         className={classes}
         data-uk-close
       />

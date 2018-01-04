@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { get, isObjectLike } from 'lodash';
 import {
-  buildClassName,
+  buildClassName, buildObjectOrValueClassNames,
+  commonPropTypes,
   getElementType,
   getOptionsString,
   HTML,
   UIK,
 } from '../../lib';
 import Close from '../Close';
-import Root from '../Root';
 
-class Alert extends Root {
+class Alert extends React.Component {
   static meta = {
     name: 'Alert',
     ukClass: 'uk-alert',
@@ -54,6 +54,9 @@ class Alert extends Root {
 
     /** Indicates a message containing a warning. */
     warning: PropTypes.bool,
+
+    margin: commonPropTypes.margin,
+    padding: commonPropTypes.padding,
   };
 
   static defaultProps = {
@@ -62,6 +65,7 @@ class Alert extends Root {
     closeable: false,
     closeOptions: {
       as: 'button',
+      large: false,
     },
     closeSelector: 'uk-alert-close',
   };
@@ -76,6 +80,8 @@ class Alert extends Root {
       closeOptions,
       closeSelector,
       danger,
+      margin,
+      padding,
       primary,
       success,
       warning,
@@ -86,10 +92,11 @@ class Alert extends Root {
       className,
       Alert.meta.ukClass,
       buildClassName('alert', 'danger', danger),
+      buildObjectOrValueClassNames('margin', margin),
+      buildObjectOrValueClassNames('padding', padding),
       buildClassName('alert', 'primary', primary),
       buildClassName('alert', 'success', success),
       buildClassName('alert', 'warning', warning),
-      this.getRootClassNames({ exclude: 'animation' }),
     );
 
     let animationClass = animation;
@@ -97,14 +104,14 @@ class Alert extends Root {
     if (isObjectLike(animation)) animationClass = get(animation, 'name');
     const componentOptions = getOptionsString({
       animation: buildClassName('animation', animationClass),
-      duration: get(animation, 'duration'),
+      duration: get(animation, 'duration', 150),
       selClose: closeSelector,
     });
 
     const Element = getElementType(Alert, as);
     return (
       <Element
-        {...this.getValidProps(rest)}
+        {...rest}
         className={classes}
         data-uk-alert={componentOptions}
       >

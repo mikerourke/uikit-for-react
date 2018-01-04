@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { buildClassName } from '../../lib';
-import Root from '../Root';
 
-class BreadcrumbItem extends Root {
+class BreadcrumbItem extends React.Component {
   static meta = {
     name: 'BreadcrumbItem',
   };
@@ -41,13 +40,12 @@ class BreadcrumbItem extends Root {
     const classes = classnames(
       className,
       buildClassName('disabled', disabled),
-      this.getRootClassNames(),
     );
 
     const InnerElement = (active) ? 'a' : 'span';
     return (
       <li
-        {...this.getValidProps(rest)}
+        {...rest}
         className={classes}
       >
         <InnerElement href={href}>

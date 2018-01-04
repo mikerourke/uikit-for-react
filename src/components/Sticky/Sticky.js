@@ -6,9 +6,8 @@ import {
   getElementType,
   getOptionsString,
 } from '../../lib';
-import Root from '../Root';
 
-class Sticky extends Root {
+class Sticky extends React.Component {
   static meta = {
     name: 'Sticky',
   };
@@ -122,7 +121,7 @@ class Sticky extends Root {
     const Element = getElementType(Sticky, as);
     return (
       <Element
-        {...this.getValidProps(rest)}
+        {...rest}
         className={classes}
         ref={this.handleRef}
         data-uk-sticky={componentOptions}

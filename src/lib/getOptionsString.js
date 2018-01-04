@@ -1,4 +1,9 @@
-import { isObjectLike, isUndefined, kebabCase, toPairsIn } from 'lodash';
+import {
+  isObjectLike,
+  isUndefined,
+  kebabCase,
+  toPairsIn,
+} from 'lodash';
 
 /**
  * Creates a valid string value to pass to UIkit JavaScript component options. It converts the
@@ -15,7 +20,7 @@ const getOptionsString = (options) => {
   if (isUndefined(options)) return undefined;
   if (!isObjectLike(options)) return '';
   const optionPairs = toPairsIn(options).reduce((acc, [key, value]) => {
-    if (value === '') return acc;
+    if (value === '' || isUndefined(value)) return acc;
     // Since the object passed in has camel-cased keys, ensure to convert them to kebab-case.
     const valuePair = `${kebabCase(key)}: ${value}`;
     return [

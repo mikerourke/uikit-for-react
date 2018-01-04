@@ -1,14 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { get } from 'lodash';
 import {
   buildClassName,
+  buildObjectOrValueClassNames,
+  buildStyles,
+  commonPropTypes,
   getElementType,
+  getOptionsString,
   HTML,
+  UIK,
 } from '../../lib';
-import Root from '../Root';
 
-class Container extends Root {
+class Container extends React.Component {
   static meta = {
     name: 'Container',
     ukClass: 'uk-container',
@@ -17,12 +22,27 @@ class Container extends Root {
   static propTypes = {
     /** HTML element to use for the component. */
     as: PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
+    background: commonPropTypes.background,
 
     /** Contents to display in the element. */
     children: PropTypes.node.isRequired,
 
+    childMargins: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.shape({
+        firstColumn: PropTypes.string,
+        nextRow: PropTypes.shape({
+          location: PropTypes.oneOf(UIK.LOCATIONS),
+          modifier: PropTypes.oneOf(UIK.SPACING_MODIFIERS),
+        }),
+      }),
+    ]),
+
     /** Additional classes to apply to element. */
     className: PropTypes.string,
+
+    margin: commonPropTypes.margin,
+    padding: commonPropTypes.padding,
 
     /** Size of the container. */
     size: PropTypes.oneOf(['expand', 'large', 'small']),
@@ -36,8 +56,12 @@ class Container extends Root {
   render() {
     const {
       as,
+      background,
       children,
+      childMargins,
       className,
+      margin,
+      padding,
       size,
       ...rest
     } = this.props;
@@ -45,15 +69,29 @@ class Container extends Root {
     const classes = classnames(
       className,
       Container.meta.ukClass,
+      buildObjectOrValueClassNames('background', background),
       buildClassName('container', size),
-      this.getRootClassNames(),
+      buildObjectOrValueClassNames('margin', margin),
+      buildObjectOrValueClassNames('padding', padding),
     );
+    const styles = buildStyles(this.props);
+
+    const childMarginOptions = getOptionsString({
+      margin: buildClassName(
+        'margin',
+        get(childMargins, ['nextRow', 'modifier'], 'small'),
+        get(childMargins, ['nextRow', 'location'], 'top'),
+      ),
+      firstColumn: buildClassName(get(childMargins, 'firstColumn', 'uk-first-column')),
+    });
 
     const Element = getElementType(Container, as);
     return (
       <Element
-        {...this.getValidProps(rest)}
+        {...rest}
         className={classes}
+        style={styles}
+        data-uk-margin={(childMargins) ? childMarginOptions : undefined}
       >
         {children}
       </Element>

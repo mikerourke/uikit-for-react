@@ -28,7 +28,12 @@
     "babel-eslint": "^8.1.0",
     "babel-jest": "^22.0.4",
     "babel-plugin-import": "^1.6.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-export-default": "^7.0.0-alpha.20",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.12",
     "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.7",
     "eslint": "^4.14.0",
     "eslint-config-airbnb": "^16.1.0",
@@ -60,17 +65,24 @@
             "node": "8"
           }
         }
-      ]
+      ],
+      "react"
     ],
     "plugins": [
       [
         "import",
         [
           {
-            "libraryName": "lodash"
+            "libraryName": "lodash",
+            "libraryDirectory": "/",
+            "camel2DashComponentName": false
           }
         ]
-      ]
+      ],
+      "transform-react-remove-prop-types",
+      "transform-export-default",
+      "transform-class-properties",
+      "transform-object-rest-spread"
     ]
   },
   "eslintConfig": {
@@ -95,7 +107,10 @@
     "rules": {
       "class-methods-use-this": "off",
       "function-paren-newline": "off",
-      "no-return-assign": ["error", "except-parens"],
+      "no-return-assign": [
+        "error",
+        "except-parens"
+      ],
       "object-curly-newline": "off",
       "max-len": [
         "error",

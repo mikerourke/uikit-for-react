@@ -16,69 +16,104 @@ const backgroundProps = {
   imageUrl: 'https://getuikit.com/docs/images/dark.jpg',
   position: {
     horizontal: 'center',
-    vertical: 'top',
+    vertical: 'center',
   },
   norepeat: true,
-  fixed: true,
   breakpoint: '@s',
-  blendMode: 'color',
 };
+
+const BreadcrumbTest = () => (
+  <Breadcrumb>
+    <Breadcrumb.Item>Test</Breadcrumb.Item>
+    <Breadcrumb.Item>Test 2</Breadcrumb.Item>
+    <Breadcrumb.Item>Test 3</Breadcrumb.Item>
+  </Breadcrumb>
+);
+
+const FlexTest = () => (
+  <Flex margin={{ all: 'large' }}>
+    <Base as="div" width="1/5">Hooray</Base>
+    <Base as="div" width="1/5">Hooray</Base>
+    <Base as="div" width="1/5">Hooray</Base>
+    <Base as="div" width="1/5">Hooray</Base>
+    <Base as="div" width="1/5">Hooray</Base>
+  </Flex>
+);
+
+const ContainerTest = () => (
+  <Container>
+    <Badge>100</Badge>
+    <Button margin padding="remove">Button</Button>
+    <Button padding={{ size: 'large', removeVertical: true }}>Button</Button>
+    <Button>Button</Button>
+    <Button>Button</Button>
+    <Button>Button</Button>
+    <Button>Button</Button>
+    <Button.Group padding="large">
+      <Button>Button</Button>
+      <Button>Button</Button>
+      <Button>Button</Button>
+    </Button.Group>
+  </Container>
+);
+
+const PanelTest = () => (
+  <Panel
+    animation={{ nameOf: 'slide-top' }}
+    margin={{ top: true, bottom: 'small' }}
+    // margin
+    // marginContainer
+    className="test"
+    // padding="large"
+    background={backgroundProps}
+    // viewport={{ offsetTop: true, offsetBottom: 8 }}
+    // height="full"
+  >
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+      ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+      ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </p>
+    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+      nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+      deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing
+      elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    </p>
+  </Panel>
+);
+
+const AlertTest = () => {
+  let alertVisible = true;
+  const handleClick = () => { alertVisible = true; };
+  return (
+    <Container>
+      <Button onClick={handleClick}>Test</Button>
+      <Alert
+        closeable
+        closeOptions={{ large: true, margin: true, padding: 'large' }}
+        animation={{ duration: 300 }}
+        margin="large"
+        padding="large"
+      >
+        This is an alert test
+      </Alert>
+    </Container>
+  );
+};
+
+const ArticleTest = () => (
+  <Article>
+    <Article.Title>Test</Article.Title>
+    <Article.Meta>Test</Article.Meta>
+  </Article>
+);
 
 storiesOf('Margin', module)
   .add('Basic Usage', () => (
     <div>
-      <Breadcrumb>
-        <Breadcrumb.Item>Test</Breadcrumb.Item>
-        <Breadcrumb.Item>Test 2</Breadcrumb.Item>
-        <Breadcrumb.Item>Test 3</Breadcrumb.Item>
-      </Breadcrumb>
-      <Flex margin={{ all: 'large' }}>
-        <Base as="div" width="1/5">Hooray</Base>
-        <Base as="div" width="1/5">Hooray</Base>
-        <Base as="div" width="1/5">Hooray</Base>
-        <Base as="div" width="1/5">Hooray</Base>
-        <Base as="div" width="1/5">Hooray</Base>
-      </Flex>
-      <Container size="large">
-        <Badge>100</Badge>
-        <Button margin padding="remove">Button</Button>
-        <Button padding={{ size: 'large', removeVertical: true }}>Button</Button>
-        <Button>Button</Button>
-        <Button>Button</Button>
-        <Button>Button</Button>
-        <Button>Button</Button>
-        <Button.Group>
-          <Button>Button</Button>
-          <Button>Button</Button>
-          <Button>Button</Button>
-        </Button.Group>
-      </Container>
+      <ArticleTest />
       <Divider />
-      <Panel
-        animation={{ name: 'slide-top' }}
-        margin={{ top: true, bottom: 'small' }}
-        // margin
-        // marginContainer
-        className="test"
-        padding="large"
-        background={backgroundProps}
-        // viewport={{ offsetTop: true, offsetBottom: 8 }}
-        height="full"
-      >
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-          ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-          nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-          deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing
-          elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      </Panel>
-      <Alert closeable>
-        This is an alert test
-      </Alert>
-      <Article boxShadow="large">
-        <Article.Title>Test</Article.Title>
-        <Article.Meta>Test</Article.Meta>
-      </Article>
+      <PanelTest />
+      <ContainerTest />
+      <AlertTest />
     </div>
   ));

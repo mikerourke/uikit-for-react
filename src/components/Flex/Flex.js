@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { compose } from 'recompose';
 import { get } from 'lodash';
 import {
   buildClassName,
-  buildObjectOrValueClassNames,
+  buildObjectOrValueClassNames, commonPropTypes,
   getElementType,
   HTML,
   UIK,
 } from '../../lib';
-import Root from '../Root';
 
-class Flex extends Root {
+class Flex extends React.Component {
   static meta = {
     name: 'Flex',
     ukClass: 'uk-flex',
@@ -47,6 +47,9 @@ class Flex extends Root {
       }),
     ]),
 
+    margin: commonPropTypes.margin,
+    padding: commonPropTypes.padding,
+
     wrap: PropTypes.shape({
       type: PropTypes.oneOf(['nowrap', 'reverse', 'wrap']),
       alignment: PropTypes.oneOf(UIK.FLEX_VERTICAL_MODIFIERS),
@@ -67,6 +70,8 @@ class Flex extends Root {
       direction,
       inline,
       justifyContent,
+      margin,
+      padding,
       wrap,
       ...rest
     } = this.props;
@@ -82,13 +87,14 @@ class Flex extends Root {
       buildObjectOrValueClassNames('flex', justifyContent),
       buildClassName('flex', get(wrap, 'type')),
       buildClassName('flex', get(wrap, 'alignment')),
-      this.getRootClassNames(),
+      buildObjectOrValueClassNames('margin', margin),
+      buildObjectOrValueClassNames('padding', padding),
     );
 
     const Element = getElementType(Flex, as);
     return (
       <Element
-        {...this.getValidProps(rest)}
+        {...rest}
         className={classes}
       >
         {children}

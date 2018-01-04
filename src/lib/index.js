@@ -2,10 +2,11 @@ export {
   buildClassName,
   buildObjectOrValueClassNames,
   buildPositionClassNames,
+  buildStyles,
   getIfDefaultStyle,
-} from './classNameBuilder';
+} from './buildProps';
 
-export { default as customPropTypes } from './customPropTypes';
+export { default as commonPropTypes } from './commonPropTypes';
 
 export { default as getElementType } from './getElementType';
 
