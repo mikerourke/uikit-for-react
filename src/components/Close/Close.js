@@ -28,6 +28,7 @@ class Close extends React.Component {
     padding: commonPropTypes.padding,
 
     modal: PropTypes.bool,
+    onClick: PropTypes.func,
   };
 
   static defaultProps = {
@@ -57,7 +58,7 @@ class Close extends React.Component {
       buildClassName('modal', 'close', 'default', modal),
     );
 
-    const Element = getElementType(Close, as);
+    const Element = getElementType(Close, as, rest);
     return (
       <Element
         {...rest}

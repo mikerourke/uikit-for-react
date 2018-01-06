@@ -91,7 +91,7 @@ class Flex extends React.Component {
       buildObjectOrValueClassNames('padding', padding),
     );
 
-    const Element = getElementType(Flex, as);
+    const Element = getElementType(Flex, as, rest);
     return (
       <Element
         {...rest}

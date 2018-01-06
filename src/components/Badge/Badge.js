@@ -38,7 +38,7 @@ class Badge extends React.Component {
       Badge.meta.ukClass,
     );
 
-    const Element = getElementType(Badge, as);
+    const Element = getElementType(Badge, as, rest);
     return (
       <Element
         {...rest}

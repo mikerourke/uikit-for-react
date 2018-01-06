@@ -118,7 +118,7 @@ class Sticky extends React.Component {
       widthElement,
     });
 
-    const Element = getElementType(Sticky, as);
+    const Element = getElementType(Sticky, as, rest);
     return (
       <Element
         {...rest}

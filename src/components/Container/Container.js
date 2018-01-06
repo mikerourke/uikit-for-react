@@ -85,7 +85,7 @@ class Container extends React.Component {
       firstColumn: buildClassName(get(childMargins, 'firstColumn', 'uk-first-column')),
     });
 
-    const Element = getElementType(Container, as);
+    const Element = getElementType(Container, as, rest);
     return (
       <Element
         {...rest}

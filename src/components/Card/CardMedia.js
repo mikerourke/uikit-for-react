@@ -1,23 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import ArticleLead from './ArticleLead';
-import ArticleMeta from './ArticleMeta';
-import ArticleTitle from './ArticleTitle';
-import { buildObjectOrValueClassNames, commonPropTypes } from '../../lib';
+import {
+  buildClassName,
+  buildObjectOrValueClassNames,
+  commonPropTypes,
+  getElementType,
+  HTML, UIK,
+} from '../../lib';
 
-class Article extends React.Component {
+class CardMedia extends React.Component {
   static meta = {
-    name: 'Article',
-    ukClass: 'uk-article',
+    name: 'CardMedia',
+    ukClass: 'uk-card-media',
   };
 
   static propTypes = {
-    /** Contents to display in the element. */
-    children: PropTypes.node.isRequired,
+    alignTo: PropTypes.oneOf(UIK.LOCATIONS),
 
     /** Additional classes to apply to element. */
     className: PropTypes.string,
+
+    /** "alt" prop for the <img> element. */
+    imgAlt: PropTypes.string,
+
+    /** "src" prop for the <img> element. */
+    imgSrc: PropTypes.string.isRequired,
 
     /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
@@ -28,16 +36,15 @@ class Article extends React.Component {
 
   static defaultProps = {
     className: '',
+    imgAlt: '',
   };
-
-  static Lead = ArticleLead;
-  static Meta = ArticleMeta;
-  static Title = ArticleTitle;
 
   render() {
     const {
-      children,
+      alignTo,
       className,
+      imgAlt,
+      imgSrc,
       margin,
       padding,
       ...rest
@@ -45,20 +52,21 @@ class Article extends React.Component {
 
     const classes = classnames(
       className,
-      Article.meta.ukClass,
+      CardMedia.meta.ukClass,
+      buildClassName(CardMedia.meta.ukClass, alignTo),
       buildObjectOrValueClassNames('margin', margin),
       buildObjectOrValueClassNames('padding', padding),
     );
 
     return (
-      <article
+      <div
         {...rest}
         className={classes}
       >
-        {children}
-      </article>
+        <img src={imgSrc} alt={imgAlt} />
+      </div>
     );
   }
 }
 
-export default Article;
+export default CardMedia;

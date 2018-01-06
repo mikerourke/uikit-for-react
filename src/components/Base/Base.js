@@ -46,7 +46,7 @@ class Base extends React.Component {
       buildObjectOrValueClassNames('width', width),
     );
 
-    const Element = getElementType(Base, as);
+    const Element = getElementType(Base, as, rest);
     return (
       <Element
         {...rest}

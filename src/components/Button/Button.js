@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { invoke } from 'lodash';
+import { invoke, isNil } from 'lodash';
 import {
   buildClassName,
   buildObjectOrValueClassNames,
@@ -22,7 +22,7 @@ class Button extends React.Component {
     as: PropTypes.oneOf(['a', 'button']),
 
     /** Contents to display in the element. */
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
 
     /** Additional classes to apply to element. */
     className: PropTypes.string,
@@ -33,11 +33,13 @@ class Button extends React.Component {
     /** Indicates the element is disabled. */
     disabled: PropTypes.bool,
 
+    icon: PropTypes.string,
+
     /** Makes a <button> look like an <a> element. */
     link: PropTypes.bool,
 
+    /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
-    padding: commonPropTypes.padding,
 
     /**
      * Called after user's click.
@@ -45,6 +47,9 @@ class Button extends React.Component {
      * @param {Object} data Props associated with the element.
      */
     onClick: PropTypes.func,
+
+    /** Options for adding spacing between elements and their content. */
+    padding: commonPropTypes.padding,
 
     /** Indicates the primary action. */
     primary: PropTypes.bool,
@@ -81,6 +86,7 @@ class Button extends React.Component {
       className,
       danger,
       disabled,
+      icon,
       link,
       margin,
       padding,
@@ -91,10 +97,16 @@ class Button extends React.Component {
       ...rest
     } = this.props;
 
+    const hasDefault = getIfDefaultStyle(this.props);
+    const hasIcon = !isNil(icon);
+
     const classes = classnames(
       className,
-      Button.meta.ukClass,
-      buildClassName('button', 'default', getIfDefaultStyle(this.props)),
+      {
+        [Button.meta.ukClass]: (!hasIcon),
+        [buildClassName('button', 'default', hasDefault)]: (!hasIcon),
+        [buildClassName('icon', 'button')]: (hasIcon),
+      },
       buildClassName('button', 'primary', primary),
       buildClassName('button', 'secondary', secondary),
       buildClassName('button', 'danger', danger),
@@ -105,7 +117,8 @@ class Button extends React.Component {
       buildClassName('button', size),
     );
 
-    const Element = getElementType(Button, as);
+    const elementType = (hasIcon) ? 'a' : as;
+    const Element = getElementType(Button, elementType, rest);
     return (
       <Element
         {...rest}
@@ -113,8 +126,9 @@ class Button extends React.Component {
         disabled={(disabled && as === 'button') || undefined}
         onClick={this.handleClick}
         role="button"
+        uk-icon={(hasIcon) ? `icon: ${icon}` : undefined}
       >
-        {children}
+        {(!hasIcon) && children}
       </Element>
     );
   }

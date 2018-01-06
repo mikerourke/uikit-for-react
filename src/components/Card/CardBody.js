@@ -1,21 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { without } from 'lodash';
 import {
+  buildClassName,
+  buildObjectOrValueClassNames,
+  commonPropTypes,
   getElementType,
-  UIK,
+  HTML,
 } from '../../lib';
 
-class Grid extends React.Component {
+class CardBody extends React.Component {
   static meta = {
-    name: 'Grid',
-    ukClass: 'uk-grid',
+    name: 'CardBody',
+    ukClass: 'uk-card-body',
   };
 
   static propTypes = {
     /** HTML element to use for the component. */
-    as: PropTypes.string,
+    as: PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
 
     /** Contents to display in the element. */
     children: PropTypes.node.isRequired,
@@ -23,11 +25,11 @@ class Grid extends React.Component {
     /** Additional classes to apply to element. */
     className: PropTypes.string,
 
-    divider: PropTypes.bool,
+    /** Options for adding spacing between elements. */
+    margin: commonPropTypes.margin,
 
-    gutter: PropTypes.oneOf([...without(UIK.SIZES, 'xlarge'), 'collapse']),
-
-    matchChild: PropTypes.bool,
+    /** Options for adding spacing between elements and their content. */
+    padding: commonPropTypes.padding,
   };
 
   static defaultProps = {
@@ -45,10 +47,10 @@ class Grid extends React.Component {
 
     const classes = classnames(
       className,
-      Grid.meta.ukClass,
+      CardBody.meta.ukClass,
     );
 
-    const Element = getElementType(Grid, as, rest);
+    const Element = getElementType(CardBody, as, rest);
     return (
       <Element
         {...rest}
@@ -60,4 +62,4 @@ class Grid extends React.Component {
   }
 }
 
-export default Grid;
+export default CardBody;

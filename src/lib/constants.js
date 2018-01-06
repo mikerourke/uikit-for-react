@@ -98,4 +98,5 @@ export const HTML = {
   HEADING_ELEMENTS: HTML_HEADING_ELEMENTS,
   INLINE_ELEMENTS: HTML_INLINE_ELEMENTS,
   TEXT_ELEMENTS: HTML_TEXT_ELEMENTS,
+  CSS_EASING: ['ease', 'ease-in', 'ease-out', 'ease-in-out'],
 };

@@ -2,8 +2,9 @@ import {
   flatten,
   get,
   isBoolean,
+  isNil,
   isNull,
-  isObjectLike,
+  isPlainObject,
   isUndefined,
   kebabCase,
   keys,
@@ -53,7 +54,7 @@ export const buildClassName = (...args) => {
 
   const classElements = flatten([...args]);
   const getIsClassElementInvalid = element => (
-    (isNull(element) || isUndefined(element) || element === false || isObjectLike(element))
+    (isNil(element) || element === false || isPlainObject(element))
   );
   if (some(classElements, getIsClassElementInvalid)) return '';
 
@@ -93,8 +94,8 @@ export const buildClassName = (...args) => {
  * > uk-background-top-left
  */
 export const buildPositionClassNames = (ukName, positionProp) => {
-  if (isNull(positionProp) || isUndefined(positionProp)) return '';
-  if (!isObjectLike(positionProp)) return buildClassName(ukName, positionProp);
+  if (isNil(positionProp)) return '';
+  if (!isPlainObject(positionProp)) return buildClassName(ukName, positionProp);
 
   const isNotPosition = (ukName !== 'position');
   const vertProp = get(positionProp, 'vertical', null);
@@ -163,7 +164,7 @@ const buildBackgroundClassNames = (backgroundProps) => {
  * > ['uk-width-1-2@s', 'uk-width-1-5@m']
  */
 export const buildObjectOrValueClassNames = (ukName, objectProp) => {
-  if (!isObjectLike(objectProp)) return buildClassName(ukName, objectProp);
+  if (!isPlainObject(objectProp)) return buildClassName(ukName, objectProp);
   if (ukName === 'margin') return buildMarginClassNames(objectProp);
   if (ukName === 'background') return buildBackgroundClassNames(objectProp);
   return buildObjectClassNames(ukName, objectProp);

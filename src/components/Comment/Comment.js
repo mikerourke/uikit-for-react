@@ -1,18 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import ArticleLead from './ArticleLead';
-import ArticleMeta from './ArticleMeta';
-import ArticleTitle from './ArticleTitle';
-import { buildObjectOrValueClassNames, commonPropTypes } from '../../lib';
+import {
+  buildClassName,
+  buildObjectOrValueClassNames,
+  commonPropTypes,
+  getElementType,
+} from '../../lib';
+import CommentBody from './CommentBody';
+import CommentHeader from './CommentHeader';
+import CommentMeta from './CommentMeta';
+import CommentTitle from './CommentTitle';
 
-class Article extends React.Component {
+class Comment extends React.Component {
   static meta = {
-    name: 'Article',
-    ukClass: 'uk-article',
+    name: 'Comment',
+    ukClass: 'uk-comment',
   };
 
   static propTypes = {
+    /** HTML element to use for the component. */
+    as: PropTypes.oneOf(['article', 'ul']),
+
     /** Contents to display in the element. */
     children: PropTypes.node.isRequired,
 
@@ -24,41 +33,52 @@ class Article extends React.Component {
 
     /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
+
+    primary: PropTypes.bool,
   };
 
   static defaultProps = {
+    as: 'article',
     className: '',
   };
 
-  static Lead = ArticleLead;
-  static Meta = ArticleMeta;
-  static Title = ArticleTitle;
+  static Body = CommentBody;
+  static Header = CommentHeader;
+  static Meta = CommentMeta;
+  static Title = CommentTitle;
 
   render() {
     const {
+      as,
       children,
       className,
       margin,
       padding,
+      primary,
       ...rest
     } = this.props;
 
     const classes = classnames(
       className,
-      Article.meta.ukClass,
+      Comment.meta.ukClass,
       buildObjectOrValueClassNames('margin', margin),
       buildObjectOrValueClassNames('padding', padding),
+      buildClassName('comment', 'primary', primary),
+      {
+        [buildClassName('comment', 'list')]: (as === 'ul'),
+      },
     );
 
+    const Element = getElementType(Comment, as, rest);
     return (
-      <article
+      <Element
         {...rest}
         className={classes}
       >
         {children}
-      </article>
+      </Element>
     );
   }
 }
 
-export default Article;
+export default Comment;

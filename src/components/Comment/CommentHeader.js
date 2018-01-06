@@ -1,63 +1,60 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { without } from 'lodash';
 import {
-  getElementType,
-  UIK,
+  buildObjectOrValueClassNames,
+  commonPropTypes,
 } from '../../lib';
 
-class Grid extends React.Component {
+class CommentHeader extends React.Component {
   static meta = {
-    name: 'Grid',
-    ukClass: 'uk-grid',
+    name: 'CommentHeader',
+    ukClass: 'uk-comment-header',
   };
 
   static propTypes = {
-    /** HTML element to use for the component. */
-    as: PropTypes.string,
-
     /** Contents to display in the element. */
     children: PropTypes.node.isRequired,
 
     /** Additional classes to apply to element. */
     className: PropTypes.string,
 
-    divider: PropTypes.bool,
+    /** Options for adding spacing between elements. */
+    margin: commonPropTypes.margin,
 
-    gutter: PropTypes.oneOf([...without(UIK.SIZES, 'xlarge'), 'collapse']),
-
-    matchChild: PropTypes.bool,
+    /** Options for adding spacing between elements and their content. */
+    padding: commonPropTypes.padding,
   };
 
   static defaultProps = {
-    as: 'div',
     className: '',
   };
 
   render() {
     const {
-      as,
       children,
       className,
+      margin,
+      padding,
       ...rest
     } = this.props;
 
     const classes = classnames(
       className,
-      Grid.meta.ukClass,
+      CommentHeader.meta.ukClass,
+      buildObjectOrValueClassNames('margin', margin),
+      buildObjectOrValueClassNames('padding', padding),
     );
 
-    const Element = getElementType(Grid, as, rest);
     return (
-      <Element
+      <header
         {...rest}
         className={classes}
       >
         {children}
-      </Element>
+      </header>
     );
   }
 }
 
-export default Grid;
+export default CommentHeader;

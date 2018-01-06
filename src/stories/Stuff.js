@@ -1,15 +1,18 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import Accordion from '../components/Accordion';
 import Alert from '../components/Alert';
 import Article from '../components/Article';
 import Base from '../components/Base';
 import Breadcrumb from '../components/Breadcrumb';
 import Button from '../components/Button';
+import Card from '../components/Card';
 import Panel from '../components/Panel';
 import Container from '../components/Container';
 import Divider from '../components/Divider';
 import Badge from '../components/Badge';
 import Flex from '../components/Flex';
+import Subnav from '../components/Subnav';
 
 const backgroundProps = {
   size: 'contain',
@@ -81,6 +84,42 @@ const PanelTest = () => (
   </Panel>
 );
 
+class AccordionTest extends React.Component {
+  state = {
+    activeIndex: [0],
+  };
+
+  onClick = () => {
+    this.setState({ activeIndex: [1, 2] });
+  };
+
+  render() {
+    return (
+      <div>
+        <Button onClick={this.onClick}>Test</Button>
+        <Accordion
+          margin={{ all: 'large' }}
+          activeIndex={this.state.activeIndex}
+          multiple
+        >
+          <Accordion.Item>
+            <Accordion.Title>Test</Accordion.Title>
+            <Accordion.Content>This is some content.</Accordion.Content>
+          </Accordion.Item>
+          <Accordion.Item>
+            <Accordion.Title>Test 2</Accordion.Title>
+            <Accordion.Content>This is some content.</Accordion.Content>
+          </Accordion.Item>
+          <Accordion.Item>
+            <Accordion.Title>Test 3</Accordion.Title>
+            <Accordion.Content>This is some content.</Accordion.Content>
+          </Accordion.Item>
+        </Accordion>
+      </div>
+    );
+  }
+}
+
 const AlertTest = () => {
   let alertVisible = true;
   const handleClick = () => { alertVisible = true; };
@@ -93,6 +132,7 @@ const AlertTest = () => {
         animation={{ duration: 300 }}
         margin="large"
         padding="large"
+        onHide={() => console.log('Hooray')}
       >
         This is an alert test
       </Alert>
@@ -101,19 +141,47 @@ const AlertTest = () => {
 };
 
 const ArticleTest = () => (
-  <Article>
+  <Article margin={{ all: 'large' }}>
     <Article.Title>Test</Article.Title>
     <Article.Meta>Test</Article.Meta>
+    <Article.Lead>This is a test paragragh</Article.Lead>
+    <p>This is some more text for the article, hooray</p>
   </Article>
+);
+
+const CardTest = () => (
+  <Card hover>
+    <Card.Header>
+      <Card.Title>This is a test card</Card.Title>
+    </Card.Header>
+    <Card.Body>
+      <p>This is some text</p>
+      <Button icon="twitter" />
+    </Card.Body>
+    <Card.Footer>
+      <Button text href="#">Read more</Button>
+    </Card.Footer>
+  </Card>
+);
+
+const SubnavTest = () => (
+  <Subnav>
+    <Subnav.Item href="#">Test 1</Subnav.Item>
+    <Subnav.Item href="#">Test 2</Subnav.Item>
+    <Subnav.Item href="#">Test</Subnav.Item>
+  </Subnav>
 );
 
 storiesOf('Margin', module)
   .add('Basic Usage', () => (
-    <div>
-      <ArticleTest />
-      <Divider />
-      <PanelTest />
-      <ContainerTest />
-      <AlertTest />
-    </div>
+    <Container margin={{ all: 'medium' }}>
+      <CardTest />
+      {/*<ArticleTest />*/}
+      {/*<Divider />*/}
+      {/*<PanelTest />*/}
+      {/*<ContainerTest />*/}
+      {/*<AlertTest />*/}
+      {/*<AccordionTest />*/}
+      <SubnavTest />
+    </Container>
   ));

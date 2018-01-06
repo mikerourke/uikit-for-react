@@ -1,23 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import ArticleLead from './ArticleLead';
-import ArticleMeta from './ArticleMeta';
-import ArticleTitle from './ArticleTitle';
-import { buildObjectOrValueClassNames, commonPropTypes } from '../../lib';
+import { isObject } from 'lodash';
+import {
+  buildClassName,
+  buildObjectOrValueClassNames,
+  commonPropTypes,
+} from '../../lib';
 
-class Article extends React.Component {
+class SubnavItem extends React.Component {
   static meta = {
-    name: 'Article',
-    ukClass: 'uk-article',
+    name: 'SubnavItem',
+    ukClass: 'uk-subnav-item',
   };
 
   static propTypes = {
-    /** Contents to display in the element. */
+    active: PropTypes.bool,
+
     children: PropTypes.node.isRequired,
 
     /** Additional classes to apply to element. */
     className: PropTypes.string,
+
+    href: PropTypes.string,
 
     /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
@@ -30,14 +35,12 @@ class Article extends React.Component {
     className: '',
   };
 
-  static Lead = ArticleLead;
-  static Meta = ArticleMeta;
-  static Title = ArticleTitle;
-
   render() {
     const {
+      active,
       children,
       className,
+      href,
       margin,
       padding,
       ...rest
@@ -45,20 +48,21 @@ class Article extends React.Component {
 
     const classes = classnames(
       className,
-      Article.meta.ukClass,
+      SubnavItem.meta.ukClass,
+      buildClassName('active', active),
       buildObjectOrValueClassNames('margin', margin),
       buildObjectOrValueClassNames('padding', padding),
     );
 
     return (
-      <article
+      <li
         {...rest}
         className={classes}
       >
-        {children}
-      </article>
+        {(isObject(children)) ? children : <a href={href}>{children}</a>}
+      </li>
     );
   }
 }
 
-export default Article;
+export default SubnavItem;

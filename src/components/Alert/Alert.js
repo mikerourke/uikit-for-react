@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get, isObjectLike } from 'lodash';
+import UIkit from 'uikit';
+import { get, isObjectLike, noop } from 'lodash';
 import {
   buildClassName, buildObjectOrValueClassNames,
   commonPropTypes,
@@ -56,6 +57,11 @@ class Alert extends React.Component {
     warning: PropTypes.bool,
 
     margin: commonPropTypes.margin,
+
+    onBeforeHide: PropTypes.func,
+
+    onHide: PropTypes.func,
+
     padding: commonPropTypes.padding,
   };
 
@@ -70,6 +76,14 @@ class Alert extends React.Component {
     closeSelector: 'uk-alert-close',
   };
 
+
+  componentDidMount() {
+    UIkit.util.on(this.ref, 'beforehide', get(this.props, 'onBeforeHide', noop));
+    UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
+  }
+
+  handleRef = element => (this.ref = element)
+
   render() {
     const {
       animation,
@@ -81,6 +95,8 @@ class Alert extends React.Component {
       closeSelector,
       danger,
       margin,
+      onBeforeHide,
+      onHide,
       padding,
       primary,
       success,
@@ -108,11 +124,12 @@ class Alert extends React.Component {
       selClose: closeSelector,
     });
 
-    const Element = getElementType(Alert, as);
+    const Element = getElementType(Alert, as, rest);
     return (
       <Element
         {...rest}
         className={classes}
+        ref={this.handleRef}
         data-uk-alert={componentOptions}
       >
         {(closeable) && <Close {...closeOptions} alert />}

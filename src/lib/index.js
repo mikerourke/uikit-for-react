@@ -6,6 +6,8 @@ export {
   getIfDefaultStyle,
 } from './buildProps';
 
+export { default as childrenUtils } from './childrenUtils';
+
 export { default as commonPropTypes } from './commonPropTypes';
 
 export { default as getElementType } from './getElementType';

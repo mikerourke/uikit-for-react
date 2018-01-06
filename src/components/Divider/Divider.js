@@ -46,7 +46,7 @@ class Divider extends React.Component {
       buildClassName('divider', 'small', small),
     );
 
-    const Element = getElementType(Divider, as);
+    const Element = getElementType(Divider, as, rest);
     return (
       <Element
         {...rest}

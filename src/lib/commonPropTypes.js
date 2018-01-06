@@ -170,6 +170,11 @@ const visible = PropTypes.oneOfType([
   }),
 ]);
 
+const width = PropTypes.oneOfType([
+  PropTypes.oneOf(UIK.BASE_WIDTHS),
+  getForBreakpoints(PropTypes.oneOf(UIK.BASE_WIDTHS)),
+]);
+
 export default {
   align,
   animation,
@@ -185,4 +190,5 @@ export default {
   padding,
   position,
   visible,
+  width,
 };

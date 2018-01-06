@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import ArticleLead from './ArticleLead';
-import ArticleMeta from './ArticleMeta';
-import ArticleTitle from './ArticleTitle';
-import { buildObjectOrValueClassNames, commonPropTypes } from '../../lib';
+import {
+  buildClassName,
+  buildObjectOrValueClassNames,
+  commonPropTypes,
+} from '../../lib';
+import SubnavItem from './SubnavItem';
 
-class Article extends React.Component {
+class Subnav extends React.Component {
   static meta = {
-    name: 'Article',
-    ukClass: 'uk-article',
+    name: 'Subnav',
+    ukClass: 'uk-subnav',
   };
 
   static propTypes = {
@@ -19,46 +21,52 @@ class Article extends React.Component {
     /** Additional classes to apply to element. */
     className: PropTypes.string,
 
+    divider: PropTypes.bool,
+
     /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
 
     /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
+
+    pill: PropTypes.bool,
   };
 
   static defaultProps = {
     className: '',
   };
 
-  static Lead = ArticleLead;
-  static Meta = ArticleMeta;
-  static Title = ArticleTitle;
+  static Item = SubnavItem;
 
   render() {
     const {
       children,
       className,
+      divider,
       margin,
       padding,
+      pill,
       ...rest
     } = this.props;
 
     const classes = classnames(
       className,
-      Article.meta.ukClass,
+      Subnav.meta.ukClass,
+      buildClassName('subnav', 'divider', divider),
+      buildClassName('subnav', 'pill', pill),
       buildObjectOrValueClassNames('margin', margin),
       buildObjectOrValueClassNames('padding', padding),
     );
 
     return (
-      <article
+      <ul
         {...rest}
         className={classes}
       >
         {children}
-      </article>
+      </ul>
     );
   }
 }
 
-export default Article;
+export default Subnav;

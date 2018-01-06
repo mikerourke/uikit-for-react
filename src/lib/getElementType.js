@@ -6,15 +6,18 @@
  *
  * @param {function} Component A function or ReactClass.
  * @param {string} asProp Value of the component's "as" prop.
+ * @param {Object} props Component props not excluded from className calculation.
  * @returns {string|function} A ReactElement type
  */
-const getElementType = (Component, asProp) => {
+const getElementType = (Component, asProp, props) => {
   const { defaultProps = {} } = Component;
 
   if (asProp === '') return defaultProps.as;
 
   // User defined "as" element type:
   if (asProp !== defaultProps.as) return asProp;
+
+  if (props.href) return 'a';
 
   // Use defaultProp or 'div'
   return defaultProps.as || 'div';
