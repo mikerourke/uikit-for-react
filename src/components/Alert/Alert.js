@@ -11,7 +11,7 @@ import {
   HTML,
   UIK,
 } from '../../lib';
-import Close from '../Close';
+import Close from '../Close/Close';
 
 class Alert extends React.Component {
   static meta = {
@@ -20,6 +20,12 @@ class Alert extends React.Component {
   };
 
   static propTypes = {
+    /**
+     * Animation options to apply.
+     * @property {boolean|string} [animation=true] If true, uses a fade out animation, otherwise
+     *    use options from the Animation component.
+     * @property {number} [duration=150] Animation duration in milliseconds.
+     */
     animation: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.oneOf(UIK.ANIMATIONS),
@@ -38,16 +44,22 @@ class Alert extends React.Component {
     /** Additional classes to apply to element. */
     className: PropTypes.string,
 
+    /** Allow the Alert to be closed. */
     closeable: PropTypes.bool,
 
-    closeOptions: PropTypes.shape(Close.propTypes),
+    /** Props to apply to the Close component within the Alert. */
+    closeOptions: PropTypes.shape({
+      className: PropTypes.string,
+      large: PropTypes.bool,
+    }),
 
+    /** CSS selector for the Close component. */
     closeSelector: PropTypes.string,
 
     /** Indicates an important or error message. */
     danger: PropTypes.bool,
 
-    /** Indicates the primary action. */
+    /** Give the message a prominent styling. */
     primary: PropTypes.bool,
 
     /** Indicates success or a positive message. */
@@ -56,12 +68,16 @@ class Alert extends React.Component {
     /** Indicates a message containing a warning. */
     warning: PropTypes.bool,
 
+    /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
 
+    /** Fires before an item is hidden. Can prevent hiding by returning false. */
     onBeforeHide: PropTypes.func,
 
+    /** Fires after an item is hidden. */
     onHide: PropTypes.func,
 
+    /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
   };
 
@@ -70,12 +86,11 @@ class Alert extends React.Component {
     className: '',
     closeable: false,
     closeOptions: {
-      as: 'button',
+      className: '',
       large: false,
     },
     closeSelector: 'uk-alert-close',
   };
-
 
   componentDidMount() {
     UIkit.util.on(this.ref, 'beforehide', get(this.props, 'onBeforeHide', noop));
@@ -107,12 +122,14 @@ class Alert extends React.Component {
     const classes = classnames(
       className,
       Alert.meta.ukClass,
-      buildClassName('alert', 'danger', danger),
       buildObjectOrValueClassNames('margin', margin),
       buildObjectOrValueClassNames('padding', padding),
-      buildClassName('alert', 'primary', primary),
-      buildClassName('alert', 'success', success),
-      buildClassName('alert', 'warning', warning),
+      {
+        [buildClassName(Alert.meta.ukClass, 'danger')]: (danger),
+        [buildClassName(Alert.meta.ukClass, 'primary')]: (primary),
+        [buildClassName(Alert.meta.ukClass, 'success')]: (success),
+        [buildClassName(Alert.meta.ukClass, 'warning')]: (warning),
+      },
     );
 
     let animationClass = animation;
@@ -124,15 +141,23 @@ class Alert extends React.Component {
       selClose: closeSelector,
     });
 
+    const closeClasses = classnames(
+      closeOptions.className,
+      buildClassName('alert', 'close'),
+      {
+        [buildClassName('close', 'large')]: (closeOptions.large),
+      },
+    );
+
     const Element = getElementType(Alert, as, rest);
     return (
       <Element
         {...rest}
-        className={classes}
+        className={classes || undefined}
         ref={this.handleRef}
         data-uk-alert={componentOptions}
       >
-        {(closeable) && <Close {...closeOptions} alert />}
+        {(closeable) && <button className={closeClasses} type="button" data-uk-close />}
         {children}
       </Element>
     );

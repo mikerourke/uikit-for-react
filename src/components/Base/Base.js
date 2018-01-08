@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { without } from 'lodash';
 import {
   buildClassName,
+  buildMarginAttributeOptions,
   buildObjectOrValueClassNames,
   commonPropTypes,
   getElementType,
@@ -16,12 +17,25 @@ class Base extends React.Component {
     /** HTML element to use for the component. */
     as: PropTypes.oneOf(HTML.ALL_ELEMENTS),
 
+    /** Options to apply to the margin component attribute. */
+    childMargins: commonPropTypes.childMargins,
+
+    /** Contents to display in the element. */
     children: PropTypes.node,
 
     /** Additional classes to apply to element. */
     className: PropTypes.string,
 
+    /** Set height options for the element. */
     height: PropTypes.oneOf(['full', ...without(UIK.SIZES, 'xlarge')]),
+
+    /** Options for adding spacing between elements. */
+    margin: commonPropTypes.margin,
+
+    /** Options for adding spacing between elements and their content. */
+    padding: commonPropTypes.padding,
+
+    /** Apply a width based on the size of the parent container. */
     width: commonPropTypes.width,
   };
 
@@ -33,9 +47,12 @@ class Base extends React.Component {
   render() {
     const {
       as,
+      childMargins,
       children,
       className,
       height,
+      margin,
+      padding,
       width,
       ...rest
     } = this.props;
@@ -43,6 +60,8 @@ class Base extends React.Component {
     const classes = classnames(
       className,
       buildClassName((height === 'full') ? ['height', '1', '1'] : ['height', height]),
+      buildObjectOrValueClassNames('margin', margin),
+      buildObjectOrValueClassNames('padding', padding),
       buildObjectOrValueClassNames('width', width),
     );
 
@@ -50,7 +69,8 @@ class Base extends React.Component {
     return (
       <Element
         {...rest}
-        className={classes}
+        className={classes || undefined}
+        {...buildMarginAttributeOptions(childMargins)}
       >
         {children}
       </Element>

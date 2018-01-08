@@ -1,10 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import {
+  buildObjectOrValueClassNames,
+  commonPropTypes,
+} from '../../lib';
+import ArticleBody from './ArticleBody';
 import ArticleLead from './ArticleLead';
 import ArticleMeta from './ArticleMeta';
 import ArticleTitle from './ArticleTitle';
-import { buildObjectOrValueClassNames, commonPropTypes } from '../../lib';
 
 class Article extends React.Component {
   static meta = {
@@ -30,6 +34,7 @@ class Article extends React.Component {
     className: '',
   };
 
+  static Body = ArticleBody;
   static Lead = ArticleLead;
   static Meta = ArticleMeta;
   static Title = ArticleTitle;
@@ -53,7 +58,7 @@ class Article extends React.Component {
     return (
       <article
         {...rest}
-        className={classes}
+        className={classes || undefined}
       >
         {children}
       </article>

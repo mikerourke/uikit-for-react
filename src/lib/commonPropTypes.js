@@ -61,6 +61,17 @@ const boxShadow = PropTypes.oneOfType([
   }),
 ]);
 
+const childMargins = PropTypes.oneOfType([
+  PropTypes.bool,
+  PropTypes.shape({
+    firstColumn: PropTypes.string,
+    nextRow: PropTypes.shape({
+      spacing: PropTypes.oneOf(UIK.SPACING_MODIFIERS),
+      location: PropTypes.oneOf(UIK.LOCATIONS),
+    }),
+  }),
+]);
+
 const drag = PropTypes.oneOfType([
   PropTypes.bool,
   PropTypes.shape({
@@ -73,7 +84,10 @@ const flex = PropTypes.shape({
   grow: PropTypes.oneOf(['auto', 'flex', 'none']),
   order: PropTypes.oneOfType([
     PropTypes.oneOf(['first', 'last']),
-    getForBreakpoints(PropTypes.oneOf(['first', 'last'])),
+    PropTypes.shape({
+      first: PropTypes.oneOf(UIK.BREAKPOINTS),
+      last: PropTypes.oneOf(UIK.BREAKPOINTS),
+    }),
   ]),
 });
 
@@ -94,6 +108,16 @@ const heightViewport = PropTypes.oneOfType([
       PropTypes.number,
     ]),
     expand: PropTypes.bool,
+  }),
+]);
+
+const hidden = PropTypes.oneOfType([
+  PropTypes.bool,
+  PropTypes.oneOf(UIK.BREAKPOINTS),
+  PropTypes.shape({
+    breakpoint: PropTypes.oneOf(UIK.BREAKPOINTS),
+    hover: PropTypes.bool,
+    touch: PropTypes.bool,
   }),
 ]);
 
@@ -118,19 +142,6 @@ const margin = PropTypes.oneOfType([
     left: forSpacingAtLocation,
     right: forSpacingAtLocation,
     all: forSpacingAtLocation,
-    container: PropTypes.bool,
-    firstColumn: PropTypes.string,
-    nextRow: PropTypes.string,
-  }),
-]);
-
-const hidden = PropTypes.oneOfType([
-  PropTypes.bool,
-  PropTypes.oneOf(UIK.BREAKPOINTS),
-  PropTypes.shape({
-    breakpoint: PropTypes.oneOf(UIK.BREAKPOINTS),
-    hover: PropTypes.bool,
-    touch: PropTypes.bool,
   }),
 ]);
 
@@ -176,17 +187,19 @@ const width = PropTypes.oneOfType([
 ]);
 
 export default {
+  getForBreakpoints,
   align,
   animation,
   background,
   boxShadow,
+  childMargins,
   drag,
   flex,
   heightMatch,
   heightViewport,
+  hidden,
   leader,
   margin,
-  hidden,
   padding,
   position,
   visible,

@@ -1,5 +1,6 @@
 {
   "rules": {
+    "max-len": "off",
     "react/react-in-jsx-scope": "off",
     "import/extensions": "off",
     "import/no-unresolved": [

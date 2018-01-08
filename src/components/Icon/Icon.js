@@ -6,7 +6,7 @@ import {
   buildObjectOrValueClassNames,
   commonPropTypes,
   getElementType,
-  HTML,
+  getOptionsString,
 } from '../../lib';
 
 class Icon extends React.Component {
@@ -25,21 +25,24 @@ class Icon extends React.Component {
     /** Additional classes to apply to element. */
     className: PropTypes.string,
 
+    /** Reset the default link styling to a more muted color when using an icon inside an anchor. */
     link: PropTypes.bool,
 
     /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
 
+    /** Name of the UIkit icon. */
     name: PropTypes.string,
 
     /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
 
+    /** Multiply the icon size by the specified value. */
     ratio: PropTypes.number,
   };
 
   static defaultProps = {
-    as: 'div',
+    as: 'span',
     className: '',
   };
 
@@ -48,8 +51,11 @@ class Icon extends React.Component {
       as,
       children,
       className,
+      link,
       margin,
+      name,
       padding,
+      ratio,
       ...rest
     } = this.props;
 
@@ -58,13 +64,22 @@ class Icon extends React.Component {
       Icon.meta.ukClass,
       buildObjectOrValueClassNames('margin', margin),
       buildObjectOrValueClassNames('padding', padding),
+      {
+        [buildClassName(Icon.meta.ukClass, 'link')]: (link),
+      },
     );
+
+    const attributeOptions = getOptionsString({
+      icon: name,
+      ratio,
+    });
 
     const Element = getElementType(Icon, as, rest);
     return (
       <Element
         {...rest}
-        className={classes}
+        className={classes || undefined}
+        data-uk-icon={attributeOptions}
       >
         {children}
       </Element>

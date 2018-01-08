@@ -42,7 +42,7 @@ class Badge extends React.Component {
     return (
       <Element
         {...rest}
-        className={classes}
+        className={classes || undefined}
       >
         {children}
       </Element>

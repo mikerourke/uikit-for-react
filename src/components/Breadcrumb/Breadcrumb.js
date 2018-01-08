@@ -38,7 +38,7 @@ class Breadcrumb extends React.Component {
     return (
       <ul
         {...rest}
-        className={classes}
+        className={classes || undefined}
       >
         {children}
       </ul>

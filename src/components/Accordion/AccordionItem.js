@@ -52,13 +52,15 @@ class AccordionItem extends React.Component {
     const classes = classnames(
       className,
       AccordionItem.meta.ukClass,
-      buildClassName('open', open),
+      {
+        [buildClassName('open')]: (open),
+      },
     );
 
     return (
       <li
         {...rest}
-        className={classes}
+        className={classes || undefined}
       >
         {(title) && <AccordionTitle>{title}</AccordionTitle>}
         {(content) && <AccordionContent>{content}</AccordionContent>}

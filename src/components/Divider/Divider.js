@@ -42,15 +42,15 @@ class Divider extends React.Component {
 
     const classes = classnames(
       className,
-      buildClassName('divider', 'icon', icon),
-      buildClassName('divider', 'small', small),
+      buildClassName(Divider.meta.className, 'icon', icon),
+      buildClassName(Divider.meta.className, 'small', small),
     );
 
     const Element = getElementType(Divider, as, rest);
     return (
       <Element
         {...rest}
-        className={classes}
+        className={classes || undefined}
       />
     );
   }

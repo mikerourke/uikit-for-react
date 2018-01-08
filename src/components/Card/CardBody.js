@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {
-  buildClassName,
   buildObjectOrValueClassNames,
   commonPropTypes,
   getElementType,
@@ -42,19 +41,23 @@ class CardBody extends React.Component {
       as,
       children,
       className,
+      margin,
+      padding,
       ...rest
     } = this.props;
 
     const classes = classnames(
       className,
       CardBody.meta.ukClass,
+      buildObjectOrValueClassNames('margin', margin),
+      buildObjectOrValueClassNames('padding', padding),
     );
 
     const Element = getElementType(CardBody, as, rest);
     return (
       <Element
         {...rest}
-        className={classes}
+        className={classes || undefined}
       >
         {children}
       </Element>

@@ -5,23 +5,15 @@ import {
   buildClassName,
   buildObjectOrValueClassNames,
   commonPropTypes,
-  getElementType,
 } from '../../lib';
-import CommentBody from './CommentBody';
-import CommentHeader from './CommentHeader';
-import CommentMeta from './CommentMeta';
-import CommentTitle from './CommentTitle';
 
-class Comment extends React.Component {
+class Dotnav extends React.Component {
   static meta = {
-    name: 'Comment',
-    ukClass: 'uk-comment',
+    name: 'Dotnav',
+    ukClass: 'uk-dotnav',
   };
 
   static propTypes = {
-    /** HTML element to use for the component. */
-    as: PropTypes.oneOf(['article', 'ul']),
-
     /** Contents to display in the element. */
     children: PropTypes.node.isRequired,
 
@@ -34,52 +26,41 @@ class Comment extends React.Component {
     /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
 
-    /** Add emphasis to the comment by adding color to the background. */
-    primary: PropTypes.bool,
+    /** Display the dotnav vertically. */
+    vertical: PropTypes.bool,
   };
 
   static defaultProps = {
-    as: 'article',
     className: '',
   };
 
-  static Body = CommentBody;
-  static Header = CommentHeader;
-  static Meta = CommentMeta;
-  static Title = CommentTitle;
-
   render() {
     const {
-      as,
       children,
       className,
       margin,
       padding,
-      primary,
+      vertical,
       ...rest
     } = this.props;
 
     const classes = classnames(
       className,
-      Comment.meta.ukClass,
+      Dotnav.meta.ukClass,
       buildObjectOrValueClassNames('margin', margin),
       buildObjectOrValueClassNames('padding', padding),
-      {
-        [buildClassName(Comment.meta.ukClass, 'list')]: (as === 'ul'),
-        [buildClassName(Comment.meta.ukClass, 'primary')]: (primary),
-      },
+      buildClassName(Dotnav.meta.ukClass, 'vertical', vertical),
     );
 
-    const Element = getElementType(Comment, as, rest);
     return (
-      <Element
+      <ul
         {...rest}
         className={classes || undefined}
       >
         {children}
-      </Element>
+      </ul>
     );
   }
 }
 
-export default Comment;
+export default Dotnav;

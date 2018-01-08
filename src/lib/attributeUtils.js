@@ -1,9 +1,11 @@
 import {
+  get, isNil,
   isObjectLike,
   isUndefined,
   kebabCase,
   toPairsIn,
 } from 'lodash';
+import { buildClassName } from './buildProps';
 
 /**
  * Creates a valid string value to pass to UIkit JavaScript component options. It converts the
@@ -16,7 +18,7 @@ import {
  * console.log(getOptionsString(options));
  * > "offset: 50; top: 100"
  */
-const getOptionsString = (options) => {
+export const getOptionsString = (options) => {
   if (isUndefined(options)) return undefined;
   if (!isObjectLike(options)) return '';
   const optionPairs = toPairsIn(options).reduce((acc, [key, value]) => {
@@ -33,4 +35,24 @@ const getOptionsString = (options) => {
   return (optionPairs.length > 0) ? optionPairs.join('; ') : '';
 };
 
-export default getOptionsString;
+export const buildMarginAttributeOptions = (childMarginsProp) => {
+  const hasMarginAttribute = (
+    (childMarginsProp === true)
+    || !isNil(get(childMarginsProp, 'firstColumn'))
+    || !isNil(get(childMarginsProp, 'nextRow'))
+  );
+  if (!hasMarginAttribute) return undefined;
+
+  const marginAttributeOptions = getOptionsString({
+    firstColumn: buildClassName(get(childMarginsProp, 'firstColumn', 'uk-first-column')),
+    margin: buildClassName(
+      'margin',
+      get(childMarginsProp, ['nextRow', 'spacing'], 'small'),
+      get(childMarginsProp, ['nextRow', 'location'], 'top'),
+    ),
+  });
+
+  return {
+    'data-uk-margin': marginAttributeOptions,
+  };
+};

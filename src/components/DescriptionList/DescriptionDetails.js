@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import {
+  buildObjectOrValueClassNames,
+  commonPropTypes,
+} from '../../lib';
 
-class ArticleMeta extends React.Component {
+class DescriptionDetails extends React.Component {
   static meta = {
-    name: 'ArticleMeta',
-    ukClass: 'uk-article-meta',
+    name: 'DescriptionDetails',
   };
 
   static propTypes = {
@@ -14,6 +17,12 @@ class ArticleMeta extends React.Component {
 
     /** Additional classes to apply to element. */
     className: PropTypes.string,
+
+    /** Options for adding spacing between elements. */
+    margin: commonPropTypes.margin,
+
+    /** Options for adding spacing between elements and their content. */
+    padding: commonPropTypes.padding,
   };
 
   static defaultProps = {
@@ -24,23 +33,26 @@ class ArticleMeta extends React.Component {
     const {
       children,
       className,
+      margin,
+      padding,
       ...rest
     } = this.props;
 
     const classes = classnames(
       className,
-      ArticleMeta.meta.ukClass,
+      buildObjectOrValueClassNames('margin', margin),
+      buildObjectOrValueClassNames('padding', padding),
     );
 
     return (
-      <p
+      <dd
         {...rest}
         className={classes || undefined}
       >
         {children}
-      </p>
+      </dd>
     );
   }
 }
 
-export default ArticleMeta;
+export default DescriptionDetails;

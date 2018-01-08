@@ -14,21 +14,23 @@ class Close extends React.Component {
   };
 
   static propTypes = {
-    alert: PropTypes.bool,
-
     /** HTML element to use for the component. */
     as: PropTypes.oneOf(['a', 'button']),
 
     /** Additional classes to apply to element. */
     className: PropTypes.string,
 
+    /** Create a larger Close button */
     large: PropTypes.bool,
 
+    /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
-    padding: commonPropTypes.padding,
 
-    modal: PropTypes.bool,
+    /** Action to perform when the close button is clicked. */
     onClick: PropTypes.func,
+
+    /** Options for adding spacing between elements and their content. */
+    padding: commonPropTypes.padding,
   };
 
   static defaultProps = {
@@ -38,12 +40,10 @@ class Close extends React.Component {
 
   render() {
     const {
-      alert,
       as,
       className,
       large,
       margin,
-      modal,
       padding,
       ...rest
     } = this.props;
@@ -51,18 +51,18 @@ class Close extends React.Component {
     const classes = classnames(
       className,
       Close.meta.ukClass,
-      buildClassName('alert', 'close', alert),
-      buildClassName('close', 'large', large),
       buildObjectOrValueClassNames('margin', margin),
       buildObjectOrValueClassNames('padding', padding),
-      buildClassName('modal', 'close', 'default', modal),
+      {
+        [buildClassName(Close.meta.ukClass, 'large')]: (large),
+      },
     );
 
     const Element = getElementType(Close, as, rest);
     return (
       <Element
         {...rest}
-        className={classes}
+        className={classes || undefined}
         data-uk-close
       />
     );

@@ -27,6 +27,7 @@ class Card extends React.Component {
     /** Additional classes to apply to element. */
     className: PropTypes.string,
 
+    /** Create a hover effect on the card. */
     hover: PropTypes.bool,
 
     /** Options for adding spacing between elements. */
@@ -35,12 +36,16 @@ class Card extends React.Component {
     /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
 
+    /** Modify the card and emphasize it with a primary color. */
     primary: PropTypes.bool,
 
+    /** Modify the card and give it a secondary background color. */
     secondary: PropTypes.bool,
 
+    /** Apply a smaller or larger padding. */
     size: PropTypes.oneOf(['small', 'large']),
 
+    /** Apply a width based on the size of the parent container. */
     width: commonPropTypes.width,
   };
 
@@ -68,26 +73,28 @@ class Card extends React.Component {
       ...rest
     } = this.props;
 
+    const isBody = !childrenUtils.hasChildType(children, CardBody);
+
     const classes = classnames(
       className,
       Card.meta.ukClass,
-      buildClassName('card', 'hover', hover),
       buildObjectOrValueClassNames('margin', margin),
       buildObjectOrValueClassNames('padding', padding),
-      buildClassName('card', 'primary', primary),
-      buildClassName('card', 'secondary', secondary),
       buildClassName('card', size),
       buildObjectOrValueClassNames('width', width),
       {
-        [buildClassName('card', 'default')]: (isNil(primary) && isNil(secondary)),
-        [buildClassName('card', 'body')]: (!childrenUtils.hasChildType(children, CardBody)),
+        [buildClassName(Card.meta.ukClass, 'default')]: (isNil(primary) && isNil(secondary)),
+        [buildClassName(Card.meta.ukClass, 'body')]: (isBody),
+        [buildClassName(Card.meta.ukClass, 'hover')]: (hover),
+        [buildClassName(Card.meta.ukClass, 'primary')]: (primary),
+        [buildClassName(Card.meta.ukClass, 'secondary')]: (secondary),
       },
     );
 
     return (
       <div
         {...rest}
-        className={classes}
+        className={classes || undefined}
       >
         {children}
       </div>

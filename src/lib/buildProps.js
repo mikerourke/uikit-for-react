@@ -1,4 +1,5 @@
 import {
+  first,
   flatten,
   get,
   isBoolean,
@@ -8,6 +9,7 @@ import {
   isUndefined,
   kebabCase,
   keys,
+  omit,
   pick,
   some,
   startsWith,
@@ -36,6 +38,22 @@ export const getIfDefaultStyle = (props) => {
 };
 
 /**
+ * Cleans up the className to ensure it is a valid UIkit class.
+ * @param {string} className Name of the class to sanitize.
+ * @returns {string}
+ */
+const sanitizeClassName = className => (
+  `uk-${className}`
+  // This removes any duplicate "uk-" to ensure the class name is valid.
+    .replace(/(uk-)(?=.*\1)/ig, '')
+    // This removes extra dashes left by a boolean value (we don't want the word "true" included)
+    // as well as spaces or trailing dashes.
+    .replace(/(--)(-$)( )/ig, '')
+    // This removes the dash before a breakpoint value.
+    .replace(/-@/ig, '@')
+);
+
+/**
  * Returns a valid UIkit class name to apply to the component.
  * @param {*} args Class elements used to build the class string.
  * @returns {string}
@@ -53,11 +71,12 @@ export const buildClassName = (...args) => {
   if (isUndefined(args)) throw new Error('Missing class element in buildClassName');
 
   const classElements = flatten([...args]);
+  if (classElements.length === 1) return sanitizeClassName(first(classElements));
+
   const getIsClassElementInvalid = element => (
     (isNil(element) || element === false || isPlainObject(element))
   );
   if (some(classElements, getIsClassElementInvalid)) return '';
-
 
   const classString = classElements
     .reduce((acc, element) => {
@@ -70,16 +89,8 @@ export const buildClassName = (...args) => {
       ];
     }, [])
     .join('-');
-  const ukClass = `uk-${classString}`;
 
-  return ukClass
-    // This removes any duplicate "uk-" to ensure the class name is valid.
-    .replace(/(uk-)(?=.*\1)/ig, '')
-    // This removes extra dashes left by a boolean value (we don't want the word "true" included)
-    // as well as spaces or trailing dashes.
-    .replace(/(--)(-$)( )/ig, '')
-    // This removes the dash before a breakpoint value.
-    .replace(/-@/ig, '@');
+  return sanitizeClassName(classString);
 };
 
 /**
@@ -133,13 +144,6 @@ const buildObjectClassNames = (ukName, objectProp) => keys(objectProp).map((prop
   return buildClassName(ukName, propValue, suffix);
 });
 
-const buildMarginClassNames = (marginProps) => {
-  const marginAllProp = get(marginProps, 'all', null);
-  return (isNull(marginAllProp))
-    ? buildObjectClassNames('margin', marginProps)
-    : UIK.LOCATIONS.map(location => buildClassName('margin', marginAllProp, location));
-};
-
 const buildBackgroundClassNames = (backgroundProps) => {
   const validProps = pick(backgroundProps, ['fixed', 'norepeat', 'position']);
   return [
@@ -148,6 +152,26 @@ const buildBackgroundClassNames = (backgroundProps) => {
     buildClassName('background', 'image', get(backgroundProps, 'breakpoint')),
     buildClassName('background', get(backgroundProps, 'size')),
   ];
+};
+
+const buildFlexItemClassNames = (flexItemProps) => {
+  const orderProp = get(flexItemProps, 'order');
+  const orderClassNames = (isPlainObject(orderProp))
+    ? buildObjectClassNames('flex', orderProp)
+    : [buildClassName(orderProp)];
+
+  return [
+    ...orderClassNames,
+    buildClassName('flex', get(flexItemProps, 'grow').replace('flex', '1')),
+  ];
+};
+
+const buildMarginClassNames = (marginProps) => {
+  const marginAllProp = get(marginProps, 'all', null);
+  const validProps = omit(marginProps, ['container', 'firstColumn', 'nextRow']);
+  return (isNull(marginAllProp))
+    ? buildObjectClassNames('margin', validProps)
+    : UIK.LOCATIONS.map(location => buildClassName('margin', marginAllProp, location));
 };
 
 /**
@@ -165,8 +189,9 @@ const buildBackgroundClassNames = (backgroundProps) => {
  */
 export const buildObjectOrValueClassNames = (ukName, objectProp) => {
   if (!isPlainObject(objectProp)) return buildClassName(ukName, objectProp);
-  if (ukName === 'margin') return buildMarginClassNames(objectProp);
   if (ukName === 'background') return buildBackgroundClassNames(objectProp);
+  if (ukName === 'flexItem') return buildFlexItemClassNames(objectProp);
+  if (ukName === 'margin') return buildMarginClassNames(objectProp);
   return buildObjectClassNames(ukName, objectProp);
 };
 

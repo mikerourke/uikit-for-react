@@ -35,7 +35,7 @@ class ArticleTitle extends React.Component {
     return (
       <h1
         {...rest}
-        className={classes}
+        className={classes || undefined}
       >
         {children}
       </h1>

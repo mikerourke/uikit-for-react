@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { compose } from 'recompose';
 import { get } from 'lodash';
 import {
   buildClassName,
-  buildObjectOrValueClassNames, commonPropTypes,
+  buildObjectOrValueClassNames,
+  commonPropTypes,
   getElementType,
   HTML,
   UIK,
@@ -18,6 +18,10 @@ class Flex extends React.Component {
   };
 
   static propTypes = {
+    /**
+     * Define the vertical alignment of flex items. By default, flex items fill the height of their
+     *    container.
+     */
     alignItems: PropTypes.oneOf(UIK.FLEX_VERTICAL_MODIFIERS),
 
     /** HTML element to use for the component. */
@@ -29,27 +33,37 @@ class Flex extends React.Component {
     /** Additional classes to apply to element. */
     className: PropTypes.string,
 
+    /**
+     * Define the axis that flex items are placed on and their direction. By default, items run
+     *    horizontally from left to right.
+     */
     direction: PropTypes.shape({
       as: PropTypes.oneOf(['column', 'row']),
       reverse: PropTypes.bool,
     }),
 
+    /** Create the flex container and behave like an inline element. */
     inline: PropTypes.bool,
 
+    /**
+     * Defines the horizontal alignment of flex items and distribute the space between them.
+     *    Optionally specify an alignment for each breakpoint.
+     */
     justifyContent: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-      PropTypes.shape({
-        around: PropTypes.oneOf(UIK.BREAKPOINTS),
-        between: PropTypes.oneOf(UIK.BREAKPOINTS),
-        left: PropTypes.oneOf(UIK.BREAKPOINTS),
-        center: PropTypes.oneOf(UIK.BREAKPOINTS),
-        right: PropTypes.oneOf(UIK.BREAKPOINTS),
-      }),
+      commonPropTypes.getForBreakpoints(PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS)),
     ]),
 
+    /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
+
+    /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
 
+    /**
+     * By default, flex items are fit into one line and run from left to right. Change these to
+     *    modify the behavior of wrapping flex items.
+     */
     wrap: PropTypes.shape({
       type: PropTypes.oneOf(['nowrap', 'reverse', 'wrap']),
       alignment: PropTypes.oneOf(UIK.FLEX_VERTICAL_MODIFIERS),
@@ -81,21 +95,23 @@ class Flex extends React.Component {
     const classes = classnames(
       className,
       Flex.meta.ukClass,
-      buildClassName('flex', alignItems),
-      buildClassName('flex', get(direction, 'as'), (isReverse ? 'reverse' : '')),
-      buildClassName('flex', 'inline', inline),
-      buildObjectOrValueClassNames('flex', justifyContent),
-      buildClassName('flex', get(wrap, 'type')),
-      buildClassName('flex', get(wrap, 'alignment')),
+      buildClassName(Flex.meta.ukClass, alignItems),
+      buildClassName(Flex.meta.ukClass, get(direction, 'as'), (isReverse ? 'reverse' : '')),
+      buildObjectOrValueClassNames(Flex.meta.ukClass, justifyContent),
+      buildClassName(Flex.meta.ukClass, get(wrap, 'type')),
+      buildClassName(Flex.meta.ukClass, get(wrap, 'alignment')),
       buildObjectOrValueClassNames('margin', margin),
       buildObjectOrValueClassNames('padding', padding),
+      {
+        [buildClassName(Flex.meta.ukClass, 'inline')]: (inline),
+      },
     );
 
     const Element = getElementType(Flex, as, rest);
     return (
       <Element
         {...rest}
-        className={classes}
+        className={classes || undefined}
       >
         {children}
       </Element>

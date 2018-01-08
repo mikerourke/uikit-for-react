@@ -12,7 +12,10 @@ export { default as commonPropTypes } from './commonPropTypes';
 
 export { default as getElementType } from './getElementType';
 
-export { default as getOptionsString } from './getOptionsString';
+export {
+  buildMarginAttributeOptions,
+  getOptionsString,
+} from './attributeUtils';
 
 export { HTML, UIK } from './constants';
 

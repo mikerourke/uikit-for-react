@@ -11,7 +11,6 @@ import {
 class SubnavItem extends React.Component {
   static meta = {
     name: 'SubnavItem',
-    ukClass: 'uk-subnav-item',
   };
 
   static propTypes = {
@@ -48,7 +47,6 @@ class SubnavItem extends React.Component {
 
     const classes = classnames(
       className,
-      SubnavItem.meta.ukClass,
       buildClassName('active', active),
       buildObjectOrValueClassNames('margin', margin),
       buildObjectOrValueClassNames('padding', padding),
@@ -57,7 +55,7 @@ class SubnavItem extends React.Component {
     return (
       <li
         {...rest}
-        className={classes}
+        className={classes || undefined}
       >
         {(isObject(children)) ? children : <a href={href}>{children}</a>}
       </li>

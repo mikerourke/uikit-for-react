@@ -25,7 +25,10 @@ class Panel extends React.Component {
     /** Additional classes to apply to element. */
     className: PropTypes.string,
 
+    /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
+
+    /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
 
     /** Indicates if the panel is scrollable. */
@@ -55,8 +58,10 @@ class Panel extends React.Component {
       buildObjectOrValueClassNames('animation', animation),
       buildObjectOrValueClassNames('background', background),
       buildObjectOrValueClassNames('margin', margin),
-      buildClassName('panel', 'scrollable', scrollable),
       buildObjectOrValueClassNames('padding', padding),
+      {
+        [buildClassName(Panel.meta.ukClass, 'scrollable')]: (scrollable),
+      },
     );
     const styles = buildStyles(this.props);
 
@@ -64,7 +69,7 @@ class Panel extends React.Component {
       <div
         {...rest}
         style={styles}
-        className={classes}
+        className={classes || undefined}
       >
         {children}
       </div>

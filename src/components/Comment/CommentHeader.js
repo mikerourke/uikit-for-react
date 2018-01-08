@@ -49,7 +49,7 @@ class CommentHeader extends React.Component {
     return (
       <header
         {...rest}
-        className={classes}
+        className={classes || undefined}
       >
         {children}
       </header>

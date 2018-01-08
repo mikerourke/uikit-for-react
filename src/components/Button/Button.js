@@ -33,6 +33,10 @@ class Button extends React.Component {
     /** Indicates the element is disabled. */
     disabled: PropTypes.bool,
 
+    /** Take up the full width of the parent container. */
+    fullWidth: PropTypes.bool,
+
+    /** Name of the icon to display in the button, from the Icon component. */
     icon: PropTypes.string,
 
     /** Makes a <button> look like an <a> element. */
@@ -86,6 +90,7 @@ class Button extends React.Component {
       className,
       danger,
       disabled,
+      fullWidth,
       icon,
       link,
       margin,
@@ -102,19 +107,20 @@ class Button extends React.Component {
 
     const classes = classnames(
       className,
-      {
-        [Button.meta.ukClass]: (!hasIcon),
-        [buildClassName('button', 'default', hasDefault)]: (!hasIcon),
-        [buildClassName('icon', 'button')]: (hasIcon),
-      },
-      buildClassName('button', 'primary', primary),
-      buildClassName('button', 'secondary', secondary),
-      buildClassName('button', 'danger', danger),
-      buildClassName('button', 'text', text),
-      buildClassName('button', 'link', link),
       buildObjectOrValueClassNames('margin', margin),
       buildObjectOrValueClassNames('padding', padding),
       buildClassName('button', size),
+      {
+        [Button.meta.ukClass]: (!hasIcon),
+        [buildClassName(Button.meta.ukClass, 'danger')]: (danger),
+        [buildClassName(Button.meta.ukClass, 'default')]: (!hasIcon && hasDefault),
+        [buildClassName(Button.meta.ukClass, 'link')]: (link),
+        [buildClassName(Button.meta.ukClass, 'primary')]: (primary),
+        [buildClassName(Button.meta.ukClass, 'secondary')]: (secondary),
+        [buildClassName(Button.meta.ukClass, 'text')]: (text),
+        [buildClassName('icon', 'button')]: (hasIcon),
+        [buildClassName('width-1-1')]: (fullWidth),
+      },
     );
 
     const elementType = (hasIcon) ? 'a' : as;
@@ -122,7 +128,7 @@ class Button extends React.Component {
     return (
       <Element
         {...rest}
-        className={classes}
+        className={classes || undefined}
         disabled={(disabled && as === 'button') || undefined}
         onClick={this.handleClick}
         role="button"

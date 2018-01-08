@@ -19,6 +19,7 @@ class Text extends React.Component {
     /** HTML element to use for the component. */
     as: PropTypes.oneOf([...HTML.TEXT_ELEMENTS, ...HTML.BLOCK_ELEMENTS]),
 
+    /** Create bold text. */
     bold: PropTypes.bool,
 
     /** Contents to display in the element. */
@@ -27,8 +28,10 @@ class Text extends React.Component {
     /** Additional classes to apply to element. */
     className: PropTypes.string,
 
-    color: PropTypes.oneOf(['muted', 'primary', 'success', 'warning', 'danger']),
+    /** Indicate danger. */
+    danger: PropTypes.bool,
 
+    /** Align text horizontally to a specific location or specify breakpoints. */
     horizontalAlign: PropTypes.oneOfType([
       PropTypes.oneOf([...UIK.HORIZONTAL_POSITIONS, 'justify']),
       PropTypes.shape({
@@ -38,18 +41,37 @@ class Text extends React.Component {
       }),
     ]),
 
+    /** Increase the font size. */
     large: PropTypes.bool,
 
+    /** Highlights text, for example in article subtitles. */
     lead: PropTypes.bool,
 
+    /** Apply styling to indicate that the text contains metadata a paragraph. */
     meta: PropTypes.bool,
 
+    /** Mute your text. */
+    muted: PropTypes.bool,
+
+    /** Emphasize additional text information. */
+    primary: PropTypes.bool,
+
+    /** Decrease the font size. */
     small: PropTypes.bool,
 
+    /** Indicate success. */
+    success: PropTypes.bool,
+
+    /** Makes the text uppercase, lowercase, or title case. */
     transform: PropTypes.oneOf(['capitalize', 'lowercase', 'uppercase']),
 
+    /** Vertically align text to an object. */
     verticalAlign: PropTypes.oneOf(['baseline', 'top', 'middle', 'bottom']),
 
+    /** Indicate a warning. */
+    warning: PropTypes.bool,
+
+    /** Specify a wrapping option (break, nowrap, or truncate). */
     wrapping: PropTypes.oneOf(['break', 'nowrap', 'truncate']),
   };
 
@@ -61,40 +83,50 @@ class Text extends React.Component {
   render() {
     const {
       as,
+      bold,
       children,
       className,
-      bold,
-      color,
+      danger,
       horizontalAlign,
       large,
       lead,
       meta,
+      muted,
+      primary,
       small,
+      success,
       transform,
       verticalAlign,
+      warning,
       wrapping,
       ...rest
     } = this.props;
 
     const classes = classnames(
       className,
-      buildClassName('text', 'bold', bold),
-      buildClassName('text', color),
-      buildObjectOrValueClassNames('text', horizontalAlign),
-      buildClassName('text', 'large', large),
-      buildClassName('text', 'lead', lead),
-      buildClassName('text', 'meta', meta),
-      buildClassName('text', 'small', small),
-      buildClassName('text', transform),
-      buildClassName('text', verticalAlign),
-      buildClassName('text', wrapping),
+      buildObjectOrValueClassNames(Text.meta.ukClass, horizontalAlign),
+      buildClassName(Text.meta.ukClass, transform),
+      buildClassName(Text.meta.ukClass, verticalAlign),
+      buildClassName(Text.meta.ukClass, wrapping),
+      {
+        [buildClassName(Text.meta.ukClass, 'bold')]: (bold),
+        [buildClassName(Text.meta.ukClass, 'danger')]: (danger),
+        [buildClassName(Text.meta.ukClass, 'large')]: (large),
+        [buildClassName(Text.meta.ukClass, 'lead')]: (lead),
+        [buildClassName(Text.meta.ukClass, 'meta')]: (meta),
+        [buildClassName(Text.meta.ukClass, 'muted')]: (muted),
+        [buildClassName(Text.meta.ukClass, 'primary')]: (primary),
+        [buildClassName(Text.meta.ukClass, 'small')]: (small),
+        [buildClassName(Text.meta.ukClass, 'success')]: (success),
+        [buildClassName(Text.meta.ukClass, 'warning')]: (warning),
+      },
     );
 
     const Element = getElementType(Text, as, rest);
     return (
       <Element
         {...rest}
-        className={classes}
+        className={classes || undefined}
       >
         {children}
       </Element>

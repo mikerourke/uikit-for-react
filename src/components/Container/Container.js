@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get } from 'lodash';
+import { get, isNil } from 'lodash';
 import {
   buildClassName,
+  buildMarginAttributeOptions,
   buildObjectOrValueClassNames,
   buildStyles,
   commonPropTypes,
@@ -22,26 +23,23 @@ class Container extends React.Component {
   static propTypes = {
     /** HTML element to use for the component. */
     as: PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
+
+    /** Options to apply to the background of the component. */
     background: commonPropTypes.background,
+
+    /** Options to apply to the margin component attribute. */
+    childMargins: commonPropTypes.childMargins,
 
     /** Contents to display in the element. */
     children: PropTypes.node.isRequired,
 
-    childMargins: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.shape({
-        firstColumn: PropTypes.string,
-        nextRow: PropTypes.shape({
-          location: PropTypes.oneOf(UIK.LOCATIONS),
-          modifier: PropTypes.oneOf(UIK.SPACING_MODIFIERS),
-        }),
-      }),
-    ]),
-
     /** Additional classes to apply to element. */
     className: PropTypes.string,
 
+    /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
+
+    /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
 
     /** Size of the container. */
@@ -57,8 +55,8 @@ class Container extends React.Component {
     const {
       as,
       background,
-      children,
       childMargins,
+      children,
       className,
       margin,
       padding,
@@ -76,22 +74,13 @@ class Container extends React.Component {
     );
     const styles = buildStyles(this.props);
 
-    const childMarginOptions = getOptionsString({
-      margin: buildClassName(
-        'margin',
-        get(childMargins, ['nextRow', 'modifier'], 'small'),
-        get(childMargins, ['nextRow', 'location'], 'top'),
-      ),
-      firstColumn: buildClassName(get(childMargins, 'firstColumn', 'uk-first-column')),
-    });
-
     const Element = getElementType(Container, as, rest);
     return (
       <Element
         {...rest}
-        className={classes}
+        className={classes || undefined}
         style={styles}
-        data-uk-margin={(childMargins) ? childMarginOptions : undefined}
+        {...buildMarginAttributeOptions(childMargins)}
       >
         {children}
       </Element>

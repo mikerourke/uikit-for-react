@@ -16,7 +16,10 @@ class ButtonGroup extends React.Component {
     /** Additional classes to apply to element. */
     className: PropTypes.string,
 
+    /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
+
+    /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
   };
 
@@ -43,7 +46,7 @@ class ButtonGroup extends React.Component {
     return (
       <div
         {...rest}
-        className={classes}
+        className={classes || undefined}
       >
         {children}
       </div>

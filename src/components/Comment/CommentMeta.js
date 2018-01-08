@@ -2,13 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {
-  buildClassName,
   buildObjectOrValueClassNames,
   commonPropTypes,
   getElementType,
-  HTML,
 } from '../../lib';
-import Subnav from '../Subnav';
 
 class CommentMeta extends React.Component {
   static meta = {
@@ -59,7 +56,7 @@ class CommentMeta extends React.Component {
     return (
       <Element
         {...rest}
-        className={classes}
+        className={classes || undefined}
       >
         {children}
       </Element>

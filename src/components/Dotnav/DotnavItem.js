@@ -5,27 +5,27 @@ import {
   buildClassName,
   buildObjectOrValueClassNames,
   commonPropTypes,
-  getElementType,
-  HTML, UIK,
 } from '../../lib';
 
-class CardMedia extends React.Component {
+class DotnavItem extends React.Component {
   static meta = {
-    name: 'CardMedia',
-    ukClass: 'uk-card-media',
+    name: 'DotnavItem',
   };
 
   static propTypes = {
-    alignTo: PropTypes.oneOf(UIK.LOCATIONS),
+    /** Apply an active state to the item. */
+    active: PropTypes.bool,
+
+    children: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
 
     /** Additional classes to apply to element. */
     className: PropTypes.string,
 
-    /** "alt" prop for the <img> element. */
-    imgAlt: PropTypes.string,
-
-    /** "src" prop for the <img> element. */
-    imgSrc: PropTypes.string.isRequired,
+    /** Path associated with the <a> within the element. */
+    href: PropTypes.string,
 
     /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
@@ -36,15 +36,14 @@ class CardMedia extends React.Component {
 
   static defaultProps = {
     className: '',
-    imgAlt: '',
   };
 
   render() {
     const {
-      alignTo,
+      active,
+      children,
       className,
-      imgAlt,
-      imgSrc,
+      href,
       margin,
       padding,
       ...rest
@@ -52,21 +51,22 @@ class CardMedia extends React.Component {
 
     const classes = classnames(
       className,
-      CardMedia.meta.ukClass,
-      buildClassName(CardMedia.meta.ukClass, alignTo),
       buildObjectOrValueClassNames('margin', margin),
       buildObjectOrValueClassNames('padding', padding),
+      {
+        [buildClassName('active')]: (active),
+      },
     );
 
     return (
-      <div
+      <li
         {...rest}
         className={classes || undefined}
       >
-        <img src={imgSrc} alt={imgAlt} />
-      </div>
+        <a href={href}>{children}</a>
+      </li>
     );
   }
 }
 
-export default CardMedia;
+export default DotnavItem;
