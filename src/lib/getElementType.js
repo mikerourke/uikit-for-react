@@ -1,3 +1,5 @@
+import { get, isNull } from 'lodash';
+
 /**
  * Returns a createElement() type based on the props of the Component.
  * Useful for calculating what type a component should render as.
@@ -6,7 +8,7 @@
  *
  * @param {function} Component A function or ReactClass.
  * @param {string} asProp Value of the component's "as" prop.
- * @param {Object} props Component props not excluded from className calculation.
+ * @param {Object} [props] Component props not excluded from className calculation.
  * @returns {string|function} A ReactElement type
  */
 const getElementType = (Component, asProp, props) => {
@@ -17,7 +19,7 @@ const getElementType = (Component, asProp, props) => {
   // User defined "as" element type:
   if (asProp !== defaultProps.as) return asProp;
 
-  if (props.href) return 'a';
+  if (!isNull(get(props, 'href', null))) return 'a';
 
   // Use defaultProp or 'div'
   return defaultProps.as || 'div';

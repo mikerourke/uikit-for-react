@@ -1,5 +1,6 @@
 import {
-  get, isNil,
+  get,
+  isNil,
   isObjectLike,
   isUndefined,
   kebabCase,
@@ -35,20 +36,16 @@ export const getOptionsString = (options) => {
   return (optionPairs.length > 0) ? optionPairs.join('; ') : '';
 };
 
-export const buildMarginAttributeOptions = (childMarginsProp) => {
-  const hasMarginAttribute = (
-    (childMarginsProp === true)
-    || !isNil(get(childMarginsProp, 'firstColumn'))
-    || !isNil(get(childMarginsProp, 'nextRow'))
-  );
+export const buildMarginAttributeOptions = (dynamic, firstColumn, nextRow) => {
+  const hasMarginAttribute = ((dynamic === true) || !isNil(firstColumn) || !isNil(nextRow));
   if (!hasMarginAttribute) return undefined;
 
   const marginAttributeOptions = getOptionsString({
-    firstColumn: buildClassName(get(childMarginsProp, 'firstColumn', 'uk-first-column')),
+    firstColumn: (isNil(firstColumn)) ? 'uk-first-column' : firstColumn,
     margin: buildClassName(
       'margin',
-      get(childMarginsProp, ['nextRow', 'spacing'], 'small'),
-      get(childMarginsProp, ['nextRow', 'location'], 'top'),
+      get(nextRow, 'spacing', 'small'),
+      get(nextRow, 'location', 'top'),
     ),
   });
 

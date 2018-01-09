@@ -13,9 +13,9 @@ const shapeForPosition = {
 };
 
 const getForBreakpoints = valuePropType => PropTypes.shape({
-  atS: valuePropType,
-  atM: valuePropType,
-  atL: valuePropType,
+  atSm: valuePropType,
+  atMd: valuePropType,
+  atLg: valuePropType,
   atXl: valuePropType,
 });
 
@@ -61,17 +61,6 @@ const boxShadow = PropTypes.oneOfType([
   }),
 ]);
 
-const childMargins = PropTypes.oneOfType([
-  PropTypes.bool,
-  PropTypes.shape({
-    firstColumn: PropTypes.string,
-    nextRow: PropTypes.shape({
-      spacing: PropTypes.oneOf(UIK.SPACING_MODIFIERS),
-      location: PropTypes.oneOf(UIK.LOCATIONS),
-    }),
-  }),
-]);
-
 const drag = PropTypes.oneOfType([
   PropTypes.bool,
   PropTypes.shape({
@@ -79,17 +68,6 @@ const drag = PropTypes.oneOfType([
     showOver: PropTypes.bool,
   }),
 ]);
-
-const flex = PropTypes.shape({
-  grow: PropTypes.oneOf(['auto', 'flex', 'none']),
-  order: PropTypes.oneOfType([
-    PropTypes.oneOf(['first', 'last']),
-    PropTypes.shape({
-      first: PropTypes.oneOf(UIK.BREAKPOINTS),
-      last: PropTypes.oneOf(UIK.BREAKPOINTS),
-    }),
-  ]),
-});
 
 const heightMatch = PropTypes.oneOfType([
   PropTypes.bool,
@@ -134,14 +112,21 @@ const leader = PropTypes.oneOfType([
 
 const margin = PropTypes.oneOfType([
   PropTypes.bool,
-  PropTypes.oneOf(UIK.LOCATIONS),
-  PropTypes.oneOf(UIK.SPACING_MODIFIERS),
+  PropTypes.oneOf([...UIK.LOCATIONS, ...UIK.SPACING_MODIFIERS, 'grid']),
   PropTypes.shape({
     top: forSpacingAtLocation,
     bottom: forSpacingAtLocation,
     left: forSpacingAtLocation,
     right: forSpacingAtLocation,
     all: forSpacingAtLocation,
+  }),
+]);
+
+const order = PropTypes.oneOfType([
+  PropTypes.oneOf(['first', 'last']),
+  PropTypes.shape({
+    first: PropTypes.oneOf(UIK.BREAKPOINTS),
+    last: PropTypes.oneOf(UIK.BREAKPOINTS),
   }),
 ]);
 
@@ -181,27 +166,20 @@ const visible = PropTypes.oneOfType([
   }),
 ]);
 
-const width = PropTypes.oneOfType([
-  PropTypes.oneOf(UIK.BASE_WIDTHS),
-  getForBreakpoints(PropTypes.oneOf(UIK.BASE_WIDTHS)),
-]);
-
 export default {
   getForBreakpoints,
   align,
   animation,
   background,
   boxShadow,
-  childMargins,
   drag,
-  flex,
   heightMatch,
   heightViewport,
   hidden,
   leader,
   margin,
+  order,
   padding,
   position,
   visible,
-  width,
 };

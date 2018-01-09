@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import {
   buildClassName,
   buildObjectOrValueClassNames,
+  commonPropTypes,
   getElementType,
   HTML,
   UIK,
@@ -34,11 +35,7 @@ class Text extends React.Component {
     /** Align text horizontally to a specific location or specify breakpoints. */
     horizontalAlign: PropTypes.oneOfType([
       PropTypes.oneOf([...UIK.HORIZONTAL_POSITIONS, 'justify']),
-      PropTypes.shape({
-        left: PropTypes.oneOf(UIK.BREAKPOINTS),
-        center: PropTypes.oneOf(UIK.BREAKPOINTS),
-        right: PropTypes.oneOf(UIK.BREAKPOINTS),
-      }),
+      commonPropTypes.getForBreakpoints(PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS)),
     ]),
 
     /** Increase the font size. */

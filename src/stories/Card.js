@@ -12,7 +12,7 @@ const cardContent = faker.lorem.paragraph();
 storiesOf('Card', module)
   .add('Basic Usage', () => (
     <Container margin={{ all: 'large' }}>
-      <Card width={{ atM: '1/2' }}>
+      <Card width={{ atMd: '1/2' }}>
         <Card.Title>Default</Card.Title>
         <p>{cardContent}</p>
       </Card>
@@ -21,7 +21,7 @@ storiesOf('Card', module)
 
   .add('Style modifiers', () => (
     <Grid>
-      <Card width={{ atM: '1/2' }}>
+      <Card width={{ atMd: '1/2' }}>
         <Card.Title>Default</Card.Title>
         <p>{cardContent}</p>
       </Card>

@@ -7,6 +7,7 @@ import {
   buildObjectOrValueClassNames,
   childrenUtils,
   commonPropTypes,
+  UIK,
 } from '../../lib';
 import CardBody from './CardBody';
 import CardFooter from './CardFooter';
@@ -46,7 +47,10 @@ class Card extends React.Component {
     size: PropTypes.oneOf(['small', 'large']),
 
     /** Apply a width based on the size of the parent container. */
-    width: commonPropTypes.width,
+    width: PropTypes.oneOfType([
+      PropTypes.oneOf(UIK.BASE_WIDTHS),
+      commonPropTypes.getForBreakpoints(PropTypes.oneOf(UIK.BASE_WIDTHS)),
+    ]),
   };
 
   static defaultProps = {

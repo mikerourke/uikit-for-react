@@ -4,14 +4,16 @@ import classnames from 'classnames';
 import UIkit from 'uikit';
 import { get, isObjectLike, noop } from 'lodash';
 import {
-  buildClassName, buildObjectOrValueClassNames,
+  buildClassName,
+  buildObjectOrValueClassNames,
+  childrenUtils,
   commonPropTypes,
   getElementType,
   getOptionsString,
   HTML,
   UIK,
 } from '../../lib';
-import Close from '../Close/Close';
+import Close from '../Close';
 
 class Alert extends React.Component {
   static meta = {
@@ -118,6 +120,10 @@ class Alert extends React.Component {
       warning,
       ...rest
     } = this.props;
+
+    if (closeable && childrenUtils.hasChildType(children, Close)) {
+      throw new Error('You cannot have an instance of Close inside an alert if the closeable prop is true.');
+    }
 
     const classes = classnames(
       className,

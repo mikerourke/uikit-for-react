@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get, isNil } from 'lodash';
 import {
   buildClassName,
   buildMarginAttributeOptions,
@@ -9,7 +8,6 @@ import {
   buildStyles,
   commonPropTypes,
   getElementType,
-  getOptionsString,
   HTML,
   UIK,
 } from '../../lib';
@@ -27,17 +25,29 @@ class Container extends React.Component {
     /** Options to apply to the background of the component. */
     background: commonPropTypes.background,
 
-    /** Options to apply to the margin component attribute. */
-    childMargins: commonPropTypes.childMargins,
-
     /** Contents to display in the element. */
     children: PropTypes.node.isRequired,
 
     /** Additional classes to apply to element. */
     className: PropTypes.string,
 
+    /** Indicates that the component has Margin attribute properties. */
+    dynamic: PropTypes.bool,
+
+    /** Class to add to the first element in each row. */
+    firstColumn: PropTypes.string,
+
     /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
+
+    /**
+     * Properties of items that break into the next row, typically to create margin to the
+     *    previous row.
+     */
+    nextRow: PropTypes.shape({
+      spacing: PropTypes.oneOf(UIK.SPACING_MODIFIERS),
+      location: PropTypes.oneOf(UIK.LOCATIONS),
+    }),
 
     /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
@@ -55,10 +65,12 @@ class Container extends React.Component {
     const {
       as,
       background,
-      childMargins,
       children,
       className,
+      dynamic,
+      firstColumn,
       margin,
+      nextRow,
       padding,
       size,
       ...rest
@@ -68,9 +80,9 @@ class Container extends React.Component {
       className,
       Container.meta.ukClass,
       buildObjectOrValueClassNames('background', background),
-      buildClassName('container', size),
       buildObjectOrValueClassNames('margin', margin),
       buildObjectOrValueClassNames('padding', padding),
+      buildClassName(Container.meta.ukClass, size),
     );
     const styles = buildStyles(this.props);
 
@@ -80,7 +92,7 @@ class Container extends React.Component {
         {...rest}
         className={classes || undefined}
         style={styles}
-        {...buildMarginAttributeOptions(childMargins)}
+        {...buildMarginAttributeOptions(dynamic, firstColumn, nextRow)}
       >
         {children}
       </Element>

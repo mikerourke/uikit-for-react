@@ -9,7 +9,6 @@ import {
   isUndefined,
   kebabCase,
   keys,
-  omit,
   pick,
   some,
   startsWith,
@@ -51,6 +50,8 @@ const sanitizeClassName = className => (
     .replace(/(--)(-$)( )/ig, '')
     // This removes the dash before a breakpoint value.
     .replace(/-@/ig, '@')
+    // This removes any invalid trailing "-".
+    .replace(/-$/g, '')
 );
 
 /**
@@ -73,8 +74,12 @@ export const buildClassName = (...args) => {
   const classElements = flatten([...args]);
   if (classElements.length === 1) return sanitizeClassName(first(classElements));
 
+  // If an element has a value of "grid" for the "margin" prop, the values need to be reversed
+  // to form the correct class name.
+  if (classElements.join('-').includes('margin-grid')) return 'uk-grid-margin';
+
   const getIsClassElementInvalid = element => (
-    (isNil(element) || element === false || isPlainObject(element))
+    (isUndefined(element) || element === false || isPlainObject(element))
   );
   if (some(classElements, getIsClassElementInvalid)) return '';
 
@@ -134,13 +139,31 @@ export const buildPositionClassNames = (ukName, positionProp) => {
   ];
 };
 
+/**
+ * Returns a valid breakpoint value based on the specified propName.
+ * @param {string} propName Name of the breakpoint prop to sanitize.
+ * @returns {string}
+ *
+ * @example
+ * const propName = "atMd";
+ * console.log(getSanitizedBreakpoint(propName));
+ * > @m
+ */
+const getSanitizedBreakpoint = (propName) => {
+  const validName = propName.toLowerCase().replace('at', '@');
+
+  // Each breakpoint (with the exception of @xl) needs to be trimmed down to only the first letter.
+  if (!validName.includes('xl')) return validName.slice(0, -1);
+  return validName;
+};
+
 const buildObjectClassNames = (ukName, objectProp) => keys(objectProp).map((propName) => {
   if (propName.length === 1) return '';
   const propValue = get(objectProp, propName);
   if (propName === 'position') return buildPositionClassNames(ukName, propValue);
   let suffix = propName;
   // This is done to ensure the breakpoint value is valid.
-  if (startsWith(propName, 'at')) suffix = propName.toLowerCase().replace('at', '@');
+  if (startsWith(propName, 'at')) suffix = getSanitizedBreakpoint(propName);
   return buildClassName(ukName, propValue, suffix);
 });
 
@@ -154,23 +177,10 @@ const buildBackgroundClassNames = (backgroundProps) => {
   ];
 };
 
-const buildFlexItemClassNames = (flexItemProps) => {
-  const orderProp = get(flexItemProps, 'order');
-  const orderClassNames = (isPlainObject(orderProp))
-    ? buildObjectClassNames('flex', orderProp)
-    : [buildClassName(orderProp)];
-
-  return [
-    ...orderClassNames,
-    buildClassName('flex', get(flexItemProps, 'grow').replace('flex', '1')),
-  ];
-};
-
 const buildMarginClassNames = (marginProps) => {
   const marginAllProp = get(marginProps, 'all', null);
-  const validProps = omit(marginProps, ['container', 'firstColumn', 'nextRow']);
   return (isNull(marginAllProp))
-    ? buildObjectClassNames('margin', validProps)
+    ? buildObjectClassNames('margin', marginProps)
     : UIK.LOCATIONS.map(location => buildClassName('margin', marginAllProp, location));
 };
 
@@ -183,14 +193,13 @@ const buildMarginClassNames = (marginProps) => {
  * @returns {Array|string}
  *
  * @example
- * this.props.width.breakpoint = { atS: '1/2', atM: '1/5' };
+ * this.props.width.breakpoint = { atSm: '1/2', atMd: '1/5' };
  * console.log(buildObjectOrValueClassNames('width', this.props.width.breakpoint));
  * > ['uk-width-1-2@s', 'uk-width-1-5@m']
  */
 export const buildObjectOrValueClassNames = (ukName, objectProp) => {
   if (!isPlainObject(objectProp)) return buildClassName(ukName, objectProp);
   if (ukName === 'background') return buildBackgroundClassNames(objectProp);
-  if (ukName === 'flexItem') return buildFlexItemClassNames(objectProp);
   if (ukName === 'margin') return buildMarginClassNames(objectProp);
   return buildObjectClassNames(ukName, objectProp);
 };

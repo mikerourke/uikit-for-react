@@ -15,6 +15,11 @@ function loadStories() {
   require('../src/stories/Breadcrumb');
   require('../src/stories/Button');
   require('../src/stories/Card');
+  require('../src/stories/Close');
+  require('../src/stories/Comment');
+  require('../src/stories/Countdown');
+  require('../src/stories/Grid');
+  require('../src/stories/GridParallax');
 }
 
 configure(loadStories, module);
