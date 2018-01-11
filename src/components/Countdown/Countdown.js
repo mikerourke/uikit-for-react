@@ -23,28 +23,15 @@ class Countdown extends React.Component {
   };
 
   static propTypes = {
-    /** HTML element to use for the component. */
     as: PropTypes.oneOfType([
       PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
       PropTypes.func,
     ]),
-
-    /** Contents to display in the element. */
     children: PropTypes.node.isRequired,
-
-    /** Additional classes to apply to element. */
     className: PropTypes.string,
-
-    /** Date to start the timer at. */
     date: PropTypes.string,
-
-    /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
-
-    /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
-
-    /** Indicates if the countdown should be paused. */
     paused: PropTypes.bool,
   };
 
@@ -72,7 +59,7 @@ class Countdown extends React.Component {
     }
   }
 
-  handleRef = element => (this.ref = element)
+  handleRef = element => (this.ref = element);
 
   render() {
     const {

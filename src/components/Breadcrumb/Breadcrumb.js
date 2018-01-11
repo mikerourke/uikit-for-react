@@ -10,10 +10,7 @@ class Breadcrumb extends React.Component {
   };
 
   static propTypes = {
-    /** Contents to display in the element. */
     children: PropTypes.node.isRequired,
-
-    /** Additional classes to apply to element. */
     className: PropTypes.string,
   };
 

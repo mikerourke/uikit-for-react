@@ -21,12 +21,6 @@ class Accordion extends React.Component {
   };
 
   static propTypes = {
-    /**
-     * Animation options when displaying the accordion items.
-     * @property {string} [transition="ease"] The transition to use when revealing items. Use
-     *    keyword for easing functions.
-     * @property {number} [duration=200] Animation duration in milliseconds.
-     */
     animation: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.shape({
@@ -34,79 +28,30 @@ class Accordion extends React.Component {
         duration: PropTypes.number,
       }),
     ]),
-
-    /** HTML element to use for the component. */
     as: PropTypes.oneOf(['ul', 'ol']),
-
-    /** Contents to display in the element. */
     children: PropTypes.node.isRequired,
-
-    /** Additional classes to apply to element. */
     className: PropTypes.string,
-
-    /** Allow all items to be closed. If set to false, one item will always remain open */
     collapsible: PropTypes.bool,
-
-    /** Index of the element to open initially. */
     defaultIndex: PropTypes.number,
-
-    /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
-
-    /**
-     * Display multiple content sections at the same time without one collapsing when the other
-     *    one is opened.
-     */
     multiple: PropTypes.bool,
-
-    /** Fires before an item is shown. Can prevent showing by returning false. */
-    onBeforeShow: PropTypes.func,
-
-    /** Fires after an item is shown. */
-    onShow: PropTypes.func,
-
-    /** Fires after the item's show animation has completed. */
-    onShown: PropTypes.func,
-
-    /** Fires before an item is hidden. Can prevent showing by returning false. */
     onBeforeHide: PropTypes.func,
-
-    /** Fires after an item's hide animation has started. */
-    onHide: PropTypes.func,
-
-    /** Fires after an item is hidden. */
+    onBeforeShow: PropTypes.func,
     onHidden: PropTypes.func,
-
-    /**
-     * Index/indices of the accordion items to show as open.
-     */
+    onHide: PropTypes.func,
+    onShow: PropTypes.func,
+    onShown: PropTypes.func,
     openIndex: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.arrayOf(PropTypes.number),
     ]),
-
-    /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
-
-    /**
-     * CSS selectors to use for accordion elements.
-     * @property {string} forContent The content selector, which selects the accordion content
-     *    elements.
-     * @property {string} forTargets The selector of the element(s) to toggle.
-     * @property {string} forToggle The toggle selector, which toggles accordion items.
-     */
-    selectors: PropTypes.shape({
-      forContent: PropTypes.string,
-      forTargets: PropTypes.string,
-      forToggle: PropTypes.string,
-    }),
+    selectorContent: PropTypes.string,
+    selectorTargets: PropTypes.string,
+    selectorToggle: PropTypes.string,
   };
 
   static defaultProps = {
-    animation: {
-      transition: 'ease',
-      duration: 200,
-    },
     as: 'ul',
     className: '',
     collapsible: true,
@@ -156,9 +101,9 @@ class Accordion extends React.Component {
         UIkit.accordion(this.ref).toggle(itemIndex, animate);
       }
     });
-  }
+  };
 
-  handleRef = element => (this.ref = element)
+  handleRef = element => (this.ref = element);
 
   render() {
     const {
@@ -178,7 +123,9 @@ class Accordion extends React.Component {
       onHidden,
       openIndex,
       padding,
-      selectors,
+      selectorContent,
+      selectorTargets,
+      selectorToggle,
       ...rest
     } = this.props;
 
@@ -197,12 +144,12 @@ class Accordion extends React.Component {
       active: defaultIndex,
       animation: (animation !== false),
       collapsible,
-      content: get(selectors, 'forContent', '> .uk-accordion-content'),
-      duration: get(animation, 'duration', 200),
+      content: selectorContent,
+      duration: get(animation, 'duration'),
       multiple,
-      targets: get(selectors, 'forTargets', '> *'),
-      toggle: get(selectors, 'forToggle', '> .uk-accordion-title'),
-      transition: get(animation, 'transition', 'ease'),
+      targets: selectorTargets,
+      toggle: selectorToggle,
+      transition: get(animation, 'transition'),
     });
 
     const Element = getElementType(Accordion, as, rest);

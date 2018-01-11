@@ -14,22 +14,11 @@ class Close extends React.Component {
   };
 
   static propTypes = {
-    /** HTML element to use for the component. */
     as: PropTypes.oneOf(['a', 'button']),
-
-    /** Additional classes to apply to element. */
     className: PropTypes.string,
-
-    /** Create a larger Close button */
     large: PropTypes.bool,
-
-    /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
-
-    /** Action to perform when the close button is clicked. */
     onClick: PropTypes.func,
-
-    /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
   };
 

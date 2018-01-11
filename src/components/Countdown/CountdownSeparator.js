@@ -23,13 +23,8 @@ CountdownSeparator.meta = {
 };
 
 CountdownSeparator.propTypes = {
-  /** HTML element to use for the component. */
   as: PropTypes.oneOf(['div', 'span']),
-
-  /** Separator to display in the element. */
   children: PropTypes.string.isRequired,
-
-  /** Additional classes to apply to element. */
   className: PropTypes.string,
 };
 

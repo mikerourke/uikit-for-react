@@ -17,58 +17,25 @@ class Text extends React.Component {
   };
 
   static propTypes = {
-    /** HTML element to use for the component. */
     as: PropTypes.oneOf([...HTML.TEXT_ELEMENTS, ...HTML.BLOCK_ELEMENTS]),
-
-    /** Create bold text. */
     bold: PropTypes.bool,
-
-    /** Contents to display in the element. */
     children: PropTypes.node.isRequired,
-
-    /** Additional classes to apply to element. */
     className: PropTypes.string,
-
-    /** Indicate danger. */
     danger: PropTypes.bool,
-
-    /** Align text horizontally to a specific location or specify breakpoints. */
     horizontalAlign: PropTypes.oneOfType([
       PropTypes.oneOf([...UIK.HORIZONTAL_POSITIONS, 'justify']),
       commonPropTypes.getForBreakpoints(PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS)),
     ]),
-
-    /** Increase the font size. */
     large: PropTypes.bool,
-
-    /** Highlights text, for example in article subtitles. */
     lead: PropTypes.bool,
-
-    /** Apply styling to indicate that the text contains metadata a paragraph. */
     meta: PropTypes.bool,
-
-    /** Mute your text. */
     muted: PropTypes.bool,
-
-    /** Emphasize additional text information. */
     primary: PropTypes.bool,
-
-    /** Decrease the font size. */
     small: PropTypes.bool,
-
-    /** Indicate success. */
     success: PropTypes.bool,
-
-    /** Makes the text uppercase, lowercase, or title case. */
     transform: PropTypes.oneOf(['capitalize', 'lowercase', 'uppercase']),
-
-    /** Vertically align text to an object. */
     verticalAlign: PropTypes.oneOf(['baseline', 'top', 'middle', 'bottom']),
-
-    /** Indicate a warning. */
     warning: PropTypes.bool,
-
-    /** Specify a wrapping option (break, nowrap, or truncate). */
     wrapping: PropTypes.oneOf(['break', 'nowrap', 'truncate']),
   };
 

@@ -18,8 +18,12 @@ function loadStories() {
   require('../src/stories/Close');
   require('../src/stories/Comment');
   require('../src/stories/Countdown');
+  require('../src/stories/Drop');
+  require('../src/stories/Dropdown');
   require('../src/stories/Grid');
   require('../src/stories/GridParallax');
+  require('../src/stories/Label');
+  require('../src/stories/Tab');
 }
 
 configure(loadStories, module);

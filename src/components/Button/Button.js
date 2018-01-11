@@ -18,53 +18,20 @@ class Button extends React.Component {
   };
 
   static propTypes = {
-    /** Element type to display for the button, can be <button> or <a>. */
     as: PropTypes.oneOf(['a', 'button']),
-
-    /** Contents to display in the element. */
     children: PropTypes.node,
-
-    /** Additional classes to apply to element. */
     className: PropTypes.string,
-
-    /** Indicates a dangerous or negative action. */
     danger: PropTypes.bool,
-
-    /** Indicates the element is disabled. */
     disabled: PropTypes.bool,
-
-    /** Take up the full width of the parent container. */
     fullWidth: PropTypes.bool,
-
-    /** Name of the icon to display in the button, from the Icon component. */
     icon: PropTypes.string,
-
-    /** Makes a <button> look like an <a> element. */
     link: PropTypes.bool,
-
-    /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
-
-    /**
-     * Called after user's click.
-     * @param {SyntheticEvent} event React's original SyntheticEvent.
-     * @param {Object} data Props associated with the element.
-     */
     onClick: PropTypes.func,
-
-    /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
-
-    /** Indicates the primary action. */
     primary: PropTypes.bool,
-
-    /** Indicates an important action. */
     secondary: PropTypes.bool,
-
-    /** Size to apply, can be either "large" or "small". */
     size: PropTypes.oneOf(['large', 'small']),
-
-    /** Applies an alternative, typographic style. */
     text: PropTypes.bool,
   };
 

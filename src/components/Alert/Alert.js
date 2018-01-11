@@ -6,10 +6,10 @@ import { get, isObjectLike, noop } from 'lodash';
 import {
   buildClassName,
   buildObjectOrValueClassNames,
-  childrenUtils,
   commonPropTypes,
   getElementType,
   getOptionsString,
+  hasChildType,
   HTML,
   UIK,
 } from '../../lib';
@@ -22,12 +22,6 @@ class Alert extends React.Component {
   };
 
   static propTypes = {
-    /**
-     * Animation options to apply.
-     * @property {boolean|string} [animation=true] If true, uses a fade out animation, otherwise
-     *    use options from the Animation component.
-     * @property {number} [duration=150] Animation duration in milliseconds.
-     */
     animation: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.oneOf(UIK.ANIMATIONS),
@@ -36,51 +30,23 @@ class Alert extends React.Component {
         duration: PropTypes.number,
       }),
     ]),
-
-    /** HTML element to use for the component. */
     as: PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
-
-    /** Contents to display in the element. */
     children: PropTypes.node.isRequired,
-
-    /** Additional classes to apply to element. */
     className: PropTypes.string,
-
-    /** Allow the Alert to be closed. */
     closeable: PropTypes.bool,
-
-    /** Props to apply to the Close component within the Alert. */
     closeOptions: PropTypes.shape({
       className: PropTypes.string,
       large: PropTypes.bool,
     }),
-
-    /** CSS selector for the Close component. */
-    closeSelector: PropTypes.string,
-
-    /** Indicates an important or error message. */
     danger: PropTypes.bool,
-
-    /** Give the message a prominent styling. */
-    primary: PropTypes.bool,
-
-    /** Indicates success or a positive message. */
-    success: PropTypes.bool,
-
-    /** Indicates a message containing a warning. */
-    warning: PropTypes.bool,
-
-    /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
-
-    /** Fires before an item is hidden. Can prevent hiding by returning false. */
     onBeforeHide: PropTypes.func,
-
-    /** Fires after an item is hidden. */
     onHide: PropTypes.func,
-
-    /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
+    primary: PropTypes.bool,
+    selectorClose: PropTypes.string,
+    success: PropTypes.bool,
+    warning: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -91,7 +57,6 @@ class Alert extends React.Component {
       className: '',
       large: false,
     },
-    closeSelector: 'uk-alert-close',
   };
 
   componentDidMount() {
@@ -99,7 +64,7 @@ class Alert extends React.Component {
     UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
   }
 
-  handleRef = element => (this.ref = element)
+  handleRef = element => (this.ref = element);
 
   render() {
     const {
@@ -109,20 +74,20 @@ class Alert extends React.Component {
       className,
       closeable,
       closeOptions,
-      closeSelector,
       danger,
       margin,
       onBeforeHide,
       onHide,
       padding,
       primary,
+      selectorClose,
       success,
       warning,
       ...rest
     } = this.props;
 
-    if (closeable && childrenUtils.hasChildType(children, Close)) {
-      throw new Error('You cannot have an instance of Close inside an alert if the closeable prop is true.');
+    if (closeable && hasChildType(children, Close)) {
+      throw new Error('You cannot have an instance of Close inside an Alert if the closeable prop is true.');
     }
 
     const classes = classnames(
@@ -143,8 +108,8 @@ class Alert extends React.Component {
     if (isObjectLike(animation)) animationClass = get(animation, 'name');
     const componentOptions = getOptionsString({
       animation: buildClassName('animation', animationClass),
-      duration: get(animation, 'duration', 150),
-      selClose: closeSelector,
+      duration: get(animation, 'duration'),
+      selClose: selectorClose,
     });
 
     const closeClasses = classnames(

@@ -16,19 +16,10 @@ class DescriptionList extends React.Component {
   };
 
   static propTypes = {
-    /** Contents to display in the element. */
     children: PropTypes.node.isRequired,
-
-    /** Additional classes to apply to element. */
     className: PropTypes.string,
-
-    /** Add a horizontal line between list items. */
     divider: PropTypes.bool,
-
-    /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
-
-    /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
   };
 

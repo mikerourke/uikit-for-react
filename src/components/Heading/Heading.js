@@ -15,38 +15,17 @@ class Heading extends React.Component {
   };
 
   static propTypes = {
-    /** HTML element to use for the component. */
     as: PropTypes.oneOf(HTML.HEADING_ELEMENTS),
-
-    /** Apply a bullet to the heading. */
     bullet: PropTypes.bool,
-
-    /** Contents to display in the element. */
     children: PropTypes.node.isRequired,
-
-    /** Additional classes to apply to element. */
     className: PropTypes.string,
-
-    /** Add a divider line underneath the heading. */
     divider: PropTypes.bool,
-
-    /** UIkit class to apply to component to override it's default styling. */
     headingClass: PropTypes.oneOf(HTML.HEADING_ELEMENTS),
-
-    /** Further enlarge or highlight the heading. */
     hero: PropTypes.bool,
-
-    /**
-     * Apply a vertically centered line to the heading. You can specify either true, which aligns
-     *    the heading text to the left, or "center" or "right" to specify where to align the
-     *    heading text.
-     */
     line: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.oneOf(['center', 'right']),
     ]),
-
-    /** Emphasize a heading with an alternative styling. */
     primary: PropTypes.bool,
   };
 

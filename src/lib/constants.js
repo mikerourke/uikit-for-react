@@ -1,5 +1,22 @@
 const CHILD_WIDTHS = ['1/2', '1/3', '1/4', '1/5', '1/6', 'auto', 'expand'];
 const HORIZONTAL_POSITIONS = ['left', 'center', 'right'];
+const ICON_NAMES = [
+  'album', 'arrow-down', 'arrow-left', 'arrow-right', 'arrow-up', 'ban', 'behance', 'bell',
+  'bold', 'bolt', 'bookmark', 'calendar', 'camera', 'cart', 'check', 'chevron-down',
+  'chevron-left', 'chevron-right', 'chevron-up', 'clock', 'close', 'cloud-download',
+  'cloud-upload', 'code', 'cog', 'comment', 'commenting', 'comments', 'copy', 'credit',
+  'database', 'desktop', 'download', 'dribbble', 'expand', 'facebook', 'file', 'flickr',
+  'folder', 'forward', 'foursquare', 'future', 'git', 'github', 'github-alt', 'google,',
+  'google-plus', 'grid', 'happy', 'hashtag', 'heart', 'history', 'home', 'image', 'info',
+  'instagram', 'italic', 'joomla', 'laptop', 'lifesaver', 'link', 'linkedin', 'list', 'location',
+  'lock', 'mail', 'menu', 'minus', 'more', 'move', 'nut', 'pagekit', 'paint', 'pencil', 'phone',
+  'phone-landscape', 'pinterest', 'play', 'plus', 'pull', 'push', 'question', 'quote-right',
+  'refresh', 'reply', 'rss', 'search', 'server', 'settings', 'shrink', 'sign', 'social',
+  'soundcloud', 'star', 'strikethrough', 'table', 'tablet', 'tablet-landscape', 'tag',
+  'thumbnails', 'trash', 'triangle-down', 'triangle-left', 'triangle-right', 'triangle-up',
+  'tripadvisor', 'tumblr', 'tv', 'twitter', 'uikit', 'unlock', 'upload', 'user', 'users',
+  'video-camera', 'vimeo', 'warning', 'whatsapp', 'wordpress', 'world', 'xing', 'yelp', 'youtube',
+];
 const SIZES = ['small', 'medium', 'large', 'xlarge'];
 
 export const UIK = {
@@ -30,7 +47,6 @@ export const UIK = {
     '2/3', '2/4', '3/4', '2/5', '3/5', '4/5', '2/6', '3/6', '4/6', '5/6',
     'xxlarge',
   ],
-  CHILD_WIDTHS,
   BLEND_MODES: [
     'multiply',
     'screen',
@@ -50,11 +66,29 @@ export const UIK = {
   ],
   BREAKPOINTS: ['@s', '@m', '@l', '@xl'],
   BUTTON_STYLES: ['default', 'primary', 'secondary', 'danger', 'text', 'link'],
+  CHILD_WIDTHS,
+  CSS_POSITIONS: ['absolute', 'fixed', 'relative'],
+  DROP_POSITIONS: [
+    'bottom-left',
+    'bottom-center',
+    'bottom-right',
+    'bottom-justify',
+    'top-left',
+    'top-center',
+    'top-right',
+    'top-justify',
+    'left-top',
+    'left-center',
+    'left-bottom',
+    'right-top',
+    'right-center',
+    'right-bottom',
+  ],
   FLEX_HORIZONTAL_MODIFIERS: [...HORIZONTAL_POSITIONS, 'around', 'between'],
   FLEX_VERTICAL_MODIFIERS: ['stretch', 'top', 'middle', 'bottom'],
   HORIZONTAL_POSITIONS,
+  ICON_NAMES,
   LOCATIONS: ['top', 'bottom', 'left', 'right'],
-  CSS_POSITIONS: ['absolute', 'fixed', 'relative'],
   SIZES,
   SPACING_MODIFIERS: [...SIZES, 'remove', 'auto'],
   TEXT_COLORS: ['muted', 'primary', 'success', 'warning', 'danger'],

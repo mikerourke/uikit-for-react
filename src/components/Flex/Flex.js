@@ -4,7 +4,9 @@ import classnames from 'classnames';
 import { get } from 'lodash';
 import {
   buildClassName,
+  buildMarginAttributeOptions,
   buildObjectOrValueClassNames,
+  buildStyles,
   commonPropTypes,
   getElementType,
   HTML,
@@ -18,52 +20,32 @@ class Flex extends React.Component {
   };
 
   static propTypes = {
-    /**
-     * Define the vertical alignment of flex items. By default, flex items fill the height of their
-     *    container.
-     */
     alignItems: PropTypes.oneOf(UIK.FLEX_VERTICAL_MODIFIERS),
-
-    /** HTML element to use for the component. */
     as: PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
-
-    /** Contents to display in the element. */
+    background: commonPropTypes.background,
     children: PropTypes.node.isRequired,
-
-    /** Additional classes to apply to element. */
+    childWidth: PropTypes.oneOfType([
+      PropTypes.oneOf(UIK.CHILD_WIDTHS),
+      commonPropTypes.getForBreakpoints(PropTypes.oneOf(UIK.CHILD_WIDTHS)),
+    ]),
     className: PropTypes.string,
-
-    /**
-     * Define the axis that flex items are placed on and their direction. By default, items run
-     *    horizontally from left to right.
-     */
     direction: PropTypes.shape({
       as: PropTypes.oneOf(['column', 'row']),
       reverse: PropTypes.bool,
     }),
-
-    /** Create the flex container and behave like an inline element. */
+    dynamic: PropTypes.bool,
+    firstColumn: PropTypes.string,
     inline: PropTypes.bool,
-
-    /**
-     * Defines the horizontal alignment of flex items and distribute the space between them.
-     *    Optionally specify an alignment for each breakpoint.
-     */
     justifyContent: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
       commonPropTypes.getForBreakpoints(PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS)),
     ]),
-
-    /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
-
-    /** Options for adding spacing between elements and their content. */
+    nextRow: PropTypes.shape({
+      spacing: PropTypes.oneOf(UIK.SPACING_MODIFIERS),
+      location: PropTypes.oneOf(UIK.LOCATIONS),
+    }),
     padding: commonPropTypes.padding,
-
-    /**
-     * By default, flex items are fit into one line and run from left to right. Change these to
-     *    modify the behavior of wrapping flex items.
-     */
     wrap: PropTypes.shape({
       type: PropTypes.oneOf(['nowrap', 'reverse', 'wrap']),
       alignment: PropTypes.oneOf(UIK.FLEX_VERTICAL_MODIFIERS),
@@ -79,12 +61,17 @@ class Flex extends React.Component {
     const {
       alignItems,
       as,
+      background,
       children,
+      childWidth,
       className,
       direction,
+      dynamic,
+      firstColumn,
       inline,
       justifyContent,
       margin,
+      nextRow,
       padding,
       wrap,
       ...rest
@@ -97,21 +84,26 @@ class Flex extends React.Component {
       Flex.meta.ukClass,
       buildClassName(Flex.meta.ukClass, alignItems),
       buildClassName(Flex.meta.ukClass, get(direction, 'as'), (isReverse ? 'reverse' : '')),
+      buildObjectOrValueClassNames('background', background),
+      buildObjectOrValueClassNames('child', 'width', childWidth),
       buildObjectOrValueClassNames(Flex.meta.ukClass, justifyContent),
-      buildClassName(Flex.meta.ukClass, get(wrap, 'type')),
-      buildClassName(Flex.meta.ukClass, get(wrap, 'alignment')),
       buildObjectOrValueClassNames('margin', margin),
       buildObjectOrValueClassNames('padding', padding),
+      buildClassName(Flex.meta.ukClass, get(wrap, 'type')),
+      buildClassName(Flex.meta.ukClass, get(wrap, 'alignment')),
       {
         [buildClassName(Flex.meta.ukClass, 'inline')]: (inline),
       },
     );
+    const styles = buildStyles(this.props);
 
     const Element = getElementType(Flex, as, rest);
     return (
       <Element
         {...rest}
         className={classes || undefined}
+        style={styles}
+        {...buildMarginAttributeOptions(dynamic, firstColumn, nextRow)}
       >
         {children}
       </Element>

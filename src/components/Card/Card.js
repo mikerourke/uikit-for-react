@@ -5,8 +5,8 @@ import { isNil } from 'lodash';
 import {
   buildClassName,
   buildObjectOrValueClassNames,
-  childrenUtils,
   commonPropTypes,
+  hasChildType,
   UIK,
 } from '../../lib';
 import CardBody from './CardBody';
@@ -22,31 +22,14 @@ class Card extends React.Component {
   };
 
   static propTypes = {
-    /** Contents to display in the element. */
     children: PropTypes.node.isRequired,
-
-    /** Additional classes to apply to element. */
     className: PropTypes.string,
-
-    /** Create a hover effect on the card. */
     hover: PropTypes.bool,
-
-    /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
-
-    /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
-
-    /** Modify the card and emphasize it with a primary color. */
     primary: PropTypes.bool,
-
-    /** Modify the card and give it a secondary background color. */
     secondary: PropTypes.bool,
-
-    /** Apply a smaller or larger padding. */
     size: PropTypes.oneOf(['small', 'large']),
-
-    /** Apply a width based on the size of the parent container. */
     width: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.BASE_WIDTHS),
       commonPropTypes.getForBreakpoints(PropTypes.oneOf(UIK.BASE_WIDTHS)),
@@ -77,7 +60,7 @@ class Card extends React.Component {
       ...rest
     } = this.props;
 
-    const isBody = !childrenUtils.hasChildType(children, CardBody);
+    const isBody = (!hasChildType(children, CardBody));
 
     const classes = classnames(
       className,

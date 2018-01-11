@@ -12,19 +12,10 @@ class AccordionItem extends React.Component {
   };
 
   static propTypes = {
-    /** Contents to display in the element. */
     children: PropTypes.node,
-
-    /** Additional classes to apply to element. */
     className: PropTypes.string,
-
-    /** Shorthand for Content */
     content: PropTypes.node,
-
-    /** Indicates if the item is expanded. */
     open: PropTypes.bool,
-
-    /** Shorthand for Title */
     title: PropTypes.node,
   };
 

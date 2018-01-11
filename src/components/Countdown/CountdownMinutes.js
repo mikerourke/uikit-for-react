@@ -25,10 +25,7 @@ CountdownMinutes.meta = {
 };
 
 CountdownMinutes.propTypes = {
-  /** HTML element to use for the component. */
   as: PropTypes.oneOf(['div', 'span']),
-
-  /** Additional classes to apply to element. */
   className: PropTypes.string,
 };
 

@@ -17,20 +17,10 @@ class CardMedia extends React.Component {
 
   static propTypes = {
     alignTo: PropTypes.oneOf(UIK.LOCATIONS),
-
-    /** Additional classes to apply to element. */
     className: PropTypes.string,
-
-    /** "alt" prop for the <img> element. */
     imgAlt: PropTypes.string,
-
-    /** "src" prop for the <img> element. */
     imgSrc: PropTypes.string.isRequired,
-
-    /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
-
-    /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
   };
 

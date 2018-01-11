@@ -4,9 +4,10 @@ export {
   buildPositionClassNames,
   buildStyles,
   getIfDefaultStyle,
+  joinListProp,
 } from './buildProps';
 
-export { default as childrenUtils } from './childrenUtils';
+export { findChildByType, hasChildType } from './childrenUtils';
 
 export { default as commonPropTypes } from './commonPropTypes';
 

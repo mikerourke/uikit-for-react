@@ -13,24 +13,14 @@ class DotnavItem extends React.Component {
   };
 
   static propTypes = {
-    /** Apply an active state to the item. */
     active: PropTypes.bool,
-
     children: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
     ]),
-
-    /** Additional classes to apply to element. */
     className: PropTypes.string,
-
-    /** Path associated with the <a> within the element. */
     href: PropTypes.string,
-
-    /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
-
-    /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
   };
 

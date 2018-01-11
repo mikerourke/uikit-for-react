@@ -7,6 +7,7 @@ import {
   commonPropTypes,
   getElementType,
   getOptionsString,
+  UIK,
 } from '../../lib';
 
 class Icon extends React.Component {
@@ -16,28 +17,13 @@ class Icon extends React.Component {
   };
 
   static propTypes = {
-    /** HTML element to use for the component. */
     as: PropTypes.oneOf(['a', 'span']),
-
-    /** Contents to display in the element. */
     children: PropTypes.node.isRequired,
-
-    /** Additional classes to apply to element. */
     className: PropTypes.string,
-
-    /** Reset the default link styling to a more muted color when using an icon inside an anchor. */
     link: PropTypes.bool,
-
-    /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
-
-    /** Name of the UIkit icon. */
-    name: PropTypes.string,
-
-    /** Options for adding spacing between elements and their content. */
+    name: PropTypes.oneOf(UIK.ICON_NAMES),
     padding: commonPropTypes.padding,
-
-    /** Multiply the icon size by the specified value. */
     ratio: PropTypes.number,
   };
 

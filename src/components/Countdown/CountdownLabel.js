@@ -16,34 +16,17 @@ class CountdownLabel extends React.Component {
   };
 
   static propTypes = {
-    /** HTML element to use for the component. */
     as: PropTypes.oneOf(['div', 'span']),
-
-    /** Contents to display in the element. */
     children: PropTypes.node.isRequired,
-
-    /** Additional classes to apply to element. */
     className: PropTypes.string,
-
-    /** Hide the element or hide at specific breakpoints. */
     hidden: commonPropTypes.hidden,
-
-    /** Hide the element without removing it from the document flow. */
     invisible: PropTypes.oneOf([true, false, 'hover']),
-
-    /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
-
-    /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
-
-    /** Align text horizontally to a specific location or specify breakpoints. */
     textAlign: PropTypes.oneOfType([
       PropTypes.oneOf([...UIK.HORIZONTAL_POSITIONS, 'justify']),
       commonPropTypes.getForBreakpoints(PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS)),
     ]),
-
-    /** Breakpoint at which to show the element (or toggle on hover). */
     visible: commonPropTypes.visible,
   };
 

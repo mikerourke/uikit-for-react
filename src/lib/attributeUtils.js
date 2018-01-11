@@ -1,5 +1,7 @@
 import {
+  flatten,
   get,
+  isArray,
   isNil,
   isObjectLike,
   isUndefined,

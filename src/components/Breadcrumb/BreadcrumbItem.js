@@ -9,19 +9,10 @@ class BreadcrumbItem extends React.Component {
   };
 
   static propTypes = {
-    /** Set the item to an active state. */
     active: PropTypes.bool,
-
-    /** Contents to display in the element. */
     children: PropTypes.node,
-
-    /** Disable the item in the list. */
     disabled: PropTypes.bool,
-
-    /** Additional classes to apply to element. */
     className: PropTypes.string,
-
-    /** Path for the inner component link */
     href: PropTypes.string,
   };
 

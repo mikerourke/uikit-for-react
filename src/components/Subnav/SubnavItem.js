@@ -15,18 +15,10 @@ class SubnavItem extends React.Component {
 
   static propTypes = {
     active: PropTypes.bool,
-
     children: PropTypes.node.isRequired,
-
-    /** Additional classes to apply to element. */
     className: PropTypes.string,
-
     href: PropTypes.string,
-
-    /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
-
-    /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
   };
 
@@ -47,9 +39,11 @@ class SubnavItem extends React.Component {
 
     const classes = classnames(
       className,
-      buildClassName('active', active),
       buildObjectOrValueClassNames('margin', margin),
       buildObjectOrValueClassNames('padding', padding),
+      {
+        [buildClassName('active')]: (active),
+      },
     );
 
     return (

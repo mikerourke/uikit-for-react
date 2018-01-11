@@ -16,22 +16,11 @@ class Panel extends React.Component {
 
   static propTypes = {
     animation: commonPropTypes.animation,
-
     background: commonPropTypes.background,
-
-    /** Contents to display in the component. */
     children: PropTypes.node.isRequired,
-
-    /** Additional classes to apply to element. */
     className: PropTypes.string,
-
-    /** Options for adding spacing between elements. */
     margin: commonPropTypes.margin,
-
-    /** Options for adding spacing between elements and their content. */
     padding: commonPropTypes.padding,
-
-    /** Indicates if the panel is scrollable. */
     scrollable: PropTypes.bool,
   };
 

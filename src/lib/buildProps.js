@@ -1,7 +1,7 @@
 import {
   first,
   flatten,
-  get,
+  get, isArray,
   isBoolean,
   isNil,
   isNull,
@@ -72,7 +72,10 @@ export const buildClassName = (...args) => {
   if (isUndefined(args)) throw new Error('Missing class element in buildClassName');
 
   const classElements = flatten([...args]);
-  if (classElements.length === 1) return sanitizeClassName(first(classElements));
+  if (classElements.length === 1) {
+    const classElement = first(classElements);
+    return (isNil(classElement)) ? '' : sanitizeClassName(classElement);
+  }
 
   // If an element has a value of "grid" for the "margin" prop, the values need to be reversed
   // to form the correct class name.
@@ -157,16 +160,32 @@ const getSanitizedBreakpoint = (propName) => {
   return validName;
 };
 
-const buildObjectClassNames = (ukName, objectProp) => keys(objectProp).map((propName) => {
-  if (propName.length === 1) return '';
-  const propValue = get(objectProp, propName);
-  if (propName === 'position') return buildPositionClassNames(ukName, propValue);
-  let suffix = propName;
-  // This is done to ensure the breakpoint value is valid.
-  if (startsWith(propName, 'at')) suffix = getSanitizedBreakpoint(propName);
-  return buildClassName(ukName, propValue, suffix);
-});
+/**
+ * Builds the class names from an object prop constructed from the key and value of the object.
+ * @param {Array|string} ukNames Name(s) to use when building the class name.
+ * @param {Object} objectProp Prop used to build the class names.
+ * @returns {Array}
+ */
+const buildObjectClassNames = (ukNames, objectProp) => (
+  keys(objectProp).map((propName) => {
+    if (propName.length === 1) return '';
+    const propValue = get(objectProp, propName);
+    if (propName === 'position') return buildPositionClassNames(ukNames, propValue);
+    let suffix = propName;
 
+    // This is done to ensure the breakpoint value is valid.
+    if (startsWith(propName, 'at')) suffix = getSanitizedBreakpoint(propName);
+    return buildClassName(ukNames, propValue, suffix);
+  })
+);
+
+/**
+ * Builds the class names that correspond with the "background" prop specified in the component.
+ *    This has a special handler because the blend mode, breakpoint, and size need to be
+ *    constructed.
+ * @param {Object} backgroundProps "background" prop from the component.
+ * @returns {string[]}
+ */
 const buildBackgroundClassNames = (backgroundProps) => {
   const validProps = pick(backgroundProps, ['fixed', 'norepeat', 'position']);
   return [
@@ -177,6 +196,18 @@ const buildBackgroundClassNames = (backgroundProps) => {
   ];
 };
 
+/**
+ * Builds the class names that correspond with the "margin" prop specified in the component.
+ *   This has a special handler because specifying a size for "all" will apply the margin to
+ *   all sides.
+ * @param {Object} marginProps "margin" prop from the component.
+ * @returns {string[]}
+ *
+ * @example
+ * const marginProps = { all: "large" };
+ * console.log(buildMarginClassNames(marginProps));
+ * > ['uk-margin-large-top', 'uk-margin-large-bottom', 'uk-margin-large-right', 'uk-margin-large-left']
+ */
 const buildMarginClassNames = (marginProps) => {
   const marginAllProp = get(marginProps, 'all', null);
   return (isNull(marginAllProp))
@@ -188,8 +219,7 @@ const buildMarginClassNames = (marginProps) => {
  * Loops through the keys associated with the specified prop value and builds the class
  *    names with the appropriate values based on the key. If the prop is a string or boolean value,
  *    it returns the built class value.
- * @param {string} ukName String value to prepend to the class.
- * @param {Object} objectProp Object prop associated with the component.
+ * @param {Object} args Class name elements and object prop (last argument).
  * @returns {Array|string}
  *
  * @example
@@ -197,11 +227,19 @@ const buildMarginClassNames = (marginProps) => {
  * console.log(buildObjectOrValueClassNames('width', this.props.width.breakpoint));
  * > ['uk-width-1-2@s', 'uk-width-1-5@m']
  */
-export const buildObjectOrValueClassNames = (ukName, objectProp) => {
-  if (!isPlainObject(objectProp)) return buildClassName(ukName, objectProp);
-  if (ukName === 'background') return buildBackgroundClassNames(objectProp);
-  if (ukName === 'margin') return buildMarginClassNames(objectProp);
-  return buildObjectClassNames(ukName, objectProp);
+export const buildObjectOrValueClassNames = (...args) => {
+  const ukNames = Array.from(args);
+  // The last argument should be the object prop from the component.
+  const objectProp = (ukNames.length > 1) ? ukNames.pop() : first(ukNames);
+
+  // If the last argument isn't a plain object, treat it as a string or boolean.
+  if (!isPlainObject(objectProp)) return buildClassName(ukNames, objectProp);
+
+  // Determine if a special className build function is required.
+  const firstUkName = first(ukNames);
+  if (firstUkName === 'background') return buildBackgroundClassNames(objectProp);
+  if (firstUkName === 'margin') return buildMarginClassNames(objectProp);
+  return buildObjectClassNames(ukNames, objectProp);
 };
 
 export const buildStyles = (props) => {
@@ -212,4 +250,10 @@ export const buildStyles = (props) => {
     ...style,
     backgroundImage: (isNull(imageUrl)) ? undefined : `url(${imageUrl})`,
   };
+};
+
+export const joinListProp = (prop, separator = ' ') => {
+  if (isNil(prop)) return '';
+  if (!isArray(prop)) return prop;
+  return flatten([prop]).join(separator);
 };
