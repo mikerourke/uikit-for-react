@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { flatten, isArray, isNil, get, noop, range } from 'lodash';
 import UIkit from 'uikit';
 import {
+  buildClassName,
   buildObjectOrValueClassNames,
   commonPropTypes,
   getElementType,
@@ -14,7 +15,7 @@ import AccordionContent from './AccordionContent';
 import AccordionItem from './AccordionItem';
 import AccordionTitle from './AccordionTitle';
 
-class Accordion extends React.Component {
+export default class Accordion extends React.Component {
   static meta = {
     name: 'Accordion',
     ukClass: 'uk-accordion',
@@ -24,7 +25,6 @@ class Accordion extends React.Component {
     animation: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.shape({
-        transition: PropTypes.oneOf(HTML.CSS_EASING),
         duration: PropTypes.number,
       }),
     ]),
@@ -33,6 +33,8 @@ class Accordion extends React.Component {
     className: PropTypes.string,
     collapsible: PropTypes.bool,
     defaultIndex: PropTypes.number,
+    hidden: commonPropTypes.hidden,
+    invisible: PropTypes.oneOf([true, false, 'hover']),
     margin: commonPropTypes.margin,
     multiple: PropTypes.bool,
     onBeforeHide: PropTypes.func,
@@ -49,13 +51,15 @@ class Accordion extends React.Component {
     selectorContent: PropTypes.string,
     selectorTargets: PropTypes.string,
     selectorToggle: PropTypes.string,
+    transition: PropTypes.oneOf(HTML.CSS_EASING),
+    visible: commonPropTypes.visible,
+    width: commonPropTypes.width,
   };
 
   static defaultProps = {
     as: 'ul',
     className: '',
     collapsible: true,
-    defaultIndex: false,
     multiple: false,
     openIndex: null,
   };
@@ -113,6 +117,8 @@ class Accordion extends React.Component {
       className,
       collapsible,
       defaultIndex,
+      hidden,
+      invisible,
       margin,
       multiple,
       onBeforeShow,
@@ -126,6 +132,9 @@ class Accordion extends React.Component {
       selectorContent,
       selectorTargets,
       selectorToggle,
+      transition,
+      visible,
+      width,
       ...rest
     } = this.props;
 
@@ -136,8 +145,12 @@ class Accordion extends React.Component {
     const classes = classnames(
       className,
       Accordion.meta.ukClass,
+      buildObjectOrValueClassNames('hidden', hidden),
+      buildClassName('invisible', invisible),
       buildObjectOrValueClassNames('margin', margin),
       buildObjectOrValueClassNames('padding', padding),
+      buildObjectOrValueClassNames('visible', visible),
+      buildObjectOrValueClassNames('width', width),
     );
 
     const componentOptions = getOptionsString({
@@ -149,7 +162,7 @@ class Accordion extends React.Component {
       multiple,
       targets: selectorTargets,
       toggle: selectorToggle,
-      transition: get(animation, 'transition'),
+      transition,
     });
 
     const Element = getElementType(Accordion, as, rest);
@@ -165,5 +178,3 @@ class Accordion extends React.Component {
     );
   }
 }
-
-export default Accordion;

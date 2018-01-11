@@ -29,12 +29,13 @@ const align = PropTypes.shape({
 
 const animation = PropTypes.oneOfType([
   PropTypes.oneOf(UIK.ANIMATIONS),
+  PropTypes.arrayOf(UIK.ANIMATIONS),
   PropTypes.shape({
-    nameOf: PropTypes.oneOf(UIK.ANIMATIONS),
-    reverse: PropTypes.bool,
-    fast: PropTypes.bool,
-    transformCenter: PropTypes.bool,
-    transformOrigin: PropTypes.shape(shapeForPosition),
+    name: PropTypes.oneOfType([
+      PropTypes.oneOf(UIK.ANIMATIONS),
+      PropTypes.arrayOf(UIK.ANIMATIONS),
+    ]),
+    duration: PropTypes.number,
   }),
 ]);
 
@@ -166,8 +167,14 @@ const visible = PropTypes.oneOfType([
   }),
 ]);
 
+const width = PropTypes.oneOfType([
+  PropTypes.oneOf(UIK.BASE_WIDTHS),
+  getForBreakpoints(PropTypes.oneOf(UIK.BASE_WIDTHS)),
+]);
+
 export default {
   getForBreakpoints,
+  shapeForPosition,
   align,
   animation,
   background,
@@ -182,4 +189,5 @@ export default {
   padding,
   position,
   visible,
+  width,
 };

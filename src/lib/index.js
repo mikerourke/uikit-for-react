@@ -13,6 +13,8 @@ export { default as commonPropTypes } from './commonPropTypes';
 
 export { default as getElementType } from './getElementType';
 
+export { default as generateSelector } from './generateSelector';
+
 export {
   buildMarginAttributeOptions,
   getOptionsString,

@@ -89,7 +89,7 @@ export const buildClassName = (...args) => {
   const classString = classElements
     .reduce((acc, element) => {
       if (isBoolean(element)) return acc;
-      if (element === 'nameOf') return acc;
+      if (element === 'name') return acc;
       const validElement = (/@/.test(element)) ? element : kebabCase(element);
       return [
         ...acc,
@@ -196,6 +196,13 @@ const buildBackgroundClassNames = (backgroundProps) => {
   ];
 };
 
+const buildBoxShadowClassNames = (boxShadowProps) => [
+  buildClassName('box', 'shadow', boxShadowProps),
+  buildClassName('box', 'shadow', get(boxShadowProps, 'size')),
+  buildClassName('box', 'shadow', 'hover', get(boxShadowProps, 'hoverSize')),
+  buildClassName('box', 'shadow', 'bottom', get(boxShadowProps, 'bottom')),
+];
+
 /**
  * Builds the class names that correspond with the "margin" prop specified in the component.
  *   This has a special handler because specifying a size for "all" will apply the margin to
@@ -237,9 +244,15 @@ export const buildObjectOrValueClassNames = (...args) => {
 
   // Determine if a special className build function is required.
   const firstUkName = first(ukNames);
-  if (firstUkName === 'background') return buildBackgroundClassNames(objectProp);
-  if (firstUkName === 'margin') return buildMarginClassNames(objectProp);
-  return buildObjectClassNames(ukNames, objectProp);
+  const classNameBuilder = {
+    background: buildBackgroundClassNames,
+    boxShadow: buildBoxShadowClassNames,
+    margin: buildMarginClassNames,
+    default: null,
+  }[firstUkName];
+  return (isNull(classNameBuilder))
+    ? buildObjectClassNames(ukNames, objectProp)
+    : classNameBuilder(objectProp);
 };
 
 export const buildStyles = (props) => {

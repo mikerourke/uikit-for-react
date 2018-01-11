@@ -2,22 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {
+  buildClassName,
   buildObjectOrValueClassNames,
   commonPropTypes,
-  generateSelector,
+  getElementType,
+  HTML,
 } from '../../lib';
-import ArticleBody from './ArticleBody';
-import ArticleLead from './ArticleLead';
-import ArticleMeta from './ArticleMeta';
-import ArticleTitle from './ArticleTitle';
 
-class Article extends React.Component {
+class ModalBody extends React.Component {
   static meta = {
-    name: 'Article',
-    ukClass: 'uk-article',
+    name: 'ModalBody',
+    ukClass: 'uk-modal-body',
   };
 
   static propTypes = {
+    as: PropTypes.string,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     margin: commonPropTypes.margin,
@@ -25,22 +24,13 @@ class Article extends React.Component {
   };
 
   static defaultProps = {
+    as: 'div',
     className: '',
   };
 
-  static Body = ArticleBody;
-  static Lead = ArticleLead;
-  static Meta = ArticleMeta;
-  static Title = ArticleTitle;
-
-  componentDidMount() {
-    console.log(this.selector);
-  }
-
-  handleRef = element => (this.ref = element);
-
   render() {
     const {
+      as,
       children,
       className,
       margin,
@@ -48,26 +38,23 @@ class Article extends React.Component {
       ...rest
     } = this.props;
 
-    this.selector = generateSelector();
-
     const classes = classnames(
       className,
-      Article.meta.ukClass,
-      this.selector,
+      ModalBody.meta.ukClass,
       buildObjectOrValueClassNames('margin', margin),
       buildObjectOrValueClassNames('padding', padding),
     );
 
+    const Element = getElementType(ModalBody, as, rest);
     return (
-      <article
+      <Element
         {...rest}
-        className={classes || undefined}
-        ref={this.handleRef}
+        className={classes}
       >
         {children}
-      </article>
+      </Element>
     );
   }
 }
 
-export default Article;
+export default ModalBody;

@@ -7,6 +7,7 @@ import {
   buildStyles,
   commonPropTypes,
 } from '../../lib';
+import { UIK } from '../../lib/constants';
 
 class Panel extends React.Component {
   static meta = {
@@ -15,7 +16,16 @@ class Panel extends React.Component {
   };
 
   static propTypes = {
-    animation: commonPropTypes.animation,
+    animation: PropTypes.oneOfType([
+      PropTypes.oneOf(UIK.ANIMATIONS),
+      PropTypes.shape({
+        name: PropTypes.oneOf(UIK.ANIMATIONS),
+        reverse: PropTypes.bool,
+        fast: PropTypes.bool,
+        transformCenter: PropTypes.bool,
+        transformOrigin: PropTypes.shape(commonPropTypes.shapeForPosition),
+      }),
+    ]),
     background: commonPropTypes.background,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,

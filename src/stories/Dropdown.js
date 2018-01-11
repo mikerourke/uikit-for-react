@@ -3,7 +3,6 @@ import faker from 'faker';
 import { storiesOf } from '@storybook/react';
 import Base from '../components/Base';
 import Button from '../components/Button';
-import Card from '../components/Card';
 import Dropdown from '../components/Dropdown';
 import Grid from '../components/Grid';
 import Container from '../components/Container';
@@ -46,15 +45,16 @@ storiesOf('Dropdown', module)
           toggle={<Button>Top Right</Button>}
           position="top-right"
         >
-          <Card>{message}</Card>
+          {message}
         </Dropdown>
       </Base>
       <Base inline>
         <Dropdown
           toggle={<Button>Bottom Justify</Button>}
           position="bottom-justify"
+          animation={{ name: ['slide-right', 'shake'] }}
         >
-          <Card>{message}</Card>
+          {message}
         </Dropdown>
       </Base>
       <Base inline>
@@ -62,7 +62,7 @@ storiesOf('Dropdown', module)
           toggle={<Button>Right Center</Button>}
           position="right-center"
         >
-          <Card>{message}</Card>
+          {message}
         </Dropdown>
       </Base>
     </Container>
@@ -83,7 +83,7 @@ storiesOf('Dropdown', module)
           onHidden={handleEvent('onHidden')}
           onStack={handleEvent('onStack')}
         >
-          <Card>{message}</Card>
+          {message}
         </Dropdown>
       </Container>
     );

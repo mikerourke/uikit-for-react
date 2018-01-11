@@ -2,45 +2,46 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {
+  buildClassName,
   buildObjectOrValueClassNames,
   commonPropTypes,
-  generateSelector,
+  getElementType,
+  HTML,
+  UIK,
 } from '../../lib';
-import ArticleBody from './ArticleBody';
-import ArticleLead from './ArticleLead';
-import ArticleMeta from './ArticleMeta';
-import ArticleTitle from './ArticleTitle';
 
-class Article extends React.Component {
+class Toggle extends React.Component {
   static meta = {
-    name: 'Article',
-    ukClass: 'uk-article',
+    name: 'Toggle',
+    ukClass: 'uk-toggle',
   };
 
   static propTypes = {
+    animation: commonPropTypes.animation,
+    as: PropTypes.oneOfType([
+      PropTypes.element,
+      PropTypes.oneOf(['a', 'button']),
+    ]),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     margin: commonPropTypes.margin,
+    mode: PropTypes.oneOfType([
+      PropTypes.oneOf([...UIK.MODES, 'media']),
+      PropTypes.arrayOf(UIK.MODES),
+    ]),
     padding: commonPropTypes.padding,
+    target: PropTypes.string,
+    classToggled: PropTypes.string,
   };
 
   static defaultProps = {
+    as: 'button',
     className: '',
   };
 
-  static Body = ArticleBody;
-  static Lead = ArticleLead;
-  static Meta = ArticleMeta;
-  static Title = ArticleTitle;
-
-  componentDidMount() {
-    console.log(this.selector);
-  }
-
-  handleRef = element => (this.ref = element);
-
   render() {
     const {
+      as,
       children,
       className,
       margin,
@@ -48,26 +49,23 @@ class Article extends React.Component {
       ...rest
     } = this.props;
 
-    this.selector = generateSelector();
-
     const classes = classnames(
       className,
-      Article.meta.ukClass,
-      this.selector,
+      Toggle.meta.ukClass,
       buildObjectOrValueClassNames('margin', margin),
       buildObjectOrValueClassNames('padding', padding),
     );
 
+    const Element = getElementType(Toggle, as, rest);
     return (
-      <article
+      <Element
         {...rest}
-        className={classes || undefined}
-        ref={this.handleRef}
+        className={classes}
       >
         {children}
-      </article>
+      </Element>
     );
   }
 }
 
-export default Article;
+export default Toggle;

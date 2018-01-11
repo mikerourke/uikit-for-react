@@ -89,6 +89,7 @@ export const UIK = {
   HORIZONTAL_POSITIONS,
   ICON_NAMES,
   LOCATIONS: ['top', 'bottom', 'left', 'right'],
+  MODES: ['click', 'hover'],
   SIZES,
   SPACING_MODIFIERS: [...SIZES, 'remove', 'auto'],
   TEXT_COLORS: ['muted', 'primary', 'success', 'warning', 'danger'],

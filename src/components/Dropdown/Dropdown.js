@@ -22,13 +22,7 @@ class Dropdown extends React.Component {
   };
 
   static propTypes = {
-    animation: PropTypes.shape({
-      name: PropTypes.oneOfType([
-        PropTypes.oneOf(UIK.ANIMATIONS),
-        PropTypes.arrayOf(UIK.ANIMATIONS),
-      ]),
-      duration: PropTypes.number,
-    }),
+    animation: commonPropTypes.animation,
     as: PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
     boundaryAlign: PropTypes.bool,
     children: PropTypes.node.isRequired,
@@ -61,7 +55,6 @@ class Dropdown extends React.Component {
   static defaultProps = {
     as: 'div',
     className: '',
-    shown: false,
   };
 
   componentDidMount() {
