@@ -31,5 +31,11 @@ module.exports = (baseConfig, env) => {
   additionalRules.forEach((rule) => {
     config.module.rules.push(rule);
   });
+  // This prevents all of the React HMR messages from showing up in the browser console.
+  const entryPreviews = config.entry.preview;
+  config.entry.preview = entryPreviews.map((entryPreview) => {
+    if (/webpack-hot-middleware/g.test(entryPreview)) return `${entryPreview}?noInfo=true`;
+    return entryPreview;
+  });
   return config;
 };

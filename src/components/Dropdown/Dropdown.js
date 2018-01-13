@@ -2,18 +2,18 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import UIkit from 'uikit';
-import { get, isNil, noop } from 'lodash';
+import { get, isNil, isPlainObject, noop } from 'lodash';
 import {
+  appendClassNamesToChildren,
   buildClassName,
   buildObjectOrValueClassNames,
   commonPropTypes,
-  joinListProp,
   getElementType,
   getOptionsString,
   HTML,
+  joinListProp,
   UIK,
 } from '../../lib';
-import Grid from '../Grid';
 
 class Dropdown extends React.Component {
   static meta = {
@@ -80,20 +80,12 @@ class Dropdown extends React.Component {
 
   handleRef = element => (this.ref = element);
 
-  renderChildren = () => (
-    React.Children.map(this.props.children, (child) => {
-      const getElementWithClass = elementClass => React.cloneElement(child, {
-        className: classnames(
-          child.className,
-          buildClassName(Dropdown.meta.ukClass, elementClass),
-        ),
-      });
-
-      if (child.type === Grid) return getElementWithClass('grid');
-      // TODO: Add this back in after Nav component is built.
-      // if (child.type === Nav) return getElementWithClass('nav');
-      return child;
-    })
+  renderChildren = () => appendClassNamesToChildren(
+    this.props.children,
+    {
+      Grid: buildClassName(Dropdown.meta.ukClass, 'grid'),
+      Nav: buildClassName(Dropdown.meta.ukClass, 'nav'),
+    },
   );
 
   render() {
@@ -136,16 +128,12 @@ class Dropdown extends React.Component {
       buildObjectOrValueClassNames('padding', padding),
     );
 
-    const animationNames = get(animation, 'name', []).map(name => (
-      buildClassName('animation', name)),
-    );
     const componentOptions = getOptionsString({
-      animation: joinListProp(animationNames),
+      animation,
       boundary: selectorBoundary,
       boundaryAlign,
       delayHide,
       delayShow,
-      duration: get(animation, 'duration'),
       flip,
       mode: joinListProp(mode, ','),
       offset,

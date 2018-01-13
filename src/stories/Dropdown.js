@@ -52,7 +52,7 @@ storiesOf('Dropdown', module)
         <Dropdown
           toggle={<Button>Bottom Justify</Button>}
           position="bottom-justify"
-          animation={{ name: ['slide-right', 'shake'] }}
+          animation={{ name: ['slide-right', 'fade'] }}
         >
           {message}
         </Dropdown>

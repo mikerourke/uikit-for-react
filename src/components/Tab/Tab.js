@@ -6,9 +6,10 @@ import { get, noop } from 'lodash';
 import {
   buildClassName,
   buildObjectOrValueClassNames,
-  commonPropTypes, findChildByType,
-  joinListProp,
+  commonPropTypes,
+  findChildByType,
   getOptionsString,
+  joinListProp,
   UIK,
 } from '../../lib';
 import TabItem from './TabItem';

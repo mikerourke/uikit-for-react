@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { without } from 'lodash';
+import { isNil, without } from 'lodash';
 import {
+  buildAttributeOptions,
   buildClassName,
-  buildMarginAttributeOptions,
   buildObjectOrValueClassNames,
   commonPropTypes,
   getElementType,
@@ -18,7 +18,7 @@ class Base extends React.Component {
     background: commonPropTypes.background,
     border: PropTypes.oneOf(['circle', 'rounded']),
     boxShadow: commonPropTypes.boxShadow,
-    children: PropTypes.node,
+    children: PropTypes.node.isRequired,
     className: PropTypes.string,
     clearfix: PropTypes.bool,
     display: PropTypes.oneOf(['block', 'inline', 'inline-block']),
@@ -26,21 +26,20 @@ class Base extends React.Component {
     firstColumn: PropTypes.string,
     float: PropTypes.oneOf(['left', 'right']),
     height: PropTypes.oneOf(['full', ...without(UIK.SIZES, 'xlarge')]),
+    heightMatch: commonPropTypes.heightMatch,
     hidden: commonPropTypes.hidden,
     inline: PropTypes.bool,
     inverse: PropTypes.oneOf(['dark', 'light']),
     invisible: PropTypes.oneOf([true, false, 'hover']),
     margin: commonPropTypes.margin,
     maxHeight: PropTypes.oneOf(without(UIK.SIZES, 'xlarge')),
-    nextRow: PropTypes.shape({
-      spacing: PropTypes.oneOf(UIK.SPACING_MODIFIERS),
-      location: PropTypes.oneOf(UIK.LOCATIONS),
-    }),
+    nextRow: commonPropTypes.nextRow,
     overflow: PropTypes.oneOf(['auto', 'hidden']),
     padding: commonPropTypes.padding,
     position: commonPropTypes.position,
     resize: PropTypes.oneOf([true, 'vertical']),
     responsive: PropTypes.oneOf([false, 'height', 'width']),
+    viewport: commonPropTypes.viewport,
     visible: commonPropTypes.visible,
     width: commonPropTypes.width,
   };
@@ -60,8 +59,6 @@ class Base extends React.Component {
       className,
       clearfix,
       display,
-      dynamic,
-      firstColumn,
       float,
       height,
       hidden,
@@ -70,7 +67,6 @@ class Base extends React.Component {
       invisible,
       margin,
       maxHeight,
-      nextRow,
       overflow,
       padding,
       position,
@@ -81,33 +77,44 @@ class Base extends React.Component {
       ...rest
     } = this.props;
 
+    if (!isNil(clearfix) && !isNil(float)) {
+      throw new Error('You cannot only specify the "clearfix" prop or "float" prop in Base, not both.');
+    }
+
     const classes = classnames(
       className,
       buildObjectOrValueClassNames('background', background),
       buildClassName('border', border),
       buildObjectOrValueClassNames('boxShadow', boxShadow),
       buildClassName('display', display),
+      buildClassName('float', float),
       buildClassName((height === 'full') ? ['height', '1', '1'] : ['height', height]),
+      buildClassName('height', 'max', maxHeight),
       buildObjectOrValueClassNames('hidden', hidden),
       buildClassName(inverse),
+      buildClassName('inline', inline),
       buildClassName('invisible', invisible),
       buildObjectOrValueClassNames('margin', margin),
+      buildClassName('overflow', overflow),
       buildObjectOrValueClassNames('padding', padding),
       buildObjectOrValueClassNames('position', position),
+      buildClassName('responsive', responsive),
       buildObjectOrValueClassNames('visible', visible),
       buildObjectOrValueClassNames('width', width),
       {
         [buildClassName('clearfix')]: (clearfix),
-        [buildClassName('inline')]: (inline),
+        [buildClassName('preserve', 'width')]: (responsive === false),
+        [buildClassName('resize')]: (resize),
       },
     );
 
+    const { dataAttributes, validProps } = buildAttributeOptions(rest);
     const Element = getElementType(Base, as, rest);
     return (
       <Element
-        {...rest}
+        {...validProps}
         className={classes || undefined}
-        {...buildMarginAttributeOptions(dynamic, firstColumn, nextRow)}
+        {...dataAttributes}
       >
         {children}
       </Element>

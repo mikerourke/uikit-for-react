@@ -244,15 +244,10 @@ export const buildObjectOrValueClassNames = (...args) => {
 
   // Determine if a special className build function is required.
   const firstUkName = first(ukNames);
-  const classNameBuilder = {
-    background: buildBackgroundClassNames,
-    boxShadow: buildBoxShadowClassNames,
-    margin: buildMarginClassNames,
-    default: null,
-  }[firstUkName];
-  return (isNull(classNameBuilder))
-    ? buildObjectClassNames(ukNames, objectProp)
-    : classNameBuilder(objectProp);
+  if (firstUkName === 'background') return buildBackgroundClassNames(objectProp);
+  if (firstUkName === 'boxShadow') return buildBoxShadowClassNames(objectProp);
+  if (firstUkName === 'margin') return buildMarginClassNames(objectProp);
+  return buildObjectClassNames(ukNames, objectProp);
 };
 
 export const buildStyles = (props) => {

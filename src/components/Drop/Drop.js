@@ -4,16 +4,16 @@ import classnames from 'classnames';
 import UIkit from 'uikit';
 import { get, isNil, noop } from 'lodash';
 import {
+  appendClassNamesToChildren,
   buildClassName,
   buildObjectOrValueClassNames,
   commonPropTypes,
   getElementType,
   getOptionsString,
-  joinListProp,
   HTML,
+  joinListProp,
   UIK,
 } from '../../lib';
-import Grid from '../Grid';
 
 class Drop extends React.Component {
   static meta = {
@@ -65,7 +65,6 @@ class Drop extends React.Component {
   static defaultProps = {
     as: 'div',
     className: '',
-    shown: false,
   };
 
   componentDidMount() {
@@ -91,18 +90,11 @@ class Drop extends React.Component {
 
   handleRef = element => (this.ref = element);
 
-  renderChildren = () => (
-    React.Children.map(this.props.children, (child) => {
-      if (child.type === Grid) {
-        return React.cloneElement(child, {
-          className: classnames(
-            child.className,
-            buildClassName(Drop.meta.ukClass, 'grid'),
-          ),
-        });
-      }
-      return child;
-    })
+  renderChildren = () => appendClassNamesToChildren(
+    this.props.children,
+    {
+      Grid: buildClassName(Drop.meta.ukClass, 'grid'),
+    },
   );
 
   render() {
@@ -147,16 +139,12 @@ class Drop extends React.Component {
       buildObjectOrValueClassNames('width', width),
     );
 
-    const animationNames = get(animation, 'name', []).map(name => (
-      buildClassName('animation', name)),
-    );
     const componentOptions = getOptionsString({
-      animation: joinListProp(animationNames),
+      animation,
       boundary: selectorBoundary,
       boundaryAlign,
       delayHide,
       delayShow,
-      duration: get(animation, 'duration'),
       flip,
       mode: joinListProp(mode, ','),
       offset,

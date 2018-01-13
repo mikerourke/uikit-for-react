@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Button from '../components/Button';
 import Container from '../components/Container';
+import Dropdown from '../components/Dropdown';
 
 Button.displayName = 'Button';
 
@@ -77,6 +78,9 @@ storiesOf('Button', module)
   // TODO: Add dropdown after complete.
   .add('Button with dropdowns', () => (
     <Container margin={{ all: 'large' }}>
-      <Button>Dropdown</Button>
+      <Button.Group>
+        <Dropdown toggle={<Button>Dropdown</Button>}>
+        </Dropdown>
+      </Button.Group>
     </Container>
   ));

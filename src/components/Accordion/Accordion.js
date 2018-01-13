@@ -1,21 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { flatten, isArray, isNil, get, noop, range } from 'lodash';
+import { flatten, get, isArray, isNil, max, noop, without } from 'lodash';
 import UIkit from 'uikit';
 import {
+  buildAttributeOptions,
   buildClassName,
   buildObjectOrValueClassNames,
   commonPropTypes,
   getElementType,
   getOptionsString,
   HTML,
+  UIK,
 } from '../../lib';
 import AccordionContent from './AccordionContent';
 import AccordionItem from './AccordionItem';
 import AccordionTitle from './AccordionTitle';
+import Base from '../Base';
 
-export default class Accordion extends React.Component {
+export default class Accordion extends Base {
   static meta = {
     name: 'Accordion',
     ukClass: 'uk-accordion',
@@ -28,14 +31,9 @@ export default class Accordion extends React.Component {
         duration: PropTypes.number,
       }),
     ]),
-    as: PropTypes.oneOf(['ul', 'ol']),
-    children: PropTypes.node.isRequired,
-    className: PropTypes.string,
     collapsible: PropTypes.bool,
     defaultIndex: PropTypes.number,
-    hidden: commonPropTypes.hidden,
-    invisible: PropTypes.oneOf([true, false, 'hover']),
-    margin: commonPropTypes.margin,
+    hideOpenAnimation: PropTypes.bool,
     multiple: PropTypes.bool,
     onBeforeHide: PropTypes.func,
     onBeforeShow: PropTypes.func,
@@ -47,21 +45,15 @@ export default class Accordion extends React.Component {
       PropTypes.number,
       PropTypes.arrayOf(PropTypes.number),
     ]),
-    padding: commonPropTypes.padding,
     selectorContent: PropTypes.string,
     selectorTargets: PropTypes.string,
     selectorToggle: PropTypes.string,
     transition: PropTypes.oneOf(HTML.CSS_EASING),
-    visible: commonPropTypes.visible,
-    width: commonPropTypes.width,
   };
 
   static defaultProps = {
     as: 'ul',
     className: '',
-    collapsible: true,
-    multiple: false,
-    openIndex: null,
   };
 
   static Content = AccordionContent;
@@ -92,17 +84,18 @@ export default class Accordion extends React.Component {
     // Don't open or close any items if the user didn't specify an openIndex prop.
     if (isNil(props.openIndex)) return;
 
-    const animate = (this.props.animation !== false);
+    const animate = (get(props, 'hideOpenAnimation', false) === false);
     const openIndices = flatten([props.openIndex]);
-    const { childNodes = [] } = this.ref;
+    const maxAllowed = (React.Children.count(props.children) - 1);
+    if (max(openIndices) > maxAllowed) {
+      throw new Error(`Invalid openIndex prop passed to Accordion, maximum allowed value is ${maxAllowed}.`);
+    }
 
-    // Loop through all child nodes.
-    range(0, childNodes.length).forEach((itemIndex) => {
-      const itemClasses = get(childNodes[itemIndex], 'classList', []);
-      const isOpen = [...itemClasses].includes('uk-open');
-      const shouldBeOpen = openIndices.includes(itemIndex);
+    React.Children.toArray(props.children).forEach((child, childIndex) => {
+      const isOpen = /uk-open/g.test(child.props.className);
+      const shouldBeOpen = openIndices.includes(childIndex);
       if ((isOpen && !shouldBeOpen) || (!isOpen && shouldBeOpen)) {
-        UIkit.accordion(this.ref).toggle(itemIndex, animate);
+        UIkit.accordion(this.ref).toggle(childIndex, animate);
       }
     });
   };
@@ -118,6 +111,7 @@ export default class Accordion extends React.Component {
       collapsible,
       defaultIndex,
       hidden,
+      hideOpenAnimation,
       invisible,
       margin,
       multiple,
@@ -135,6 +129,18 @@ export default class Accordion extends React.Component {
       transition,
       visible,
       width,
+      background,
+      border,
+      boxShadow,
+      clearfix,
+      display,
+      float,
+      height,
+      maxHeight,
+      overflow,
+      position,
+      resize,
+      responsive,
       ...rest
     } = this.props;
 
@@ -145,33 +151,49 @@ export default class Accordion extends React.Component {
     const classes = classnames(
       className,
       Accordion.meta.ukClass,
+      buildObjectOrValueClassNames('background', background),
+      buildClassName('border', border),
+      buildObjectOrValueClassNames('boxShadow', boxShadow),
+      buildClassName('display', display),
+      buildClassName('float', float),
+      buildClassName((height === 'full') ? ['height', '1', '1'] : ['height', height]),
+      buildClassName('height', 'max', maxHeight),
       buildObjectOrValueClassNames('hidden', hidden),
       buildClassName('invisible', invisible),
       buildObjectOrValueClassNames('margin', margin),
+      buildClassName('overflow', overflow),
       buildObjectOrValueClassNames('padding', padding),
+      buildObjectOrValueClassNames('position', position),
+      buildClassName('responsive', responsive),
       buildObjectOrValueClassNames('visible', visible),
       buildObjectOrValueClassNames('width', width),
+      {
+        [buildClassName('clearfix')]: (clearfix),
+        [buildClassName('preserve', 'width')]: (responsive === false),
+        [buildClassName('resize')]: (resize),
+      },
     );
 
     const componentOptions = getOptionsString({
       active: defaultIndex,
-      animation: (animation !== false),
+      animation,
       collapsible,
       content: selectorContent,
-      duration: get(animation, 'duration'),
       multiple,
       targets: selectorTargets,
       toggle: selectorToggle,
       transition,
     });
 
+    const { dataAttributes, validProps } = buildAttributeOptions(rest);
     const Element = getElementType(Accordion, as, rest);
     return (
       <Element
-        {...rest}
+        {...validProps}
         className={classes || undefined}
         ref={this.handleRef}
         data-uk-accordion={componentOptions}
+        {...dataAttributes}
       >
         {children}
       </Element>

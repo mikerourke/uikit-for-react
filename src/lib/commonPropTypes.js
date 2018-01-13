@@ -27,14 +27,16 @@ const align = PropTypes.shape({
   }),
 });
 
+const animationName = PropTypes.oneOfType([
+  PropTypes.oneOf(UIK.ANIMATIONS),
+  PropTypes.arrayOf(UIK.ANIMATIONS),
+]);
+
 const animation = PropTypes.oneOfType([
   PropTypes.oneOf(UIK.ANIMATIONS),
   PropTypes.arrayOf(UIK.ANIMATIONS),
   PropTypes.shape({
-    name: PropTypes.oneOfType([
-      PropTypes.oneOf(UIK.ANIMATIONS),
-      PropTypes.arrayOf(UIK.ANIMATIONS),
-    ]),
+    name: animationName,
     duration: PropTypes.number,
   }),
 ]);
@@ -73,20 +75,8 @@ const drag = PropTypes.oneOfType([
 const heightMatch = PropTypes.oneOfType([
   PropTypes.bool,
   PropTypes.shape({
-    target: PropTypes.string,
+    selectorTarget: PropTypes.string,
     row: PropTypes.bool,
-  }),
-]);
-
-const heightViewport = PropTypes.oneOfType([
-  PropTypes.bool,
-  PropTypes.shape({
-    offsetTop: PropTypes.bool,
-    offsetBottom: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.number,
-    ]),
-    expand: PropTypes.bool,
   }),
 ]);
 
@@ -122,6 +112,11 @@ const margin = PropTypes.oneOfType([
     all: forSpacingAtLocation,
   }),
 ]);
+
+const nextRow = PropTypes.shape({
+  spacing: PropTypes.oneOf(UIK.SPACING_MODIFIERS),
+  location: PropTypes.oneOf(UIK.LOCATIONS),
+});
 
 const order = PropTypes.oneOfType([
   PropTypes.oneOf(['first', 'last']),
@@ -159,6 +154,19 @@ const position = PropTypes.oneOfType([
   }),
 ]);
 
+const viewport = PropTypes.oneOfType([
+  PropTypes.bool,
+  PropTypes.shape({
+    offsetTop: PropTypes.bool,
+    offsetBottom: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.number,
+    ]),
+    expand: PropTypes.bool,
+    minHeight: PropTypes.number,
+  }),
+]);
+
 const visible = PropTypes.oneOfType([
   PropTypes.oneOf(UIK.BREAKPOINTS),
   PropTypes.shape({
@@ -177,17 +185,19 @@ export default {
   shapeForPosition,
   align,
   animation,
+  animationName,
   background,
   boxShadow,
   drag,
   heightMatch,
-  heightViewport,
   hidden,
   leader,
   margin,
+  nextRow,
   order,
   padding,
   position,
+  viewport,
   visible,
   width,
 };
