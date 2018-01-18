@@ -19,7 +19,8 @@ export default class BreadcrumbItem extends Block {
   };
 
   static defaultProps = {
-    href: '#',
+    active: false,
+    disabled: false,
   };
 
   render() {

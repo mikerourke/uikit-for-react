@@ -1,26 +1,24 @@
 import React from 'react';
 import UIkit from 'uikit';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 import {
-  buildObjectOrValueClassNames,
-  commonPropTypes,
   getElementType,
   getOptionsString,
-  HTML,
 } from '../../lib';
+import { Block } from '../Base';
 
-class Sticky extends React.Component {
+export default class Sticky extends Block {
   static meta = {
     name: 'Sticky',
   };
 
   static propTypes = {
+    ...Block.propTypes,
     animation: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.string,
     ]),
-    as: PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
     bottom: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.number,
@@ -30,7 +28,6 @@ class Sticky extends React.Component {
     className: PropTypes.string,
     clsActive: PropTypes.string,
     clsInactive: PropTypes.string,
-    margin: commonPropTypes.margin,
     media: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string,
@@ -38,7 +35,6 @@ class Sticky extends React.Component {
     offset: PropTypes.number,
     onActive: PropTypes.func,
     onInactive: PropTypes.func,
-    padding: commonPropTypes.padding,
     showOnUp: PropTypes.bool,
     target: PropTypes.bool,
     top: PropTypes.oneOfType([
@@ -49,17 +45,7 @@ class Sticky extends React.Component {
   };
 
   static defaultProps = {
-    animation: false,
     as: 'div',
-    bottom: false,
-    clsActive: 'uk-active',
-    clsInactive: '',
-    media: false,
-    offset: 0,
-    showOnUp: false,
-    target: false,
-    top: 0,
-    widthElement: false,
   };
 
   componentDidMount() {
@@ -71,6 +57,13 @@ class Sticky extends React.Component {
 
   render() {
     const {
+      attributes,
+      blockClasses,
+      blockStyle,
+      unhandledProps,
+    } = this.getBlockElements(this.props);
+
+    const {
       animation,
       as,
       bottom,
@@ -78,8 +71,6 @@ class Sticky extends React.Component {
       className,
       clsActive,
       clsInactive,
-      margin,
-      padding,
       media,
       offset,
       showOnUp,
@@ -87,12 +78,11 @@ class Sticky extends React.Component {
       top,
       widthElement,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     const classes = classnames(
       className,
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
+      blockClasses,
     );
 
     const componentOptions = getOptionsString({
@@ -114,12 +104,12 @@ class Sticky extends React.Component {
         {...rest}
         className={classes || undefined}
         ref={this.handleRef}
+        style={blockStyle}
         data-uk-sticky={componentOptions}
+        {...attributes}
       >
         {children}
       </Element>
     );
   }
 }
-
-export default Sticky;

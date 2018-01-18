@@ -5,52 +5,74 @@ import UIkit from 'uikit';
 import { get, noop } from 'lodash';
 import {
   buildClassName,
-  buildObjectOrValueClassNames,
-  commonPropTypes,
-  getOptionsString, UIK,
+  getOptionsString,
+  UIK,
 } from '../../lib';
-import ModalBody from './ModalBody';
-import ModalDialog from './ModalDialog';
+import { Block } from '../Base';
+import Close from '../Close';
+import ModalContent from './ModalContent';
 import ModalFooter from './ModalFooter';
 import ModalHeader from './ModalHeader';
 import ModalTitle from './ModalTitle';
 
-class Modal extends React.Component {
+export default class Modal extends Block {
   static meta = {
     name: 'Modal',
     ukClass: 'uk-modal',
   };
 
   static propTypes = {
+    ...Block.propTypes,
     alignItems: PropTypes.oneOf(UIK.FLEX_VERTICAL_MODIFIERS),
     bgClose: PropTypes.bool,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
+    closeButton: PropTypes.bool,
+    closeOptions: PropTypes.shape({
+      ...Close.propTypes,
+      outside: PropTypes.bool,
+    }),
     container: PropTypes.bool,
+    dialogOptions: PropTypes.shape(Block.propTypes),
     escClose: PropTypes.bool,
     full: PropTypes.bool,
     justifyContent: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-      commonPropTypes.getForBreakpoints(PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS)),
+      PropTypes.shape({
+        atSm: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
+        atMd: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
+        atLg: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
+        atXl: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
+      }),
     ]),
-    margin: commonPropTypes.margin,
     onBeforeHide: PropTypes.func,
     onBeforeShow: PropTypes.func,
     onHidden: PropTypes.func,
     onHide: PropTypes.func,
     onShow: PropTypes.func,
     onShown: PropTypes.func,
-    padding: commonPropTypes.padding,
+    padContent: PropTypes.bool,
     selectorContainer: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.string,
     ]),
     shown: PropTypes.bool,
     stack: PropTypes.bool,
+    toggle: PropTypes.element,
   };
 
-  static Body = ModalBody;
-  static Dialog = ModalDialog;
+  static defaultProps = {
+    bgClose: true,
+    closeButton: false,
+    container: false,
+    escClose: true,
+    full: false,
+    padContent: false,
+    shown: false,
+    stack: false,
+  };
+
+  static Content = ModalContent;
   static Footer = ModalFooter;
   static Header = ModalHeader;
   static Title = ModalTitle;
@@ -78,35 +100,47 @@ class Modal extends React.Component {
 
   render() {
     const {
+      attributes,
+      blockClasses,
+      blockStyle,
+      unhandledProps,
+    } = this.getBlockElements(this.props);
+
+    const {
       alignItems,
       bgClose,
       children,
       className,
+      closeButton,
+      closeOptions,
       container,
+      dialogOptions,
       escClose,
       full,
       justifyContent,
-      margin,
       onBeforeHide,
       onBeforeShow,
       onHidden,
       onHide,
       onShow,
       onShown,
-      padding,
+      padContent,
       selectorContainer,
       shown,
       stack,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     const classes = classnames(
       className,
+      blockClasses,
       Modal.meta.ukClass,
-      buildObjectOrValueClassNames('flex', alignItems),
-      buildObjectOrValueClassNames('flex', justifyContent),
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
+      buildClassName('flex', alignItems),
+      buildClassName('flex', justifyContent),
+      buildClassName('flex', get(justifyContent, 'atSm'), '@s'),
+      buildClassName('flex', get(justifyContent, 'atMd'), '@m'),
+      buildClassName('flex', get(justifyContent, 'atLg'), '@l'),
+      buildClassName('flex', get(justifyContent, 'atXl'), '@xl'),
       {
         [buildClassName(Modal.meta.ukClass, 'container')]: (container),
         [buildClassName(Modal.meta.ukClass, 'full')]: (full),
@@ -120,17 +154,37 @@ class Modal extends React.Component {
       container: selectorContainer,
     });
 
+    const closeOutside = get(closeOptions, 'outside', false);
+    const closeClasses = classnames(
+      get(closeOptions, 'className', ''),
+      {
+        [buildClassName(Modal.meta.ukClass, 'close', 'default')]: (closeOutside === false),
+        [buildClassName(Modal.meta.ukClass, 'close', 'outside')]: (closeOutside === true),
+      },
+    );
+
+    const dialogClasses = classnames(
+      get(dialogOptions, 'className', ''),
+      buildClassName(Modal.meta.ukClass, 'dialog'),
+      {
+        [buildClassName(Modal.meta.ukClass, 'body')]: (padContent),
+      },
+    );
+
     return (
       <div
         {...rest}
         className={classes}
         ref={this.handleRef}
+        style={blockStyle}
         data-uk-modal={componentOptions}
+        {...attributes}
       >
-        {children}
+        <div {...dialogOptions} className={dialogClasses}>
+          {closeButton && <Close {...closeOptions} className={closeClasses} />}
+          {children}
+        </div>
       </div>
     );
   }
 }
-
-export default Modal;

@@ -18,7 +18,7 @@ export default class Icon extends Inline {
   static propTypes = {
     ...Inline.propTypes,
     as: PropTypes.oneOf(['a', 'span']),
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     className: PropTypes.string,
     link: PropTypes.bool,
     name: PropTypes.oneOf(UIK.ICON_NAMES),
@@ -32,6 +32,7 @@ export default class Icon extends Inline {
 
   render() {
     const {
+      attributes,
       inlineClasses,
       inlineStyle,
       unhandledProps,
@@ -68,6 +69,7 @@ export default class Icon extends Inline {
         className={classes || undefined}
         style={inlineStyle}
         data-uk-icon={attributeOptions}
+        {...attributes}
       >
         {children}
       </Element>

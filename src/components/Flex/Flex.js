@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get } from 'lodash';
+import { get, omit } from 'lodash';
 import {
   buildClassName,
-  buildStyles,
   getElementType,
   HTML,
   UIK,
@@ -18,8 +17,7 @@ export default class Flex extends Block {
   };
 
   static propTypes = {
-    ...Block.propTypes,
-    alignItems: PropTypes.oneOf(UIK.FLEX_VERTICAL_MODIFIERS),
+    ...omit(Block.propTypes, 'flex'),
     as: PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node.isRequired,
     childWidth: PropTypes.oneOfType([
@@ -32,24 +30,7 @@ export default class Flex extends Block {
       }),
     ]),
     className: PropTypes.string,
-    direction: PropTypes.shape({
-      as: PropTypes.oneOf(['column', 'row']),
-      reverse: PropTypes.bool,
-    }),
     inline: PropTypes.bool,
-    justifyContent: PropTypes.oneOfType([
-      PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-      PropTypes.shape({
-        atSm: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-        atMd: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-        atLg: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-        atXl: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-      }),
-    ]),
-    wrap: PropTypes.shape({
-      type: PropTypes.oneOf(['nowrap', 'reverse', 'wrap']),
-      alignment: PropTypes.oneOf(UIK.FLEX_VERTICAL_MODIFIERS),
-    }),
   };
 
   static defaultProps = {
@@ -71,14 +52,9 @@ export default class Flex extends Block {
       children,
       childWidth,
       className,
-      direction,
       inline,
-      justifyContent,
-      wrap,
       ...rest
     } = unhandledProps;
-
-    const isReverse = get(direction, 'reverse', false);
 
     const classes = classnames(
       className,
@@ -90,26 +66,16 @@ export default class Flex extends Block {
       buildClassName('child', 'width', get(childWidth, 'atMd'), '@m'),
       buildClassName('child', 'width', get(childWidth, 'atLg'), '@l'),
       buildClassName('child', 'width', get(childWidth, 'atXl'), '@xl'),
-      buildClassName(Flex.meta.ukClass, get(direction, 'as'), (isReverse ? 'reverse' : '')),
-      buildClassName(Flex.meta.ukClass, justifyContent),
-      buildClassName(Flex.meta.ukClass, get(justifyContent, 'atSm'), '@s'),
-      buildClassName(Flex.meta.ukClass, get(justifyContent, 'atMd'), '@m'),
-      buildClassName(Flex.meta.ukClass, get(justifyContent, 'atLg'), '@l'),
-      buildClassName(Flex.meta.ukClass, get(justifyContent, 'atXl'), '@xl'),
-      buildClassName(Flex.meta.ukClass, get(wrap, 'type')),
-      buildClassName(Flex.meta.ukClass, get(wrap, 'alignment')),
       {
         [buildClassName(Flex.meta.ukClass, 'inline')]: (inline),
       },
     );
-    const styles = buildStyles(this.props);
 
     const Element = getElementType(Flex, this.props);
     return (
       <Element
         {...rest}
         className={classes || undefined}
-        style={styles}
         style={blockStyle}
         {...attributes}
       >

@@ -1,42 +1,46 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { isObject } from 'lodash';
-import {
-  buildClassName,
-  buildObjectOrValueClassNames,
-  commonPropTypes,
-} from '../../lib';
+import { isObject, omit } from 'lodash';
+import { buildClassName } from '../../lib';
+import { Block } from '../Base';
 
-class SubnavItem extends React.Component {
+export default class SubnavItem extends Block {
   static meta = {
     name: 'SubnavItem',
   };
 
   static propTypes = {
+    ...omit(Block.propTypes, 'as'),
     active: PropTypes.bool,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     href: PropTypes.string,
-    margin: commonPropTypes.margin,
-    padding: commonPropTypes.padding,
+  };
+
+  static defaultProps = {
+    active: false,
   };
 
   render() {
+    const {
+      attributes,
+      blockClasses,
+      blockStyle,
+      unhandledProps,
+    } = this.getBlockElements(this.props);
+
     const {
       active,
       children,
       className,
       href,
-      margin,
-      padding,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     const classes = classnames(
       className,
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
+      blockClasses,
       {
         [buildClassName('active')]: (active),
       },
@@ -46,11 +50,11 @@ class SubnavItem extends React.Component {
       <li
         {...rest}
         className={classes || undefined}
+        style={blockStyle}
+        {...attributes}
       >
         {(isObject(children)) ? children : <a href={href}>{children}</a>}
       </li>
     );
   }
 }
-
-export default SubnavItem;

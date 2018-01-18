@@ -1,82 +1,97 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { isNil } from 'lodash';
+import { omit } from 'lodash';
 import {
   buildClassName,
-  buildObjectOrValueClassNames,
-  commonPropTypes,
   getOptionsString,
-  getIfHasChildType,
   HTML,
   UIK,
 } from '../../lib';
+import { Block } from '../Base';
 
-class Nav extends React.Component {
+export default class Nav extends Block {
   static meta = {
     name: 'Nav',
     ukClass: 'uk-nav',
   };
 
   static propTypes = {
+    ...omit(Block.propTypes, 'as'),
     activeIndex: PropTypes.number,
     accordion: PropTypes.bool,
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.ANIMATIONS),
       PropTypes.arrayOf(UIK.ANIMATIONS),
       PropTypes.shape({
-        in: commonPropTypes.animationName,
-        out: commonPropTypes.animationName,
+        in: PropTypes.oneOfType([
+          PropTypes.oneOf(UIK.ANIMATIONS),
+          PropTypes.arrayOf(UIK.ANIMATIONS),
+        ]),
+        out: PropTypes.oneOfType([
+          PropTypes.oneOf(UIK.ANIMATIONS),
+          PropTypes.arrayOf(UIK.ANIMATIONS),
+        ]),
         duration: PropTypes.number,
       }),
     ]),
     center: PropTypes.bool,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
+    collapsible: PropTypes.bool,
     hideOpenAnimation: PropTypes.bool,
-    margin: commonPropTypes.margin,
-    padding: commonPropTypes.padding,
+    multiple: PropTypes.bool,
     primary: PropTypes.bool,
+    selectorContent: PropTypes.string,
     selectorTargets: PropTypes.string,
     selectorToggle: PropTypes.string,
-    selectorContent: PropTypes.string,
-    collapsible: PropTypes.bool,
-    multiple: PropTypes.bool,
     transition: PropTypes.oneOf(HTML.CSS_EASING),
+  };
+
+  static defaultProps = {
+    accordion: false,
+    center: false,
+    collapsible: false,
+    hideOpenAnimation: false,
+    multiple: false,
+    primary: false,
   };
 
   handleRef = element => (this.ref = element);
 
   render() {
     const {
+      attributes,
+      blockClasses,
+      blockStyle,
+      unhandledProps,
+    } = this.getBlockElements(this.props);
+
+    const {
       accordion,
       animation,
       center,
       children,
       className,
+      collapsible,
       hideOpenAnimation,
-      margin,
-      padding,
+      multiple,
       primary,
+      selectorContent,
       selectorTargets,
       selectorToggle,
-      selectorContent,
-      collapsible,
-      multiple,
       transition,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     const classes = classnames(
       className,
       Nav.meta.ukClass,
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
       {
         [buildClassName(Nav.meta.ukClass, 'center')]: (center),
-        [buildClassName(Nav.meta.ukClass, 'default')]: (isNil(primary)),
+        [buildClassName(Nav.meta.ukClass, 'default')]: (primary === false),
         [buildClassName(Nav.meta.ukClass, 'parent', 'icon')]: (accordion),
-        [buildClassName(Nav.meta.ukClass, 'primary')]: (primary),
+        [buildClassName(Nav.meta.ukClass, 'primary')]: (primary === true),
       },
     );
 
@@ -95,12 +110,12 @@ class Nav extends React.Component {
         {...rest}
         className={classes}
         ref={this.handleRef}
+        style={blockStyle}
         data-uk-nav={(accordion) ? componentOptions : undefined}
+        {...attributes}
       >
         {children}
       </ul>
     );
   }
 }
-
-export default Nav;

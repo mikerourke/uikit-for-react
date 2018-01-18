@@ -1,20 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { isNil, isString } from 'lodash';
+import { isString } from 'lodash';
 import {
   buildClassName,
   HTML,
 } from '../../lib';
+import { Block } from '../Base';
 import Text from '../Text';
 
-export default class Heading extends React.Component {
+export default class Heading extends Block {
   static meta = {
     name: 'Heading',
     ukClass: 'uk-heading',
   };
 
   static propTypes = {
+    ...Block.propTypes,
     as: PropTypes.oneOf(HTML.HEADING_ELEMENTS),
     bullet: PropTypes.bool,
     children: PropTypes.node.isRequired,
@@ -34,10 +36,18 @@ export default class Heading extends React.Component {
     bullet: false,
     divider: false,
     hero: false,
+    line: false,
     primary: false,
   };
 
   render() {
+    const {
+      attributes,
+      blockClasses,
+      blockStyle,
+      unhandledProps,
+    } = this.getBlockElements(this.props);
+
     const {
       as,
       bullet,
@@ -49,10 +59,11 @@ export default class Heading extends React.Component {
       line,
       primary,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     const classes = classnames(
       className,
+      blockClasses,
       Heading.meta.ukClass,
       buildClassName(headingClass),
       buildClassName(Heading.meta.ukClass, 'line', line),
@@ -69,9 +80,11 @@ export default class Heading extends React.Component {
         {...rest}
         as={as}
         className={classes || undefined}
+        style={blockStyle}
         horizontalAlign={(isString(line)) ? line : undefined}
+        {...attributes}
       >
-        {(!isNil(line)) ? <span>{children}</span> : children}
+        {(line === true) ? <span>{children}</span> : children}
       </Text>
     );
   }

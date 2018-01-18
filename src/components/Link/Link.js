@@ -1,59 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { isNil } from 'lodash';
-import {
-  buildClassName,
-  buildObjectOrValueClassNames,
-  commonPropTypes,
-  getElementType,
-  HTML,
-} from '../../lib';
+import { buildClassName } from '../../lib';
+import { Inline } from '../Base';
 
-class Link extends React.Component {
+export default class Link extends Inline {
   static meta = {
     name: 'Link',
     ukClass: 'uk-link',
   };
 
   static propTypes = {
-    as: PropTypes.oneOf(HTML.ALL_ELEMENTS),
+    ...Inline.propTypes,
     children: PropTypes.string.isRequired,
     className: PropTypes.string,
-    margin: commonPropTypes.margin,
     muted: PropTypes.bool,
-    padding: commonPropTypes.padding,
     reset: PropTypes.bool,
     text: PropTypes.bool,
   };
 
   static defaultProps = {
-    as: 'a',
+    muted: false,
+    reset: false,
+    text: false,
   };
 
   render() {
     const {
-      as,
+      attributes,
+      inlineClasses,
+      inlineStyle,
+      unhandledProps,
+    } = this.getInlineElements(this.props);
+
+    const {
       children,
       className,
-      margin,
       muted,
-      padding,
       reset,
       text,
       ...rest
-    } = this.props;
-
-    if (as !== 'a' && isNil(text)) {
-      throw new Error(
-        'You must specify a "text" prop if you are not using an "a" for the "as" prop.',
-      );
-    }
+    } = unhandledProps;
 
     const classes = classnames(
       className,
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
+      inlineClasses,
       {
         [buildClassName(Link.meta.ukClass, 'muted')]: (muted),
         [buildClassName(Link.meta.ukClass, 'reset')]: (reset),
@@ -61,16 +52,15 @@ class Link extends React.Component {
       },
     );
 
-    const Element = getElementType(Link, this.props);
     return (
-      <Element
+      <a
         {...rest}
-        className={classes}
+        className={classes || undefined}
+        style={inlineStyle}
+        {...attributes}
       >
         {children}
-      </Element>
+      </a>
     );
   }
 }
-
-export default Link;

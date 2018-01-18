@@ -2,30 +2,37 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { omit } from 'lodash';
-import { buildClassName } from '../../lib';
+import {
+  buildClassName,
+  restrictToChildTypes,
+} from '../../lib';
 import { Block } from '../Base';
-import SubnavItem from './SubnavItem';
+import ListItem from './ListItem';
 
-export default class Subnav extends Block {
+export default class List extends Block {
   static meta = {
-    name: 'Subnav',
-    ukClass: 'uk-subnav',
+    name: 'List',
+    ukClass: 'uk-list',
   };
 
   static propTypes = {
     ...omit(Block.propTypes, 'as'),
-    children: PropTypes.node.isRequired,
+    bullet: PropTypes.bool,
+    children: restrictToChildTypes(ListItem),
     className: PropTypes.string,
     divider: PropTypes.bool,
-    pill: PropTypes.bool,
+    large: PropTypes.bool,
+    striped: PropTypes.bool,
   };
 
   static defaultProps = {
+    bullet: false,
     divider: false,
-    pill: false,
+    large: false,
+    striped: false,
   };
 
-  static Item = SubnavItem;
+  static Item = ListItem;
 
   render() {
     const {
@@ -36,20 +43,24 @@ export default class Subnav extends Block {
     } = this.getBlockElements(this.props);
 
     const {
+      bullet,
       children,
       className,
       divider,
-      pill,
+      large,
+      striped,
       ...rest
     } = unhandledProps;
 
     const classes = classnames(
       className,
       blockClasses,
-      Subnav.meta.ukClass,
+      List.meta.ukClass,
       {
-        [buildClassName('subnav', 'divider')]: (divider),
-        [buildClassName('subnav', 'pill')]: (pill),
+        [buildClassName(List.meta.ukClass, 'bullet')]: (bullet),
+        [buildClassName(List.meta.ukClass, 'divider')]: (divider),
+        [buildClassName(List.meta.ukClass, 'large')]: (large),
+        [buildClassName(List.meta.ukClass, 'striped')]: (striped),
       },
     );
 

@@ -68,6 +68,7 @@ export default class Block extends Base {
 
   getBlockElements(props) {
     const {
+      attributes,
       baseClasses,
       baseStyle,
       unhandledProps,
@@ -121,6 +122,7 @@ export default class Block extends Base {
 
     return {
       attributes: {
+        ...attributes,
         'data-uk-margin': (hasMarginAttribute) ? marginAttributeOptions : undefined,
       },
       blockClasses: trim(classes),
@@ -131,10 +133,10 @@ export default class Block extends Base {
 
   render() {
     const {
-      unhandledProps,
+      attributes,
       blockClasses,
       blockStyle,
-      attributes,
+      unhandledProps,
     } = this.getBlockElements(this.props);
 
     const {

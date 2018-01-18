@@ -32,10 +32,7 @@ export default class Alert extends Block {
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     closeable: PropTypes.bool,
-    closeOptions: PropTypes.shape({
-      className: PropTypes.string,
-      large: PropTypes.bool,
-    }),
+    closeOptions: PropTypes.shape(Close.propTypes),
     danger: PropTypes.bool,
     onBeforeHide: PropTypes.func,
     onHide: PropTypes.func,
@@ -104,7 +101,7 @@ export default class Alert extends Block {
     });
 
     const closeClasses = classnames(
-      get(closeOptions, 'className'),
+      get(closeOptions, 'className', ''),
       buildClassName('alert', 'close'),
       {
         [buildClassName('close', 'large')]: (get(closeOptions, 'large')),
@@ -121,7 +118,7 @@ export default class Alert extends Block {
         data-uk-alert={componentOptions}
         {...attributes}
       >
-        {(closeable) && <button className={closeClasses} type="button" data-uk-close />}
+        {(closeable) && <Close {...closeOptions} className={closeClasses} />}
         {children}
       </Element>
     );

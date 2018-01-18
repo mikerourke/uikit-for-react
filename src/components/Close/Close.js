@@ -27,14 +27,22 @@ export default class Close extends Inline {
 
   render() {
     const {
+      attributes,
+      inlineClasses,
+      inlineStyle,
+      unhandledProps,
+    } = this.getInlineElements(this.props);
+
+    const {
       as,
       className,
       large,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     const classes = classnames(
       className,
+      inlineClasses,
       Close.meta.ukClass,
       {
         [buildClassName(Close.meta.ukClass, 'large')]: (large),
@@ -46,7 +54,9 @@ export default class Close extends Inline {
       <Element
         {...rest}
         className={classes || undefined}
+        style={inlineStyle}
         data-uk-close
+        {...attributes}
       />
     );
   }

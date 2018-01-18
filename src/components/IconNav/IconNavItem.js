@@ -1,26 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { get, omit } from 'lodash';
 import {
-  getElementType,
-  HTML,
+  buildClassName,
+  UIK,
 } from '../../lib';
 import { Block } from '../Base';
+import Icon from '../Icon';
 
-export default class Marker extends Block {
+export default class IconNavItem extends Block {
   static meta = {
-    name: 'Marker',
+    name: 'IconNavItem',
   };
 
   static propTypes = {
     ...Block.propTypes,
-    as: PropTypes.oneOf(HTML.ALL_ELEMENTS),
-    children: PropTypes.node.isRequired,
+    active: PropTypes.bool,
     className: PropTypes.string,
+    href: PropTypes.string,
+    iconName: PropTypes.oneOf(UIK.ICON_NAMES).isRequired,
+    iconOptions: PropTypes.shape(omit(Icon.propTypes, 'name')),
   };
 
   static defaultProps = {
-    as: 'a',
+    active: false,
   };
 
   render() {
@@ -32,28 +36,31 @@ export default class Marker extends Block {
     } = this.getBlockElements(this.props);
 
     const {
-      as,
-      children,
+      active,
       className,
+      href,
+      iconName,
+      iconOptions,
       ...rest
     } = unhandledProps;
 
     const classes = classnames(
       className,
       blockClasses,
+      {
+        [buildClassName('active')]: (active),
+      },
     );
 
-    const Element = getElementType(Marker, this.props);
     return (
-      <Element
+      <li
         {...rest}
         className={classes || undefined}
         style={blockStyle}
-        data-uk-marker
         {...attributes}
       >
-        {children}
-      </Element>
+        <Icon {...iconOptions} href={href} name={iconName} />
+      </li>
     );
   }
 }

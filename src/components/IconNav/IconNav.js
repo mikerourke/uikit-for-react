@@ -1,27 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  getElementType,
-  HTML,
-} from '../../lib';
+import { restrictToChildTypes } from '../../lib';
 import { Block } from '../Base';
+import IconNavItem from './IconNavItem';
 
-export default class Marker extends Block {
+export default class IconNav extends Block {
   static meta = {
-    name: 'Marker',
+    name: 'IconNav',
+    ukClass: 'uk-iconnav',
   };
 
   static propTypes = {
     ...Block.propTypes,
-    as: PropTypes.oneOf(HTML.ALL_ELEMENTS),
-    children: PropTypes.node.isRequired,
+    children: restrictToChildTypes(IconNavItem),
     className: PropTypes.string,
+    vertical: PropTypes.bool,
   };
 
   static defaultProps = {
-    as: 'a',
+    vertical: false,
   };
+
+  static Item = IconNavItem;
 
   render() {
     const {
@@ -32,7 +33,6 @@ export default class Marker extends Block {
     } = this.getBlockElements(this.props);
 
     const {
-      as,
       children,
       className,
       ...rest
@@ -41,19 +41,18 @@ export default class Marker extends Block {
     const classes = classnames(
       className,
       blockClasses,
+      IconNav.meta.ukClass,
     );
 
-    const Element = getElementType(Marker, this.props);
     return (
-      <Element
+      <ul
         {...rest}
         className={classes || undefined}
         style={blockStyle}
-        data-uk-marker
         {...attributes}
       >
         {children}
-      </Element>
+      </ul>
     );
   }
 }

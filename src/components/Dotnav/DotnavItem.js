@@ -18,7 +18,7 @@ export default class DotnavItem extends Block {
   };
 
   static defaultProps = {
-    href: '#',
+    active: false,
   };
 
   render() {

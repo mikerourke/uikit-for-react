@@ -9,6 +9,7 @@ import {
 
 export default class Base extends React.Component {
   static propTypes = {
+    alignItems: PropTypes.oneOf(UIK.FLEX_VERTICAL_MODIFIERS),
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.ANIMATIONS),
       PropTypes.shape({
@@ -48,7 +49,15 @@ export default class Base extends React.Component {
       }),
     ]),
     clearfix: PropTypes.bool,
+    direction: PropTypes.shape({
+      as: PropTypes.oneOf(['column', 'row']),
+      reverse: PropTypes.bool,
+    }),
     display: PropTypes.oneOf(['block', 'inline', 'inline-block']),
+    flex: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.oneOf(['inline']),
+    ]),
     float: PropTypes.oneOf(['left', 'right']),
     height: PropTypes.oneOf(['full', ...without(UIK.SIZES, 'xlarge')]),
     heightMax: PropTypes.oneOf(without(UIK.SIZES, 'xlarge')),
@@ -59,6 +68,16 @@ export default class Base extends React.Component {
     inline: PropTypes.bool,
     inverse: PropTypes.oneOf(['dark', 'light']),
     invisible: PropTypes.bool,
+    justifyContent: PropTypes.oneOfType([
+      PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
+      PropTypes.shape({
+        atSm: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
+        atMd: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
+        atLg: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
+        atXl: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
+      }),
+    ]),
+    linkStyle: PropTypes.oneOf(['muted', 'text']),
     margin: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.oneOf([...UIK.LOCATIONS, ...UIK.SPACING_MODIFIERS, 'grid']),
@@ -85,6 +104,14 @@ export default class Base extends React.Component {
         ]),
       }),
     ]),
+    marker: PropTypes.bool,
+    order: PropTypes.oneOfType([
+      PropTypes.oneOf(['first', 'last']),
+      PropTypes.shape({
+        first: PropTypes.oneOf(UIK.BREAKPOINTS),
+        last: PropTypes.oneOf(UIK.BREAKPOINTS),
+      }),
+    ]),
     overflow: PropTypes.oneOf(['auto', 'hidden']),
     resize: PropTypes.oneOf([true, 'vertical']),
     responsive: PropTypes.oneOf([false, 'height', 'width']),
@@ -98,23 +125,32 @@ export default class Base extends React.Component {
         atXl: PropTypes.oneOf(UIK.BASE_WIDTHS),
       }),
     ]),
+    wrap: PropTypes.shape({
+      type: PropTypes.oneOf(['nowrap', 'reverse', 'wrap']),
+      alignment: PropTypes.oneOf(UIK.FLEX_VERTICAL_MODIFIERS),
+    }),
   };
 
   static defaultProps = {
     clearfix: false,
+    flex: false,
     hidden: false,
     inline: false,
     invisible: false,
+    marker: false,
   };
 
   getBaseElements(props) {
     const {
+      alignItems,
       animation,
       background,
       border,
       boxShadow,
       clearfix,
+      direction,
       display,
+      flex,
       float,
       height,
       heightMax,
@@ -122,13 +158,18 @@ export default class Base extends React.Component {
       inline,
       inverse,
       invisible,
+      justifyContent,
+      linkStyle,
       margin,
+      marker,
+      order,
       overflow,
       resize,
       responsive,
       style = {},
       visible,
       width,
+      wrap,
       ...unhandledProps
     } = props;
 
@@ -158,6 +199,8 @@ export default class Base extends React.Component {
       ]
       : UIK.LOCATIONS.map(location => buildClassName('margin', allMargins, location));
 
+    const isReverse = get(direction, 'reverse', false);
+
     const classes = classnames(
       marginClasses,
       buildClassName('animation', animation),
@@ -171,11 +214,24 @@ export default class Base extends React.Component {
       buildClassName('box', 'shadow', boxShadow),
       buildClassName('box', 'shadow', get(boxShadow, 'size')),
       buildClassName('box', 'shadow', 'hover', get(boxShadow, 'hoverSize')),
+      buildClassName('flex', get(direction, 'as'), (isReverse ? 'reverse' : '')),
       buildClassName('display', display),
       buildClassName('float', float),
       buildClassName('height', 'max', heightMax),
       buildClassName('hidden', hidden),
       buildClassName(inverse),
+      buildClassName('flex', alignItems),
+      buildClassName('flex', justifyContent),
+      buildClassName('flex', get(justifyContent, 'atSm'), '@s'),
+      buildClassName('flex', get(justifyContent, 'atMd'), '@m'),
+      buildClassName('flex', get(justifyContent, 'atLg'), '@l'),
+      buildClassName('flex', get(justifyContent, 'atXl'), '@xl'),
+      buildClassName('flex', order),
+      buildClassName('flex', 'first', get(order, 'first')),
+      buildClassName('flex', 'last', get(order, 'last')),
+      buildClassName('flex', get(wrap, 'type')),
+      buildClassName('flex', get(wrap, 'alignment')),
+      buildClassName('link', linkStyle),
       buildClassName('overflow', overflow),
       buildClassName('responsive', responsive),
       buildClassName('transform', 'origin', vertOrigin, horizOrigin),
@@ -193,6 +249,8 @@ export default class Base extends React.Component {
         [buildClassName('background', 'norepeat')]: (get(background, 'norepeat', false)),
         [buildClassName('box', 'shadow', 'bottom')]: (get(boxShadow, 'bottom', false)),
         [buildClassName('clearfix')]: (clearfix),
+        [buildClassName('flex')]: (flex === true),
+        [buildClassName('flex', 'inline')]: (flex === 'inline'),
         [buildClassName('height', '1', '1')]: (height === 'full'),
         [buildClassName('height', height)]: (height !== 'full'),
         [buildClassName('inline')]: (inline),
@@ -210,6 +268,9 @@ export default class Base extends React.Component {
     };
 
     return {
+      attributes: {
+        'data-uk-marker': marker || undefined,
+      },
       baseClasses: trim(classes),
       baseStyle,
       unhandledProps,

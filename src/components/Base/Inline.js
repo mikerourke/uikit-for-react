@@ -40,11 +40,17 @@ export default class Inline extends Base {
   };
 
   getInlineElements(props) {
-    const { unhandledProps: baseProps, baseClasses, baseStyle } = this.getBaseElements(props);
+    const {
+      attributes,
+      baseClasses,
+      baseStyle,
+      unhandledProps,
+    } = this.getBaseElements(props);
+
     const {
       align,
-      ...unhandledProps
-    } = baseProps;
+      ...rest
+    } = unhandledProps;
 
     const classes = classnames(
       baseClasses,
@@ -56,14 +62,16 @@ export default class Inline extends Base {
     );
 
     return {
+      attributes,
       inlineClasses: trim(classes),
       inlineStyle: baseStyle,
-      unhandledProps,
+      unhandledProps: rest,
     };
   }
 
   render() {
     const {
+      attributes,
       inlineClasses,
       inlineStyle,
       unhandledProps,
@@ -84,6 +92,7 @@ export default class Inline extends Base {
         {...rest}
         className={classes || undefined}
         style={inlineStyle}
+        {...attributes}
       >
         {children}
       </Element>

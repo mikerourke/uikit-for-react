@@ -26,6 +26,7 @@ export default class Label extends Inline {
 
   render() {
     const {
+      attributes,
       inlineClasses,
       inlineStyle,
       unhandledProps,
@@ -56,6 +57,7 @@ export default class Label extends Inline {
         {...rest}
         className={classes}
         style={inlineStyle}
+        {...attributes}
       >
         {children}
       </span>

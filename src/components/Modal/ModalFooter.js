@@ -1,59 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  buildClassName,
-  buildObjectOrValueClassNames,
-  commonPropTypes,
-  getElementType,
-  HTML,
-} from '../../lib';
+import { Block } from '../Base';
 
-class ModalFooter extends React.Component {
-  static meta = {
-    name: 'ModalFooter',
-    ukClass: 'uk-modal-footer',
-  };
+const ModalFooter = ({ className, ...rest }) => (
+  <Block
+    {...rest}
+    as="div"
+    className={classnames(className, ModalFooter.meta.ukClass)}
+  />
+);
 
-  static propTypes = {
-    as: PropTypes.string,
-    children: PropTypes.node.isRequired,
-    className: PropTypes.string,
-    margin: commonPropTypes.margin,
-    padding: commonPropTypes.padding,
-  };
+ModalFooter.propTypes = {
+  ...Block.propTypes,
+  as: undefined,
+};
 
-  static defaultProps = {
-    as: 'div',
-  };
-
-  render() {
-    const {
-      as,
-      children,
-      className,
-      margin,
-      padding,
-      ...rest
-    } = this.props;
-
-    const classes = classnames(
-      className,
-      ModalFooter.meta.ukClass,
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
-    );
-
-    const Element = getElementType(ModalFooter, this.props);
-    return (
-      <Element
-        {...rest}
-        className={classes}
-      >
-        {children}
-      </Element>
-    );
-  }
-}
+ModalFooter.meta = {
+  name: 'ModalFooter',
+  ukClass: 'uk-modal-footer',
+};
 
 export default ModalFooter;

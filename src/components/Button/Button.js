@@ -99,7 +99,7 @@ export default class Button extends Inline {
         onClick={this.handleClick}
         role="button"
         style={inlineStyle}
-        uk-icon={(hasIcon) ? `icon: ${icon}` : undefined}
+        data-uk-icon={(hasIcon) ? `icon: ${icon}` : undefined}
         {...attributes}
       >
         {(!hasIcon) && children}

@@ -25,7 +25,6 @@ export default class Grid extends Block {
       PropTypes.func,
       PropTypes.oneOf(['div']),
     ]),
-    alignItems: PropTypes.oneOf(UIK.FLEX_VERTICAL_MODIFIERS),
     children: PropTypes.node.isRequired,
     childWidth: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.CHILD_WIDTHS),
@@ -37,35 +36,15 @@ export default class Grid extends Block {
       }),
     ]),
     className: PropTypes.string,
-    direction: PropTypes.shape({
-      as: PropTypes.oneOf(['column', 'row']),
-      reverse: PropTypes.bool,
-    }),
     divider: PropTypes.bool,
     firstColumn: PropTypes.string,
     grow: PropTypes.oneOf(['auto', 'full', 'none']),
     gutter: PropTypes.oneOf([...without(UIK.SIZES, 'xlarge'), 'collapse']),
-    justifyContent: PropTypes.oneOfType([
-      PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-      PropTypes.shape({
-        atSm: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-        atMd: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-        atLg: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-        atXl: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-      }),
-    ]),
     matchHeight: PropTypes.bool,
     nextRow: PropTypes.shape({
       spacing: PropTypes.oneOf(UIK.SPACING_MODIFIERS),
       location: PropTypes.oneOf(UIK.LOCATIONS),
     }),
-    order: PropTypes.oneOfType([
-      PropTypes.oneOf(['first', 'last']),
-      PropTypes.shape({
-        first: PropTypes.oneOf(UIK.BREAKPOINTS),
-        last: PropTypes.oneOf(UIK.BREAKPOINTS),
-      }),
-    ]),
     parallax: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.shape({
@@ -73,10 +52,6 @@ export default class Grid extends Block {
         translate: PropTypes.number,
       }),
     ]),
-    wrap: PropTypes.shape({
-      type: PropTypes.oneOf(['nowrap', 'reverse', 'wrap']),
-      alignment: PropTypes.oneOf(UIK.FLEX_VERTICAL_MODIFIERS),
-    }),
   };
 
   static defaultProps = {
@@ -96,7 +71,6 @@ export default class Grid extends Block {
     } = this.getBlockElements(this.props);
 
     const {
-      alignItems,
       as,
       children,
       childWidth,
@@ -106,12 +80,9 @@ export default class Grid extends Block {
       firstColumn,
       gutter,
       grow,
-      justifyContent,
       matchHeight,
       nextRow,
-      order,
       parallax,
-      wrap,
       ...rest
     } = unhandledProps;
 
@@ -121,7 +92,6 @@ export default class Grid extends Block {
     const classes = classnames(
       className,
       blockClasses,
-      buildClassName('flex', alignItems),
       buildClassName('child', 'width', childWidth),
       buildClassName('child', 'width', get(childWidth, 'atSm'), '@s'),
       buildClassName('child', 'width', get(childWidth, 'atMd'), '@m'),
@@ -129,16 +99,6 @@ export default class Grid extends Block {
       buildClassName('child', 'width', get(childWidth, 'atXl'), '@xl'),
       buildClassName('flex', get(direction, 'as'), (isReverse ? 'reverse' : '')),
       buildClassName(Grid.meta.ukClass, gutter),
-      buildClassName('flex', justifyContent),
-      buildClassName('flex', get(justifyContent, 'atSm'), '@s'),
-      buildClassName('flex', get(justifyContent, 'atMd'), '@m'),
-      buildClassName('flex', get(justifyContent, 'atLg'), '@l'),
-      buildClassName('flex', get(justifyContent, 'atXl'), '@xl'),
-      buildClassName('flex', order),
-      buildClassName('flex', 'first', get(order, 'first')),
-      buildClassName('flex', 'last', get(order, 'last')),
-      buildClassName('flex', get(wrap, 'type')),
-      buildClassName('flex', get(wrap, 'alignment')),
       {
         [buildClassName(Grid.meta.ukClass, 'divider')]: (divider),
         [buildClassName(Grid.meta.ukClass, 'match')]: (matchHeight),

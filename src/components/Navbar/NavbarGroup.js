@@ -2,25 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {
+  buildClassName,
   getElementType,
-  HTML,
+  restrictToChildTypes,
+  UIK,
 } from '../../lib';
 import { Block } from '../Base';
 
-export default class Marker extends Block {
+export default class NavbarGroup extends Block {
   static meta = {
-    name: 'Marker',
+    name: 'NavbarGroup',
   };
 
   static propTypes = {
     ...Block.propTypes,
-    as: PropTypes.oneOf(HTML.ALL_ELEMENTS),
-    children: PropTypes.node.isRequired,
+    align: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS).isRequired,
+    children: restrictToChildTypes(),
     className: PropTypes.string,
-  };
-
-  static defaultProps = {
-    as: 'a',
   };
 
   render() {
@@ -32,7 +30,7 @@ export default class Marker extends Block {
     } = this.getBlockElements(this.props);
 
     const {
-      as,
+      align,
       children,
       className,
       ...rest
@@ -41,15 +39,15 @@ export default class Marker extends Block {
     const classes = classnames(
       className,
       blockClasses,
+      buildClassName('navbar', align),
     );
 
-    const Element = getElementType(Marker, this.props);
+    const Element = getElementType(NavbarGroup, this.props);
     return (
       <Element
         {...rest}
         className={classes || undefined}
         style={blockStyle}
-        data-uk-marker
         {...attributes}
       >
         {children}
