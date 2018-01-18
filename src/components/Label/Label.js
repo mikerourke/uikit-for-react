@@ -11,6 +11,7 @@ export default class Label extends Inline {
   };
 
   static propTypes = {
+    ...Inline.propTypes,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     danger: PropTypes.bool,

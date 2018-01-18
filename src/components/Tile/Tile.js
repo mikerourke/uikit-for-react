@@ -1,29 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { omit } from 'lodash';
-import {
-  buildClassName,
-  getElementType,
-} from '../../lib';
+import { buildClassName } from '../../lib';
 import { Block } from '../Base';
 
-export default class Flex extends Block {
+export default class Tile extends Block {
   static meta = {
-    name: 'Flex',
-    ukClass: 'uk-flex',
+    name: 'Tile',
+    ukClass: 'uk-label',
   };
 
   static propTypes = {
-    ...omit(Block.propTypes, 'flex'),
+    ...Block.propTypes,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
-    inline: PropTypes.bool,
+    muted: PropTypes.bool,
+    primary: PropTypes.bool,
+    secondary: PropTypes.bool,
   };
 
   static defaultProps = {
-    as: 'div',
-    inline: false,
+    muted: false,
+    primary: false,
+    secondary: false,
   };
 
   render() {
@@ -37,29 +36,33 @@ export default class Flex extends Block {
     const {
       children,
       className,
-      inline,
+      muted,
+      primary,
+      secondary,
       ...rest
     } = unhandledProps;
 
     const classes = classnames(
       className,
       blockClasses,
-      Flex.meta.ukClass,
+      Tile.meta.ukClass,
       {
-        [buildClassName(Flex.meta.ukClass, 'inline')]: (inline),
+        [buildClassName(Tile.meta.ukClass, 'default')]: (!muted && !primary && !secondary),
+        [buildClassName(Tile.meta.ukClass, 'muted')]: (muted),
+        [buildClassName(Tile.meta.ukClass, 'primary')]: (primary),
+        [buildClassName(Tile.meta.ukClass, 'secondary')]: (secondary),
       },
     );
 
-    const Element = getElementType(Flex, this.props);
     return (
-      <Element
+      <span
         {...rest}
-        className={classes || undefined}
+        className={classes}
         style={blockStyle}
         {...attributes}
       >
         {children}
-      </Element>
+      </span>
     );
   }
 }

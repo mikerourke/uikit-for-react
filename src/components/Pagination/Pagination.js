@@ -1,30 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { omit } from 'lodash';
-import {
-  buildClassName,
-  getElementType,
-} from '../../lib';
+import { restrictToChildTypes } from '../../lib';
 import { Block } from '../Base';
+import PaginationItem from './PaginationItem';
 
-export default class Flex extends Block {
+export default class Pagination extends Block {
   static meta = {
-    name: 'Flex',
-    ukClass: 'uk-flex',
+    name: 'Pagination',
+    ukClass: 'uk-pagination',
   };
 
   static propTypes = {
-    ...omit(Block.propTypes, 'flex'),
-    children: PropTypes.node.isRequired,
+    ...Block.propTypes,
+    children: restrictToChildTypes(PaginationItem),
     className: PropTypes.string,
-    inline: PropTypes.bool,
   };
 
-  static defaultProps = {
-    as: 'div',
-    inline: false,
-  };
+  static Item = PaginationItem;
 
   render() {
     const {
@@ -37,29 +30,24 @@ export default class Flex extends Block {
     const {
       children,
       className,
-      inline,
       ...rest
     } = unhandledProps;
 
     const classes = classnames(
       className,
       blockClasses,
-      Flex.meta.ukClass,
-      {
-        [buildClassName(Flex.meta.ukClass, 'inline')]: (inline),
-      },
+      Pagination.meta.ukClass,
     );
 
-    const Element = getElementType(Flex, this.props);
     return (
-      <Element
+      <ul
         {...rest}
         className={classes || undefined}
         style={blockStyle}
         {...attributes}
       >
         {children}
-      </Element>
+      </ul>
     );
   }
 }

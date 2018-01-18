@@ -40,8 +40,8 @@ export default class Drop extends Block {
       PropTypes.oneOf(['x', 'y']),
     ]),
     mode: PropTypes.oneOfType([
-      PropTypes.oneOf(['click', 'hover']),
-      PropTypes.arrayOf(['click', 'hover']),
+      PropTypes.oneOf(UIK.MODES),
+      PropTypes.arrayOf(UIK.MODES),
     ]),
     offset: PropTypes.number,
     onBeforeHide: PropTypes.func,
@@ -69,14 +69,14 @@ export default class Drop extends Block {
   };
 
   componentDidMount() {
-    UIkit.util.on(this.ref, 'toggle', get(this.props, 'onToggle', noop));
+    UIkit.util.on(this.ref, 'beforehide', get(this.props, 'onBeforeHide', noop));
     UIkit.util.on(this.ref, 'beforeshow', get(this.props, 'onBeforeShow', noop));
+    UIkit.util.on(this.ref, 'hidden', get(this.props, 'onHidden', noop));
+    UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
     UIkit.util.on(this.ref, 'show', get(this.props, 'onShow', noop));
     UIkit.util.on(this.ref, 'shown', get(this.props, 'onShown', noop));
-    UIkit.util.on(this.ref, 'beforehide', get(this.props, 'onBeforeHide', noop));
-    UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
-    UIkit.util.on(this.ref, 'hidden', get(this.props, 'onHidden', noop));
     UIkit.util.on(this.ref, 'stack', get(this.props, 'onStack', noop));
+    UIkit.util.on(this.ref, 'toggle', get(this.props, 'onToggle', noop));
   }
 
   componentWillReceiveProps(nextProps) {

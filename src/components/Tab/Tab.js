@@ -2,25 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import UIkit from 'uikit';
-import { get, noop } from 'lodash';
+import { get, noop, omit } from 'lodash';
 import {
   buildClassName,
-  buildObjectOrValueClassNames,
-  commonPropTypes,
   findChildByType,
   getOptionsString,
   joinListProp,
   UIK,
 } from '../../lib';
+import { Block } from '../Base';
 import TabItem from './TabItem';
 
-class Tab extends React.Component {
+export default class Tab extends Block {
   static meta = {
     name: 'Tab',
     ukClass: 'uk-tab',
   };
 
   static propTypes = {
+    ...omit(Block.propTypes, 'as'),
     activeIndex: PropTypes.number,
     align: PropTypes.oneOf(['bottom', 'left', 'right']),
     animation: PropTypes.shape({
@@ -31,17 +31,8 @@ class Tab extends React.Component {
       duration: PropTypes.number,
     }),
     children: PropTypes.node.isRequired,
-    childWidth: PropTypes.oneOfType([
-      PropTypes.oneOf(UIK.CHILD_WIDTHS),
-      commonPropTypes.getForBreakpoints(PropTypes.oneOf(UIK.CHILD_WIDTHS)),
-    ]),
     className: PropTypes.string,
     defaultIndex: PropTypes.number,
-    justifyContent: PropTypes.oneOfType([
-      PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-      commonPropTypes.getForBreakpoints(PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS)),
-    ]),
-    margin: commonPropTypes.margin,
     media: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.oneOf(UIK.BREAKPOINTS),
@@ -52,7 +43,6 @@ class Tab extends React.Component {
     onHide: PropTypes.func,
     onShow: PropTypes.func,
     onShown: PropTypes.func,
-    padding: commonPropTypes.padding,
     selectorConnect: PropTypes.string,
     selectorToggle: PropTypes.string,
     swiping: PropTypes.bool,
@@ -65,12 +55,12 @@ class Tab extends React.Component {
   static Item = TabItem;
 
   componentDidMount() {
+    UIkit.util.on(this.ref, 'beforehide', get(this.props, 'onBeforeHide', noop));
     UIkit.util.on(this.ref, 'beforeshow', get(this.props, 'onBeforeShow', noop));
+    UIkit.util.on(this.ref, 'hidden', get(this.props, 'onHidden', noop));
+    UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
     UIkit.util.on(this.ref, 'show', get(this.props, 'onShow', noop));
     UIkit.util.on(this.ref, 'shown', get(this.props, 'onShown', noop));
-    UIkit.util.on(this.ref, 'beforehide', get(this.props, 'onBeforeHide', noop));
-    UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
-    UIkit.util.on(this.ref, 'hidden', get(this.props, 'onHidden', noop));
     UIkit.tab(this.ref).show(this.props.activeIndex);
   }
 
@@ -92,15 +82,19 @@ class Tab extends React.Component {
 
   render() {
     const {
+      attributes,
+      blockClasses,
+      blockStyle,
+      unhandledProps,
+    } = this.getBlockElements(this.props);
+
+    const {
       activeIndex,
       align,
       animation,
       children,
-      childWidth,
       className,
       defaultIndex,
-      justifyContent,
-      margin,
       media,
       onBeforeHide,
       onBeforeShow,
@@ -108,21 +102,17 @@ class Tab extends React.Component {
       onHide,
       onShow,
       onShown,
-      padding,
       selectorConnect,
       selectorToggle,
       swiping,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     this.validateActiveIndex();
 
     const classes = classnames(
       className,
-      buildObjectOrValueClassNames('child', 'width', childWidth),
-      buildObjectOrValueClassNames('flex', justifyContent),
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
+      blockClasses,
       buildClassName(Tab.meta.ukClass, align),
     );
 
@@ -141,12 +131,12 @@ class Tab extends React.Component {
         {...rest}
         className={classes}
         ref={this.handleRef}
+        style={blockStyle}
         data-uk-tab={componentOptions}
+        {...attributes}
       >
         {children}
       </ul>
     );
   }
 }
-
-export default Tab;

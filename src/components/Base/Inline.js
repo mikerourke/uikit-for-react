@@ -28,8 +28,8 @@ export default class Inline extends Base {
     ]),
     as: PropTypes.oneOfType([
       PropTypes.oneOf(HTML.INLINE_ELEMENTS),
-      PropTypes.func,
       PropTypes.element,
+      PropTypes.func,
     ]),
     children: PropTypes.node,
     className: PropTypes.string,
@@ -49,6 +49,7 @@ export default class Inline extends Base {
 
     const {
       align,
+      as,
       ...rest
     } = unhandledProps;
 
@@ -78,7 +79,6 @@ export default class Inline extends Base {
     } = this.getInlineElements(this.props);
 
     const {
-      as,
       children,
       className,
       ...rest

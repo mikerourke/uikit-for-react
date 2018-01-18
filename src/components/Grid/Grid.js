@@ -22,19 +22,11 @@ export default class Grid extends Block {
   static propTypes = {
     ...Block.propTypes,
     as: PropTypes.oneOfType([
-      PropTypes.func,
       PropTypes.oneOf(['div']),
+      PropTypes.element,
+      PropTypes.func,
     ]),
     children: PropTypes.node.isRequired,
-    childWidth: PropTypes.oneOfType([
-      PropTypes.oneOf(UIK.CHILD_WIDTHS),
-      PropTypes.shape({
-        atSm: PropTypes.oneOf(UIK.CHILD_WIDTHS),
-        atMd: PropTypes.oneOf(UIK.CHILD_WIDTHS),
-        atLg: PropTypes.oneOf(UIK.CHILD_WIDTHS),
-        atXl: PropTypes.oneOf(UIK.CHILD_WIDTHS),
-      }),
-    ]),
     className: PropTypes.string,
     divider: PropTypes.bool,
     firstColumn: PropTypes.string,
@@ -71,9 +63,7 @@ export default class Grid extends Block {
     } = this.getBlockElements(this.props);
 
     const {
-      as,
       children,
-      childWidth,
       className,
       direction,
       divider,
@@ -92,11 +82,6 @@ export default class Grid extends Block {
     const classes = classnames(
       className,
       blockClasses,
-      buildClassName('child', 'width', childWidth),
-      buildClassName('child', 'width', get(childWidth, 'atSm'), '@s'),
-      buildClassName('child', 'width', get(childWidth, 'atMd'), '@m'),
-      buildClassName('child', 'width', get(childWidth, 'atLg'), '@l'),
-      buildClassName('child', 'width', get(childWidth, 'atXl'), '@xl'),
       buildClassName('flex', get(direction, 'as'), (isReverse ? 'reverse' : '')),
       buildClassName(Grid.meta.ukClass, gutter),
       {

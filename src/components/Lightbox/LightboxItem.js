@@ -4,26 +4,31 @@ import classnames from 'classnames';
 import { omit } from 'lodash';
 import {
   buildClassName,
-  getElementType,
+  restrictToChildTypes,
 } from '../../lib';
-import { Block } from '../Base';
+import { Inline } from '../Base';
 
-export default class Flex extends Block {
+export default class LightboxItem extends Inline {
   static meta = {
-    name: 'Flex',
-    ukClass: 'uk-flex',
+    name: 'Lightbox',
   };
 
   static propTypes = {
-    ...omit(Block.propTypes, 'flex'),
-    children: PropTypes.node.isRequired,
+    ...Inline.propTypes,
+    as: PropTypes.oneOfType([
+      PropTypes.oneOf(['a']),
+      PropTypes.element,
+      PropTypes.func,
+    ]),
+    caption: PropTypes.string,
     className: PropTypes.string,
-    inline: PropTypes.bool,
+    poster: PropTypes.string,
+    source: PropTypes.string,
+    type: PropTypes.oneOf(['iframe', 'image', 'video']),
   };
 
   static defaultProps = {
-    as: 'div',
-    inline: false,
+    as: 'a',
   };
 
   render() {
@@ -37,29 +42,30 @@ export default class Flex extends Block {
     const {
       children,
       className,
-      inline,
+      divider,
+      pill,
       ...rest
     } = unhandledProps;
 
     const classes = classnames(
       className,
       blockClasses,
-      Flex.meta.ukClass,
       {
-        [buildClassName(Flex.meta.ukClass, 'inline')]: (inline),
+        [buildClassName('subnav', 'divider')]: (divider),
+        [buildClassName('subnav', 'pill')]: (pill),
       },
     );
 
-    const Element = getElementType(Flex, this.props);
     return (
-      <Element
+      <a
         {...rest}
         className={classes || undefined}
         style={blockStyle}
+        data-lightbox
         {...attributes}
       >
         {children}
-      </Element>
+      </a>
     );
   }
 }

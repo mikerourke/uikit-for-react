@@ -2,28 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { omit } from 'lodash';
-import {
-  buildClassName,
-  getElementType,
-} from '../../lib';
+import { buildClassName } from '../../lib';
 import { Block } from '../Base';
 
-export default class Flex extends Block {
+export default class PaginationItem extends Block {
   static meta = {
-    name: 'Flex',
-    ukClass: 'uk-flex',
+    name: 'PaginationItem',
   };
 
   static propTypes = {
-    ...omit(Block.propTypes, 'flex'),
-    children: PropTypes.node.isRequired,
+    ...omit(Block.propTypes, 'as'),
+    active: PropTypes.bool,
+    children: PropTypes.number,
     className: PropTypes.string,
-    inline: PropTypes.bool,
+    disabled: PropTypes.bool,
+    href: PropTypes.string,
+    next: PropTypes.bool,
+    previous: PropTypes.bool,
   };
 
   static defaultProps = {
-    as: 'div',
-    inline: false,
+    active: false,
+    disabled: false,
   };
 
   render() {
@@ -35,31 +35,35 @@ export default class Flex extends Block {
     } = this.getBlockElements(this.props);
 
     const {
+      active,
       children,
       className,
-      inline,
+      disabled,
+      href,
       ...rest
     } = unhandledProps;
 
     const classes = classnames(
       className,
       blockClasses,
-      Flex.meta.ukClass,
       {
-        [buildClassName(Flex.meta.ukClass, 'inline')]: (inline),
+        [buildClassName('active')]: (active),
+        [buildClassName('disabled')]: (disabled),
       },
     );
 
-    const Element = getElementType(Flex, this.props);
+    const InnerElement = (active || disabled) ? 'span' : 'a';
     return (
-      <Element
+      <li
         {...rest}
         className={classes || undefined}
         style={blockStyle}
         {...attributes}
       >
-        {children}
-      </Element>
+        <InnerElement href={href}>
+          {children}
+        </InnerElement>
+      </li>
     );
   }
 }

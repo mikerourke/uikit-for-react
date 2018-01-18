@@ -20,10 +20,19 @@ export default class Block extends Base {
     ...Base.propTypes,
     as: PropTypes.oneOfType([
       PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
-      PropTypes.func,
       PropTypes.element,
+      PropTypes.func,
     ]),
     children: PropTypes.node,
+    childWidth: PropTypes.oneOfType([
+      PropTypes.oneOf(UIK.CHILD_WIDTHS),
+      PropTypes.shape({
+        atSm: PropTypes.oneOf(UIK.CHILD_WIDTHS),
+        atMd: PropTypes.oneOf(UIK.CHILD_WIDTHS),
+        atLg: PropTypes.oneOf(UIK.CHILD_WIDTHS),
+        atXl: PropTypes.oneOf(UIK.CHILD_WIDTHS),
+      }),
+    ]),
     className: PropTypes.string,
     dynamic: PropTypes.bool,
     firstColumn: PropTypes.string,
@@ -75,6 +84,8 @@ export default class Block extends Base {
     } = this.getBaseElements(props);
 
     const {
+      as,
+      childWidth,
       dynamic,
       firstColumn,
       nextRow,
@@ -90,6 +101,11 @@ export default class Block extends Base {
 
     const classes = classnames(
       baseClasses,
+      buildClassName('child', 'width', childWidth),
+      buildClassName('child', 'width', get(childWidth, 'atSm'), '@s'),
+      buildClassName('child', 'width', get(childWidth, 'atMd'), '@m'),
+      buildClassName('child', 'width', get(childWidth, 'atLg'), '@l'),
+      buildClassName('child', 'width', get(childWidth, 'atXl'), '@xl'),
       buildClassName('padding', padding),
       buildClassName('padding', get(padding, 'size')),
       buildClassName('padding', 'remove', get(padding, 'remove')),
@@ -140,7 +156,6 @@ export default class Block extends Base {
     } = this.getBlockElements(this.props);
 
     const {
-      as,
       children,
       className,
       ...rest

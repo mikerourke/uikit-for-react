@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { omit } from 'lodash';
-import { buildClassName } from '../../lib';
+import {
+  buildClassName,
+  restrictToChildTypes,
+} from '../../lib';
 import { Block } from '../Base';
 import SubnavItem from './SubnavItem';
 
@@ -14,7 +17,7 @@ export default class Subnav extends Block {
 
   static propTypes = {
     ...omit(Block.propTypes, 'as'),
-    children: PropTypes.node.isRequired,
+    children: restrictToChildTypes(SubnavItem),
     className: PropTypes.string,
     divider: PropTypes.bool,
     pill: PropTypes.bool,

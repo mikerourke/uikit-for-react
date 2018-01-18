@@ -29,8 +29,8 @@ export default class Navbar extends Block {
     dropdownAlign: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
     duration: PropTypes.number,
     mode: PropTypes.oneOfType([
-      PropTypes.oneOf(['click', 'hover']),
-      PropTypes.arrayOf(['click', 'hover']),
+      PropTypes.oneOf(UIK.MODES),
+      PropTypes.arrayOf(UIK.MODES),
     ]),
     offset: PropTypes.number,
     selectorBoundary: PropTypes.string,

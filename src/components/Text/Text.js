@@ -1,22 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { get } from 'lodash';
 import {
   buildClassName,
-  buildObjectOrValueClassNames,
-  commonPropTypes,
   getElementType,
   HTML,
   UIK,
 } from '../../lib';
+import { Inline } from '../Base';
 
-class Text extends React.Component {
+export default class Text extends Inline {
   static meta = {
     name: 'Text',
     ukClass: 'uk-text',
   };
 
   static propTypes = {
+    ...Inline.propTypes,
     as: PropTypes.oneOf([...HTML.TEXT_ELEMENTS, ...HTML.BLOCK_ELEMENTS]),
     bold: PropTypes.bool,
     children: PropTypes.node.isRequired,
@@ -24,7 +25,12 @@ class Text extends React.Component {
     danger: PropTypes.bool,
     horizontalAlign: PropTypes.oneOfType([
       PropTypes.oneOf([...UIK.HORIZONTAL_POSITIONS, 'justify']),
-      commonPropTypes.getForBreakpoints(PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS)),
+      PropTypes.shape({
+        atSm: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
+        atMd: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
+        atLg: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
+        atXl: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
+      }),
     ]),
     large: PropTypes.bool,
     lead: PropTypes.bool,
@@ -41,11 +47,27 @@ class Text extends React.Component {
 
   static defaultProps = {
     as: 'div',
+    bold: false,
+    danger: false,
+    large: false,
+    lead: false,
+    meta: false,
+    muted: false,
+    primary: false,
+    small: false,
+    success: false,
+    warning: false,
   };
 
   render() {
     const {
-      as,
+      attributes,
+      inlineClasses,
+      inlineStyle,
+      unhandledProps,
+    } = this.getInlineElements(this.props);
+
+    const {
       bold,
       children,
       className,
@@ -63,11 +85,16 @@ class Text extends React.Component {
       warning,
       wrapping,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     const classes = classnames(
       className,
-      buildObjectOrValueClassNames(Text.meta.ukClass, horizontalAlign),
+      inlineClasses,
+      buildClassName(Text.meta.ukClass, horizontalAlign),
+      buildClassName(Text.meta.ukClass, get(horizontalAlign, 'atSm'), '@s'),
+      buildClassName(Text.meta.ukClass, get(horizontalAlign, 'atMd'), '@m'),
+      buildClassName(Text.meta.ukClass, get(horizontalAlign, 'atLg'), '@l'),
+      buildClassName(Text.meta.ukClass, get(horizontalAlign, 'atXl'), '@xl'),
       buildClassName(Text.meta.ukClass, transform),
       buildClassName(Text.meta.ukClass, verticalAlign),
       buildClassName(Text.meta.ukClass, wrapping),
@@ -90,11 +117,11 @@ class Text extends React.Component {
       <Element
         {...rest}
         className={classes || undefined}
+        style={inlineStyle}
+        {...attributes}
       >
         {children}
       </Element>
     );
   }
 }
-
-export default Text;

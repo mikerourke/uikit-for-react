@@ -6,7 +6,6 @@ import { get, noop } from 'lodash';
 import {
   buildClassName,
   getOptionsString,
-  UIK,
 } from '../../lib';
 import { Block } from '../Base';
 import Close from '../Close';
@@ -23,7 +22,6 @@ export default class Modal extends Block {
 
   static propTypes = {
     ...Block.propTypes,
-    alignItems: PropTypes.oneOf(UIK.FLEX_VERTICAL_MODIFIERS),
     bgClose: PropTypes.bool,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
@@ -36,15 +34,6 @@ export default class Modal extends Block {
     dialogOptions: PropTypes.shape(Block.propTypes),
     escClose: PropTypes.bool,
     full: PropTypes.bool,
-    justifyContent: PropTypes.oneOfType([
-      PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-      PropTypes.shape({
-        atSm: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-        atMd: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-        atLg: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-        atXl: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-      }),
-    ]),
     onBeforeHide: PropTypes.func,
     onBeforeShow: PropTypes.func,
     onHidden: PropTypes.func,
@@ -78,12 +67,12 @@ export default class Modal extends Block {
   static Title = ModalTitle;
 
   componentDidMount() {
+    UIkit.util.on(this.ref, 'beforehide', get(this.props, 'onBeforeHide', noop));
     UIkit.util.on(this.ref, 'beforeshow', get(this.props, 'onBeforeShow', noop));
+    UIkit.util.on(this.ref, 'hidden', get(this.props, 'onHidden', noop));
+    UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
     UIkit.util.on(this.ref, 'show', get(this.props, 'onShow', noop));
     UIkit.util.on(this.ref, 'shown', get(this.props, 'onShown', noop));
-    UIkit.util.on(this.ref, 'beforehide', get(this.props, 'onBeforeHide', noop));
-    UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
-    UIkit.util.on(this.ref, 'hidden', get(this.props, 'onHidden', noop));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -107,7 +96,6 @@ export default class Modal extends Block {
     } = this.getBlockElements(this.props);
 
     const {
-      alignItems,
       bgClose,
       children,
       className,
@@ -117,7 +105,6 @@ export default class Modal extends Block {
       dialogOptions,
       escClose,
       full,
-      justifyContent,
       onBeforeHide,
       onBeforeShow,
       onHidden,
@@ -135,12 +122,6 @@ export default class Modal extends Block {
       className,
       blockClasses,
       Modal.meta.ukClass,
-      buildClassName('flex', alignItems),
-      buildClassName('flex', justifyContent),
-      buildClassName('flex', get(justifyContent, 'atSm'), '@s'),
-      buildClassName('flex', get(justifyContent, 'atMd'), '@m'),
-      buildClassName('flex', get(justifyContent, 'atLg'), '@l'),
-      buildClassName('flex', get(justifyContent, 'atXl'), '@xl'),
       {
         [buildClassName(Modal.meta.ukClass, 'container')]: (container),
         [buildClassName(Modal.meta.ukClass, 'full')]: (full),
