@@ -6,22 +6,22 @@ import { get, isNil, noop } from 'lodash';
 import {
   appendClassNamesToChildren,
   buildClassName,
-  buildObjectOrValueClassNames,
-  commonPropTypes,
   getElementType,
   getOptionsString,
   HTML,
   joinListProp,
   UIK,
 } from '../../lib';
+import { Block } from '../Base';
 
-class Drop extends React.Component {
+export default class Drop extends Block {
   static meta = {
     name: 'Drop',
     ukClass: 'uk-drop',
   };
 
   static propTypes = {
+    ...Block.propTypes,
     animation: PropTypes.shape({
       name: PropTypes.oneOfType([
         PropTypes.oneOf(UIK.ANIMATIONS),
@@ -35,8 +35,10 @@ class Drop extends React.Component {
     className: PropTypes.string,
     delayHide: PropTypes.number,
     delayShow: PropTypes.number,
-    flip: PropTypes.oneOf([true, false, 'x', 'y']),
-    margin: commonPropTypes.margin,
+    flip: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.oneOf(['x', 'y']),
+    ]),
     mode: PropTypes.oneOfType([
       PropTypes.oneOf(['click', 'hover']),
       PropTypes.arrayOf(['click', 'hover']),
@@ -50,21 +52,20 @@ class Drop extends React.Component {
     onShown: PropTypes.func,
     onStack: PropTypes.func,
     onToggle: PropTypes.func,
-    padding: commonPropTypes.padding,
     position: PropTypes.oneOf(UIK.DROP_POSITIONS),
     selectorBoundary: PropTypes.string,
-    selectorToggle: PropTypes.bool,
+    selectorToggle: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.string,
+    ]),
     shown: PropTypes.bool,
     toggle: PropTypes.element,
-    width: PropTypes.oneOfType([
-      PropTypes.oneOf(UIK.BASE_WIDTHS),
-      commonPropTypes.getForBreakpoints(PropTypes.oneOf(UIK.BASE_WIDTHS)),
-    ]),
   };
 
   static defaultProps = {
     as: 'div',
-    className: '',
+    boundaryAlign: false,
+    shown: false,
   };
 
   componentDidMount() {
@@ -99,6 +100,13 @@ class Drop extends React.Component {
 
   render() {
     const {
+      attributes,
+      blockClasses,
+      blockStyle,
+      unhandledProps,
+    } = this.getBlockElements(this.props);
+
+    const {
       animation,
       as,
       boundaryAlign,
@@ -107,7 +115,6 @@ class Drop extends React.Component {
       delayHide,
       delayShow,
       flip,
-      margin,
       mode,
       offset,
       onBeforeHide,
@@ -118,14 +125,12 @@ class Drop extends React.Component {
       onShown,
       onStack,
       onToggle,
-      padding,
       position,
       selectorBoundary,
       selectorToggle,
       toggle,
-      width,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     if (isNil(toggle) && isNil(selectorToggle)) {
       throw new Error('You must specify either a "toggle" element or "selectorToggle" prop.');
@@ -133,10 +138,8 @@ class Drop extends React.Component {
 
     const classes = classnames(
       className,
+      blockClasses,
       Drop.meta.ukClass,
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
-      buildObjectOrValueClassNames('width', width),
     );
 
     const componentOptions = getOptionsString({
@@ -152,7 +155,7 @@ class Drop extends React.Component {
       toggle: selectorToggle,
     });
 
-    const Element = getElementType(Drop, as, rest);
+    const Element = getElementType(Drop, this.props);
     return (
       <Fragment>
         {toggle && toggle}
@@ -160,7 +163,9 @@ class Drop extends React.Component {
           {...rest}
           className={classes}
           ref={this.handleRef}
+          style={blockStyle}
           data-uk-drop={componentOptions}
+          {...attributes}
         >
           {this.renderChildren()}
         </Element>
@@ -168,5 +173,3 @@ class Drop extends React.Component {
     );
   }
 }
-
-export default Drop;

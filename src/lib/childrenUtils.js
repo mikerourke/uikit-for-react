@@ -41,10 +41,10 @@ const getIfIsOfType = (child, childType) => (
  * Returns true if the specified children for the parent component contains an instance of the
  *    specified type of component (passed as instance of React component).
  * @param {React.Children} children Children prop from parent React component.
- * @param {React.Element|string} childType Component to check for the existence of.
+ * @param {React.Element|Function|string} childType Component to check for the existence of.
  * @returns {boolean}
  */
-export const hasChildType = (children, childType) => {
+export const getIfHasChildType = (children, childType) => {
   let countOfChildType = 0;
   recurseChildren(children, (child) => {
     if (getIfIsOfType(child, childType)) countOfChildType += 1;
@@ -100,3 +100,14 @@ export const appendClassNamesToChildren = (children, childOptions) =>
       children: appendClassNamesToChildren(child.props.children, childOptions),
     });
   });
+
+export const getIfChildrenHaveClass = (children, className) => {
+  let classCount = 0;
+  const classRegex = new RegExp(className, 'g');
+  React.Children.forEach(children, (child) => {
+    if (React.isValidElement(child)) {
+      if (classRegex.test(child.className)) classCount += 1;
+    }
+  });
+  return (classCount !== 0);
+};

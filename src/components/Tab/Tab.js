@@ -60,7 +60,6 @@ class Tab extends React.Component {
 
   static defaultProps = {
     activeIndex: 0,
-    className: '',
   };
 
   static Item = TabItem;

@@ -14,16 +14,18 @@ storiesOf('Card', module)
     <Container margin={{ all: 'large' }}>
       <Card width={{ atMd: '1/2' }}>
         <Card.Title>Default</Card.Title>
-        <p>{cardContent}</p>
+        <Card.Content>{cardContent}</Card.Content>
       </Card>
     </Container>
   ))
 
   .add('Style modifiers', () => (
-    <Grid>
-      <Card width={{ atMd: '1/2' }}>
-        <Card.Title>Default</Card.Title>
-        <p>{cardContent}</p>
-      </Card>
-    </Grid>
+    <Container margin={{ all: 'large' }}>
+      <Grid>
+        <Card width={{ atMd: '1/2' }}>
+          <Card.Title>Default</Card.Title>
+          <p>{cardContent}</p>
+        </Card>
+      </Grid>
+    </Container>
   ));

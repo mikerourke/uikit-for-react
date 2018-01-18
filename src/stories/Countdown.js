@@ -10,7 +10,7 @@ Countdown.displayName = 'Countdown';
 storiesOf('Countdown', module)
   .add('Basic Usage', () => (
     <Container margin={{ all: 'large' }}>
-      <Countdown as={Grid} date="2018-01-16T03:53:55+00:00" gutter="small" childWidth="auto">
+      <Countdown as={Grid} date="2025-01-16T00:00:00+00:00" gutter="small" childWidth="auto">
         <Grid.Cell>
           <Countdown.Days />
           <Countdown.Label textAlign="center" margin="small" visible="@s">Days</Countdown.Label>
@@ -44,7 +44,7 @@ storiesOf('Countdown', module)
         this.setState(state => ({
           paused: !state.paused,
         }));
-      }
+      };
 
       render() {
         const buttonLabel = (this.state.paused) ? 'Continue' : 'Pause';
@@ -61,7 +61,7 @@ storiesOf('Countdown', module)
             </Button>
             <Countdown
               as={Grid}
-              date="2018-01-16T03:53:55+00:00"
+              date="2025-01-16T00:00:00+00:00"
               paused={this.state.paused}
               gutter="small"
               childWidth="auto"

@@ -39,6 +39,7 @@ export const UIK = {
     'kenburns',
     'shake',
   ],
+  AREAS: ['horizontal', 'vertical'],
   BACKGROUND_COLORS: ['default', 'muted', 'primary', 'secondary'],
   BACKGROUND_SIZES: ['cover', 'contain'],
   BASE_WIDTHS: [

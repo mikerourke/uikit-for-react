@@ -24,7 +24,6 @@ class TabItem extends React.Component {
   };
 
   static defaultProps = {
-    className: '',
   };
 
   render() {

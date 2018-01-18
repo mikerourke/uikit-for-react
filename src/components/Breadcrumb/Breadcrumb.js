@@ -1,34 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { restrictToChildTypes } from '../../lib';
+import { Block } from '../Base';
 import BreadcrumbItem from './BreadcrumbItem';
 
-class Breadcrumb extends React.Component {
+export default class Breadcrumb extends Block {
   static meta = {
     name: 'Breadcrumb',
     ukClass: 'uk-breadcrumb',
   };
 
   static propTypes = {
-    children: PropTypes.node.isRequired,
+    ...Block.propTypes,
+    children: restrictToChildTypes(BreadcrumbItem),
     className: PropTypes.string,
-  };
-
-  static defaultProps = {
-    className: '',
   };
 
   static Item = BreadcrumbItem;
 
   render() {
     const {
+      attributes,
+      blockClasses,
+      blockStyle,
+      unhandledProps,
+    } = this.getBlockElements(this.props);
+
+    const {
       children,
       className,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     const classes = classnames(
       className,
+      blockClasses,
       Breadcrumb.meta.ukClass,
     );
 
@@ -36,11 +43,11 @@ class Breadcrumb extends React.Component {
       <ul
         {...rest}
         className={classes || undefined}
+        style={blockStyle}
+        {...attributes}
       >
         {children}
       </ul>
     );
   }
 }
-
-export default Breadcrumb;

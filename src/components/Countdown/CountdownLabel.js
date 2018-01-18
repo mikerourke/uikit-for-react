@@ -32,7 +32,6 @@ class CountdownLabel extends React.Component {
 
   static defaultProps = {
     as: 'div',
-    className: '',
   };
 
   render() {
@@ -60,7 +59,7 @@ class CountdownLabel extends React.Component {
       buildObjectOrValueClassNames('visible', visible),
     );
 
-    const Element = getElementType(CountdownLabel, as, rest);
+    const Element = getElementType(CountdownLabel, this.props);
     return (
       <Element
         {...rest}

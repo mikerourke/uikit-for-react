@@ -3,76 +3,61 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {
   buildClassName,
-  buildMarginAttributeOptions,
-  buildObjectOrValueClassNames,
-  buildStyles,
-  commonPropTypes,
   getElementType,
-  HTML,
-  UIK,
+  getIfChildrenHaveClass,
 } from '../../lib';
+import { Block } from '../Base';
 
-class Container extends React.Component {
+class Container extends Block {
   static meta = {
     name: 'Container',
     ukClass: 'uk-container',
   };
 
   static propTypes = {
-    as: PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
-    background: commonPropTypes.background,
+    ...Block.propTypes,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
-    dynamic: PropTypes.bool,
-    firstColumn: PropTypes.string,
-    margin: commonPropTypes.margin,
-    nextRow: PropTypes.shape({
-      spacing: PropTypes.oneOf(UIK.SPACING_MODIFIERS),
-      location: PropTypes.oneOf(UIK.LOCATIONS),
-    }),
-    padding: commonPropTypes.padding,
     size: PropTypes.oneOf(['expand', 'large', 'small']),
   };
 
   static defaultProps = {
     as: 'div',
-    className: '',
   };
 
   render() {
     const {
+      attributes,
+      blockClasses,
+      blockStyle,
+      unhandledProps,
+    } = this.getBlockElements(this.props);
+
+    const {
       as,
-      background,
       children,
       className,
-      dynamic,
-      firstColumn,
-      justifyContent,
-      margin,
-      nextRow,
-      padding,
       size,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     const classes = classnames(
       className,
+      blockClasses,
       Container.meta.ukClass,
-      buildObjectOrValueClassNames('background', background),
-      buildObjectOrValueClassNames('flex', justifyContent),
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
       buildClassName(Container.meta.ukClass, size),
+      {
+        [buildClassName('inline')]: getIfChildrenHaveClass(children, 'position'),
+      },
     );
-    const styles = buildStyles(this.props);
 
-    const Element = getElementType(Container, as, rest);
+    const Element = getElementType(Container, this.props);
     return (
       <Element
         {...rest}
         className={classes || undefined}
-        style={styles}
-        {...buildMarginAttributeOptions(dynamic, firstColumn, nextRow)}
+        style={blockStyle}
+        {...attributes}
       >
         {children}
       </Element>

@@ -2,13 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { buildClassName } from '../../lib';
+import { Block } from '../Base';
 
-class BreadcrumbItem extends React.Component {
+export default class BreadcrumbItem extends Block {
   static meta = {
     name: 'BreadcrumbItem',
   };
 
   static propTypes = {
+    ...Block.propTypes,
     active: PropTypes.bool,
     children: PropTypes.node,
     disabled: PropTypes.bool,
@@ -17,11 +19,17 @@ class BreadcrumbItem extends React.Component {
   };
 
   static defaultProps = {
-    className: '',
     href: '#',
   };
 
   render() {
+    const {
+      attributes,
+      blockClasses,
+      blockStyle,
+      unhandledProps,
+    } = this.getBlockElements(this.props);
+
     const {
       active,
       children,
@@ -29,10 +37,11 @@ class BreadcrumbItem extends React.Component {
       disabled,
       href,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     const classes = classnames(
       className,
+      blockClasses,
       {
         [buildClassName('disabled')]: (disabled),
       },
@@ -43,6 +52,8 @@ class BreadcrumbItem extends React.Component {
       <li
         {...rest}
         className={classes || undefined}
+        style={blockStyle}
+        {...attributes}
       >
         <InnerElement href={href}>
           {children}
@@ -51,5 +62,3 @@ class BreadcrumbItem extends React.Component {
     );
   }
 }
-
-export default BreadcrumbItem;

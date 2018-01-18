@@ -5,17 +5,23 @@ import {
   buildClassName,
   getElementType,
 } from '../../lib';
+import CountdownLabel from './CountdownLabel';
 
-const CountdownSeconds = ({ as, className }) => {
+const CountdownSeconds = ({ className, label, ...rest }) => {
   const classes = classnames(
     className,
     CountdownSeconds.meta.ukClass,
     buildClassName('countdown', 'number'),
   );
 
-  const Element = getElementType(CountdownSeconds, as);
+  const Element = getElementType(CountdownSeconds, rest);
+
+  if (!label) return (<Element className={classes} />);
   return (
-    <Element className={classes} />
+    <div>
+      <Element className={classes} />
+      {label}
+    </div>
   );
 };
 
@@ -27,11 +33,12 @@ CountdownSeconds.meta = {
 CountdownSeconds.propTypes = {
   as: PropTypes.oneOf(['div', 'span']),
   className: PropTypes.string,
+  label: PropTypes.instanceOf(CountdownLabel),
 };
 
 CountdownSeconds.defaultProps = {
   as: 'span',
-  className: '',
+  label: null,
 };
 
 export default CountdownSeconds;

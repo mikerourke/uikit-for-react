@@ -2,27 +2,26 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import UIkit from 'uikit';
-import { get, isNil, isPlainObject, noop } from 'lodash';
+import { get, isNil, noop } from 'lodash';
 import {
   appendClassNamesToChildren,
   buildClassName,
-  buildObjectOrValueClassNames,
-  commonPropTypes,
   getElementType,
   getOptionsString,
   HTML,
   joinListProp,
   UIK,
 } from '../../lib';
+import { Block } from '../Base';
 
-class Dropdown extends React.Component {
+export default class Dropdown extends Block {
   static meta = {
     name: 'Dropdown',
     ukClass: 'uk-dropdown',
   };
 
   static propTypes = {
-    animation: commonPropTypes.animation,
+    ...Block.propTypes,
     as: PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
     boundaryAlign: PropTypes.bool,
     children: PropTypes.node.isRequired,
@@ -30,7 +29,6 @@ class Dropdown extends React.Component {
     delayHide: PropTypes.number,
     delayShow: PropTypes.number,
     flip: PropTypes.oneOf([true, false, 'x', 'y']),
-    margin: commonPropTypes.margin,
     mode: PropTypes.oneOfType([
       PropTypes.oneOf(['click', 'hover']),
       PropTypes.arrayOf(['click', 'hover']),
@@ -44,17 +42,20 @@ class Dropdown extends React.Component {
     onShown: PropTypes.func,
     onStack: PropTypes.func,
     onToggle: PropTypes.func,
-    padding: commonPropTypes.padding,
     position: PropTypes.oneOf(UIK.DROP_POSITIONS),
     selectorBoundary: PropTypes.string,
-    selectorToggle: PropTypes.bool,
+    selectorToggle: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.string,
+    ]),
     shown: PropTypes.bool,
     toggle: PropTypes.element,
   };
 
   static defaultProps = {
     as: 'div',
-    className: '',
+    boundaryAlign: false,
+    shown: false,
   };
 
   componentDidMount() {
@@ -90,6 +91,13 @@ class Dropdown extends React.Component {
 
   render() {
     const {
+      attributes,
+      blockClasses,
+      blockStyle,
+      unhandledProps,
+    } = this.getBlockElements(this.props);
+
+    const {
       animation,
       as,
       boundaryAlign,
@@ -98,7 +106,6 @@ class Dropdown extends React.Component {
       delayHide,
       delayShow,
       flip,
-      margin,
       mode,
       offset,
       onBeforeHide,
@@ -109,13 +116,12 @@ class Dropdown extends React.Component {
       onShown,
       onStack,
       onToggle,
-      padding,
       position,
       selectorBoundary,
       selectorToggle,
       toggle,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     if (isNil(toggle) && isNil(selectorToggle)) {
       throw new Error('You must specify either a "toggle" element or "selectorToggle" prop.');
@@ -123,9 +129,8 @@ class Dropdown extends React.Component {
 
     const classes = classnames(
       className,
+      blockClasses,
       Dropdown.meta.ukClass,
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
     );
 
     const componentOptions = getOptionsString({
@@ -141,7 +146,7 @@ class Dropdown extends React.Component {
       toggle: selectorToggle,
     });
 
-    const Element = getElementType(Dropdown, as, rest);
+    const Element = getElementType(Dropdown, this.props);
     return (
       <Fragment>
         {toggle && toggle}
@@ -149,7 +154,9 @@ class Dropdown extends React.Component {
           {...rest}
           className={classes}
           ref={this.handleRef}
+          style={blockStyle}
           data-uk-dropdown={componentOptions}
+          {...attributes}
         >
           {this.renderChildren()}
         </Element>
@@ -157,5 +164,3 @@ class Dropdown extends React.Component {
     );
   }
 }
-
-export default Dropdown;

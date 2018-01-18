@@ -25,7 +25,6 @@ class ModalFooter extends React.Component {
 
   static defaultProps = {
     as: 'div',
-    className: '',
   };
 
   render() {
@@ -45,7 +44,7 @@ class ModalFooter extends React.Component {
       buildObjectOrValueClassNames('padding', padding),
     );
 
-    const Element = getElementType(ModalFooter, as, rest);
+    const Element = getElementType(ModalFooter, this.props);
     return (
       <Element
         {...rest}

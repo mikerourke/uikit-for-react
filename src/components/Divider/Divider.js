@@ -1,52 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  buildClassName,
-  getElementType,
-} from '../../lib';
+import { buildClassName } from '../../lib';
+import { Block } from '../Base';
 
-class Divider extends React.Component {
+export default class Divider extends Block {
   static meta = {
     name: 'Divider',
     ukClass: 'uk-divider',
   };
 
   static propTypes = {
-    as: PropTypes.oneOf(['hr', 'div']),
+    ...Block.propTypes,
     className: PropTypes.string,
     icon: PropTypes.bool,
     small: PropTypes.bool,
   };
 
   static defaultProps = {
-    as: 'hr',
-    className: '',
+    icon: false,
+    small: false,
   };
 
   render() {
     const {
-      as,
+      attributes,
+      blockClasses,
+      blockStyle,
+      unhandledProps,
+    } = this.getBlockElements(this.props);
+
+    const {
       className,
       icon,
       small,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     const classes = classnames(
       className,
-      buildClassName(Divider.meta.className, 'icon', icon),
-      buildClassName(Divider.meta.className, 'small', small),
+      blockClasses,
+      {
+        [buildClassName(Divider.meta.className, 'icon')]: (icon),
+        [buildClassName(Divider.meta.className, 'small')]: (small),
+      },
     );
 
-    const Element = getElementType(Divider, as, rest);
     return (
-      <Element
+      <hr
         {...rest}
         className={classes || undefined}
+        style={blockStyle}
+        {...attributes}
       />
     );
   }
 }
-
-export default Divider;

@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {
   buildClassName,
-  buildObjectOrValueClassNames,
-  commonPropTypes,
-  getElementType,
-  HTML, UIK,
+  UIK,
 } from '../../lib';
+import { Block } from '../Base';
 
-class CardMedia extends React.Component {
+class CardMedia extends Block {
   static meta = {
     name: 'CardMedia',
     ukClass: 'uk-card-media',
@@ -20,38 +18,41 @@ class CardMedia extends React.Component {
     className: PropTypes.string,
     imgAlt: PropTypes.string,
     imgSrc: PropTypes.string.isRequired,
-    margin: commonPropTypes.margin,
-    padding: commonPropTypes.padding,
   };
 
   static defaultProps = {
-    className: '',
     imgAlt: '',
   };
 
   render() {
     const {
+      attributes,
+      blockClasses,
+      blockStyle,
+      unhandledProps,
+    } = this.getBlockElements(this.props);
+
+    const {
       alignTo,
       className,
       imgAlt,
       imgSrc,
-      margin,
-      padding,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     const classes = classnames(
       className,
+      blockClasses,
       CardMedia.meta.ukClass,
       buildClassName(CardMedia.meta.ukClass, alignTo),
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
     );
 
     return (
       <div
         {...rest}
         className={classes || undefined}
+        style={blockStyle}
+        {...attributes}
       >
         <img src={imgSrc} alt={imgAlt} />
       </div>

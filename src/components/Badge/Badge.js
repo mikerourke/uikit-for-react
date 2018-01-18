@@ -1,48 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { getElementType } from '../../lib';
+import { Inline } from '../Base';
 
-class Badge extends React.Component {
-  static meta = {
-    name: 'Badge',
-    ukClass: 'uk-badge',
-  };
+const Badge = ({ className, ...rest }) => (
+  <Inline
+    {...rest}
+    className={classnames(className, Badge.meta.ukClass)}
+  />
+);
 
-  static propTypes = {
-    as: PropTypes.oneOf(['a', 'span']),
-    children: PropTypes.node.isRequired,
-    className: PropTypes.string,
-  };
+Badge.propTypes = {
+  ...Inline.propTypes,
+  as: PropTypes.oneOf(['a', 'span']),
+};
 
-  static defaultProps = {
-    as: 'span',
-    className: '',
-  };
+Badge.defaultProps = {
+  as: 'span',
+};
 
-  render() {
-    const {
-      as,
-      children,
-      className,
-      ...rest
-    } = this.props;
-
-    const classes = classnames(
-      className,
-      Badge.meta.ukClass,
-    );
-
-    const Element = getElementType(Badge, as, rest);
-    return (
-      <Element
-        {...rest}
-        className={classes || undefined}
-      >
-        {children}
-      </Element>
-    );
-  }
-}
+Badge.meta = {
+  name: 'Badge',
+  ukClass: 'uk-badge',
+};
 
 export default Badge;

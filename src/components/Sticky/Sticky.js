@@ -52,7 +52,6 @@ class Sticky extends React.Component {
     animation: false,
     as: 'div',
     bottom: false,
-    className: '',
     clsActive: 'uk-active',
     clsInactive: '',
     media: false,
@@ -109,7 +108,7 @@ class Sticky extends React.Component {
       widthElement,
     });
 
-    const Element = getElementType(Sticky, as, rest);
+    const Element = getElementType(Sticky, this.props);
     return (
       <Element
         {...rest}

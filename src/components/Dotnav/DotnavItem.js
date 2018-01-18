@@ -1,48 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  buildClassName,
-  buildObjectOrValueClassNames,
-  commonPropTypes,
-} from '../../lib';
+import { buildClassName } from '../../lib';
+import { Block } from '../Base';
 
-class DotnavItem extends React.Component {
+export default class DotnavItem extends Block {
   static meta = {
     name: 'DotnavItem',
   };
 
   static propTypes = {
+    ...Block.propTypes,
     active: PropTypes.bool,
-    children: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
+    children: PropTypes.node,
     className: PropTypes.string,
     href: PropTypes.string,
-    margin: commonPropTypes.margin,
-    padding: commonPropTypes.padding,
   };
 
   static defaultProps = {
-    className: '',
+    href: '#',
   };
 
   render() {
+    const {
+      attributes,
+      blockClasses,
+      blockStyle,
+      unhandledProps,
+    } = this.getBlockElements(this.props);
+
     const {
       active,
       children,
       className,
       href,
-      margin,
-      padding,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     const classes = classnames(
       className,
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
+      blockClasses,
       {
         [buildClassName('active')]: (active),
       },
@@ -52,11 +49,13 @@ class DotnavItem extends React.Component {
       <li
         {...rest}
         className={classes || undefined}
+        style={blockStyle}
+        {...attributes}
       >
-        <a href={href}>{children}</a>
+        <a href={href}>
+          {children}
+        </a>
       </li>
     );
   }
 }
-
-export default DotnavItem;

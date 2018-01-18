@@ -3,53 +3,54 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {
   buildClassName,
-  buildObjectOrValueClassNames,
-  commonPropTypes,
   getElementType,
   getOptionsString,
   UIK,
 } from '../../lib';
+import { Inline } from '../Base';
 
-class Icon extends React.Component {
+export default class Icon extends Inline {
   static meta = {
     name: 'Icon',
     ukClass: 'uk-icon',
   };
 
   static propTypes = {
+    ...Inline.propTypes,
     as: PropTypes.oneOf(['a', 'span']),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     link: PropTypes.bool,
-    margin: commonPropTypes.margin,
     name: PropTypes.oneOf(UIK.ICON_NAMES),
-    padding: commonPropTypes.padding,
     ratio: PropTypes.number,
   };
 
   static defaultProps = {
     as: 'span',
-    className: '',
+    link: false,
   };
 
   render() {
+    const {
+      inlineClasses,
+      inlineStyle,
+      unhandledProps,
+    } = this.getInlineElements(this.props);
+
     const {
       as,
       children,
       className,
       link,
-      margin,
       name,
-      padding,
       ratio,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     const classes = classnames(
       className,
+      inlineClasses,
       Icon.meta.ukClass,
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
       {
         [buildClassName(Icon.meta.ukClass, 'link')]: (link),
       },
@@ -60,11 +61,12 @@ class Icon extends React.Component {
       ratio,
     });
 
-    const Element = getElementType(Icon, as, rest);
+    const Element = getElementType(Icon, this.props);
     return (
       <Element
         {...rest}
         className={classes || undefined}
+        style={inlineStyle}
         data-uk-icon={attributeOptions}
       >
         {children}
@@ -72,5 +74,3 @@ class Icon extends React.Component {
     );
   }
 }
-
-export default Icon;

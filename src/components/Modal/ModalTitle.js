@@ -25,7 +25,6 @@ class ModalTitle extends React.Component {
 
   static defaultProps = {
     as: 'div',
-    className: '',
   };
 
   render() {
@@ -45,7 +44,7 @@ class ModalTitle extends React.Component {
       buildObjectOrValueClassNames('padding', padding),
     );
 
-    const Element = getElementType(ModalTitle, as, rest);
+    const Element = getElementType(ModalTitle, this.props);
     return (
       <Element
         {...rest}

@@ -23,10 +23,6 @@ class Subnav extends React.Component {
     pill: PropTypes.bool,
   };
 
-  static defaultProps = {
-    className: '',
-  };
-
   static Item = SubnavItem;
 
   render() {

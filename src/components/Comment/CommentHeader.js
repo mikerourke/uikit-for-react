@@ -1,53 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  buildObjectOrValueClassNames,
-  commonPropTypes,
-} from '../../lib';
+import { Block } from '../Base';
 
-class CommentHeader extends React.Component {
-  static meta = {
-    name: 'CommentHeader',
-    ukClass: 'uk-comment-header',
-  };
+const CommentHeader = ({ className, ...rest }) => (
+  <Block
+    {...rest}
+    as="header"
+    className={classnames(className, CommentHeader.meta.ukClass)}
+  />
+);
 
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    className: PropTypes.string,
-    margin: commonPropTypes.margin,
-    padding: commonPropTypes.padding,
-  };
+CommentHeader.propTypes = {
+  ...Block.propTypes,
+  as: undefined,
+};
 
-  static defaultProps = {
-    className: '',
-  };
-
-  render() {
-    const {
-      children,
-      className,
-      margin,
-      padding,
-      ...rest
-    } = this.props;
-
-    const classes = classnames(
-      className,
-      CommentHeader.meta.ukClass,
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
-    );
-
-    return (
-      <header
-        {...rest}
-        className={classes || undefined}
-      >
-        {children}
-      </header>
-    );
-  }
-}
+CommentHeader.meta = {
+  name: 'CommentHeader',
+  ukClass: 'uk-comment-header',
+};
 
 export default CommentHeader;

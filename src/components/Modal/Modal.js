@@ -49,10 +49,6 @@ class Modal extends React.Component {
     stack: PropTypes.bool,
   };
 
-  static defaultProps = {
-    className: '',
-  };
-
   static Body = ModalBody;
   static Dialog = ModalDialog;
   static Footer = ModalFooter;

@@ -29,7 +29,6 @@ class Link extends React.Component {
 
   static defaultProps = {
     as: 'a',
-    className: '',
   };
 
   render() {
@@ -62,7 +61,7 @@ class Link extends React.Component {
       },
     );
 
-    const Element = getElementType(Link, as, this.props);
+    const Element = getElementType(Link, this.props);
     return (
       <Element
         {...rest}

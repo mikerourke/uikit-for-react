@@ -24,7 +24,6 @@ class Marker extends React.Component {
 
   static defaultProps = {
     as: 'div',
-    className: '',
   };
 
   render() {
@@ -46,7 +45,7 @@ class Marker extends React.Component {
       buildObjectOrValueClassNames('position', position),
     );
 
-    const Element = getElementType(Marker, as, rest);
+    const Element = getElementType(Marker, this.props);
     return (
       <Element
         {...rest}

@@ -1,36 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { flatten, get, isArray, isNil, max, noop, without } from 'lodash';
+import { flatten, get, isArray, isNil, max, noop } from 'lodash';
 import UIkit from 'uikit';
 import {
-  buildAttributeOptions,
-  buildClassName,
-  buildObjectOrValueClassNames,
-  commonPropTypes,
-  getElementType,
   getOptionsString,
   HTML,
-  UIK,
 } from '../../lib';
 import AccordionContent from './AccordionContent';
 import AccordionItem from './AccordionItem';
 import AccordionTitle from './AccordionTitle';
-import Base from '../Base';
+import { Block } from '../Base';
 
-export default class Accordion extends Base {
+export default class Accordion extends Block {
   static meta = {
     name: 'Accordion',
     ukClass: 'uk-accordion',
   };
 
   static propTypes = {
+    ...Block.propTypes,
     animation: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.shape({
         duration: PropTypes.number,
       }),
     ]),
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string,
     collapsible: PropTypes.bool,
     defaultIndex: PropTypes.number,
     hideOpenAnimation: PropTypes.bool,
@@ -49,11 +46,6 @@ export default class Accordion extends Base {
     selectorTargets: PropTypes.string,
     selectorToggle: PropTypes.string,
     transition: PropTypes.oneOf(HTML.CSS_EASING),
-  };
-
-  static defaultProps = {
-    as: 'ul',
-    className: '',
   };
 
   static Content = AccordionContent;
@@ -104,16 +96,19 @@ export default class Accordion extends Base {
 
   render() {
     const {
+      attributes,
+      blockClasses,
+      blockStyle,
+      unhandledProps,
+    } = this.getBlockElements(this.props);
+
+    const {
       animation,
-      as,
       children,
       className,
       collapsible,
       defaultIndex,
-      hidden,
       hideOpenAnimation,
-      invisible,
-      margin,
       multiple,
       onBeforeShow,
       onShow,
@@ -122,56 +117,21 @@ export default class Accordion extends Base {
       onHide,
       onHidden,
       openIndex,
-      padding,
       selectorContent,
       selectorTargets,
       selectorToggle,
       transition,
-      visible,
-      width,
-      background,
-      border,
-      boxShadow,
-      clearfix,
-      display,
-      float,
-      height,
-      maxHeight,
-      overflow,
-      position,
-      resize,
-      responsive,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     if (isArray(openIndex) && multiple !== true) {
-      throw new Error('You must set multiple=true when you pass an array of values to the openIndex prop.');
+      throw new Error('You must set multiple = true when you pass an array of values to the openIndex prop.');
     }
 
     const classes = classnames(
       className,
+      blockClasses,
       Accordion.meta.ukClass,
-      buildObjectOrValueClassNames('background', background),
-      buildClassName('border', border),
-      buildObjectOrValueClassNames('boxShadow', boxShadow),
-      buildClassName('display', display),
-      buildClassName('float', float),
-      buildClassName((height === 'full') ? ['height', '1', '1'] : ['height', height]),
-      buildClassName('height', 'max', maxHeight),
-      buildObjectOrValueClassNames('hidden', hidden),
-      buildClassName('invisible', invisible),
-      buildObjectOrValueClassNames('margin', margin),
-      buildClassName('overflow', overflow),
-      buildObjectOrValueClassNames('padding', padding),
-      buildObjectOrValueClassNames('position', position),
-      buildClassName('responsive', responsive),
-      buildObjectOrValueClassNames('visible', visible),
-      buildObjectOrValueClassNames('width', width),
-      {
-        [buildClassName('clearfix')]: (clearfix),
-        [buildClassName('preserve', 'width')]: (responsive === false),
-        [buildClassName('resize')]: (resize),
-      },
     );
 
     const componentOptions = getOptionsString({
@@ -185,18 +145,17 @@ export default class Accordion extends Base {
       transition,
     });
 
-    const { dataAttributes, validProps } = buildAttributeOptions(rest);
-    const Element = getElementType(Accordion, as, rest);
     return (
-      <Element
-        {...validProps}
-        className={classes || undefined}
+      <ul
+        {...rest}
         ref={this.handleRef}
+        className={classes || undefined}
+        style={blockStyle}
         data-uk-accordion={componentOptions}
-        {...dataAttributes}
+        {...attributes}
       >
         {children}
-      </Element>
+      </ul>
     );
   }
 }

@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { getElementType } from '../../lib';
 
-const CountdownSeparator = ({ as, children, className }) => {
+const CountdownSeparator = ({ children, className, ...rest }) => {
   const classes = classnames(
     className,
     CountdownSeparator.meta.ukClass,
   );
 
-  const Element = getElementType(CountdownSeparator, as);
+  const Element = getElementType(CountdownSeparator, rest);
   return (
     <Element className={classes || undefined}>
       {children}
@@ -30,7 +30,6 @@ CountdownSeparator.propTypes = {
 
 CountdownSeparator.defaultProps = {
   as: 'div',
-  className: '',
 };
 
 export default CountdownSeparator;

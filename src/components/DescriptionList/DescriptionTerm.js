@@ -1,51 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import {
-  buildObjectOrValueClassNames,
-  commonPropTypes,
-} from '../../lib';
+import { Block } from '../Base';
 
-class DescriptionTerm extends React.Component {
-  static meta = {
-    name: 'DescriptionTerm',
-  };
+const DescriptionTerm = props => (
+  <Block
+    {...props}
+    as="dt"
+  />
+);
 
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    className: PropTypes.string,
-    margin: commonPropTypes.margin,
-    padding: commonPropTypes.padding,
-  };
+DescriptionTerm.propTypes = {
+  ...Block.propTypes,
+  as: undefined,
+};
 
-  static defaultProps = {
-    className: '',
-  };
-
-  render() {
-    const {
-      children,
-      className,
-      margin,
-      padding,
-      ...rest
-    } = this.props;
-
-    const classes = classnames(
-      className,
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
-    );
-
-    return (
-      <dt
-        {...rest}
-        className={classes || undefined}
-      >
-        {children}
-      </dt>
-    );
-  }
-}
+DescriptionTerm.meta = {
+  name: 'DescriptionTerm',
+};
 
 export default DescriptionTerm;

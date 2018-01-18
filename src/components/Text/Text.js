@@ -41,7 +41,6 @@ class Text extends React.Component {
 
   static defaultProps = {
     as: 'div',
-    className: '',
   };
 
   render() {
@@ -86,7 +85,7 @@ class Text extends React.Component {
       },
     );
 
-    const Element = getElementType(Text, as, rest);
+    const Element = getElementType(Text, this.props);
     return (
       <Element
         {...rest}

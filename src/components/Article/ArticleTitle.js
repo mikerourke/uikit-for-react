@@ -1,43 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { HTML } from '../../lib';
+import { Block } from '../Base';
 
-class ArticleTitle extends React.Component {
-  static meta = {
-    name: 'ArticleTitle',
-    ukClass: 'uk-article-title',
-  };
+const ArticleTitle = ({ className, ...rest }) => (
+  <Block
+    {...rest}
+    className={classnames(className, ArticleTitle.meta.ukClass)}
+  />
+);
 
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    className: PropTypes.string,
-  };
+ArticleTitle.propTypes = {
+  ...Block.propTypes,
+  as: PropTypes.oneOf(HTML.HEADING_ELEMENTS),
+};
 
-  static defaultProps = {
-    className: '',
-  };
+ArticleTitle.defaultProps = {
+  as: 'h1',
+};
 
-  render() {
-    const {
-      children,
-      className,
-      ...rest
-    } = this.props;
-
-    const classes = classnames(
-      className,
-      ArticleTitle.meta.ukClass,
-    );
-
-    return (
-      <h1
-        {...rest}
-        className={classes || undefined}
-      >
-        {children}
-      </h1>
-    );
-  }
-}
+ArticleTitle.meta = {
+  name: 'ArticleTitle',
+  ukClass: 'uk-article-title',
+};
 
 export default ArticleTitle;

@@ -2,29 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {
-  buildClassName, buildObjectOrValueClassNames,
-  commonPropTypes,
+  buildClassName,
   getElementType,
 } from '../../lib';
+import { Inline } from '../Base';
 
-class Close extends React.Component {
+export default class Close extends Inline {
   static meta = {
     name: 'Close',
     ukClass: 'uk-close',
   };
 
   static propTypes = {
+    ...Inline.propTypes,
     as: PropTypes.oneOf(['a', 'button']),
     className: PropTypes.string,
     large: PropTypes.bool,
-    margin: commonPropTypes.margin,
-    onClick: PropTypes.func,
-    padding: commonPropTypes.padding,
   };
 
   static defaultProps = {
     as: 'a',
-    className: '',
+    large: false,
   };
 
   render() {
@@ -32,22 +30,18 @@ class Close extends React.Component {
       as,
       className,
       large,
-      margin,
-      padding,
       ...rest
     } = this.props;
 
     const classes = classnames(
       className,
       Close.meta.ukClass,
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
       {
         [buildClassName(Close.meta.ukClass, 'large')]: (large),
       },
     );
 
-    const Element = getElementType(Close, as, rest);
+    const Element = getElementType(Close, this.props);
     return (
       <Element
         {...rest}
@@ -57,5 +51,3 @@ class Close extends React.Component {
     );
   }
 }
-
-export default Close;

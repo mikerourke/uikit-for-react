@@ -4,20 +4,19 @@ import classnames from 'classnames';
 import { invoke, isNil } from 'lodash';
 import {
   buildClassName,
-  buildObjectOrValueClassNames,
-  commonPropTypes,
-  getElementType,
   getIfDefaultStyle,
 } from '../../lib';
+import { Inline } from '../Base';
 import ButtonGroup from './ButtonGroup';
 
-class Button extends React.Component {
+export default class Button extends Inline {
   static meta = {
     name: 'Button',
     ukClass: 'uk-button',
   };
 
   static propTypes = {
+    ...Inline.propTypes,
     as: PropTypes.oneOf(['a', 'button']),
     children: PropTypes.node,
     className: PropTypes.string,
@@ -26,9 +25,7 @@ class Button extends React.Component {
     fullWidth: PropTypes.bool,
     icon: PropTypes.string,
     link: PropTypes.bool,
-    margin: commonPropTypes.margin,
     onClick: PropTypes.func,
-    padding: commonPropTypes.padding,
     primary: PropTypes.bool,
     secondary: PropTypes.bool,
     size: PropTypes.oneOf(['large', 'small']),
@@ -37,7 +34,6 @@ class Button extends React.Component {
 
   static defaultProps = {
     as: 'button',
-    className: '',
   };
 
   static Group = ButtonGroup;
@@ -52,6 +48,13 @@ class Button extends React.Component {
 
   render() {
     const {
+      attributes,
+      inlineClasses,
+      inlineStyle,
+      unhandledProps,
+    } = this.getInlineElements(this.props);
+
+    const {
       as,
       children,
       className,
@@ -60,22 +63,19 @@ class Button extends React.Component {
       fullWidth,
       icon,
       link,
-      margin,
-      padding,
       primary,
       secondary,
       size,
       text,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     const hasDefault = getIfDefaultStyle(this.props);
     const hasIcon = !isNil(icon);
 
     const classes = classnames(
       className,
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
+      inlineClasses,
       buildClassName('button', size),
       {
         [Button.meta.ukClass]: (!hasIcon),
@@ -86,12 +86,11 @@ class Button extends React.Component {
         [buildClassName(Button.meta.ukClass, 'secondary')]: (secondary),
         [buildClassName(Button.meta.ukClass, 'text')]: (text),
         [buildClassName('icon', 'button')]: (hasIcon),
-        [buildClassName('width-1-1')]: (fullWidth),
+        [buildClassName('width', '1', '1')]: (fullWidth),
       },
     );
 
-    const elementType = (hasIcon) ? 'a' : as;
-    const Element = getElementType(Button, elementType, rest);
+    const Element = (hasIcon) ? 'a' : as;
     return (
       <Element
         {...rest}
@@ -99,12 +98,12 @@ class Button extends React.Component {
         disabled={(disabled && as === 'button') || undefined}
         onClick={this.handleClick}
         role="button"
+        style={inlineStyle}
         uk-icon={(hasIcon) ? `icon: ${icon}` : undefined}
+        {...attributes}
       >
         {(!hasIcon) && children}
       </Element>
     );
   }
 }
-
-export default Button;

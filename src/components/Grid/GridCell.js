@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { isNil } from 'lodash';
+import { get, isNil } from 'lodash';
 import {
   buildClassName,
-  buildObjectOrValueClassNames,
-  commonPropTypes,
   UIK,
 } from '../../lib';
+import { Block } from '../Base';
 
-class GridCell extends React.Component {
+export default class GridCell extends Block {
   static meta = {
     name: 'GridCell',
   };
@@ -18,41 +17,45 @@ class GridCell extends React.Component {
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     grow: PropTypes.oneOf(['auto', 'full', 'none']),
-    margin: commonPropTypes.margin,
     matchHeight: PropTypes.bool,
-    order: commonPropTypes.order,
-    padding: commonPropTypes.padding,
-    width: PropTypes.oneOfType([
-      PropTypes.oneOf(UIK.BASE_WIDTHS),
-      commonPropTypes.getForBreakpoints(PropTypes.oneOf(UIK.BASE_WIDTHS)),
+    order: PropTypes.oneOfType([
+      PropTypes.oneOf(['first', 'last']),
+      PropTypes.shape({
+        first: PropTypes.oneOf(UIK.BREAKPOINTS),
+        last: PropTypes.oneOf(UIK.BREAKPOINTS),
+      }),
     ]),
   };
 
   static defaultProps = {
-    className: '',
+    matchHeight: false,
   };
 
   render() {
     const {
+      attributes,
+      blockClasses,
+      blockStyle,
+      unhandledProps,
+    } = this.getBlockElements(this.props);
+
+    const {
       children,
       className,
       grow,
-      margin,
       matchHeight,
       order,
-      padding,
-      width,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     const flexGrow = (isNil(grow)) ? null : grow.replace('full', '1');
 
     const classes = classnames(
       className,
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('flex', order),
-      buildObjectOrValueClassNames('padding', padding),
-      buildObjectOrValueClassNames('width', width),
+      blockClasses,
+      buildClassName('flex', order),
+      buildClassName('flex', 'first', get(order, 'first')),
+      buildClassName('flex', 'last', get(order, 'last')),
       {
         [buildClassName('flex', flexGrow)]: (!isNil(grow)),
         [buildClassName('grid', 'item', 'match')]: (matchHeight),
@@ -63,11 +66,11 @@ class GridCell extends React.Component {
       <div
         {...rest}
         className={classes || undefined}
+        style={blockStyle}
+        {...attributes}
       >
         {children}
       </div>
     );
   }
 }
-
-export default GridCell;

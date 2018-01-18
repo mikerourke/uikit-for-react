@@ -2,27 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import UIkit from 'uikit';
-import { get, noop, without } from 'lodash';
+import { get, noop } from 'lodash';
 import {
-  buildAttributeOptions,
   buildClassName,
-  buildObjectOrValueClassNames,
-  commonPropTypes,
   getElementType,
+  getIfHasChildType,
   getOptionsString,
-  hasChildType,
-  HTML,
   UIK,
 } from '../../lib';
+import { Block } from '../Base';
 import Close from '../Close';
 
-export default class Alert extends React.Component {
+export default class Alert extends Block {
   static meta = {
     name: 'Alert',
     ukClass: 'uk-alert',
   };
 
   static propTypes = {
+    ...Block.propTypes,
     animation: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.oneOf(UIK.ANIMATIONS),
@@ -31,51 +29,24 @@ export default class Alert extends React.Component {
         duration: PropTypes.number,
       }),
     ]),
-    as: PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
-    background: commonPropTypes.background,
-    border: PropTypes.oneOf(['circle', 'rounded']),
-    boxShadow: commonPropTypes.boxShadow,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
-    clearfix: PropTypes.bool,
     closeable: PropTypes.bool,
     closeOptions: PropTypes.shape({
       className: PropTypes.string,
       large: PropTypes.bool,
     }),
     danger: PropTypes.bool,
-    display: PropTypes.oneOf(['block', 'inline', 'inline-block']),
-    dynamic: PropTypes.bool,
-    firstColumn: PropTypes.string,
-    float: PropTypes.oneOf(['left', 'right']),
-    height: PropTypes.oneOf(['full', ...without(UIK.SIZES, 'xlarge')]),
-    heightMatch: commonPropTypes.heightMatch,
-    hidden: commonPropTypes.hidden,
-    inline: PropTypes.bool,
-    inverse: PropTypes.oneOf(['dark', 'light']),
-    invisible: PropTypes.oneOf([true, false, 'hover']),
-    margin: commonPropTypes.margin,
-    maxHeight: PropTypes.oneOf(without(UIK.SIZES, 'xlarge')),
-    nextRow: commonPropTypes.nextRow,
     onBeforeHide: PropTypes.func,
     onHide: PropTypes.func,
-    overflow: PropTypes.oneOf(['auto', 'hidden']),
-    padding: commonPropTypes.padding,
-    position: commonPropTypes.position,
     primary: PropTypes.bool,
-    resize: PropTypes.oneOf([true, 'vertical']),
-    responsive: PropTypes.oneOf([false, 'height', 'width']),
     selectorClose: PropTypes.string,
     success: PropTypes.bool,
-    viewport: commonPropTypes.viewport,
-    visible: commonPropTypes.visible,
     warning: PropTypes.bool,
-    width: commonPropTypes.width,
   };
 
   static defaultProps = {
     as: 'div',
-    className: '',
     closeable: false,
   };
 
@@ -88,73 +59,40 @@ export default class Alert extends React.Component {
 
   render() {
     const {
+      attributes,
+      blockClasses,
+      blockStyle,
+      unhandledProps,
+    } = this.getBlockElements(this.props);
+
+    const {
       animation,
       as,
-      background,
-      border,
-      boxShadow,
       children,
       className,
-      clearfix,
       closeable,
       closeOptions,
       danger,
-      display,
-      float,
-      height,
-      hidden,
-      inline,
-      inverse,
-      invisible,
-      margin,
-      maxHeight,
       onBeforeHide,
       onHide,
-      overflow,
-      padding,
-      position,
       primary,
-      resize,
-      responsive,
       selectorClose,
       success,
-      visible,
       warning,
-      width,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
-    if (closeable && hasChildType(children, Close)) {
+    if (closeable && getIfHasChildType(children, Close)) {
       throw new Error('You cannot have an instance of Close inside an Alert if the closeable prop is true.');
     }
 
     const classes = classnames(
       className,
+      blockClasses,
       Alert.meta.ukClass,
-      buildObjectOrValueClassNames('background', background),
-      buildClassName('border', border),
-      buildObjectOrValueClassNames('boxShadow', boxShadow),
-      buildClassName('display', display),
-      buildClassName('float', float),
-      buildClassName((height === 'full') ? ['height', '1', '1'] : ['height', height]),
-      buildClassName('height', 'max', maxHeight),
-      buildObjectOrValueClassNames('hidden', hidden),
-      buildClassName(inverse),
-      buildClassName('inline', inline),
-      buildClassName('invisible', invisible),
-      buildObjectOrValueClassNames('margin', margin),
-      buildClassName('overflow', overflow),
-      buildObjectOrValueClassNames('padding', padding),
-      buildObjectOrValueClassNames('position', position),
-      buildClassName('responsive', responsive),
-      buildObjectOrValueClassNames('visible', visible),
-      buildObjectOrValueClassNames('width', width),
       {
-        [buildClassName('clearfix')]: (clearfix),
         [buildClassName(Alert.meta.ukClass, 'danger')]: (danger),
-        [buildClassName('preserve', 'width')]: (responsive === false),
         [buildClassName(Alert.meta.ukClass, 'primary')]: (primary),
-        [buildClassName('resize')]: (resize),
         [buildClassName(Alert.meta.ukClass, 'success')]: (success),
         [buildClassName(Alert.meta.ukClass, 'warning')]: (warning),
       },
@@ -166,22 +104,22 @@ export default class Alert extends React.Component {
     });
 
     const closeClasses = classnames(
-      closeOptions.className,
+      get(closeOptions, 'className'),
       buildClassName('alert', 'close'),
       {
-        [buildClassName('close', 'large')]: (closeOptions.large),
+        [buildClassName('close', 'large')]: (get(closeOptions, 'large')),
       },
     );
 
-    const { dataAttributes, validProps } = buildAttributeOptions(rest);
-    const Element = getElementType(Alert, as, rest);
+    const Element = getElementType(Alert, this.props);
     return (
       <Element
-        {...validProps}
+        {...rest}
         className={classes || undefined}
         ref={this.handleRef}
+        style={blockStyle}
         data-uk-alert={componentOptions}
-        {...dataAttributes}
+        {...attributes}
       >
         {(closeable) && <button className={closeClasses} type="button" data-uk-close />}
         {children}

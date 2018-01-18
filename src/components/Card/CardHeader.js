@@ -1,59 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  buildObjectOrValueClassNames,
-  commonPropTypes,
-  getElementType,
-  HTML,
-} from '../../lib';
+import { Block } from '../Base';
 
-class CardHeader extends React.Component {
-  static meta = {
-    name: 'CardHeader',
-    ukClass: 'uk-card-header',
-  };
+const CardFooter = ({ className, ...rest }) => (
+  <Block
+    {...rest}
+    as="div"
+    className={classnames(className, CardFooter.meta.ukClass)}
+  />
+);
 
-  static propTypes = {
-    as: PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
-    children: PropTypes.node.isRequired,
-    className: PropTypes.string,
-    margin: commonPropTypes.margin,
-    padding: commonPropTypes.padding,
-  };
+CardFooter.propTypes = {
+  ...Block.propTypes,
+  as: undefined,
+};
 
-  static defaultProps = {
-    as: 'div',
-    className: '',
-  };
+CardFooter.meta = {
+  name: 'CardFooter',
+  ukClass: 'uk-card-footer',
+};
 
-  render() {
-    const {
-      as,
-      children,
-      className,
-      margin,
-      padding,
-      ...rest
-    } = this.props;
-
-    const classes = classnames(
-      className,
-      CardHeader.meta.ukClass,
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
-    );
-
-    const Element = getElementType(CardHeader, as, rest);
-    return (
-      <Element
-        {...rest}
-        className={classes || undefined}
-      >
-        {children}
-      </Element>
-    );
-  }
-}
-
-export default CardHeader;
+export default CardFooter;

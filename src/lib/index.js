@@ -1,11 +1,7 @@
-export {
-  buildAttributeOptions,
-  buildMarginAttributeOptions,
-  getOptionsString,
-} from './attributeUtils';
+export { default as buildClassName } from './buildClassName';
 
 export {
-  buildClassName,
+  buildClassName as getClassName,
   buildObjectOrValueClassNames,
   buildPositionClassNames,
   buildStyles,
@@ -16,12 +12,17 @@ export {
 export {
   appendClassNamesToChildren,
   findChildByType,
-  hasChildType,
+  getIfHasChildType,
+  getIfChildrenHaveClass,
 } from './childrenUtils';
 
 export { default as commonPropTypes } from './commonPropTypes';
 
+export { restrictToChildTypes } from './customPropTypes';
+
 export { default as getElementType } from './getElementType';
+
+export { default as getOptionsString } from './getOptionsString';
 
 export { default as generateSelector } from './generateSelector';
 

@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import UIkit from 'uikit';
+import { isNil } from 'lodash';
 import {
-  buildObjectOrValueClassNames,
-  commonPropTypes,
   getElementType,
   getOptionsString,
-  HTML,
 } from '../../lib';
+import { Block } from '../Base';
 import CountdownDays from './CountdownDays';
 import CountdownHours from './CountdownHours';
 import CountdownLabel from './CountdownLabel';
@@ -16,28 +15,23 @@ import CountdownMinutes from './CountdownMinutes';
 import CountdownSeconds from './CountdownSeconds';
 import CountdownSeparator from './CountdownSeparator';
 
-class Countdown extends React.Component {
+export default class Countdown extends Block {
   static meta = {
     name: 'Countdown',
     ukClass: 'uk-countdown',
   };
 
   static propTypes = {
-    as: PropTypes.oneOfType([
-      PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
-      PropTypes.func,
-    ]),
+    ...Block.propTypes,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
-    date: PropTypes.string,
-    margin: commonPropTypes.margin,
-    padding: commonPropTypes.padding,
+    // TODO: Add validation to ensure date is in correct format and in the future.
+    date: PropTypes.string.isRequired,
     paused: PropTypes.bool,
   };
 
   static defaultProps = {
     as: 'div',
-    className: '',
     paused: false,
   };
 
@@ -63,35 +57,39 @@ class Countdown extends React.Component {
 
   render() {
     const {
+      attributes,
+      blockClasses,
+      blockStyle,
+      unhandledProps,
+    } = this.getBlockElements(this.props);
+
+    const {
       as,
       children,
       className,
       date,
-      margin,
-      padding,
       paused,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     const classes = classnames(
       className,
+      blockClasses,
       Countdown.meta.ukClass,
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
     );
 
-    const Element = getElementType(Countdown, as, rest);
+    const Element = getElementType(Countdown, this.props);
     return (
       <Element
         {...rest}
         className={classes || undefined}
         ref={this.handleRef}
+        style={blockStyle}
         data-uk-countdown={getOptionsString({ date })}
+        {...attributes}
       >
         {children}
       </Element>
     );
   }
 }
-
-export default Countdown;

@@ -25,7 +25,6 @@ class ModalHeader extends React.Component {
 
   static defaultProps = {
     as: 'div',
-    className: '',
   };
 
   render() {
@@ -45,7 +44,7 @@ class ModalHeader extends React.Component {
       buildObjectOrValueClassNames('padding', padding),
     );
 
-    const Element = getElementType(ModalHeader, as, rest);
+    const Element = getElementType(ModalHeader, this.props);
     return (
       <Element
         {...rest}

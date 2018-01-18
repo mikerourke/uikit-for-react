@@ -4,48 +4,48 @@ import classnames from 'classnames';
 import { get } from 'lodash';
 import {
   buildClassName,
-  buildMarginAttributeOptions,
-  buildObjectOrValueClassNames,
   buildStyles,
-  commonPropTypes,
   getElementType,
   HTML,
   UIK,
 } from '../../lib';
+import { Block } from '../Base';
 
-class Flex extends React.Component {
+export default class Flex extends Block {
   static meta = {
     name: 'Flex',
     ukClass: 'uk-flex',
   };
 
   static propTypes = {
+    ...Block.propTypes,
     alignItems: PropTypes.oneOf(UIK.FLEX_VERTICAL_MODIFIERS),
     as: PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
-    background: commonPropTypes.background,
     children: PropTypes.node.isRequired,
     childWidth: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.CHILD_WIDTHS),
-      commonPropTypes.getForBreakpoints(PropTypes.oneOf(UIK.CHILD_WIDTHS)),
+      PropTypes.shape({
+        atSm: PropTypes.oneOf(UIK.CHILD_WIDTHS),
+        atMd: PropTypes.oneOf(UIK.CHILD_WIDTHS),
+        atLg: PropTypes.oneOf(UIK.CHILD_WIDTHS),
+        atXl: PropTypes.oneOf(UIK.CHILD_WIDTHS),
+      }),
     ]),
     className: PropTypes.string,
     direction: PropTypes.shape({
       as: PropTypes.oneOf(['column', 'row']),
       reverse: PropTypes.bool,
     }),
-    dynamic: PropTypes.bool,
-    firstColumn: PropTypes.string,
     inline: PropTypes.bool,
     justifyContent: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-      commonPropTypes.getForBreakpoints(PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS)),
+      PropTypes.shape({
+        atSm: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
+        atMd: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
+        atLg: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
+        atXl: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
+      }),
     ]),
-    margin: commonPropTypes.margin,
-    nextRow: PropTypes.shape({
-      spacing: PropTypes.oneOf(UIK.SPACING_MODIFIERS),
-      location: PropTypes.oneOf(UIK.LOCATIONS),
-    }),
-    padding: commonPropTypes.padding,
     wrap: PropTypes.shape({
       type: PropTypes.oneOf(['nowrap', 'reverse', 'wrap']),
       alignment: PropTypes.oneOf(UIK.FLEX_VERTICAL_MODIFIERS),
@@ -54,41 +54,48 @@ class Flex extends React.Component {
 
   static defaultProps = {
     as: 'div',
-    className: '',
+    inline: false,
   };
 
   render() {
     const {
+      attributes,
+      blockClasses,
+      blockStyle,
+      unhandledProps,
+    } = this.getBlockElements(this.props);
+
+    const {
       alignItems,
       as,
-      background,
       children,
       childWidth,
       className,
       direction,
-      dynamic,
-      firstColumn,
       inline,
       justifyContent,
-      margin,
-      nextRow,
-      padding,
       wrap,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     const isReverse = get(direction, 'reverse', false);
 
     const classes = classnames(
       className,
+      blockClasses,
       Flex.meta.ukClass,
       buildClassName(Flex.meta.ukClass, alignItems),
+      buildClassName('child', 'width', childWidth),
+      buildClassName('child', 'width', get(childWidth, 'atSm'), '@s'),
+      buildClassName('child', 'width', get(childWidth, 'atMd'), '@m'),
+      buildClassName('child', 'width', get(childWidth, 'atLg'), '@l'),
+      buildClassName('child', 'width', get(childWidth, 'atXl'), '@xl'),
       buildClassName(Flex.meta.ukClass, get(direction, 'as'), (isReverse ? 'reverse' : '')),
-      buildObjectOrValueClassNames('background', background),
-      buildObjectOrValueClassNames('child', 'width', childWidth),
-      buildObjectOrValueClassNames(Flex.meta.ukClass, justifyContent),
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
+      buildClassName(Flex.meta.ukClass, justifyContent),
+      buildClassName(Flex.meta.ukClass, get(justifyContent, 'atSm'), '@s'),
+      buildClassName(Flex.meta.ukClass, get(justifyContent, 'atMd'), '@m'),
+      buildClassName(Flex.meta.ukClass, get(justifyContent, 'atLg'), '@l'),
+      buildClassName(Flex.meta.ukClass, get(justifyContent, 'atXl'), '@xl'),
       buildClassName(Flex.meta.ukClass, get(wrap, 'type')),
       buildClassName(Flex.meta.ukClass, get(wrap, 'alignment')),
       {
@@ -97,18 +104,17 @@ class Flex extends React.Component {
     );
     const styles = buildStyles(this.props);
 
-    const Element = getElementType(Flex, as, rest);
+    const Element = getElementType(Flex, this.props);
     return (
       <Element
         {...rest}
         className={classes || undefined}
         style={styles}
-        {...buildMarginAttributeOptions(dynamic, firstColumn, nextRow)}
+        style={blockStyle}
+        {...attributes}
       >
         {children}
       </Element>
     );
   }
 }
-
-export default Flex;

@@ -1,14 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  buildClassName,
-  buildObjectOrValueClassNames,
-  commonPropTypes,
-  HTML,
-} from '../../lib';
+import { buildClassName } from '../../lib';
+import { Inline } from '../Base';
 
-class Label extends React.Component {
+export default class Label extends Inline {
   static meta = {
     name: 'Label',
     ukClass: 'uk-label',
@@ -18,33 +14,36 @@ class Label extends React.Component {
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     danger: PropTypes.bool,
-    margin: commonPropTypes.margin,
-    padding: commonPropTypes.padding,
     success: PropTypes.bool,
     warning: PropTypes.bool,
   };
 
   static defaultProps = {
-    className: '',
+    danger: false,
+    success: false,
+    warning: false,
   };
 
   render() {
     const {
+      inlineClasses,
+      inlineStyle,
+      unhandledProps,
+    } = this.getInlineElements(this.props);
+
+    const {
       children,
       className,
       danger,
-      margin,
-      padding,
       success,
       warning,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     const classes = classnames(
       className,
+      inlineClasses,
       Label.meta.ukClass,
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
       {
         [buildClassName(Label.meta.ukClass, 'danger')]: (danger),
         [buildClassName(Label.meta.ukClass, 'success')]: (success),
@@ -56,11 +55,10 @@ class Label extends React.Component {
       <span
         {...rest}
         className={classes}
+        style={inlineStyle}
       >
         {children}
       </span>
     );
   }
 }
-
-export default Label;

@@ -18,8 +18,4 @@ ArticleLead.propTypes = {
   className: PropTypes.string,
 };
 
-ArticleLead.defaultProps = {
-  className: '',
-};
-
 export default ArticleLead;

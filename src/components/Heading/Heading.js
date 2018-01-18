@@ -8,7 +8,7 @@ import {
 } from '../../lib';
 import Text from '../Text';
 
-class Heading extends React.Component {
+export default class Heading extends React.Component {
   static meta = {
     name: 'Heading',
     ukClass: 'uk-heading',
@@ -31,7 +31,10 @@ class Heading extends React.Component {
 
   static defaultProps = {
     as: 'h1',
-    className: '',
+    bullet: false,
+    divider: false,
+    hero: false,
+    primary: false,
   };
 
   render() {
@@ -73,5 +76,3 @@ class Heading extends React.Component {
     );
   }
 }
-
-export default Heading;

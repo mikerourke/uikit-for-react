@@ -1,6 +1,5 @@
 import {
   flatten,
-  get,
   isArray,
   isBoolean,
   isNil,
@@ -8,7 +7,6 @@ import {
   isString,
   isUndefined,
   kebabCase,
-  omit,
   toPairs,
 } from 'lodash';
 import { buildClassName, joinListProp } from './buildProps';
@@ -80,7 +78,7 @@ const getAnimationsOptionString = (optionValue) => {
  * console.log(getOptionsString(options));
  * > "offset: 50; top: 100"
  */
-export const getOptionsString = (options) => {
+const getOptionsString = (options) => {
   if (isUndefined(options)) return undefined;
   if (!isPlainObject(options)) return '';
   const optionPairs = toPairs(options).reduce((acc, [key, value]) => {
@@ -101,61 +99,4 @@ export const getOptionsString = (options) => {
   return (optionPairs.length > 0) ? optionPairs.join('; ') : '';
 };
 
-export const buildMarginAttributeOptions = (dynamic, firstColumn, nextRow) => {
-  const hasMarginAttribute = ((dynamic === true) || !isNil(firstColumn) || !isNil(nextRow));
-  if (!hasMarginAttribute) return undefined;
-
-  const marginAttributeOptions = getOptionsString({
-    firstColumn: (isNil(firstColumn)) ? 'uk-first-column' : firstColumn,
-    margin: buildClassName(
-      'margin',
-      get(nextRow, 'spacing', 'small'),
-      get(nextRow, 'location', 'top'),
-    ),
-  });
-
-  return {
-    'data-uk-margin': marginAttributeOptions,
-  };
-};
-
-export const buildAttributeOptions = (props) => {
-  const attributeProps = ['dynamic', 'firstColumn', 'heightMatch', 'nextRow', 'viewport'];
-  const hasMarginAttribute = (
-    (props.dynamic === true)
-    || !isNil(props.firstColumn)
-    || !isNil(props.nextRow)
-  );
-
-  const marginComponentOptions = getOptionsString({
-    firstColumn: get(props, 'firstColumn', 'uk-first-column'),
-    margin: buildClassName(
-      'margin',
-      get(props, ['nextRow', 'spacing'], 'small'),
-      get(props, ['nextRow', 'location'], 'top'),
-    ),
-  });
-
-  const heightMatchComponentOptions = getOptionsString({
-    target: get(props, ['heightMatch', 'selectorTarget']),
-    row: get(props, ['heightMatch', 'row']),
-  });
-
-  const viewportComponentOptions = getOptionsString({
-    offsetTop: get(props, ['viewport', 'offsetTop']),
-    offsetBottom: get(props, ['viewport', 'offsetBottom']),
-    expand: get(props, ['viewport', 'expand']),
-    minHeight: get(props, ['viewport', 'minHeight']),
-  });
-
-  const dataAttributes = {
-    'data-uk-margin': (hasMarginAttribute) ? marginComponentOptions : undefined,
-    'data-uk-height-match': (props.heightMatch) ? heightMatchComponentOptions : undefined,
-    'data-uk-height-viewport': (props.viewport) ? viewportComponentOptions : undefined,
-  };
-
-  return {
-    dataAttributes,
-    validProps: omit(props, attributeProps),
-  };
-};
+export default getOptionsString;

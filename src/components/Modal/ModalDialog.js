@@ -25,7 +25,6 @@ class ModalDialog extends React.Component {
 
   static defaultProps = {
     as: 'div',
-    className: '',
   };
 
   render() {
@@ -45,7 +44,7 @@ class ModalDialog extends React.Component {
       buildObjectOrValueClassNames('padding', padding),
     );
 
-    const Element = getElementType(ModalDialog, as, rest);
+    const Element = getElementType(ModalDialog, this.props);
     return (
       <Element
         {...rest}

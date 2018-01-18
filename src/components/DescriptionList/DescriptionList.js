@@ -3,28 +3,30 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {
   buildClassName,
-  buildObjectOrValueClassNames,
-  commonPropTypes,
+  restrictToChildTypes,
 } from '../../lib';
+import { Block } from '../Base';
 import DescriptionDetails from './DescriptionDetails';
 import DescriptionTerm from './DescriptionTerm';
 
-class DescriptionList extends React.Component {
+export default class DescriptionList extends Block {
   static meta = {
     name: 'DescriptionList',
     ukClass: 'uk-description-list',
   };
 
   static propTypes = {
-    children: PropTypes.node.isRequired,
+    ...Block.propTypes,
+    children: restrictToChildTypes([
+      DescriptionDetails,
+      DescriptionTerm,
+    ]),
     className: PropTypes.string,
     divider: PropTypes.bool,
-    margin: commonPropTypes.margin,
-    padding: commonPropTypes.padding,
   };
 
   static defaultProps = {
-    className: '',
+    divider: false,
   };
 
   static Details = DescriptionDetails;
@@ -32,31 +34,37 @@ class DescriptionList extends React.Component {
 
   render() {
     const {
+      attributes,
+      blockClasses,
+      blockStyle,
+      unhandledProps,
+    } = this.getBlockElements(this.props);
+
+    const {
       children,
       className,
       divider,
-      margin,
-      padding,
       ...rest
-    } = this.props;
+    } = unhandledProps;
 
     const classes = classnames(
       className,
+      blockClasses,
       DescriptionList.meta.ukClass,
-      buildClassName(DescriptionList.meta.ukClass, 'divider', divider),
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
+      {
+        [buildClassName(DescriptionList.meta.ukClass, 'divider')]: (divider),
+      },
     );
 
     return (
       <dl
         {...rest}
         className={classes || undefined}
+        style={blockStyle}
+        {...attributes}
       >
         {children}
       </dl>
     );
   }
 }
-
-export default DescriptionList;

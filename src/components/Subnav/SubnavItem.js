@@ -22,10 +22,6 @@ class SubnavItem extends React.Component {
     padding: commonPropTypes.padding,
   };
 
-  static defaultProps = {
-    className: '',
-  };
-
   render() {
     const {
       active,

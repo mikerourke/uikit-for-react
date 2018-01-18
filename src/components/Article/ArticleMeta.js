@@ -1,43 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { Block } from '../Base';
 
-class ArticleMeta extends React.Component {
-  static meta = {
-    name: 'ArticleMeta',
-    ukClass: 'uk-article-meta',
-  };
+const ArticleMeta = ({ className, ...rest }) => (
+  <Block
+    {...rest}
+    as="p"
+    className={classnames(className, ArticleMeta.meta.ukClass)}
+  />
+);
 
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    className: PropTypes.string,
-  };
+ArticleMeta.propTypes = Block.propTypes;
 
-  static defaultProps = {
-    className: '',
-  };
-
-  render() {
-    const {
-      children,
-      className,
-      ...rest
-    } = this.props;
-
-    const classes = classnames(
-      className,
-      ArticleMeta.meta.ukClass,
-    );
-
-    return (
-      <p
-        {...rest}
-        className={classes || undefined}
-      >
-        {children}
-      </p>
-    );
-  }
-}
+ArticleMeta.meta = {
+  name: 'ArticleMeta',
+  ukClass: 'uk-article-meta',
+};
 
 export default ArticleMeta;

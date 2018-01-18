@@ -36,7 +36,6 @@ class Toggle extends React.Component {
 
   static defaultProps = {
     as: 'button',
-    className: '',
   };
 
   render() {
@@ -56,7 +55,7 @@ class Toggle extends React.Component {
       buildObjectOrValueClassNames('padding', padding),
     );
 
-    const Element = getElementType(Toggle, as, rest);
+    const Element = getElementType(Toggle, this.props);
     return (
       <Element
         {...rest}

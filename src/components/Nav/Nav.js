@@ -7,7 +7,7 @@ import {
   buildObjectOrValueClassNames,
   commonPropTypes,
   getOptionsString,
-  hasChildType,
+  getIfHasChildType,
   HTML,
   UIK,
 } from '../../lib';
@@ -43,10 +43,6 @@ class Nav extends React.Component {
     collapsible: PropTypes.bool,
     multiple: PropTypes.bool,
     transition: PropTypes.oneOf(HTML.CSS_EASING),
-  };
-
-  static defaultProps = {
-    className: '',
   };
 
   handleRef = element => (this.ref = element);
