@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { buildClassName } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
-export default class Tile extends Block {
+export default class Tile extends BlockElement {
   static meta = {
     name: 'Tile',
     ukClass: 'uk-label',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     muted: PropTypes.bool,
@@ -27,11 +27,11 @@ export default class Tile extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -44,7 +44,7 @@ export default class Tile extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       Tile.meta.ukClass,
       {
         [buildClassName(Tile.meta.ukClass, 'default')]: (!muted && !primary && !secondary),
@@ -58,8 +58,8 @@ export default class Tile extends Block {
       <span
         {...rest}
         className={classes}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {children}
       </span>

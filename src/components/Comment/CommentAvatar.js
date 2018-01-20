@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { omit } from 'lodash';
-import { Inline } from '../Base';
+import { InlineElement } from '../Base';
 
 const CommentAvatar = ({ className, ...rest }) => (
-  <Inline
+  <InlineElement
     {...rest}
     as="img"
     className={classnames(className, CommentAvatar.meta.ukClass)}
@@ -13,7 +12,7 @@ const CommentAvatar = ({ className, ...rest }) => (
 );
 
 CommentAvatar.propTypes = {
-  ...omit(Inline.propTypes, 'as'),
+  ...InlineElement.propTypes,
   className: PropTypes.string,
 };
 

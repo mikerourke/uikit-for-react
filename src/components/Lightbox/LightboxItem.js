@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { buildClassName } from '../../lib';
-import { Inline } from '../Base';
+import { InlineElement } from '../Base';
 
-export default class LightboxItem extends Inline {
+export default class LightboxItem extends InlineElement {
   static meta = {
     name: 'Lightbox',
   };
 
   static propTypes = {
-    ...Inline.propTypes,
+    ...InlineElement.propTypes,
     as: PropTypes.oneOfType([
       PropTypes.oneOf(['a']),
       PropTypes.element,
@@ -29,11 +29,11 @@ export default class LightboxItem extends Inline {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -45,7 +45,7 @@ export default class LightboxItem extends Inline {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       {
         [buildClassName('subnav', 'divider')]: (divider),
         [buildClassName('subnav', 'pill')]: (pill),
@@ -56,9 +56,9 @@ export default class LightboxItem extends Inline {
       <a
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
+        style={inheritedStyle}
         data-lightbox
-        {...attributes}
+        {...inheritedAttributes}
       >
         {children}
       </a>

@@ -5,16 +5,16 @@ import {
   getElementType,
   getOptionsString,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 import CoverContainer from './CoverContainer';
 
-export default class Cover extends Block {
+export default class Cover extends BlockElement {
   static meta = {
     name: 'Cover',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     as: PropTypes.oneOf(['img', 'video', 'iframe']),
     automute: PropTypes.bool,
     children: PropTypes.node.isRequired,
@@ -27,11 +27,11 @@ export default class Cover extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       automute,
@@ -44,7 +44,7 @@ export default class Cover extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
     );
 
     const componentOptions = getOptionsString({
@@ -58,9 +58,9 @@ export default class Cover extends Block {
       <Element
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
+        style={inheritedStyle}
         data-uk-cover={componentOptions}
-        {...attributes}
+        {...inheritedAttributes}
       >
         {children}
       </Element>

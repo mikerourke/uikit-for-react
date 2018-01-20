@@ -8,15 +8,16 @@ import {
   HTML,
   UIK,
 } from '../../lib';
-import Base from './BaseElement';
+import BaseElement from './BaseElement';
 
-export default class Inline extends Base {
+export default class InlineElement extends BaseElement {
   static meta = {
-    name: 'Inline',
+    baseType: 'Inline',
+    name: 'InlineElement',
   };
 
   static propTypes = {
-    ...Base.propTypes,
+    ...BaseElement.propTypes,
     align: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
       PropTypes.shape({
@@ -26,28 +27,27 @@ export default class Inline extends Base {
         atXl: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
       }),
     ]),
-    as: PropTypes.oneOfType([
-      PropTypes.oneOf(HTML.INLINE_ELEMENTS),
-      PropTypes.element,
-      PropTypes.func,
-    ]),
-    children: PropTypes.node,
-    className: PropTypes.string,
     columnSpan: PropTypes.bool,
   };
 
+  static asPropType = PropTypes.oneOfType([
+    PropTypes.oneOf(HTML.INLINE_ELEMENTS),
+    PropTypes.element,
+    PropTypes.func,
+  ]);
+
   static defaultProps = {
-    as: 'span',
+    align: null,
     columnSpan: false,
   };
 
-  getInlineElements(props) {
+  static getElementProps(props) {
     const {
-      attributes,
+      baseAttributes,
       baseClasses,
       baseStyle,
       unhandledProps,
-    } = this.getBaseElements(props);
+    } = BaseElement.getBaseProps(props);
 
     const {
       align,
@@ -69,36 +69,52 @@ export default class Inline extends Base {
     );
 
     return {
-      attributes,
-      inlineClasses: trim(classes),
-      inlineStyle: baseStyle,
+      inheritedAttributes: baseAttributes,
+      inheritedClasses: trim(classes),
+      inheritedStyle: baseStyle,
       unhandledProps: rest,
+    };
+  }
+
+  getInheritedProps(props) {
+    const {
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
+      unhandledProps,
+    } = InlineElement.getElementProps(props);
+
+    return {
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
+      unhandledProps,
     };
   }
 
   render() {
     const {
-      attributes,
-      inlineClasses,
-      inlineStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getInlineElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
-      className,
+      className = '',
       ...rest
     } = unhandledProps;
 
-    const classes = classnames(className, inlineClasses);
+    const classes = classnames(className, inheritedClasses);
 
-    const Element = getElementType(Inline, this.props);
+    const Element = getElementType(InlineElement, this.props);
     return (
       <Element
         {...rest}
         className={classes || undefined}
-        style={inlineStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {children}
       </Element>

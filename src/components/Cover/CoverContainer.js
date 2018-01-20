@@ -7,17 +7,17 @@ import {
   getOptionsString,
   HTML,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 import Cover from './Cover';
 
-export default class CoverContainer extends Block {
+export default class CoverContainer extends BlockElement {
   static meta = {
     name: 'CoverContainer',
     ukClass: 'uk-cover-container',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     as: PropTypes.oneOfType([
       PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
       PropTypes.element,
@@ -47,11 +47,11 @@ export default class CoverContainer extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -63,7 +63,7 @@ export default class CoverContainer extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       CoverContainer.meta.ukClass,
     );
 
@@ -80,8 +80,8 @@ export default class CoverContainer extends Block {
         {...rest}
         className={classes || undefined}
         data-uk-height-viewport={viewportComponentOptions}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {responsive && <canvas {...responsiveProps} />}
         {children}

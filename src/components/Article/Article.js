@@ -1,20 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 import ArticleBody from './ArticleBody';
 import ArticleLead from './ArticleLead';
 import ArticleMeta from './ArticleMeta';
 import ArticleTitle from './ArticleTitle';
 
-export default class Article extends Block {
+/**
+ * Create articles within your page.
+ * @see https://getuikit.com/docs/article
+ */
+export default class Article extends BlockElement {
   static meta = {
     name: 'Article',
     ukClass: 'uk-article',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
   };
@@ -28,11 +32,11 @@ export default class Article extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -42,7 +46,7 @@ export default class Article extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       Article.meta.ukClass,
     );
 
@@ -51,8 +55,8 @@ export default class Article extends Block {
         {...rest}
         className={classes || undefined}
         ref={this.handleRef}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {children}
       </article>

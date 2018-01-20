@@ -1,11 +1,11 @@
 import React from 'react';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
 const ArticleBody = props => (
-  <Block {...props} />
+  <BlockElement {...props} />
 );
 
-ArticleBody.propTypes = Block.propTypes;
+ArticleBody.propTypes = BlockElement.propTypes;
 
 ArticleBody.meta = {
   name: 'ArticleBody',

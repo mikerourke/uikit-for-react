@@ -6,9 +6,9 @@ import {
   buildClassName,
   UIK,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
-export default class GridCell extends Block {
+export default class GridCell extends BlockElement {
   static meta = {
     name: 'GridCell',
   };
@@ -33,11 +33,11 @@ export default class GridCell extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -52,7 +52,7 @@ export default class GridCell extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       buildClassName('flex', order),
       buildClassName('flex', 'first', get(order, 'first')),
       buildClassName('flex', 'last', get(order, 'last')),
@@ -66,8 +66,8 @@ export default class GridCell extends Block {
       <div
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {children}
       </div>

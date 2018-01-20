@@ -12,16 +12,16 @@ import {
   joinListProp,
   UIK,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
-export default class Drop extends Block {
+export default class Drop extends BlockElement {
   static meta = {
     name: 'Drop',
     ukClass: 'uk-drop',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     animation: PropTypes.shape({
       name: PropTypes.oneOfType([
         PropTypes.oneOf(UIK.ANIMATIONS),
@@ -100,11 +100,11 @@ export default class Drop extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       animation,
@@ -138,7 +138,7 @@ export default class Drop extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       Drop.meta.ukClass,
     );
 
@@ -163,9 +163,9 @@ export default class Drop extends Block {
           {...rest}
           className={classes}
           ref={this.handleRef}
-          style={blockStyle}
+          style={inheritedStyle}
           data-uk-drop={componentOptions}
-          {...attributes}
+          {...inheritedAttributes}
         >
           {this.renderChildren()}
         </Element>

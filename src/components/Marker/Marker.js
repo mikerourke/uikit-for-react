@@ -5,15 +5,15 @@ import {
   getElementType,
   HTML,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
-export default class Marker extends Block {
+export default class Marker extends BlockElement {
   static meta = {
     name: 'Marker',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     as: PropTypes.oneOf(HTML.ALL_ELEMENTS),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
@@ -25,11 +25,11 @@ export default class Marker extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       as,
@@ -40,7 +40,7 @@ export default class Marker extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
     );
 
     const Element = getElementType(Marker, this.props);
@@ -48,9 +48,9 @@ export default class Marker extends Block {
       <Element
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
+        style={inheritedStyle}
         data-uk-marker
-        {...attributes}
+        {...inheritedAttributes}
       >
         {children}
       </Element>

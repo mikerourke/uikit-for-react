@@ -9,10 +9,10 @@ import {
   restrictToChildTypes,
   UIK,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 import GridCell from './GridCell';
 
-export default class Grid extends Block {
+export default class Grid extends BlockElement {
   static meta = {
     name: 'Grid',
     ukClass: 'uk-grid',
@@ -21,7 +21,7 @@ export default class Grid extends Block {
   static displayName = 'Grid';
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     as: PropTypes.oneOfType([
       PropTypes.oneOf(['div']),
       PropTypes.element,
@@ -50,11 +50,11 @@ export default class Grid extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -74,7 +74,7 @@ export default class Grid extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       buildClassName('flex', get(direction, 'as'), (isReverse ? 'reverse' : '')),
       buildClassName(Grid.meta.ukClass, gutter),
       {
@@ -96,9 +96,9 @@ export default class Grid extends Block {
       <Element
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
+        style={inheritedStyle}
         data-uk-grid={componentOptions}
-        {...attributes}
+        {...inheritedAttributes}
       >
         {children}
       </Element>

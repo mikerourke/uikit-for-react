@@ -6,17 +6,17 @@ import {
   buildClassName,
   getIfDefaultStyle,
 } from '../../lib';
-import { Inline } from '../Base';
+import { InlineElement } from '../Base';
 import ButtonGroup from './ButtonGroup';
 
-export default class Button extends Inline {
+export default class Button extends InlineElement {
   static meta = {
     name: 'Button',
     ukClass: 'uk-button',
   };
 
   static propTypes = {
-    ...Inline.propTypes,
+    ...InlineElement.propTypes,
     as: PropTypes.oneOf(['a', 'button']),
     children: PropTypes.node,
     className: PropTypes.string,
@@ -48,11 +48,11 @@ export default class Button extends Inline {
 
   render() {
     const {
-      attributes,
-      inlineClasses,
-      inlineStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getInlineElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -74,7 +74,7 @@ export default class Button extends Inline {
 
     const classes = classnames(
       className,
-      inlineClasses,
+      inheritedClasses,
       buildClassName('button', size),
       {
         [Button.meta.ukClass]: (!hasIcon),
@@ -97,9 +97,9 @@ export default class Button extends Inline {
         disabled={(disabled && this.props.as === 'button') || undefined}
         onClick={this.handleClick}
         role="button"
-        style={inlineStyle}
+        style={inheritedStyle}
         data-uk-icon={(hasIcon) ? `icon: ${icon}` : undefined}
-        {...attributes}
+        {...inheritedAttributes}
       >
         {(!hasIcon) && children}
       </Element>

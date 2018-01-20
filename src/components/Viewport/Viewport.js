@@ -5,16 +5,16 @@ import {
   getElementType,
   getOptionsString,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
-export default class Viewport extends Block {
+export default class Viewport extends BlockElement {
   static meta = {
     name: 'Viewport',
     ukClass: 'uk-viewport',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     expand: PropTypes.bool,
@@ -28,11 +28,11 @@ export default class Viewport extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -46,7 +46,7 @@ export default class Viewport extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
     );
 
     const componentOptions = getOptionsString({
@@ -61,9 +61,9 @@ export default class Viewport extends Block {
       <Element
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
+        style={inheritedStyle}
         data-uk-height-viewport={componentOptions}
-        {...attributes}
+        {...inheritedAttributes}
       >
         {children}
       </Element>

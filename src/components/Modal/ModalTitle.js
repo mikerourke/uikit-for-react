@@ -1,15 +1,15 @@
 import React from 'react';
 import classnames from 'classnames';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
 const ModalTitle = ({ className, ...rest }) => (
-  <Block
+  <BlockElement
     {...rest}
     className={classnames(className, ModalTitle.meta.ukClass)}
   />
 );
 
-ModalTitle.propTypes = Block.propTypes;
+ModalTitle.propTypes = BlockElement.propTypes;
 
 ModalTitle.meta = {
   name: 'ModalTitle',

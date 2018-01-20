@@ -1,14 +1,14 @@
 import React from 'react';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
 const Spinner = props => (
-  <Block
+  <BlockElement
     {...props}
     data-uk-spinner
   />
 );
 
-Spinner.propTypes = Block.propTypes;
+Spinner.propTypes = BlockElement.propTypes;
 
 Spinner.meta = {
   name: 'Spinner',

@@ -12,16 +12,16 @@ import {
   joinListProp,
   UIK,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
-export default class Dropdown extends Block {
+export default class Dropdown extends BlockElement {
   static meta = {
     name: 'Dropdown',
     ukClass: 'uk-dropdown',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     as: PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
     boundaryAlign: PropTypes.bool,
     children: PropTypes.node.isRequired,
@@ -91,11 +91,11 @@ export default class Dropdown extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       animation,
@@ -129,7 +129,7 @@ export default class Dropdown extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       Dropdown.meta.ukClass,
     );
 
@@ -154,9 +154,9 @@ export default class Dropdown extends Block {
           {...rest}
           className={classes}
           ref={this.handleRef}
-          style={blockStyle}
+          style={inheritedStyle}
           data-uk-dropdown={componentOptions}
-          {...attributes}
+          {...inheritedAttributes}
         >
           {this.renderChildren()}
         </Element>

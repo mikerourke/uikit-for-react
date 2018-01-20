@@ -6,16 +6,16 @@ import {
   getElementType,
   getIfChildrenHaveClass,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
-export default class Container extends Block {
+export default class Container extends BlockElement {
   static meta = {
     name: 'Container',
     ukClass: 'uk-container',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     size: PropTypes.oneOf(['expand', 'large', 'small']),
@@ -27,11 +27,11 @@ export default class Container extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       as,
@@ -43,7 +43,7 @@ export default class Container extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       Container.meta.ukClass,
       buildClassName(Container.meta.ukClass, size),
       {
@@ -56,8 +56,8 @@ export default class Container extends Block {
       <Element
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {children}
       </Element>

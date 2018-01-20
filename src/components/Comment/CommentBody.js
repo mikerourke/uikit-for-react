@@ -1,15 +1,15 @@
 import React from 'react';
 import classnames from 'classnames';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
 const CommentBody = ({ className, ...rest }) => (
-  <Block
+  <BlockElement
     {...rest}
     className={classnames(className, CommentBody.meta.ukClass)}
   />
 );
 
-CommentBody.propTypes = Block.propTypes;
+CommentBody.propTypes = BlockElement.propTypes;
 
 CommentBody.meta = {
   name: 'CommentBody',

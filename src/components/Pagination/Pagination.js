@@ -2,19 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { restrictToChildTypes } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 import PaginationItem from './PaginationItem';
 import PaginationNext from './PaginationNext';
 import PaginationPrevious from './PaginationPrevious';
 
-export default class Pagination extends Block {
+export default class Pagination extends BlockElement {
   static meta = {
     name: 'Pagination',
     ukClass: 'uk-pagination',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     children: restrictToChildTypes(PaginationItem),
     className: PropTypes.string,
   };
@@ -25,11 +25,11 @@ export default class Pagination extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -39,7 +39,7 @@ export default class Pagination extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       Pagination.meta.ukClass,
     );
 
@@ -47,8 +47,8 @@ export default class Pagination extends Block {
       <ul
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {children}
       </ul>

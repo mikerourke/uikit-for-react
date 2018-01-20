@@ -1,24 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { omit } from 'lodash';
 import {
   buildClassName,
   getOptionsString,
   HTML,
   UIK,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 import NavItem from './NavItem';
 
-export default class Nav extends Block {
+export default class Nav extends BlockElement {
   static meta = {
     name: 'Nav',
     ukClass: 'uk-nav',
   };
 
   static propTypes = {
-    ...omit(Block.propTypes, 'as'),
+    ...BlockElement.propTypes,
     activeIndex: PropTypes.number,
     accordion: PropTypes.bool,
     animation: PropTypes.oneOfType([
@@ -64,11 +63,11 @@ export default class Nav extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       accordion,
@@ -89,7 +88,7 @@ export default class Nav extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       Nav.meta.ukClass,
       {
         [buildClassName(Nav.meta.ukClass, 'center')]: (center),
@@ -114,9 +113,9 @@ export default class Nav extends Block {
         {...rest}
         className={classes}
         ref={this.handleRef}
-        style={blockStyle}
+        style={inheritedStyle}
         data-uk-nav={(accordion) ? componentOptions : undefined}
-        {...attributes}
+        {...inheritedAttributes}
       >
         {children}
       </ul>

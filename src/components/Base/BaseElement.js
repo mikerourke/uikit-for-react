@@ -140,7 +140,7 @@ export default class BaseElement extends React.Component {
     marker: false,
   };
 
-  getBaseElements(props) {
+  static getBaseProps(props) {
     const {
       alignItems,
       animation,
@@ -270,7 +270,7 @@ export default class BaseElement extends React.Component {
     };
 
     return {
-      attributes: {
+      baseAttributes: {
         'data-uk-marker': marker || undefined,
       },
       baseClasses: trim(classes),

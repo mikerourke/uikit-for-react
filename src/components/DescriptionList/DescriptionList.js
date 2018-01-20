@@ -5,18 +5,18 @@ import {
   buildClassName,
   restrictToChildTypes,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 import DescriptionDetails from './DescriptionDetails';
 import DescriptionTerm from './DescriptionTerm';
 
-export default class DescriptionList extends Block {
+export default class DescriptionList extends BlockElement {
   static meta = {
     name: 'DescriptionList',
     ukClass: 'uk-description-list',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     children: restrictToChildTypes([
       DescriptionDetails,
       DescriptionTerm,
@@ -34,11 +34,11 @@ export default class DescriptionList extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -49,7 +49,7 @@ export default class DescriptionList extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       DescriptionList.meta.ukClass,
       {
         [buildClassName(DescriptionList.meta.ukClass, 'divider')]: (divider),
@@ -60,8 +60,8 @@ export default class DescriptionList extends Block {
       <dl
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {children}
       </dl>

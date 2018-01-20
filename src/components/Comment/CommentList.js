@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 import Comment from './Comment';
 
-export default class CommentList extends Block {
+export default class CommentList extends BlockElement {
   static meta = {
     name: 'CommentList',
     ukClass: 'uk-comment-list',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     as: undefined,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
@@ -21,11 +21,11 @@ export default class CommentList extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -35,7 +35,7 @@ export default class CommentList extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       CommentList.meta.ukClass,
     );
 
@@ -43,8 +43,8 @@ export default class CommentList extends Block {
       <ul
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {React.Children.map(children, child => <li>{child}</li>)}
       </ul>

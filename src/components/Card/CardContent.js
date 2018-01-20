@@ -1,11 +1,11 @@
 import React from 'react';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
 const CardContent = props => (
-  <Block {...props} />
+  <BlockElement {...props} />
 );
 
-CardContent.propTypes = Block.propTypes;
+CardContent.propTypes = BlockElement.propTypes;
 
 CardContent.defaultProps = {
   as: 'p',

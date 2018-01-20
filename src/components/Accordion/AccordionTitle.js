@@ -1,20 +1,31 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { Inline } from '../Base';
+import { InlineElement } from '../Base';
 
-const AccordionTitle = ({ className, ...rest }) => (
-  <Inline
-    {...rest}
-    as="a"
-    className={classnames(className, AccordionTitle.meta.ukClass)}
-  />
-);
+/**
+ * Toggle for each accordion item.
+ * @see https://getuikit.com/docs/accordion#usage
+ */
+export default class AccordionTitle extends React.Component {
+  static meta = {
+    name: 'AccordionTitle',
+    ukClass: 'uk-accordion-title',
+  };
 
-AccordionTitle.propTypes = Inline.propTypes;
+  static propTypes = {
+    ...InlineElement.propTypes,
+    className: PropTypes.string,
+  };
 
-AccordionTitle.meta = {
-  name: 'AccordionTitle',
-  ukClass: 'uk-accordion-title',
-};
-
-export default AccordionTitle;
+  render() {
+    const { className, ...rest } = this.props;
+    return (
+      <InlineElement
+        {...rest}
+        as="a"
+        className={classnames(className, AccordionTitle.meta.ukClass)}
+      />
+    );
+  }
+}

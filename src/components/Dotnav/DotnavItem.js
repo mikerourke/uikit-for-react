@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { buildClassName } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
-export default class DotnavItem extends Block {
+export default class DotnavItem extends BlockElement {
   static meta = {
     name: 'DotnavItem',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     active: PropTypes.bool,
     children: PropTypes.node,
     className: PropTypes.string,
@@ -23,11 +23,11 @@ export default class DotnavItem extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       active,
@@ -39,7 +39,7 @@ export default class DotnavItem extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       {
         [buildClassName('active')]: (active),
       },
@@ -49,8 +49,8 @@ export default class DotnavItem extends Block {
       <li
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         <a href={href}>
           {children}

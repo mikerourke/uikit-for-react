@@ -5,16 +5,16 @@ import {
   buildClassName,
   getElementType,
 } from '../../lib';
-import { Inline } from '../Base';
+import { InlineElement } from '../Base';
 
-export default class Close extends Inline {
+export default class Close extends InlineElement {
   static meta = {
     name: 'Close',
     ukClass: 'uk-close',
   };
 
   static propTypes = {
-    ...Inline.propTypes,
+    ...InlineElement.propTypes,
     as: PropTypes.oneOf(['a', 'button']),
     className: PropTypes.string,
     large: PropTypes.bool,
@@ -27,11 +27,11 @@ export default class Close extends Inline {
 
   render() {
     const {
-      attributes,
-      inlineClasses,
-      inlineStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getInlineElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       as,
@@ -42,7 +42,7 @@ export default class Close extends Inline {
 
     const classes = classnames(
       className,
-      inlineClasses,
+      inheritedClasses,
       Close.meta.ukClass,
       {
         [buildClassName(Close.meta.ukClass, 'large')]: (large),
@@ -54,9 +54,9 @@ export default class Close extends Inline {
       <Element
         {...rest}
         className={classes || undefined}
-        style={inlineStyle}
+        style={inheritedStyle}
         data-uk-close
-        {...attributes}
+        {...inheritedAttributes}
       />
     );
   }

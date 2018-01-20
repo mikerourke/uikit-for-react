@@ -1,18 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { omit } from 'lodash';
 import { buildClassName } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
-export default class Panel extends Block {
+export default class Panel extends BlockElement {
   static meta = {
     name: 'Panel',
     ukClass: 'uk-panel',
   };
 
   static propTypes = {
-    ...omit(Block.propTypes, 'as'),
+    ...BlockElement.propTypes,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     scrollable: PropTypes.bool,
@@ -24,11 +23,11 @@ export default class Panel extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -39,7 +38,7 @@ export default class Panel extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       Panel.meta.ukClass,
       {
         [buildClassName(Panel.meta.ukClass, 'scrollable')]: (scrollable),
@@ -50,8 +49,8 @@ export default class Panel extends Block {
       <div
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {children}
       </div>

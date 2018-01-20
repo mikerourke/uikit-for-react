@@ -8,16 +8,16 @@ import {
   HTML,
   UIK,
 } from '../../lib';
-import { Inline } from '../Base';
+import { InlineElement } from '../Base';
 
-export default class Text extends Inline {
+export default class Text extends InlineElement {
   static meta = {
     name: 'Text',
     ukClass: 'uk-text',
   };
 
   static propTypes = {
-    ...Inline.propTypes,
+    ...InlineElement.propTypes,
     as: PropTypes.oneOf([...HTML.TEXT_ELEMENTS, ...HTML.BLOCK_ELEMENTS]),
     bold: PropTypes.bool,
     children: PropTypes.node.isRequired,
@@ -61,11 +61,11 @@ export default class Text extends Inline {
 
   render() {
     const {
-      attributes,
-      inlineClasses,
-      inlineStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getInlineElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       bold,
@@ -89,7 +89,7 @@ export default class Text extends Inline {
 
     const classes = classnames(
       className,
-      inlineClasses,
+      inheritedClasses,
       buildClassName(Text.meta.ukClass, horizontalAlign),
       buildClassName(Text.meta.ukClass, get(horizontalAlign, 'atSm'), '@s'),
       buildClassName(Text.meta.ukClass, get(horizontalAlign, 'atMd'), '@m'),
@@ -117,8 +117,8 @@ export default class Text extends Inline {
       <Element
         {...rest}
         className={classes || undefined}
-        style={inlineStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {children}
       </Element>

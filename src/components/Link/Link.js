@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { buildClassName } from '../../lib';
-import { Inline } from '../Base';
+import { InlineElement } from '../Base';
 
-export default class Link extends Inline {
+export default class Link extends InlineElement {
   static meta = {
     name: 'Link',
     ukClass: 'uk-link',
   };
 
   static propTypes = {
-    ...Inline.propTypes,
+    ...InlineElement.propTypes,
     children: PropTypes.string.isRequired,
     className: PropTypes.string,
     muted: PropTypes.bool,
@@ -27,11 +27,11 @@ export default class Link extends Inline {
 
   render() {
     const {
-      attributes,
-      inlineClasses,
-      inlineStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getInlineElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -44,7 +44,7 @@ export default class Link extends Inline {
 
     const classes = classnames(
       className,
-      inlineClasses,
+      inheritedClasses,
       {
         [buildClassName(Link.meta.ukClass, 'muted')]: (muted),
         [buildClassName(Link.meta.ukClass, 'reset')]: (reset),
@@ -56,8 +56,8 @@ export default class Link extends Inline {
       <a
         {...rest}
         className={classes || undefined}
-        style={inlineStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {children}
       </a>

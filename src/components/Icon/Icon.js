@@ -7,16 +7,16 @@ import {
   getOptionsString,
   UIK,
 } from '../../lib';
-import { Inline } from '../Base';
+import { InlineElement } from '../Base';
 
-export default class Icon extends Inline {
+export default class Icon extends InlineElement {
   static meta = {
     name: 'Icon',
     ukClass: 'uk-icon',
   };
 
   static propTypes = {
-    ...Inline.propTypes,
+    ...InlineElement.propTypes,
     as: PropTypes.oneOf(['a', 'span']),
     children: PropTypes.node,
     className: PropTypes.string,
@@ -32,11 +32,11 @@ export default class Icon extends Inline {
 
   render() {
     const {
-      attributes,
-      inlineClasses,
-      inlineStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getInlineElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       as,
@@ -50,7 +50,7 @@ export default class Icon extends Inline {
 
     const classes = classnames(
       className,
-      inlineClasses,
+      inheritedClasses,
       Icon.meta.ukClass,
       {
         [buildClassName(Icon.meta.ukClass, 'link')]: (link),
@@ -67,9 +67,9 @@ export default class Icon extends Inline {
       <Element
         {...rest}
         className={classes || undefined}
-        style={inlineStyle}
+        style={inheritedStyle}
         data-uk-icon={componentOptions}
-        {...attributes}
+        {...inheritedAttributes}
       >
         {children}
       </Element>

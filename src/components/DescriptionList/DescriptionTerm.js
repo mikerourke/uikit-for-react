@@ -1,15 +1,14 @@
 import React from 'react';
-import { omit } from 'lodash';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
 const DescriptionTerm = props => (
-  <Block
+  <BlockElement
     {...props}
     as="dt"
   />
 );
 
-DescriptionTerm.propTypes = omit(Block.propTypes, 'as');
+DescriptionTerm.propTypes = BlockElement.propTypes;
 
 DescriptionTerm.meta = {
   name: 'DescriptionTerm',

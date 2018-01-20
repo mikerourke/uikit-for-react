@@ -1,3 +1,5 @@
+import { get } from 'lodash';
+
 /**
  * Returns a createElement() type based on the props of the Component.
  * Useful for calculating what type a component should render as.
@@ -24,8 +26,12 @@ const getElementType = (Component, props, getDefault) => {
   // Infer anchor links.
   if (props.href) return 'a';
 
-  // Use defaultProp or 'div'.
-  return defaultProps.as || 'div';
+  // If the "as" prop was defined, return it.
+  if (defaultProps.as) return defaultProps.as;
+
+  // If no "as" prop was defined, determine if the component inherits one of the Base elements.
+  // The default Inline element is a <span>, all others can be a <div>.
+  return (get(Component, ['meta', 'baseType']) === 'Inline') ? 'span' : 'div';
 };
 
 export default getElementType;

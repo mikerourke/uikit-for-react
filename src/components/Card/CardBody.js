@@ -1,15 +1,15 @@
 import React from 'react';
 import classnames from 'classnames';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
 const CardBody = ({ className, ...rest }) => (
-  <Block
+  <BlockElement
     {...rest}
     className={classnames(className, CardBody.meta.ukClass)}
   />
 );
 
-CardBody.propTypes = Block.propTypes;
+CardBody.propTypes = BlockElement.propTypes;
 
 CardBody.meta = {
   name: 'CardBody',

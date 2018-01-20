@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { isObject, omit } from 'lodash';
+import { isObject } from 'lodash';
 import {
   buildClassName,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
-export default class TabItem extends Block {
+export default class TabItem extends BlockElement {
   static meta = {
     name: 'TabItem',
   };
 
   static propTypes = {
-    ...omit(Block.propTypes, 'as'),
+    ...BlockElement.propTypes,
     active: PropTypes.bool,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,

@@ -1,22 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { omit } from 'lodash';
 import {
   buildClassName,
   restrictToChildTypes,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 import SubnavItem from './SubnavItem';
 
-export default class Subnav extends Block {
+export default class Subnav extends BlockElement {
   static meta = {
     name: 'Subnav',
     ukClass: 'uk-subnav',
   };
 
   static propTypes = {
-    ...omit(Block.propTypes, 'as'),
+    ...BlockElement.propTypes,
     children: restrictToChildTypes(SubnavItem),
     className: PropTypes.string,
     divider: PropTypes.bool,
@@ -32,11 +31,11 @@ export default class Subnav extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -48,7 +47,7 @@ export default class Subnav extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       Subnav.meta.ukClass,
       {
         [buildClassName('subnav', 'divider')]: (divider),
@@ -60,8 +59,8 @@ export default class Subnav extends Block {
       <ul
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {children}
       </ul>

@@ -2,21 +2,22 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get, noop, omit } from 'lodash';
+import { get, noop } from 'lodash';
 import { getOptionsString } from '../../lib';
-import { Inline } from '../Base';
+import { InlineElement } from '../Base';
 
-export default class Scroll extends Inline {
+export default class Scroll extends InlineElement {
   static meta = {
     name: 'Scroll',
   };
 
   static propTypes = {
-    ...omit(Inline.propTypes, 'as'),
+    ...InlineElement.propTypes,
     children: PropTypes.node,
     className: PropTypes.string,
     duration: PropTypes.number,
     offset: PropTypes.number,
+    onBeforeScroll: PropTypes.func,
     onScrolled: PropTypes.func,
     target: PropTypes.string,
   };
@@ -29,11 +30,11 @@ export default class Scroll extends Inline {
 
   render() {
     const {
-      attributes,
-      inlineClasses,
-      inlineStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getInlineElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -47,7 +48,7 @@ export default class Scroll extends Inline {
 
     const classes = classnames(
       className,
-      inlineClasses,
+      inheritedClasses,
     );
 
     const componentOptions = getOptionsString({
@@ -59,11 +60,11 @@ export default class Scroll extends Inline {
       <a
         {...rest}
         className={classes || undefined}
-        style={inlineStyle}
+        style={inheritedStyle}
         href={target}
         ref={this.handleRef}
         data-uk-scroll={componentOptions}
-        {...attributes}
+        {...inheritedAttributes}
       >
         {children}
       </a>

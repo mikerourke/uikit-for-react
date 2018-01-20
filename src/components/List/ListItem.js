@@ -1,12 +1,11 @@
 import React from 'react';
-import { omit } from 'lodash';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
 const ListItem = props => (
-  <Block {...props} as="li" />
+  <BlockElement {...props} as="li" />
 );
 
-ListItem.propTypes = omit(Block.propTypes, 'as');
+ListItem.propTypes = BlockElement.propTypes;
 
 ListItem.meta = {
   name: 'ListItem',

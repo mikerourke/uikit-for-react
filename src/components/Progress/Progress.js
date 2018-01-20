@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { omit } from 'lodash';
-import { Inline } from '../Base';
+import { InlineElement } from '../Base';
 
 const Progress = ({ className, ...rest }) => (
-  <Inline
+  <InlineElement
     {...rest}
     as="progress"
     className={classnames(className, Progress.meta.ukClass)}
@@ -13,7 +12,7 @@ const Progress = ({ className, ...rest }) => (
 );
 
 Progress.propTypes = {
-  ...omit(Inline.propTypes, 'as'),
+  ...InlineElement.propTypes,
   className: PropTypes.string,
 };
 

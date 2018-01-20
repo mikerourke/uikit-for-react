@@ -1,23 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { omit } from 'lodash';
 import { buildClassName } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 import CommentAvatar from './CommentAvatar';
 import CommentBody from './CommentBody';
 import CommentHeader from './CommentHeader';
 import CommentMeta from './CommentMeta';
 import CommentTitle from './CommentTitle';
 
-export default class Comment extends Block {
+export default class Comment extends BlockElement {
   static meta = {
     name: 'Comment',
     ukClass: 'uk-comment',
   };
 
   static propTypes = {
-    ...omit(Block.propTypes, 'as'),
+    ...BlockElement.propTypes,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     primary: PropTypes.bool,
@@ -35,11 +34,11 @@ export default class Comment extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -50,7 +49,7 @@ export default class Comment extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       Comment.meta.ukClass,
       {
         [buildClassName(Comment.meta.ukClass, 'primary')]: (primary),
@@ -61,8 +60,8 @@ export default class Comment extends Block {
       <article
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {children}
       </article>

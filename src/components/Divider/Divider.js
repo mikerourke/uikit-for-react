@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { buildClassName } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
-export default class Divider extends Block {
+export default class Divider extends BlockElement {
   static meta = {
     name: 'Divider',
     ukClass: 'uk-divider',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     className: PropTypes.string,
     icon: PropTypes.bool,
     small: PropTypes.bool,
@@ -24,11 +24,11 @@ export default class Divider extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       className,
@@ -39,7 +39,7 @@ export default class Divider extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       {
         [buildClassName(Divider.meta.className, 'icon')]: (icon),
         [buildClassName(Divider.meta.className, 'small')]: (small),
@@ -50,8 +50,8 @@ export default class Divider extends Block {
       <hr
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       />
     );
   }

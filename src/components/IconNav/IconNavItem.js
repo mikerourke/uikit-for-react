@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get, omit } from 'lodash';
+import { omit } from 'lodash';
 import {
   buildClassName,
   UIK,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 import Icon from '../Icon';
 
-export default class IconNavItem extends Block {
+export default class IconNavItem extends BlockElement {
   static meta = {
     name: 'IconNavItem',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     active: PropTypes.bool,
     className: PropTypes.string,
     href: PropTypes.string,
@@ -29,11 +29,11 @@ export default class IconNavItem extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       active,
@@ -46,7 +46,7 @@ export default class IconNavItem extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       {
         [buildClassName('active')]: (active),
       },
@@ -56,8 +56,8 @@ export default class IconNavItem extends Block {
       <li
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         <Icon {...iconOptions} href={href} name={iconName} />
       </li>

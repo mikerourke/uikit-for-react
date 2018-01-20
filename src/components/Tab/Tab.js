@@ -2,7 +2,7 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get, noop, omit } from 'lodash';
+import { get, noop } from 'lodash';
 import {
   buildClassName,
   findChildByType,
@@ -10,17 +10,17 @@ import {
   joinListProp,
   UIK,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 import TabItem from './TabItem';
 
-export default class Tab extends Block {
+export default class Tab extends BlockElement {
   static meta = {
     name: 'Tab',
     ukClass: 'uk-tab',
   };
 
   static propTypes = {
-    ...omit(Block.propTypes, 'as'),
+    ...BlockElement.propTypes,
     activeIndex: PropTypes.number,
     align: PropTypes.oneOf(['bottom', 'left', 'right']),
     animation: PropTypes.shape({
@@ -82,11 +82,11 @@ export default class Tab extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       activeIndex,
@@ -112,7 +112,7 @@ export default class Tab extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       buildClassName(Tab.meta.ukClass, align),
     );
 
@@ -131,9 +131,9 @@ export default class Tab extends Block {
         {...rest}
         className={classes}
         ref={this.handleRef}
-        style={blockStyle}
+        style={inheritedStyle}
         data-uk-tab={componentOptions}
-        {...attributes}
+        {...inheritedAttributes}
       >
         {children}
       </ul>

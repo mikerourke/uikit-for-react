@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { omit } from 'lodash';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
 const CommentHeader = ({ className, ...rest }) => (
-  <Block
+  <BlockElement
     {...rest}
     as="header"
     className={classnames(className, CommentHeader.meta.ukClass)}
@@ -13,7 +12,7 @@ const CommentHeader = ({ className, ...rest }) => (
 );
 
 CommentHeader.propTypes = {
-  ...omit(Block.propTypes, 'as'),
+  ...BlockElement.propTypes,
   className: PropTypes.string,
 };
 

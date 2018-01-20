@@ -13,17 +13,12 @@ import BaseElement from './BaseElement';
 
 export default class BlockElement extends BaseElement {
   static meta = {
-    name: 'Block',
+    baseType: 'Block',
+    name: 'BlockElement',
   };
 
   static propTypes = {
     ...BaseElement.propTypes,
-    as: PropTypes.oneOfType([
-      PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
-      PropTypes.element,
-      PropTypes.func,
-    ]),
-    children: PropTypes.node,
     childWidth: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.CHILD_WIDTHS),
       PropTypes.shape({
@@ -33,7 +28,6 @@ export default class BlockElement extends BaseElement {
         atXl: PropTypes.oneOf(UIK.CHILD_WIDTHS),
       }),
     ]),
-    className: PropTypes.string,
     column: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.BASE_WIDTHS),
       PropTypes.shape({
@@ -85,17 +79,23 @@ export default class BlockElement extends BaseElement {
     ]),
   };
 
+  static asPropType = PropTypes.oneOfType([
+    PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
+    PropTypes.element,
+    PropTypes.func,
+  ]);
+
   static defaultProps = {
-    as: 'div',
+    dynamic: false,
   };
 
-  getBlockElements(props) {
+  static getElementProps(props) {
     const {
-      attributes,
+      baseAttributes,
       baseClasses,
       baseStyle,
       unhandledProps,
-    } = this.getBaseElements(props);
+    } = BaseElement.getBaseProps(props);
 
     const {
       as,
@@ -159,39 +159,55 @@ export default class BlockElement extends BaseElement {
     });
 
     return {
-      attributes: {
-        ...attributes,
+      inheritedAttributes: {
+        ...baseAttributes,
         'data-uk-margin': (hasMarginAttribute) ? marginComponentOptions : undefined,
       },
-      blockClasses: trim(classes),
-      blockStyle: baseStyle,
+      inheritedClasses: trim(classes),
+      inheritedStyle: baseStyle,
       unhandledProps: rest,
+    };
+  }
+
+  getInheritedProps(props) {
+    const {
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
+      unhandledProps,
+    } = BlockElement.getElementProps(props);
+
+    return {
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
+      unhandledProps,
     };
   }
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
-      className,
+      className = '',
       ...rest
     } = unhandledProps;
 
-    const classes = classnames(className, blockClasses);
+    const classes = classnames(className, inheritedClasses);
 
     const Element = getElementType(BlockElement, this.props);
     return (
       <Element
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {children}
       </Element>

@@ -4,16 +4,16 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { get, noop } from 'lodash';
 import { getOptionsString } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 import Grid from '../Grid';
 
-export default class Offcanvas extends Block {
+export default class Offcanvas extends BlockElement {
   static meta = {
     name: 'Offcanvas',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     as: PropTypes.instanceOf(Grid),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
@@ -45,11 +45,11 @@ export default class Offcanvas extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -69,7 +69,7 @@ export default class Offcanvas extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
     );
 
     const componentOptions = getOptionsString({
@@ -83,9 +83,9 @@ export default class Offcanvas extends Block {
       <form
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
+        style={inheritedStyle}
         data-uk-offcanvas={componentOptions}
-        {...attributes}
+        {...inheritedAttributes}
       >
         {children}
       </form>

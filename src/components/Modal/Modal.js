@@ -7,21 +7,21 @@ import {
   buildClassName,
   getOptionsString,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 import Close from '../Close';
 import ModalContent from './ModalContent';
 import ModalFooter from './ModalFooter';
 import ModalHeader from './ModalHeader';
 import ModalTitle from './ModalTitle';
 
-export default class Modal extends Block {
+export default class Modal extends BlockElement {
   static meta = {
     name: 'Modal',
     ukClass: 'uk-modal',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     bgClose: PropTypes.bool,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
@@ -31,7 +31,7 @@ export default class Modal extends Block {
       outside: PropTypes.bool,
     }),
     container: PropTypes.bool,
-    dialogOptions: PropTypes.shape(Block.propTypes),
+    dialogOptions: PropTypes.shape(BlockElement.propTypes),
     escClose: PropTypes.bool,
     full: PropTypes.bool,
     onBeforeHide: PropTypes.func,
@@ -89,11 +89,11 @@ export default class Modal extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       bgClose,
@@ -120,7 +120,7 @@ export default class Modal extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       Modal.meta.ukClass,
       {
         [buildClassName(Modal.meta.ukClass, 'container')]: (container),
@@ -157,9 +157,9 @@ export default class Modal extends Block {
         {...rest}
         className={classes}
         ref={this.handleRef}
-        style={blockStyle}
+        style={inheritedStyle}
         data-uk-modal={componentOptions}
-        {...attributes}
+        {...inheritedAttributes}
       >
         <div {...dialogOptions} className={dialogClasses}>
           {closeButton && <Close {...closeOptions} className={closeClasses} />}

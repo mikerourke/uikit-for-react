@@ -2,17 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { buildClassName } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 import DotnavItem from './DotnavItem';
 
-class Dotnav extends Block {
+class Dotnav extends BlockElement {
   static meta = {
     name: 'Dotnav',
     ukClass: 'uk-dotnav',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     vertical: PropTypes.bool,
@@ -26,11 +26,11 @@ class Dotnav extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -41,7 +41,7 @@ class Dotnav extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       Dotnav.meta.ukClass,
       {
         [buildClassName(Dotnav.meta.ukClass, 'vertical')]: (vertical),
@@ -52,8 +52,8 @@ class Dotnav extends Block {
       <ul
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {children}
       </ul>

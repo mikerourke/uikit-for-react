@@ -1,53 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { pull } from 'lodash';
 import {
-  buildClassName,
   getElementType,
   HTML,
 } from '../../lib';
-import Base from './BaseElement';
-import Block from './BlockElement';
-import Inline from './InlineElement';
+import BlockElement from './BlockElement';
+import InlineElement from './InlineElement';
 
-export default class AnyElement extends Base {
+export default class AnyElement extends React.Component {
   static meta = {
     name: 'AnyElement',
   };
 
   static propTypes = {
-    ...Block.propTypes,
-    ...Inline.propTypes,
-    as: PropTypes.oneOfType([
-      PropTypes.oneOf(HTML.ALL_ELEMENTS),
-      PropTypes.element,
-      PropTypes.func,
-    ]),
-    children: PropTypes.node.isRequired,
-    className: PropTypes.string,
+    ...BlockElement.propTypes,
+    ...InlineElement.propTypes,
   };
 
-  static defaultProps = {
-    as: 'div',
-  };
+  static asPropType = PropTypes.oneOfType([
+    PropTypes.oneOf(HTML.ALL_ELEMENTS),
+    PropTypes.element,
+    PropTypes.func,
+  ]);
 
   render() {
+    const { as = '' } = this.props;
+    const isBlockElement = (HTML.BLOCK_ELEMENTS.includes(as) || as instanceof BlockElement);
+    const getInheritedProps = (isBlockElement)
+      ? BlockElement.getElementProps
+      : InlineElement.getElementProps;
+
+    const inlinePropNames = Object.keys(InlineElement.defaultProps);
+    const thisPropNames = Object.keys(this.props);
+    const actualInlineProps = pull(thisPropNames, inlinePropNames);
+    console.log(actualInlineProps);
+
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = getInheritedProps(this.props);
 
     const {
       children,
-      className,
+      className = '',
       ...rest
     } = unhandledProps;
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
     );
 
     const Element = getElementType(AnyElement, this.props);
@@ -55,8 +60,8 @@ export default class AnyElement extends Base {
       <Element
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {children}
       </Element>

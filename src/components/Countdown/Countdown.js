@@ -7,7 +7,7 @@ import {
   getElementType,
   getOptionsString,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 import CountdownDays from './CountdownDays';
 import CountdownHours from './CountdownHours';
 import CountdownLabel from './CountdownLabel';
@@ -15,14 +15,14 @@ import CountdownMinutes from './CountdownMinutes';
 import CountdownSeconds from './CountdownSeconds';
 import CountdownSeparator from './CountdownSeparator';
 
-export default class Countdown extends Block {
+export default class Countdown extends BlockElement {
   static meta = {
     name: 'Countdown',
     ukClass: 'uk-countdown',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     // TODO: Add validation to ensure date is in correct format and in the future.
@@ -57,11 +57,11 @@ export default class Countdown extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       as,
@@ -74,7 +74,7 @@ export default class Countdown extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       Countdown.meta.ukClass,
     );
 
@@ -84,9 +84,9 @@ export default class Countdown extends Block {
         {...rest}
         className={classes || undefined}
         ref={this.handleRef}
-        style={blockStyle}
+        style={inheritedStyle}
         data-uk-countdown={getOptionsString({ date })}
-        {...attributes}
+        {...inheritedAttributes}
       >
         {children}
       </Element>

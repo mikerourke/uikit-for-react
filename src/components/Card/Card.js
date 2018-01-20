@@ -5,7 +5,7 @@ import {
   buildClassName,
   getIfHasChildType,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 import CardBody from './CardBody';
 import CardContent from './CardContent';
 import CardFooter from './CardFooter';
@@ -13,14 +13,14 @@ import CardHeader from './CardHeader';
 import CardMedia from './CardMedia';
 import CardTitle from './CardTitle';
 
-export default class Card extends Block {
+export default class Card extends BlockElement {
   static meta = {
     name: 'Card',
     ukClass: 'uk-card',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     hover: PropTypes.bool,
@@ -43,11 +43,11 @@ export default class Card extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -67,7 +67,7 @@ export default class Card extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       Card.meta.ukClass,
       buildClassName('card', size),
       {
@@ -83,8 +83,8 @@ export default class Card extends Block {
       <div
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {children}
       </div>

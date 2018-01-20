@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { omit } from 'lodash';
-import { Inline } from '../Base';
+import { InlineElement } from '../Base';
 
 const PaginationNext = ({ className, ...rest }) => (
-  <Inline
+  <InlineElement
     {...rest}
     as="span"
     className={classnames(className, PaginationNext.meta.ukClass)}
@@ -14,7 +13,7 @@ const PaginationNext = ({ className, ...rest }) => (
 );
 
 PaginationNext.propTypes = {
-  ...omit(Inline.propTypes, 'as'),
+  ...InlineElement.propTypes,
   className: PropTypes.string,
 };
 

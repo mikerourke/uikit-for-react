@@ -7,15 +7,15 @@ import {
   restrictToChildTypes,
   UIK,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
-export default class NavbarGroup extends Block {
+export default class NavbarGroup extends BlockElement {
   static meta = {
     name: 'NavbarGroup',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     align: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS).isRequired,
     children: restrictToChildTypes(),
     className: PropTypes.string,
@@ -23,11 +23,11 @@ export default class NavbarGroup extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       align,
@@ -38,7 +38,7 @@ export default class NavbarGroup extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       buildClassName('navbar', align),
     );
 
@@ -47,8 +47,8 @@ export default class NavbarGroup extends Block {
       <Element
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {children}
       </Element>

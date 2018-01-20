@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { Inline } from '../Base';
+import { InlineElement } from '../Base';
 
 const Badge = ({ className, ...rest }) => (
-  <Inline
+  <InlineElement
     {...rest}
     className={classnames(className, Badge.meta.ukClass)}
   />
 );
 
 Badge.propTypes = {
-  ...Inline.propTypes,
+  ...InlineElement.propTypes,
   as: PropTypes.oneOf(['a', 'span']),
 };
 

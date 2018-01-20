@@ -15,19 +15,19 @@ storiesOf('Accordion', module)
     <Container margin={{ all: 'large' }}>
       <Accordion>
         <Accordion.Item>
-          <Accordion.Title as="a" href="#">Item 1</Accordion.Title>
+          <Accordion.Title href="#">Item 1</Accordion.Title>
           <Accordion.Content>
             {firstParagraph}
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item>
-          <Accordion.Title as="a" href="#">Item 2</Accordion.Title>
+          <Accordion.Title href="#">Item 2</Accordion.Title>
           <Accordion.Content>
             {secondParagraph}
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item>
-          <Accordion.Title as="a" href="#">Item 3</Accordion.Title>
+          <Accordion.Title href="#">Item 3</Accordion.Title>
           <Accordion.Content>
             {thirdParagraph}
           </Accordion.Content>
@@ -40,19 +40,19 @@ storiesOf('Accordion', module)
     <Container margin={{ all: 'large' }}>
       <Accordion collapsible={false}>
         <Accordion.Item>
-          <Accordion.Title as="a" href="#">Item 1</Accordion.Title>
+          <Accordion.Title href="#">Item 1</Accordion.Title>
           <Accordion.Content>
             {firstParagraph}
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item>
-          <Accordion.Title as="a" href="#">Item 2</Accordion.Title>
+          <Accordion.Title href="#">Item 2</Accordion.Title>
           <Accordion.Content>
             {secondParagraph}
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item>
-          <Accordion.Title as="a" href="#">Item 3</Accordion.Title>
+          <Accordion.Title href="#">Item 3</Accordion.Title>
           <Accordion.Content>
             {thirdParagraph}
           </Accordion.Content>
@@ -65,19 +65,19 @@ storiesOf('Accordion', module)
     <Container margin={{ all: 'large' }}>
       <Accordion multiple openIndex={[1, 2]}>
         <Accordion.Item>
-          <Accordion.Title as="a" href="#">Item 1</Accordion.Title>
+          <Accordion.Title href="#">Item 1</Accordion.Title>
           <Accordion.Content>
             {firstParagraph}
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item>
-          <Accordion.Title as="a" href="#">Item 2</Accordion.Title>
+          <Accordion.Title href="#">Item 2</Accordion.Title>
           <Accordion.Content>
             {secondParagraph}
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item>
-          <Accordion.Title as="a" href="#">Item 3</Accordion.Title>
+          <Accordion.Title href="#">Item 3</Accordion.Title>
           <Accordion.Content>
             {thirdParagraph}
           </Accordion.Content>
@@ -90,19 +90,19 @@ storiesOf('Accordion', module)
     <Container margin={{ all: 'large' }}>
       <Accordion multiple>
         <Accordion.Item open>
-          <Accordion.Title as="a" href="#">Item 1</Accordion.Title>
+          <Accordion.Title href="#">Item 1</Accordion.Title>
           <Accordion.Content>
             {firstParagraph}
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item>
-          <Accordion.Title as="a" href="#">Item 2</Accordion.Title>
+          <Accordion.Title href="#">Item 2</Accordion.Title>
           <Accordion.Content>
             {secondParagraph}
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item>
-          <Accordion.Title as="a" href="#">Item 3</Accordion.Title>
+          <Accordion.Title href="#">Item 3</Accordion.Title>
           <Accordion.Content>
             {thirdParagraph}
           </Accordion.Content>

@@ -3,21 +3,21 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get, noop, omit } from 'lodash';
+import { get, noop } from 'lodash';
 import {
   buildClassName,
   restrictToChildTypes,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 import LightboxItem from './LightboxItem';
 
-export default class Lightbox extends Block {
+export default class Lightbox extends BlockElement {
   static meta = {
     name: 'Lightbox',
   };
 
   static propTypes = {
-    ...omit(Block.propTypes, 'as'),
+    ...BlockElement.propTypes,
     activeIndex: PropTypes.number,
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(['fade', 'scale', 'slide']),
@@ -91,11 +91,11 @@ export default class Lightbox extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -118,7 +118,7 @@ export default class Lightbox extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       {
         [buildClassName('subnav', 'divider')]: (divider),
         [buildClassName('subnav', 'pill')]: (pill),
@@ -129,9 +129,9 @@ export default class Lightbox extends Block {
       <div
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
+        style={inheritedStyle}
         data-lightbox
-        {...attributes}
+        {...inheritedAttributes}
       >
         {children}
       </div>

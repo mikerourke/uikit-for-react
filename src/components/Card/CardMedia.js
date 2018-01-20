@@ -5,9 +5,9 @@ import {
   buildClassName,
   UIK,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
-class CardMedia extends Block {
+class CardMedia extends BlockElement {
   static meta = {
     name: 'CardMedia',
     ukClass: 'uk-card-media',
@@ -26,11 +26,11 @@ class CardMedia extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       alignTo,
@@ -42,7 +42,7 @@ class CardMedia extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       CardMedia.meta.ukClass,
       buildClassName(CardMedia.meta.ukClass, alignTo),
     );
@@ -51,8 +51,8 @@ class CardMedia extends Block {
       <div
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         <img src={imgSrc} alt={imgAlt} />
       </div>

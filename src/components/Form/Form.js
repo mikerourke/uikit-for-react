@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { buildClassName } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 import Grid from '../Grid';
 
-export default class Form extends Block {
+export default class Form extends BlockElement {
   static meta = {
     name: 'Form',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     as: PropTypes.instanceOf(Grid),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
@@ -26,11 +26,11 @@ export default class Form extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -42,7 +42,7 @@ export default class Form extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       Form.meta.ukClass,
       {
         [buildClassName(Form.meta.ukClass, 'horizontal')]: (horizontal),
@@ -54,8 +54,8 @@ export default class Form extends Block {
       <form
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {children}
       </form>

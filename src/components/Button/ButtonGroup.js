@@ -1,16 +1,16 @@
 import React from 'react';
 import classnames from 'classnames';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
 const ButtonGroup = ({ className, ...rest }) => (
-  <Block
+  <BlockElement
     {...rest}
     as="div"
     className={classnames(className, ButtonGroup.meta.ukClass)}
   />
 );
 
-ButtonGroup.propTypes = Block.propTypes;
+ButtonGroup.propTypes = BlockElement.propTypes;
 
 ButtonGroup.meta = {
   name: 'ButtonGroup',

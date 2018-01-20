@@ -4,17 +4,24 @@ import classnames from 'classnames';
 import { isNil } from 'lodash';
 import AccordionTitle from './AccordionTitle';
 import AccordionContent from './AccordionContent';
-import { buildClassName } from '../../lib';
-import { Block } from '../Base';
+import { buildClassName, restrictToChildTypes } from '../../lib';
+import { BlockElement } from '../Base';
 
-export default class AccordionItem extends Block {
+/**
+ * Component with the required Content and Title elements.
+ * @see https://getuikit.com/docs/accordion#usage
+ */
+export default class AccordionItem extends BlockElement {
   static meta = {
     name: 'AccordionItem',
   };
 
   static propTypes = {
-    ...Block.propTypes,
-    children: PropTypes.node.isRequired,
+    ...BlockElement.propTypes,
+    children: restrictToChildTypes([
+      AccordionContent,
+      AccordionTitle,
+    ]),
     className: PropTypes.string,
     content: PropTypes.node,
     open: PropTypes.bool,
@@ -23,11 +30,11 @@ export default class AccordionItem extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -47,7 +54,7 @@ export default class AccordionItem extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       AccordionItem.meta.ukClass,
       {
         [buildClassName('open')]: (open),
@@ -58,8 +65,8 @@ export default class AccordionItem extends Block {
       <li
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {(title) && <AccordionTitle>{title}</AccordionTitle>}
         {(content) && <AccordionContent>{content}</AccordionContent>}

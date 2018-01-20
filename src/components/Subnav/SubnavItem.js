@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { isObject, omit } from 'lodash';
+import { isObject } from 'lodash';
 import { buildClassName } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
-export default class SubnavItem extends Block {
+export default class SubnavItem extends BlockElement {
   static meta = {
     name: 'SubnavItem',
   };
 
   static propTypes = {
-    ...omit(Block.propTypes, 'as'),
+    ...BlockElement.propTypes,
     active: PropTypes.bool,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
@@ -24,11 +24,11 @@ export default class SubnavItem extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       active,
@@ -40,7 +40,7 @@ export default class SubnavItem extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       {
         [buildClassName('active')]: (active),
       },
@@ -50,8 +50,8 @@ export default class SubnavItem extends Block {
       <li
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {(isObject(children)) ? children : <a href={href}>{children}</a>}
       </li>

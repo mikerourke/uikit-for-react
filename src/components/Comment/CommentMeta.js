@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
 const CommentMeta = ({ className, ...rest }) => (
-  <Block
+  <BlockElement
     {...rest}
     className={classnames(className, CommentMeta.meta.ukClass)}
   />
 );
 
 CommentMeta.propTypes = {
-  ...Block.propTypes,
+  ...BlockElement.propTypes,
   as: PropTypes.oneOf(['p', 'ul']),
 };
 

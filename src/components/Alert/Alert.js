@@ -10,17 +10,21 @@ import {
   getOptionsString,
   UIK,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 import Close from '../Close';
 
-export default class Alert extends Block {
+/**
+ * Display success, warning and error messages.
+ * @see https://getuikit.com/docs/alert
+ */
+export default class Alert extends BlockElement {
   static meta = {
     name: 'Alert',
     ukClass: 'uk-alert',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     animation: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.oneOf(UIK.ANIMATIONS),
@@ -29,6 +33,7 @@ export default class Alert extends Block {
         duration: PropTypes.number,
       }),
     ]),
+    as: BlockElement.asPropType,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     closeable: PropTypes.bool,
@@ -55,16 +60,16 @@ export default class Alert extends Block {
   handleRef = element => (this.ref = element);
 
   render() {
-    const {
-      attributes,
-      blockClasses,
-      blockStyle,
-      unhandledProps,
-    } = this.getBlockElements(this.props);
+    const { animation, ...propsToParse } = this.props;
 
     const {
-      animation,
-      as,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
+      unhandledProps,
+    } = this.getInheritedProps(propsToParse);
+
+    const {
       children,
       className,
       closeable,
@@ -80,12 +85,12 @@ export default class Alert extends Block {
     } = unhandledProps;
 
     if (closeable && getIfHasChildType(children, Close)) {
-      throw new Error('You cannot have an instance of Close inside an Alert if the closeable prop is true.');
+      throw new Error('You cannot have an instance of Close inside an Alert if the "closeable" prop is true.');
     }
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       Alert.meta.ukClass,
       {
         [buildClassName(Alert.meta.ukClass, 'danger')]: (danger),
@@ -114,9 +119,9 @@ export default class Alert extends Block {
         {...rest}
         className={classes || undefined}
         ref={this.handleRef}
-        style={blockStyle}
+        style={inheritedStyle}
         data-uk-alert={componentOptions}
-        {...attributes}
+        {...inheritedAttributes}
       >
         {(closeable) && <Close {...closeOptions} className={closeClasses} />}
         {children}

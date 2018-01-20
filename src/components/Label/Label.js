@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { buildClassName } from '../../lib';
-import { Inline } from '../Base';
+import { InlineElement } from '../Base';
 
-export default class Label extends Inline {
+export default class Label extends InlineElement {
   static meta = {
     name: 'Label',
     ukClass: 'uk-label',
   };
 
   static propTypes = {
-    ...Inline.propTypes,
+    ...InlineElement.propTypes,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     danger: PropTypes.bool,
@@ -27,11 +27,11 @@ export default class Label extends Inline {
 
   render() {
     const {
-      attributes,
-      inlineClasses,
-      inlineStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getInlineElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -44,7 +44,7 @@ export default class Label extends Inline {
 
     const classes = classnames(
       className,
-      inlineClasses,
+      inheritedClasses,
       Label.meta.ukClass,
       {
         [buildClassName(Label.meta.ukClass, 'danger')]: (danger),
@@ -57,8 +57,8 @@ export default class Label extends Inline {
       <span
         {...rest}
         className={classes}
-        style={inlineStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {children}
       </span>

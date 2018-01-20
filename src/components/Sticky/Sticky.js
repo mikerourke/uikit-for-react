@@ -7,15 +7,15 @@ import {
   getElementType,
   getOptionsString,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
-export default class Sticky extends Block {
+export default class Sticky extends BlockElement {
   static meta = {
     name: 'Sticky',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     animation: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.string,
@@ -58,11 +58,11 @@ export default class Sticky extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       animation,
@@ -83,7 +83,7 @@ export default class Sticky extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
     );
 
     const componentOptions = getOptionsString({
@@ -105,9 +105,9 @@ export default class Sticky extends Block {
         {...rest}
         className={classes || undefined}
         ref={this.handleRef}
-        style={blockStyle}
+        style={inheritedStyle}
         data-uk-sticky={componentOptions}
-        {...attributes}
+        {...inheritedAttributes}
       >
         {children}
       </Element>

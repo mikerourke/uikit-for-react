@@ -6,17 +6,17 @@ import {
   buildClassName,
   HTML,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 import Text from '../Text';
 
-export default class Heading extends Block {
+export default class Heading extends BlockElement {
   static meta = {
     name: 'Heading',
     ukClass: 'uk-heading',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     as: PropTypes.oneOf(HTML.HEADING_ELEMENTS),
     bullet: PropTypes.bool,
     children: PropTypes.node.isRequired,
@@ -42,11 +42,11 @@ export default class Heading extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       as,
@@ -63,7 +63,7 @@ export default class Heading extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       Heading.meta.ukClass,
       buildClassName(headingClass),
       buildClassName(Heading.meta.ukClass, 'line', line),
@@ -80,9 +80,9 @@ export default class Heading extends Block {
         {...rest}
         as={as}
         className={classes || undefined}
-        style={blockStyle}
+        style={inheritedStyle}
         horizontalAlign={(isString(line)) ? line : undefined}
-        {...attributes}
+        {...inheritedAttributes}
       >
         {(line === true) ? <span>{children}</span> : children}
       </Text>

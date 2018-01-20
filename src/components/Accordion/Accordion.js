@@ -7,22 +7,27 @@ import {
   getOptionsString,
   HTML,
 } from '../../lib';
+import { BlockElement } from '../Base';
 import AccordionContent from './AccordionContent';
 import AccordionItem from './AccordionItem';
 import AccordionTitle from './AccordionTitle';
-import { Block } from '../Base';
 
-export default class Accordion extends Block {
+/**
+ * Create a list of items that can be shown individually by clicking an item's header.
+ * @see https://getuikit.com/docs/accordion
+ */
+export default class Accordion extends BlockElement {
   static meta = {
     name: 'Accordion',
     ukClass: 'uk-accordion',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     animation: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.shape({
+        active: PropTypes.bool,
         duration: PropTypes.number,
       }),
     ]),
@@ -96,11 +101,11 @@ export default class Accordion extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       animation,
@@ -130,7 +135,7 @@ export default class Accordion extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       Accordion.meta.ukClass,
     );
 
@@ -148,11 +153,11 @@ export default class Accordion extends Block {
     return (
       <ul
         {...rest}
-        ref={this.handleRef}
         className={classes || undefined}
-        style={blockStyle}
+        ref={this.handleRef}
+        style={inheritedStyle}
         data-uk-accordion={componentOptions}
-        {...attributes}
+        {...inheritedAttributes}
       >
         {children}
       </ul>

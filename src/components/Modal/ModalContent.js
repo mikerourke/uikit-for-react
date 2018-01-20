@@ -1,11 +1,11 @@
 import React from 'react';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
 const ModalContent = props => (
-  <Block {...props} />
+  <BlockElement {...props} />
 );
 
-ModalContent.propTypes = Block.propTypes;
+ModalContent.propTypes = BlockElement.propTypes;
 
 ModalContent.meta = {
   name: 'ModalContent',

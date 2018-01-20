@@ -6,27 +6,21 @@ import {
   getElementType,
   UIK,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
-export default class Section extends Block {
+export default class Section extends BlockElement {
   static meta = {
     name: 'Section',
     ukClass: 'uk-section',
   };
 
   static propTypes = {
-    ...Block.propTypes,
+    ...BlockElement.propTypes,
     background: PropTypes.oneOf(UIK.BACKGROUND_COLORS),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     overlap: PropTypes.bool,
-    padding: PropTypes.oneOf([
-      'xsmall',
-      'small',
-      'large',
-      'xlarge',
-      'remove',
-    ]),
+    padding: PropTypes.oneOf(['xsmall', 'small', 'large', 'xlarge', 'remove']),
     preserveColor: PropTypes.bool,
   };
 
@@ -36,14 +30,19 @@ export default class Section extends Block {
   };
 
   render() {
-    const { background, padding } = this.props;
+    // This is done to ensure the props don't get handled by the Base/BlockElement props parser.
+    const {
+      background,
+      padding,
+      ...propsToParse
+    } = this.props;
 
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(propsToParse);
 
     const {
       children,
@@ -56,7 +55,7 @@ export default class Section extends Block {
     const paddingClass = padding.replace('remove', 'remove-vertical');
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       Section.meta.ukClass,
       buildClassName(Section.meta.ukClass, background),
       buildClassName(Section.meta.ukClass, paddingClass),
@@ -71,8 +70,8 @@ export default class Section extends Block {
       <Element
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {children}
       </Element>

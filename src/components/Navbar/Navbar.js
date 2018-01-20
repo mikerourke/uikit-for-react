@@ -2,23 +2,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { omit } from 'lodash';
 import {
   buildClassName,
   getOptionsString, joinListProp,
   restrictToChildTypes,
   UIK,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
-export default class Navbar extends Block {
+export default class Navbar extends BlockElement {
   static meta = {
     name: 'Navbar',
     ukClass: 'uk-navbar',
   };
 
   static propTypes = {
-    ...omit(Block.propTypes, 'as'),
+    ...BlockElement.propTypes,
     boundaryAlign: PropTypes.bool,
     children: restrictToChildTypes(),
     className: PropTypes.string,
@@ -45,11 +44,11 @@ export default class Navbar extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       boundaryAlign,
@@ -69,7 +68,7 @@ export default class Navbar extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       buildClassName(Navbar.meta.ukClass, 'container'),
     );
 
@@ -90,9 +89,9 @@ export default class Navbar extends Block {
       <nav
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
+        style={inheritedStyle}
         data-uk-navbar={componentOptions}
-        {...attributes}
+        {...inheritedAttributes}
       >
         {children}
       </nav>

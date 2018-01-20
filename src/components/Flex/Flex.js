@@ -6,16 +6,16 @@ import {
   buildClassName,
   getElementType,
 } from '../../lib';
-import { Block } from '../Base';
+import { BlockElement } from '../Base';
 
-export default class Flex extends Block {
+export default class Flex extends BlockElement {
   static meta = {
     name: 'Flex',
     ukClass: 'uk-flex',
   };
 
   static propTypes = {
-    ...omit(Block.propTypes, 'flex'),
+    ...omit(BlockElement.propTypes, 'flex'),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     inline: PropTypes.bool,
@@ -28,11 +28,11 @@ export default class Flex extends Block {
 
   render() {
     const {
-      attributes,
-      blockClasses,
-      blockStyle,
+      inheritedAttributes,
+      inheritedClasses,
+      inheritedStyle,
       unhandledProps,
-    } = this.getBlockElements(this.props);
+    } = this.getInheritedProps(this.props);
 
     const {
       children,
@@ -43,7 +43,7 @@ export default class Flex extends Block {
 
     const classes = classnames(
       className,
-      blockClasses,
+      inheritedClasses,
       Flex.meta.ukClass,
       {
         [buildClassName(Flex.meta.ukClass, 'inline')]: (inline),
@@ -55,8 +55,8 @@ export default class Flex extends Block {
       <Element
         {...rest}
         className={classes || undefined}
-        style={blockStyle}
-        {...attributes}
+        style={inheritedStyle}
+        {...inheritedAttributes}
       >
         {children}
       </Element>
