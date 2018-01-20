@@ -1,9 +1,7 @@
 import React from 'react';
 import { BlockElement } from '../Base';
 
-const ModalContent = props => (
-  <BlockElement {...props} />
-);
+const ModalContent = props => <BlockElement {...props} />;
 
 ModalContent.propTypes = BlockElement.propTypes;
 

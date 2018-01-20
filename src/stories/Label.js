@@ -17,8 +17,12 @@ storiesOf('Label', module)
     <Container margin={{ all: 'large' }}>
       <Base margin>
         <Label margin={{ right: 'small' }}>Default</Label>
-        <Label margin={{ right: 'small' }} success>Success</Label>
-        <Label margin={{ right: 'small' }} warning>Warning</Label>
+        <Label margin={{ right: 'small' }} success>
+          Success
+        </Label>
+        <Label margin={{ right: 'small' }} warning>
+          Warning
+        </Label>
         <Label danger>Danger</Label>
       </Base>
     </Container>

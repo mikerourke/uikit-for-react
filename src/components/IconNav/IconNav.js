@@ -32,11 +32,7 @@ export default class IconNav extends BlockElement {
       unhandledProps,
     } = this.getInheritedProps(this.props);
 
-    const {
-      children,
-      className,
-      ...rest
-    } = unhandledProps;
+    const { children, className, ...rest } = unhandledProps;
 
     const classes = classnames(
       className,

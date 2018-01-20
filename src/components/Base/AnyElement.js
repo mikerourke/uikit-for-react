@@ -2,10 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { pull } from 'lodash';
-import {
-  getElementType,
-  HTML,
-} from '../../lib';
+import { getElementType, HTML } from '../../lib';
 import BlockElement from './BlockElement';
 import InlineElement from './InlineElement';
 
@@ -27,8 +24,9 @@ export default class AnyElement extends React.Component {
 
   render() {
     const { as = '' } = this.props;
-    const isBlockElement = (HTML.BLOCK_ELEMENTS.includes(as) || as instanceof BlockElement);
-    const getInheritedProps = (isBlockElement)
+    const isBlockElement =
+      HTML.BLOCK_ELEMENTS.includes(as) || as instanceof BlockElement;
+    const getInheritedProps = isBlockElement
       ? BlockElement.getElementProps
       : InlineElement.getElementProps;
 
@@ -44,16 +42,9 @@ export default class AnyElement extends React.Component {
       unhandledProps,
     } = getInheritedProps(this.props);
 
-    const {
-      children,
-      className = '',
-      ...rest
-    } = unhandledProps;
+    const { children, className = '', ...rest } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-    );
+    const classes = classnames(className, inheritedClasses);
 
     const Element = getElementType(AnyElement, this.props);
     return (
@@ -68,4 +59,3 @@ export default class AnyElement extends React.Component {
     );
   }
 }
-

@@ -3,10 +3,7 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { flatten, get, isArray, isNil, max, noop } from 'lodash';
-import {
-  getOptionsString,
-  HTML,
-} from '../../lib';
+import { getOptionsString, HTML } from '../../lib';
 import { BlockElement } from '../Base';
 import AccordionContent from './AccordionContent';
 import AccordionItem from './AccordionItem';
@@ -58,10 +55,18 @@ export default class Accordion extends BlockElement {
   static Title = AccordionTitle;
 
   componentDidMount() {
-    UIkit.util.on(this.ref, 'beforeshow', get(this.props, 'onBeforeShow', noop));
+    UIkit.util.on(
+      this.ref,
+      'beforeshow',
+      get(this.props, 'onBeforeShow', noop),
+    );
     UIkit.util.on(this.ref, 'show', get(this.props, 'onShow', noop));
     UIkit.util.on(this.ref, 'shown', get(this.props, 'onShown', noop));
-    UIkit.util.on(this.ref, 'beforehide', get(this.props, 'onBeforeHide', noop));
+    UIkit.util.on(
+      this.ref,
+      'beforehide',
+      get(this.props, 'onBeforeHide', noop),
+    );
     UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
     UIkit.util.on(this.ref, 'hidden', get(this.props, 'onHidden', noop));
     this.toggleOpenItems(this.props);
@@ -77,15 +82,17 @@ export default class Accordion extends BlockElement {
    *    openIndex prop).
    * @param {Object} props Props to evaluate to determine which items need to be toggled.
    */
-  toggleOpenItems = (props) => {
+  toggleOpenItems = props => {
     // Don't open or close any items if the user didn't specify an openIndex prop.
     if (isNil(props.openIndex)) return;
 
-    const animate = (get(props, 'hideOpenAnimation', false) === false);
+    const animate = get(props, 'hideOpenAnimation', false) === false;
     const openIndices = flatten([props.openIndex]);
-    const maxAllowed = (React.Children.count(props.children) - 1);
+    const maxAllowed = React.Children.count(props.children) - 1;
     if (max(openIndices) > maxAllowed) {
-      throw new Error(`Invalid openIndex prop passed to Accordion, maximum allowed value is ${maxAllowed}.`);
+      throw new Error(
+        `Invalid openIndex prop passed to Accordion, maximum allowed value is ${maxAllowed}.`,
+      );
     }
 
     React.Children.toArray(props.children).forEach((child, childIndex) => {
@@ -130,7 +137,9 @@ export default class Accordion extends BlockElement {
     } = unhandledProps;
 
     if (isArray(openIndex) && multiple !== true) {
-      throw new Error('You must set multiple = true when you pass an array of values to the openIndex prop.');
+      throw new Error(
+        'You must set multiple = true when you pass an array of values to the openIndex prop.',
+      );
     }
 
     const classes = classnames(

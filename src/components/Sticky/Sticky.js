@@ -3,10 +3,7 @@ import UIkit from 'uikit';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { get, noop } from 'lodash';
-import {
-  getElementType,
-  getOptionsString,
-} from '../../lib';
+import { getElementType, getOptionsString } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class Sticky extends BlockElement {
@@ -16,10 +13,7 @@ export default class Sticky extends BlockElement {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    animation: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.string,
-    ]),
+    animation: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     bottom: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.number,
@@ -29,19 +23,13 @@ export default class Sticky extends BlockElement {
     className: PropTypes.string,
     clsActive: PropTypes.string,
     clsInactive: PropTypes.string,
-    media: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]),
+    media: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     offset: PropTypes.number,
     onActive: PropTypes.func,
     onInactive: PropTypes.func,
     showOnUp: PropTypes.bool,
     target: PropTypes.bool,
-    top: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]),
+    top: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     widthElement: PropTypes.string,
   };
 
@@ -81,10 +69,7 @@ export default class Sticky extends BlockElement {
       ...rest
     } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-    );
+    const classes = classnames(className, inheritedClasses);
 
     const componentOptions = getOptionsString({
       animation,

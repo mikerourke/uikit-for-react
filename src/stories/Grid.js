@@ -28,7 +28,12 @@ storiesOf('Grid', module)
   .add('Gutter modifiers', () => (
     <Container margin={{ all: 'large' }} nextRow={{ spacing: 'large' }}>
       {['small', 'medium', 'large'].map(gutter => (
-        <Grid key={gutter} gutter={gutter} childWidth={{ atSm: 'expand' }} textAlign="center">
+        <Grid
+          key={gutter}
+          gutter={gutter}
+          childWidth={{ atSm: 'expand' }}
+          textAlign="center"
+        >
           <Grid.Cell>
             <Card>Item</Card>
           </Grid.Cell>
@@ -40,15 +45,25 @@ storiesOf('Grid', module)
           </Grid.Cell>
         </Grid>
       ))}
-      <Grid gutter="collapse" childWidth={{ atSm: 'expand' }} textAlign="center">
+      <Grid
+        gutter="collapse"
+        childWidth={{ atSm: 'expand' }}
+        textAlign="center"
+      >
         <Grid.Cell>
-          <Base as="div" background="muted" padding>Item</Base>
+          <Base as="div" background="muted" padding>
+            Item
+          </Base>
         </Grid.Cell>
         <Grid.Cell>
-          <Base as="div" background="primary" padding inverse="light">Item</Base>
+          <Base as="div" background="primary" padding inverse="light">
+            Item
+          </Base>
         </Grid.Cell>
         <Grid.Cell>
-          <Base as="div" background="secondary" padding inverse="light">Item</Base>
+          <Base as="div" background="secondary" padding inverse="light">
+            Item
+          </Base>
         </Grid.Cell>
       </Grid>
     </Container>
@@ -91,10 +106,14 @@ storiesOf('Grid', module)
           <Card>Item</Card>
         </Grid.Cell>
         <Grid.Cell>
-          <Card>Item<br />...</Card>
+          <Card>
+            Item<br />...
+          </Card>
         </Grid.Cell>
         <Grid.Cell>
-          <Card>Item<br />...<br />...</Card>
+          <Card>
+            Item<br />...<br />...
+          </Card>
         </Grid.Cell>
       </Grid>
     </Container>
@@ -135,10 +154,7 @@ storiesOf('Grid', module)
 
   .add('Child width', () => (
     <Container margin={{ all: 'large' }}>
-      <Grid
-        childWidth={{ atSm: '1/2', atMd: '1/3' }}
-        textAlign="center"
-      >
+      <Grid childWidth={{ atSm: '1/2', atMd: '1/3' }} textAlign="center">
         <Grid.Cell>
           <Card>Item</Card>
         </Grid.Cell>
@@ -154,7 +170,12 @@ storiesOf('Grid', module)
 
   .add('Grid and flex', () => (
     <Container margin={{ all: 'large' }}>
-      <Grid gutter="small" childWidth={{ atSm: '1/4' }} justifyContent="center" textAlign="center">
+      <Grid
+        gutter="small"
+        childWidth={{ atSm: '1/4' }}
+        justifyContent="center"
+        textAlign="center"
+      >
         <Grid.Cell>
           <Card>Item 1</Card>
         </Grid.Cell>

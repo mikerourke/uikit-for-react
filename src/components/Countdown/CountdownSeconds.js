@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  buildClassName,
-  getElementType,
-} from '../../lib';
+import { buildClassName, getElementType } from '../../lib';
 import CountdownLabel from './CountdownLabel';
 
 const CountdownSeconds = ({ className, label, ...rest }) => {
@@ -16,7 +13,7 @@ const CountdownSeconds = ({ className, label, ...rest }) => {
 
   const Element = getElementType(CountdownSeconds, rest);
 
-  if (!label) return (<Element className={classes} />);
+  if (!label) return <Element className={classes} />;
   return (
     <div>
       <Element className={classes} />

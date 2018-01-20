@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isObject } from 'lodash';
-import {
-  buildClassName,
-} from '../../lib';
+import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class TabItem extends BlockElement {
@@ -27,29 +25,16 @@ export default class TabItem extends BlockElement {
   };
 
   render() {
-    const {
-      active,
-      children,
-      className,
-      disabled,
-      href,
-      ...rest
-    } = this.props;
+    const { active, children, className, disabled, href, ...rest } = this.props;
 
-    const classes = classnames(
-      className,
-      {
-        [buildClassName('active')]: (active),
-        [buildClassName('disabled')]: (disabled),
-      },
-    );
+    const classes = classnames(className, {
+      [buildClassName('active')]: active,
+      [buildClassName('disabled')]: disabled,
+    });
 
     return (
-      <li
-        {...rest}
-        className={classes}
-      >
-        {(isObject(children)) ? children : <a href={href}>{children}</a>}
+      <li {...rest} className={classes}>
+        {isObject(children) ? children : <a href={href}>{children}</a>}
       </li>
     );
   }

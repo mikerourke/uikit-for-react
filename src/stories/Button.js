@@ -9,7 +9,9 @@ Button.displayName = 'Button';
 storiesOf('Button', module)
   .add('Basic Usage', () => (
     <Container margin={{ all: 'large' }}>
-      <Button as="a" margin={{ right: 'small' }}>Link</Button>
+      <Button as="a" margin={{ right: 'small' }}>
+        Link
+      </Button>
       <Button margin={{ right: 'small' }}>Button</Button>
       <Button disabled>Disabled</Button>
     </Container>
@@ -18,34 +20,62 @@ storiesOf('Button', module)
   .add('Style modifiers', () => (
     <Container margin={{ all: 'large' }}>
       <Button margin={{ right: 'small' }}>Default</Button>
-      <Button primary margin={{ right: 'small' }}>Primary</Button>
-      <Button secondary margin={{ right: 'small' }}>Secondary</Button>
-      <Button danger margin={{ right: 'small' }}>Danger</Button>
-      <Button text margin={{ right: 'small' }}>Text</Button>
-      <Button link margin={{ right: 'small' }}>Link</Button>
+      <Button primary margin={{ right: 'small' }}>
+        Primary
+      </Button>
+      <Button secondary margin={{ right: 'small' }}>
+        Secondary
+      </Button>
+      <Button danger margin={{ right: 'small' }}>
+        Danger
+      </Button>
+      <Button text margin={{ right: 'small' }}>
+        Text
+      </Button>
+      <Button link margin={{ right: 'small' }}>
+        Link
+      </Button>
     </Container>
   ))
 
   .add('Size modifiers', () => (
     <Container margin={{ all: 'large' }}>
       <Container margin>
-        <Button size="small" margin={{ right: 'small' }}>Small button</Button>
-        <Button size="small" primary margin={{ right: 'small' }}>Small button</Button>
-        <Button size="small" secondary margin={{ right: 'small' }}>Small button</Button>
+        <Button size="small" margin={{ right: 'small' }}>
+          Small button
+        </Button>
+        <Button size="small" primary margin={{ right: 'small' }}>
+          Small button
+        </Button>
+        <Button size="small" secondary margin={{ right: 'small' }}>
+          Small button
+        </Button>
       </Container>
       <Container margin>
-        <Button size="large" margin={{ right: 'small' }}>Large button</Button>
-        <Button size="large" primary margin={{ right: 'small' }}>Large button</Button>
-        <Button size="large" secondary margin={{ right: 'small' }}>Large button</Button>
+        <Button size="large" margin={{ right: 'small' }}>
+          Large button
+        </Button>
+        <Button size="large" primary margin={{ right: 'small' }}>
+          Large button
+        </Button>
+        <Button size="large" secondary margin={{ right: 'small' }}>
+          Large button
+        </Button>
       </Container>
     </Container>
   ))
 
   .add('Width modifiers', () => (
     <Container margin={{ all: 'large' }}>
-      <Button fullWidth margin={{ bottom: 'small' }}>Button</Button>
-      <Button fullWidth primary margin={{ bottom: 'small' }}>Button</Button>
-      <Button fullWidth secondary>Button</Button>
+      <Button fullWidth margin={{ bottom: 'small' }}>
+        Button
+      </Button>
+      <Button fullWidth primary margin={{ bottom: 'small' }}>
+        Button
+      </Button>
+      <Button fullWidth secondary>
+        Button
+      </Button>
     </Container>
   ))
 
@@ -79,8 +109,7 @@ storiesOf('Button', module)
   .add('Button with dropdowns', () => (
     <Container margin={{ all: 'large' }}>
       <Button.Group>
-        <Dropdown toggle={<Button>Dropdown</Button>}>
-        </Dropdown>
+        <Dropdown toggle={<Button>Dropdown</Button>} />
       </Button.Group>
     </Container>
   ));

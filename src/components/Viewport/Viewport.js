@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  getElementType,
-  getOptionsString,
-} from '../../lib';
+import { getElementType, getOptionsString } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class Viewport extends BlockElement {
@@ -19,10 +16,7 @@ export default class Viewport extends BlockElement {
     className: PropTypes.string,
     expand: PropTypes.bool,
     minHeight: PropTypes.number,
-    offsetBottom: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.number,
-    ]),
+    offsetBottom: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
     offsetTop: PropTypes.bool,
   };
 
@@ -44,10 +38,7 @@ export default class Viewport extends BlockElement {
       ...rest
     } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-    );
+    const classes = classnames(className, inheritedClasses);
 
     const componentOptions = getOptionsString({
       expand,
@@ -70,4 +61,3 @@ export default class Viewport extends BlockElement {
     );
   }
 }
-

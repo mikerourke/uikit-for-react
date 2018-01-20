@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  getElementType,
-  HTML,
-} from '../../lib';
+import { getElementType, HTML } from '../../lib';
 
 export default class ScrollFrom extends React.Component {
   static meta = {
@@ -24,17 +21,9 @@ export default class ScrollFrom extends React.Component {
   };
 
   render() {
-    const {
-      as,
-      children,
-      ...rest
-    } = this.props;
+    const { as, children, ...rest } = this.props;
 
     const Element = getElementType(ScrollFrom, this.props);
-    return (
-      <Element{...rest}>
-        {children}
-      </Element>
-    );
+    return <Element {...rest}>{children}</Element>;
   }
 }

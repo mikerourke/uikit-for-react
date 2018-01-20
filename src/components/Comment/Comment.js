@@ -40,19 +40,14 @@ export default class Comment extends BlockElement {
       unhandledProps,
     } = this.getInheritedProps(this.props);
 
-    const {
-      children,
-      className,
-      primary,
-      ...rest
-    } = unhandledProps;
+    const { children, className, primary, ...rest } = unhandledProps;
 
     const classes = classnames(
       className,
       inheritedClasses,
       Comment.meta.ukClass,
       {
-        [buildClassName(Comment.meta.ukClass, 'primary')]: (primary),
+        [buildClassName(Comment.meta.ukClass, 'primary')]: primary,
       },
     );
 

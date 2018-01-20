@@ -30,21 +30,12 @@ export default class Divider extends BlockElement {
       unhandledProps,
     } = this.getInheritedProps(this.props);
 
-    const {
-      className,
-      icon,
-      small,
-      ...rest
-    } = unhandledProps;
+    const { className, icon, small, ...rest } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      {
-        [buildClassName(Divider.meta.className, 'icon')]: (icon),
-        [buildClassName(Divider.meta.className, 'small')]: (small),
-      },
-    );
+    const classes = classnames(className, inheritedClasses, {
+      [buildClassName(Divider.meta.className, 'icon')]: icon,
+      [buildClassName(Divider.meta.className, 'small')]: small,
+    });
 
     return (
       <hr

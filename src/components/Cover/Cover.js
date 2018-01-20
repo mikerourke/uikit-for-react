@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  getElementType,
-  getOptionsString,
-} from '../../lib';
+import { getElementType, getOptionsString } from '../../lib';
 import { BlockElement } from '../Base';
 import CoverContainer from './CoverContainer';
 
@@ -42,10 +39,7 @@ export default class Cover extends BlockElement {
       ...rest
     } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-    );
+    const classes = classnames(className, inheritedClasses);
 
     const componentOptions = getOptionsString({
       automute,
@@ -67,4 +61,3 @@ export default class Cover extends BlockElement {
     );
   }
 }
-

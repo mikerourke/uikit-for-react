@@ -40,15 +40,11 @@ export default class BreadcrumbItem extends BlockElement {
       ...rest
     } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      {
-        [buildClassName('disabled')]: (disabled),
-      },
-    );
+    const classes = classnames(className, inheritedClasses, {
+      [buildClassName('disabled')]: disabled,
+    });
 
-    const InnerElement = (active) ? 'span' : 'a';
+    const InnerElement = active ? 'span' : 'a';
     return (
       <li
         {...rest}
@@ -56,9 +52,7 @@ export default class BreadcrumbItem extends BlockElement {
         style={inheritedStyle}
         {...inheritedAttributes}
       >
-        <InnerElement href={href}>
-          {children}
-        </InnerElement>
+        <InnerElement href={href}>{children}</InnerElement>
       </li>
     );
   }

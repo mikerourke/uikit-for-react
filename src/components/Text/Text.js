@@ -2,12 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { get } from 'lodash';
-import {
-  buildClassName,
-  getElementType,
-  HTML,
-  UIK,
-} from '../../lib';
+import { buildClassName, getElementType, HTML, UIK } from '../../lib';
 import { InlineElement } from '../Base';
 
 export default class Text extends InlineElement {
@@ -99,16 +94,16 @@ export default class Text extends InlineElement {
       buildClassName(Text.meta.ukClass, verticalAlign),
       buildClassName(Text.meta.ukClass, wrapping),
       {
-        [buildClassName(Text.meta.ukClass, 'bold')]: (bold),
-        [buildClassName(Text.meta.ukClass, 'danger')]: (danger),
-        [buildClassName(Text.meta.ukClass, 'large')]: (large),
-        [buildClassName(Text.meta.ukClass, 'lead')]: (lead),
-        [buildClassName(Text.meta.ukClass, 'meta')]: (meta),
-        [buildClassName(Text.meta.ukClass, 'muted')]: (muted),
-        [buildClassName(Text.meta.ukClass, 'primary')]: (primary),
-        [buildClassName(Text.meta.ukClass, 'small')]: (small),
-        [buildClassName(Text.meta.ukClass, 'success')]: (success),
-        [buildClassName(Text.meta.ukClass, 'warning')]: (warning),
+        [buildClassName(Text.meta.ukClass, 'bold')]: bold,
+        [buildClassName(Text.meta.ukClass, 'danger')]: danger,
+        [buildClassName(Text.meta.ukClass, 'large')]: large,
+        [buildClassName(Text.meta.ukClass, 'lead')]: lead,
+        [buildClassName(Text.meta.ukClass, 'meta')]: meta,
+        [buildClassName(Text.meta.ukClass, 'muted')]: muted,
+        [buildClassName(Text.meta.ukClass, 'primary')]: primary,
+        [buildClassName(Text.meta.ukClass, 'small')]: small,
+        [buildClassName(Text.meta.ukClass, 'success')]: success,
+        [buildClassName(Text.meta.ukClass, 'warning')]: warning,
       },
     );
 

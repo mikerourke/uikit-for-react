@@ -2,10 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isString } from 'lodash';
-import {
-  buildClassName,
-  HTML,
-} from '../../lib';
+import { buildClassName, HTML } from '../../lib';
 import { BlockElement } from '../Base';
 import Text from '../Text';
 
@@ -68,10 +65,10 @@ export default class Heading extends BlockElement {
       buildClassName(headingClass),
       buildClassName(Heading.meta.ukClass, 'line', line),
       {
-        [buildClassName(Heading.meta.ukClass, 'bullet')]: (bullet),
-        [buildClassName(Heading.meta.ukClass, 'divider')]: (divider),
-        [buildClassName(Heading.meta.ukClass, 'hero')]: (hero),
-        [buildClassName(Heading.meta.ukClass, 'primary')]: (primary),
+        [buildClassName(Heading.meta.ukClass, 'bullet')]: bullet,
+        [buildClassName(Heading.meta.ukClass, 'divider')]: divider,
+        [buildClassName(Heading.meta.ukClass, 'hero')]: hero,
+        [buildClassName(Heading.meta.ukClass, 'primary')]: primary,
       },
     );
 
@@ -81,10 +78,10 @@ export default class Heading extends BlockElement {
         as={as}
         className={classes || undefined}
         style={inheritedStyle}
-        horizontalAlign={(isString(line)) ? line : undefined}
+        horizontalAlign={isString(line) ? line : undefined}
         {...inheritedAttributes}
       >
-        {(line === true) ? <span>{children}</span> : children}
+        {line === true ? <span>{children}</span> : children}
       </Text>
     );
   }

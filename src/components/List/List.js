@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  buildClassName,
-  restrictToChildTypes,
-} from '../../lib';
+import { buildClassName, restrictToChildTypes } from '../../lib';
 import { BlockElement } from '../Base';
 import ListItem from './ListItem';
 
@@ -51,17 +48,12 @@ export default class List extends BlockElement {
       ...rest
     } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      List.meta.ukClass,
-      {
-        [buildClassName(List.meta.ukClass, 'bullet')]: (bullet),
-        [buildClassName(List.meta.ukClass, 'divider')]: (divider),
-        [buildClassName(List.meta.ukClass, 'large')]: (large),
-        [buildClassName(List.meta.ukClass, 'striped')]: (striped),
-      },
-    );
+    const classes = classnames(className, inheritedClasses, List.meta.ukClass, {
+      [buildClassName(List.meta.ukClass, 'bullet')]: bullet,
+      [buildClassName(List.meta.ukClass, 'divider')]: divider,
+      [buildClassName(List.meta.ukClass, 'large')]: large,
+      [buildClassName(List.meta.ukClass, 'striped')]: striped,
+    });
 
     return (
       <ul

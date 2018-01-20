@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  buildClassName,
-  getElementType,
-  HTML,
-  UIK,
-} from '../../lib';
+import { buildClassName, getElementType, HTML, UIK } from '../../lib';
 
 export default class Hidden extends React.Component {
   static meta = {
@@ -50,9 +45,9 @@ export default class Hidden extends React.Component {
       buildClassName(whenHovered, 'hover'),
       buildClassName(prefix, breakpoint),
       {
-        [buildClassName(prefix)]: (hide),
-        [buildClassName(prefix, 'notouch')]: (noTouchOnly),
-        [buildClassName(prefix, 'touch')]: (touchOnly),
+        [buildClassName(prefix)]: hide,
+        [buildClassName(prefix, 'notouch')]: noTouchOnly,
+        [buildClassName(prefix, 'touch')]: touchOnly,
       },
     );
 
@@ -68,4 +63,3 @@ export default class Hidden extends React.Component {
     );
   }
 }
-

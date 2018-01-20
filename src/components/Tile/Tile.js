@@ -42,17 +42,13 @@ export default class Tile extends BlockElement {
       ...rest
     } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      Tile.meta.ukClass,
-      {
-        [buildClassName(Tile.meta.ukClass, 'default')]: (!muted && !primary && !secondary),
-        [buildClassName(Tile.meta.ukClass, 'muted')]: (muted),
-        [buildClassName(Tile.meta.ukClass, 'primary')]: (primary),
-        [buildClassName(Tile.meta.ukClass, 'secondary')]: (secondary),
-      },
-    );
+    const classes = classnames(className, inheritedClasses, Tile.meta.ukClass, {
+      [buildClassName(Tile.meta.ukClass, 'default')]:
+        !muted && !primary && !secondary,
+      [buildClassName(Tile.meta.ukClass, 'muted')]: muted,
+      [buildClassName(Tile.meta.ukClass, 'primary')]: primary,
+      [buildClassName(Tile.meta.ukClass, 'secondary')]: secondary,
+    });
 
     return (
       <span

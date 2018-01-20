@@ -1,7 +1,8 @@
 import {
   first,
   flatten,
-  get, isArray,
+  get,
+  isArray,
   isBoolean,
   isNil,
   isNull,
@@ -28,12 +29,12 @@ import { UIK } from './constants';
  * <Button margin />
  * > This would return true for checkIfDefaultStyle because no style boolean was set.
  */
-export const getIfDefaultStyle = (props) => {
+export const getIfDefaultStyle = props => {
   const booleanCount = UIK.BUTTON_STYLES.reduce((acc, styleName) => {
     const hasStyle = get(props, styleName, false);
-    return (hasStyle) ? (acc + 1) : acc;
+    return hasStyle ? acc + 1 : acc;
   }, 0);
-  return (booleanCount === 0);
+  return booleanCount === 0;
 };
 
 /**
@@ -41,18 +42,17 @@ export const getIfDefaultStyle = (props) => {
  * @param {string} className Name of the class to sanitize.
  * @returns {string}
  */
-const sanitizeClassName = className => (
+const sanitizeClassName = className =>
   `uk-${className}`
-  // This removes any duplicate "uk-" to ensure the class name is valid.
-    .replace(/(uk-)(?=.*\1)/ig, '')
+    // This removes any duplicate "uk-" to ensure the class name is valid.
+    .replace(/(uk-)(?=.*\1)/gi, '')
     // This removes extra dashes left by a boolean value (we don't want the word "true" included)
     // as well as spaces or trailing dashes.
-    .replace(/(--)(-$)( )/ig, '')
+    .replace(/(--)(-$)( )/gi, '')
     // This removes the dash before a breakpoint value.
-    .replace(/-@/ig, '@')
+    .replace(/-@/gi, '@')
     // This removes any invalid trailing "-".
-    .replace(/-$/g, '')
-);
+    .replace(/-$/g, '');
 
 /**
  * Returns a valid UIkit class name to apply to the component.
@@ -69,32 +69,29 @@ const sanitizeClassName = className => (
  * > uk-background-blend-multiply
  */
 export const buildClassName = (...args) => {
-  if (isUndefined(args)) throw new Error('Missing class element in buildClassName');
+  if (isUndefined(args))
+    throw new Error('Missing class element in buildClassName');
 
   const classElements = flatten([...args]);
   if (classElements.length === 1) {
     const classElement = first(classElements);
-    return (isNil(classElement)) ? '' : sanitizeClassName(classElement);
+    return isNil(classElement) ? '' : sanitizeClassName(classElement);
   }
 
   // If an element has a value of "grid" for the "margin" prop, the values need to be reversed
   // to form the correct class name.
   if (classElements.join('-').includes('margin-grid')) return 'uk-grid-margin';
 
-  const getIsClassElementInvalid = element => (
-    (isUndefined(element) || element === false || isPlainObject(element))
-  );
+  const getIsClassElementInvalid = element =>
+    isUndefined(element) || element === false || isPlainObject(element);
   if (some(classElements, getIsClassElementInvalid)) return '';
 
   const classString = classElements
     .reduce((acc, element) => {
       if (isBoolean(element)) return acc;
       if (element === 'name') return acc;
-      const validElement = (/@/.test(element)) ? element : kebabCase(element);
-      return [
-        ...acc,
-        validElement,
-      ];
+      const validElement = /@/.test(element) ? element : kebabCase(element);
+      return [...acc, validElement];
     }, [])
     .join('-');
 
@@ -116,13 +113,17 @@ export const buildPositionClassNames = (ukName, positionProp) => {
   if (isNil(positionProp)) return '';
   if (!isPlainObject(positionProp)) return buildClassName(ukName, positionProp);
 
-  const isNotPosition = (ukName !== 'position');
+  const isNotPosition = ukName !== 'position';
   const vertProp = get(positionProp, 'vertical', null);
   const horizProp = get(positionProp, 'horizontal', null);
 
   // If both the horizontal and vertical props are set to "center", for the transform-origin
   // return an empty string.
-  if (ukName === 'transform-origin' && (vertProp === 'center' && horizProp === 'center')) return '';
+  if (
+    ukName === 'transform-origin' &&
+    (vertProp === 'center' && horizProp === 'center')
+  )
+    return '';
 
   const positionLocationClass = buildClassName([
     ukName,
@@ -130,7 +131,7 @@ export const buildPositionClassNames = (ukName, positionProp) => {
     // When setting the "position" prop for a base element, if both horizontal and vertical are
     // centered, only one "center" is required (uk-position-center).  If it's not a base element
     // (e.g. background position), both "center" values are included (uk-background-center-center).
-    (isNotPosition && horizProp === 'center') ? 'center' : null,
+    isNotPosition && horizProp === 'center' ? 'center' : null,
   ]);
 
   if (isNotPosition) return positionLocationClass;
@@ -138,7 +139,12 @@ export const buildPositionClassNames = (ukName, positionProp) => {
     positionLocationClass,
     buildClassName(ukName, get(positionProp, 'marginSize', null)),
     buildClassName(ukName, get(positionProp, 'cssClass', null)),
-    buildClassName(ukName, 'z', 'index', get(positionProp, 'zIndexOfOne', null)),
+    buildClassName(
+      ukName,
+      'z',
+      'index',
+      get(positionProp, 'zIndexOfOne', null),
+    ),
   ];
 };
 
@@ -152,7 +158,7 @@ export const buildPositionClassNames = (ukName, positionProp) => {
  * console.log(getSanitizedBreakpoint(propName));
  * > @m
  */
-const getSanitizedBreakpoint = (propName) => {
+const getSanitizedBreakpoint = propName => {
   const validName = propName.toLowerCase().replace('at', '@');
 
   // Each breakpoint (with the exception of @xl) needs to be trimmed down to only the first letter.
@@ -166,18 +172,18 @@ const getSanitizedBreakpoint = (propName) => {
  * @param {Object} objectProp Prop used to build the class names.
  * @returns {Array}
  */
-const buildObjectClassNames = (ukNames, objectProp) => (
-  keys(objectProp).map((propName) => {
+const buildObjectClassNames = (ukNames, objectProp) =>
+  keys(objectProp).map(propName => {
     if (propName.length === 1) return '';
     const propValue = get(objectProp, propName);
-    if (propName === 'position') return buildPositionClassNames(ukNames, propValue);
+    if (propName === 'position')
+      return buildPositionClassNames(ukNames, propValue);
     let suffix = propName;
 
     // This is done to ensure the breakpoint value is valid.
     if (startsWith(propName, 'at')) suffix = getSanitizedBreakpoint(propName);
     return buildClassName(ukNames, propValue, suffix);
-  })
-);
+  });
 
 /**
  * Builds the class names that correspond with the "background" prop specified in the component.
@@ -186,7 +192,7 @@ const buildObjectClassNames = (ukNames, objectProp) => (
  * @param {Object} backgroundProps "background" prop from the component.
  * @returns {string[]}
  */
-const buildBackgroundClassNames = (backgroundProps) => {
+const buildBackgroundClassNames = backgroundProps => {
   const validProps = pick(backgroundProps, ['fixed', 'norepeat', 'position']);
   return [
     ...buildObjectClassNames('background', validProps),
@@ -196,7 +202,7 @@ const buildBackgroundClassNames = (backgroundProps) => {
   ];
 };
 
-const buildBoxShadowClassNames = (boxShadowProps) => [
+const buildBoxShadowClassNames = boxShadowProps => [
   buildClassName('box', 'shadow', boxShadowProps),
   buildClassName('box', 'shadow', get(boxShadowProps, 'size')),
   buildClassName('box', 'shadow', 'hover', get(boxShadowProps, 'hoverSize')),
@@ -215,11 +221,13 @@ const buildBoxShadowClassNames = (boxShadowProps) => [
  * console.log(buildMarginClassNames(marginProps));
  * > ['uk-margin-large-top', 'uk-margin-large-bottom', 'uk-margin-large-right', 'uk-margin-large-left']
  */
-const buildMarginClassNames = (marginProps) => {
+const buildMarginClassNames = marginProps => {
   const marginAllProp = get(marginProps, 'all', null);
-  return (isNull(marginAllProp))
+  return isNull(marginAllProp)
     ? buildObjectClassNames('margin', marginProps)
-    : UIK.LOCATIONS.map(location => buildClassName('margin', marginAllProp, location));
+    : UIK.LOCATIONS.map(location =>
+        buildClassName('margin', marginAllProp, location),
+      );
 };
 
 /**
@@ -237,26 +245,27 @@ const buildMarginClassNames = (marginProps) => {
 export const buildObjectOrValueClassNames = (...args) => {
   const ukNames = Array.from(args);
   // The last argument should be the object prop from the component.
-  const objectProp = (ukNames.length > 1) ? ukNames.pop() : first(ukNames);
+  const objectProp = ukNames.length > 1 ? ukNames.pop() : first(ukNames);
 
   // If the last argument isn't a plain object, treat it as a string or boolean.
   if (!isPlainObject(objectProp)) return buildClassName(ukNames, objectProp);
 
   // Determine if a special className build function is required.
   const firstUkName = first(ukNames);
-  if (firstUkName === 'background') return buildBackgroundClassNames(objectProp);
+  if (firstUkName === 'background')
+    return buildBackgroundClassNames(objectProp);
   if (firstUkName === 'boxShadow') return buildBoxShadowClassNames(objectProp);
   if (firstUkName === 'margin') return buildMarginClassNames(objectProp);
   return buildObjectClassNames(ukNames, objectProp);
 };
 
-export const buildStyles = (props) => {
+export const buildStyles = props => {
   const style = get(props, 'style', {});
   const imageUrl = get(props, ['background', 'imageUrl'], null);
 
   return {
     ...style,
-    backgroundImage: (isNull(imageUrl)) ? undefined : `url(${imageUrl})`,
+    backgroundImage: isNull(imageUrl) ? undefined : `url(${imageUrl})`,
   };
 };
 

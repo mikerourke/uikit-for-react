@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  buildClassName,
-  getElementType,
-} from '../../lib';
+import { buildClassName, getElementType } from '../../lib';
 import { InlineElement } from '../Base';
 
 export default class Close extends InlineElement {
@@ -33,19 +30,14 @@ export default class Close extends InlineElement {
       unhandledProps,
     } = this.getInheritedProps(this.props);
 
-    const {
-      as,
-      className,
-      large,
-      ...rest
-    } = unhandledProps;
+    const { as, className, large, ...rest } = unhandledProps;
 
     const classes = classnames(
       className,
       inheritedClasses,
       Close.meta.ukClass,
       {
-        [buildClassName(Close.meta.ukClass, 'large')]: (large),
+        [buildClassName(Close.meta.ukClass, 'large')]: large,
       },
     );
 

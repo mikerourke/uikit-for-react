@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  buildClassName,
-  getIfHasChildType,
-} from '../../lib';
+import { buildClassName, getIfHasChildType } from '../../lib';
 import { BlockElement } from '../Base';
 import CardBody from './CardBody';
 import CardContent from './CardContent';
@@ -59,10 +56,12 @@ export default class Card extends BlockElement {
       ...rest
     } = unhandledProps;
 
-    const hasBody = (getIfHasChildType(children, CardBody));
-    const hasContent = (getIfHasChildType(children, CardContent));
+    const hasBody = getIfHasChildType(children, CardBody);
+    const hasContent = getIfHasChildType(children, CardContent);
     if (hasContent && hasBody) {
-      throw new Error('You cannot specify CardContent and CardBody as children, it must be one or the other.');
+      throw new Error(
+        'You cannot specify CardContent and CardBody as children, it must be one or the other.',
+      );
     }
 
     const classes = classnames(
@@ -71,11 +70,11 @@ export default class Card extends BlockElement {
       Card.meta.ukClass,
       buildClassName('card', size),
       {
-        [buildClassName(Card.meta.ukClass, 'default')]: (!primary && !secondary),
-        [buildClassName(Card.meta.ukClass, 'body')]: (!hasBody),
-        [buildClassName(Card.meta.ukClass, 'hover')]: (hover),
-        [buildClassName(Card.meta.ukClass, 'primary')]: (primary),
-        [buildClassName(Card.meta.ukClass, 'secondary')]: (secondary),
+        [buildClassName(Card.meta.ukClass, 'default')]: !primary && !secondary,
+        [buildClassName(Card.meta.ukClass, 'body')]: !hasBody,
+        [buildClassName(Card.meta.ukClass, 'hover')]: hover,
+        [buildClassName(Card.meta.ukClass, 'primary')]: primary,
+        [buildClassName(Card.meta.ukClass, 'secondary')]: secondary,
       },
     );
 

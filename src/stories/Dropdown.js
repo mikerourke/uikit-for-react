@@ -15,9 +15,7 @@ storiesOf('Dropdown', module)
   .add('Basic Usage', () => (
     <Container margin={{ all: 'large' }}>
       <Base inline>
-        <Dropdown toggle={<Button>Hover</Button>}>
-          {message}
-        </Dropdown>
+        <Dropdown toggle={<Button>Hover</Button>}>{message}</Dropdown>
       </Base>
       <Base inline>
         <Dropdown mode="click" toggle={<Button>Click</Button>}>
@@ -41,10 +39,7 @@ storiesOf('Dropdown', module)
   .add('Position', () => (
     <Container margin={{ all: 'large' }}>
       <Base inline>
-        <Dropdown
-          toggle={<Button>Top Right</Button>}
-          position="top-right"
-        >
+        <Dropdown toggle={<Button>Top Right</Button>} position="top-right">
           {message}
         </Dropdown>
       </Base>

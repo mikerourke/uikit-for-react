@@ -48,14 +48,9 @@ export default class Icon extends InlineElement {
       ...rest
     } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      Icon.meta.ukClass,
-      {
-        [buildClassName(Icon.meta.ukClass, 'link')]: (link),
-      },
-    );
+    const classes = classnames(className, inheritedClasses, Icon.meta.ukClass, {
+      [buildClassName(Icon.meta.ukClass, 'link')]: link,
+    });
 
     const componentOptions = getOptionsString({
       icon: name,

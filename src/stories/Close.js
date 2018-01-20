@@ -22,8 +22,6 @@ storiesOf('Close', module)
 
   .add('Close in alerts', () => (
     <Container margin={{ all: 'large' }}>
-      <Alert closeable>
-        {faker.lorem.sentence()}
-      </Alert>
+      <Alert closeable>{faker.lorem.sentence()}</Alert>
     </Container>
   ));

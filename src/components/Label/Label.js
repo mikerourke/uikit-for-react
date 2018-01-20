@@ -47,9 +47,9 @@ export default class Label extends InlineElement {
       inheritedClasses,
       Label.meta.ukClass,
       {
-        [buildClassName(Label.meta.ukClass, 'danger')]: (danger),
-        [buildClassName(Label.meta.ukClass, 'success')]: (success),
-        [buildClassName(Label.meta.ukClass, 'warning')]: (warning),
+        [buildClassName(Label.meta.ukClass, 'danger')]: danger,
+        [buildClassName(Label.meta.ukClass, 'success')]: success,
+        [buildClassName(Label.meta.ukClass, 'warning')]: warning,
       },
     );
 

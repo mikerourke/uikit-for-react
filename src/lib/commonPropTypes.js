@@ -12,12 +12,13 @@ const shapeForPosition = {
   vertical: PropTypes.oneOf(UIK.VERTICAL_POSITIONS),
 };
 
-const getForBreakpoints = valuePropType => PropTypes.shape({
-  atSm: valuePropType,
-  atMd: valuePropType,
-  atLg: valuePropType,
-  atXl: valuePropType,
-});
+const getForBreakpoints = valuePropType =>
+  PropTypes.shape({
+    atSm: valuePropType,
+    atMd: valuePropType,
+    atLg: valuePropType,
+    atXl: valuePropType,
+  });
 
 const align = PropTypes.shape({
   to: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
@@ -158,10 +159,7 @@ const viewport = PropTypes.oneOfType([
   PropTypes.bool,
   PropTypes.shape({
     offsetTop: PropTypes.bool,
-    offsetBottom: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.number,
-    ]),
+    offsetBottom: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
     expand: PropTypes.bool,
     minHeight: PropTypes.number,
   }),

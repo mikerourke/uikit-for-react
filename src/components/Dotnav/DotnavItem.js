@@ -29,21 +29,11 @@ export default class DotnavItem extends BlockElement {
       unhandledProps,
     } = this.getInheritedProps(this.props);
 
-    const {
-      active,
-      children,
-      className,
-      href,
-      ...rest
-    } = unhandledProps;
+    const { active, children, className, href, ...rest } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      {
-        [buildClassName('active')]: (active),
-      },
-    );
+    const classes = classnames(className, inheritedClasses, {
+      [buildClassName('active')]: active,
+    });
 
     return (
       <li
@@ -52,9 +42,7 @@ export default class DotnavItem extends BlockElement {
         style={inheritedStyle}
         {...inheritedAttributes}
       >
-        <a href={href}>
-          {children}
-        </a>
+        <a href={href}>{children}</a>
       </li>
     );
   }

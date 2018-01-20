@@ -46,10 +46,7 @@ export default class Scroll extends InlineElement {
       ...rest
     } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-    );
+    const classes = classnames(className, inheritedClasses);
 
     const componentOptions = getOptionsString({
       duration,

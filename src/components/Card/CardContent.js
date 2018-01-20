@@ -1,9 +1,7 @@
 import React from 'react';
 import { BlockElement } from '../Base';
 
-const CardContent = props => (
-  <BlockElement {...props} />
-);
+const CardContent = props => <BlockElement {...props} />;
 
 CardContent.propTypes = BlockElement.propTypes;
 

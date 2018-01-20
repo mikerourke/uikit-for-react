@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  getElementType,
-  HTML,
-} from '../../lib';
+import { getElementType, HTML } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class Marker extends BlockElement {
@@ -31,17 +28,9 @@ export default class Marker extends BlockElement {
       unhandledProps,
     } = this.getInheritedProps(this.props);
 
-    const {
-      as,
-      children,
-      className,
-      ...rest
-    } = unhandledProps;
+    const { as, children, className, ...rest } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-    );
+    const classes = classnames(className, inheritedClasses);
 
     const Element = getElementType(Marker, this.props);
     return (

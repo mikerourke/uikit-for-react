@@ -29,19 +29,14 @@ export default class Panel extends BlockElement {
       unhandledProps,
     } = this.getInheritedProps(this.props);
 
-    const {
-      children,
-      className,
-      scrollable,
-      ...rest
-    } = unhandledProps;
+    const { children, className, scrollable, ...rest } = unhandledProps;
 
     const classes = classnames(
       className,
       inheritedClasses,
       Panel.meta.ukClass,
       {
-        [buildClassName(Panel.meta.ukClass, 'scrollable')]: (scrollable),
+        [buildClassName(Panel.meta.ukClass, 'scrollable')]: scrollable,
       },
     );
 

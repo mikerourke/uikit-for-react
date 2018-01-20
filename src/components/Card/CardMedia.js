@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  buildClassName,
-  UIK,
-} from '../../lib';
+import { buildClassName, UIK } from '../../lib';
 import { BlockElement } from '../Base';
 
 class CardMedia extends BlockElement {
@@ -32,13 +29,7 @@ class CardMedia extends BlockElement {
       unhandledProps,
     } = this.getInheritedProps(this.props);
 
-    const {
-      alignTo,
-      className,
-      imgAlt,
-      imgSrc,
-      ...rest
-    } = unhandledProps;
+    const { alignTo, className, imgAlt, imgSrc, ...rest } = unhandledProps;
 
     const classes = classnames(
       className,

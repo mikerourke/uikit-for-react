@@ -35,8 +35,16 @@ export default class Offcanvas extends BlockElement {
   };
 
   componentDidMount() {
-    UIkit.util.on(this.ref, 'beforehide', get(this.props, 'onBeforeHide', noop));
-    UIkit.util.on(this.ref, 'beforeshow', get(this.props, 'onBeforeShow', noop));
+    UIkit.util.on(
+      this.ref,
+      'beforehide',
+      get(this.props, 'onBeforeHide', noop),
+    );
+    UIkit.util.on(
+      this.ref,
+      'beforeshow',
+      get(this.props, 'onBeforeShow', noop),
+    );
     UIkit.util.on(this.ref, 'hidden', get(this.props, 'onHidden', noop));
     UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
     UIkit.util.on(this.ref, 'show', get(this.props, 'onShow', noop));
@@ -67,10 +75,7 @@ export default class Offcanvas extends BlockElement {
       ...rest
     } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-    );
+    const classes = classnames(className, inheritedClasses);
 
     const componentOptions = getOptionsString({
       container: selectorContainer,

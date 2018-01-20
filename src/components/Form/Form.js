@@ -40,15 +40,10 @@ export default class Form extends BlockElement {
       ...rest
     } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      Form.meta.ukClass,
-      {
-        [buildClassName(Form.meta.ukClass, 'horizontal')]: (horizontal),
-        [buildClassName(Form.meta.ukClass, 'stacked')]: (stacked),
-      },
-    );
+    const classes = classnames(className, inheritedClasses, Form.meta.ukClass, {
+      [buildClassName(Form.meta.ukClass, 'horizontal')]: horizontal,
+      [buildClassName(Form.meta.ukClass, 'stacked')]: stacked,
+    });
 
     return (
       <form

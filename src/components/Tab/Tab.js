@@ -55,8 +55,16 @@ export default class Tab extends BlockElement {
   static Item = TabItem;
 
   componentDidMount() {
-    UIkit.util.on(this.ref, 'beforehide', get(this.props, 'onBeforeHide', noop));
-    UIkit.util.on(this.ref, 'beforeshow', get(this.props, 'onBeforeShow', noop));
+    UIkit.util.on(
+      this.ref,
+      'beforehide',
+      get(this.props, 'onBeforeHide', noop),
+    );
+    UIkit.util.on(
+      this.ref,
+      'beforeshow',
+      get(this.props, 'onBeforeShow', noop),
+    );
     UIkit.util.on(this.ref, 'hidden', get(this.props, 'onHidden', noop));
     UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
     UIkit.util.on(this.ref, 'show', get(this.props, 'onShow', noop));
@@ -76,7 +84,9 @@ export default class Tab extends BlockElement {
     const { children, activeIndex } = this.props;
     const tabItems = findChildByType(children, TabItem);
     if (activeIndex > tabItems.length) {
-      throw new Error('Invalid activeIndex specified, must be less than Tab item quantity.');
+      throw new Error(
+        'Invalid activeIndex specified, must be less than Tab item quantity.',
+      );
     }
   };
 

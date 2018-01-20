@@ -2,11 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { get } from 'lodash';
-import {
-  getElementType,
-  getOptionsString,
-  HTML,
-} from '../../lib';
+import { getElementType, getOptionsString, HTML } from '../../lib';
 import { BlockElement } from '../Base';
 import Cover from './Cover';
 
@@ -32,10 +28,7 @@ export default class CoverContainer extends BlockElement {
     viewportOptions: PropTypes.shape({
       expand: PropTypes.bool,
       minHeight: PropTypes.number,
-      offsetBottom: PropTypes.oneOfType([
-        PropTypes.bool,
-        PropTypes.number,
-      ]),
+      offsetBottom: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
       offsetTop: PropTypes.bool,
     }),
   };
@@ -89,4 +82,3 @@ export default class CoverContainer extends BlockElement {
     );
   }
 }
-

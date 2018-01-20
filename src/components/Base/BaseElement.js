@@ -2,10 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { get, isNil, isString, trim, without } from 'lodash';
-import {
-  buildClassName,
-  UIK,
-} from '../../lib';
+import { buildClassName, UIK } from '../../lib';
 
 export default class BaseElement extends React.Component {
   static propTypes = {
@@ -54,10 +51,7 @@ export default class BaseElement extends React.Component {
       reverse: PropTypes.bool,
     }),
     display: PropTypes.oneOf(['block', 'inline', 'inline-block']),
-    flex: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.oneOf(['inline']),
-    ]),
+    flex: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['inline'])]),
     float: PropTypes.oneOf(['left', 'right']),
     height: PropTypes.oneOf(['full', ...without(UIK.SIZES, 'xlarge')]),
     heightMax: PropTypes.oneOf(without(UIK.SIZES, 'xlarge')),
@@ -176,28 +170,32 @@ export default class BaseElement extends React.Component {
     const horizOrigin = get(animation, ['transformOrigin', 'horizontal']);
     const vertOrigin = get(animation, ['transformOrigin', 'vertical']);
     if (
-      (!isNil(horizOrigin) && isNil(vertOrigin))
-      || (isNil(horizOrigin) && !isNil(vertOrigin))
+      (!isNil(horizOrigin) && isNil(vertOrigin)) ||
+      (isNil(horizOrigin) && !isNil(vertOrigin))
     ) {
       throw new Error(
         'You must specify both a horizontal and vertical property for transformOrigin in ' +
-        'Animation.',
+          'Animation.',
       );
     }
 
     if (!isNil(clearfix) && !isNil(float)) {
-      throw new Error('You can only specify the "clearfix" prop or "float" prop, not both.');
+      throw new Error(
+        'You can only specify the "clearfix" prop or "float" prop, not both.',
+      );
     }
 
     const allMargins = get(margin, 'all');
-    const marginClasses = (isNil(allMargins))
+    const marginClasses = isNil(allMargins)
       ? [
-        buildClassName('margin', get(margin, 'bottom'), 'bottom'),
-        buildClassName('margin', get(margin, 'left'), 'left'),
-        buildClassName('margin', get(margin, 'right'), 'right'),
-        buildClassName('margin', get(margin, 'top'), 'top'),
-      ]
-      : UIK.LOCATIONS.map(location => buildClassName('margin', allMargins, location));
+          buildClassName('margin', get(margin, 'bottom'), 'bottom'),
+          buildClassName('margin', get(margin, 'left'), 'left'),
+          buildClassName('margin', get(margin, 'right'), 'right'),
+          buildClassName('margin', get(margin, 'top'), 'top'),
+        ]
+      : UIK.LOCATIONS.map(location =>
+          buildClassName('margin', allMargins, location),
+        );
 
     const isReverse = get(direction, 'reverse', false);
 
@@ -214,7 +212,7 @@ export default class BaseElement extends React.Component {
       buildClassName('box', 'shadow', boxShadow),
       buildClassName('box', 'shadow', get(boxShadow, 'size')),
       buildClassName('box', 'shadow', 'hover', get(boxShadow, 'hoverSize')),
-      buildClassName('flex', get(direction, 'as'), (isReverse ? 'reverse' : '')),
+      buildClassName('flex', get(direction, 'as'), isReverse ? 'reverse' : ''),
       buildClassName('display', display),
       buildClassName('float', float),
       buildClassName('height', 'max', heightMax),
@@ -242,31 +240,52 @@ export default class BaseElement extends React.Component {
       buildClassName('width', get(width, 'atLg'), '@l'),
       buildClassName('width', get(width, 'atXl'), '@xl'),
       {
-        [buildClassName('animation', 'fast')]: (get(animation, 'fast', false)),
-        [buildClassName('animation', 'reverse')]: (get(animation, 'reverse', false)),
-        [buildClassName('animation', 'transform', 'center')]: (get(animation, 'transformCenter', false)),
-        [buildClassName('background', 'fixed')]: (get(background, 'fixed', false)),
-        [buildClassName('background', 'norepeat')]: (get(background, 'norepeat', false)),
-        [buildClassName('box', 'shadow', 'bottom')]: (get(boxShadow, 'bottom', false)),
-        [buildClassName('clearfix')]: (clearfix),
-        [buildClassName('flex')]: (flex === true),
-        [buildClassName('flex', 'inline')]: (flex === 'inline'),
-        [buildClassName('grid', 'margin')]: (margin === 'grid'),
-        [buildClassName('height', '1', '1')]: (height === 'full'),
-        [buildClassName('height', height)]: (height !== 'full'),
-        [buildClassName('inline')]: (inline),
-        [buildClassName('invisible')]: (invisible),
-        [buildClassName('margin')]: (margin === true),
-        [buildClassName('margin', margin)]: (isString(margin) && margin !== 'grid'),
-        [buildClassName('preserve', 'width')]: (responsive === false),
-        [buildClassName('resize')]: (resize),
+        [buildClassName('animation', 'fast')]: get(animation, 'fast', false),
+        [buildClassName('animation', 'reverse')]: get(
+          animation,
+          'reverse',
+          false,
+        ),
+        [buildClassName('animation', 'transform', 'center')]: get(
+          animation,
+          'transformCenter',
+          false,
+        ),
+        [buildClassName('background', 'fixed')]: get(
+          background,
+          'fixed',
+          false,
+        ),
+        [buildClassName('background', 'norepeat')]: get(
+          background,
+          'norepeat',
+          false,
+        ),
+        [buildClassName('box', 'shadow', 'bottom')]: get(
+          boxShadow,
+          'bottom',
+          false,
+        ),
+        [buildClassName('clearfix')]: clearfix,
+        [buildClassName('flex')]: flex === true,
+        [buildClassName('flex', 'inline')]: flex === 'inline',
+        [buildClassName('grid', 'margin')]: margin === 'grid',
+        [buildClassName('height', '1', '1')]: height === 'full',
+        [buildClassName('height', height)]: height !== 'full',
+        [buildClassName('inline')]: inline,
+        [buildClassName('invisible')]: invisible,
+        [buildClassName('margin')]: margin === true,
+        [buildClassName('margin', margin)]:
+          isString(margin) && margin !== 'grid',
+        [buildClassName('preserve', 'width')]: responsive === false,
+        [buildClassName('resize')]: resize,
       },
     );
 
     const imageUrl = get(background, 'imageUrl');
     const baseStyle = {
       ...style,
-      backgroundImage: (isNil(imageUrl)) ? undefined : `url(${imageUrl})`,
+      backgroundImage: isNil(imageUrl) ? undefined : `url(${imageUrl})`,
     };
 
     return {

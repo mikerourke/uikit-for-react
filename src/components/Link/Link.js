@@ -33,24 +33,13 @@ export default class Link extends InlineElement {
       unhandledProps,
     } = this.getInheritedProps(this.props);
 
-    const {
-      children,
-      className,
-      muted,
-      reset,
-      text,
-      ...rest
-    } = unhandledProps;
+    const { children, className, muted, reset, text, ...rest } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      {
-        [buildClassName(Link.meta.ukClass, 'muted')]: (muted),
-        [buildClassName(Link.meta.ukClass, 'reset')]: (reset),
-        [buildClassName(Link.meta.ukClass, 'text')]: (text),
-      },
-    );
+    const classes = classnames(className, inheritedClasses, {
+      [buildClassName(Link.meta.ukClass, 'muted')]: muted,
+      [buildClassName(Link.meta.ukClass, 'reset')]: reset,
+      [buildClassName(Link.meta.ukClass, 'text')]: text,
+    });
 
     return (
       <a

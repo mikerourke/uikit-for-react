@@ -32,19 +32,14 @@ class Dotnav extends BlockElement {
       unhandledProps,
     } = this.getInheritedProps(this.props);
 
-    const {
-      children,
-      className,
-      vertical,
-      ...rest
-    } = unhandledProps;
+    const { children, className, vertical, ...rest } = unhandledProps;
 
     const classes = classnames(
       className,
       inheritedClasses,
       Dotnav.meta.ukClass,
       {
-        [buildClassName(Dotnav.meta.ukClass, 'vertical')]: (vertical),
+        [buildClassName(Dotnav.meta.ukClass, 'vertical')]: vertical,
       },
     );
 

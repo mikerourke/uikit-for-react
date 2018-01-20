@@ -30,21 +30,11 @@ export default class SubnavItem extends BlockElement {
       unhandledProps,
     } = this.getInheritedProps(this.props);
 
-    const {
-      active,
-      children,
-      className,
-      href,
-      ...rest
-    } = unhandledProps;
+    const { active, children, className, href, ...rest } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      {
-        [buildClassName('active')]: (active),
-      },
-    );
+    const classes = classnames(className, inheritedClasses, {
+      [buildClassName('active')]: active,
+    });
 
     return (
       <li
@@ -53,7 +43,7 @@ export default class SubnavItem extends BlockElement {
         style={inheritedStyle}
         {...inheritedAttributes}
       >
-        {(isObject(children)) ? children : <a href={href}>{children}</a>}
+        {isObject(children) ? children : <a href={href}>{children}</a>}
       </li>
     );
   }

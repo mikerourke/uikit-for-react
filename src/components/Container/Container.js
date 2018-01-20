@@ -33,13 +33,7 @@ export default class Container extends BlockElement {
       unhandledProps,
     } = this.getInheritedProps(this.props);
 
-    const {
-      as,
-      children,
-      className,
-      size,
-      ...rest
-    } = unhandledProps;
+    const { as, children, className, size, ...rest } = unhandledProps;
 
     const classes = classnames(
       className,
@@ -47,7 +41,10 @@ export default class Container extends BlockElement {
       Container.meta.ukClass,
       buildClassName(Container.meta.ukClass, size),
       {
-        [buildClassName('inline')]: getIfChildrenHaveClass(children, 'position'),
+        [buildClassName('inline')]: getIfChildrenHaveClass(
+          children,
+          'position',
+        ),
       },
     );
 

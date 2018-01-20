@@ -44,10 +44,7 @@ storiesOf('Drop', module)
   .add('Position', () => (
     <Container margin={{ all: 'large' }}>
       <Base inline>
-        <Drop
-          toggle={<Button>Top Right</Button>}
-          position="top-right"
-        >
+        <Drop toggle={<Button>Top Right</Button>} position="top-right">
           <Card>{message}</Card>
         </Drop>
       </Base>
@@ -60,10 +57,7 @@ storiesOf('Drop', module)
         </Drop>
       </Base>
       <Base inline>
-        <Drop
-          toggle={<Button>Right Center</Button>}
-          position="right-center"
-        >
+        <Drop toggle={<Button>Right Center</Button>} position="right-center">
           <Card>{message}</Card>
         </Drop>
       </Base>

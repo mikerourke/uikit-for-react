@@ -33,21 +33,11 @@ export default class NavItem extends BlockElement {
       unhandledProps,
     } = this.getInheritedProps(this.props);
 
-    const {
-      active,
-      children,
-      className,
-      disabled,
-      ...rest
-    } = unhandledProps;
+    const { active, children, className, disabled, ...rest } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      {
-        [buildClassName('disabled')]: (disabled),
-      },
-    );
+    const classes = classnames(className, inheritedClasses, {
+      [buildClassName('disabled')]: disabled,
+    });
 
     return (
       <li

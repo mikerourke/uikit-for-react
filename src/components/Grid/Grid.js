@@ -70,25 +70,29 @@ export default class Grid extends BlockElement {
     } = unhandledProps;
 
     const isReverse = get(direction, 'reverse', false);
-    const flexGrow = (isNil(grow)) ? null : grow.replace('full', '1');
+    const flexGrow = isNil(grow) ? null : grow.replace('full', '1');
 
     const classes = classnames(
       className,
       inheritedClasses,
-      buildClassName('flex', get(direction, 'as'), (isReverse ? 'reverse' : '')),
+      buildClassName('flex', get(direction, 'as'), isReverse ? 'reverse' : ''),
       buildClassName(Grid.meta.ukClass, gutter),
       {
-        [buildClassName(Grid.meta.ukClass, 'divider')]: (divider),
-        [buildClassName(Grid.meta.ukClass, 'match')]: (matchHeight),
-        [buildClassName('flex', flexGrow)]: (!isNil(grow)),
+        [buildClassName(Grid.meta.ukClass, 'divider')]: divider,
+        [buildClassName(Grid.meta.ukClass, 'match')]: matchHeight,
+        [buildClassName('flex', flexGrow)]: !isNil(grow),
       },
     );
 
     const componentOptions = getOptionsString({
-      firstColumn: (isNil(firstColumn)) ? 'uk-first-column' : firstColumn,
-      margin: (isNil(nextRow))
+      firstColumn: isNil(firstColumn) ? 'uk-first-column' : firstColumn,
+      margin: isNil(nextRow)
         ? 'uk-grid-margin'
-        : buildClassName('margin', get(nextRow, 'spacing', null), get(nextRow, 'location', null)),
+        : buildClassName(
+            'margin',
+            get(nextRow, 'spacing', null),
+            get(nextRow, 'location', null),
+          ),
     });
 
     const Element = getElementType(Grid, this.props);

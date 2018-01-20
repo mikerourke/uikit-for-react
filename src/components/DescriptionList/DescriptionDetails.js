@@ -1,12 +1,7 @@
 import React from 'react';
 import { BlockElement } from '../Base';
 
-const DescriptionDetails = props => (
-  <BlockElement
-    {...props}
-    as="dd"
-  />
-);
+const DescriptionDetails = props => <BlockElement {...props} as="dd" />;
 
 DescriptionDetails.propTypes = BlockElement.propTypes;
 

@@ -4,10 +4,7 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { get, noop } from 'lodash';
-import {
-  buildClassName,
-  restrictToChildTypes,
-} from '../../lib';
+import { buildClassName, restrictToChildTypes } from '../../lib';
 import { BlockElement } from '../Base';
 import LightboxItem from './LightboxItem';
 
@@ -74,13 +71,33 @@ export default class Lightbox extends BlockElement {
   static Item = LightboxItem;
 
   componentDidMount() {
-    UIkit.util.on(this.ref, 'beforehide', get(this.props, 'onBeforeHide', noop));
-    UIkit.util.on(this.ref, 'beforeitemhide', get(this.props, 'onBeforeItemHide', noop));
-    UIkit.util.on(this.ref, 'beforeitemshow', get(this.props, 'onBeforeItemShow', noop));
-    UIkit.util.on(this.ref, 'beforeshow', get(this.props, 'onBeforeShow', noop));
+    UIkit.util.on(
+      this.ref,
+      'beforehide',
+      get(this.props, 'onBeforeHide', noop),
+    );
+    UIkit.util.on(
+      this.ref,
+      'beforeitemhide',
+      get(this.props, 'onBeforeItemHide', noop),
+    );
+    UIkit.util.on(
+      this.ref,
+      'beforeitemshow',
+      get(this.props, 'onBeforeItemShow', noop),
+    );
+    UIkit.util.on(
+      this.ref,
+      'beforeshow',
+      get(this.props, 'onBeforeShow', noop),
+    );
     UIkit.util.on(this.ref, 'hidden', get(this.props, 'onHidden', noop));
     UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
-    UIkit.util.on(this.ref, 'itemhidden', get(this.props, 'onItemHidden', noop));
+    UIkit.util.on(
+      this.ref,
+      'itemhidden',
+      get(this.props, 'onItemHidden', noop),
+    );
     UIkit.util.on(this.ref, 'itemhide', get(this.props, 'onItemHide', noop));
     UIkit.util.on(this.ref, 'itemload', get(this.props, 'onItemLoad', noop));
     UIkit.util.on(this.ref, 'itemshow', get(this.props, 'onItemShow', noop));
@@ -116,14 +133,10 @@ export default class Lightbox extends BlockElement {
       ...rest
     } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      {
-        [buildClassName('subnav', 'divider')]: (divider),
-        [buildClassName('subnav', 'pill')]: (pill),
-      },
-    );
+    const classes = classnames(className, inheritedClasses, {
+      [buildClassName('subnav', 'divider')]: divider,
+      [buildClassName('subnav', 'pill')]: pill,
+    });
 
     return (
       <div

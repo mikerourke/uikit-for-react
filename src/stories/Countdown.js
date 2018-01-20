@@ -10,25 +10,38 @@ Countdown.displayName = 'Countdown';
 storiesOf('Countdown', module)
   .add('Basic Usage', () => (
     <Container margin={{ all: 'large' }}>
-      <Countdown as={Grid} date="2025-01-16T00:00:00+00:00" gutter="small" childWidth="auto">
+      <Countdown
+        as={Grid}
+        date="2025-01-16T00:00:00+00:00"
+        gutter="small"
+        childWidth="auto"
+      >
         <Grid.Cell>
           <Countdown.Days />
-          <Countdown.Label textAlign="center" margin="small" visible="@s">Days</Countdown.Label>
+          <Countdown.Label textAlign="center" margin="small" visible="@s">
+            Days
+          </Countdown.Label>
         </Grid.Cell>
         <Countdown.Separator>:</Countdown.Separator>
         <Grid.Cell>
           <Countdown.Hours />
-          <Countdown.Label textAlign="center" margin="small" visible="@s">Hours</Countdown.Label>
+          <Countdown.Label textAlign="center" margin="small" visible="@s">
+            Hours
+          </Countdown.Label>
         </Grid.Cell>
         <Countdown.Separator>:</Countdown.Separator>
         <Grid.Cell>
           <Countdown.Minutes />
-          <Countdown.Label textAlign="center" margin="small" visible="@s">Minutes</Countdown.Label>
+          <Countdown.Label textAlign="center" margin="small" visible="@s">
+            Minutes
+          </Countdown.Label>
         </Grid.Cell>
         <Countdown.Separator>:</Countdown.Separator>
         <Grid.Cell>
           <Countdown.Seconds />
-          <Countdown.Label textAlign="center" margin="small" visible="@s">Seconds</Countdown.Label>
+          <Countdown.Label textAlign="center" margin="small" visible="@s">
+            Seconds
+          </Countdown.Label>
         </Grid.Cell>
       </Countdown>
     </Container>
@@ -47,15 +60,15 @@ storiesOf('Countdown', module)
       };
 
       render() {
-        const buttonLabel = (this.state.paused) ? 'Continue' : 'Pause';
+        const buttonLabel = this.state.paused ? 'Continue' : 'Pause';
 
         return (
           <Container margin={{ all: 'large' }}>
             <Button
               onClick={this.handleClick}
               margin={{ bottom: 'large' }}
-              primary={(this.state.paused)}
-              secondary={(!this.state.paused)}
+              primary={this.state.paused}
+              secondary={!this.state.paused}
             >
               {buttonLabel}
             </Button>
@@ -68,22 +81,30 @@ storiesOf('Countdown', module)
             >
               <Grid.Cell>
                 <Countdown.Days />
-                <Countdown.Label textAlign="center" margin="small" visible="@s">Days</Countdown.Label>
+                <Countdown.Label textAlign="center" margin="small" visible="@s">
+                  Days
+                </Countdown.Label>
               </Grid.Cell>
               <Countdown.Separator>:</Countdown.Separator>
               <Grid.Cell>
                 <Countdown.Hours />
-                <Countdown.Label textAlign="center" margin="small" visible="@s">Hours</Countdown.Label>
+                <Countdown.Label textAlign="center" margin="small" visible="@s">
+                  Hours
+                </Countdown.Label>
               </Grid.Cell>
               <Countdown.Separator>:</Countdown.Separator>
               <Grid.Cell>
                 <Countdown.Minutes />
-                <Countdown.Label textAlign="center" margin="small" visible="@s">Minutes</Countdown.Label>
+                <Countdown.Label textAlign="center" margin="small" visible="@s">
+                  Minutes
+                </Countdown.Label>
               </Grid.Cell>
               <Countdown.Separator>:</Countdown.Separator>
               <Grid.Cell>
                 <Countdown.Seconds />
-                <Countdown.Label textAlign="center" margin="small" visible="@s">Seconds</Countdown.Label>
+                <Countdown.Label textAlign="center" margin="small" visible="@s">
+                  Seconds
+                </Countdown.Label>
               </Grid.Cell>
             </Countdown>
           </Container>

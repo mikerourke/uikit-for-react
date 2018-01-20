@@ -4,17 +4,10 @@ import classnames from 'classnames';
 import { getElementType } from '../../lib';
 
 const CountdownSeparator = ({ children, className, ...rest }) => {
-  const classes = classnames(
-    className,
-    CountdownSeparator.meta.ukClass,
-  );
+  const classes = classnames(className, CountdownSeparator.meta.ukClass);
 
   const Element = getElementType(CountdownSeparator, rest);
-  return (
-    <Element className={classes || undefined}>
-      {children}
-    </Element>
-  );
+  return <Element className={classes || undefined}>{children}</Element>;
 };
 
 CountdownSeparator.meta = {

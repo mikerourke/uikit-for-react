@@ -160,10 +160,13 @@ const validateClasses = (classList, overrideEnv = false) => {
   );
 
   const providedClasses = split(classList, ' ');
-  const classesToValidate = uniq(providedClasses).filter(className => (className.length !== 0));
+  const classesToValidate = uniq(providedClasses).filter(
+    className => className.length !== 0,
+  );
   const invalidClasses = difference(classesToValidate, allValidClasses);
   // TODO: Do something snazzier with this.
-  if (invalidClasses.length > 0) console.error(`Invalid classes: ${invalidClasses}`);
+  if (invalidClasses.length > 0)
+    console.error(`Invalid classes: ${invalidClasses}`);
 };
 
 export default validateClasses;

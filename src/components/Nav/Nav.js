@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  buildClassName,
-  getOptionsString,
-  HTML,
-  UIK,
-} from '../../lib';
+import { buildClassName, getOptionsString, HTML, UIK } from '../../lib';
 import { BlockElement } from '../Base';
 import NavItem from './NavItem';
 
@@ -86,17 +81,12 @@ export default class Nav extends BlockElement {
       ...rest
     } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      Nav.meta.ukClass,
-      {
-        [buildClassName(Nav.meta.ukClass, 'center')]: (center),
-        [buildClassName(Nav.meta.ukClass, 'default')]: (primary === false),
-        [buildClassName(Nav.meta.ukClass, 'parent', 'icon')]: (accordion),
-        [buildClassName(Nav.meta.ukClass, 'primary')]: (primary === true),
-      },
-    );
+    const classes = classnames(className, inheritedClasses, Nav.meta.ukClass, {
+      [buildClassName(Nav.meta.ukClass, 'center')]: center,
+      [buildClassName(Nav.meta.ukClass, 'default')]: primary === false,
+      [buildClassName(Nav.meta.ukClass, 'parent', 'icon')]: accordion,
+      [buildClassName(Nav.meta.ukClass, 'primary')]: primary === true,
+    });
 
     const componentOptions = getOptionsString({
       animation,
@@ -114,7 +104,7 @@ export default class Nav extends BlockElement {
         className={classes}
         ref={this.handleRef}
         style={inheritedStyle}
-        data-uk-nav={(accordion) ? componentOptions : undefined}
+        data-uk-nav={accordion ? componentOptions : undefined}
         {...inheritedAttributes}
       >
         {children}

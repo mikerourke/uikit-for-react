@@ -35,22 +35,12 @@ export default class LightboxItem extends InlineElement {
       unhandledProps,
     } = this.getInheritedProps(this.props);
 
-    const {
-      children,
-      className,
-      divider,
-      pill,
-      ...rest
-    } = unhandledProps;
+    const { children, className, divider, pill, ...rest } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      {
-        [buildClassName('subnav', 'divider')]: (divider),
-        [buildClassName('subnav', 'pill')]: (pill),
-      },
-    );
+    const classes = classnames(className, inheritedClasses, {
+      [buildClassName('subnav', 'divider')]: divider,
+      [buildClassName('subnav', 'pill')]: pill,
+    });
 
     return (
       <a

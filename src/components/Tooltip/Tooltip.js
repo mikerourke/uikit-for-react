@@ -3,12 +3,7 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { get, noop } from 'lodash';
-import {
-  getElementType,
-  getOptionsString,
-  HTML,
-  UIK,
-} from '../../lib';
+import { getElementType, getOptionsString, HTML, UIK } from '../../lib';
 import { AnyElement } from '../Base';
 
 export default class Tooltip extends AnyElement {
@@ -66,8 +61,16 @@ export default class Tooltip extends AnyElement {
   };
 
   componentDidMount() {
-    UIkit.util.on(this.ref, 'beforehide', get(this.props, 'onBeforeHide', noop));
-    UIkit.util.on(this.ref, 'beforeshow', get(this.props, 'onBeforeShow', noop));
+    UIkit.util.on(
+      this.ref,
+      'beforehide',
+      get(this.props, 'onBeforeHide', noop),
+    );
+    UIkit.util.on(
+      this.ref,
+      'beforeshow',
+      get(this.props, 'onBeforeShow', noop),
+    );
     UIkit.util.on(this.ref, 'hidden', get(this.props, 'onHidden', noop));
     UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
     UIkit.util.on(this.ref, 'show', get(this.props, 'onShow', noop));
@@ -87,11 +90,7 @@ export default class Tooltip extends AnyElement {
   handleRef = element => (this.ref = element);
 
   render() {
-    const {
-      animation,
-      position,
-      ...propsToParse
-    } = this.props;
+    const { animation, position, ...propsToParse } = this.props;
 
     const {
       inheritedAttributes,
@@ -145,4 +144,3 @@ export default class Tooltip extends AnyElement {
     );
   }
 }
-

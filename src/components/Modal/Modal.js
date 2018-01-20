@@ -3,10 +3,7 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { get, noop } from 'lodash';
-import {
-  buildClassName,
-  getOptionsString,
-} from '../../lib';
+import { buildClassName, getOptionsString } from '../../lib';
 import { BlockElement } from '../Base';
 import Close from '../Close';
 import ModalContent from './ModalContent';
@@ -41,10 +38,7 @@ export default class Modal extends BlockElement {
     onShow: PropTypes.func,
     onShown: PropTypes.func,
     padContent: PropTypes.bool,
-    selectorContainer: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.string,
-    ]),
+    selectorContainer: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     shown: PropTypes.bool,
     stack: PropTypes.bool,
     toggle: PropTypes.element,
@@ -67,8 +61,16 @@ export default class Modal extends BlockElement {
   static Title = ModalTitle;
 
   componentDidMount() {
-    UIkit.util.on(this.ref, 'beforehide', get(this.props, 'onBeforeHide', noop));
-    UIkit.util.on(this.ref, 'beforeshow', get(this.props, 'onBeforeShow', noop));
+    UIkit.util.on(
+      this.ref,
+      'beforehide',
+      get(this.props, 'onBeforeHide', noop),
+    );
+    UIkit.util.on(
+      this.ref,
+      'beforeshow',
+      get(this.props, 'onBeforeShow', noop),
+    );
     UIkit.util.on(this.ref, 'hidden', get(this.props, 'onHidden', noop));
     UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
     UIkit.util.on(this.ref, 'show', get(this.props, 'onShow', noop));
@@ -123,8 +125,8 @@ export default class Modal extends BlockElement {
       inheritedClasses,
       Modal.meta.ukClass,
       {
-        [buildClassName(Modal.meta.ukClass, 'container')]: (container),
-        [buildClassName(Modal.meta.ukClass, 'full')]: (full),
+        [buildClassName(Modal.meta.ukClass, 'container')]: container,
+        [buildClassName(Modal.meta.ukClass, 'full')]: full,
       },
     );
 
@@ -136,19 +138,18 @@ export default class Modal extends BlockElement {
     });
 
     const closeOutside = get(closeOptions, 'outside', false);
-    const closeClasses = classnames(
-      get(closeOptions, 'className', ''),
-      {
-        [buildClassName(Modal.meta.ukClass, 'close', 'default')]: (closeOutside === false),
-        [buildClassName(Modal.meta.ukClass, 'close', 'outside')]: (closeOutside === true),
-      },
-    );
+    const closeClasses = classnames(get(closeOptions, 'className', ''), {
+      [buildClassName(Modal.meta.ukClass, 'close', 'default')]:
+        closeOutside === false,
+      [buildClassName(Modal.meta.ukClass, 'close', 'outside')]:
+        closeOutside === true,
+    });
 
     const dialogClasses = classnames(
       get(dialogOptions, 'className', ''),
       buildClassName(Modal.meta.ukClass, 'dialog'),
       {
-        [buildClassName(Modal.meta.ukClass, 'body')]: (padContent),
+        [buildClassName(Modal.meta.ukClass, 'body')]: padContent,
       },
     );
 

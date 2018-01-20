@@ -40,16 +40,12 @@ export default class PaginationItem extends BlockElement {
       ...rest
     } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      {
-        [buildClassName('active')]: (active),
-        [buildClassName('disabled')]: (disabled),
-      },
-    );
+    const classes = classnames(className, inheritedClasses, {
+      [buildClassName('active')]: active,
+      [buildClassName('disabled')]: disabled,
+    });
 
-    const InnerElement = (active || disabled) ? 'span' : 'a';
+    const InnerElement = active || disabled ? 'span' : 'a';
     return (
       <li
         {...rest}
@@ -57,9 +53,7 @@ export default class PaginationItem extends BlockElement {
         style={inheritedStyle}
         {...inheritedAttributes}
       >
-        <InnerElement href={href}>
-          {children}
-        </InnerElement>
+        <InnerElement href={href}>{children}</InnerElement>
       </li>
     );
   }

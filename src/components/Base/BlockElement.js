@@ -112,7 +112,7 @@ export default class BlockElement extends BaseElement {
 
     const horizProp = get(position, 'horizontal');
     const vertProp = get(position, 'vertical');
-    const isCentered = (horizProp === 'center' && vertProp === 'center');
+    const isCentered = horizProp === 'center' && vertProp === 'center';
 
     const classes = classnames(
       baseClasses,
@@ -141,13 +141,14 @@ export default class BlockElement extends BaseElement {
       buildClassName('text', get(textAlign, 'atLg'), '@l'),
       buildClassName('text', get(textAlign, 'atXl'), '@xl'),
       {
-        [buildClassName('column', 'divider')]: (get(column, 'divider', false)),
-        [buildClassName('position', vertProp, horizProp)]: (!isCentered),
-        [buildClassName('position', 'center')]: (isCentered),
+        [buildClassName('column', 'divider')]: get(column, 'divider', false),
+        [buildClassName('position', vertProp, horizProp)]: !isCentered,
+        [buildClassName('position', 'center')]: isCentered,
       },
     );
 
-    const hasMarginAttribute = ((dynamic === true) || !isNil(firstColumn) || !isNil(nextRow));
+    const hasMarginAttribute =
+      dynamic === true || !isNil(firstColumn) || !isNil(nextRow);
 
     const marginComponentOptions = getOptionsString({
       firstColumn: firstColumn || 'uk-first-column',
@@ -161,7 +162,9 @@ export default class BlockElement extends BaseElement {
     return {
       inheritedAttributes: {
         ...baseAttributes,
-        'data-uk-margin': (hasMarginAttribute) ? marginComponentOptions : undefined,
+        'data-uk-margin': hasMarginAttribute
+          ? marginComponentOptions
+          : undefined,
       },
       inheritedClasses: trim(classes),
       inheritedStyle: baseStyle,
@@ -193,11 +196,7 @@ export default class BlockElement extends BaseElement {
       unhandledProps,
     } = this.getInheritedProps(this.props);
 
-    const {
-      children,
-      className = '',
-      ...rest
-    } = unhandledProps;
+    const { children, className = '', ...rest } = unhandledProps;
 
     const classes = classnames(className, inheritedClasses);
 

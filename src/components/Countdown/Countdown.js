@@ -3,10 +3,7 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isNil } from 'lodash';
-import {
-  getElementType,
-  getOptionsString,
-} from '../../lib';
+import { getElementType, getOptionsString } from '../../lib';
 import { BlockElement } from '../Base';
 import CountdownDays from './CountdownDays';
 import CountdownHours from './CountdownHours';
@@ -43,7 +40,8 @@ export default class Countdown extends BlockElement {
   static Separator = CountdownSeparator;
 
   componentWillReceiveProps(nextProps) {
-    const selector = (this.ref instanceof Countdown) ? this.ref : `.${Countdown.meta.ukClass}`;
+    const selector =
+      this.ref instanceof Countdown ? this.ref : `.${Countdown.meta.ukClass}`;
     if (nextProps.paused === true && this.props.paused === false) {
       UIkit.countdown(selector).stop();
     }
@@ -63,14 +61,7 @@ export default class Countdown extends BlockElement {
       unhandledProps,
     } = this.getInheritedProps(this.props);
 
-    const {
-      as,
-      children,
-      className,
-      date,
-      paused,
-      ...rest
-    } = unhandledProps;
+    const { as, children, className, date, paused, ...rest } = unhandledProps;
 
     const classes = classnames(
       className,

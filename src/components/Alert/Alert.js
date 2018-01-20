@@ -53,7 +53,11 @@ export default class Alert extends BlockElement {
   };
 
   componentDidMount() {
-    UIkit.util.on(this.ref, 'beforehide', get(this.props, 'onBeforeHide', noop));
+    UIkit.util.on(
+      this.ref,
+      'beforehide',
+      get(this.props, 'onBeforeHide', noop),
+    );
     UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
   }
 
@@ -85,7 +89,9 @@ export default class Alert extends BlockElement {
     } = unhandledProps;
 
     if (closeable && getIfHasChildType(children, Close)) {
-      throw new Error('You cannot have an instance of Close inside an Alert if the "closeable" prop is true.');
+      throw new Error(
+        'You cannot have an instance of Close inside an Alert if the "closeable" prop is true.',
+      );
     }
 
     const classes = classnames(
@@ -93,10 +99,10 @@ export default class Alert extends BlockElement {
       inheritedClasses,
       Alert.meta.ukClass,
       {
-        [buildClassName(Alert.meta.ukClass, 'danger')]: (danger),
-        [buildClassName(Alert.meta.ukClass, 'primary')]: (primary),
-        [buildClassName(Alert.meta.ukClass, 'success')]: (success),
-        [buildClassName(Alert.meta.ukClass, 'warning')]: (warning),
+        [buildClassName(Alert.meta.ukClass, 'danger')]: danger,
+        [buildClassName(Alert.meta.ukClass, 'primary')]: primary,
+        [buildClassName(Alert.meta.ukClass, 'success')]: success,
+        [buildClassName(Alert.meta.ukClass, 'warning')]: warning,
       },
     );
 
@@ -109,7 +115,7 @@ export default class Alert extends BlockElement {
       get(closeOptions, 'className', ''),
       buildClassName('alert', 'close'),
       {
-        [buildClassName('close', 'large')]: (get(closeOptions, 'large')),
+        [buildClassName('close', 'large')]: get(closeOptions, 'large'),
       },
     );
 
@@ -123,7 +129,7 @@ export default class Alert extends BlockElement {
         data-uk-alert={componentOptions}
         {...inheritedAttributes}
       >
-        {(closeable) && <Close {...closeOptions} className={closeClasses} />}
+        {closeable && <Close {...closeOptions} className={closeClasses} />}
         {children}
       </Element>
     );

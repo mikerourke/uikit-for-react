@@ -2,10 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { invoke, isNil } from 'lodash';
-import {
-  buildClassName,
-  getIfDefaultStyle,
-} from '../../lib';
+import { buildClassName, getIfDefaultStyle } from '../../lib';
 import { InlineElement } from '../Base';
 import ButtonGroup from './ButtonGroup';
 
@@ -38,7 +35,7 @@ export default class Button extends InlineElement {
 
   static Group = ButtonGroup;
 
-  handleClick = (e) => {
+  handleClick = e => {
     if (this.props.disabled) {
       e.preventDefault();
       return;
@@ -77,19 +74,20 @@ export default class Button extends InlineElement {
       inheritedClasses,
       buildClassName('button', size),
       {
-        [Button.meta.ukClass]: (!hasIcon),
-        [buildClassName(Button.meta.ukClass, 'danger')]: (danger),
-        [buildClassName(Button.meta.ukClass, 'default')]: (!hasIcon && hasDefault),
-        [buildClassName(Button.meta.ukClass, 'link')]: (link),
-        [buildClassName(Button.meta.ukClass, 'primary')]: (primary),
-        [buildClassName(Button.meta.ukClass, 'secondary')]: (secondary),
-        [buildClassName(Button.meta.ukClass, 'text')]: (text),
-        [buildClassName('icon', 'button')]: (hasIcon),
-        [buildClassName('width', '1', '1')]: (fullWidth),
+        [Button.meta.ukClass]: !hasIcon,
+        [buildClassName(Button.meta.ukClass, 'danger')]: danger,
+        [buildClassName(Button.meta.ukClass, 'default')]:
+          !hasIcon && hasDefault,
+        [buildClassName(Button.meta.ukClass, 'link')]: link,
+        [buildClassName(Button.meta.ukClass, 'primary')]: primary,
+        [buildClassName(Button.meta.ukClass, 'secondary')]: secondary,
+        [buildClassName(Button.meta.ukClass, 'text')]: text,
+        [buildClassName('icon', 'button')]: hasIcon,
+        [buildClassName('width', '1', '1')]: fullWidth,
       },
     );
 
-    const Element = (hasIcon) ? 'a' : this.props.as;
+    const Element = hasIcon ? 'a' : this.props.as;
     return (
       <Element
         {...rest}
@@ -98,10 +96,10 @@ export default class Button extends InlineElement {
         onClick={this.handleClick}
         role="button"
         style={inheritedStyle}
-        data-uk-icon={(hasIcon) ? `icon: ${icon}` : undefined}
+        data-uk-icon={hasIcon ? `icon: ${icon}` : undefined}
         {...inheritedAttributes}
       >
-        {(!hasIcon) && children}
+        {!hasIcon && children}
       </Element>
     );
   }

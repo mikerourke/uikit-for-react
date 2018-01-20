@@ -7,36 +7,35 @@ import Container from '../components/Container';
 
 Notification.displayName = 'Notification';
 
-storiesOf('Notification', module)
-  .add('Basic Usage', () => {
-    class Notifier extends React.Component {
-      state = {
-        shown: false,
-      };
+storiesOf('Notification', module).add('Basic Usage', () => {
+  class Notifier extends React.Component {
+    state = {
+      shown: false,
+    };
 
-      handleClick = () => this.setState(state => ({ shown: !state.shown }));
+    handleClick = () => this.setState(state => ({ shown: !state.shown }));
 
-      handleShown = () => {
-        console.log('Shown');
-      };
+    handleShown = () => {
+      console.log('Shown');
+    };
 
-      render() {
-        return (
-          <Container margin={{ all: 'large' }}>
-            <Button onClick={this.handleClick}>
-              Test
-            </Button>
-            <Notification
-              shown={this.state.shown}
-              timeout={20000}
-              onClose={this.handleShown}
-            >
-              <div><Button>Test</Button></div>
-            </Notification>
-          </Container>
-        );
-      }
+    render() {
+      return (
+        <Container margin={{ all: 'large' }}>
+          <Button onClick={this.handleClick}>Test</Button>
+          <Notification
+            shown={this.state.shown}
+            timeout={20000}
+            onClose={this.handleShown}
+          >
+            <div>
+              <Button>Test</Button>
+            </div>
+          </Notification>
+        </Container>
+      );
     }
+  }
 
-    return <Notifier />;
-  });
+  return <Notifier />;
+});

@@ -6,24 +6,24 @@ import Container from '../components/Container';
 
 Modal.displayName = 'Modal';
 
-storiesOf('Modal', module)
-  .add('Basic Usage', () => {
-    class ModalExample extends React.Component {
-      state = {
-        modalShown: false,
-      };
+storiesOf('Modal', module).add('Basic Usage', () => {
+  class ModalExample extends React.Component {
+    state = {
+      modalShown: false,
+    };
 
-      handleClick = () => this.setState(state => ({ modalShown: !state.modalShown }));
+    handleClick = () =>
+      this.setState(state => ({ modalShown: !state.modalShown }));
 
-      render() {
-        return (
-          <Container margin={{ all: 'large' }}>
-            <Button primary onClick={this.handleClick}>Open</Button>
-            <Modal shown={this.state.modalShown}>
-
-            </Modal>
-          </Container>
-        );
-      }
+    render() {
+      return (
+        <Container margin={{ all: 'large' }}>
+          <Button primary onClick={this.handleClick}>
+            Open
+          </Button>
+          <Modal shown={this.state.modalShown} />
+        </Container>
+      );
     }
-  });
+  }
+});

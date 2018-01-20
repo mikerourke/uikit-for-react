@@ -13,20 +13,19 @@ import {
  * @param {string} className Name of the class to sanitize.
  * @returns {string}
  */
-const sanitizeClassName = className => (
+const sanitizeClassName = className =>
   `uk-${className}`
-  // This removes any duplicate "uk-" to ensure the class name is valid.
-    .replace(/(uk-)(?=.*\1)/ig, '')
+    // This removes any duplicate "uk-" to ensure the class name is valid.
+    .replace(/(uk-)(?=.*\1)/gi, '')
     // This removes extra dashes left by a boolean value (we don't want the word "true" included)
     // as well as spaces or trailing dashes.
-    .replace(/(--)(-$)( )/ig, '')
+    .replace(/(--)(-$)( )/gi, '')
     // This removes the dash before a breakpoint value.
-    .replace(/-@/ig, '@')
+    .replace(/-@/gi, '@')
     // This replaces the "/" for a width with a "-".
     .replace(/\//g, '-')
     // This removes any invalid trailing "-".
-    .replace(/-$/g, '')
-);
+    .replace(/-$/g, '');
 
 /**
  * Returns a valid UIkit class name to apply to the component.
@@ -43,25 +42,24 @@ const sanitizeClassName = className => (
  * > uk-background-blend-multiply
  */
 const buildClassName = (...args) => {
-  if (isUndefined(args)) throw new Error('Missing class element in buildClassName');
+  if (isUndefined(args))
+    throw new Error('Missing class element in buildClassName');
 
   const classElements = [...args];
   if (classElements.length === 1) {
     const classElement = first(classElements);
-    return (isNil(classElement)) ? '' : sanitizeClassName(classElement);
+    return isNil(classElement) ? '' : sanitizeClassName(classElement);
   }
 
-  const getIsInvalid = element => (isUndefined(element) || !element || isPlainObject(element));
+  const getIsInvalid = element =>
+    isUndefined(element) || !element || isPlainObject(element);
   if (some(classElements, getIsInvalid)) return '';
 
   const classString = classElements
     .reduce((acc, element) => {
       if (isBoolean(element)) return acc;
-      const validElement = (/@/.test(element)) ? element : kebabCase(element);
-      return [
-        ...acc,
-        validElement,
-      ];
+      const validElement = /@/.test(element) ? element : kebabCase(element);
+      return [...acc, validElement];
     }, [])
     .join('-');
 

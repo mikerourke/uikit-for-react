@@ -18,10 +18,7 @@ export default class AccordionItem extends BlockElement {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    children: restrictToChildTypes([
-      AccordionContent,
-      AccordionTitle,
-    ]),
+    children: restrictToChildTypes([AccordionContent, AccordionTitle]),
     className: PropTypes.string,
     content: PropTypes.node,
     open: PropTypes.bool,
@@ -46,10 +43,14 @@ export default class AccordionItem extends BlockElement {
     } = unhandledProps;
 
     if (!isNil(children) && (!isNil(content) || !isNil(title))) {
-      throw new Error('You cannot specify children with content and title in Accordion.');
+      throw new Error(
+        'You cannot specify children with content and title in Accordion.',
+      );
     }
     if (isNil(children) && (isNil(content) || isNil(title))) {
-      throw new Error('You must specify a title and content, ensure you specified both for Accordion.');
+      throw new Error(
+        'You must specify a title and content, ensure you specified both for Accordion.',
+      );
     }
 
     const classes = classnames(
@@ -57,7 +58,7 @@ export default class AccordionItem extends BlockElement {
       inheritedClasses,
       AccordionItem.meta.ukClass,
       {
-        [buildClassName('open')]: (open),
+        [buildClassName('open')]: open,
       },
     );
 
@@ -68,9 +69,9 @@ export default class AccordionItem extends BlockElement {
         style={inheritedStyle}
         {...inheritedAttributes}
       >
-        {(title) && <AccordionTitle>{title}</AccordionTitle>}
-        {(content) && <AccordionContent>{content}</AccordionContent>}
-        {(children) && children}
+        {title && <AccordionTitle>{title}</AccordionTitle>}
+        {content && <AccordionContent>{content}</AccordionContent>}
+        {children && children}
       </li>
     );
   }

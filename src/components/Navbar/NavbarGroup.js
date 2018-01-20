@@ -29,12 +29,7 @@ export default class NavbarGroup extends BlockElement {
       unhandledProps,
     } = this.getInheritedProps(this.props);
 
-    const {
-      align,
-      children,
-      className,
-      ...rest
-    } = unhandledProps;
+    const { align, children, className, ...rest } = unhandledProps;
 
     const classes = classnames(
       className,

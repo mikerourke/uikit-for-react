@@ -10,7 +10,7 @@ import { get, isString } from 'lodash';
  * @returns {any[]}
  */
 const recurseChildren = (children, callback) =>
-  React.Children.map(children, (child) => {
+  React.Children.map(children, child => {
     if (!React.isValidElement(child)) return child;
 
     let updatedChild = child;
@@ -31,11 +31,10 @@ const recurseChildren = (children, callback) =>
  * @param {React.Element|string} childType String or element to compare to specified child.
  * @returns {boolean}
  */
-const getIfIsOfType = (child, childType) => (
-  (isString(childType))
-    ? (get(child, ['type', 'meta', 'name'], '') === childType)
-    : (child.type === childType)
-);
+const getIfIsOfType = (child, childType) =>
+  isString(childType)
+    ? get(child, ['type', 'meta', 'name'], '') === childType
+    : child.type === childType;
 
 /**
  * Returns true if the specified children for the parent component contains an instance of the
@@ -46,10 +45,10 @@ const getIfIsOfType = (child, childType) => (
  */
 export const getIfHasChildType = (children, childType) => {
   let countOfChildType = 0;
-  recurseChildren(children, (child) => {
+  recurseChildren(children, child => {
     if (getIfIsOfType(child, childType)) countOfChildType += 1;
   });
-  return (countOfChildType > 0);
+  return countOfChildType > 0;
 };
 
 /**
@@ -60,7 +59,7 @@ export const getIfHasChildType = (children, childType) => {
  */
 export const findChildByType = (children, childType) => {
   const childrenOfType = [];
-  recurseChildren(children, (child) => {
+  recurseChildren(children, child => {
     if (getIfIsOfType(child, childType)) childrenOfType.push(child);
   });
   return childrenOfType;
@@ -90,7 +89,7 @@ export const findChildByType = (children, childType) => {
  * </Drop>
  */
 export const appendClassNamesToChildren = (children, childOptions) =>
-  React.Children.map(children, (child) => {
+  React.Children.map(children, child => {
     if (!React.isValidElement(child)) return child;
 
     const name = get(child, ['type', 'meta', 'name'], '');
@@ -104,10 +103,10 @@ export const appendClassNamesToChildren = (children, childOptions) =>
 export const getIfChildrenHaveClass = (children, className) => {
   let classCount = 0;
   const classRegex = new RegExp(className, 'g');
-  React.Children.forEach(children, (child) => {
+  React.Children.forEach(children, child => {
     if (React.isValidElement(child)) {
       if (classRegex.test(child.className)) classCount += 1;
     }
   });
-  return (classCount !== 0);
+  return classCount !== 0;
 };

@@ -25,7 +25,9 @@ class CountdownLabel extends React.Component {
     padding: commonPropTypes.padding,
     textAlign: PropTypes.oneOfType([
       PropTypes.oneOf([...UIK.HORIZONTAL_POSITIONS, 'justify']),
-      commonPropTypes.getForBreakpoints(PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS)),
+      commonPropTypes.getForBreakpoints(
+        PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
+      ),
     ]),
     visible: commonPropTypes.visible,
   };
@@ -61,10 +63,7 @@ class CountdownLabel extends React.Component {
 
     const Element = getElementType(CountdownLabel, this.props);
     return (
-      <Element
-        {...rest}
-        className={classes}
-      >
+      <Element {...rest} className={classes}>
         {children}
       </Element>
     );

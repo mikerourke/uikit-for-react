@@ -35,10 +35,7 @@ export default class Drop extends BlockElement {
     className: PropTypes.string,
     delayHide: PropTypes.number,
     delayShow: PropTypes.number,
-    flip: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.oneOf(['x', 'y']),
-    ]),
+    flip: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['x', 'y'])]),
     mode: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.MODES),
       PropTypes.arrayOf(UIK.MODES),
@@ -54,10 +51,7 @@ export default class Drop extends BlockElement {
     onToggle: PropTypes.func,
     position: PropTypes.oneOf(UIK.DROP_POSITIONS),
     selectorBoundary: PropTypes.string,
-    selectorToggle: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.string,
-    ]),
+    selectorToggle: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     shown: PropTypes.bool,
     toggle: PropTypes.element,
   };
@@ -69,8 +63,16 @@ export default class Drop extends BlockElement {
   };
 
   componentDidMount() {
-    UIkit.util.on(this.ref, 'beforehide', get(this.props, 'onBeforeHide', noop));
-    UIkit.util.on(this.ref, 'beforeshow', get(this.props, 'onBeforeShow', noop));
+    UIkit.util.on(
+      this.ref,
+      'beforehide',
+      get(this.props, 'onBeforeHide', noop),
+    );
+    UIkit.util.on(
+      this.ref,
+      'beforeshow',
+      get(this.props, 'onBeforeShow', noop),
+    );
     UIkit.util.on(this.ref, 'hidden', get(this.props, 'onHidden', noop));
     UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
     UIkit.util.on(this.ref, 'show', get(this.props, 'onShow', noop));
@@ -91,12 +93,10 @@ export default class Drop extends BlockElement {
 
   handleRef = element => (this.ref = element);
 
-  renderChildren = () => appendClassNamesToChildren(
-    this.props.children,
-    {
+  renderChildren = () =>
+    appendClassNamesToChildren(this.props.children, {
       Grid: buildClassName(Drop.meta.ukClass, 'grid'),
-    },
-  );
+    });
 
   render() {
     const {
@@ -133,14 +133,12 @@ export default class Drop extends BlockElement {
     } = unhandledProps;
 
     if (isNil(toggle) && isNil(selectorToggle)) {
-      throw new Error('You must specify either a "toggle" element or "selectorToggle" prop.');
+      throw new Error(
+        'You must specify either a "toggle" element or "selectorToggle" prop.',
+      );
     }
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      Drop.meta.ukClass,
-    );
+    const classes = classnames(className, inheritedClasses, Drop.meta.ukClass);
 
     const componentOptions = getOptionsString({
       animation,

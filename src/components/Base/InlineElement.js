@@ -2,12 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { get, trim } from 'lodash';
-import {
-  buildClassName,
-  getElementType,
-  HTML,
-  UIK,
-} from '../../lib';
+import { buildClassName, getElementType, HTML, UIK } from '../../lib';
 import BaseElement from './BaseElement';
 
 export default class InlineElement extends BaseElement {
@@ -49,12 +44,7 @@ export default class InlineElement extends BaseElement {
       unhandledProps,
     } = BaseElement.getBaseProps(props);
 
-    const {
-      align,
-      as,
-      columnSpan,
-      ...rest
-    } = unhandledProps;
+    const { align, as, columnSpan, ...rest } = unhandledProps;
 
     const classes = classnames(
       baseClasses,
@@ -64,7 +54,7 @@ export default class InlineElement extends BaseElement {
       buildClassName('align', get(align, 'atLg'), '@l'),
       buildClassName('align', get(align, 'atXl'), '@xl'),
       {
-        [buildClassName('column', 'span')]: (columnSpan),
+        [buildClassName('column', 'span')]: columnSpan,
       },
     );
 
@@ -100,11 +90,7 @@ export default class InlineElement extends BaseElement {
       unhandledProps,
     } = this.getInheritedProps(this.props);
 
-    const {
-      children,
-      className = '',
-      ...rest
-    } = unhandledProps;
+    const { children, className = '', ...rest } = unhandledProps;
 
     const classes = classnames(className, inheritedClasses);
 

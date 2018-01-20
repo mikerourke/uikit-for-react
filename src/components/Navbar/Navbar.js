@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {
   buildClassName,
-  getOptionsString, joinListProp,
+  getOptionsString,
+  joinListProp,
   restrictToChildTypes,
   UIK,
 } from '../../lib';

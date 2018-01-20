@@ -23,9 +23,17 @@ storiesOf('Alert', module)
 
   .add('Style modifiers', () => (
     <Container margin={{ all: 'large' }}>
-      <Alert closeable primary>{message}</Alert>
-      <Alert closeable success>{message}</Alert>
-      <Alert closeable warning>{message}</Alert>
-      <Alert closeable danger>{message}</Alert>
+      <Alert closeable primary>
+        {message}
+      </Alert>
+      <Alert closeable success>
+        {message}
+      </Alert>
+      <Alert closeable warning>
+        {message}
+      </Alert>
+      <Alert closeable danger>
+        {message}
+      </Alert>
     </Container>
   ));

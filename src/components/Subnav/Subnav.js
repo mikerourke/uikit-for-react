@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  buildClassName,
-  restrictToChildTypes,
-} from '../../lib';
+import { buildClassName, restrictToChildTypes } from '../../lib';
 import { BlockElement } from '../Base';
 import SubnavItem from './SubnavItem';
 
@@ -37,21 +34,15 @@ export default class Subnav extends BlockElement {
       unhandledProps,
     } = this.getInheritedProps(this.props);
 
-    const {
-      children,
-      className,
-      divider,
-      pill,
-      ...rest
-    } = unhandledProps;
+    const { children, className, divider, pill, ...rest } = unhandledProps;
 
     const classes = classnames(
       className,
       inheritedClasses,
       Subnav.meta.ukClass,
       {
-        [buildClassName('subnav', 'divider')]: (divider),
-        [buildClassName('subnav', 'pill')]: (pill),
+        [buildClassName('subnav', 'divider')]: divider,
+        [buildClassName('subnav', 'pill')]: pill,
       },
     );
 

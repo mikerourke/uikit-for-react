@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  buildClassName,
-  getElementType,
-  UIK,
-} from '../../lib';
+import { buildClassName, getElementType, UIK } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class Section extends BlockElement {
@@ -31,11 +27,7 @@ export default class Section extends BlockElement {
 
   render() {
     // This is done to ensure the props don't get handled by the Base/BlockElement props parser.
-    const {
-      background,
-      padding,
-      ...propsToParse
-    } = this.props;
+    const { background, padding, ...propsToParse } = this.props;
 
     const {
       inheritedAttributes,
@@ -60,8 +52,12 @@ export default class Section extends BlockElement {
       buildClassName(Section.meta.ukClass, background),
       buildClassName(Section.meta.ukClass, paddingClass),
       {
-        [buildClassName(Section.meta.ukClass, 'overlap')]: (overlap),
-        [buildClassName(Section.meta.ukClass, 'preserve', 'color')]: (preserveColor),
+        [buildClassName(Section.meta.ukClass, 'overlap')]: overlap,
+        [buildClassName(
+          Section.meta.ukClass,
+          'preserve',
+          'color',
+        )]: preserveColor,
       },
     );
 

@@ -17,10 +17,12 @@ import { buildClassName, joinListProp } from './buildProps';
  * @param {Array|string} optionValue Animation name(s) to apply to component.
  * @returns {Array|null}
  */
-const getAnimationNames = (optionValue) => {
-  const getAnimationClass = animationName => buildClassName('animation', animationName);
+const getAnimationNames = optionValue => {
+  const getAnimationClass = animationName =>
+    buildClassName('animation', animationName);
   if (isString(optionValue)) return [getAnimationClass(optionValue)];
-  if (isArray(optionValue)) return optionValue.map(name => getAnimationClass(name));
+  if (isArray(optionValue))
+    return optionValue.map(name => getAnimationClass(name));
   return null;
 };
 
@@ -30,13 +32,14 @@ const getAnimationNames = (optionValue) => {
  *    component.
  * @returns {string}
  */
-const getAnimationsOptionString = (optionValue) => {
+const getAnimationsOptionString = optionValue => {
   if (isBoolean(optionValue)) return `animation: ${optionValue}`;
 
   // If the optionValue is a string or array, prepend each animation name with the UIkit class
   // and return as valid string.
   const animationNames = getAnimationNames(optionValue);
-  if (animationNames !== null) return `animation: ${joinListProp(animationNames)}`;
+  if (animationNames !== null)
+    return `animation: ${joinListProp(animationNames)}`;
 
   // This is meant to handle most cases of the animation component option if passed an object.
   // Some of the more unique cases are handled in the component.
@@ -54,14 +57,13 @@ const getAnimationsOptionString = (optionValue) => {
 
       // If the animation has an in and out, the animation names are separated with a comma.
       if (/in|out/g.test(key)) separator = ',';
-      return [
-        ...acc,
-        ...getAnimationNames(value),
-      ];
+      return [...acc, ...getAnimationNames(value)];
     }, []);
 
     const animationOption = `animation: ${flatten(allNames).join(separator)}`;
-    return (isNil(duration)) ? animationOption : `${animationOption}; duration: ${duration}`;
+    return isNil(duration)
+      ? animationOption
+      : `${animationOption}; duration: ${duration}`;
   }
 
   return '';
@@ -78,7 +80,7 @@ const getAnimationsOptionString = (optionValue) => {
  * console.log(getOptionsString(options));
  * > "offset: 50; top: 100"
  */
-const getOptionsString = (options) => {
+const getOptionsString = options => {
   if (isUndefined(options)) return undefined;
   if (!isPlainObject(options)) return '';
   const optionPairs = toPairs(options).reduce((acc, [key, value]) => {
@@ -86,17 +88,15 @@ const getOptionsString = (options) => {
 
     // Since the object passed in has camel-cased keys, ensure to convert them to kebab-case.
     let valuePair = `${kebabCase(key)}: ${value}`;
-    const isAnimation = (key === 'animation');
+    const isAnimation = key === 'animation';
     if (isAnimation) valuePair = getAnimationsOptionString(value);
-    if (isPlainObject(value) && !isAnimation) valuePair = getOptionsString(value);
-    return [
-      ...acc,
-      valuePair,
-    ];
+    if (isPlainObject(value) && !isAnimation)
+      valuePair = getOptionsString(value);
+    return [...acc, valuePair];
   }, []);
   // If none of the option pairs had actual values, return an empty string to ensure a data-
   // attribute isn't added unnecessarily.
-  return (optionPairs.length > 0) ? optionPairs.join('; ') : '';
+  return optionPairs.length > 0 ? optionPairs.join('; ') : '';
 };
 
 export default getOptionsString;

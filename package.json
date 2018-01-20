@@ -15,7 +15,7 @@
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "prettier": "prettier \"{app,__{tests,mocks}__}/**/*.js\""
+    "prettier": "prettier --write \"{src,__{tests,mocks}__}/**/*.js\""
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -108,8 +108,7 @@
       "es6": true
     },
     "plugins": [
-      "react",
-      "prettier"
+      "react"
     ],
     "rules": {
       "class-methods-use-this": "off",
@@ -120,7 +119,7 @@
       "max-len": [
         "error",
         {
-          "code": 100,
+          "code": 80,
           "ignoreComments": true,
           "ignoreRegExpLiterals": true,
           "ignoreStrings": true,

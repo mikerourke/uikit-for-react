@@ -2,10 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { omit } from 'lodash';
-import {
-  buildClassName,
-  UIK,
-} from '../../lib';
+import { buildClassName, UIK } from '../../lib';
 import { BlockElement } from '../Base';
 import Icon from '../Icon';
 
@@ -44,13 +41,9 @@ export default class IconNavItem extends BlockElement {
       ...rest
     } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      {
-        [buildClassName('active')]: (active),
-      },
-    );
+    const classes = classnames(className, inheritedClasses, {
+      [buildClassName('active')]: active,
+    });
 
     return (
       <li
