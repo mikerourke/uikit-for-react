@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get, isNil, trim, without } from 'lodash';
+import { get, isNil, isString, trim, without } from 'lodash';
 import {
   buildClassName,
   UIK,
@@ -117,12 +117,12 @@ export default class Base extends React.Component {
     responsive: PropTypes.oneOf([false, 'height', 'width']),
     visible: PropTypes.oneOf(UIK.BREAKPOINTS),
     width: PropTypes.oneOfType([
-      PropTypes.oneOf(UIK.BASE_WIDTHS),
+      PropTypes.oneOf(UIK.ALL_WIDTHS),
       PropTypes.shape({
-        atSm: PropTypes.oneOf(UIK.BASE_WIDTHS),
-        atMd: PropTypes.oneOf(UIK.BASE_WIDTHS),
-        atLg: PropTypes.oneOf(UIK.BASE_WIDTHS),
-        atXl: PropTypes.oneOf(UIK.BASE_WIDTHS),
+        atSm: PropTypes.oneOf(UIK.ALL_WIDTHS),
+        atMd: PropTypes.oneOf(UIK.ALL_WIDTHS),
+        atLg: PropTypes.oneOf(UIK.ALL_WIDTHS),
+        atXl: PropTypes.oneOf(UIK.ALL_WIDTHS),
       }),
     ]),
     wrap: PropTypes.shape({
@@ -251,11 +251,13 @@ export default class Base extends React.Component {
         [buildClassName('clearfix')]: (clearfix),
         [buildClassName('flex')]: (flex === true),
         [buildClassName('flex', 'inline')]: (flex === 'inline'),
+        [buildClassName('grid', 'margin')]: (margin === 'grid'),
         [buildClassName('height', '1', '1')]: (height === 'full'),
         [buildClassName('height', height)]: (height !== 'full'),
         [buildClassName('inline')]: (inline),
         [buildClassName('invisible')]: (invisible),
         [buildClassName('margin')]: (margin === true),
+        [buildClassName('margin', margin)]: (isString(margin) && margin !== 'grid'),
         [buildClassName('preserve', 'width')]: (responsive === false),
         [buildClassName('resize')]: (resize),
       },

@@ -4,7 +4,6 @@ import classnames from 'classnames';
 import {
   buildClassName,
   getIfHasChildType,
-  restrictToChildTypes,
 } from '../../lib';
 import { Block } from '../Base';
 import CardBody from './CardBody';
@@ -22,14 +21,7 @@ export default class Card extends Block {
 
   static propTypes = {
     ...Block.propTypes,
-    children: restrictToChildTypes([
-      CardBody,
-      CardContent,
-      CardFooter,
-      CardHeader,
-      CardMedia,
-      CardTitle,
-    ]),
+    children: PropTypes.node.isRequired,
     className: PropTypes.string,
     hover: PropTypes.bool,
     primary: PropTypes.bool,

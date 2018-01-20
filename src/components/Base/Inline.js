@@ -33,10 +33,12 @@ export default class Inline extends Base {
     ]),
     children: PropTypes.node,
     className: PropTypes.string,
+    columnSpan: PropTypes.bool,
   };
 
   static defaultProps = {
     as: 'span',
+    columnSpan: false,
   };
 
   getInlineElements(props) {
@@ -50,6 +52,7 @@ export default class Inline extends Base {
     const {
       align,
       as,
+      columnSpan,
       ...rest
     } = unhandledProps;
 
@@ -60,6 +63,9 @@ export default class Inline extends Base {
       buildClassName('align', get(align, 'atMd'), '@m'),
       buildClassName('align', get(align, 'atLg'), '@l'),
       buildClassName('align', get(align, 'atXl'), '@xl'),
+      {
+        [buildClassName('column', 'span')]: (columnSpan),
+      },
     );
 
     return {

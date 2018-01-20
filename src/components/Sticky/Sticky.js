@@ -2,6 +2,7 @@ import React from 'react';
 import UIkit from 'uikit';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
+import { get, noop } from 'lodash';
 import {
   getElementType,
   getOptionsString,
@@ -49,8 +50,8 @@ export default class Sticky extends Block {
   };
 
   componentDidMount() {
-    UIkit.on(this.ref, 'active', this.props.onActive);
-    UIkit.on(this.ref, 'inactive', this.props.onInactive);
+    UIkit.on(this.ref, 'active', get(this.props, 'onActive', noop));
+    UIkit.on(this.ref, 'inactive', get(this.props, 'onInactive', noop));
   }
 
   handleRef = element => (this.ref = element);

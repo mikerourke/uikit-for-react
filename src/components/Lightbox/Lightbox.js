@@ -1,14 +1,15 @@
 // TODO: Find out how to implement Panel.
 import React from 'react';
+import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import UIkit from 'uikit';
 import { get, noop, omit } from 'lodash';
 import {
   buildClassName,
   restrictToChildTypes,
 } from '../../lib';
 import { Block } from '../Base';
+import LightboxItem from './LightboxItem';
 
 export default class Lightbox extends Block {
   static meta = {
@@ -69,6 +70,8 @@ export default class Lightbox extends Block {
     paused: false,
     shown: false,
   };
+
+  static Item = LightboxItem;
 
   componentDidMount() {
     UIkit.util.on(this.ref, 'beforehide', get(this.props, 'onBeforeHide', noop));

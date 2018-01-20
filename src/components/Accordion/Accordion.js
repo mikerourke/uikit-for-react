@@ -1,8 +1,8 @@
 import React from 'react';
+import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { flatten, get, isArray, isNil, max, noop } from 'lodash';
-import UIkit from 'uikit';
 import {
   getOptionsString,
   HTML,

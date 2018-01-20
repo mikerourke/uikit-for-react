@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { omit } from 'lodash';
 import { Block } from '../Base';
 
 const CommentHeader = ({ className, ...rest }) => (
@@ -11,8 +13,8 @@ const CommentHeader = ({ className, ...rest }) => (
 );
 
 CommentHeader.propTypes = {
-  ...Block.propTypes,
-  as: undefined,
+  ...omit(Block.propTypes, 'as'),
+  className: PropTypes.string,
 };
 
 CommentHeader.meta = {

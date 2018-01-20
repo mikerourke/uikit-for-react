@@ -34,6 +34,20 @@ export default class Block extends Base {
       }),
     ]),
     className: PropTypes.string,
+    column: PropTypes.oneOfType([
+      PropTypes.oneOf(UIK.BASE_WIDTHS),
+      PropTypes.shape({
+        atSm: PropTypes.oneOf(UIK.BASE_WIDTHS),
+        atMd: PropTypes.oneOf(UIK.BASE_WIDTHS),
+        atLg: PropTypes.oneOf(UIK.BASE_WIDTHS),
+        atXl: PropTypes.oneOf(UIK.BASE_WIDTHS),
+        divider: PropTypes.bool,
+      }),
+      PropTypes.shape({
+        width: PropTypes.oneOf(UIK.BASE_WIDTHS),
+        divider: PropTypes.bool,
+      }),
+    ]),
     dynamic: PropTypes.bool,
     firstColumn: PropTypes.string,
     nextRow: PropTypes.shape({
@@ -86,6 +100,7 @@ export default class Block extends Base {
     const {
       as,
       childWidth,
+      column,
       dynamic,
       firstColumn,
       nextRow,
@@ -106,6 +121,12 @@ export default class Block extends Base {
       buildClassName('child', 'width', get(childWidth, 'atMd'), '@m'),
       buildClassName('child', 'width', get(childWidth, 'atLg'), '@l'),
       buildClassName('child', 'width', get(childWidth, 'atXl'), '@xl'),
+      buildClassName('column', column),
+      buildClassName('column', get(column, 'width')),
+      buildClassName('column', get(column, 'atSm'), '@s'),
+      buildClassName('column', get(column, 'atMd'), '@m'),
+      buildClassName('column', get(column, 'atLg'), '@l'),
+      buildClassName('column', get(column, 'atXl'), '@xl'),
       buildClassName('padding', padding),
       buildClassName('padding', get(padding, 'size')),
       buildClassName('padding', 'remove', get(padding, 'remove')),
@@ -120,6 +141,7 @@ export default class Block extends Base {
       buildClassName('text', get(textAlign, 'atLg'), '@l'),
       buildClassName('text', get(textAlign, 'atXl'), '@xl'),
       {
+        [buildClassName('column', 'divider')]: (get(column, 'divider', false)),
         [buildClassName('position', vertProp, horizProp)]: (!isCentered),
         [buildClassName('position', 'center')]: (isCentered),
       },
@@ -127,7 +149,7 @@ export default class Block extends Base {
 
     const hasMarginAttribute = ((dynamic === true) || !isNil(firstColumn) || !isNil(nextRow));
 
-    const marginAttributeOptions = getOptionsString({
+    const marginComponentOptions = getOptionsString({
       firstColumn: firstColumn || 'uk-first-column',
       margin: buildClassName(
         'margin',
@@ -139,7 +161,7 @@ export default class Block extends Base {
     return {
       attributes: {
         ...attributes,
-        'data-uk-margin': (hasMarginAttribute) ? marginAttributeOptions : undefined,
+        'data-uk-margin': (hasMarginAttribute) ? marginComponentOptions : undefined,
       },
       blockClasses: trim(classes),
       blockStyle: baseStyle,

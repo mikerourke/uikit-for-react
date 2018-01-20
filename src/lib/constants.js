@@ -1,4 +1,5 @@
-const CHILD_WIDTHS = ['1/2', '1/3', '1/4', '1/5', '1/6', 'auto', 'expand'];
+const BASE_WIDTHS = ['1/2', '1/3', '1/4', '1/5', '1/6'];
+const CHILD_WIDTHS = [...BASE_WIDTHS, 'auto', 'expand'];
 const HORIZONTAL_POSITIONS = ['left', 'center', 'right'];
 const ICON_NAMES = [
   'album', 'arrow-down', 'arrow-left', 'arrow-right', 'arrow-up', 'ban', 'behance', 'bell',
@@ -42,12 +43,13 @@ export const UIK = {
   AREAS: ['horizontal', 'vertical'],
   BACKGROUND_COLORS: ['default', 'muted', 'primary', 'secondary'],
   BACKGROUND_SIZES: ['cover', 'contain'],
-  BASE_WIDTHS: [
+  ALL_WIDTHS: [
     ...CHILD_WIDTHS,
     ...SIZES,
     '2/3', '2/4', '3/4', '2/5', '3/5', '4/5', '2/6', '3/6', '4/6', '5/6',
     'xxlarge',
   ],
+  BASE_WIDTHS,
   BLEND_MODES: [
     'multiply',
     'screen',
@@ -112,7 +114,7 @@ const HTML_HEADING_ELEMENTS = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
 const HTML_INLINE_ELEMENTS = [
   'a', 'abbr', 'acronym', 'b', 'bdo', 'big', 'br', 'button', 'cite', 'code', 'dfn', 'em', 'i',
   'img', 'input', 'kbd', 'label', 'map', 'object', 'q', 'samp', 'script', 'select', 'small',
-  'span', 'strong', 'sub', 'sup', 'textarea', 'time', 'tt', 'var',
+  'span', 'strong', 'sub', 'sup', 'textarea', 'time', 'tt', 'var', 'progress',
 ];
 
 const HTML_TEXT_ELEMENTS = [

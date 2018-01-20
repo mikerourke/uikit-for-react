@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { omit } from 'lodash';
 import { buildClassName } from '../../lib';
 import { Block } from '../Base';
 import CommentAvatar from './CommentAvatar';
@@ -16,8 +17,7 @@ export default class Comment extends Block {
   };
 
   static propTypes = {
-    ...Block.propTypes,
-    as: undefined,
+    ...omit(Block.propTypes, 'as'),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     primary: PropTypes.bool,

@@ -4,22 +4,22 @@ import classnames from 'classnames';
 import { omit } from 'lodash';
 import { Block } from '../Base';
 
-const ModalHeader = ({ className, ...rest }) => (
+const Placeholder = ({ className, ...rest }) => (
   <Block
     {...rest}
     as="div"
-    className={classnames(className, ModalHeader.meta.ukClass)}
+    className={classnames(className, Placeholder.meta.ukClass)}
   />
 );
 
-ModalHeader.propTypes = {
+Placeholder.propTypes = {
   ...omit(Block.propTypes, 'as'),
   className: PropTypes.string,
 };
 
-ModalHeader.meta = {
-  name: 'ModalHeader',
-  ukClass: 'uk-modal-header',
+Placeholder.meta = {
+  name: 'Placeholder',
+  ukClass: 'uk-placeholder',
 };
 
-export default ModalHeader;
+export default Placeholder;

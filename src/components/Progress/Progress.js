@@ -4,22 +4,22 @@ import classnames from 'classnames';
 import { omit } from 'lodash';
 import { Inline } from '../Base';
 
-const CommentAvatar = ({ className, ...rest }) => (
+const Progress = ({ className, ...rest }) => (
   <Inline
     {...rest}
-    as="img"
-    className={classnames(className, CommentAvatar.meta.ukClass)}
+    as="progress"
+    className={classnames(className, Progress.meta.ukClass)}
   />
 );
 
-CommentAvatar.propTypes = {
+Progress.propTypes = {
   ...omit(Inline.propTypes, 'as'),
   className: PropTypes.string,
 };
 
-CommentAvatar.meta = {
-  name: 'CommentAvatar',
-  ukClass: 'uk-comment-avatar',
+Progress.meta = {
+  name: 'Progress',
+  ukClass: 'uk-progress',
 };
 
-export default CommentAvatar;
+export default Progress;

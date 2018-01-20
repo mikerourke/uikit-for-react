@@ -2,27 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {
-  buildClassName,
   getElementType,
-  getIfChildrenHaveClass,
+  getOptionsString,
 } from '../../lib';
 import { Block } from '../Base';
 
-export default class Container extends Block {
+export default class Viewport extends Block {
   static meta = {
-    name: 'Container',
-    ukClass: 'uk-container',
+    name: 'Viewport',
+    ukClass: 'uk-viewport',
   };
 
   static propTypes = {
     ...Block.propTypes,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
-    size: PropTypes.oneOf(['expand', 'large', 'small']),
-  };
-
-  static defaultProps = {
-    as: 'div',
+    expand: PropTypes.bool,
+    minHeight: PropTypes.number,
+    offsetBottom: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.number,
+    ]),
+    offsetTop: PropTypes.bool,
   };
 
   render() {
@@ -34,29 +35,34 @@ export default class Container extends Block {
     } = this.getBlockElements(this.props);
 
     const {
-      as,
       children,
       className,
-      size,
+      expand,
+      minHeight,
+      offsetBottom,
+      offsetTop,
       ...rest
     } = unhandledProps;
 
     const classes = classnames(
       className,
       blockClasses,
-      Container.meta.ukClass,
-      buildClassName(Container.meta.ukClass, size),
-      {
-        [buildClassName('inline')]: getIfChildrenHaveClass(children, 'position'),
-      },
     );
 
-    const Element = getElementType(Container, this.props);
+    const componentOptions = getOptionsString({
+      expand,
+      minHeight,
+      offsetBottom,
+      offsetTop,
+    });
+
+    const Element = getElementType(Viewport, this.props);
     return (
       <Element
         {...rest}
         className={classes || undefined}
         style={blockStyle}
+        data-uk-height-viewport={componentOptions}
         {...attributes}
       >
         {children}
@@ -64,3 +70,4 @@ export default class Container extends Block {
     );
   }
 }
+

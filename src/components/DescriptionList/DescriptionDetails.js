@@ -1,4 +1,5 @@
 import React from 'react';
+import { omit } from 'lodash';
 import { Block } from '../Base';
 
 const DescriptionDetails = props => (
@@ -8,10 +9,7 @@ const DescriptionDetails = props => (
   />
 );
 
-DescriptionDetails.propTypes = {
-  ...Block.propTypes,
-  as: undefined,
-};
+DescriptionDetails.propTypes = omit(Block.propTypes, 'as');
 
 DescriptionDetails.meta = {
   name: 'DescriptionDetails',

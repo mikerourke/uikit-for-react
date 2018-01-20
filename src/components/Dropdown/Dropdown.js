@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
+import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import UIkit from 'uikit';
 import { get, isNil, noop } from 'lodash';
 import {
   appendClassNamesToChildren,

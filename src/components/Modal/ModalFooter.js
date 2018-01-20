@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { omit } from 'lodash';
 import { Block } from '../Base';
 
 const ModalFooter = ({ className, ...rest }) => (
@@ -11,8 +13,8 @@ const ModalFooter = ({ className, ...rest }) => (
 );
 
 ModalFooter.propTypes = {
-  ...Block.propTypes,
-  as: undefined,
+  ...omit(Block.propTypes, 'as'),
+  className: PropTypes.string,
 };
 
 ModalFooter.meta = {

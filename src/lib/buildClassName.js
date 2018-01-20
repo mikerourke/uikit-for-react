@@ -22,6 +22,8 @@ const sanitizeClassName = className => (
     .replace(/(--)(-$)( )/ig, '')
     // This removes the dash before a breakpoint value.
     .replace(/-@/ig, '@')
+    // This replaces the "/" for a width with a "-".
+    .replace(/\//g, '-')
     // This removes any invalid trailing "-".
     .replace(/-$/g, '')
 );

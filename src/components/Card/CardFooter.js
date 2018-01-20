@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { omit } from 'lodash';
 import { Block } from '../Base';
 
 const CardFooter = ({ className, ...rest }) => (
@@ -11,8 +13,8 @@ const CardFooter = ({ className, ...rest }) => (
 );
 
 CardFooter.propTypes = {
-  ...Block.propTypes,
-  as: undefined,
+  ...omit(Block.propTypes, 'as'),
+  className: PropTypes.string,
 };
 
 CardFooter.meta = {

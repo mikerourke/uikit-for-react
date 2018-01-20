@@ -4,6 +4,8 @@ import classnames from 'classnames';
 import { restrictToChildTypes } from '../../lib';
 import { Block } from '../Base';
 import PaginationItem from './PaginationItem';
+import PaginationNext from './PaginationNext';
+import PaginationPrevious from './PaginationPrevious';
 
 export default class Pagination extends Block {
   static meta = {
@@ -18,6 +20,8 @@ export default class Pagination extends Block {
   };
 
   static Item = PaginationItem;
+  static Next = PaginationNext;
+  static Previous = PaginationPrevious;
 
   render() {
     const {

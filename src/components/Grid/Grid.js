@@ -6,6 +6,7 @@ import {
   buildClassName,
   getElementType,
   getOptionsString,
+  restrictToChildTypes,
   UIK,
 } from '../../lib';
 import { Block } from '../Base';
@@ -26,7 +27,7 @@ export default class Grid extends Block {
       PropTypes.element,
       PropTypes.func,
     ]),
-    children: PropTypes.node.isRequired,
+    children: restrictToChildTypes(GridCell),
     className: PropTypes.string,
     divider: PropTypes.bool,
     firstColumn: PropTypes.string,
@@ -37,13 +38,6 @@ export default class Grid extends Block {
       spacing: PropTypes.oneOf(UIK.SPACING_MODIFIERS),
       location: PropTypes.oneOf(UIK.LOCATIONS),
     }),
-    parallax: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.shape({
-        target: PropTypes.string,
-        translate: PropTypes.number,
-      }),
-    ]),
   };
 
   static defaultProps = {
@@ -72,7 +66,6 @@ export default class Grid extends Block {
       grow,
       matchHeight,
       nextRow,
-      parallax,
       ...rest
     } = unhandledProps;
 
@@ -91,16 +84,11 @@ export default class Grid extends Block {
       },
     );
 
-    const gridAttributeOptions = getOptionsString({
+    const componentOptions = getOptionsString({
       firstColumn: (isNil(firstColumn)) ? 'uk-first-column' : firstColumn,
       margin: (isNil(nextRow))
         ? 'uk-grid-margin'
         : buildClassName('margin', get(nextRow, 'spacing', null), get(nextRow, 'location', null)),
-    });
-
-    const parallaxAttributeOptions = getOptionsString({
-      target: get(parallax, 'target', false),
-      translate: get(parallax, 'translate', 150),
     });
 
     const Element = getElementType(Grid, this.props);
@@ -109,8 +97,7 @@ export default class Grid extends Block {
         {...rest}
         className={classes || undefined}
         style={blockStyle}
-        data-uk-grid={(isNil(parallax)) ? gridAttributeOptions : undefined}
-        data-uk-grid-parallax={(!isNil(parallax)) ? parallaxAttributeOptions : undefined}
+        data-uk-grid={componentOptions}
         {...attributes}
       >
         {children}

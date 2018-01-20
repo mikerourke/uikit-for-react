@@ -9,6 +9,7 @@ import {
   UIK,
 } from '../../lib';
 import { Block } from '../Base';
+import NavItem from './NavItem';
 
 export default class Nav extends Block {
   static meta = {
@@ -57,6 +58,8 @@ export default class Nav extends Block {
     primary: false,
   };
 
+  static Item = NavItem;
+
   handleRef = element => (this.ref = element);
 
   render() {
@@ -86,6 +89,7 @@ export default class Nav extends Block {
 
     const classes = classnames(
       className,
+      blockClasses,
       Nav.meta.ukClass,
       {
         [buildClassName(Nav.meta.ukClass, 'center')]: (center),

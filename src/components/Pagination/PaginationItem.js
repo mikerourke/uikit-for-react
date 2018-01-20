@@ -17,8 +17,6 @@ export default class PaginationItem extends Block {
     className: PropTypes.string,
     disabled: PropTypes.bool,
     href: PropTypes.string,
-    next: PropTypes.bool,
-    previous: PropTypes.bool,
   };
 
   static defaultProps = {

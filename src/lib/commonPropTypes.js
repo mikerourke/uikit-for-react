@@ -176,8 +176,8 @@ const visible = PropTypes.oneOfType([
 ]);
 
 const width = PropTypes.oneOfType([
-  PropTypes.oneOf(UIK.BASE_WIDTHS),
-  getForBreakpoints(PropTypes.oneOf(UIK.BASE_WIDTHS)),
+  PropTypes.oneOf(UIK.ALL_WIDTHS),
+  getForBreakpoints(PropTypes.oneOf(UIK.ALL_WIDTHS)),
 ]);
 
 export default {

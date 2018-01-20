@@ -2,28 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {
-  buildClassName,
   getElementType,
-  getIfChildrenHaveClass,
+  getOptionsString,
 } from '../../lib';
 import { Block } from '../Base';
+import CoverContainer from './CoverContainer';
 
-export default class Container extends Block {
+export default class Cover extends Block {
   static meta = {
-    name: 'Container',
-    ukClass: 'uk-container',
+    name: 'Cover',
   };
 
   static propTypes = {
     ...Block.propTypes,
+    as: PropTypes.oneOf(['img', 'video', 'iframe']),
+    automute: PropTypes.bool,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
-    size: PropTypes.oneOf(['expand', 'large', 'small']),
+    height: PropTypes.number,
+    width: PropTypes.number,
   };
 
-  static defaultProps = {
-    as: 'div',
-  };
+  static Container = CoverContainer;
 
   render() {
     const {
@@ -34,29 +34,32 @@ export default class Container extends Block {
     } = this.getBlockElements(this.props);
 
     const {
-      as,
+      automute,
       children,
       className,
-      size,
+      height,
+      width,
       ...rest
     } = unhandledProps;
 
     const classes = classnames(
       className,
       blockClasses,
-      Container.meta.ukClass,
-      buildClassName(Container.meta.ukClass, size),
-      {
-        [buildClassName('inline')]: getIfChildrenHaveClass(children, 'position'),
-      },
     );
 
-    const Element = getElementType(Container, this.props);
+    const componentOptions = getOptionsString({
+      automute,
+      height,
+      width,
+    });
+
+    const Element = getElementType(Cover, this.props);
     return (
       <Element
         {...rest}
         className={classes || undefined}
         style={blockStyle}
+        data-uk-cover={componentOptions}
         {...attributes}
       >
         {children}
@@ -64,3 +67,4 @@ export default class Container extends Block {
     );
   }
 }
+

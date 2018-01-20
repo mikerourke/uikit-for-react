@@ -1,7 +1,7 @@
 import React from 'react';
+import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import UIkit from 'uikit';
 import { get, isNumber, noop } from 'lodash';
 import {
   getElementType,

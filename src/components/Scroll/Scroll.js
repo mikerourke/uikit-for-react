@@ -1,34 +1,31 @@
 import React from 'react';
+import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  buildClassName,
-  getElementType,
-  getOptionsString,
-  UIK,
-} from '../../lib';
+import { get, noop, omit } from 'lodash';
+import { getOptionsString } from '../../lib';
 import { Inline } from '../Base';
 
-export default class Icon extends Inline {
+export default class Scroll extends Inline {
   static meta = {
-    name: 'Icon',
-    ukClass: 'uk-icon',
+    name: 'Scroll',
   };
 
   static propTypes = {
-    ...Inline.propTypes,
-    as: PropTypes.oneOf(['a', 'span']),
+    ...omit(Inline.propTypes, 'as'),
     children: PropTypes.node,
     className: PropTypes.string,
-    link: PropTypes.bool,
-    name: PropTypes.oneOf(UIK.ICON_NAMES),
-    ratio: PropTypes.number,
+    duration: PropTypes.number,
+    offset: PropTypes.number,
+    onScrolled: PropTypes.func,
+    target: PropTypes.string,
   };
 
-  static defaultProps = {
-    as: 'span',
-    link: false,
-  };
+  componentDidMount() {
+    UIkit.on(this.ref, 'scrolled', get(this.props, 'onScrolled', noop));
+  }
+
+  handleRef = element => (this.ref = element);
 
   render() {
     const {
@@ -39,40 +36,37 @@ export default class Icon extends Inline {
     } = this.getInlineElements(this.props);
 
     const {
-      as,
       children,
       className,
-      link,
-      name,
-      ratio,
+      duration,
+      offset,
+      onScrolled,
+      target,
       ...rest
     } = unhandledProps;
 
     const classes = classnames(
       className,
       inlineClasses,
-      Icon.meta.ukClass,
-      {
-        [buildClassName(Icon.meta.ukClass, 'link')]: (link),
-      },
     );
 
     const componentOptions = getOptionsString({
-      icon: name,
-      ratio,
+      duration,
+      offset,
     });
 
-    const Element = getElementType(Icon, this.props);
     return (
-      <Element
+      <a
         {...rest}
         className={classes || undefined}
         style={inlineStyle}
-        data-uk-icon={componentOptions}
+        href={target}
+        ref={this.handleRef}
+        data-uk-scroll={componentOptions}
         {...attributes}
       >
         {children}
-      </Element>
+      </a>
     );
   }
 }
