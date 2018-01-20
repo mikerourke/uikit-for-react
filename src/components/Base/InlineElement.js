@@ -8,7 +8,7 @@ import {
   HTML,
   UIK,
 } from '../../lib';
-import Base from './Base';
+import Base from './BaseElement';
 
 export default class Inline extends Base {
   static meta = {

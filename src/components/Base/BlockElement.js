@@ -9,15 +9,15 @@ import {
   HTML,
   UIK,
 } from '../../lib';
-import Base from './Base';
+import BaseElement from './BaseElement';
 
-export default class Block extends Base {
+export default class BlockElement extends BaseElement {
   static meta = {
     name: 'Block',
   };
 
   static propTypes = {
-    ...Base.propTypes,
+    ...BaseElement.propTypes,
     as: PropTypes.oneOfType([
       PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
       PropTypes.element,
@@ -185,7 +185,7 @@ export default class Block extends Base {
 
     const classes = classnames(className, blockClasses);
 
-    const Element = getElementType(Block, this.props);
+    const Element = getElementType(BlockElement, this.props);
     return (
       <Element
         {...rest}

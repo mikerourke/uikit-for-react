@@ -95,7 +95,7 @@ export const UIK = {
   MODES: ['click', 'hover'],
   SIZES,
   SPACING_MODIFIERS: [...SIZES, 'remove', 'auto'],
-  TEXT_COLORS: ['muted', 'primary', 'success', 'warning', 'danger'],
+  STATUS_COLORS: ['muted', 'primary', 'success', 'warning', 'danger'],
   TEXT_VERTICAL_MODIFIERS: ['baseline', 'top', 'middle', 'bottom'],
   VERTICAL_POSITIONS: ['top', 'center', 'bottom'],
 };

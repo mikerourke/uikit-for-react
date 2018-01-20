@@ -7,7 +7,7 @@ import {
   UIK,
 } from '../../lib';
 
-export default class Base extends React.Component {
+export default class BaseElement extends React.Component {
   static propTypes = {
     alignItems: PropTypes.oneOf(UIK.FLEX_VERTICAL_MODIFIERS),
     animation: PropTypes.oneOfType([

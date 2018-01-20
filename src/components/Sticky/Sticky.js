@@ -50,8 +50,8 @@ export default class Sticky extends Block {
   };
 
   componentDidMount() {
-    UIkit.on(this.ref, 'active', get(this.props, 'onActive', noop));
-    UIkit.on(this.ref, 'inactive', get(this.props, 'onInactive', noop));
+    UIkit.util.on(this.ref, 'active', get(this.props, 'onActive', noop));
+    UIkit.util.on(this.ref, 'inactive', get(this.props, 'onInactive', noop));
   }
 
   handleRef = element => (this.ref = element);

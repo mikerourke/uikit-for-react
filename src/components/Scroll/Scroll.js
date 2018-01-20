@@ -22,7 +22,7 @@ export default class Scroll extends Inline {
   };
 
   componentDidMount() {
-    UIkit.on(this.ref, 'scrolled', get(this.props, 'onScrolled', noop));
+    UIkit.util.on(this.ref, 'scrolled', get(this.props, 'onScrolled', noop));
   }
 
   handleRef = element => (this.ref = element);

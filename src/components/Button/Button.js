@@ -55,7 +55,6 @@ export default class Button extends Inline {
     } = this.getInlineElements(this.props);
 
     const {
-      as,
       children,
       className,
       danger,
@@ -90,12 +89,12 @@ export default class Button extends Inline {
       },
     );
 
-    const Element = (hasIcon) ? 'a' : as;
+    const Element = (hasIcon) ? 'a' : this.props.as;
     return (
       <Element
         {...rest}
         className={classes || undefined}
-        disabled={(disabled && as === 'button') || undefined}
+        disabled={(disabled && this.props.as === 'button') || undefined}
         onClick={this.handleClick}
         role="button"
         style={inlineStyle}

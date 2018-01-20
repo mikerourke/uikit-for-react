@@ -23,6 +23,7 @@ function loadStories() {
   require('../src/stories/Grid');
   require('../src/stories/GridParallax');
   require('../src/stories/Label');
+  require('../src/stories/Notification');
   require('../src/stories/Tab');
 }
 
