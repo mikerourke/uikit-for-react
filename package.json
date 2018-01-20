@@ -14,7 +14,8 @@
   ],
   "scripts": {
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "prettier": "prettier \"{app,__{tests,mocks}__}/**/*.js\""
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -37,6 +38,7 @@
     "css-loader": "^0.28.7",
     "eslint": "^4.14.0",
     "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
@@ -45,6 +47,7 @@
     "jest": "^22.0.4",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
+    "prettier": "^1.10.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-test-renderer": "^16.2.0",
@@ -91,7 +94,9 @@
     "extends": [
       "airbnb",
       "plugin:import/errors",
-      "plugin:import/warnings"
+      "plugin:import/warnings",
+      "prettier",
+      "prettier/react"
     ],
     "globals": {
       "__DEV__": true,
@@ -103,16 +108,15 @@
       "es6": true
     },
     "plugins": [
-      "react"
+      "react",
+      "prettier"
     ],
     "rules": {
       "class-methods-use-this": "off",
-      "function-paren-newline": "off",
       "no-return-assign": [
         "error",
         "except-parens"
       ],
-      "object-curly-newline": "off",
       "max-len": [
         "error",
         {
@@ -165,5 +169,10 @@
         }
       }
     }
+  },
+  "prettier": {
+    "bracketSpacing": true,
+    "singleQuote": true,
+    "trailingComma": "all"
   }
 }
