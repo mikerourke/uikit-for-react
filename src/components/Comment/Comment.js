@@ -33,33 +33,16 @@ export default class Comment extends BlockElement {
   static Title = CommentTitle;
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
+    const { children, className, primary, ...rest } = this.props;
 
-    const { children, className, primary, ...rest } = unhandledProps;
-
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      Comment.meta.ukClass,
-      {
-        [buildClassName(Comment.meta.ukClass, 'primary')]: primary,
-      },
-    );
+    const classes = classnames(className, Comment.meta.ukClass, {
+      [buildClassName(Comment.meta.ukClass, 'primary')]: primary,
+    });
 
     return (
-      <article
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
+      <BlockElement {...rest} as="article" className={classes || undefined}>
         {children}
-      </article>
+      </BlockElement>
     );
   }
 }

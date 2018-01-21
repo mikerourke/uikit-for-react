@@ -3,22 +3,26 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
-const CommentHeader = ({ className, ...rest }) => (
-  <BlockElement
-    {...rest}
-    as="header"
-    className={classnames(className, CommentHeader.meta.ukClass)}
-  />
-);
+export default class CommentHeader extends BlockElement {
+  static meta = {
+    name: 'CommentHeader',
+    ukClass: 'uk-comment-header',
+  };
 
-CommentHeader.propTypes = {
-  ...BlockElement.propTypes,
-  className: PropTypes.string,
-};
+  static propTypes = {
+    ...BlockElement.propTypes,
+    className: PropTypes.string,
+  };
 
-CommentHeader.meta = {
-  name: 'CommentHeader',
-  ukClass: 'uk-comment-header',
-};
+  render() {
+    const { className, ...rest } = this.props;
 
-export default CommentHeader;
+    return (
+      <BlockElement
+        {...rest}
+        as="header"
+        className={classnames(className, CommentHeader.meta.ukClass)}
+      />
+    );
+  }
+}

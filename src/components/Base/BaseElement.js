@@ -131,6 +131,7 @@ export default class BaseElement extends React.Component {
     hidden: false,
     inline: false,
     invisible: false,
+    margin: false,
     marker: false,
   };
 
@@ -186,7 +187,7 @@ export default class BaseElement extends React.Component {
     }
 
     const allMargins = get(margin, 'all');
-    const marginClasses = isNil(allMargins)
+    let marginClasses = isNil(allMargins)
       ? [
           buildClassName('margin', get(margin, 'bottom'), 'bottom'),
           buildClassName('margin', get(margin, 'left'), 'left'),
@@ -196,6 +197,7 @@ export default class BaseElement extends React.Component {
       : UIK.LOCATIONS.map(location =>
           buildClassName('margin', allMargins, location),
         );
+    if (margin === true) marginClasses = buildClassName('margin');
 
     const isReverse = get(direction, 'reverse', false);
 
@@ -274,7 +276,6 @@ export default class BaseElement extends React.Component {
         [buildClassName('height', height)]: height !== 'full',
         [buildClassName('inline')]: inline,
         [buildClassName('invisible')]: invisible,
-        [buildClassName('margin')]: margin === true,
         [buildClassName('margin', margin)]:
           isString(margin) && margin !== 'grid',
         [buildClassName('preserve', 'width')]: responsive === false,

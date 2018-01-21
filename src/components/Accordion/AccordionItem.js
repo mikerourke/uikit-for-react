@@ -26,21 +26,7 @@ export default class AccordionItem extends BlockElement {
   };
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
-
-    const {
-      children,
-      className,
-      content,
-      open,
-      title,
-      ...rest
-    } = unhandledProps;
+    const { children, className, content, open, title, ...rest } = this.props;
 
     if (!isNil(children) && (!isNil(content) || !isNil(title))) {
       throw new Error(
@@ -53,26 +39,16 @@ export default class AccordionItem extends BlockElement {
       );
     }
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      AccordionItem.meta.ukClass,
-      {
-        [buildClassName('open')]: open,
-      },
-    );
+    const classes = classnames(className, AccordionItem.meta.ukClass, {
+      [buildClassName('open')]: open,
+    });
 
     return (
-      <li
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
+      <BlockElement {...rest} as="li" className={classes || undefined}>
         {title && <AccordionTitle>{title}</AccordionTitle>}
         {content && <AccordionContent>{content}</AccordionContent>}
         {children && children}
-      </li>
+      </BlockElement>
     );
   }
 }

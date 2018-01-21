@@ -27,6 +27,7 @@ export default class Card extends BlockElement {
   };
 
   static defaultProps = {
+    hover: false,
     primary: false,
     secondary: false,
   };
@@ -40,13 +41,6 @@ export default class Card extends BlockElement {
 
   render() {
     const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
-
-    const {
       children,
       className,
       hover,
@@ -54,7 +48,7 @@ export default class Card extends BlockElement {
       secondary,
       size,
       ...rest
-    } = unhandledProps;
+    } = this.props;
 
     const hasBody = getIfHasChildType(children, CardBody);
     const hasContent = getIfHasChildType(children, CardContent);
@@ -66,7 +60,6 @@ export default class Card extends BlockElement {
 
     const classes = classnames(
       className,
-      inheritedClasses,
       Card.meta.ukClass,
       buildClassName('card', size),
       {
@@ -79,14 +72,9 @@ export default class Card extends BlockElement {
     );
 
     return (
-      <div
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
+      <BlockElement {...rest} as="div" className={classes || undefined}>
         {children}
-      </div>
+      </BlockElement>
     );
   }
 }

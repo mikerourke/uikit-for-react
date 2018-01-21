@@ -3,31 +3,36 @@ import PropTypes from 'prop-types';
 import { getOptionsString } from '../../lib';
 import Grid, { GridCell } from '../Grid';
 
-const GridParallax = ({ target, translate, ...rest }) => {
-  const componentOptions = getOptionsString({
-    target,
-    translate,
-  });
+export default class GridParallax extends React.Component {
+  static meta = {
+    name: 'GridParallax',
+  };
 
-  return (
-    <Grid
-      {...rest}
-      data-uk-grid={undefined}
-      data-uk-grid-parallax={componentOptions}
-    />
-  );
-};
+  static propTypes = {
+    ...Grid.propTypes,
+    children: PropTypes.node.isRequired,
+    target: PropTypes.string,
+    translate: PropTypes.number,
+  };
 
-GridParallax.propTypes = {
-  ...Grid.propTypes,
-  target: PropTypes.string,
-  translate: PropTypes.number,
-};
+  static Cell = GridCell;
 
-GridParallax.meta = {
-  name: 'GridParallax',
-};
+  render() {
+    const { children, target, translate, ...rest } = this.props;
 
-GridParallax.Cell = GridCell;
+    const componentOptions = getOptionsString({
+      target,
+      translate,
+    });
 
-export default GridParallax;
+    return (
+      <Grid
+        {...rest}
+        data-uk-grid={undefined}
+        data-uk-grid-parallax={componentOptions}
+      >
+        {children}
+      </Grid>
+    );
+  }
+}

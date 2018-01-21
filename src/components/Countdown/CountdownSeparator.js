@@ -1,28 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { getElementType } from '../../lib';
+import { AnyElement } from '../Base';
 
-const CountdownSeparator = ({ children, className, ...rest }) => {
-  const classes = classnames(className, CountdownSeparator.meta.ukClass);
+export default class CountdownSeparator extends AnyElement {
+  static meta = {
+    name: 'CountdownSeparator',
+    ukClass: 'uk-countdown-separator',
+  };
 
-  const Element = getElementType(CountdownSeparator, rest);
-  return <Element className={classes || undefined}>{children}</Element>;
-};
+  static propTypes = {
+    ...AnyElement.propTypes,
+    as: PropTypes.oneOfType([
+      PropTypes.oneOf(['div', 'span']),
+      PropTypes.element,
+      PropTypes.func,
+    ]),
+    children: PropTypes.string.isRequired,
+    className: PropTypes.string,
+  };
 
-CountdownSeparator.meta = {
-  name: 'CountdownSeparator',
-  ukClass: 'uk-countdown-separator',
-};
+  static defaultProps = {
+    as: 'div',
+  };
 
-CountdownSeparator.propTypes = {
-  as: PropTypes.oneOf(['div', 'span']),
-  children: PropTypes.string.isRequired,
-  className: PropTypes.string,
-};
+  render() {
+    const { className, children, ...rest } = this.props;
 
-CountdownSeparator.defaultProps = {
-  as: 'div',
-};
+    const classes = classnames(className, CountdownSeparator.meta.ukClass);
 
-export default CountdownSeparator;
+    return (
+      <AnyElement {...rest} className={classes || undefined}>
+        {children}
+      </AnyElement>
+    );
+  }
+}

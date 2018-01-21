@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import { getElementType, getOptionsString } from '../../lib';
+import { getOptionsString } from '../../lib';
 import { BlockElement } from '../Base';
 import CoverContainer from './CoverContainer';
 
@@ -24,22 +23,13 @@ export default class Cover extends BlockElement {
 
   render() {
     const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
-
-    const {
       automute,
       children,
       className,
       height,
       width,
       ...rest
-    } = unhandledProps;
-
-    const classes = classnames(className, inheritedClasses);
+    } = this.props;
 
     const componentOptions = getOptionsString({
       automute,
@@ -47,17 +37,14 @@ export default class Cover extends BlockElement {
       width,
     });
 
-    const Element = getElementType(Cover, this.props);
     return (
-      <Element
+      <BlockElement
         {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
+        className={className}
         data-uk-cover={componentOptions}
-        {...inheritedAttributes}
       >
         {children}
-      </Element>
+      </BlockElement>
     );
   }
 }

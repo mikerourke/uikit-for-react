@@ -24,7 +24,7 @@ export { default as getElementType } from './getElementType';
 
 export { default as getOptionsString } from './getOptionsString';
 
-export { default as generateSelector } from './generateSelector';
+export { generateIdentifier, generateSelector } from './generateRandom';
 
 export { HTML, UIK } from './constants';
 

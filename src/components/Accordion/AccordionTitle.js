@@ -7,7 +7,7 @@ import { InlineElement } from '../Base';
  * Toggle for each accordion item.
  * @see https://getuikit.com/docs/accordion#usage
  */
-export default class AccordionTitle extends React.Component {
+export default class AccordionTitle extends InlineElement {
   static meta = {
     name: 'AccordionTitle',
     ukClass: 'uk-accordion-title',

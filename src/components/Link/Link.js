@@ -26,30 +26,18 @@ export default class Link extends InlineElement {
   };
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
+    const { children, className, muted, reset, text, ...rest } = this.props;
 
-    const { children, className, muted, reset, text, ...rest } = unhandledProps;
-
-    const classes = classnames(className, inheritedClasses, {
+    const classes = classnames(className, {
       [buildClassName(Link.meta.ukClass, 'muted')]: muted,
       [buildClassName(Link.meta.ukClass, 'reset')]: reset,
       [buildClassName(Link.meta.ukClass, 'text')]: text,
     });
 
     return (
-      <a
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
+      <InlineElement {...rest} as="a" className={classes || undefined}>
         {children}
-      </a>
+      </InlineElement>
     );
   }
 }

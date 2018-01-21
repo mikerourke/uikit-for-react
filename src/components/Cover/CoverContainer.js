@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { get } from 'lodash';
-import { getElementType, getOptionsString, HTML } from '../../lib';
+import { getOptionsString } from '../../lib';
 import { BlockElement } from '../Base';
 import Cover from './Cover';
 
@@ -14,11 +14,7 @@ export default class CoverContainer extends BlockElement {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    as: PropTypes.oneOfType([
-      PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
-      PropTypes.element,
-      PropTypes.func,
-    ]),
+    as: BlockElement.asPropType,
     children: PropTypes.instanceOf(Cover),
     className: PropTypes.string,
     responsive: PropTypes.shape({
@@ -40,45 +36,29 @@ export default class CoverContainer extends BlockElement {
 
   render() {
     const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
-
-    const {
       children,
       className,
       responsive,
       viewportOptions,
       ...rest
-    } = unhandledProps;
+    } = this.props;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      CoverContainer.meta.ukClass,
-    );
-
-    const viewportComponentOptions = getOptionsString(viewportOptions);
+    const classes = classnames(className, CoverContainer.meta.ukClass);
 
     const responsiveProps = {
       height: get(responsive, 'height', 600),
       width: get(responsive, 'width', 800),
     };
 
-    const Element = getElementType(CoverContainer, this.props);
     return (
-      <Element
+      <BlockElement
         {...rest}
         className={classes || undefined}
-        data-uk-height-viewport={viewportComponentOptions}
-        style={inheritedStyle}
-        {...inheritedAttributes}
+        data-uk-height-viewport={getOptionsString(viewportOptions)}
       >
         {responsive && <canvas {...responsiveProps} />}
         {children}
-      </Element>
+      </BlockElement>
     );
   }
 }

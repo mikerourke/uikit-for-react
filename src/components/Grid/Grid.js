@@ -2,13 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { get, isNil, without } from 'lodash';
-import {
-  buildClassName,
-  getElementType,
-  getOptionsString,
-  restrictToChildTypes,
-  UIK,
-} from '../../lib';
+import { buildClassName, getOptionsString, UIK } from '../../lib';
 import { BlockElement } from '../Base';
 import GridCell from './GridCell';
 
@@ -27,7 +21,7 @@ export default class Grid extends BlockElement {
       PropTypes.element,
       PropTypes.func,
     ]),
-    children: restrictToChildTypes(GridCell),
+    children: PropTypes.node.isRequired,
     className: PropTypes.string,
     divider: PropTypes.bool,
     firstColumn: PropTypes.string,
@@ -50,13 +44,6 @@ export default class Grid extends BlockElement {
 
   render() {
     const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
-
-    const {
       children,
       className,
       direction,
@@ -67,14 +54,13 @@ export default class Grid extends BlockElement {
       matchHeight,
       nextRow,
       ...rest
-    } = unhandledProps;
+    } = this.props;
 
     const isReverse = get(direction, 'reverse', false);
     const flexGrow = isNil(grow) ? null : grow.replace('full', '1');
 
     const classes = classnames(
       className,
-      inheritedClasses,
       buildClassName('flex', get(direction, 'as'), isReverse ? 'reverse' : ''),
       buildClassName(Grid.meta.ukClass, gutter),
       {
@@ -95,17 +81,14 @@ export default class Grid extends BlockElement {
           ),
     });
 
-    const Element = getElementType(Grid, this.props);
     return (
-      <Element
+      <BlockElement
         {...rest}
         className={classes || undefined}
-        style={inheritedStyle}
         data-uk-grid={componentOptions}
-        {...inheritedAttributes}
       >
         {children}
-      </Element>
+      </BlockElement>
     );
   }
 }

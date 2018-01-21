@@ -1,12 +1,14 @@
 import React from 'react';
 import { BlockElement } from '../Base';
 
-const ListItem = props => <BlockElement {...props} as="li" />;
+export default class ListItem extends BlockElement {
+  static meta = {
+    name: 'ListItem',
+  };
 
-ListItem.propTypes = BlockElement.propTypes;
+  static propTypes = BlockElement.propTypes;
 
-ListItem.meta = {
-  name: 'ListItem',
-};
-
-export default ListItem;
+  render() {
+    return <BlockElement {...this.props} as="li" />;
+  }
+}

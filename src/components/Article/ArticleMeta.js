@@ -1,20 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
-const ArticleMeta = ({ className, ...rest }) => (
-  <BlockElement
-    {...rest}
-    as="p"
-    className={classnames(className, ArticleMeta.meta.ukClass)}
-  />
-);
+export default class ArticleMeta extends BlockElement {
+  static meta = {
+    name: 'ArticleMeta',
+    ukClass: 'uk-article-meta',
+  };
 
-ArticleMeta.propTypes = BlockElement.propTypes;
+  static propTypes = {
+    ...BlockElement.propTypes,
+    className: PropTypes.string,
+  };
 
-ArticleMeta.meta = {
-  name: 'ArticleMeta',
-  ukClass: 'uk-article-meta',
-};
+  render() {
+    const { className, ...rest } = this.props;
 
-export default ArticleMeta;
+    return (
+      <BlockElement
+        {...rest}
+        as="p"
+        className={classnames(className, ArticleMeta.meta.ukClass)}
+      />
+    );
+  }
+}

@@ -32,13 +32,6 @@ export default class List extends BlockElement {
 
   render() {
     const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
-
-    const {
       bullet,
       children,
       className,
@@ -46,9 +39,9 @@ export default class List extends BlockElement {
       large,
       striped,
       ...rest
-    } = unhandledProps;
+    } = this.props;
 
-    const classes = classnames(className, inheritedClasses, List.meta.ukClass, {
+    const classes = classnames(className, List.meta.ukClass, {
       [buildClassName(List.meta.ukClass, 'bullet')]: bullet,
       [buildClassName(List.meta.ukClass, 'divider')]: divider,
       [buildClassName(List.meta.ukClass, 'large')]: large,
@@ -56,14 +49,9 @@ export default class List extends BlockElement {
     });
 
     return (
-      <ul
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
+      <BlockElement {...rest} as="ul" className={classes || undefined}>
         {children}
-      </ul>
+      </BlockElement>
     );
   }
 }

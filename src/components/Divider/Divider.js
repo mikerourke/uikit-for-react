@@ -23,27 +23,13 @@ export default class Divider extends BlockElement {
   };
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
+    const { className, icon, small, ...rest } = this.props;
 
-    const { className, icon, small, ...rest } = unhandledProps;
-
-    const classes = classnames(className, inheritedClasses, {
+    const classes = classnames(className, {
       [buildClassName(Divider.meta.className, 'icon')]: icon,
       [buildClassName(Divider.meta.className, 'small')]: small,
     });
 
-    return (
-      <hr
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      />
-    );
+    return <BlockElement {...rest} as="hr" className={classes || undefined} />;
   }
 }

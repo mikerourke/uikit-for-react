@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  buildClassName,
-  getElementType,
-  getIfChildrenHaveClass,
-} from '../../lib';
+import { buildClassName, getIfChildrenHaveClass } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class Container extends BlockElement {
@@ -26,18 +22,10 @@ export default class Container extends BlockElement {
   };
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
-
-    const { as, children, className, size, ...rest } = unhandledProps;
+    const { children, className, size, ...rest } = this.props;
 
     const classes = classnames(
       className,
-      inheritedClasses,
       Container.meta.ukClass,
       buildClassName(Container.meta.ukClass, size),
       {
@@ -48,16 +36,10 @@ export default class Container extends BlockElement {
       },
     );
 
-    const Element = getElementType(Container, this.props);
     return (
-      <Element
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
+      <BlockElement {...rest} className={classes || undefined}>
         {children}
-      </Element>
+      </BlockElement>
     );
   }
 }

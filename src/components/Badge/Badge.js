@@ -3,25 +3,29 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { InlineElement } from '../Base';
 
-const Badge = ({ className, ...rest }) => (
-  <InlineElement
-    {...rest}
-    className={classnames(className, Badge.meta.ukClass)}
-  />
-);
+export default class Badge extends InlineElement {
+  static meta = {
+    name: 'Badge',
+    ukClass: 'uk-badge',
+  };
 
-Badge.propTypes = {
-  ...InlineElement.propTypes,
-  as: PropTypes.oneOf(['a', 'span']),
-};
+  static propTypes = {
+    ...InlineElement.propTypes,
+    as: PropTypes.oneOf(['a', 'span']),
+  };
 
-Badge.defaultProps = {
-  as: 'span',
-};
+  static defaultProps = {
+    as: 'span',
+  };
 
-Badge.meta = {
-  name: 'Badge',
-  ukClass: 'uk-badge',
-};
+  render() {
+    const { className, ...rest } = this.props;
 
-export default Badge;
+    return (
+      <InlineElement
+        {...rest}
+        className={classnames(className, Badge.meta.ukClass)}
+      />
+    );
+  }
+}

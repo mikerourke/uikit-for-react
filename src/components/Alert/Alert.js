@@ -65,7 +65,6 @@ export default class Alert extends BlockElement {
 
   render() {
     const { animation, ...propsToParse } = this.props;
-
     const {
       inheritedAttributes,
       inheritedClasses,

@@ -8,7 +8,6 @@ import {
   buildClassName,
   getElementType,
   getOptionsString,
-  HTML,
   joinListProp,
   UIK,
 } from '../../lib';
@@ -29,7 +28,7 @@ export default class Drop extends BlockElement {
       ]),
       duration: PropTypes.number,
     }),
-    as: PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
+    as: BlockElement.asPropType,
     boundaryAlign: PropTypes.bool,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
@@ -99,16 +98,15 @@ export default class Drop extends BlockElement {
     });
 
   render() {
+    const { animation, ...propsToParse } = this.props;
     const {
       inheritedAttributes,
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(this.props);
+    } = this.getInheritedProps(propsToParse);
 
     const {
-      animation,
-      as,
       boundaryAlign,
       children,
       className,

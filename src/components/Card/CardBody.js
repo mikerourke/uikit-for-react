@@ -1,19 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
-const CardBody = ({ className, ...rest }) => (
-  <BlockElement
-    {...rest}
-    className={classnames(className, CardBody.meta.ukClass)}
-  />
-);
+export default class CardBody extends BlockElement {
+  static meta = {
+    name: 'CardBody',
+    ukClass: 'uk-card-body',
+  };
 
-CardBody.propTypes = BlockElement.propTypes;
+  static propTypes = {
+    ...BlockElement.propTypes,
+    className: PropTypes.string,
+  };
 
-CardBody.meta = {
-  name: 'CardBody',
-  ukClass: 'uk-card-body',
-};
+  render() {
+    const { className, ...rest } = this.props;
 
-export default CardBody;
+    return (
+      <BlockElement
+        {...rest}
+        className={classnames(className, CardBody.meta.ukClass)}
+      />
+    );
+  }
+}

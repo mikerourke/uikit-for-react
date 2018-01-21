@@ -31,31 +31,19 @@ export default class Article extends BlockElement {
   handleRef = element => (this.ref = element);
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
+    const { children, className, ...rest } = this.props;
 
-    const { children, className, ...rest } = unhandledProps;
-
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      Article.meta.ukClass,
-    );
+    const classes = classnames(className, Article.meta.ukClass);
 
     return (
-      <article
+      <BlockElement
         {...rest}
+        as="article"
         className={classes || undefined}
         ref={this.handleRef}
-        style={inheritedStyle}
-        {...inheritedAttributes}
       >
         {children}
-      </article>
+      </BlockElement>
     );
   }
 }

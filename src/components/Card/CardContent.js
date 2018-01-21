@@ -1,16 +1,21 @@
 import React from 'react';
 import { BlockElement } from '../Base';
 
-const CardContent = props => <BlockElement {...props} />;
+export default class CardContent extends BlockElement {
+  static meta = {
+    name: 'CardContent',
+  };
 
-CardContent.propTypes = BlockElement.propTypes;
+  static propTypes = {
+    ...BlockElement.propTypes,
+    as: BlockElement.asPropType,
+  };
 
-CardContent.defaultProps = {
-  as: 'p',
-};
+  static defaultProps = {
+    as: 'p',
+  };
 
-CardContent.meta = {
-  name: 'CardContent',
-};
-
-export default CardContent;
+  render() {
+    return <BlockElement {...this.props} />;
+  }
+}

@@ -27,33 +27,16 @@ export default class DescriptionList extends BlockElement {
   static Term = DescriptionTerm;
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
+    const { children, className, divider, ...rest } = this.props;
 
-    const { children, className, divider, ...rest } = unhandledProps;
-
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      DescriptionList.meta.ukClass,
-      {
-        [buildClassName(DescriptionList.meta.ukClass, 'divider')]: divider,
-      },
-    );
+    const classes = classnames(className, DescriptionList.meta.ukClass, {
+      [buildClassName(DescriptionList.meta.ukClass, 'divider')]: divider,
+    });
 
     return (
-      <dl
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
+      <BlockElement {...rest} as="dl" className={classes || undefined}>
         {children}
-      </dl>
+      </BlockElement>
     );
   }
 }

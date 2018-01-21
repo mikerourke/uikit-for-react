@@ -1,19 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
-const CommentBody = ({ className, ...rest }) => (
-  <BlockElement
-    {...rest}
-    className={classnames(className, CommentBody.meta.ukClass)}
-  />
-);
+export default class CommentBody extends BlockElement {
+  static meta = {
+    name: 'CommentBody',
+    ukClass: 'uk-comment-body',
+  };
 
-CommentBody.propTypes = BlockElement.propTypes;
+  static propTypes = {
+    ...BlockElement.propTypes,
+    className: PropTypes.string,
+  };
 
-CommentBody.meta = {
-  name: 'CommentBody',
-  ukClass: 'uk-comment-body',
-};
+  render() {
+    const { className, ...rest } = this.props;
 
-export default CommentBody;
+    return (
+      <BlockElement
+        {...rest}
+        className={classnames(className, CommentBody.meta.ukClass)}
+      />
+    );
+  }
+}

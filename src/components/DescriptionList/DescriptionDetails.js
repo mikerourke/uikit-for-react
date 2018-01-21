@@ -1,12 +1,14 @@
 import React from 'react';
 import { BlockElement } from '../Base';
 
-const DescriptionDetails = props => <BlockElement {...props} as="dd" />;
+export default class DescriptionDetails extends BlockElement {
+  static meta = {
+    name: 'DescriptionDetails',
+  };
 
-DescriptionDetails.propTypes = BlockElement.propTypes;
+  static propTypes = BlockElement.propTypes;
 
-DescriptionDetails.meta = {
-  name: 'DescriptionDetails',
-};
-
-export default DescriptionDetails;
+  render() {
+    return <BlockElement {...this.props} as="dd" />;
+  }
+}

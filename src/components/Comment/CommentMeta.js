@@ -3,25 +3,30 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
-const CommentMeta = ({ className, ...rest }) => (
-  <BlockElement
-    {...rest}
-    className={classnames(className, CommentMeta.meta.ukClass)}
-  />
-);
+export default class CommentMeta extends BlockElement {
+  static meta = {
+    name: 'CommentMeta',
+    ukClass: 'uk-comment-meta',
+  };
 
-CommentMeta.propTypes = {
-  ...BlockElement.propTypes,
-  as: PropTypes.oneOf(['p', 'ul']),
-};
+  static propTypes = {
+    ...BlockElement.propTypes,
+    as: PropTypes.oneOf(['p', 'ul']),
+    className: PropTypes.string,
+  };
 
-CommentMeta.defaultProps = {
-  as: 'ul',
-};
+  static defaultProps = {
+    as: 'ul',
+  };
 
-CommentMeta.meta = {
-  name: 'CommentMeta',
-  ukClass: 'uk-comment-meta',
-};
+  render() {
+    const { className, ...rest } = this.props;
 
-export default CommentMeta;
+    return (
+      <BlockElement
+        {...rest}
+        className={classnames(className, CommentMeta.meta.ukClass)}
+      />
+    );
+  }
+}

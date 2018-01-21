@@ -27,41 +27,24 @@ export default class Label extends InlineElement {
 
   render() {
     const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
-
-    const {
       children,
       className,
       danger,
       success,
       warning,
       ...rest
-    } = unhandledProps;
+    } = this.props;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      Label.meta.ukClass,
-      {
-        [buildClassName(Label.meta.ukClass, 'danger')]: danger,
-        [buildClassName(Label.meta.ukClass, 'success')]: success,
-        [buildClassName(Label.meta.ukClass, 'warning')]: warning,
-      },
-    );
+    const classes = classnames(className, Label.meta.ukClass, {
+      [buildClassName(Label.meta.ukClass, 'danger')]: danger,
+      [buildClassName(Label.meta.ukClass, 'success')]: success,
+      [buildClassName(Label.meta.ukClass, 'warning')]: warning,
+    });
 
     return (
-      <span
-        {...rest}
-        className={classes}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
+      <InlineElement {...rest} as="span" className={classes || undefined}>
         {children}
-      </span>
+      </InlineElement>
     );
   }
 }

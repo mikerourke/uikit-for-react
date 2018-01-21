@@ -1,10 +1,10 @@
 import * as React from 'react';
 import classnames from 'classnames';
-import { get, isString } from 'lodash';
+import { first, get, isString } from 'lodash';
 
 /**
- * Loops through the children of a React component recursively and applies the specified callback
- *    function.
+ * Loops through the children of a React component recursively and applies the
+ * specified callback function.
  * @param {React.Children} children React children components to loop through.
  * @param {Function} callback Function to apply to the children.
  * @returns {any[]}
@@ -24,11 +24,12 @@ const recurseChildren = (children, callback) =>
   });
 
 /**
- * Determines if the specified child React element is of the type specified. Since the childType
- *    argument can either be a string or a React element, it needs to be evaluated for each
- *    condition.
+ * Determines if the specified child React element is of the type specified.
+ * Since the childType argument can either be a string or a React element, it
+ * needs to be evaluated for each condition.
  * @param {React.Element} child React component to evaluate.
- * @param {React.Element|string} childType String or element to compare to specified child.
+ * @param {React.Element|string} childType String or element to compare to
+ *    specified child.
  * @returns {boolean}
  */
 const getIfIsOfType = (child, childType) =>
@@ -37,10 +38,12 @@ const getIfIsOfType = (child, childType) =>
     : child.type === childType;
 
 /**
- * Returns true if the specified children for the parent component contains an instance of the
- *    specified type of component (passed as instance of React component).
+ * Returns true if the specified children for the parent component contains an
+ * instance of the specified type of component (passed as instance of React
+ * component).
  * @param {React.Children} children Children prop from parent React component.
- * @param {React.Element|Function|string} childType Component to check for the existence of.
+ * @param {React.Element|Function|string} childType Component to check for the
+ *    existence of.
  * @returns {boolean}
  */
 export const getIfHasChildType = (children, childType) => {
@@ -52,9 +55,11 @@ export const getIfHasChildType = (children, childType) => {
 };
 
 /**
- * Returns the child/children of the type specfied within the parent React component.
+ * Returns the child/children of the type specfied within the parent React
+ * component.
  * @param {React.Children} children Children prop from parent React component.
- * @param {React.Element|string} childType Component or name of instances to return.
+ * @param {React.Element|string} childType Component or name of instances to
+ *    return.
  * @returns {*}
  */
 export const findChildByType = (children, childType) => {
@@ -62,19 +67,22 @@ export const findChildByType = (children, childType) => {
   recurseChildren(children, child => {
     if (getIfIsOfType(child, childType)) childrenOfType.push(child);
   });
-  return childrenOfType;
+  return childrenOfType.length === 1 ? first(childrenOfType) : childrenOfType;
 };
 
 /**
- * Loops through the children of a React component recursively and adds the specified class names
- *    to the component whose name matches the key in the childOptions object.
+ * Loops through the children of a React component recursively and adds the
+ * specified class names to the component whose name matches the key in the
+ * childOptions object.
  * @param {React.Children} children Children prop from parent React component.
- * @param {Object} childOptions Component name and class name to append to child.
+ * @param {Object} childOptions Component name and class name to append to
+ *    child.
  * @returns {Array}
  *
  * @example
  * Component:
- * renderChildren = () => appendClassNamesToChildren(this.props.children, { Grid: 'uk-drop-grid });
+ * renderChildren = () =>
+ *   appendClassNamesToChildren(this.props.children, { Grid: 'uk-drop-grid });
  * <Drop>
  *   {this.renderChildren()}
  * </Drop

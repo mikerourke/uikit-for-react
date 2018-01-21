@@ -2,7 +2,6 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { isNil } from 'lodash';
 import { getElementType, getOptionsString } from '../../lib';
 import { BlockElement } from '../Base';
 import CountdownDays from './CountdownDays';
@@ -54,33 +53,19 @@ export default class Countdown extends BlockElement {
   handleRef = element => (this.ref = element);
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
+    const { children, className, date, paused, ...rest } = this.props;
 
-    const { as, children, className, date, paused, ...rest } = unhandledProps;
+    const classes = classnames(className, Countdown.meta.ukClass);
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      Countdown.meta.ukClass,
-    );
-
-    const Element = getElementType(Countdown, this.props);
     return (
-      <Element
+      <BlockElement
         {...rest}
         className={classes || undefined}
         ref={this.handleRef}
-        style={inheritedStyle}
         data-uk-countdown={getOptionsString({ date })}
-        {...inheritedAttributes}
       >
         {children}
-      </Element>
+      </BlockElement>
     );
   }
 }

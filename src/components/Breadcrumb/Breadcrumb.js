@@ -20,30 +20,14 @@ export default class Breadcrumb extends BlockElement {
   static Item = BreadcrumbItem;
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
+    const { children, className, ...rest } = this.props;
 
-    const { children, className, ...rest } = unhandledProps;
-
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      Breadcrumb.meta.ukClass,
-    );
+    const classes = classnames(className, Breadcrumb.meta.ukClass);
 
     return (
-      <ul
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
+      <BlockElement {...rest} as="ul" className={classes || undefined}>
         {children}
-      </ul>
+      </BlockElement>
     );
   }
 }

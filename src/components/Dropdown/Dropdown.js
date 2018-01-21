@@ -8,7 +8,6 @@ import {
   buildClassName,
   getElementType,
   getOptionsString,
-  HTML,
   joinListProp,
   UIK,
 } from '../../lib';
@@ -22,7 +21,14 @@ export default class Dropdown extends BlockElement {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    as: PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
+    animation: PropTypes.shape({
+      name: PropTypes.oneOfType([
+        PropTypes.oneOf(UIK.ANIMATIONS),
+        PropTypes.arrayOf(UIK.ANIMATIONS),
+      ]),
+      duration: PropTypes.number,
+    }),
+    as: BlockElement.asPropType,
     boundaryAlign: PropTypes.bool,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
@@ -93,16 +99,15 @@ export default class Dropdown extends BlockElement {
     });
 
   render() {
+    const { animation, ...propsToParse } = this.props;
     const {
       inheritedAttributes,
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(this.props);
+    } = this.getInheritedProps(propsToParse);
 
     const {
-      animation,
-      as,
       boundaryAlign,
       children,
       className,

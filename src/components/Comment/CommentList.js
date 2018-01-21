@@ -12,7 +12,6 @@ export default class CommentList extends BlockElement {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    as: undefined,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
   };
@@ -20,28 +19,12 @@ export default class CommentList extends BlockElement {
   static Comment = Comment;
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
+    const { children, className, ...rest } = this.props;
 
-    const { children, className, ...rest } = unhandledProps;
-
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      CommentList.meta.ukClass,
-    );
+    const classes = classnames(className, CommentList.meta.ukClass);
 
     return (
-      <ul
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
+      <ul {...rest} className={classes || undefined}>
         {React.Children.map(children, child => <li>{child}</li>)}
       </ul>
     );

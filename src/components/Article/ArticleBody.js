@@ -1,12 +1,14 @@
 import React from 'react';
 import { BlockElement } from '../Base';
 
-const ArticleBody = props => <BlockElement {...props} />;
+export default class ArticleBody extends BlockElement {
+  static meta = {
+    name: 'ArticleBody',
+  };
 
-ArticleBody.propTypes = BlockElement.propTypes;
+  static propTypes = BlockElement.propTypes;
 
-ArticleBody.meta = {
-  name: 'ArticleBody',
-};
-
-export default ArticleBody;
+  render() {
+    return <BlockElement {...this.props} />;
+  }
+}

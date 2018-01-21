@@ -3,22 +3,26 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
-const CardFooter = ({ className, ...rest }) => (
-  <BlockElement
-    {...rest}
-    as="div"
-    className={classnames(className, CardFooter.meta.ukClass)}
-  />
-);
+export default class CardHeader extends BlockElement {
+  static meta = {
+    name: 'CardHeader',
+    ukClass: 'uk-card-header',
+  };
 
-CardFooter.propTypes = {
-  ...BlockElement.propTypes,
-  className: PropTypes.string,
-};
+  static propTypes = {
+    ...BlockElement.propTypes,
+    className: PropTypes.string,
+  };
 
-CardFooter.meta = {
-  name: 'CardFooter',
-  ukClass: 'uk-card-footer',
-};
+  render() {
+    const { className, ...rest } = this.props;
 
-export default CardFooter;
+    return (
+      <BlockElement
+        {...rest}
+        as="div"
+        className={classnames(className, CardHeader.meta.ukClass)}
+      />
+    );
+  }
+}

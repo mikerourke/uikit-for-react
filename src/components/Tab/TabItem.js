@@ -33,9 +33,9 @@ export default class TabItem extends BlockElement {
     });
 
     return (
-      <li {...rest} className={classes}>
+      <BlockElement {...rest} as="li" className={classes}>
         {isObject(children) ? children : <a href={href}>{children}</a>}
-      </li>
+      </BlockElement>
     );
   }
 }

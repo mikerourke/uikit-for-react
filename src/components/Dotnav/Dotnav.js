@@ -25,33 +25,16 @@ class Dotnav extends BlockElement {
   static Item = DotnavItem;
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
+    const { children, className, vertical, ...rest } = this.props;
 
-    const { children, className, vertical, ...rest } = unhandledProps;
-
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      Dotnav.meta.ukClass,
-      {
-        [buildClassName(Dotnav.meta.ukClass, 'vertical')]: vertical,
-      },
-    );
+    const classes = classnames(className, Dotnav.meta.ukClass, {
+      [buildClassName(Dotnav.meta.ukClass, 'vertical')]: vertical,
+    });
 
     return (
-      <ul
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
+      <BlockElement {...rest} as="ul" className={classes || undefined}>
         {children}
-      </ul>
+      </BlockElement>
     );
   }
 }

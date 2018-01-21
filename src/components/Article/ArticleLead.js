@@ -2,20 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Text from '../Text';
 
-const ArticleLead = ({ children, ...rest }) => (
-  <Text {...rest} as="p" lead>
-    {children}
-  </Text>
-);
+export default class ArticleLead extends React.Component {
+  static meta = {
+    name: 'ArticleLead',
+  };
 
-ArticleLead.meta = {
-  name: 'ArticleLead',
-};
+  static propTypes = {
+    ...Text.propTypes,
+    children: PropTypes.node.isRequired,
+  };
 
-ArticleLead.propTypes = {
-  ...Text.propTypes,
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-};
-
-export default ArticleLead;
+  render() {
+    const { children, ...rest } = this.props;
+    return (
+      <Text {...rest} as="p" lead>
+        {children}
+      </Text>
+    );
+  }
+}

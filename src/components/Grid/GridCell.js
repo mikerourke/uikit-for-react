@@ -11,6 +11,7 @@ export default class GridCell extends BlockElement {
   };
 
   static propTypes = {
+    ...BlockElement.propTypes,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     grow: PropTypes.oneOf(['auto', 'full', 'none']),
@@ -30,26 +31,18 @@ export default class GridCell extends BlockElement {
 
   render() {
     const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
-
-    const {
       children,
       className,
       grow,
       matchHeight,
       order,
       ...rest
-    } = unhandledProps;
+    } = this.props;
 
     const flexGrow = isNil(grow) ? null : grow.replace('full', '1');
 
     const classes = classnames(
       className,
-      inheritedClasses,
       buildClassName('flex', order),
       buildClassName('flex', 'first', get(order, 'first')),
       buildClassName('flex', 'last', get(order, 'last')),
@@ -60,14 +53,9 @@ export default class GridCell extends BlockElement {
     );
 
     return (
-      <div
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
+      <BlockElement {...rest} as="div" className={classes || undefined}>
         {children}
-      </div>
+      </BlockElement>
     );
   }
 }

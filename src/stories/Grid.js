@@ -1,7 +1,7 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import Base from '../components/Base';
+import { BlockElement } from '../components/Base';
 import Card from '../components/Card';
 import Grid from '../components/Grid';
 import Container from '../components/Container';
@@ -51,19 +51,19 @@ storiesOf('Grid', module)
         textAlign="center"
       >
         <Grid.Cell>
-          <Base as="div" background="muted" padding>
+          <BlockElement as="div" background="muted" padding>
             Item
-          </Base>
+          </BlockElement>
         </Grid.Cell>
         <Grid.Cell>
-          <Base as="div" background="primary" padding inverse="light">
+          <BlockElement as="div" background="primary" padding inverse="light">
             Item
-          </Base>
+          </BlockElement>
         </Grid.Cell>
         <Grid.Cell>
-          <Base as="div" background="secondary" padding inverse="light">
+          <BlockElement as="div" background="secondary" padding inverse="light">
             Item
-          </Base>
+          </BlockElement>
         </Grid.Cell>
       </Grid>
     </Container>

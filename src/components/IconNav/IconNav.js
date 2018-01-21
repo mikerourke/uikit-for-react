@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { restrictToChildTypes } from '../../lib';
+import { buildClassName, restrictToChildTypes } from '../../lib';
 import { BlockElement } from '../Base';
 import IconNavItem from './IconNavItem';
 
@@ -25,30 +25,16 @@ export default class IconNav extends BlockElement {
   static Item = IconNavItem;
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
+    const { children, className, vertical, ...rest } = this.props;
 
-    const { children, className, ...rest } = unhandledProps;
-
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      IconNav.meta.ukClass,
-    );
+    const classes = classnames(className, IconNav.meta.ukClass, {
+      [buildClassName(IconNav.meta.ukClass, 'vertical')]: vertical,
+    });
 
     return (
-      <ul
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
+      <BlockElement {...rest} as="ul" className={classes || undefined}>
         {children}
-      </ul>
+      </BlockElement>
     );
   }
 }

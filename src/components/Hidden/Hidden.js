@@ -39,15 +39,14 @@ export default class Hidden extends React.Component {
       ...rest
     } = this.props;
 
-    const prefix = Hidden.meta.ukClass;
     const classes = classnames(
       className,
       buildClassName(whenHovered, 'hover'),
-      buildClassName(prefix, breakpoint),
+      buildClassName(Hidden.meta.ukClass, breakpoint),
       {
-        [buildClassName(prefix)]: hide,
-        [buildClassName(prefix, 'notouch')]: noTouchOnly,
-        [buildClassName(prefix, 'touch')]: touchOnly,
+        [buildClassName(Hidden.meta.ukClass)]: hide,
+        [buildClassName(Hidden.meta.ukClass, 'notouch')]: noTouchOnly,
+        [buildClassName(Hidden.meta.ukClass, 'touch')]: touchOnly,
       },
     );
 

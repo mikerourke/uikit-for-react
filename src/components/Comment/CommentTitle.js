@@ -4,25 +4,30 @@ import classnames from 'classnames';
 import { HTML } from '../../lib';
 import { BlockElement } from '../Base';
 
-const CommentTitle = ({ className, ...rest }) => (
-  <BlockElement
-    {...rest}
-    className={classnames(className, CommentTitle.meta.ukClass)}
-  />
-);
+export default class CommentTitle extends BlockElement {
+  static meta = {
+    name: 'CommentTitle',
+    ukClass: 'uk-comment-title',
+  };
 
-CommentTitle.propTypes = {
-  ...BlockElement.propTypes,
-  as: PropTypes.oneOf(HTML.HEADING_ELEMENTS),
-};
+  static propTypes = {
+    ...BlockElement.propTypes,
+    as: PropTypes.oneOf(HTML.HEADING_ELEMENTS),
+    className: PropTypes.string,
+  };
 
-CommentTitle.defaultProps = {
-  as: 'h4',
-};
+  static defaultProps = {
+    as: 'h4',
+  };
 
-CommentTitle.meta = {
-  name: 'CommentTitle',
-  ukClass: 'uk-comment-title',
-};
+  render() {
+    const { className, ...rest } = this.props;
 
-export default CommentTitle;
+    return (
+      <BlockElement
+        {...rest}
+        className={classnames(className, CommentTitle.meta.ukClass)}
+      />
+    );
+  }
+}

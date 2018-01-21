@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { BlockElement } from '../components/Base';
 import Button from '../components/Button';
 import Container from '../components/Container';
 import Dropdown from '../components/Dropdown';
@@ -40,7 +41,7 @@ storiesOf('Button', module)
 
   .add('Size modifiers', () => (
     <Container margin={{ all: 'large' }}>
-      <Container margin>
+      <BlockElement margin>
         <Button size="small" margin={{ right: 'small' }}>
           Small button
         </Button>
@@ -50,7 +51,7 @@ storiesOf('Button', module)
         <Button size="small" secondary margin={{ right: 'small' }}>
           Small button
         </Button>
-      </Container>
+      </BlockElement>
       <Container margin>
         <Button size="large" margin={{ right: 'small' }}>
           Large button

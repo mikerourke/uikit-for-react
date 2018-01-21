@@ -1,35 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  buildClassName,
-  buildObjectOrValueClassNames,
-  commonPropTypes,
-  getElementType,
-  UIK,
-} from '../../lib';
+import { BlockElement } from '../Base';
 
-class CountdownLabel extends React.Component {
+export default class CountdownLabel extends BlockElement {
   static meta = {
     name: 'CountdownLabel',
     ukClass: 'uk-countdown-label',
   };
 
   static propTypes = {
+    ...BlockElement.propTypes,
     as: PropTypes.oneOf(['div', 'span']),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
-    hidden: commonPropTypes.hidden,
-    invisible: PropTypes.oneOf([true, false, 'hover']),
-    margin: commonPropTypes.margin,
-    padding: commonPropTypes.padding,
-    textAlign: PropTypes.oneOfType([
-      PropTypes.oneOf([...UIK.HORIZONTAL_POSITIONS, 'justify']),
-      commonPropTypes.getForBreakpoints(
-        PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
-      ),
-    ]),
-    visible: commonPropTypes.visible,
   };
 
   static defaultProps = {
@@ -37,37 +21,14 @@ class CountdownLabel extends React.Component {
   };
 
   render() {
-    const {
-      as,
-      children,
-      className,
-      hidden,
-      invisible,
-      margin,
-      padding,
-      textAlign,
-      visible,
-      ...rest
-    } = this.props;
+    const { as, children, className, ...rest } = this.props;
 
-    const classes = classnames(
-      className,
-      CountdownLabel.meta.ukClass,
-      buildObjectOrValueClassNames('hidden', hidden),
-      buildClassName('invisible', invisible),
-      buildObjectOrValueClassNames('margin', margin),
-      buildObjectOrValueClassNames('padding', padding),
-      buildObjectOrValueClassNames('text', textAlign),
-      buildObjectOrValueClassNames('visible', visible),
-    );
+    const classes = classnames(className, CountdownLabel.meta.ukClass);
 
-    const Element = getElementType(CountdownLabel, this.props);
     return (
-      <Element {...rest} className={classes}>
+      <BlockElement {...rest} as={as} className={classes || undefined}>
         {children}
-      </Element>
+      </BlockElement>
     );
   }
 }
-
-export default CountdownLabel;

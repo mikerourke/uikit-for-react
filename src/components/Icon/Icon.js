@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  buildClassName,
-  getElementType,
-  getOptionsString,
-  UIK,
-} from '../../lib';
+import { buildClassName, getOptionsString, UIK } from '../../lib';
 import { InlineElement } from '../Base';
 
 export default class Icon extends InlineElement {
@@ -31,24 +26,9 @@ export default class Icon extends InlineElement {
   };
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
+    const { children, className, link, name, ratio, ...rest } = this.props;
 
-    const {
-      as,
-      children,
-      className,
-      link,
-      name,
-      ratio,
-      ...rest
-    } = unhandledProps;
-
-    const classes = classnames(className, inheritedClasses, Icon.meta.ukClass, {
+    const classes = classnames(className, Icon.meta.ukClass, {
       [buildClassName(Icon.meta.ukClass, 'link')]: link,
     });
 
@@ -57,17 +37,14 @@ export default class Icon extends InlineElement {
       ratio,
     });
 
-    const Element = getElementType(Icon, this.props);
     return (
-      <Element
+      <InlineElement
         {...rest}
         className={classes || undefined}
-        style={inheritedStyle}
         data-uk-icon={componentOptions}
-        {...inheritedAttributes}
       >
         {children}
-      </Element>
+      </InlineElement>
     );
   }
 }

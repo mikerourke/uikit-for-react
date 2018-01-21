@@ -4,38 +4,40 @@ import classnames from 'classnames';
 import { buildClassName, getElementType } from '../../lib';
 import CountdownLabel from './CountdownLabel';
 
-const CountdownMinutes = ({ className, label, ...rest }) => {
-  const classes = classnames(
-    className,
-    CountdownMinutes.meta.ukClass,
-    buildClassName('countdown', 'number'),
-  );
+export default class CountdownMinutes extends React.Component {
+  static meta = {
+    name: 'CountdownMinutes',
+    ukClass: 'uk-countdown-minutes',
+  };
 
-  const Element = getElementType(CountdownMinutes, rest);
+  static propTypes = {
+    as: PropTypes.oneOf(['div', 'span']),
+    className: PropTypes.string,
+    label: PropTypes.instanceOf(CountdownLabel),
+  };
 
-  if (!label) return <Element className={classes} />;
-  return (
-    <div>
-      <Element className={classes} />
-      {label}
-    </div>
-  );
-};
+  static defaultProps = {
+    as: 'span',
+    label: null,
+  };
 
-CountdownMinutes.meta = {
-  name: 'CountdownMinutes',
-  ukClass: 'uk-countdown-minutes',
-};
+  render() {
+    const { className, label, ...rest } = this.props;
 
-CountdownMinutes.propTypes = {
-  as: PropTypes.oneOf(['div', 'span']),
-  className: PropTypes.string,
-  label: PropTypes.instanceOf(CountdownLabel),
-};
+    const classes = classnames(
+      className,
+      CountdownMinutes.meta.ukClass,
+      buildClassName('countdown', 'number'),
+    );
 
-CountdownMinutes.defaultProps = {
-  as: 'span',
-  label: null,
-};
+    const Element = getElementType(CountdownMinutes, rest);
 
-export default CountdownMinutes;
+    if (!label) return <Element className={classes} />;
+    return (
+      <div>
+        <Element className={classes} />
+        {label}
+      </div>
+    );
+  }
+}

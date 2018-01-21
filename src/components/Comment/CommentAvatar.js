@@ -3,22 +3,26 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { InlineElement } from '../Base';
 
-const CommentAvatar = ({ className, ...rest }) => (
-  <InlineElement
-    {...rest}
-    as="img"
-    className={classnames(className, CommentAvatar.meta.ukClass)}
-  />
-);
+export default class CommentAvatar extends InlineElement {
+  static meta = {
+    name: 'CommentAvatar',
+    ukClass: 'uk-comment-avatar',
+  };
 
-CommentAvatar.propTypes = {
-  ...InlineElement.propTypes,
-  className: PropTypes.string,
-};
+  static propTypes = {
+    ...InlineElement.propTypes,
+    className: PropTypes.string,
+  };
 
-CommentAvatar.meta = {
-  name: 'CommentAvatar',
-  ukClass: 'uk-comment-avatar',
-};
+  render() {
+    const { className, ...rest } = this.props;
 
-export default CommentAvatar;
+    return (
+      <InlineElement
+        {...rest}
+        as="img"
+        className={classnames(className, CommentAvatar.meta.ukClass)}
+      />
+    );
+  }
+}

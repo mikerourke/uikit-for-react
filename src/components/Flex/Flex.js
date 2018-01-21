@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { omit } from 'lodash';
-import { buildClassName, getElementType } from '../../lib';
+import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class Flex extends BlockElement {
@@ -13,6 +13,7 @@ export default class Flex extends BlockElement {
 
   static propTypes = {
     ...omit(BlockElement.propTypes, 'flex'),
+    as: BlockElement.asPropType,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     inline: PropTypes.bool,
@@ -24,29 +25,16 @@ export default class Flex extends BlockElement {
   };
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
+    const { children, className, inline, ...rest } = this.props;
 
-    const { children, className, inline, ...rest } = unhandledProps;
-
-    const classes = classnames(className, inheritedClasses, Flex.meta.ukClass, {
+    const classes = classnames(className, Flex.meta.ukClass, {
       [buildClassName(Flex.meta.ukClass, 'inline')]: inline,
     });
 
-    const Element = getElementType(Flex, this.props);
     return (
-      <Element
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
+      <BlockElement {...rest} className={classes || undefined}>
         {children}
-      </Element>
+      </BlockElement>
     );
   }
 }

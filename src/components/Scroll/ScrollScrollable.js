@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getElementType, HTML } from '../../lib';
+import { generateIdentifier, getElementType, HTML } from '../../lib';
+import ScrollPoint from './ScrollPoint';
 
 export default class ScrollScrollable extends React.Component {
   static meta = {
@@ -20,10 +21,30 @@ export default class ScrollScrollable extends React.Component {
     as: 'div',
   };
 
+  activateScrollPoints = children =>
+    React.Children.map(children, child => {
+      if (!React.isValidElement(child)) return child;
+      if (child.type === ScrollPoint) {
+        const currentIndex = this.pointIndex;
+        this.pointIndex += 1;
+        return React.cloneElement(child, {
+          elementName: generateIdentifier(),
+          pointIndex: currentIndex,
+          children: this.activateScrollPoints(child.props.children),
+        });
+      }
+      return child;
+    });
+
+  renderChildren = () => {
+    this.pointIndex = 0;
+    return this.activateScrollPoints(this.props.children);
+  };
+
   render() {
     const { as, children, ...rest } = this.props;
 
     const Element = getElementType(ScrollScrollable, this.props);
-    return <Element {...rest}>{children}</Element>;
+    return <Element {...rest}>{this.renderChildren()}</Element>;
   }
 }

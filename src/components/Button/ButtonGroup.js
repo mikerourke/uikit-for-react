@@ -2,19 +2,23 @@ import React from 'react';
 import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
-const ButtonGroup = ({ className, ...rest }) => (
-  <BlockElement
-    {...rest}
-    as="div"
-    className={classnames(className, ButtonGroup.meta.ukClass)}
-  />
-);
+export default class ButtonGroup extends BlockElement {
+  static meta = {
+    name: 'ButtonGroup',
+    ukClass: 'uk-button-group',
+  };
 
-ButtonGroup.propTypes = BlockElement.propTypes;
+  static propTypes = BlockElement.propTypes;
 
-ButtonGroup.meta = {
-  name: 'ButtonGroup',
-  ukClass: 'uk-button-group',
-};
+  render() {
+    const { className, ...rest } = this.props;
 
-export default ButtonGroup;
+    return (
+      <BlockElement
+        {...rest}
+        as="div"
+        className={classnames(className, ButtonGroup.meta.ukClass)}
+      />
+    );
+  }
+}
