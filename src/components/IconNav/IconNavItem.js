@@ -7,9 +7,7 @@ import { BlockElement } from '../Base';
 import Icon from '../Icon';
 
 export default class IconNavItem extends BlockElement {
-  static meta = {
-    name: 'IconNavItem',
-  };
+  static displayName = 'IconNavItem';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -21,7 +19,11 @@ export default class IconNavItem extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
     active: false,
+    className: null,
+    href: '',
+    iconOptions: null,
   };
 
   render() {

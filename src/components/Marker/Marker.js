@@ -4,9 +4,7 @@ import { HTML } from '../../lib';
 import { InlineElement } from '../Base';
 
 export default class Marker extends InlineElement {
-  static meta = {
-    name: 'Marker',
-  };
+  static displayName = 'Marker';
 
   static propTypes = {
     ...InlineElement.propTypes,
@@ -15,12 +13,12 @@ export default class Marker extends InlineElement {
   };
 
   static defaultProps = {
+    ...InlineElement.defaultProps,
     as: 'a',
   };
 
   render() {
     const { children, ...rest } = this.props;
-
     return (
       <InlineElement {...rest} data-uk-marker>
         {children}

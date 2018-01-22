@@ -1,16 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { invoke, isNil } from 'lodash';
+import { invoke, isNil, noop } from 'lodash';
 import { buildClassName, UIK } from '../../lib';
 import { InlineElement } from '../Base';
 import ButtonGroup from './ButtonGroup';
 
 export default class Button extends InlineElement {
-  static meta = {
-    name: 'Button',
-    ukClass: 'uk-button',
-  };
+  static displayName = 'Button';
 
   static propTypes = {
     ...InlineElement.propTypes,
@@ -30,13 +27,19 @@ export default class Button extends InlineElement {
   };
 
   static defaultProps = {
+    ...InlineElement.defaultProps,
     as: 'button',
+    children: null,
+    className: null,
     danger: false,
     disabled: false,
     fullWidth: false,
+    icon: null,
     link: false,
+    onClick: noop,
     primary: false,
     secondary: false,
+    size: null,
     text: false,
   };
 
@@ -74,14 +77,15 @@ export default class Button extends InlineElement {
       ) === 0;
     const hasIcon = !isNil(icon);
 
+    const ukClass = 'uk-button';
     const classes = classnames(className, buildClassName('button', size), {
-      [Button.meta.ukClass]: !hasIcon,
-      [buildClassName(Button.meta.ukClass, 'danger')]: danger,
-      [buildClassName(Button.meta.ukClass, 'default')]: !hasIcon && hasDefault,
-      [buildClassName(Button.meta.ukClass, 'link')]: link,
-      [buildClassName(Button.meta.ukClass, 'primary')]: primary,
-      [buildClassName(Button.meta.ukClass, 'secondary')]: secondary,
-      [buildClassName(Button.meta.ukClass, 'text')]: text,
+      [ukClass]: !hasIcon,
+      [buildClassName(ukClass, 'danger')]: danger,
+      [buildClassName(ukClass, 'default')]: !hasIcon && hasDefault,
+      [buildClassName(ukClass, 'link')]: link,
+      [buildClassName(ukClass, 'primary')]: primary,
+      [buildClassName(ukClass, 'secondary')]: secondary,
+      [buildClassName(ukClass, 'text')]: text,
       [buildClassName('icon', 'button')]: hasIcon,
       [buildClassName('width', '1', '1')]: fullWidth,
     });

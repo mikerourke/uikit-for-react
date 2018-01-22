@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 import Text from '../Text';
 
 export default class ArticleLead extends React.Component {
-  static meta = {
-    name: 'ArticleLead',
-  };
+  static displayName = 'ArticleLead';
 
   static propTypes = {
     ...Text.propTypes,
     children: PropTypes.node.isRequired,
+  };
+
+  static defaultProps = {
+    ...Text.defaultProps,
+    children: null,
   };
 
   render() {

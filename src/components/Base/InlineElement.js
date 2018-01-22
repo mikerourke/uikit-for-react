@@ -6,10 +6,7 @@ import { buildClassName, getElementType, HTML, UIK } from '../../lib';
 import BaseElement from './BaseElement';
 
 export default class InlineElement extends BaseElement {
-  static meta = {
-    baseType: 'Inline',
-    name: 'InlineElement',
-  };
+  static displayName = 'InlineElement';
 
   static propTypes = {
     ...BaseElement.propTypes,
@@ -32,6 +29,7 @@ export default class InlineElement extends BaseElement {
   ]);
 
   static defaultProps = {
+    ...BaseElement.defaultProps,
     align: null,
     columnSpan: false,
   };
@@ -91,9 +89,7 @@ export default class InlineElement extends BaseElement {
     } = this.getInheritedProps(this.props);
 
     const { children, className = '', ...rest } = unhandledProps;
-
     const classes = classnames(className, inheritedClasses);
-
     const Element = getElementType(InlineElement, this.props);
     return (
       <Element

@@ -4,24 +4,21 @@ import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
 export default class CardBody extends BlockElement {
-  static meta = {
-    name: 'CardBody',
-    ukClass: 'uk-card-body',
-  };
+  static displayName = 'CardBody';
 
   static propTypes = {
     ...BlockElement.propTypes,
     className: PropTypes.string,
   };
 
+  static defaultProps = {
+    ...BlockElement.defaultProps,
+    className: null,
+  };
+
   render() {
     const { className, ...rest } = this.props;
-
-    return (
-      <BlockElement
-        {...rest}
-        className={classnames(className, CardBody.meta.ukClass)}
-      />
-    );
+    const classes = classnames(className, 'uk-card-body');
+    return <BlockElement {...rest} className={classes || undefined} />;
   }
 }

@@ -5,10 +5,7 @@ import { HTML } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class ArticleTitle extends BlockElement {
-  static meta = {
-    name: 'ArticleTitle',
-    ukClass: 'uk-article-title',
-  };
+  static displayName = 'ArticleTitle';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -16,17 +13,13 @@ export default class ArticleTitle extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
     as: 'h1',
   };
 
   render() {
     const { className, ...rest } = this.props;
-
-    return (
-      <BlockElement
-        {...rest}
-        className={classnames(className, ArticleTitle.meta.ukClass)}
-      />
-    );
+    const classes = classnames(className, 'uk-article-title');
+    return <BlockElement {...rest} className={classes || undefined} />;
   }
 }

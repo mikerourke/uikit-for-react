@@ -27,7 +27,7 @@ export default class Lightbox extends BlockElement {
       delay: PropTypes.number,
       interval: PropTypes.number,
     }),
-    children: restrictToChildTypes(),
+    children: PropTypes.node.isRequired,
     className: PropTypes.string,
     defaultIndex: PropTypes.number,
     delayControls: PropTypes.number,
@@ -62,61 +62,73 @@ export default class Lightbox extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
+    activeIndex: null,
+    animation: null,
+    autoplay: null,
+    className: null,
     defaultIndex: 0,
+    delayControls: null,
+    items: null,
+    onBeforeHide: noop,
+    onBeforeItemHide: noop,
+    onBeforeItemShow: noop,
+    onBeforeShow: noop,
+    onHidden: noop,
+    onHide: noop,
+    onItemHidden: noop,
+    onItemHide: noop,
+    onItemLoad: noop,
+    onItemShow: noop,
+    onItemShown: noop,
+    onShow: noop,
+    onShown: noop,
     panelIndex: 0,
+    panelShown: null,
     paused: false,
+    pauseOnHover: false,
+    preload: null,
+    selectorToggle: null,
     shown: false,
+    template: null,
+    videoAutoplay: false,
   };
 
   static Item = LightboxItem;
 
   componentDidMount() {
-    UIkit.util.on(
-      this.ref,
-      'beforehide',
-      get(this.props, 'onBeforeHide', noop),
-    );
-    UIkit.util.on(
-      this.ref,
-      'beforeitemhide',
-      get(this.props, 'onBeforeItemHide', noop),
-    );
-    UIkit.util.on(
-      this.ref,
-      'beforeitemshow',
-      get(this.props, 'onBeforeItemShow', noop),
-    );
-    UIkit.util.on(
-      this.ref,
-      'beforeshow',
-      get(this.props, 'onBeforeShow', noop),
-    );
-    UIkit.util.on(this.ref, 'hidden', get(this.props, 'onHidden', noop));
-    UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
-    UIkit.util.on(
-      this.ref,
-      'itemhidden',
-      get(this.props, 'onItemHidden', noop),
-    );
-    UIkit.util.on(this.ref, 'itemhide', get(this.props, 'onItemHide', noop));
-    UIkit.util.on(this.ref, 'itemload', get(this.props, 'onItemLoad', noop));
-    UIkit.util.on(this.ref, 'itemshow', get(this.props, 'onItemShow', noop));
-    UIkit.util.on(this.ref, 'itemshown', get(this.props, 'onItemShown', noop));
-    UIkit.util.on(this.ref, 'show', get(this.props, 'onShow', noop));
-    UIkit.util.on(this.ref, 'shown', get(this.props, 'onShown', noop));
+    UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
+    UIkit.util.on(this.ref, 'beforeitemhide', this.props.onBeforeItemHide);
+    UIkit.util.on(this.ref, 'beforeitemshow', this.props.onBeforeItemShow);
+    UIkit.util.on(this.ref, 'beforeshow', this.props.onBeforeShow);
+    UIkit.util.on(this.ref, 'hidden', this.props.onHidden);
+    UIkit.util.on(this.ref, 'hide', this.props.onHide);
+    UIkit.util.on(this.ref, 'itemhidden', this.props.onItemHidden);
+    UIkit.util.on(this.ref, 'itemhide', this.props.onItemHide);
+    UIkit.util.on(this.ref, 'itemload', this.props.onItemLoad);
+    UIkit.util.on(this.ref, 'itemshow', this.props.onItemShow);
+    UIkit.util.on(this.ref, 'itemshown', this.props.onItemShown);
+    UIkit.util.on(this.ref, 'show', this.props.onShow);
+    UIkit.util.on(this.ref, 'shown', this.props.onShown);
   }
 
   render() {
+    const { animation, ...propsToParse } = this.props;
     const {
       inheritedAttributes,
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(this.props);
+    } = this.getInheritedProps(propsToParse);
 
     const {
+      activeIndex,
+      autoplay,
       children,
       className,
+      defaultIndex,
+      delayControls,
+      items,
       onBeforeHide,
       onBeforeItemHide,
       onBeforeItemShow,
@@ -130,13 +142,19 @@ export default class Lightbox extends BlockElement {
       onItemShown,
       onShow,
       onShown,
+      panelIndex,
+      panelShown,
+      paused,
+      pauseOnHover,
+      preload,
+      selectorToggle,
+      shown,
+      template,
+      videoAutoplay,
       ...rest
     } = unhandledProps;
 
-    const classes = classnames(className, inheritedClasses, {
-      [buildClassName('subnav', 'divider')]: divider,
-      [buildClassName('subnav', 'pill')]: pill,
-    });
+    const classes = classnames(className, inheritedClasses, {});
 
     return (
       <div

@@ -3,22 +3,15 @@ import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
 export default class ButtonGroup extends BlockElement {
-  static meta = {
-    name: 'ButtonGroup',
-    ukClass: 'uk-button-group',
-  };
+  static displayName = 'ButtonGroup';
 
   static propTypes = BlockElement.propTypes;
 
+  static displayProps = BlockElement.displayProps;
+
   render() {
     const { className, ...rest } = this.props;
-
-    return (
-      <BlockElement
-        {...rest}
-        as="div"
-        className={classnames(className, ButtonGroup.meta.ukClass)}
-      />
-    );
+    const classes = classnames(className, 'uk-button-group');
+    return <BlockElement {...rest} as="div" className={classes || undefined} />;
   }
 }

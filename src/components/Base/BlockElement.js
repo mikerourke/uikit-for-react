@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get, isNil, trim, without } from 'lodash';
+import { get, trim, without } from 'lodash';
 import {
   buildClassName,
   getElementType,
@@ -12,10 +12,7 @@ import {
 import BaseElement from './BaseElement';
 
 export default class BlockElement extends BaseElement {
-  static meta = {
-    baseType: 'Block',
-    name: 'BlockElement',
-  };
+  static displayName = 'BlockElement';
 
   static propTypes = {
     ...BaseElement.propTypes,
@@ -86,7 +83,15 @@ export default class BlockElement extends BaseElement {
   ]);
 
   static defaultProps = {
+    ...BaseElement.defaultProps,
+    childWidth: null,
+    column: null,
     dynamic: false,
+    firstColumn: null,
+    nextRow: null,
+    padding: false,
+    position: null,
+    textAlign: null,
   };
 
   static getElementProps(props) {
@@ -147,8 +152,7 @@ export default class BlockElement extends BaseElement {
       },
     );
 
-    const hasMarginAttribute =
-      dynamic === true || !isNil(firstColumn) || !isNil(nextRow);
+    const hasMarginAttribute = dynamic || firstColumn || nextRow;
 
     const marginComponentOptions = getOptionsString({
       firstColumn: firstColumn || 'uk-first-column',
@@ -197,9 +201,7 @@ export default class BlockElement extends BaseElement {
     } = this.getInheritedProps(this.props);
 
     const { children, className = '', ...rest } = unhandledProps;
-
     const classes = classnames(className, inheritedClasses);
-
     const Element = getElementType(BlockElement, this.props);
     return (
       <Element

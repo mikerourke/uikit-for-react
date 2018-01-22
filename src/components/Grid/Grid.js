@@ -7,11 +7,6 @@ import { BlockElement } from '../Base';
 import GridCell from './GridCell';
 
 export default class Grid extends BlockElement {
-  static meta = {
-    name: 'Grid',
-    ukClass: 'uk-grid',
-  };
-
   static displayName = 'Grid';
 
   static propTypes = {
@@ -35,9 +30,14 @@ export default class Grid extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
     as: 'div',
+    className: null,
     divider: false,
+    firstColumn: null,
+    grow: null,
     matchHeight: false,
+    nextRow: null,
   };
 
   static Cell = GridCell;
@@ -59,13 +59,14 @@ export default class Grid extends BlockElement {
     const isReverse = get(direction, 'reverse', false);
     const flexGrow = isNil(grow) ? null : grow.replace('full', '1');
 
+    const ukClass = 'uk-grid';
     const classes = classnames(
       className,
       buildClassName('flex', get(direction, 'as'), isReverse ? 'reverse' : ''),
-      buildClassName(Grid.meta.ukClass, gutter),
+      buildClassName(ukClass, gutter),
       {
-        [buildClassName(Grid.meta.ukClass, 'divider')]: divider,
-        [buildClassName(Grid.meta.ukClass, 'match')]: matchHeight,
+        [buildClassName(ukClass, 'divider')]: divider,
+        [buildClassName(ukClass, 'match')]: matchHeight,
         [buildClassName('flex', flexGrow)]: !isNil(grow),
       },
     );

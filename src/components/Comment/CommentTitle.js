@@ -5,10 +5,7 @@ import { HTML } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class CommentTitle extends BlockElement {
-  static meta = {
-    name: 'CommentTitle',
-    ukClass: 'uk-comment-title',
-  };
+  static displayName = 'CommentTitle';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -17,17 +14,14 @@ export default class CommentTitle extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
     as: 'h4',
+    className: null,
   };
 
   render() {
     const { className, ...rest } = this.props;
-
-    return (
-      <BlockElement
-        {...rest}
-        className={classnames(className, CommentTitle.meta.ukClass)}
-      />
-    );
+    const classes = classnames(className, 'uk-comment-title');
+    return <BlockElement {...rest} className={classes || undefined} />;
   }
 }

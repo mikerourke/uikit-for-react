@@ -8,10 +8,7 @@ import PaginationNext from './PaginationNext';
 import PaginationPrevious from './PaginationPrevious';
 
 export default class Pagination extends BlockElement {
-  static meta = {
-    name: 'Pagination',
-    ukClass: 'uk-pagination',
-  };
+  static displayName = 'Pagination';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -19,35 +16,22 @@ export default class Pagination extends BlockElement {
     className: PropTypes.string,
   };
 
+  static defaultProps = {
+    ...BlockElement.defaultProps,
+    className: null,
+  };
+
   static Item = PaginationItem;
   static Next = PaginationNext;
   static Previous = PaginationPrevious;
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
-
-    const { children, className, ...rest } = unhandledProps;
-
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      Pagination.meta.ukClass,
-    );
-
+    const { children, className, ...rest } = this.props;
+    const classes = classnames(className, 'uk-pagination');
     return (
-      <ul
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
+      <BlockElement {...rest} as="ul" className={classes || undefined}>
         {children}
-      </ul>
+      </BlockElement>
     );
   }
 }

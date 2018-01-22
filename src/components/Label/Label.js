@@ -5,10 +5,7 @@ import { buildClassName } from '../../lib';
 import { InlineElement } from '../Base';
 
 export default class Label extends InlineElement {
-  static meta = {
-    name: 'Label',
-    ukClass: 'uk-label',
-  };
+  static displayName = 'Label';
 
   static propTypes = {
     ...InlineElement.propTypes,
@@ -20,6 +17,8 @@ export default class Label extends InlineElement {
   };
 
   static defaultProps = {
+    ...InlineElement.defaultProps,
+    className: null,
     danger: false,
     success: false,
     warning: false,
@@ -35,10 +34,11 @@ export default class Label extends InlineElement {
       ...rest
     } = this.props;
 
-    const classes = classnames(className, Label.meta.ukClass, {
-      [buildClassName(Label.meta.ukClass, 'danger')]: danger,
-      [buildClassName(Label.meta.ukClass, 'success')]: success,
-      [buildClassName(Label.meta.ukClass, 'warning')]: warning,
+    const ukClass = 'uk-label';
+    const classes = classnames(className, ukClass, {
+      [buildClassName(ukClass, 'danger')]: danger,
+      [buildClassName(ukClass, 'success')]: success,
+      [buildClassName(ukClass, 'warning')]: warning,
     });
 
     return (

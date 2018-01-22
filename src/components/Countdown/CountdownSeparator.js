@@ -4,10 +4,7 @@ import classnames from 'classnames';
 import { AnyElement } from '../Base';
 
 export default class CountdownSeparator extends AnyElement {
-  static meta = {
-    name: 'CountdownSeparator',
-    ukClass: 'uk-countdown-separator',
-  };
+  static displayName = 'CountdownSeparator';
 
   static propTypes = {
     ...AnyElement.propTypes,
@@ -21,14 +18,14 @@ export default class CountdownSeparator extends AnyElement {
   };
 
   static defaultProps = {
+    ...AnyElement.defaultProps,
     as: 'div',
+    className: null,
   };
 
   render() {
     const { className, children, ...rest } = this.props;
-
-    const classes = classnames(className, CountdownSeparator.meta.ukClass);
-
+    const classes = classnames(className, 'uk-countdown-separator');
     return (
       <AnyElement {...rest} className={classes || undefined}>
         {children}

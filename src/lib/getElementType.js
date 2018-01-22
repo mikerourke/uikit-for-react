@@ -31,7 +31,7 @@ const getElementType = (Component, props, getDefault) => {
 
   // If no "as" prop was defined, determine if the component inherits one of the Base elements.
   // The default Inline element is a <span>, all others can be a <div>.
-  return get(Component, ['meta', 'baseType']) === 'Inline' ? 'span' : 'div';
+  return get(Component, 'displayName') === 'InlineElement' ? 'span' : 'div';
 };
 
 export default getElementType;

@@ -4,25 +4,21 @@ import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
 export default class CardFooter extends BlockElement {
-  static meta = {
-    name: 'CardFooter',
-    ukClass: 'uk-card-footer',
-  };
+  static displayName = 'CardFooter';
 
   static propTypes = {
     ...BlockElement.propTypes,
     className: PropTypes.string,
   };
 
+  static defaultProps = {
+    ...BlockElement.defaultProps,
+    className: null,
+  };
+
   render() {
     const { className, ...rest } = this.props;
-
-    return (
-      <BlockElement
-        {...rest}
-        as="div"
-        className={classnames(className, CardFooter.meta.ukClass)}
-      />
-    );
+    const classes = classnames(className, 'uk-card-footer');
+    return <BlockElement {...rest} as="div" className={classes || undefined} />;
   }
 }

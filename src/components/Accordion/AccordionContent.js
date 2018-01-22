@@ -7,23 +7,21 @@ import { BlockElement } from '../Base';
  * @see https://getuikit.com/docs/accordion#usage
  */
 export default class AccordionContent extends React.Component {
-  static meta = {
-    name: 'AccordionContent',
-    ukClass: 'uk-accordion-content',
-  };
+  static displayName = 'AccordionContent';
 
   static propTypes = {
     ...BlockElement.propTypes,
     as: BlockElement.asPropType,
   };
 
+  static defaultProps = {
+    ...BlockElement.defaultProps,
+    as: 'div',
+  };
+
   render() {
     const { className, ...rest } = this.props;
-    return (
-      <BlockElement
-        {...rest}
-        className={classnames(className, AccordionContent.meta.ukClass)}
-      />
-    );
+    const classes = classnames(className, 'uk-accordion-content');
+    return <BlockElement {...rest} className={classes || undefined} />;
   }
 }

@@ -5,10 +5,7 @@ import { buildClassName } from '../../lib';
 import { InlineElement } from '../Base';
 
 export default class Link extends InlineElement {
-  static meta = {
-    name: 'Link',
-    ukClass: 'uk-link',
-  };
+  static displayName = 'Link';
 
   static propTypes = {
     ...InlineElement.propTypes,
@@ -20,6 +17,8 @@ export default class Link extends InlineElement {
   };
 
   static defaultProps = {
+    ...InlineElement.defaultProps,
+    className: null,
     muted: false,
     reset: false,
     text: false,
@@ -28,10 +27,11 @@ export default class Link extends InlineElement {
   render() {
     const { children, className, muted, reset, text, ...rest } = this.props;
 
+    const ukClass = 'uk-link';
     const classes = classnames(className, {
-      [buildClassName(Link.meta.ukClass, 'muted')]: muted,
-      [buildClassName(Link.meta.ukClass, 'reset')]: reset,
-      [buildClassName(Link.meta.ukClass, 'text')]: text,
+      [buildClassName(ukClass, 'muted')]: muted,
+      [buildClassName(ukClass, 'reset')]: reset,
+      [buildClassName(ukClass, 'text')]: text,
     });
 
     return (

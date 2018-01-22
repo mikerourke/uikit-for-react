@@ -5,29 +5,31 @@ import { buildClassName, getIfChildrenHaveClass } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class Container extends BlockElement {
-  static meta = {
-    name: 'Container',
-    ukClass: 'uk-container',
-  };
+  static displayName = 'Container';
 
   static propTypes = {
     ...BlockElement.propTypes,
+    as: BlockElement.asPropType,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     size: PropTypes.oneOf(['expand', 'large', 'small']),
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
     as: 'div',
+    className: null,
+    size: null,
   };
 
   render() {
     const { children, className, size, ...rest } = this.props;
 
+    const ukClass = 'uk-container';
     const classes = classnames(
       className,
-      Container.meta.ukClass,
-      buildClassName(Container.meta.ukClass, size),
+      ukClass,
+      buildClassName(ukClass, size),
       {
         [buildClassName('inline')]: getIfChildrenHaveClass(
           children,

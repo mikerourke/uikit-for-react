@@ -6,9 +6,7 @@ import { buildClassName, UIK } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class GridCell extends BlockElement {
-  static meta = {
-    name: 'GridCell',
-  };
+  static displayName = 'GridCell';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -26,7 +24,11 @@ export default class GridCell extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
+    className: null,
+    grow: null,
     matchHeight: false,
+    order: null,
   };
 
   render() {

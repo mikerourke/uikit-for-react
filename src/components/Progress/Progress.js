@@ -3,22 +3,24 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { InlineElement } from '../Base';
 
-const Progress = ({ className, ...rest }) => (
-  <InlineElement
-    {...rest}
-    as="progress"
-    className={classnames(className, Progress.meta.ukClass)}
-  />
-);
+export default class Progress extends InlineElement {
+  static displayName = 'Progress';
 
-Progress.propTypes = {
-  ...InlineElement.propTypes,
-  className: PropTypes.string,
-};
+  static propTypes = {
+    ...InlineElement.propTypes,
+    className: PropTypes.string,
+  };
 
-Progress.meta = {
-  name: 'Progress',
-  ukClass: 'uk-progress',
-};
+  static defaultProps = {
+    ...InlineElement.defaultProps,
+    className: null,
+  };
 
-export default Progress;
+  render() {
+    const { className, ...rest } = this.props;
+    const classes = classnames(className, 'uk-progress');
+    return (
+      <InlineElement {...rest} as="progress" className={classes || undefined} />
+    );
+  }
+}

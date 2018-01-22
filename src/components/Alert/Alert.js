@@ -1,6 +1,7 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
+import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get, noop } from 'lodash';
 import {
@@ -18,10 +19,7 @@ import Close from '../Close';
  * @see https://getuikit.com/docs/alert
  */
 export default class Alert extends BlockElement {
-  static meta = {
-    name: 'Alert',
-    ukClass: 'uk-alert',
-  };
+  static displayName = 'Alert';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -36,7 +34,14 @@ export default class Alert extends BlockElement {
     as: BlockElement.asPropType,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
-    closeable: PropTypes.bool,
+    closeable: CustomPropTypes.and(PropTypes.bool, props => {
+      if (props.closeable && getIfHasChildType(props.children, Close)) {
+        return new Error(
+          'You cannot have an instance of Close inside an Alert if the "closeable" prop is true.',
+        );
+      }
+      return null;
+    }),
     closeOptions: PropTypes.shape(Close.propTypes),
     danger: PropTypes.bool,
     onBeforeHide: PropTypes.func,
@@ -48,17 +53,24 @@ export default class Alert extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
+    animation: null,
     as: 'div',
+    className: null,
     closeable: false,
+    closeOptions: null,
+    danger: false,
+    onBeforeHide: noop,
+    onHide: noop,
+    primary: false,
+    selectorClose: null,
+    success: false,
+    warning: false,
   };
 
   componentDidMount() {
-    UIkit.util.on(
-      this.ref,
-      'beforehide',
-      get(this.props, 'onBeforeHide', noop),
-    );
-    UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
+    UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
+    UIkit.util.on(this.ref, 'hide', this.props.onHide);
   }
 
   handleRef = element => (this.ref = element);
@@ -87,23 +99,13 @@ export default class Alert extends BlockElement {
       ...rest
     } = unhandledProps;
 
-    if (closeable && getIfHasChildType(children, Close)) {
-      throw new Error(
-        'You cannot have an instance of Close inside an Alert if the "closeable" prop is true.',
-      );
-    }
-
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      Alert.meta.ukClass,
-      {
-        [buildClassName(Alert.meta.ukClass, 'danger')]: danger,
-        [buildClassName(Alert.meta.ukClass, 'primary')]: primary,
-        [buildClassName(Alert.meta.ukClass, 'success')]: success,
-        [buildClassName(Alert.meta.ukClass, 'warning')]: warning,
-      },
-    );
+    const ukClass = 'uk-alert';
+    const classes = classnames(className, inheritedClasses, ukClass, {
+      [buildClassName(ukClass, 'danger')]: danger,
+      [buildClassName(ukClass, 'primary')]: primary,
+      [buildClassName(ukClass, 'success')]: success,
+      [buildClassName(ukClass, 'warning')]: warning,
+    });
 
     const componentOptions = getOptionsString({
       animation,

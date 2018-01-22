@@ -5,9 +5,7 @@ import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class BreadcrumbItem extends BlockElement {
-  static meta = {
-    name: 'BreadcrumbItem',
-  };
+  static displayName = 'BreadcrumbItem';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -19,8 +17,12 @@ export default class BreadcrumbItem extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
     active: false,
+    children: null,
+    className: null,
     disabled: false,
+    href: '',
   };
 
   render() {

@@ -5,10 +5,7 @@ import { buildClassName } from '../../lib';
 import { InlineElement } from '../Base';
 
 export default class Close extends InlineElement {
-  static meta = {
-    name: 'Close',
-    ukClass: 'uk-close',
-  };
+  static displayName = 'Close';
 
   static propTypes = {
     ...InlineElement.propTypes,
@@ -18,15 +15,18 @@ export default class Close extends InlineElement {
   };
 
   static defaultProps = {
+    ...InlineElement.defaultProps,
     as: 'a',
+    className: null,
     large: false,
   };
 
   render() {
     const { className, large, ...rest } = this.props;
 
-    const classes = classnames(className, Close.meta.ukClass, {
-      [buildClassName(Close.meta.ukClass, 'large')]: large,
+    const ukClass = 'uk-close';
+    const classes = classnames(className, ukClass, {
+      [buildClassName(ukClass, 'large')]: large,
     });
 
     return (

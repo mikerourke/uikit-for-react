@@ -5,10 +5,7 @@ import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class Panel extends BlockElement {
-  static meta = {
-    name: 'Panel',
-    ukClass: 'uk-panel',
-  };
+  static displayName = 'Panel';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -18,37 +15,23 @@ export default class Panel extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
+    className: null,
     scrollable: false,
   };
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
+    const { children, className, scrollable, ...rest } = this.props;
 
-    const { children, className, scrollable, ...rest } = unhandledProps;
-
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      Panel.meta.ukClass,
-      {
-        [buildClassName(Panel.meta.ukClass, 'scrollable')]: scrollable,
-      },
-    );
+    const ukClass = 'uk-panel';
+    const classes = classnames(className, ukClass, {
+      [buildClassName(ukClass, 'scrollable')]: scrollable,
+    });
 
     return (
-      <div
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
+      <BlockElement {...rest} as="div" className={classes || undefined}>
         {children}
-      </div>
+      </BlockElement>
     );
   }
 }

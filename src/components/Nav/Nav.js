@@ -6,10 +6,7 @@ import { BlockElement } from '../Base';
 import NavItem from './NavItem';
 
 export default class Nav extends BlockElement {
-  static meta = {
-    name: 'Nav',
-    ukClass: 'uk-nav',
-  };
+  static displayName = 'Nav';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -44,12 +41,20 @@ export default class Nav extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
+    activeIndex: 0,
     accordion: false,
+    animation: null,
     center: false,
+    className: null,
     collapsible: false,
     hideOpenAnimation: false,
     multiple: false,
     primary: false,
+    selectorContent: null,
+    selectorTargets: null,
+    selectorToggle: null,
+    transition: null,
   };
 
   static Item = NavItem;
@@ -57,13 +62,6 @@ export default class Nav extends BlockElement {
   handleRef = element => (this.ref = element);
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
-
     const {
       accordion,
       animation,
@@ -79,13 +77,14 @@ export default class Nav extends BlockElement {
       selectorToggle,
       transition,
       ...rest
-    } = unhandledProps;
+    } = this.props;
 
-    const classes = classnames(className, inheritedClasses, Nav.meta.ukClass, {
-      [buildClassName(Nav.meta.ukClass, 'center')]: center,
-      [buildClassName(Nav.meta.ukClass, 'default')]: primary === false,
-      [buildClassName(Nav.meta.ukClass, 'parent', 'icon')]: accordion,
-      [buildClassName(Nav.meta.ukClass, 'primary')]: primary === true,
+    const ukClass = 'uk-nav';
+    const classes = classnames(className, ukClass, {
+      [buildClassName(ukClass, 'center')]: center,
+      [buildClassName(ukClass, 'default')]: primary === false,
+      [buildClassName(ukClass, 'parent', 'icon')]: accordion,
+      [buildClassName(ukClass, 'primary')]: primary === true,
     });
 
     const componentOptions = getOptionsString({
@@ -99,16 +98,15 @@ export default class Nav extends BlockElement {
     });
 
     return (
-      <ul
+      <BlockElement
         {...rest}
-        className={classes}
+        as="ul"
+        className={classes || undefined}
         ref={this.handleRef}
-        style={inheritedStyle}
         data-uk-nav={accordion ? componentOptions : undefined}
-        {...inheritedAttributes}
       >
         {children}
-      </ul>
+      </BlockElement>
     );
   }
 }

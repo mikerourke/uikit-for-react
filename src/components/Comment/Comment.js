@@ -10,10 +10,7 @@ import CommentMeta from './CommentMeta';
 import CommentTitle from './CommentTitle';
 
 export default class Comment extends BlockElement {
-  static meta = {
-    name: 'Comment',
-    ukClass: 'uk-comment',
-  };
+  static displayName = 'Comment';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -23,6 +20,8 @@ export default class Comment extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
+    className: null,
     primary: false,
   };
 
@@ -35,8 +34,9 @@ export default class Comment extends BlockElement {
   render() {
     const { children, className, primary, ...rest } = this.props;
 
-    const classes = classnames(className, Comment.meta.ukClass, {
-      [buildClassName(Comment.meta.ukClass, 'primary')]: primary,
+    const ukClass = 'uk-comment';
+    const classes = classnames(className, ukClass, {
+      [buildClassName(ukClass, 'primary')]: primary,
     });
 
     return (

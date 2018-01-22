@@ -29,24 +29,27 @@ export default class Heading extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
     as: 'h1',
     bullet: false,
+    className: null,
     divider: false,
+    headingClass: null,
     hero: false,
     line: false,
     primary: false,
   };
 
   render() {
+    const { as, ...propsToParse } = this.props;
     const {
       inheritedAttributes,
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(this.props);
+    } = this.getInheritedProps(propsToParse);
 
     const {
-      as,
       bullet,
       children,
       className,
@@ -58,17 +61,18 @@ export default class Heading extends BlockElement {
       ...rest
     } = unhandledProps;
 
+    const ukClass = 'uk-heading';
     const classes = classnames(
       className,
       inheritedClasses,
-      Heading.meta.ukClass,
+      ukClass,
       buildClassName(headingClass),
-      buildClassName(Heading.meta.ukClass, 'line', line),
+      buildClassName(ukClass, 'line', line),
       {
-        [buildClassName(Heading.meta.ukClass, 'bullet')]: bullet,
-        [buildClassName(Heading.meta.ukClass, 'divider')]: divider,
-        [buildClassName(Heading.meta.ukClass, 'hero')]: hero,
-        [buildClassName(Heading.meta.ukClass, 'primary')]: primary,
+        [buildClassName(ukClass, 'bullet')]: bullet,
+        [buildClassName(ukClass, 'divider')]: divider,
+        [buildClassName(ukClass, 'hero')]: hero,
+        [buildClassName(ukClass, 'primary')]: primary,
       },
     );
 
@@ -77,8 +81,8 @@ export default class Heading extends BlockElement {
         {...rest}
         as={as}
         className={classes || undefined}
-        style={inheritedStyle}
         horizontalAlign={isString(line) ? line : undefined}
+        style={inheritedStyle}
         {...inheritedAttributes}
       >
         {line === true ? <span>{children}</span> : children}

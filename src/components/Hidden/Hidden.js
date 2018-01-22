@@ -4,15 +4,13 @@ import classnames from 'classnames';
 import { buildClassName, getElementType, HTML, UIK } from '../../lib';
 
 export default class Hidden extends React.Component {
-  static meta = {
-    name: 'Hidden',
-    ukClass: 'uk-hidden',
-  };
+  static displayName = 'Hidden';
 
   static propTypes = {
     as: PropTypes.oneOfType([
       PropTypes.oneOf(HTML.ALL_ELEMENTS),
-      PropTypes.node,
+      PropTypes.element,
+      PropTypes.func,
     ]),
     breakpoint: PropTypes.oneOf(UIK.BREAKPOINTS),
     children: PropTypes.node.isRequired,
@@ -25,6 +23,12 @@ export default class Hidden extends React.Component {
 
   static defaultProps = {
     as: 'div',
+    breakpoint: null,
+    className: null,
+    hide: false,
+    noTouchOnly: false,
+    touchOnly: false,
+    whenHovered: null,
   };
 
   render() {
@@ -39,14 +43,15 @@ export default class Hidden extends React.Component {
       ...rest
     } = this.props;
 
+    const ukClass = 'uk-hidden';
     const classes = classnames(
       className,
       buildClassName(whenHovered, 'hover'),
-      buildClassName(Hidden.meta.ukClass, breakpoint),
+      buildClassName(ukClass, breakpoint),
       {
-        [buildClassName(Hidden.meta.ukClass)]: hide,
-        [buildClassName(Hidden.meta.ukClass, 'notouch')]: noTouchOnly,
-        [buildClassName(Hidden.meta.ukClass, 'touch')]: touchOnly,
+        [buildClassName(ukClass)]: hide,
+        [buildClassName(ukClass, 'notouch')]: noTouchOnly,
+        [buildClassName(ukClass, 'touch')]: touchOnly,
       },
     );
 

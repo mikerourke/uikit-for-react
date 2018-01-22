@@ -6,10 +6,7 @@ import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class Flex extends BlockElement {
-  static meta = {
-    name: 'Flex',
-    ukClass: 'uk-flex',
-  };
+  static displayName = 'Flex';
 
   static propTypes = {
     ...omit(BlockElement.propTypes, 'flex'),
@@ -20,15 +17,18 @@ export default class Flex extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
     as: 'div',
+    className: null,
     inline: false,
   };
 
   render() {
     const { children, className, inline, ...rest } = this.props;
 
-    const classes = classnames(className, Flex.meta.ukClass, {
-      [buildClassName(Flex.meta.ukClass, 'inline')]: inline,
+    const ukClass = 'uk-flex';
+    const classes = classnames(className, ukClass, {
+      [buildClassName(ukClass, 'inline')]: inline,
     });
 
     return (

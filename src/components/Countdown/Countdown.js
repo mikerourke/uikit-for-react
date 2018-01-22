@@ -16,9 +16,11 @@ export default class Countdown extends BlockElement {
     name: 'Countdown',
     ukClass: 'uk-countdown',
   };
+  static displayName = 'Countdown';
 
   static propTypes = {
     ...BlockElement.propTypes,
+    as: BlockElement.asPropType,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     // TODO: Add validation to ensure date is in correct format and in the future.
@@ -27,7 +29,9 @@ export default class Countdown extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
     as: 'div',
+    className: null,
     paused: false,
   };
 
@@ -39,8 +43,7 @@ export default class Countdown extends BlockElement {
   static Separator = CountdownSeparator;
 
   componentWillReceiveProps(nextProps) {
-    const selector =
-      this.ref instanceof Countdown ? this.ref : `.${Countdown.meta.ukClass}`;
+    const selector = this.ref instanceof Countdown ? this.ref : '.uk-countdown';
     if (nextProps.paused === true && this.props.paused === false) {
       UIkit.countdown(selector).stop();
     }
@@ -54,9 +57,7 @@ export default class Countdown extends BlockElement {
 
   render() {
     const { children, className, date, paused, ...rest } = this.props;
-
-    const classes = classnames(className, Countdown.meta.ukClass);
-
+    const classes = classnames(className, 'uk-countdown');
     return (
       <BlockElement
         {...rest}

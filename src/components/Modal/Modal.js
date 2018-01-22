@@ -1,6 +1,6 @@
 import React from 'react';
-import UIkit from 'uikit';
 import PropTypes from 'prop-types';
+import UIkit from 'uikit';
 import classnames from 'classnames';
 import { get, noop } from 'lodash';
 import { buildClassName, getOptionsString } from '../../lib';
@@ -12,10 +12,7 @@ import ModalHeader from './ModalHeader';
 import ModalTitle from './ModalTitle';
 
 export default class Modal extends BlockElement {
-  static meta = {
-    name: 'Modal',
-    ukClass: 'uk-modal',
-  };
+  static displayName = 'Modal';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -45,14 +42,26 @@ export default class Modal extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
     bgClose: true,
+    className: null,
     closeButton: false,
+    closeOptions: null,
     container: false,
+    dialogOptions: null,
     escClose: true,
     full: false,
+    onBeforeHide: noop,
+    onBeforeShow: noop,
+    onHidden: noop,
+    onHide: noop,
+    onShow: noop,
+    onShown: noop,
     padContent: false,
+    selectorContainer: null,
     shown: false,
     stack: false,
+    toggle: null,
   };
 
   static Content = ModalContent;
@@ -61,20 +70,12 @@ export default class Modal extends BlockElement {
   static Title = ModalTitle;
 
   componentDidMount() {
-    UIkit.util.on(
-      this.ref,
-      'beforehide',
-      get(this.props, 'onBeforeHide', noop),
-    );
-    UIkit.util.on(
-      this.ref,
-      'beforeshow',
-      get(this.props, 'onBeforeShow', noop),
-    );
-    UIkit.util.on(this.ref, 'hidden', get(this.props, 'onHidden', noop));
-    UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
-    UIkit.util.on(this.ref, 'show', get(this.props, 'onShow', noop));
-    UIkit.util.on(this.ref, 'shown', get(this.props, 'onShown', noop));
+    UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
+    UIkit.util.on(this.ref, 'beforeshow', this.props.onBeforeShow);
+    UIkit.util.on(this.ref, 'hidden', this.props.onHidden);
+    UIkit.util.on(this.ref, 'hide', this.props.onHide);
+    UIkit.util.on(this.ref, 'show', this.props.onShow);
+    UIkit.util.on(this.ref, 'shown', this.props.onShown);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -117,39 +118,34 @@ export default class Modal extends BlockElement {
       selectorContainer,
       shown,
       stack,
+      toggle,
       ...rest
     } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      Modal.meta.ukClass,
-      {
-        [buildClassName(Modal.meta.ukClass, 'container')]: container,
-        [buildClassName(Modal.meta.ukClass, 'full')]: full,
-      },
-    );
+    const ukClass = 'uk-modal';
+    const classes = classnames(className, inheritedClasses, ukClass, {
+      [buildClassName(ukClass, 'container')]: container,
+      [buildClassName(ukClass, 'full')]: full,
+    });
 
     const componentOptions = getOptionsString({
-      escClose,
       bgClose,
-      stack,
       container: selectorContainer,
+      escClose,
+      stack,
     });
 
     const closeOutside = get(closeOptions, 'outside', false);
     const closeClasses = classnames(get(closeOptions, 'className', ''), {
-      [buildClassName(Modal.meta.ukClass, 'close', 'default')]:
-        closeOutside === false,
-      [buildClassName(Modal.meta.ukClass, 'close', 'outside')]:
-        closeOutside === true,
+      [buildClassName(ukClass, 'close', 'default')]: !closeOutside,
+      [buildClassName(ukClass, 'close', 'outside')]: closeOutside,
     });
 
     const dialogClasses = classnames(
       get(dialogOptions, 'className', ''),
-      buildClassName(Modal.meta.ukClass, 'dialog'),
+      buildClassName(ukClass, 'dialog'),
       {
-        [buildClassName(Modal.meta.ukClass, 'body')]: padContent,
+        [buildClassName(ukClass, 'body')]: padContent,
       },
     );
 

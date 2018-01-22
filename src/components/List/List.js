@@ -6,10 +6,7 @@ import { BlockElement } from '../Base';
 import ListItem from './ListItem';
 
 export default class List extends BlockElement {
-  static meta = {
-    name: 'List',
-    ukClass: 'uk-list',
-  };
+  static displayName = 'List';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -22,7 +19,9 @@ export default class List extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
     bullet: false,
+    className: null,
     divider: false,
     large: false,
     striped: false,
@@ -41,11 +40,12 @@ export default class List extends BlockElement {
       ...rest
     } = this.props;
 
-    const classes = classnames(className, List.meta.ukClass, {
-      [buildClassName(List.meta.ukClass, 'bullet')]: bullet,
-      [buildClassName(List.meta.ukClass, 'divider')]: divider,
-      [buildClassName(List.meta.ukClass, 'large')]: large,
-      [buildClassName(List.meta.ukClass, 'striped')]: striped,
+    const ukClass = 'uk-list';
+    const classes = classnames(className, ukClass, {
+      [buildClassName(ukClass, 'bullet')]: bullet,
+      [buildClassName(ukClass, 'divider')]: divider,
+      [buildClassName(ukClass, 'large')]: large,
+      [buildClassName(ukClass, 'striped')]: striped,
     });
 
     return (

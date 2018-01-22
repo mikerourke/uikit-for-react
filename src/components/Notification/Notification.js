@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import UIkit from 'uikit';
 import PropTypes from 'prop-types';
+import UIkit from 'uikit';
 import { get, noop, without } from 'lodash';
 import { UIK } from '../../lib';
 
@@ -25,6 +25,15 @@ export default class Notification extends React.Component {
     shown: PropTypes.bool,
     status: PropTypes.oneOf(without(UIK.STATUS_COLORS, 'muted')),
     timeout: PropTypes.number,
+  };
+
+  static defaultProps = {
+    group: null,
+    onClose: noop,
+    position: null,
+    shown: false,
+    status: null,
+    timeout: null,
   };
 
   componentWillReceiveProps(nextProps) {

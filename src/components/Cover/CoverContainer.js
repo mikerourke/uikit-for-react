@@ -11,11 +11,12 @@ export default class CoverContainer extends BlockElement {
     name: 'CoverContainer',
     ukClass: 'uk-cover-container',
   };
+  static displayName = 'CoverContainer';
 
   static propTypes = {
     ...BlockElement.propTypes,
     as: BlockElement.asPropType,
-    children: PropTypes.instanceOf(Cover),
+    children: PropTypes.instanceOf(Cover).isRequired,
     className: PropTypes.string,
     responsive: PropTypes.shape({
       height: PropTypes.number,
@@ -30,8 +31,11 @@ export default class CoverContainer extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
     as: 'div',
+    className: null,
     responsive: false,
+    viewportOptions: null,
   };
 
   render() {
@@ -43,7 +47,7 @@ export default class CoverContainer extends BlockElement {
       ...rest
     } = this.props;
 
-    const classes = classnames(className, CoverContainer.meta.ukClass);
+    const classes = classnames(className, 'uk-cover-container');
 
     const responsiveProps = {
       height: get(responsive, 'height', 600),

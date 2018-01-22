@@ -4,24 +4,21 @@ import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
 export default class CommentBody extends BlockElement {
-  static meta = {
-    name: 'CommentBody',
-    ukClass: 'uk-comment-body',
-  };
+  static displayName = 'CommentBody';
 
   static propTypes = {
     ...BlockElement.propTypes,
     className: PropTypes.string,
   };
 
+  static defaultProps = {
+    ...BlockElement.defaultProps,
+    className: null,
+  };
+
   render() {
     const { className, ...rest } = this.props;
-
-    return (
-      <BlockElement
-        {...rest}
-        className={classnames(className, CommentBody.meta.ukClass)}
-      />
-    );
+    const classes = classnames(className, 'uk-comment-body');
+    return <BlockElement {...rest} className={classes || undefined} />;
   }
 }

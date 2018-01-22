@@ -2,9 +2,7 @@ import React from 'react';
 import { BlockElement } from '../Base';
 
 export default class CardContent extends BlockElement {
-  static meta = {
-    name: 'CardContent',
-  };
+  static displayName = 'CardContent';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -12,6 +10,7 @@ export default class CardContent extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
     as: 'p',
   };
 

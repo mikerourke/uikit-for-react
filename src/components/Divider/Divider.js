@@ -5,10 +5,7 @@ import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class Divider extends BlockElement {
-  static meta = {
-    name: 'Divider',
-    ukClass: 'uk-divider',
-  };
+  static displayName = 'Divider';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -18,6 +15,8 @@ export default class Divider extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
+    className: null,
     icon: false,
     small: false,
   };
@@ -25,9 +24,10 @@ export default class Divider extends BlockElement {
   render() {
     const { className, icon, small, ...rest } = this.props;
 
+    const ukClass = 'uk-divider';
     const classes = classnames(className, {
-      [buildClassName(Divider.meta.className, 'icon')]: icon,
-      [buildClassName(Divider.meta.className, 'small')]: small,
+      [buildClassName(ukClass, 'icon')]: icon,
+      [buildClassName(ukClass, 'small')]: small,
     });
 
     return <BlockElement {...rest} as="hr" className={classes || undefined} />;

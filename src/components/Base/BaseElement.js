@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get, isNil, isString, trim, without } from 'lodash';
 import { buildClassName, UIK } from '../../lib';
@@ -14,10 +15,26 @@ export default class BaseElement extends React.Component {
         reverse: PropTypes.bool,
         fast: PropTypes.bool,
         transformCenter: PropTypes.bool,
-        transformOrigin: PropTypes.shape({
-          horizontal: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS).isRequired,
-          vertical: PropTypes.oneOf(UIK.VERTICAL_POSITIONS).isRequired,
-        }),
+        transformOrigin: CustomPropTypes.and(
+          PropTypes.shape({
+            horizontal: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS).isRequired,
+            vertical: PropTypes.oneOf(UIK.VERTICAL_POSITIONS).isRequired,
+          }),
+          props => {
+            const { horizontal = null, vertical = null } = get(
+              props,
+              ['animation', 'transformOrigin'],
+              {},
+            );
+            if ((horizontal && !vertical) || (!horizontal && vertical)) {
+              return new Error(
+                'You must specify both a horizontal and vertical property for transformOrigin in ' +
+                  'Animation.',
+              );
+            }
+            return null;
+          },
+        ),
       }),
     ]),
     background: PropTypes.oneOfType([
@@ -45,14 +62,22 @@ export default class BaseElement extends React.Component {
         bottom: PropTypes.bool,
       }),
     ]),
-    clearfix: PropTypes.bool,
+    clearfix: CustomPropTypes.mutuallyExclusiveProps(
+      PropTypes.bool,
+      'clearfix',
+      'float',
+    ),
     direction: PropTypes.shape({
       as: PropTypes.oneOf(['column', 'row']),
       reverse: PropTypes.bool,
     }),
     display: PropTypes.oneOf(['block', 'inline', 'inline-block']),
     flex: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['inline'])]),
-    float: PropTypes.oneOf(['left', 'right']),
+    float: CustomPropTypes.mutuallyExclusiveProps(
+      PropTypes.oneOf(['left', 'right']),
+      'clearfix',
+      'float',
+    ),
     height: PropTypes.oneOf(['full', ...without(UIK.SIZES, 'xlarge')]),
     heightMax: PropTypes.oneOf(without(UIK.SIZES, 'xlarge')),
     hidden: PropTypes.oneOfType([
@@ -108,7 +133,10 @@ export default class BaseElement extends React.Component {
     ]),
     overflow: PropTypes.oneOf(['auto', 'hidden']),
     resize: PropTypes.oneOf([true, 'vertical']),
-    responsive: PropTypes.oneOf([false, 'height', 'width']),
+    responsive: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.oneOf(['height', 'width']),
+    ]),
     visible: PropTypes.oneOf(UIK.BREAKPOINTS),
     width: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.ALL_WIDTHS),
@@ -126,13 +154,33 @@ export default class BaseElement extends React.Component {
   };
 
   static defaultProps = {
+    alignItems: null,
+    animation: null,
+    background: null,
+    border: null,
+    boxShadow: null,
     clearfix: false,
+    direction: null,
+    display: null,
     flex: false,
+    float: null,
+    height: null,
+    heightMax: null,
     hidden: false,
     inline: false,
+    inverse: null,
     invisible: false,
+    justifyContent: null,
+    linkStyle: null,
     margin: false,
     marker: false,
+    order: null,
+    overflow: null,
+    resize: false,
+    responsive: false,
+    visible: null,
+    width: null,
+    wrap: null,
   };
 
   static getBaseProps(props) {
@@ -170,21 +218,6 @@ export default class BaseElement extends React.Component {
 
     const horizOrigin = get(animation, ['transformOrigin', 'horizontal']);
     const vertOrigin = get(animation, ['transformOrigin', 'vertical']);
-    if (
-      (!isNil(horizOrigin) && isNil(vertOrigin)) ||
-      (isNil(horizOrigin) && !isNil(vertOrigin))
-    ) {
-      throw new Error(
-        'You must specify both a horizontal and vertical property for transformOrigin in ' +
-          'Animation.',
-      );
-    }
-
-    if (!isNil(clearfix) && !isNil(float)) {
-      throw new Error(
-        'You can only specify the "clearfix" prop or "float" prop, not both.',
-      );
-    }
 
     const allMargins = get(margin, 'all');
     let marginClasses = isNil(allMargins)

@@ -6,10 +6,7 @@ import { BlockElement } from '../Base';
 import IconNavItem from './IconNavItem';
 
 export default class IconNav extends BlockElement {
-  static meta = {
-    name: 'IconNav',
-    ukClass: 'uk-iconnav',
-  };
+  static displayName = 'IconNav';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -19,6 +16,8 @@ export default class IconNav extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
+    className: null,
     vertical: false,
   };
 
@@ -27,8 +26,9 @@ export default class IconNav extends BlockElement {
   render() {
     const { children, className, vertical, ...rest } = this.props;
 
-    const classes = classnames(className, IconNav.meta.ukClass, {
-      [buildClassName(IconNav.meta.ukClass, 'vertical')]: vertical,
+    const ukClass = 'uk-iconnav';
+    const classes = classnames(className, ukClass, {
+      [buildClassName(ukClass, 'vertical')]: vertical,
     });
 
     return (

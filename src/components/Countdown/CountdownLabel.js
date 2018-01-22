@@ -4,10 +4,7 @@ import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
 export default class CountdownLabel extends BlockElement {
-  static meta = {
-    name: 'CountdownLabel',
-    ukClass: 'uk-countdown-label',
-  };
+  static displayName = 'CountdownLabel';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -17,16 +14,16 @@ export default class CountdownLabel extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
     as: 'div',
+    className: null,
   };
 
   render() {
-    const { as, children, className, ...rest } = this.props;
-
-    const classes = classnames(className, CountdownLabel.meta.ukClass);
-
+    const { children, className, ...rest } = this.props;
+    const classes = classnames(className, 'uk-countdown-label');
     return (
-      <BlockElement {...rest} as={as} className={classes || undefined}>
+      <BlockElement {...rest} className={classes || undefined}>
         {children}
       </BlockElement>
     );

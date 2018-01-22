@@ -3,22 +3,22 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
-const Placeholder = ({ className, ...rest }) => (
-  <BlockElement
-    {...rest}
-    as="div"
-    className={classnames(className, Placeholder.meta.ukClass)}
-  />
-);
+export default class Placeholder extends BlockElement {
+  static displayName = 'Placeholder';
 
-Placeholder.propTypes = {
-  ...BlockElement.propTypes,
-  className: PropTypes.string,
-};
+  static propTypes = {
+    ...BlockElement.propTypes,
+    className: PropTypes.string,
+  };
 
-Placeholder.meta = {
-  name: 'Placeholder',
-  ukClass: 'uk-placeholder',
-};
+  static defaultProps = {
+    ...BlockElement.defaultProps,
+    className: null,
+  };
 
-export default Placeholder;
+  render() {
+    const { className, ...rest } = this.props;
+    const classes = classnames(className, 'uk-placeholder');
+    return <BlockElement {...rest} as="div" className={classes || undefined} />;
+  }
+}

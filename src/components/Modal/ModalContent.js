@@ -1,12 +1,20 @@
 import React from 'react';
 import { BlockElement } from '../Base';
 
-const ModalContent = props => <BlockElement {...props} />;
+export default class ModalContent extends BlockElement {
+  static displayName = 'ModalContent';
 
-ModalContent.propTypes = BlockElement.propTypes;
+  static propTypes = {
+    ...BlockElement.propTypes,
+    as: BlockElement.asPropType,
+  };
 
-ModalContent.meta = {
-  name: 'ModalContent',
-};
+  static defaultProps = {
+    ...BlockElement.defaultProps,
+    as: 'div',
+  };
 
-export default ModalContent;
+  render() {
+    return <BlockElement {...this.props} />;
+  }
+}

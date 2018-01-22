@@ -4,10 +4,7 @@ import classnames from 'classnames';
 import { InlineElement } from '../Base';
 
 export default class Badge extends InlineElement {
-  static meta = {
-    name: 'Badge',
-    ukClass: 'uk-badge',
-  };
+  static displayName = 'Badge';
 
   static propTypes = {
     ...InlineElement.propTypes,
@@ -15,17 +12,13 @@ export default class Badge extends InlineElement {
   };
 
   static defaultProps = {
+    ...InlineElement.defaultProps,
     as: 'span',
   };
 
   render() {
     const { className, ...rest } = this.props;
-
-    return (
-      <InlineElement
-        {...rest}
-        className={classnames(className, Badge.meta.ukClass)}
-      />
-    );
+    const classes = classnames(className, 'uk-badge');
+    return <InlineElement {...rest} className={classes || undefined} />;
   }
 }

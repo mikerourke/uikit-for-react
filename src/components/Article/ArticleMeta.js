@@ -4,25 +4,21 @@ import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
 export default class ArticleMeta extends BlockElement {
-  static meta = {
-    name: 'ArticleMeta',
-    ukClass: 'uk-article-meta',
-  };
+  static displayName = 'ArticleMeta';
 
   static propTypes = {
     ...BlockElement.propTypes,
     className: PropTypes.string,
   };
 
+  static defaultProps = {
+    ...BlockElement.defaultProps,
+    className: null,
+  };
+
   render() {
     const { className, ...rest } = this.props;
-
-    return (
-      <BlockElement
-        {...rest}
-        as="p"
-        className={classnames(className, ArticleMeta.meta.ukClass)}
-      />
-    );
+    const classes = classnames(className, 'uk-article-meta');
+    return <BlockElement {...rest} as="p" className={classes || undefined} />;
   }
 }

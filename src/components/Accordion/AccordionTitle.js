@@ -8,24 +8,21 @@ import { InlineElement } from '../Base';
  * @see https://getuikit.com/docs/accordion#usage
  */
 export default class AccordionTitle extends InlineElement {
-  static meta = {
-    name: 'AccordionTitle',
-    ukClass: 'uk-accordion-title',
-  };
+  static displayName = 'AccordionTitle';
 
   static propTypes = {
     ...InlineElement.propTypes,
     className: PropTypes.string,
   };
 
+  static defaultProps = {
+    ...InlineElement.defaultProps,
+    className: null,
+  };
+
   render() {
     const { className, ...rest } = this.props;
-    return (
-      <InlineElement
-        {...rest}
-        as="a"
-        className={classnames(className, AccordionTitle.meta.ukClass)}
-      />
-    );
+    const classes = classnames(className, 'uk-accordion-title');
+    return <InlineElement {...rest} as="a" className={classes || undefined} />;
   }
 }

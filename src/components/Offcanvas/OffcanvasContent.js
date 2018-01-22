@@ -5,9 +5,7 @@ import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
 export default class OffcanvasContent extends BlockElement {
-  static meta = {
-    name: 'OffcanvasContent',
-  };
+  static displayName = 'OffcanvasContent';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -15,31 +13,18 @@ export default class OffcanvasContent extends BlockElement {
     className: PropTypes.string,
   };
 
+  static defaultProps = {
+    ...BlockElement.defaultProps,
+    className: null,
+  };
+
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
-
-    const { children, className, ...rest } = unhandledProps;
-
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      OffcanvasContent.meta.ukClass,
-    );
-
+    const { children, className, ...rest } = this.props;
+    const classes = classnames(className, 'uk-offcanvas-content');
     return (
-      <div
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
+      <BlockElement {...rest} as="div" className={classes || undefined}>
         {children}
-      </div>
+      </BlockElement>
     );
   }
 }

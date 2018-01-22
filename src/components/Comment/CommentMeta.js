@@ -4,10 +4,7 @@ import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
 export default class CommentMeta extends BlockElement {
-  static meta = {
-    name: 'CommentMeta',
-    ukClass: 'uk-comment-meta',
-  };
+  static displayName = 'CommentMeta';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -16,17 +13,14 @@ export default class CommentMeta extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
     as: 'ul',
+    className: null,
   };
 
   render() {
     const { className, ...rest } = this.props;
-
-    return (
-      <BlockElement
-        {...rest}
-        className={classnames(className, CommentMeta.meta.ukClass)}
-      />
-    );
+    const classes = classnames(className, 'uk-comment-meta');
+    return <BlockElement {...rest} className={classes || undefined} />;
   }
 }

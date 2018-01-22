@@ -2,15 +2,13 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get, noop } from 'lodash';
+import { noop } from 'lodash';
 import { getOptionsString } from '../../lib';
 import { BlockElement } from '../Base';
 import Grid from '../Grid';
 
 export default class Offcanvas extends BlockElement {
-  static meta = {
-    name: 'Offcanvas',
-  };
+  static displayName = 'Offcanvas';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -30,25 +28,27 @@ export default class Offcanvas extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
+    className: null,
     flip: false,
+    mode: null,
+    onBeforeHide: noop,
+    onBeforeShow: noop,
+    onHidden: noop,
+    onHide: noop,
+    onShow: noop,
+    onShown: noop,
     overlay: false,
+    selectorContainer: null,
   };
 
   componentDidMount() {
-    UIkit.util.on(
-      this.ref,
-      'beforehide',
-      get(this.props, 'onBeforeHide', noop),
-    );
-    UIkit.util.on(
-      this.ref,
-      'beforeshow',
-      get(this.props, 'onBeforeShow', noop),
-    );
-    UIkit.util.on(this.ref, 'hidden', get(this.props, 'onHidden', noop));
-    UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
-    UIkit.util.on(this.ref, 'show', get(this.props, 'onShow', noop));
-    UIkit.util.on(this.ref, 'shown', get(this.props, 'onShown', noop));
+    UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
+    UIkit.util.on(this.ref, 'beforeshow', this.props.onBeforeShow);
+    UIkit.util.on(this.ref, 'hidden', this.props.onHidden);
+    UIkit.util.on(this.ref, 'hide', this.props.onHide);
+    UIkit.util.on(this.ref, 'show', this.props.onShow);
+    UIkit.util.on(this.ref, 'shown', this.props.onShown);
   }
 
   render() {

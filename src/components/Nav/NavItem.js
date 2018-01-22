@@ -6,9 +6,7 @@ import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class NavItem extends BlockElement {
-  static meta = {
-    name: 'NavItem',
-  };
+  static displayName = 'NavItem';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -20,6 +18,7 @@ export default class NavItem extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
     active: false,
     header: false,
     divider: false,

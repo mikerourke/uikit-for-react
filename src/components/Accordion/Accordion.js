@@ -1,8 +1,9 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
+import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { flatten, get, isArray, isNil, max, noop } from 'lodash';
+import { flatten, isArray, isNil, max, noop } from 'lodash';
 import { getOptionsString, HTML } from '../../lib';
 import { BlockElement } from '../Base';
 import AccordionContent from './AccordionContent';
@@ -14,10 +15,7 @@ import AccordionTitle from './AccordionTitle';
  * @see https://getuikit.com/docs/accordion
  */
 export default class Accordion extends BlockElement {
-  static meta = {
-    name: 'Accordion',
-    ukClass: 'uk-accordion',
-  };
+  static displayName = 'Accordion';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -40,14 +38,45 @@ export default class Accordion extends BlockElement {
     onHide: PropTypes.func,
     onShow: PropTypes.func,
     onShown: PropTypes.func,
-    openIndex: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.arrayOf(PropTypes.number),
-    ]),
+    openIndex: CustomPropTypes.and(
+      PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.arrayOf(PropTypes.number),
+      ]),
+      props => {
+        if (isArray(props.openIndex) && !props.multiple) {
+          return new Error(
+            'You must set multiple = true when you pass an array of values to the openIndex prop.',
+          );
+        }
+        return null;
+      },
+    ),
     selectorContent: PropTypes.string,
     selectorTargets: PropTypes.string,
     selectorToggle: PropTypes.string,
     transition: PropTypes.oneOf(HTML.CSS_EASING),
+  };
+
+  static defaultProps = {
+    ...BlockElement.defaultProps,
+    animation: null,
+    className: null,
+    collapsible: false,
+    defaultIndex: 0,
+    hideOpenAnimation: false,
+    multiple: false,
+    onBeforeHide: noop,
+    onBeforeShow: noop,
+    onHidden: noop,
+    onHide: noop,
+    onShow: noop,
+    onShown: noop,
+    openIndex: null,
+    selectorContent: null,
+    selectorTargets: null,
+    selectorToggle: null,
+    transition: null,
   };
 
   static Content = AccordionContent;
@@ -55,20 +84,12 @@ export default class Accordion extends BlockElement {
   static Title = AccordionTitle;
 
   componentDidMount() {
-    UIkit.util.on(
-      this.ref,
-      'beforeshow',
-      get(this.props, 'onBeforeShow', noop),
-    );
-    UIkit.util.on(this.ref, 'show', get(this.props, 'onShow', noop));
-    UIkit.util.on(this.ref, 'shown', get(this.props, 'onShown', noop));
-    UIkit.util.on(
-      this.ref,
-      'beforehide',
-      get(this.props, 'onBeforeHide', noop),
-    );
-    UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
-    UIkit.util.on(this.ref, 'hidden', get(this.props, 'onHidden', noop));
+    UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
+    UIkit.util.on(this.ref, 'beforeshow', this.props.onBeforeShow);
+    UIkit.util.on(this.ref, 'show', this.props.onShow);
+    UIkit.util.on(this.ref, 'shown', this.props.onShown);
+    UIkit.util.on(this.ref, 'hidden', this.props.onHidden);
+    UIkit.util.on(this.ref, 'hide', this.props.onHide);
     this.toggleOpenItems(this.props);
   }
 
@@ -86,7 +107,7 @@ export default class Accordion extends BlockElement {
     // Don't open or close any items if the user didn't specify an openIndex prop.
     if (isNil(props.openIndex)) return;
 
-    const animate = get(props, 'hideOpenAnimation', false) === false;
+    const animate = !props.hideOpenAnimation;
     const openIndices = flatten([props.openIndex]);
     const maxAllowed = React.Children.count(props.children) - 1;
     if (max(openIndices) > maxAllowed) {
@@ -136,17 +157,7 @@ export default class Accordion extends BlockElement {
       ...rest
     } = unhandledProps;
 
-    if (isArray(openIndex) && multiple !== true) {
-      throw new Error(
-        'You must set multiple = true when you pass an array of values to the openIndex prop.',
-      );
-    }
-
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      Accordion.meta.ukClass,
-    );
+    const classes = classnames(className, inheritedClasses, 'uk-accordion');
 
     const componentOptions = getOptionsString({
       active: defaultIndex,

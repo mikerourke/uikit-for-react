@@ -12,10 +12,7 @@ import {
 import { BlockElement } from '../Base';
 
 export default class Navbar extends BlockElement {
-  static meta = {
-    name: 'Navbar',
-    ukClass: 'uk-navbar',
-  };
+  static displayName = 'Navbar';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -38,19 +35,22 @@ export default class Navbar extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
     boundaryAlign: false,
+    className: null,
+    delayHide: null,
+    delayShow: null,
     dropbar: false,
+    dropbarMode: null,
+    dropdownAlign: null,
+    duration: null,
+    mode: null,
+    offset: null,
+    selectorBoundary: null,
     transparent: false,
   };
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
-
     const {
       boundaryAlign,
       children,
@@ -65,12 +65,11 @@ export default class Navbar extends BlockElement {
       offset,
       selectorBoundary,
       ...rest
-    } = unhandledProps;
+    } = this.props;
 
     const classes = classnames(
       className,
-      inheritedClasses,
-      buildClassName(Navbar.meta.ukClass, 'container'),
+      buildClassName('navbar', 'container'),
     );
 
     const componentOptions = getOptionsString({
@@ -87,15 +86,14 @@ export default class Navbar extends BlockElement {
     });
 
     return (
-      <nav
+      <BlockElement
         {...rest}
+        as="nav"
         className={classes || undefined}
-        style={inheritedStyle}
         data-uk-navbar={componentOptions}
-        {...inheritedAttributes}
       >
         {children}
-      </nav>
+      </BlockElement>
     );
   }
 }

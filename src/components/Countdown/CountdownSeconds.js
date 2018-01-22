@@ -5,10 +5,7 @@ import { buildClassName, getElementType } from '../../lib';
 import CountdownLabel from './CountdownLabel';
 
 export default class CountdownSeconds extends React.Component {
-  static meta = {
-    name: 'CountdownSeconds',
-    ukClass: 'uk-countdown-seconds',
-  };
+  static displayName = 'CountdownSeconds';
 
   static propTypes = {
     as: PropTypes.oneOf(['div', 'span']),
@@ -18,6 +15,7 @@ export default class CountdownSeconds extends React.Component {
 
   static defaultProps = {
     as: 'span',
+    className: null,
     label: null,
   };
 
@@ -26,12 +24,11 @@ export default class CountdownSeconds extends React.Component {
 
     const classes = classnames(
       className,
-      CountdownSeconds.meta.ukClass,
+      'uk-countdown-seconds',
       buildClassName('countdown', 'number'),
     );
 
     const Element = getElementType(CountdownSeconds, rest);
-
     if (!label) return <Element className={classes} />;
     return (
       <div>

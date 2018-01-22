@@ -5,9 +5,7 @@ import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class PaginationItem extends BlockElement {
-  static meta = {
-    name: 'PaginationItem',
-  };
+  static displayName = 'PaginationItem';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -19,42 +17,26 @@ export default class PaginationItem extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
     active: false,
+    className: null,
     disabled: false,
+    href: '',
   };
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
+    const { active, children, className, disabled, href, ...rest } = this.props;
 
-    const {
-      active,
-      children,
-      className,
-      disabled,
-      href,
-      ...rest
-    } = unhandledProps;
-
-    const classes = classnames(className, inheritedClasses, {
+    const classes = classnames(className, {
       [buildClassName('active')]: active,
       [buildClassName('disabled')]: disabled,
     });
 
     const InnerElement = active || disabled ? 'span' : 'a';
     return (
-      <li
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
+      <BlockElement {...rest} as="li" className={classes || undefined}>
         <InnerElement href={href}>{children}</InnerElement>
-      </li>
+      </BlockElement>
     );
   }
 }

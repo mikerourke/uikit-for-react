@@ -3,22 +3,22 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
-const ModalFooter = ({ className, ...rest }) => (
-  <BlockElement
-    {...rest}
-    as="div"
-    className={classnames(className, ModalFooter.meta.ukClass)}
-  />
-);
+export default class ModalFooter extends BlockElement {
+  static displayName = 'ModalFooter';
 
-ModalFooter.propTypes = {
-  ...BlockElement.propTypes,
-  className: PropTypes.string,
-};
+  static propTypes = {
+    ...BlockElement.propTypes,
+    className: PropTypes.string,
+  };
 
-ModalFooter.meta = {
-  name: 'ModalFooter',
-  ukClass: 'uk-modal-footer',
-};
+  static defaultProps = {
+    ...BlockElement.defaultProps,
+    className: null,
+  };
 
-export default ModalFooter;
+  render() {
+    const { className, ...rest } = this.props;
+    const classes = classnames(className, 'uk-modal-footer');
+    return <BlockElement {...rest} as="div" className={classes || undefined} />;
+  }
+}

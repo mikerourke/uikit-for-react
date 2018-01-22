@@ -12,15 +12,18 @@ import ArticleTitle from './ArticleTitle';
  * @see https://getuikit.com/docs/article
  */
 export default class Article extends BlockElement {
-  static meta = {
-    name: 'Article',
-    ukClass: 'uk-article',
-  };
+  static displayName = 'Article';
 
   static propTypes = {
     ...BlockElement.propTypes,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
+  };
+
+  static defaultProps = {
+    ...BlockElement.defaultProps,
+    children: null,
+    className: null,
   };
 
   static Body = ArticleBody;
@@ -32,9 +35,7 @@ export default class Article extends BlockElement {
 
   render() {
     const { children, className, ...rest } = this.props;
-
-    const classes = classnames(className, Article.meta.ukClass);
-
+    const classes = classnames(className, 'uk-article');
     return (
       <BlockElement
         {...rest}

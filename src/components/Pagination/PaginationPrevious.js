@@ -1,24 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import { InlineElement } from '../Base';
 
-const PaginationPrevious = ({ className, ...rest }) => (
-  <InlineElement
-    {...rest}
-    as="span"
-    className={classnames(className, PaginationPrevious.meta.ukClass)}
-    data-uk-pagination-previous
-  />
-);
+export default class PaginationPrevious extends InlineElement {
+  static displayName = 'PaginationPrevious';
 
-PaginationPrevious.propTypes = {
-  ...InlineElement.propTypes,
-  className: PropTypes.string,
-};
+  static propTypes = InlineElement.propTypes;
 
-PaginationPrevious.meta = {
-  name: 'PaginationPrevious',
-};
+  static defaultProps = InlineElement.defaultProps;
 
-export default PaginationPrevious;
+  render() {
+    return (
+      <InlineElement {...this.props} as="span" data-uk-pagination-previous />
+    );
+  }
+}

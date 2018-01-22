@@ -5,10 +5,7 @@ import { buildClassName, UIK } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class CardMedia extends BlockElement {
-  static meta = {
-    name: 'CardMedia',
-    ukClass: 'uk-card-media',
-  };
+  static displayName = 'CardMedia';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -19,16 +16,20 @@ export default class CardMedia extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
+    alignTo: null,
+    className: null,
     imgAlt: '',
   };
 
   render() {
     const { alignTo, className, imgAlt, imgSrc, ...rest } = this.props;
 
+    const ukClass = 'uk-card-media';
     const classes = classnames(
       className,
-      CardMedia.meta.ukClass,
-      buildClassName(CardMedia.meta.ukClass, alignTo),
+      ukClass,
+      buildClassName(ukClass, alignTo),
     );
 
     return (

@@ -7,10 +7,7 @@ import DescriptionDetails from './DescriptionDetails';
 import DescriptionTerm from './DescriptionTerm';
 
 export default class DescriptionList extends BlockElement {
-  static meta = {
-    name: 'DescriptionList',
-    ukClass: 'uk-description-list',
-  };
+  static displayName = 'DescriptionList';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -20,6 +17,8 @@ export default class DescriptionList extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
+    className: null,
     divider: false,
   };
 
@@ -29,8 +28,9 @@ export default class DescriptionList extends BlockElement {
   render() {
     const { children, className, divider, ...rest } = this.props;
 
-    const classes = classnames(className, DescriptionList.meta.ukClass, {
-      [buildClassName(DescriptionList.meta.ukClass, 'divider')]: divider,
+    const ukClass = 'uk-description-list';
+    const classes = classnames(className, ukClass, {
+      [buildClassName(ukClass, 'divider')]: divider,
     });
 
     return (

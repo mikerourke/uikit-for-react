@@ -5,10 +5,7 @@ import { BlockElement } from '../Base';
 import Comment from './Comment';
 
 export default class CommentList extends BlockElement {
-  static meta = {
-    name: 'CommentList',
-    ukClass: 'uk-comment-list',
-  };
+  static displayName = 'CommentList';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -16,13 +13,16 @@ export default class CommentList extends BlockElement {
     className: PropTypes.string,
   };
 
+  static defaultProps = {
+    ...BlockElement.defaultProps,
+    className: null,
+  };
+
   static Comment = Comment;
 
   render() {
     const { children, className, ...rest } = this.props;
-
-    const classes = classnames(className, CommentList.meta.ukClass);
-
+    const classes = classnames(className, 'uk-comment-list');
     return (
       <ul {...rest} className={classes || undefined}>
         {React.Children.map(children, child => <li>{child}</li>)}

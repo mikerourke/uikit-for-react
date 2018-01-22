@@ -12,9 +12,7 @@ import { BlockElement } from '../Base';
  * @see https://getuikit.com/docs/accordion#usage
  */
 export default class AccordionItem extends BlockElement {
-  static meta = {
-    name: 'AccordionItem',
-  };
+  static displayName = 'AccordionItem';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -23,6 +21,14 @@ export default class AccordionItem extends BlockElement {
     content: PropTypes.node,
     open: PropTypes.bool,
     title: PropTypes.node,
+  };
+
+  static defaultProps = {
+    ...BlockElement.defaultProps,
+    className: null,
+    content: null,
+    open: false,
+    title: null,
   };
 
   render() {
@@ -39,10 +45,7 @@ export default class AccordionItem extends BlockElement {
       );
     }
 
-    const classes = classnames(className, AccordionItem.meta.ukClass, {
-      [buildClassName('open')]: open,
-    });
-
+    const classes = classnames(className, { [buildClassName('open')]: open });
     return (
       <BlockElement {...rest} as="li" className={classes || undefined}>
         {title && <AccordionTitle>{title}</AccordionTitle>}

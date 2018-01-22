@@ -12,6 +12,7 @@ import {
   UIK,
 } from '../../lib';
 import { BlockElement } from '../Base';
+import CustomPropTypes from 'airbnb-prop-types';
 
 export default class Dropdown extends BlockElement {
   static meta = {
@@ -50,34 +51,54 @@ export default class Dropdown extends BlockElement {
     onToggle: PropTypes.func,
     position: PropTypes.oneOf(UIK.DROP_POSITIONS),
     selectorBoundary: PropTypes.string,
-    selectorToggle: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+    selectorToggle: CustomPropTypes.mutuallyExclusiveProps(
+      PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+      'toggle',
+      'selectorToggle',
+    ),
     shown: PropTypes.bool,
-    toggle: PropTypes.element,
+    toggle: CustomPropTypes.mutuallyExclusiveProps(
+      PropTypes.element,
+      'toggle',
+      'selectorToggle',
+    ),
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
+    animation: null,
     as: 'div',
     boundaryAlign: false,
+    className: null,
+    delayHide: null,
+    delayShow: null,
+    flip: false,
+    mode: null,
+    onBeforeHide: noop,
+    onBeforeShow: noop,
+    onHidden: noop,
+    onHide: noop,
+    onShow: noop,
+    onShown: noop,
+    onStack: noop,
+    onToggle: noop,
+    offset: null,
+    position: null,
+    selectorBoundary: null,
+    selectorToggle: null,
     shown: false,
+    toggle: null,
   };
 
   componentDidMount() {
-    UIkit.util.on(
-      this.ref,
-      'beforehide',
-      get(this.props, 'onBeforeHide', noop),
-    );
-    UIkit.util.on(
-      this.ref,
-      'beforeshow',
-      get(this.props, 'onBeforeShow', noop),
-    );
-    UIkit.util.on(this.ref, 'hidden', get(this.props, 'onHidden', noop));
-    UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
-    UIkit.util.on(this.ref, 'show', get(this.props, 'onShow', noop));
-    UIkit.util.on(this.ref, 'shown', get(this.props, 'onShown', noop));
-    UIkit.util.on(this.ref, 'stack', get(this.props, 'onStack', noop));
-    UIkit.util.on(this.ref, 'toggle', get(this.props, 'onToggle', noop));
+    UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
+    UIkit.util.on(this.ref, 'beforeshow', this.props.onBeforeShow);
+    UIkit.util.on(this.ref, 'hidden', this.props.onHidden);
+    UIkit.util.on(this.ref, 'hide', this.props.onHide);
+    UIkit.util.on(this.ref, 'show', this.props.onShow);
+    UIkit.util.on(this.ref, 'shown', this.props.onShown);
+    UIkit.util.on(this.ref, 'stack', this.props.onStack);
+    UIkit.util.on(this.ref, 'toggle', this.props.onToggle);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -94,8 +115,8 @@ export default class Dropdown extends BlockElement {
 
   renderChildren = () =>
     appendClassNamesToChildren(this.props.children, {
-      Grid: buildClassName(Dropdown.meta.ukClass, 'grid'),
-      Nav: buildClassName(Dropdown.meta.ukClass, 'nav'),
+      Grid: buildClassName('dropdown', 'grid'),
+      Nav: buildClassName('dropdown', 'nav'),
     });
 
   render() {
@@ -131,17 +152,7 @@ export default class Dropdown extends BlockElement {
       ...rest
     } = unhandledProps;
 
-    if (isNil(toggle) && isNil(selectorToggle)) {
-      throw new Error(
-        'You must specify either a "toggle" element or "selectorToggle" prop.',
-      );
-    }
-
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      Dropdown.meta.ukClass,
-    );
+    const classes = classnames(className, inheritedClasses, 'uk-dropdown');
 
     const componentOptions = getOptionsString({
       animation,

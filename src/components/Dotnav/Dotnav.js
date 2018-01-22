@@ -6,10 +6,7 @@ import { BlockElement } from '../Base';
 import DotnavItem from './DotnavItem';
 
 class Dotnav extends BlockElement {
-  static meta = {
-    name: 'Dotnav',
-    ukClass: 'uk-dotnav',
-  };
+  static displayName = 'Dotnav';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -19,6 +16,8 @@ class Dotnav extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
+    className: null,
     vertical: false,
   };
 
@@ -27,8 +26,9 @@ class Dotnav extends BlockElement {
   render() {
     const { children, className, vertical, ...rest } = this.props;
 
-    const classes = classnames(className, Dotnav.meta.ukClass, {
-      [buildClassName(Dotnav.meta.ukClass, 'vertical')]: vertical,
+    const ukClass = 'uk-dotnav';
+    const classes = classnames(className, ukClass, {
+      [buildClassName(ukClass, 'vertical')]: vertical,
     });
 
     return (

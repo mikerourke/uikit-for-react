@@ -7,13 +7,16 @@ import BlockElement from './BlockElement';
 import InlineElement from './InlineElement';
 
 export default class AnyElement extends React.Component {
-  static meta = {
-    name: 'AnyElement',
-  };
+  static displayName = 'AnyElement';
 
   static propTypes = {
     ...BlockElement.propTypes,
     ...InlineElement.propTypes,
+  };
+
+  static defaultProps = {
+    ...BlockElement.defaultProps,
+    ...InlineElement.defaultProps,
   };
 
   static asPropType = PropTypes.oneOfType([

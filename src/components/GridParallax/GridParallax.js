@@ -4,15 +4,19 @@ import { getOptionsString } from '../../lib';
 import Grid, { GridCell } from '../Grid';
 
 export default class GridParallax extends React.Component {
-  static meta = {
-    name: 'GridParallax',
-  };
+  static displayName = 'GridParallax';
 
   static propTypes = {
     ...Grid.propTypes,
     children: PropTypes.node.isRequired,
     target: PropTypes.string,
     translate: PropTypes.number,
+  };
+
+  static defaultProps = {
+    ...Grid.defaultProps,
+    target: null,
+    translate: null,
   };
 
   static Cell = GridCell;

@@ -18,6 +18,7 @@
     "prettier": "prettier --write \"{src,__{tests,mocks}__}/**/*.js\""
   },
   "dependencies": {
+    "airbnb-prop-types": "^2.8.1",
     "classnames": "^2.2.5",
     "lodash": "^4.17.4",
     "nanoid": "^1.0.1",

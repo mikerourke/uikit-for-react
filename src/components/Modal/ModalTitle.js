@@ -1,19 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
-const ModalTitle = ({ className, ...rest }) => (
-  <BlockElement
-    {...rest}
-    className={classnames(className, ModalTitle.meta.ukClass)}
-  />
-);
+export default class ModalTitle extends BlockElement {
+  static displayName = 'ModalTitle';
 
-ModalTitle.propTypes = BlockElement.propTypes;
+  static propTypes = {
+    ...BlockElement.propTypes,
+    className: PropTypes.string,
+  };
 
-ModalTitle.meta = {
-  name: 'ModalTitle',
-  ukClass: 'uk-modal-title',
-};
+  static defaultProps = {
+    ...BlockElement.defaultProps,
+    className: null,
+  };
 
-export default ModalTitle;
+  render() {
+    const { className, ...rest } = this.props;
+    const classes = classnames(className, 'uk-modal-title');
+    return <BlockElement {...rest} as="div" className={classes || undefined} />;
+  }
+}

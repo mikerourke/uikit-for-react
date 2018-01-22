@@ -5,9 +5,7 @@ import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class DotnavItem extends BlockElement {
-  static meta = {
-    name: 'DotnavItem',
-  };
+  static displayName = 'DotnavItem';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -18,7 +16,11 @@ export default class DotnavItem extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
     active: false,
+    children: null,
+    className: null,
+    href: null,
   };
 
   render() {
