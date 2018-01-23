@@ -211,6 +211,7 @@ export const UIK = {
   LOCATIONS: ['top', 'bottom', 'left', 'right'],
   MODES: ['click', 'hover'],
   SIZES,
+  SLIDESHOW_ANIMATIONS: ['fade', 'pull', 'push', 'scale', 'slide'],
   SPACING_MODIFIERS: [...SIZES, 'remove', 'auto'],
   STATUS_COLORS: ['muted', 'primary', 'success', 'warning', 'danger'],
   TEXT_VERTICAL_MODIFIERS: ['baseline', 'top', 'middle', 'bottom'],

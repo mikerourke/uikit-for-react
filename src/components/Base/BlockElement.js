@@ -74,6 +74,7 @@ export default class BlockElement extends BaseElement {
         atXl: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
       }),
     ]),
+    transitionToggle: PropTypes.bool,
   };
 
   static asPropType = PropTypes.oneOfType([
@@ -92,6 +93,7 @@ export default class BlockElement extends BaseElement {
     padding: false,
     position: null,
     textAlign: null,
+    transitionToggle: false,
   };
 
   static getElementProps(props) {
@@ -112,6 +114,7 @@ export default class BlockElement extends BaseElement {
       padding,
       position,
       textAlign,
+      transitionToggle,
       ...rest
     } = unhandledProps;
 
@@ -149,6 +152,7 @@ export default class BlockElement extends BaseElement {
         [buildClassName('column', 'divider')]: get(column, 'divider', false),
         [buildClassName('position', vertProp, horizProp)]: !isCentered,
         [buildClassName('position', 'center')]: isCentered,
+        [buildClassName('transition', 'toggle')]: transitionToggle,
       },
     );
 
@@ -200,7 +204,13 @@ export default class BlockElement extends BaseElement {
       unhandledProps,
     } = this.getInheritedProps(this.props);
 
-    const { children, className = '', ...rest } = unhandledProps;
+    const {
+      children,
+      className = '',
+      transitionToggle,
+      ...rest
+    } = unhandledProps;
+
     const classes = classnames(className, inheritedClasses);
     const Element = getElementType(BlockElement, this.props);
     return (
@@ -208,6 +218,7 @@ export default class BlockElement extends BaseElement {
         {...rest}
         className={classes || undefined}
         style={inheritedStyle}
+        tabIndex={transitionToggle ? 0 : undefined}
         {...inheritedAttributes}
       >
         {children}
