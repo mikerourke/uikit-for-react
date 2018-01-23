@@ -15,7 +15,7 @@ export default class BaseElement extends React.Component {
         reverse: PropTypes.bool,
         fast: PropTypes.bool,
         transformCenter: PropTypes.bool,
-        transformOrigin: CustomPropTypes.and(
+        transformOrigin: CustomPropTypes.and([
           PropTypes.shape({
             horizontal: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS).isRequired,
             vertical: PropTypes.oneOf(UIK.VERTICAL_POSITIONS).isRequired,
@@ -34,7 +34,7 @@ export default class BaseElement extends React.Component {
             }
             return null;
           },
-        ),
+        ]),
       }),
     ]),
     background: PropTypes.oneOfType([
@@ -132,7 +132,10 @@ export default class BaseElement extends React.Component {
       }),
     ]),
     overflow: PropTypes.oneOf(['auto', 'hidden']),
-    resize: PropTypes.oneOf([true, 'vertical']),
+    resize: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.oneOf(['vertical']),
+    ]),
     responsive: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.oneOf(['height', 'width']),

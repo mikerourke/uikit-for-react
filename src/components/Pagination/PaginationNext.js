@@ -1,12 +1,20 @@
 import React from 'react';
-import { InlineElement } from '../Base';
+import PropTypes from 'prop-types';
+import { BlockElement, InlineElement } from '../Base';
 
 export default class PaginationNext extends InlineElement {
   static displayName = 'PaginationNext';
 
-  static propTypes = InlineElement.propTypes;
+  static propTypes = {
+    ...BlockElement.propTypes,
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string,
+  };
 
-  static defaultProps = InlineElement.defaultProps;
+  static defaultProps = {
+    ...BlockElement.defaultProps,
+    className: null,
+  };
 
   render() {
     return <InlineElement {...this.props} as="span" data-uk-pagination-next />;

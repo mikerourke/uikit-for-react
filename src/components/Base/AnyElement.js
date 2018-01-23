@@ -46,9 +46,7 @@ export default class AnyElement extends React.Component {
     } = getInheritedProps(this.props);
 
     const { children, className = '', ...rest } = unhandledProps;
-
     const classes = classnames(className, inheritedClasses);
-
     const Element = getElementType(AnyElement, this.props);
     return (
       <Element

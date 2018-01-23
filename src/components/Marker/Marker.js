@@ -10,19 +10,16 @@ export default class Marker extends InlineElement {
     ...InlineElement.propTypes,
     as: PropTypes.oneOf(HTML.ALL_ELEMENTS),
     children: PropTypes.node.isRequired,
+    className: PropTypes.string,
   };
 
   static defaultProps = {
     ...InlineElement.defaultProps,
     as: 'a',
+    className: null,
   };
 
   render() {
-    const { children, ...rest } = this.props;
-    return (
-      <InlineElement {...rest} data-uk-marker>
-        {children}
-      </InlineElement>
-    );
+    return <InlineElement {...this.props} data-uk-marker />;
   }
 }

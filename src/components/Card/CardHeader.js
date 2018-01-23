@@ -8,6 +8,7 @@ export default class CardHeader extends BlockElement {
 
   static propTypes = {
     ...BlockElement.propTypes,
+    children: PropTypes.node.isRequired,
     className: PropTypes.string,
   };
 

@@ -1,19 +1,18 @@
 import React from 'react';
 import UIkit from 'uikit';
-import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import { get, noop } from 'lodash';
-import { getElementType, getOptionsString } from '../../lib';
-import { BlockElement } from '../Base';
+import classnames from 'classnames';
+import { noop } from 'lodash';
+import { getOptionsString } from '../../lib';
+import { AnyElement } from '../Base';
 
-export default class Sticky extends BlockElement {
-  static meta = {
-    name: 'Sticky',
-  };
+export default class Sticky extends AnyElement {
+  static displayName = 'Sticky';
 
   static propTypes = {
-    ...BlockElement.propTypes,
+    ...AnyElement.propTypes,
     animation: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+    as: AnyElement.asPropType,
     bottom: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.number,
@@ -34,27 +33,40 @@ export default class Sticky extends BlockElement {
   };
 
   static defaultProps = {
+    ...AnyElement.defaultProps,
+    animation: false,
     as: 'div',
+    bottom: false,
+    className: null,
+    clsActive: null,
+    clsInactive: null,
+    media: null,
+    offset: null,
+    onActive: noop,
+    onInactive: noop,
+    showOnUp: false,
+    target: false,
+    top: null,
+    widthElement: null,
   };
 
   componentDidMount() {
-    UIkit.util.on(this.ref, 'active', get(this.props, 'onActive', noop));
-    UIkit.util.on(this.ref, 'inactive', get(this.props, 'onInactive', noop));
+    UIkit.util.on(this.ref, 'active', this.props.onActive);
+    UIkit.util.on(this.ref, 'inactive', this.props.onInactive);
   }
 
   handleRef = element => (this.ref = element);
 
   render() {
+    const { animation, ...propsToParse } = this.props;
     const {
       inheritedAttributes,
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(this.props);
+    } = this.getInheritedProps(propsToParse);
 
     const {
-      animation,
-      as,
       bottom,
       children,
       className,
@@ -84,9 +96,8 @@ export default class Sticky extends BlockElement {
       widthElement,
     });
 
-    const Element = getElementType(Sticky, this.props);
     return (
-      <Element
+      <AnyElement
         {...rest}
         className={classes || undefined}
         ref={this.handleRef}
@@ -95,7 +106,7 @@ export default class Sticky extends BlockElement {
         {...inheritedAttributes}
       >
         {children}
-      </Element>
+      </AnyElement>
     );
   }
 }

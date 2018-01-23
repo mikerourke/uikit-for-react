@@ -6,9 +6,7 @@ import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class TabItem extends BlockElement {
-  static meta = {
-    name: 'TabItem',
-  };
+  static displayName = 'TabItem';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -20,8 +18,11 @@ export default class TabItem extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
     active: false,
+    className: null,
     disabled: false,
+    href: '',
   };
 
   render() {

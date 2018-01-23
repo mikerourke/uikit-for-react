@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { isNil } from 'lodash';
 import AccordionTitle from './AccordionTitle';
@@ -18,7 +19,11 @@ export default class AccordionItem extends BlockElement {
     ...BlockElement.propTypes,
     children: restrictToChildTypes([AccordionContent, AccordionTitle]),
     className: PropTypes.string,
-    content: PropTypes.node,
+    content: CustomPropTypes.mutuallyExclusiveProps(
+      CustomPropTypes.elementType(AccordionContent),
+      'children',
+      'content',
+    ),
     open: PropTypes.bool,
     title: PropTypes.node,
   };

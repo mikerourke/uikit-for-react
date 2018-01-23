@@ -22,7 +22,6 @@ export default class Article extends BlockElement {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    children: null,
     className: null,
   };
 

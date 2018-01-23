@@ -14,6 +14,7 @@ export default class CardTitle extends BlockElement {
       PropTypes.element,
       PropTypes.func,
     ]),
+    children: PropTypes.node.isRequired,
     className: PropTypes.string,
   };
 

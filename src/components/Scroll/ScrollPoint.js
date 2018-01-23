@@ -2,14 +2,11 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import { get, noop } from 'lodash';
+import { noop } from 'lodash';
 import { getElementType, getOptionsString, HTML } from '../../lib';
 
 export default class ScrollPoint extends React.Component {
-  static meta = {
-    name: 'ScrollPoint',
-    attribute: 'data-uikfr-scroll-element',
-  };
+  static displayName = 'ScrollPoint';
 
   static propTypes = {
     as: PropTypes.oneOfType([
@@ -29,29 +26,32 @@ export default class ScrollPoint extends React.Component {
 
   static defaultProps = {
     as: 'a',
+    className: null,
+    duration: null,
+    elementName: null,
     goTo: 'next',
+    offset: null,
+    onBeforeScroll: noop,
+    onScrolled: noop,
+    pointIndex: null,
   };
 
   componentDidMount() {
     const element = this.getElement();
-    UIkit.util.on(
-      element,
-      'beforescroll',
-      get(this.props, 'onBeforeScroll', noop),
-    );
-    UIkit.util.on(element, 'scrolled', get(this.props, 'onScrolled', noop));
+    UIkit.util.on(element, 'beforescroll', this.props.onBeforeScroll);
+    UIkit.util.on(element, 'scrolled', this.props.onScrolled);
   }
 
   getElement = () =>
     document.querySelector(
-      `[${ScrollPoint.meta.attribute}=${this.props.elementName}]`,
+      `[data-uikfr-scroll-element=${this.props.elementName}]`,
     );
 
   handleClick = () => {
     const { goTo, pointIndex } = this.props;
     const targetIndex = goTo === 'next' ? pointIndex + 1 : pointIndex - 1;
     const scrollElements = document.querySelectorAll(
-      `[${ScrollPoint.meta.attribute}]`,
+      '[data-uikfr-scroll-element]',
     );
     const targetNode = scrollElements.item(targetIndex);
     const thisNode = this.getElement();
@@ -76,17 +76,13 @@ export default class ScrollPoint extends React.Component {
       offset,
     });
 
-    const scrollAttribute = {
-      [ScrollPoint.meta.attribute]: elementName,
-    };
-
     const Element = getElementType(ScrollPoint, this.props);
     return (
       <Element
         {...rest}
         onClick={this.handleClick}
         data-uk-scroll={componentOptions}
-        {...scrollAttribute}
+        data-uikfr-scroll-element={elementName}
       />
     );
   }

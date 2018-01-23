@@ -4,9 +4,7 @@ import { generateIdentifier, getElementType, HTML } from '../../lib';
 import ScrollPoint from './ScrollPoint';
 
 export default class ScrollScrollable extends React.Component {
-  static meta = {
-    name: 'ScrollScrollable',
-  };
+  static displayName = 'ScrollScrollable';
 
   static propTypes = {
     as: PropTypes.oneOfType([
@@ -42,8 +40,7 @@ export default class ScrollScrollable extends React.Component {
   };
 
   render() {
-    const { as, children, ...rest } = this.props;
-
+    const { as, ...rest } = this.props;
     const Element = getElementType(ScrollScrollable, this.props);
     return <Element {...rest}>{this.renderChildren()}</Element>;
   }

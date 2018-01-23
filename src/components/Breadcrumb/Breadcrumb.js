@@ -16,7 +16,6 @@ export default class Breadcrumb extends BlockElement {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    children: null,
     className: null,
   };
 

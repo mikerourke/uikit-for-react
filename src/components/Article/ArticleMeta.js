@@ -8,6 +8,7 @@ export default class ArticleMeta extends BlockElement {
 
   static propTypes = {
     ...BlockElement.propTypes,
+    children: PropTypes.node.isRequired,
     className: PropTypes.string,
   };
 

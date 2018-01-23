@@ -38,7 +38,7 @@ export default class Accordion extends BlockElement {
     onHide: PropTypes.func,
     onShow: PropTypes.func,
     onShown: PropTypes.func,
-    openIndex: CustomPropTypes.and(
+    openIndex: CustomPropTypes.and([
       PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.arrayOf(PropTypes.number),
@@ -51,7 +51,7 @@ export default class Accordion extends BlockElement {
         }
         return null;
       },
-    ),
+    ]),
     selectorContent: PropTypes.string,
     selectorTargets: PropTypes.string,
     selectorToggle: PropTypes.string,
@@ -128,15 +128,15 @@ export default class Accordion extends BlockElement {
   handleRef = element => (this.ref = element);
 
   render() {
+    const { animation, ...propsToParse } = this.props;
     const {
       inheritedAttributes,
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(this.props);
+    } = this.getInheritedProps(propsToParse);
 
     const {
-      animation,
       children,
       className,
       collapsible,

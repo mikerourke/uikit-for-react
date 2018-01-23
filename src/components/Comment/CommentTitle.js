@@ -10,6 +10,7 @@ export default class CommentTitle extends BlockElement {
   static propTypes = {
     ...BlockElement.propTypes,
     as: PropTypes.oneOf(HTML.HEADING_ELEMENTS),
+    children: PropTypes.node.isRequired,
     className: PropTypes.string,
   };
 

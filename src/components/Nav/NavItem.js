@@ -20,8 +20,9 @@ export default class NavItem extends BlockElement {
   static defaultProps = {
     ...BlockElement.defaultProps,
     active: false,
-    header: false,
+    className: null,
     divider: false,
+    header: false,
   };
 
   render() {

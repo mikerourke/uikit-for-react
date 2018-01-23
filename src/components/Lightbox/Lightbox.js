@@ -3,15 +3,13 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get, noop } from 'lodash';
+import { noop } from 'lodash';
 import { buildClassName, restrictToChildTypes } from '../../lib';
 import { BlockElement } from '../Base';
 import LightboxItem from './LightboxItem';
 
 export default class Lightbox extends BlockElement {
-  static meta = {
-    name: 'Lightbox',
-  };
+  static displayName = 'Lightbox';
 
   static propTypes = {
     ...BlockElement.propTypes,

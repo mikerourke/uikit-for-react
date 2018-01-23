@@ -5,9 +5,7 @@ import { buildClassName } from '../../lib';
 import { InlineElement } from '../Base';
 
 export default class LightboxItem extends InlineElement {
-  static meta = {
-    name: 'Lightbox',
-  };
+  static displayName = 'Lightbox';
 
   static propTypes = {
     ...InlineElement.propTypes,

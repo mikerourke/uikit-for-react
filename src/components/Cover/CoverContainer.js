@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get } from 'lodash';
 import { getOptionsString } from '../../lib';
@@ -7,16 +8,12 @@ import { BlockElement } from '../Base';
 import Cover from './Cover';
 
 export default class CoverContainer extends BlockElement {
-  static meta = {
-    name: 'CoverContainer',
-    ukClass: 'uk-cover-container',
-  };
   static displayName = 'CoverContainer';
 
   static propTypes = {
     ...BlockElement.propTypes,
     as: BlockElement.asPropType,
-    children: PropTypes.instanceOf(Cover).isRequired,
+    children: CustomPropTypes.elementType(Cover).isRequired,
     className: PropTypes.string,
     responsive: PropTypes.shape({
       height: PropTypes.number,

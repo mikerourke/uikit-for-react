@@ -7,10 +7,7 @@ import { BlockElement } from '../Base';
 import Text from '../Text';
 
 export default class Heading extends BlockElement {
-  static meta = {
-    name: 'Heading',
-    ukClass: 'uk-heading',
-  };
+  static displayName = 'Heading';
 
   static propTypes = {
     ...BlockElement.propTypes,

@@ -8,11 +8,14 @@ export default class CommentBody extends BlockElement {
 
   static propTypes = {
     ...BlockElement.propTypes,
+    as: BlockElement.asPropType,
+    children: PropTypes.node.isRequired,
     className: PropTypes.string,
   };
 
   static defaultProps = {
     ...BlockElement.defaultProps,
+    as: 'div',
     className: null,
   };
 

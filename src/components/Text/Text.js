@@ -2,18 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { get } from 'lodash';
-import { buildClassName, getElementType, HTML, UIK } from '../../lib';
+import { buildClassName, HTML, UIK } from '../../lib';
 import { InlineElement } from '../Base';
 
 export default class Text extends InlineElement {
-  static meta = {
-    name: 'Text',
-    ukClass: 'uk-text',
-  };
+  static displayName = 'Text';
 
   static propTypes = {
     ...InlineElement.propTypes,
-    as: PropTypes.oneOf([...HTML.TEXT_ELEMENTS, ...HTML.BLOCK_ELEMENTS]),
+    as: PropTypes.oneOfType([
+      PropTypes.oneOf([...HTML.TEXT_ELEMENTS, ...HTML.BLOCK_ELEMENTS]),
+      PropTypes.element,
+      PropTypes.func,
+    ]),
     bold: PropTypes.bool,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
@@ -41,9 +42,12 @@ export default class Text extends InlineElement {
   };
 
   static defaultProps = {
+    ...InlineElement.defaultProps,
     as: 'div',
     bold: false,
+    className: null,
     danger: false,
+    horizontalAlign: null,
     large: false,
     lead: false,
     meta: false,
@@ -51,20 +55,15 @@ export default class Text extends InlineElement {
     primary: false,
     small: false,
     success: false,
+    transform: null,
+    verticalAlign: null,
     warning: false,
+    wrapping: null,
   };
 
   render() {
     const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
-
-    const {
       bold,
-      children,
       className,
       danger,
       horizontalAlign,
@@ -80,43 +79,33 @@ export default class Text extends InlineElement {
       warning,
       wrapping,
       ...rest
-    } = unhandledProps;
+    } = this.props;
 
+    const ukClass = 'uk-text';
     const classes = classnames(
       className,
-      inheritedClasses,
-      buildClassName(Text.meta.ukClass, horizontalAlign),
-      buildClassName(Text.meta.ukClass, get(horizontalAlign, 'atSm'), '@s'),
-      buildClassName(Text.meta.ukClass, get(horizontalAlign, 'atMd'), '@m'),
-      buildClassName(Text.meta.ukClass, get(horizontalAlign, 'atLg'), '@l'),
-      buildClassName(Text.meta.ukClass, get(horizontalAlign, 'atXl'), '@xl'),
-      buildClassName(Text.meta.ukClass, transform),
-      buildClassName(Text.meta.ukClass, verticalAlign),
-      buildClassName(Text.meta.ukClass, wrapping),
+      buildClassName(ukClass, horizontalAlign),
+      buildClassName(ukClass, get(horizontalAlign, 'atSm'), '@s'),
+      buildClassName(ukClass, get(horizontalAlign, 'atMd'), '@m'),
+      buildClassName(ukClass, get(horizontalAlign, 'atLg'), '@l'),
+      buildClassName(ukClass, get(horizontalAlign, 'atXl'), '@xl'),
+      buildClassName(ukClass, transform),
+      buildClassName(ukClass, verticalAlign),
+      buildClassName(ukClass, wrapping),
       {
-        [buildClassName(Text.meta.ukClass, 'bold')]: bold,
-        [buildClassName(Text.meta.ukClass, 'danger')]: danger,
-        [buildClassName(Text.meta.ukClass, 'large')]: large,
-        [buildClassName(Text.meta.ukClass, 'lead')]: lead,
-        [buildClassName(Text.meta.ukClass, 'meta')]: meta,
-        [buildClassName(Text.meta.ukClass, 'muted')]: muted,
-        [buildClassName(Text.meta.ukClass, 'primary')]: primary,
-        [buildClassName(Text.meta.ukClass, 'small')]: small,
-        [buildClassName(Text.meta.ukClass, 'success')]: success,
-        [buildClassName(Text.meta.ukClass, 'warning')]: warning,
+        [buildClassName(ukClass, 'bold')]: bold,
+        [buildClassName(ukClass, 'danger')]: danger,
+        [buildClassName(ukClass, 'large')]: large,
+        [buildClassName(ukClass, 'lead')]: lead,
+        [buildClassName(ukClass, 'meta')]: meta,
+        [buildClassName(ukClass, 'muted')]: muted,
+        [buildClassName(ukClass, 'primary')]: primary,
+        [buildClassName(ukClass, 'small')]: small,
+        [buildClassName(ukClass, 'success')]: success,
+        [buildClassName(ukClass, 'warning')]: warning,
       },
     );
 
-    const Element = getElementType(Text, this.props);
-    return (
-      <Element
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
-        {children}
-      </Element>
-    );
+    return <InlineElement {...rest} className={classes || undefined} />;
   }
 }

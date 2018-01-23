@@ -1,29 +1,17 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
+import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { get, isNumber, noop } from 'lodash';
-import {
-  getElementType,
-  getOptionsString,
-  joinListProp,
-  UIK,
-} from '../../lib';
+import { noop } from 'lodash';
+import { getElementType, getOptionsString, joinListProp, UIK } from '../../lib';
 import { InlineElement } from '../Base';
 
 export default class Toggle extends InlineElement {
-  static meta = {
-    name: 'Toggle',
-    ukClass: 'uk-toggle',
-  };
+  static displayName = 'Toggle';
 
   static propTypes = {
     ...InlineElement.propTypes,
-    as: PropTypes.oneOfType([
-      PropTypes.oneOf(['a', 'button']),
-      PropTypes.element,
-      PropTypes.func,
-    ]),
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.ANIMATIONS),
       PropTypes.arrayOf(UIK.ANIMATIONS),
@@ -39,21 +27,25 @@ export default class Toggle extends InlineElement {
         duration: PropTypes.number,
       }),
     ]),
-    children: PropTypes.node.isRequired,
+    as: PropTypes.oneOfType([
+      PropTypes.oneOf(['a', 'button']),
+      PropTypes.element,
+      PropTypes.func,
+    ]),
+    children: PropTypes.node,
     className: PropTypes.string,
     classToggled: PropTypes.string,
-    mediaTrigger: (props, propName) => {
-      if (props.mode !== 'media') {
-        return new Error('You must specify "media" for the "mode" prop in Toggle component.');
-      }
-      if (!UIK.BREAKPOINTS.includes(props[propName]) || !isNumber(props[propName])) {
-        return new Error(
-          'Invalid prop type specified in Toggle component. The value can only be a number or ' +
-          'one of the following: @s, @m, @l, @xl.',
-        );
-      }
-      return null;
-    },
+    mediaTrigger: CustomPropTypes.and([
+      PropTypes.oneOfType([PropTypes.oneOf(UIK.BREAKPOINTS), PropTypes.number]),
+      props => {
+        if (props.mode !== 'media') {
+          return new Error(
+            'You must specify "media" for the "mode" prop in Toggle component.',
+          );
+        }
+        return null;
+      },
+    ]),
     mode: PropTypes.oneOfType([
       PropTypes.oneOf([...UIK.MODES, 'media']),
       PropTypes.arrayOf(UIK.MODES),
@@ -66,26 +58,38 @@ export default class Toggle extends InlineElement {
     onShown: PropTypes.func,
     queued: PropTypes.bool,
     selectorTarget: PropTypes.string,
-    target: PropTypes.oneOfType([
-      PropTypes.element,
-      PropTypes.func,
-    ]),
+    target: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
     toggled: PropTypes.bool,
   };
 
   static defaultProps = {
+    ...InlineElement.defaultProps,
+    animation: null,
     as: 'button',
+    children: null,
+    className: null,
+    classToggled: null,
+    mediaTrigger: null,
+    mode: null,
+    onBeforeHide: noop,
+    onBeforeShow: noop,
+    onHidden: noop,
+    onHide: noop,
+    onShow: noop,
+    onShown: noop,
     queued: false,
+    selectorTarget: null,
+    target: null,
     toggled: false,
   };
 
   componentDidMount() {
-    UIkit.util.on(this.ref, 'beforeshow', get(this.props, 'onBeforeShow', noop));
-    UIkit.util.on(this.ref, 'show', get(this.props, 'onShow', noop));
-    UIkit.util.on(this.ref, 'shown', get(this.props, 'onShown', noop));
-    UIkit.util.on(this.ref, 'beforehide', get(this.props, 'onBeforeHide', noop));
-    UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
-    UIkit.util.on(this.ref, 'hidden', get(this.props, 'onHidden', noop));
+    UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
+    UIkit.util.on(this.ref, 'beforeshow', this.props.onBeforeShow);
+    UIkit.util.on(this.ref, 'hidden', this.props.onHidden);
+    UIkit.util.on(this.ref, 'hide', this.props.onHide);
+    UIkit.util.on(this.ref, 'show', this.props.onShow);
+    UIkit.util.on(this.ref, 'shown', this.props.onShown);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -97,11 +101,7 @@ export default class Toggle extends InlineElement {
   handleRef = element => (this.ref = element);
 
   render() {
-    const {
-      animation,
-      ...propsToParse,
-    } = this.props;
-
+    const { animation, ...propsToParse } = this.props;
     const {
       inheritedAttributes,
       inheritedClasses,
@@ -115,17 +115,19 @@ export default class Toggle extends InlineElement {
       classToggled,
       mediaTrigger,
       mode,
+      onBeforeHide,
+      onBeforeShow,
+      onHidden,
+      onHide,
+      onShow,
+      onShown,
       queued,
       selectorTarget,
       toggled,
       ...rest
     } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      Toggle.meta.ukClass,
-    );
+    const classes = classnames(className, inheritedClasses, 'uk-toggle');
 
     const componentOptions = getOptionsString({
       animation,

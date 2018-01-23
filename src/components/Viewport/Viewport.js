@@ -1,17 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import { getElementType, getOptionsString } from '../../lib';
+import { getOptionsString } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class Viewport extends BlockElement {
-  static meta = {
-    name: 'Viewport',
-    ukClass: 'uk-viewport',
-  };
+  static displayName = 'Viewport';
 
   static propTypes = {
     ...BlockElement.propTypes,
+    as: BlockElement.asPropType,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     expand: PropTypes.bool,
@@ -20,25 +17,18 @@ export default class Viewport extends BlockElement {
     offsetTop: PropTypes.bool,
   };
 
+  static defaultProps = {
+    ...BlockElement.defaultProps,
+    as: 'div',
+    className: null,
+    expand: false,
+    minHeight: null,
+    offsetBottom: false,
+    offsetTop: false,
+  };
+
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
-
-    const {
-      children,
-      className,
-      expand,
-      minHeight,
-      offsetBottom,
-      offsetTop,
-      ...rest
-    } = unhandledProps;
-
-    const classes = classnames(className, inheritedClasses);
+    const { expand, minHeight, offsetBottom, offsetTop, ...rest } = this.props;
 
     const componentOptions = getOptionsString({
       expand,
@@ -47,17 +37,8 @@ export default class Viewport extends BlockElement {
       offsetTop,
     });
 
-    const Element = getElementType(Viewport, this.props);
     return (
-      <Element
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        data-uk-height-viewport={componentOptions}
-        {...inheritedAttributes}
-      >
-        {children}
-      </Element>
+      <BlockElement {...rest} data-uk-height-viewport={componentOptions} />
     );
   }
 }

@@ -16,17 +16,20 @@ export default class Card extends BlockElement {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    children: CustomPropTypes.and(PropTypes.node.isRequired, props => {
-      if (
-        getIfHasChildType(props.children, CardBody) &&
-        getIfHasChildType(props.children, CardContent)
-      ) {
-        return new Error(
-          'You cannot specify CardContent and CardBody as children, it must be one or the other.',
-        );
-      }
-      return null;
-    }),
+    children: CustomPropTypes.and([
+      PropTypes.node.isRequired,
+      props => {
+        if (
+          getIfHasChildType(props.children, CardBody) &&
+          getIfHasChildType(props.children, CardContent)
+        ) {
+          return new Error(
+            'You cannot specify CardContent and CardBody as children, it must be one or the other.',
+          );
+        }
+        return null;
+      },
+    ]),
     className: PropTypes.string,
     hover: PropTypes.bool,
     primary: PropTypes.bool,
@@ -36,7 +39,6 @@ export default class Card extends BlockElement {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    children: null,
     className: null,
     hover: false,
     primary: false,
@@ -79,10 +81,6 @@ export default class Card extends BlockElement {
       },
     );
 
-    return (
-      <BlockElement {...rest} as="div" className={classes || undefined}>
-        {children}
-      </BlockElement>
-    );
+    return <BlockElement {...rest} as="div" className={classes || undefined} />;
   }
 }

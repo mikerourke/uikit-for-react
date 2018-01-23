@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
+import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { get, isNil, noop } from 'lodash';
+import { noop } from 'lodash';
 import {
   appendClassNamesToChildren,
   buildClassName,
@@ -12,13 +13,9 @@ import {
   UIK,
 } from '../../lib';
 import { BlockElement } from '../Base';
-import CustomPropTypes from 'airbnb-prop-types';
 
 export default class Dropdown extends BlockElement {
-  static meta = {
-    name: 'Dropdown',
-    ukClass: 'uk-dropdown',
-  };
+  static displayName = 'Dropdown';
 
   static propTypes = {
     ...BlockElement.propTypes,

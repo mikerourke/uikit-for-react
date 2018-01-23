@@ -6,9 +6,7 @@ import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class SubnavItem extends BlockElement {
-  static meta = {
-    name: 'SubnavItem',
-  };
+  static displayName = 'SubnavItem';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -19,32 +17,23 @@ export default class SubnavItem extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
     active: false,
+    className: null,
+    href: '',
   };
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
+    const { active, children, className, href, ...rest } = this.props;
 
-    const { active, children, className, href, ...rest } = unhandledProps;
-
-    const classes = classnames(className, inheritedClasses, {
+    const classes = classnames(className, {
       [buildClassName('active')]: active,
     });
 
     return (
-      <li
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
+      <BlockElement {...rest} as="li" className={classes || undefined}>
         {isObject(children) ? children : <a href={href}>{children}</a>}
-      </li>
+      </BlockElement>
     );
   }
 }

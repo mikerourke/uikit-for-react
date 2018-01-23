@@ -34,14 +34,14 @@ export default class Alert extends BlockElement {
     as: BlockElement.asPropType,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
-    closeable: CustomPropTypes.and(PropTypes.bool, props => {
+    closeable: CustomPropTypes.and([PropTypes.bool, props => {
       if (props.closeable && getIfHasChildType(props.children, Close)) {
         return new Error(
           'You cannot have an instance of Close inside an Alert if the "closeable" prop is true.',
         );
       }
       return null;
-    }),
+    }]),
     closeOptions: PropTypes.shape(Close.propTypes),
     danger: PropTypes.bool,
     onBeforeHide: PropTypes.func,

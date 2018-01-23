@@ -2,7 +2,7 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { getElementType, getOptionsString } from '../../lib';
+import { getOptionsString } from '../../lib';
 import { BlockElement } from '../Base';
 import CountdownDays from './CountdownDays';
 import CountdownHours from './CountdownHours';
@@ -12,10 +12,6 @@ import CountdownSeconds from './CountdownSeconds';
 import CountdownSeparator from './CountdownSeparator';
 
 export default class Countdown extends BlockElement {
-  static meta = {
-    name: 'Countdown',
-    ukClass: 'uk-countdown',
-  };
   static displayName = 'Countdown';
 
   static propTypes = {

@@ -51,7 +51,7 @@ storiesOf('Accordion', module)
 
   .add('Multiple open items', () => (
     <Container margin={{ all: 'large' }}>
-      <Accordion multiple openIndex={[1, 2]}>
+      <Accordion collapsible multiple openIndex={[1, 2]}>
         <Accordion.Item>
           <Accordion.Title href="#">Item 1</Accordion.Title>
           <Accordion.Content>{firstParagraph}</Accordion.Content>

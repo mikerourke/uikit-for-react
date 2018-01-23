@@ -29,7 +29,6 @@ export default class Section extends BlockElement {
   render() {
     const {
       background,
-      children,
       className,
       overlap,
       padding,
@@ -50,10 +49,6 @@ export default class Section extends BlockElement {
       },
     );
 
-    return (
-      <BlockElement {...rest} className={classes || undefined}>
-        {children}
-      </BlockElement>
-    );
+    return <BlockElement {...rest} className={classes || undefined} />;
   }
 }

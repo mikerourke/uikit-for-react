@@ -10,11 +10,14 @@ export default class ArticleTitle extends BlockElement {
   static propTypes = {
     ...BlockElement.propTypes,
     as: PropTypes.oneOf(HTML.HEADING_ELEMENTS),
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string,
   };
 
   static defaultProps = {
     ...BlockElement.defaultProps,
     as: 'h1',
+    className: null,
   };
 
   render() {

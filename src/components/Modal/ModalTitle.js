@@ -8,6 +8,7 @@ export default class ModalTitle extends BlockElement {
 
   static propTypes = {
     ...BlockElement.propTypes,
+    children: PropTypes.node.isRequired,
     className: PropTypes.string,
   };
 

@@ -1,14 +1,12 @@
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import PropTypes from 'prop-types';
 import UIkit from 'uikit';
+import PropTypes from 'prop-types';
 import { get, noop, without } from 'lodash';
 import { UIK } from '../../lib';
 
 export default class Notification extends React.Component {
-  static meta = {
-    name: 'Notification',
-  };
+  static displayName = 'Notification';
 
   static propTypes = {
     children: PropTypes.node.isRequired,

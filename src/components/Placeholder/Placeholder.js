@@ -8,11 +8,13 @@ export default class Placeholder extends BlockElement {
 
   static propTypes = {
     ...BlockElement.propTypes,
+    children: PropTypes.node,
     className: PropTypes.string,
   };
 
   static defaultProps = {
     ...BlockElement.defaultProps,
+    children: null,
     className: null,
   };
 

@@ -12,6 +12,7 @@ export default class AccordionTitle extends InlineElement {
 
   static propTypes = {
     ...InlineElement.propTypes,
+    children: PropTypes.node.isRequired,
     className: PropTypes.string,
   };
 

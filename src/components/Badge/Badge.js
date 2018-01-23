@@ -9,11 +9,14 @@ export default class Badge extends InlineElement {
   static propTypes = {
     ...InlineElement.propTypes,
     as: PropTypes.oneOf(['a', 'span']),
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string,
   };
 
   static defaultProps = {
     ...InlineElement.defaultProps,
     as: 'span',
+    className: null,
   };
 
   render() {

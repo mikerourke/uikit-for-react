@@ -6,10 +6,7 @@ import { BlockElement } from '../Base';
 import SubnavItem from './SubnavItem';
 
 export default class Subnav extends BlockElement {
-  static meta = {
-    name: 'Subnav',
-    ukClass: 'uk-subnav',
-  };
+  static displayName = 'Subnav';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -20,6 +17,8 @@ export default class Subnav extends BlockElement {
   };
 
   static defaultProps = {
+    ...BlockElement.defaultProps,
+    className: null,
     divider: false,
     pill: false,
   };
@@ -27,34 +26,13 @@ export default class Subnav extends BlockElement {
   static Item = SubnavItem;
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(this.props);
+    const { className, divider, pill, ...rest } = this.props;
 
-    const { children, className, divider, pill, ...rest } = unhandledProps;
+    const classes = classnames(className, 'uk-subnav', {
+      [buildClassName('subnav', 'divider')]: divider,
+      [buildClassName('subnav', 'pill')]: pill,
+    });
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      Subnav.meta.ukClass,
-      {
-        [buildClassName('subnav', 'divider')]: divider,
-        [buildClassName('subnav', 'pill')]: pill,
-      },
-    );
-
-    return (
-      <ul
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
-        {children}
-      </ul>
-    );
+    return <BlockElement {...rest} as="ul" className={classes || undefined} />;
   }
 }

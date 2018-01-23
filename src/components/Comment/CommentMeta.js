@@ -9,6 +9,7 @@ export default class CommentMeta extends BlockElement {
   static propTypes = {
     ...BlockElement.propTypes,
     as: PropTypes.oneOf(['p', 'ul']),
+    children: PropTypes.node.isRequired,
     className: PropTypes.string,
   };
 

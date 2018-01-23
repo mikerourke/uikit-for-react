@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import UIkit from 'uikit';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { get, noop } from 'lodash';
 import { buildClassName, getOptionsString } from '../../lib';

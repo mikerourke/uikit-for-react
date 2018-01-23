@@ -2,15 +2,12 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get, noop } from 'lodash';
-import { getElementType, getOptionsString, HTML, UIK } from '../../lib';
+import { noop } from 'lodash';
+import { getElementType, getOptionsString, UIK } from '../../lib';
 import { AnyElement } from '../Base';
 
 export default class Tooltip extends AnyElement {
-  static meta = {
-    name: 'Tooltip',
-    ukClass: 'uk-tooltip',
-  };
+  static displayName = 'Tooltip';
 
   static propTypes = {
     ...AnyElement.propTypes,
@@ -29,7 +26,7 @@ export default class Tooltip extends AnyElement {
         duration: PropTypes.number,
       }),
     ]),
-    as: PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
+    as: AnyElement.asPropType,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     clsActive: PropTypes.string,
@@ -56,25 +53,30 @@ export default class Tooltip extends AnyElement {
   };
 
   static defaultProps = {
+    ...AnyElement.defaultProps,
+    animation: null,
     as: 'div',
+    className: null,
+    clsActive: null,
+    delay: null,
+    offset: null,
+    onBeforeHide: noop,
+    onBeforeShow: noop,
+    onHidden: noop,
+    onHide: noop,
+    onShow: noop,
+    onShown: noop,
+    position: null,
     shown: false,
   };
 
   componentDidMount() {
-    UIkit.util.on(
-      this.ref,
-      'beforehide',
-      get(this.props, 'onBeforeHide', noop),
-    );
-    UIkit.util.on(
-      this.ref,
-      'beforeshow',
-      get(this.props, 'onBeforeShow', noop),
-    );
-    UIkit.util.on(this.ref, 'hidden', get(this.props, 'onHidden', noop));
-    UIkit.util.on(this.ref, 'hide', get(this.props, 'onHide', noop));
-    UIkit.util.on(this.ref, 'show', get(this.props, 'onShow', noop));
-    UIkit.util.on(this.ref, 'shown', get(this.props, 'onShown', noop));
+    UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
+    UIkit.util.on(this.ref, 'beforeshow', this.props.onBeforeShow);
+    UIkit.util.on(this.ref, 'hidden', this.props.onHidden);
+    UIkit.util.on(this.ref, 'hide', this.props.onHide);
+    UIkit.util.on(this.ref, 'show', this.props.onShow);
+    UIkit.util.on(this.ref, 'shown', this.props.onShown);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -91,7 +93,6 @@ export default class Tooltip extends AnyElement {
 
   render() {
     const { animation, position, ...propsToParse } = this.props;
-
     const {
       inheritedAttributes,
       inheritedClasses,
@@ -115,11 +116,7 @@ export default class Tooltip extends AnyElement {
       ...rest
     } = unhandledProps;
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      Tooltip.meta.ukClass,
-    );
+    const classes = classnames(className, inheritedClasses, 'uk-tooltip');
 
     const componentOptions = getOptionsString({
       animation,

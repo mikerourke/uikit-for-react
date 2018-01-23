@@ -30,15 +30,7 @@ export default class List extends BlockElement {
   static Item = ListItem;
 
   render() {
-    const {
-      bullet,
-      children,
-      className,
-      divider,
-      large,
-      striped,
-      ...rest
-    } = this.props;
+    const { bullet, className, divider, large, striped, ...rest } = this.props;
 
     const ukClass = 'uk-list';
     const classes = classnames(className, ukClass, {
@@ -48,10 +40,6 @@ export default class List extends BlockElement {
       [buildClassName(ukClass, 'striped')]: striped,
     });
 
-    return (
-      <BlockElement {...rest} as="ul" className={classes || undefined}>
-        {children}
-      </BlockElement>
-    );
+    return <BlockElement {...rest} as="ul" className={classes || undefined} />;
   }
 }

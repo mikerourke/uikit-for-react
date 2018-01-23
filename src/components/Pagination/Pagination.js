@@ -26,12 +26,8 @@ export default class Pagination extends BlockElement {
   static Previous = PaginationPrevious;
 
   render() {
-    const { children, className, ...rest } = this.props;
+    const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-pagination');
-    return (
-      <BlockElement {...rest} as="ul" className={classes || undefined}>
-        {children}
-      </BlockElement>
-    );
+    return <BlockElement {...rest} as="ul" className={classes || undefined} />;
   }
 }
