@@ -3,7 +3,7 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { flatten, get, isArray, isNil, max, noop } from 'lodash';
+import { flatten, isArray, isNil, max, noop } from 'lodash';
 import { getOptionsString, HTML } from '../../lib';
 import { BlockElement } from '../Base';
 import AccordionContent from './AccordionContent';
@@ -84,6 +84,7 @@ export default class Accordion extends React.Component {
   static Title = AccordionTitle;
 
   componentDidMount() {
+    if (!this.ref) return;
     UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
     UIkit.util.on(this.ref, 'beforeshow', this.props.onBeforeShow);
     UIkit.util.on(this.ref, 'show', this.props.onShow);
@@ -126,9 +127,8 @@ export default class Accordion extends React.Component {
   };
 
   handleRef = element => {
-    const foundRef = get(this, ['ref', 'blockRef']);
-    if (isNil(foundRef)) return;
-    this.ref = isNil(element.blockRef) ? element : element.blockRef;
+    if (!element) return;
+    this.ref = isNil(element.ref) ? element : element.ref;
   };
 
   render() {

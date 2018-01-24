@@ -2,7 +2,7 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { noop } from 'lodash';
+import { isNil, noop } from 'lodash';
 import {
   buildClassName,
   findChildByType,
@@ -73,6 +73,7 @@ export default class Tab extends React.Component {
   static Item = TabItem;
 
   componentDidMount() {
+    if (!this.ref) return;
     UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
     UIkit.util.on(this.ref, 'beforeshow', this.props.onBeforeShow);
     UIkit.util.on(this.ref, 'hidden', this.props.onHidden);
@@ -88,7 +89,10 @@ export default class Tab extends React.Component {
     }
   }
 
-  handleRef = element => (this.ref = element);
+  handleRef = element => {
+    if (!element) return;
+    this.ref = isNil(element.ref) ? element : element.ref;
+  };
 
   validateActiveIndex = () => {
     const { children, activeIndex } = this.props;
@@ -101,18 +105,10 @@ export default class Tab extends React.Component {
   };
 
   render() {
-    const { animation, ...propsToParse } = this.props;
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = BlockElement.getInheritedProps(propsToParse);
-
     const {
       activeIndex,
       align,
-      children,
+      animation,
       className,
       defaultIndex,
       media,
@@ -126,15 +122,11 @@ export default class Tab extends React.Component {
       selectorToggle,
       swiping,
       ...rest
-    } = unhandledProps;
+    } = this.props;
 
     this.validateActiveIndex();
 
-    const classes = classnames(
-      className,
-      inheritedClasses,
-      buildClassName('tab', align),
-    );
+    const classes = classnames(className, buildClassName('tab', align));
 
     const componentOptions = getOptionsString({
       animation,
@@ -146,16 +138,13 @@ export default class Tab extends React.Component {
     });
 
     return (
-      <ul
+      <BlockElement
         {...rest}
-        className={classes}
+        as="ul"
+        className={classes || undefined}
         ref={this.handleRef}
-        style={inheritedStyle}
         data-uk-tab={componentOptions}
-        {...inheritedAttributes}
-      >
-        {children}
-      </ul>
+      />
     );
   }
 }

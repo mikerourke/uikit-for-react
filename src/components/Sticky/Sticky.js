@@ -1,8 +1,7 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import { noop } from 'lodash';
+import { isNil, noop } from 'lodash';
 import { getOptionsString } from '../../lib';
 import { EveryElement } from '../Base';
 
@@ -51,25 +50,20 @@ export default class Sticky extends React.Component {
   };
 
   componentDidMount() {
+    if (!this.ref) return;
     UIkit.util.on(this.ref, 'active', this.props.onActive);
     UIkit.util.on(this.ref, 'inactive', this.props.onInactive);
   }
 
-  handleRef = element => (this.ref = element);
+  handleRef = element => {
+    if (!element) return;
+    this.ref = isNil(element.ref) ? element : element.ref;
+  };
 
   render() {
-    const { animation, ...propsToParse } = this.props;
     const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = EveryElement.getInheritedProps(propsToParse);
-
-    const {
+      animation,
       bottom,
-      children,
-      className,
       clsActive,
       clsInactive,
       media,
@@ -79,9 +73,7 @@ export default class Sticky extends React.Component {
       top,
       widthElement,
       ...rest
-    } = unhandledProps;
-
-    const classes = classnames(className, inheritedClasses);
+    } = this.props;
 
     const componentOptions = getOptionsString({
       animation,
@@ -99,14 +91,9 @@ export default class Sticky extends React.Component {
     return (
       <EveryElement
         {...rest}
-        className={classes || undefined}
         ref={this.handleRef}
-        style={inheritedStyle}
         data-uk-sticky={componentOptions}
-        {...inheritedAttributes}
-      >
-        {children}
-      </EveryElement>
+      />
     );
   }
 }

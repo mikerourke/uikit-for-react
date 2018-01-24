@@ -3,13 +3,7 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import { noop } from 'lodash';
-import classnames from 'classnames';
-import {
-  buildClassName,
-  getElementType,
-  getOptionsString,
-  UIK,
-} from '../../lib';
+import { buildClassName, getOptionsString, UIK } from '../../lib';
 import { BlockElement } from '../Base';
 import SlideshowItem from './SlideshowItem';
 
@@ -71,6 +65,7 @@ export default class Slideshow extends React.Component {
   static Item = SlideshowItem;
 
   componentDidMount() {
+    if (!this.ref) return;
     UIkit.util.on(this.ref, 'beforeitemhide', this.props.onBeforeItemHide);
     UIkit.util.on(this.ref, 'beforeitemshow', this.props.onBeforeItemShow);
     UIkit.util.on(this.ref, 'itemhidden', this.props.onItemHidden);
@@ -79,23 +74,18 @@ export default class Slideshow extends React.Component {
     UIkit.util.on(this.ref, 'itemshown', this.props.onItemShown);
   }
 
-  handleRef = element => (this.ref = element);
+  handleRef = element => {
+    if (!element) return;
+    this.ref = isNil(element.ref) ? element : element.ref;
+  };
 
   render() {
-    const { animation, ...propsToParse } = this.props;
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = BlockElement.getInheritedProps(propsToParse);
-
     const {
       activeIndex,
+      animation,
       autoplay,
       autoplayInterval,
       children,
-      className,
       finite,
       maxHeight,
       minHeight,
@@ -109,9 +99,7 @@ export default class Slideshow extends React.Component {
       pauseOnHover,
       ratio,
       ...rest
-    } = unhandledProps;
-
-    const classes = classnames(className, inheritedClasses);
+    } = this.props;
 
     const componentOptions = getOptionsString({
       activeIndex,
@@ -125,18 +113,14 @@ export default class Slideshow extends React.Component {
       ratio,
     });
 
-    const Element = getElementType(Slideshow, this.props);
     return (
-      <Element
+      <BlockElement
         {...rest}
-        className={classes || undefined}
         ref={this.handleRef}
-        style={inheritedStyle}
         data-uk-slideshow={componentOptions}
-        {...inheritedAttributes}
       >
         <ul className={buildClassName('slideshow', 'items')}>{children}</ul>
-      </Element>
+      </BlockElement>
     );
   }
 }

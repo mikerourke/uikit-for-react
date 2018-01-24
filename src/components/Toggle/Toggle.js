@@ -3,8 +3,8 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { noop } from 'lodash';
-import { getElementType, getOptionsString, joinListProp, UIK } from '../../lib';
+import { isNil, noop } from 'lodash';
+import { getOptionsString, joinListProp, UIK } from '../../lib';
 import { InlineElement } from '../Base';
 
 export default class Toggle extends React.Component {
@@ -98,19 +98,14 @@ export default class Toggle extends React.Component {
     }
   }
 
-  handleRef = element => (this.ref = element);
+  handleRef = element => {
+    if (!element) return;
+    this.ref = isNil(element.ref) ? element : element.ref;
+  };
 
   render() {
-    const { animation, ...propsToParse } = this.props;
     const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = InlineElement.getInheritedProps(propsToParse);
-
-    const {
-      children,
+      animation,
       className,
       classToggled,
       mediaTrigger,
@@ -125,9 +120,9 @@ export default class Toggle extends React.Component {
       selectorTarget,
       toggled,
       ...rest
-    } = unhandledProps;
+    } = this.props;
 
-    const classes = classnames(className, inheritedClasses, 'uk-toggle');
+    const classes = classnames(className, 'uk-toggle');
 
     const componentOptions = getOptionsString({
       animation,
@@ -138,18 +133,13 @@ export default class Toggle extends React.Component {
       target: selectorTarget,
     });
 
-    const Element = getElementType(Toggle, this.props);
     return (
-      <Element
+      <InlineElement
         {...rest}
-        className={classes}
+        className={classes || undefined}
         ref={this.handleRef}
-        style={inheritedStyle}
         data-uk-toggle={componentOptions}
-        {...inheritedAttributes}
-      >
-        {children}
-      </Element>
+      />
     );
   }
 }

@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import { buildClassName } from '../../lib';
 import { InlineElement } from '../Base';
 
 export default class LightboxItem extends React.Component {
-  static displayName = 'Lightbox';
+  static displayName = 'LightboxItem';
 
   static propTypes = {
     ...InlineElement.propTypes,
@@ -22,34 +20,26 @@ export default class LightboxItem extends React.Component {
   };
 
   static defaultProps = {
+    ...InlineElement.defaultProps,
     as: 'a',
+    caption: null,
+    className: null,
+    poster: null,
+    source: null,
+    type: null,
   };
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = InlineElement.getInheritedProps(this.props);
-
-    const { children, className, divider, pill, ...rest } = unhandledProps;
-
-    const classes = classnames(className, inheritedClasses, {
-      [buildClassName('subnav', 'divider')]: divider,
-      [buildClassName('subnav', 'pill')]: pill,
-    });
-
+    const { caption, poster, source, type, ...rest } = this.props;
     return (
-      <a
+      <InlineElement
         {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        data-lightbox
-        {...inheritedAttributes}
-      >
-        {children}
-      </a>
+        as="a"
+        href={source}
+        data-caption={caption}
+        data-poster={poster}
+        data-type={type}
+      />
     );
   }
 }

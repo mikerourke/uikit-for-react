@@ -2,7 +2,7 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get, noop } from 'lodash';
+import { get, isNil, noop } from 'lodash';
 import { buildClassName, getOptionsString } from '../../lib';
 import { BlockElement } from '../Base';
 import Close from '../Close';
@@ -70,6 +70,7 @@ export default class Modal extends React.Component {
   static Title = ModalTitle;
 
   componentDidMount() {
+    if (!this.ref) return;
     UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
     UIkit.util.on(this.ref, 'beforeshow', this.props.onBeforeShow);
     UIkit.util.on(this.ref, 'hidden', this.props.onHidden);
@@ -88,16 +89,12 @@ export default class Modal extends React.Component {
     }
   }
 
-  handleRef = element => (this.ref = element);
+  handleRef = element => {
+    if (!element) return;
+    this.ref = isNil(element.ref) ? element : element.ref;
+  };
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = BlockElement.getInheritedProps(this.props);
-
     const {
       bgClose,
       children,
@@ -120,10 +117,10 @@ export default class Modal extends React.Component {
       stack,
       toggle,
       ...rest
-    } = unhandledProps;
+    } = this.props;
 
     const ukClass = 'uk-modal';
-    const classes = classnames(className, inheritedClasses, ukClass, {
+    const classes = classnames(className, ukClass, {
       [buildClassName(ukClass, 'container')]: container,
       [buildClassName(ukClass, 'full')]: full,
     });
@@ -150,19 +147,18 @@ export default class Modal extends React.Component {
     );
 
     return (
-      <div
+      <BlockElement
         {...rest}
+        as="div"
         className={classes}
         ref={this.handleRef}
-        style={inheritedStyle}
         data-uk-modal={componentOptions}
-        {...inheritedAttributes}
       >
         <div {...dialogOptions} className={dialogClasses}>
           {closeButton && <Close {...closeOptions} className={closeClasses} />}
           {children}
         </div>
-      </div>
+      </BlockElement>
     );
   }
 }

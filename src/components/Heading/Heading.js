@@ -38,14 +38,6 @@ export default class Heading extends React.Component {
   };
 
   render() {
-    const { as, ...propsToParse } = this.props;
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = BlockElement.getInheritedProps(propsToParse);
-
     const {
       bullet,
       children,
@@ -56,12 +48,11 @@ export default class Heading extends React.Component {
       line,
       primary,
       ...rest
-    } = unhandledProps;
+    } = this.props;
 
     const ukClass = 'uk-heading';
     const classes = classnames(
       className,
-      inheritedClasses,
       ukClass,
       buildClassName(headingClass),
       buildClassName(ukClass, 'line', line),
@@ -76,11 +67,8 @@ export default class Heading extends React.Component {
     return (
       <Text
         {...rest}
-        as={as}
         className={classes || undefined}
         horizontalAlign={isString(line) ? line : undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
       >
         {line === true ? <span>{children}</span> : children}
       </Text>

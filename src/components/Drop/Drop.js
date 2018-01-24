@@ -3,11 +3,10 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { noop } from 'lodash';
+import { isNil, noop } from 'lodash';
 import {
   appendClassNamesToChildren,
   buildClassName,
-  getElementType,
   getOptionsString,
   joinListProp,
   UIK,
@@ -88,6 +87,7 @@ export default class Drop extends React.Component {
   };
 
   componentDidMount() {
+    if (!this.ref) return;
     UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
     UIkit.util.on(this.ref, 'beforeshow', this.props.onBeforeShow);
     UIkit.util.on(this.ref, 'hidden', this.props.onHidden);
@@ -108,23 +108,19 @@ export default class Drop extends React.Component {
     }
   }
 
-  handleRef = element => (this.ref = element);
+  handleRef = element => {
+    if (!element) return;
+    this.ref = isNil(element.ref) ? element : element.ref;
+  };
 
-  renderChildren = () =>
-    appendClassNamesToChildren(this.props.children, {
+  renderChildren = children =>
+    appendClassNamesToChildren(children, {
       Grid: buildClassName('drop', 'grid'),
     });
 
   render() {
-    const { animation, ...propsToParse } = this.props;
     const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = BlockElement.getInheritedProps(propsToParse);
-
-    const {
+      animation,
       boundaryAlign,
       children,
       className,
@@ -146,9 +142,9 @@ export default class Drop extends React.Component {
       selectorToggle,
       toggle,
       ...rest
-    } = unhandledProps;
+    } = this.props;
 
-    const classes = classnames(className, inheritedClasses, 'uk-drop');
+    const classes = classnames(className, 'uk-drop');
 
     const componentOptions = getOptionsString({
       animation,
@@ -163,20 +159,17 @@ export default class Drop extends React.Component {
       toggle: selectorToggle,
     });
 
-    const Element = getElementType(Drop, this.props);
     return (
       <Fragment>
         {toggle && toggle}
-        <Element
+        <BlockElement
           {...rest}
           className={classes}
           ref={this.handleRef}
-          style={inheritedStyle}
           data-uk-drop={componentOptions}
-          {...inheritedAttributes}
         >
-          {this.renderChildren()}
-        </Element>
+          {this.renderChildren(children)}
+        </BlockElement>
       </Fragment>
     );
   }

@@ -3,7 +3,7 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { get, noop } from 'lodash';
+import { get, isNil, noop } from 'lodash';
 import {
   buildClassName,
   getElementType,
@@ -72,22 +72,19 @@ export default class Alert extends React.Component {
   };
 
   componentDidMount() {
+    if (!this.ref) return;
     UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
     UIkit.util.on(this.ref, 'hide', this.props.onHide);
   }
 
-  handleRef = element => (this.ref = element);
+  handleRef = element => {
+    if (!element) return;
+    this.ref = isNil(element.ref) ? element : element.ref;
+  };
 
   render() {
-    const { animation, ...propsToParse } = this.props;
     const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = BlockElement.getInheritedProps(propsToParse);
-
-    const {
+      animation,
       children,
       className,
       closeable,
@@ -100,10 +97,10 @@ export default class Alert extends React.Component {
       success,
       warning,
       ...rest
-    } = unhandledProps;
+    } = this.props;
 
     const ukClass = 'uk-alert';
-    const classes = classnames(className, inheritedClasses, ukClass, {
+    const classes = classnames(className, ukClass, {
       [buildClassName(ukClass, 'danger')]: danger,
       [buildClassName(ukClass, 'primary')]: primary,
       [buildClassName(ukClass, 'success')]: success,
@@ -123,19 +120,16 @@ export default class Alert extends React.Component {
       },
     );
 
-    const Element = getElementType(Alert, this.props);
     return (
-      <Element
+      <BlockElement
         {...rest}
         className={classes || undefined}
         ref={this.handleRef}
-        style={inheritedStyle}
         data-uk-alert={componentOptions}
-        {...inheritedAttributes}
       >
         {closeable && <Close {...closeOptions} className={closeClasses} />}
         {children}
-      </Element>
+      </BlockElement>
     );
   }
 }

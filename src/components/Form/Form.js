@@ -9,7 +9,6 @@ export default class Form extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    as: BlockElement.asPropType,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     horizontal: PropTypes.bool,
@@ -18,43 +17,22 @@ export default class Form extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    as: 'div',
     className: null,
     horizontal: false,
     stacked: false,
   };
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = BlockElement.getInheritedProps(this.props);
-
-    const {
-      children,
-      className,
-      horizontal,
-      stacked,
-      ...rest
-    } = unhandledProps;
+    const { className, horizontal, stacked, ...rest } = this.props;
 
     const ukClass = 'uk-form';
-    const classes = classnames(className, inheritedClasses, ukClass, {
+    const classes = classnames(className, ukClass, {
       [buildClassName(ukClass, 'horizontal')]: horizontal,
       [buildClassName(ukClass, 'stacked')]: stacked,
     });
 
     return (
-      <form
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
-        {children}
-      </form>
+      <BlockElement {...rest} as="form" className={classes || undefined} />
     );
   }
 }

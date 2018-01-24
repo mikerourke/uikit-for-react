@@ -2,7 +2,7 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { noop } from 'lodash';
+import { isNil, noop } from 'lodash';
 import { getOptionsString } from '../../lib';
 import { BlockElement } from '../Base';
 import Grid from '../Grid';
@@ -43,6 +43,7 @@ export default class Offcanvas extends React.Component {
   };
 
   componentDidMount() {
+    if (!this.ref) return;
     UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
     UIkit.util.on(this.ref, 'beforeshow', this.props.onBeforeShow);
     UIkit.util.on(this.ref, 'hidden', this.props.onHidden);
@@ -51,19 +52,13 @@ export default class Offcanvas extends React.Component {
     UIkit.util.on(this.ref, 'shown', this.props.onShown);
   }
 
-  handleRef = element => (this.ref = element);
+  handleRef = element => {
+    if (!element) return;
+    this.ref = isNil(element.ref) ? element : element.ref;
+  };
 
   render() {
     const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = BlockElement.getInheritedProps(this.props);
-
-    const {
-      children,
-      className,
       flip,
       mode,
       onBeforeHide,
@@ -75,9 +70,7 @@ export default class Offcanvas extends React.Component {
       overlay,
       selectorContainer,
       ...rest
-    } = unhandledProps;
-
-    const classes = classnames(className, inheritedClasses);
+    } = this.props;
 
     const componentOptions = getOptionsString({
       container: selectorContainer,
@@ -87,16 +80,12 @@ export default class Offcanvas extends React.Component {
     });
 
     return (
-      <form
+      <BlockElement
         {...rest}
-        className={classes || undefined}
+        as="form"
         ref={this.handleRef}
-        style={inheritedStyle}
         data-uk-offcanvas={componentOptions}
-        {...inheritedAttributes}
-      >
-        {children}
-      </form>
+      />
     );
   }
 }

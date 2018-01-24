@@ -201,7 +201,7 @@ export default class BlockElement extends React.Component {
 
   constructor() {
     super();
-    this.blockRef = null;
+    this.ref = null;
   }
 
   render() {
@@ -226,7 +226,7 @@ export default class BlockElement extends React.Component {
         {...rest}
         className={classes || undefined}
         style={inheritedStyle}
-        ref={element => (this.blockRef = element)}
+        ref={element => (this.ref = element)}
         tabIndex={transitionToggle ? 0 : undefined}
         {...inheritedAttributes}
       >

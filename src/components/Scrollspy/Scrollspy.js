@@ -2,8 +2,8 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { noop } from 'lodash';
-import { getElementType, getOptionsString, joinListProp, UIK } from '../../lib';
+import { isNil, noop } from 'lodash';
+import { getOptionsString, joinListProp, UIK } from '../../lib';
 import { BlockElement } from '../Base';
 
 export default class Scrollspy extends React.Component {
@@ -41,23 +41,19 @@ export default class Scrollspy extends React.Component {
   };
 
   componentDidMount() {
+    if (!this.ref) return;
     UIkit.util.on(this.ref, 'inview', this.props.onInview);
     UIkit.util.on(this.ref, 'outview', this.props.onOutview);
   }
 
-  handleRef = element => (this.ref = element);
+  handleRef = element => {
+    if (!element) return;
+    this.ref = isNil(element.ref) ? element : element.ref;
+  };
 
   render() {
-    const { animation, ...propsToParse } = this.props;
     const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = BlockElement.getInheritedProps(propsToParse);
-
-    const {
-      children,
+      animation,
       className,
       delay,
       hidden,
@@ -67,9 +63,9 @@ export default class Scrollspy extends React.Component {
       onOutview,
       repeat,
       ...rest
-    } = unhandledProps;
+    } = this.props;
 
-    const classes = classnames(className, inheritedClasses, 'uk-scrollspy');
+    const classes = classnames(className, 'uk-scrollspy');
 
     const componentOptions = getOptionsString({
       cls: joinListProp(animation),
@@ -80,18 +76,13 @@ export default class Scrollspy extends React.Component {
       repeat,
     });
 
-    const Element = getElementType(Scrollspy, this.props);
     return (
-      <Element
+      <BlockElement
         {...rest}
         className={classes || undefined}
         ref={this.handleRef}
-        style={inheritedStyle}
         data-uk-scrollspy={componentOptions}
-        {...inheritedAttributes}
-      >
-        {children}
-      </Element>
+      />
     );
   }
 }

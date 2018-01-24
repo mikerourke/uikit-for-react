@@ -26,28 +26,16 @@ export default class NavItem extends React.Component {
   };
 
   render() {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = BlockElement.getInheritedProps(this.props);
+    const { active, children, className, disabled, ...rest } = this.props;
 
-    const { active, children, className, disabled, ...rest } = unhandledProps;
-
-    const classes = classnames(className, inheritedClasses, {
+    const classes = classnames(className, {
       [buildClassName('disabled')]: disabled,
     });
 
     return (
-      <li
-        {...rest}
-        className={classes || undefined}
-        style={inheritedStyle}
-        {...inheritedAttributes}
-      >
-        {this.renderChildren()}
-      </li>
+      <BlockElement {...rest} as="li" className={classes || undefined}>
+        {this.renderChildren(children)}
+      </BlockElement>
     );
   }
 }

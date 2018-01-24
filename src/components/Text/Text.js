@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { get } from 'lodash';
 import { buildClassName, HTML, UIK } from '../../lib';
-import { InlineElement } from '../Base';
+import { EveryElement } from '../Base';
 
 export default class Text extends React.Component {
   static displayName = 'Text';
 
   static propTypes = {
-    ...InlineElement.propTypes,
+    ...EveryElement.propTypes,
     as: PropTypes.oneOfType([
       PropTypes.oneOf([...HTML.TEXT_ELEMENTS, ...HTML.BLOCK_ELEMENTS]),
       PropTypes.element,
@@ -42,7 +42,7 @@ export default class Text extends React.Component {
   };
 
   static defaultProps = {
-    ...InlineElement.defaultProps,
+    ...EveryElement.defaultProps,
     as: 'div',
     bold: false,
     children: null,
@@ -107,6 +107,6 @@ export default class Text extends React.Component {
       },
     );
 
-    return <InlineElement {...rest} className={classes || undefined} />;
+    return <EveryElement {...rest} className={classes || undefined} />;
   }
 }

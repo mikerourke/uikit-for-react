@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get, isNil, isString, trim, without } from 'lodash';
-import { buildClassName, UIK } from '../../lib';
+import { buildClassName, getOptionsString, UIK } from '../../lib';
 
 export default class BaseElement extends React.Component {
   static propTypes = {
@@ -135,6 +135,13 @@ export default class BaseElement extends React.Component {
       }),
     ]),
     overflow: PropTypes.oneOf(['auto', 'hidden']),
+    parallax: PropTypes.shape({
+      animate: PropTypes.object,
+      easing: PropTypes.number,
+      media: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+      target: PropTypes.string,
+      viewport: PropTypes.number,
+    }),
     resize: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.oneOf(['vertical']),
@@ -182,6 +189,7 @@ export default class BaseElement extends React.Component {
     marker: false,
     order: null,
     overflow: null,
+    parallax: null,
     resize: false,
     responsive: false,
     visible: null,
@@ -214,6 +222,7 @@ export default class BaseElement extends React.Component {
       marker,
       order,
       overflow,
+      parallax,
       resize,
       responsive,
       style = {},
@@ -330,9 +339,16 @@ export default class BaseElement extends React.Component {
       backgroundImage: isNil(imageUrl) ? undefined : `url(${imageUrl})`,
     };
 
+    const { animate = {}, ...parallaxProps } = get(this.props, 'parallax', {});
+    const parallaxOptions = getOptionsString({
+      ...animate,
+      ...parallaxProps,
+    });
+
     return {
       baseAttributes: {
         'data-uk-marker': marker || undefined,
+        'data-uk-parallax': parallax ? parallaxOptions : undefined,
       },
       baseClasses: trim(classes),
       baseStyle,

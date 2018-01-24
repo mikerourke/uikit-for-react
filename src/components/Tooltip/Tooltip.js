@@ -2,8 +2,8 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { noop } from 'lodash';
-import { getElementType, getOptionsString, UIK } from '../../lib';
+import { isNil, noop } from 'lodash';
+import { getOptionsString, UIK } from '../../lib';
 import { EveryElement } from '../Base';
 
 export default class Tooltip extends React.Component {
@@ -71,6 +71,7 @@ export default class Tooltip extends React.Component {
   };
 
   componentDidMount() {
+    if (!this.ref) return;
     UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
     UIkit.util.on(this.ref, 'beforeshow', this.props.onBeforeShow);
     UIkit.util.on(this.ref, 'hidden', this.props.onHidden);
@@ -89,19 +90,15 @@ export default class Tooltip extends React.Component {
     }
   }
 
-  handleRef = element => (this.ref = element);
+  handleRef = element => {
+    if (!element) return;
+    this.ref = isNil(element.ref) ? element : element.ref;
+  };
 
   render() {
-    const { animation, ...propsToParse } = this.props;
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = EveryElement.getInheritedProps(propsToParse);
-
     const {
       alignTo,
+      animation,
       children,
       className,
       clsActive,
@@ -115,9 +112,9 @@ export default class Tooltip extends React.Component {
       onShown,
       shown,
       ...rest
-    } = unhandledProps;
+    } = this.props;
 
-    const classes = classnames(className, inheritedClasses, 'uk-tooltip');
+    const classes = classnames(className, 'uk-tooltip');
 
     const componentOptions = getOptionsString({
       animation,
@@ -127,18 +124,13 @@ export default class Tooltip extends React.Component {
       pos: alignTo,
     });
 
-    const Element = getElementType(Tooltip, this.props);
     return (
-      <Element
+      <EveryElement
         {...rest}
         className={classes || undefined}
         ref={this.handleRef}
-        style={inheritedStyle}
         data-uk-tooltip={componentOptions}
-        {...inheritedAttributes}
-      >
-        {children}
-      </Element>
+      />
     );
   }
 }

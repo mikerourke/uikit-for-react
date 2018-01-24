@@ -3,7 +3,7 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { noop } from 'lodash';
+import { isNil, noop } from 'lodash';
 import { buildClassName, restrictToChildTypes } from '../../lib';
 import { BlockElement } from '../Base';
 import LightboxItem from './LightboxItem';
@@ -95,6 +95,7 @@ export default class Lightbox extends React.Component {
   static Item = LightboxItem;
 
   componentDidMount() {
+    if (!this.ref) return;
     UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
     UIkit.util.on(this.ref, 'beforeitemhide', this.props.onBeforeItemHide);
     UIkit.util.on(this.ref, 'beforeitemshow', this.props.onBeforeItemShow);
@@ -110,21 +111,16 @@ export default class Lightbox extends React.Component {
     UIkit.util.on(this.ref, 'shown', this.props.onShown);
   }
 
-  handleRef = element => (this.ref = element);
+  handleRef = element => {
+    if (!element) return;
+    this.ref = isNil(element.ref) ? element : element.ref;
+  };
 
   render() {
-    const { animation, ...propsToParse } = this.props;
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = BlockElement.getInheritedProps(propsToParse);
-
     const {
       activeIndex,
+      animation,
       autoplay,
-      children,
       className,
       defaultIndex,
       delayControls,
@@ -152,21 +148,17 @@ export default class Lightbox extends React.Component {
       template,
       videoAutoplay,
       ...rest
-    } = unhandledProps;
+    } = this.props;
 
-    const classes = classnames(className, inheritedClasses, {});
+    const classes = classnames(className, {});
 
     return (
-      <div
+      <BlockElement
         {...rest}
         className={classes || undefined}
         ref={this.handleRef}
-        style={inheritedStyle}
         data-lightbox
-        {...inheritedAttributes}
-      >
-        {children}
-      </div>
+      />
     );
   }
 }

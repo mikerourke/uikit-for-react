@@ -64,6 +64,11 @@ export default class InlineElement extends React.Component {
     };
   }
 
+  constructor() {
+    super();
+    this.ref = null;
+  }
+
   render() {
     const {
       inheritedAttributes,
@@ -79,6 +84,7 @@ export default class InlineElement extends React.Component {
       <Element
         {...rest}
         className={classes || undefined}
+        ref={element => (this.ref = element)}
         style={inheritedStyle}
         {...inheritedAttributes}
       >
