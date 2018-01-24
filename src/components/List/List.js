@@ -5,7 +5,7 @@ import { buildClassName, restrictToChildTypes } from '../../lib';
 import { BlockElement } from '../Base';
 import ListItem from './ListItem';
 
-export default class List extends BlockElement {
+export default class List extends React.Component {
   static displayName = 'List';
 
   static propTypes = {

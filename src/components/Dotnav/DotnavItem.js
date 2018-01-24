@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 
-export default class DotnavItem extends BlockElement {
+export default class DotnavItem extends React.Component {
   static displayName = 'DotnavItem';
 
   static propTypes = {

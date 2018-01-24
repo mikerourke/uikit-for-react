@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { HTML } from '../../lib';
 import { BlockElement } from '../Base';
 
-export default class CommentTitle extends BlockElement {
+export default class CommentTitle extends React.Component {
   static displayName = 'CommentTitle';
 
   static propTypes = {

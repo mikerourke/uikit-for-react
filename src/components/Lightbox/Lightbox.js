@@ -8,7 +8,7 @@ import { buildClassName, restrictToChildTypes } from '../../lib';
 import { BlockElement } from '../Base';
 import LightboxItem from './LightboxItem';
 
-export default class Lightbox extends BlockElement {
+export default class Lightbox extends React.Component {
   static displayName = 'Lightbox';
 
   static propTypes = {
@@ -110,6 +110,8 @@ export default class Lightbox extends BlockElement {
     UIkit.util.on(this.ref, 'shown', this.props.onShown);
   }
 
+  handleRef = element => (this.ref = element);
+
   render() {
     const { animation, ...propsToParse } = this.props;
     const {
@@ -117,7 +119,7 @@ export default class Lightbox extends BlockElement {
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(propsToParse);
+    } = BlockElement.getInheritedProps(propsToParse);
 
     const {
       activeIndex,
@@ -158,6 +160,7 @@ export default class Lightbox extends BlockElement {
       <div
         {...rest}
         className={classes || undefined}
+        ref={this.handleRef}
         style={inheritedStyle}
         data-lightbox
         {...inheritedAttributes}

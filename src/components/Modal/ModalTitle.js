@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
-export default class ModalTitle extends BlockElement {
+export default class ModalTitle extends React.Component {
   static displayName = 'ModalTitle';
 
   static propTypes = {

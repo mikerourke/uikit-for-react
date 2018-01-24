@@ -4,13 +4,23 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { noop } from 'lodash';
 import { getElementType, getOptionsString, UIK } from '../../lib';
-import { AnyElement } from '../Base';
+import { EveryElement } from '../Base';
 
-export default class Tooltip extends AnyElement {
+export default class Tooltip extends React.Component {
   static displayName = 'Tooltip';
 
   static propTypes = {
-    ...AnyElement.propTypes,
+    ...EveryElement.propTypes,
+    alignTo: PropTypes.oneOf([
+      'bottom',
+      'bottom-left',
+      'bottom-right',
+      'left',
+      'right',
+      'top',
+      'top-left',
+      'top-right',
+    ]),
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.ANIMATIONS),
       PropTypes.arrayOf(UIK.ANIMATIONS),
@@ -26,7 +36,7 @@ export default class Tooltip extends AnyElement {
         duration: PropTypes.number,
       }),
     ]),
-    as: AnyElement.asPropType,
+    as: EveryElement.asPropType,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     clsActive: PropTypes.string,
@@ -38,22 +48,13 @@ export default class Tooltip extends AnyElement {
     onHide: PropTypes.func,
     onShow: PropTypes.func,
     onShown: PropTypes.func,
-    position: PropTypes.oneOf([
-      'bottom',
-      'bottom-left',
-      'bottom-right',
-      'left',
-      'right',
-      'top',
-      'top-left',
-      'top-right',
-    ]),
     shown: PropTypes.bool,
     title: PropTypes.string.isRequired,
   };
 
   static defaultProps = {
-    ...AnyElement.defaultProps,
+    ...EveryElement.defaultProps,
+    alignTo: null,
     animation: null,
     as: 'div',
     className: null,
@@ -66,7 +67,6 @@ export default class Tooltip extends AnyElement {
     onHide: noop,
     onShow: noop,
     onShown: noop,
-    position: null,
     shown: false,
   };
 
@@ -92,15 +92,16 @@ export default class Tooltip extends AnyElement {
   handleRef = element => (this.ref = element);
 
   render() {
-    const { animation, position, ...propsToParse } = this.props;
+    const { animation, ...propsToParse } = this.props;
     const {
       inheritedAttributes,
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(propsToParse);
+    } = EveryElement.getInheritedProps(propsToParse);
 
     const {
+      alignTo,
       children,
       className,
       clsActive,
@@ -123,7 +124,7 @@ export default class Tooltip extends AnyElement {
       cls: clsActive,
       delay,
       offset,
-      pos: position,
+      pos: alignTo,
     });
 
     const Element = getElementType(Tooltip, this.props);

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
-export default class CardBody extends BlockElement {
+export default class CardBody extends React.Component {
   static displayName = 'CardBody';
 
   static propTypes = {

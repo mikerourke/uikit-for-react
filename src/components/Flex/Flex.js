@@ -5,7 +5,7 @@ import { omit } from 'lodash';
 import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 
-export default class Flex extends BlockElement {
+export default class Flex extends React.Component {
   static displayName = 'Flex';
 
   static propTypes = {

@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { buildClassName } from '../../lib';
 import { InlineElement } from '../Base';
 
-export default class Link extends InlineElement {
+export default class Link extends React.Component {
   static displayName = 'Link';
 
   static propTypes = {

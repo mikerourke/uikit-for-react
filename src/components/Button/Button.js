@@ -6,7 +6,7 @@ import { buildClassName, UIK } from '../../lib';
 import { InlineElement } from '../Base';
 import ButtonGroup from './ButtonGroup';
 
-export default class Button extends InlineElement {
+export default class Button extends React.Component {
   static displayName = 'Button';
 
   static propTypes = {

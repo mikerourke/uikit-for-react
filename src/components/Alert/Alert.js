@@ -18,7 +18,7 @@ import Close from '../Close';
  * Display success, warning and error messages.
  * @see https://getuikit.com/docs/alert
  */
-export default class Alert extends BlockElement {
+export default class Alert extends React.Component {
   static displayName = 'Alert';
 
   static propTypes = {
@@ -85,7 +85,7 @@ export default class Alert extends BlockElement {
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(propsToParse);
+    } = BlockElement.getInheritedProps(propsToParse);
 
     const {
       children,

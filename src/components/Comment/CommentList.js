@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { BlockElement } from '../Base';
 import Comment from './Comment';
 
-export default class CommentList extends BlockElement {
+export default class CommentList extends React.Component {
   static displayName = 'CommentList';
 
   static propTypes = {

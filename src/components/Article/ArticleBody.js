@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BlockElement } from '../Base';
 
-export default class ArticleBody extends BlockElement {
+export default class ArticleBody extends React.Component {
   static displayName = 'ArticleBody';
 
   static propTypes = {

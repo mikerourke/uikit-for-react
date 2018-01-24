@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BlockElement } from '../Base';
 
-export default class Spinner extends BlockElement {
+export default class Spinner extends React.Component {
   static displayName = 'Spinner';
 
   static propTypes = {

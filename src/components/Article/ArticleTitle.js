@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { HTML } from '../../lib';
 import { BlockElement } from '../Base';
 
-export default class ArticleTitle extends BlockElement {
+export default class ArticleTitle extends React.Component {
   static displayName = 'ArticleTitle';
 
   static propTypes = {

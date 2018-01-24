@@ -12,7 +12,7 @@ import { BlockElement } from '../Base';
  * Component with the required Content and Title elements.
  * @see https://getuikit.com/docs/accordion#usage
  */
-export default class AccordionItem extends BlockElement {
+export default class AccordionItem extends React.Component {
   static displayName = 'AccordionItem';
 
   static propTypes = {

@@ -4,7 +4,7 @@ import UIkit from 'uikit';
 import { get, noop } from 'lodash';
 import { InlineElement } from '../Base';
 
-export default class Totop extends InlineElement {
+export default class Totop extends React.Component {
   static displayName = 'Totop';
 
   static propTypes = {
@@ -41,12 +41,15 @@ export default class Totop extends InlineElement {
     );
   }
 
+  handleRef = element => (this.ref = element);
+
   render() {
     const { smooth, ...rest } = this.props;
     return (
       <InlineElement
         {...rest}
         href="#"
+        ref={this.handleRef}
         data-uk-totop
         data-uk-scroll={smooth || undefined}
         data-uikfr-scroll-totop

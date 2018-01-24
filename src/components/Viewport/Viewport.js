@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { getOptionsString } from '../../lib';
 import { BlockElement } from '../Base';
 
-export default class Viewport extends BlockElement {
+export default class Viewport extends React.Component {
   static displayName = 'Viewport';
 
   static propTypes = {

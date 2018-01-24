@@ -6,7 +6,7 @@ import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 import ThumbnavItem from './ThumbnavItem';
 
-export default class Thumbnav extends BlockElement {
+export default class Thumbnav extends React.Component {
   static displayName = 'Thumbnav';
 
   static propTypes = {

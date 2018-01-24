@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { buildClassName } from '../../lib';
 import { InlineElement } from '../Base';
 
-export default class LightboxItem extends InlineElement {
+export default class LightboxItem extends React.Component {
   static displayName = 'Lightbox';
 
   static propTypes = {
@@ -31,7 +31,7 @@ export default class LightboxItem extends InlineElement {
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(this.props);
+    } = InlineElement.getInheritedProps(this.props);
 
     const { children, className, divider, pill, ...rest } = unhandledProps;
 

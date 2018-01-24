@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BlockElement } from '../Base';
 
-export default class DescriptionDetails extends BlockElement {
+export default class DescriptionDetails extends React.Component {
   static displayName = 'DescriptionDetails';
 
   static propTypes = {

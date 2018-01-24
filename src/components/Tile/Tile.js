@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 
-export default class Tile extends BlockElement {
+export default class Tile extends React.Component {
   static displayName = 'Tile';
 
   static propTypes = {

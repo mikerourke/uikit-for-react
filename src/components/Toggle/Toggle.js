@@ -7,7 +7,7 @@ import { noop } from 'lodash';
 import { getElementType, getOptionsString, joinListProp, UIK } from '../../lib';
 import { InlineElement } from '../Base';
 
-export default class Toggle extends InlineElement {
+export default class Toggle extends React.Component {
   static displayName = 'Toggle';
 
   static propTypes = {
@@ -107,7 +107,7 @@ export default class Toggle extends InlineElement {
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(propsToParse);
+    } = InlineElement.getInheritedProps(propsToParse);
 
     const {
       children,

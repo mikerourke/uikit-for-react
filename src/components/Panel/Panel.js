@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 
-export default class Panel extends BlockElement {
+export default class Panel extends React.Component {
   static displayName = 'Panel';
 
   static propTypes = {

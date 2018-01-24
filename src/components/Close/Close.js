@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { buildClassName } from '../../lib';
 import { InlineElement } from '../Base';
 
-export default class Close extends InlineElement {
+export default class Close extends React.Component {
   static displayName = 'Close';
 
   static propTypes = {

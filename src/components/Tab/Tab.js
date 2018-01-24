@@ -12,7 +12,7 @@ import {
 import { BlockElement } from '../Base';
 import TabItem from './TabItem';
 
-export default class Tab extends BlockElement {
+export default class Tab extends React.Component {
   static displayName = 'Tab';
 
   static propTypes = {
@@ -107,7 +107,7 @@ export default class Tab extends BlockElement {
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(propsToParse);
+    } = BlockElement.getInheritedProps(propsToParse);
 
     const {
       activeIndex,

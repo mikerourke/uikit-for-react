@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { pull } from 'lodash';
+import { get, pull } from 'lodash';
 import { getElementType, HTML } from '../../lib';
 import BlockElement from './BlockElement';
 import InlineElement from './InlineElement';
 
-export default class AnyElement extends React.Component {
-  static displayName = 'AnyElement';
+export default class EveryElement extends React.Component {
+  static displayName = 'EveryElement';
 
   static propTypes = {
     ...BlockElement.propTypes,
@@ -25,14 +25,21 @@ export default class AnyElement extends React.Component {
     PropTypes.func,
   ]);
 
-  render() {
-    const { as = '' } = this.props;
+  static getInheritedProps(props) {
+    const as = get(props, 'as');
     const isBlockElement =
       HTML.BLOCK_ELEMENTS.includes(as) || as instanceof BlockElement;
-    const getInheritedProps = isBlockElement
-      ? BlockElement.getElementProps
-      : InlineElement.getElementProps;
+    return isBlockElement
+      ? BlockElement.getInheritedProps
+      : InlineElement.getInheritedProps;
+  }
 
+  constructor() {
+    super();
+    this.ref = null;
+  }
+
+  render() {
     const inlinePropNames = Object.keys(InlineElement.defaultProps);
     const thisPropNames = Object.keys(this.props);
     const actualInlineProps = pull(thisPropNames, inlinePropNames);
@@ -42,16 +49,17 @@ export default class AnyElement extends React.Component {
       inheritedAttributes,
       inheritedClasses,
       inheritedStyle,
-      unhandledProps,
-    } = getInheritedProps(this.props);
+      unhandledProps = {},
+    } = EveryElement.getInheritedProps(this.props);
 
     const { children, className = '', ...rest } = unhandledProps;
     const classes = classnames(className, inheritedClasses);
-    const Element = getElementType(AnyElement, this.props);
+    const Element = getElementType(EveryElement, this.props);
     return (
       <Element
         {...rest}
         className={classes || undefined}
+        ref={element => (this.ref = element)}
         style={inheritedStyle}
         {...inheritedAttributes}
       >

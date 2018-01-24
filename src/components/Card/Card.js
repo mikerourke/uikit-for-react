@@ -11,7 +11,7 @@ import CardHeader from './CardHeader';
 import CardMedia from './CardMedia';
 import CardTitle from './CardTitle';
 
-export default class Card extends BlockElement {
+export default class Card extends React.Component {
   static displayName = 'Card';
 
   static propTypes = {

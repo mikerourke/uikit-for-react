@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
-export default class CommentBody extends BlockElement {
+export default class CommentBody extends React.Component {
   static displayName = 'CommentBody';
 
   static propTypes = {

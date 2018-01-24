@@ -58,6 +58,8 @@ export default class ScrollPoint extends React.Component {
     UIkit.scroll(thisNode).scrollTo(targetNode);
   };
 
+  handleRef = element => (this.ref = element);
+
   render() {
     const {
       as,
@@ -81,6 +83,7 @@ export default class ScrollPoint extends React.Component {
       <Element
         {...rest}
         onClick={this.handleClick}
+        ref={this.handleRef}
         data-uk-scroll={componentOptions}
         data-uikfr-scroll-element={elementName}
       />

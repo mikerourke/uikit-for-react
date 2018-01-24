@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 
-export default class PaginationItem extends BlockElement {
+export default class PaginationItem extends React.Component {
   static displayName = 'PaginationItem';
 
   static propTypes = {

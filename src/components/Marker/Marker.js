@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { HTML } from '../../lib';
 import { InlineElement } from '../Base';
 
-export default class Marker extends InlineElement {
+export default class Marker extends React.Component {
   static displayName = 'Marker';
 
   static propTypes = {

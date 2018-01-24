@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
-export default class ButtonGroup extends BlockElement {
+export default class ButtonGroup extends React.Component {
   static displayName = 'ButtonGroup';
 
   static propTypes = {

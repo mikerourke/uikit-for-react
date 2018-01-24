@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { buildClassName, getIfChildrenHaveClass } from '../../lib';
 import { BlockElement } from '../Base';
 
-export default class Container extends BlockElement {
+export default class Container extends React.Component {
   static displayName = 'Container';
 
   static propTypes = {

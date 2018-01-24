@@ -7,7 +7,7 @@ import PaginationItem from './PaginationItem';
 import PaginationNext from './PaginationNext';
 import PaginationPrevious from './PaginationPrevious';
 
-export default class Pagination extends BlockElement {
+export default class Pagination extends React.Component {
   static displayName = 'Pagination';
 
   static propTypes = {

@@ -14,7 +14,7 @@ import {
 } from '../../lib';
 import { BlockElement } from '../Base';
 
-export default class Drop extends BlockElement {
+export default class Drop extends React.Component {
   static displayName = 'Drop';
 
   static propTypes = {
@@ -122,7 +122,7 @@ export default class Drop extends BlockElement {
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(propsToParse);
+    } = BlockElement.getInheritedProps(propsToParse);
 
     const {
       boundaryAlign,

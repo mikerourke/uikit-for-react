@@ -11,7 +11,7 @@ import ModalFooter from './ModalFooter';
 import ModalHeader from './ModalHeader';
 import ModalTitle from './ModalTitle';
 
-export default class Modal extends BlockElement {
+export default class Modal extends React.Component {
   static displayName = 'Modal';
 
   static propTypes = {
@@ -96,7 +96,7 @@ export default class Modal extends BlockElement {
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(this.props);
+    } = BlockElement.getInheritedProps(this.props);
 
     const {
       bgClose,

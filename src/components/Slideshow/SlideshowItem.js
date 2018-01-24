@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BlockElement } from '../Base';
 
-export default class SlideshowItem extends BlockElement {
+export default class SlideshowItem extends React.Component {
   static displayName = 'SlideshowItem';
 
   static propTypes = {

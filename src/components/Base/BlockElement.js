@@ -11,7 +11,7 @@ import {
 } from '../../lib';
 import BaseElement from './BaseElement';
 
-export default class BlockElement extends BaseElement {
+export default class BlockElement extends React.Component {
   static displayName = 'BlockElement';
 
   static propTypes = {
@@ -65,6 +65,14 @@ export default class BlockElement extends BaseElement {
         zIndexOfOne: PropTypes.bool,
       }),
     ]),
+    scrollspyNav: PropTypes.shape({
+      clsActive: PropTypes.string,
+      offset: PropTypes.number,
+      onItemActive: PropTypes.func,
+      overflow: PropTypes.bool,
+      scroll: PropTypes.bool,
+      selectorClosest: PropTypes.string,
+    }),
     textAlign: PropTypes.oneOfType([
       PropTypes.oneOf([...UIK.HORIZONTAL_POSITIONS, 'justify']),
       PropTypes.shape({
@@ -92,11 +100,12 @@ export default class BlockElement extends BaseElement {
     nextRow: null,
     padding: false,
     position: null,
+    scrollspyNav: null,
     textAlign: null,
     transitionToggle: false,
   };
 
-  static getElementProps(props) {
+  static getInheritedProps(props) {
     const {
       baseAttributes,
       baseClasses,
@@ -113,6 +122,7 @@ export default class BlockElement extends BaseElement {
       nextRow,
       padding,
       position,
+      scrollspyNav,
       textAlign,
       transitionToggle,
       ...rest
@@ -167,12 +177,21 @@ export default class BlockElement extends BaseElement {
       ),
     });
 
+    const scrollspyNavOptions = getOptionsString({
+      closest: get(scrollspyNav, 'selectorClosest'),
+      cls: get(scrollspyNav, 'clsActive'),
+      offset: get(scrollspyNav, 'offset'),
+      overflow: get(scrollspyNav, 'overflow'),
+      scroll: get(scrollspyNav, 'scroll'),
+    });
+
     return {
       inheritedAttributes: {
         ...baseAttributes,
         'data-uk-margin': hasMarginAttribute
           ? marginComponentOptions
           : undefined,
+        'data-uk-scrollspy-nav': scrollspyNav ? scrollspyNavOptions : undefined,
       },
       inheritedClasses: trim(classes),
       inheritedStyle: baseStyle,
@@ -180,20 +199,9 @@ export default class BlockElement extends BaseElement {
     };
   }
 
-  getInheritedProps(props) {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = BlockElement.getElementProps(props);
-
-    return {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    };
+  constructor() {
+    super();
+    this.blockRef = null;
   }
 
   render() {
@@ -202,7 +210,7 @@ export default class BlockElement extends BaseElement {
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(this.props);
+    } = BlockElement.getInheritedProps(this.props);
 
     const {
       children,
@@ -218,6 +226,7 @@ export default class BlockElement extends BaseElement {
         {...rest}
         className={classes || undefined}
         style={inheritedStyle}
+        ref={element => (this.blockRef = element)}
         tabIndex={transitionToggle ? 0 : undefined}
         {...inheritedAttributes}
       >

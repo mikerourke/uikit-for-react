@@ -5,7 +5,7 @@ import { buildClassName, restrictToChildTypes } from '../../lib';
 import { BlockElement } from '../Base';
 import SubnavItem from './SubnavItem';
 
-export default class Subnav extends BlockElement {
+export default class Subnav extends React.Component {
   static displayName = 'Subnav';
 
   static propTypes = {

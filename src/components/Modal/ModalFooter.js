@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { BlockElement } from '../Base';
 
-export default class ModalFooter extends BlockElement {
+export default class ModalFooter extends React.Component {
   static displayName = 'ModalFooter';
 
   static propTypes = {

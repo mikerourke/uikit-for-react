@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { buildClassName, UIK } from '../../lib';
 import { BlockElement } from '../Base';
 
-export default class CardMedia extends BlockElement {
+export default class CardMedia extends React.Component {
   static displayName = 'CardMedia';
 
   static propTypes = {

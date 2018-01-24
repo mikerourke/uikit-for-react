@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 
-export default class Form extends BlockElement {
+export default class Form extends React.Component {
   static displayName = 'Form';
 
   static propTypes = {
@@ -30,7 +30,7 @@ export default class Form extends BlockElement {
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(this.props);
+    } = BlockElement.getInheritedProps(this.props);
 
     const {
       children,

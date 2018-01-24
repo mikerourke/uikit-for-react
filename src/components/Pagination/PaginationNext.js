@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BlockElement, InlineElement } from '../Base';
 
-export default class PaginationNext extends InlineElement {
+export default class PaginationNext extends React.Component {
   static displayName = 'PaginationNext';
 
   static propTypes = {

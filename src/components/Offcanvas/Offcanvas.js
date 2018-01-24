@@ -7,7 +7,7 @@ import { getOptionsString } from '../../lib';
 import { BlockElement } from '../Base';
 import Grid from '../Grid';
 
-export default class Offcanvas extends BlockElement {
+export default class Offcanvas extends React.Component {
   static displayName = 'Offcanvas';
 
   static propTypes = {
@@ -51,13 +51,15 @@ export default class Offcanvas extends BlockElement {
     UIkit.util.on(this.ref, 'shown', this.props.onShown);
   }
 
+  handleRef = element => (this.ref = element);
+
   render() {
     const {
       inheritedAttributes,
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(this.props);
+    } = BlockElement.getInheritedProps(this.props);
 
     const {
       children,
@@ -88,6 +90,7 @@ export default class Offcanvas extends BlockElement {
       <form
         {...rest}
         className={classes || undefined}
+        ref={this.handleRef}
         style={inheritedStyle}
         data-uk-offcanvas={componentOptions}
         {...inheritedAttributes}

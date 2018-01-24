@@ -5,7 +5,7 @@ import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 import DotnavItem from './DotnavItem';
 
-class Dotnav extends BlockElement {
+class Dotnav extends React.Component {
   static displayName = 'Dotnav';
 
   static propTypes = {

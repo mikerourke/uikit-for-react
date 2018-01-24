@@ -5,7 +5,7 @@ import { isObject } from 'lodash';
 import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 
-export default class SubnavItem extends BlockElement {
+export default class SubnavItem extends React.Component {
   static displayName = 'SubnavItem';
 
   static propTypes = {

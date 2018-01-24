@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { HTML } from '../../lib';
 import { BlockElement } from '../Base';
 
-export default class CardTitle extends BlockElement {
+export default class CardTitle extends React.Component {
   static displayName = 'CardTitle';
 
   static propTypes = {

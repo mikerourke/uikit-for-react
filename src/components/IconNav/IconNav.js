@@ -5,7 +5,7 @@ import { buildClassName, restrictToChildTypes } from '../../lib';
 import { BlockElement } from '../Base';
 import IconNavItem from './IconNavItem';
 
-export default class IconNav extends BlockElement {
+export default class IconNav extends React.Component {
   static displayName = 'IconNav';
 
   static propTypes = {

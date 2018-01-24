@@ -5,7 +5,7 @@ import { buildClassName, getOptionsString, HTML, UIK } from '../../lib';
 import { BlockElement } from '../Base';
 import NavItem from './NavItem';
 
-export default class Nav extends BlockElement {
+export default class Nav extends React.Component {
   static displayName = 'Nav';
 
   static propTypes = {

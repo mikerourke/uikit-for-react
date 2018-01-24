@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 
-export default class Divider extends BlockElement {
+export default class Divider extends React.Component {
   static displayName = 'Divider';
 
   static propTypes = {

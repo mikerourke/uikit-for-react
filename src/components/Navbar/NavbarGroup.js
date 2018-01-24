@@ -5,7 +5,7 @@ import { buildClassName, restrictToChildTypes, UIK } from '../../lib';
 import { BlockElement } from '../Base';
 import BaseElement from '../Base/BaseElement';
 
-export default class NavbarGroup extends BlockElement {
+export default class NavbarGroup extends React.Component {
   static displayName = 'NavbarGroup';
 
   static propTypes = {

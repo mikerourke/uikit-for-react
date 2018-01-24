@@ -5,7 +5,7 @@ import { get, trim } from 'lodash';
 import { buildClassName, getElementType, HTML, UIK } from '../../lib';
 import BaseElement from './BaseElement';
 
-export default class InlineElement extends BaseElement {
+export default class InlineElement extends React.Component {
   static displayName = 'InlineElement';
 
   static propTypes = {
@@ -34,7 +34,7 @@ export default class InlineElement extends BaseElement {
     columnSpan: false,
   };
 
-  static getElementProps(props) {
+  static getInheritedProps(props) {
     const {
       baseAttributes,
       baseClasses,
@@ -64,29 +64,13 @@ export default class InlineElement extends BaseElement {
     };
   }
 
-  getInheritedProps(props) {
-    const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = InlineElement.getElementProps(props);
-
-    return {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    };
-  }
-
   render() {
     const {
       inheritedAttributes,
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(this.props);
+    } = InlineElement.getInheritedProps(this.props);
 
     const { children, className = '', ...rest } = unhandledProps;
     const classes = classnames(className, inheritedClasses);

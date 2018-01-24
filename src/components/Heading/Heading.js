@@ -6,7 +6,7 @@ import { buildClassName, HTML } from '../../lib';
 import { BlockElement } from '../Base';
 import Text from '../Text';
 
-export default class Heading extends BlockElement {
+export default class Heading extends React.Component {
   static displayName = 'Heading';
 
   static propTypes = {
@@ -44,7 +44,7 @@ export default class Heading extends BlockElement {
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(propsToParse);
+    } = BlockElement.getInheritedProps(propsToParse);
 
     const {
       bullet,

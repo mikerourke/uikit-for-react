@@ -6,7 +6,7 @@ import { BlockElement } from '../Base';
 import DescriptionDetails from './DescriptionDetails';
 import DescriptionTerm from './DescriptionTerm';
 
-export default class DescriptionList extends BlockElement {
+export default class DescriptionList extends React.Component {
   static displayName = 'DescriptionList';
 
   static propTypes = {

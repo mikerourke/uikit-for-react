@@ -3,7 +3,7 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { flatten, isArray, isNil, max, noop } from 'lodash';
+import { flatten, get, isArray, isNil, max, noop } from 'lodash';
 import { getOptionsString, HTML } from '../../lib';
 import { BlockElement } from '../Base';
 import AccordionContent from './AccordionContent';
@@ -14,7 +14,7 @@ import AccordionTitle from './AccordionTitle';
  * Create a list of items that can be shown individually by clicking an item's header.
  * @see https://getuikit.com/docs/accordion
  */
-export default class Accordion extends BlockElement {
+export default class Accordion extends React.Component {
   static displayName = 'Accordion';
 
   static propTypes = {
@@ -125,19 +125,15 @@ export default class Accordion extends BlockElement {
     });
   };
 
-  handleRef = element => (this.ref = element);
+  handleRef = element => {
+    const foundRef = get(this, ['ref', 'blockRef']);
+    if (isNil(foundRef)) return;
+    this.ref = isNil(element.blockRef) ? element : element.blockRef;
+  };
 
   render() {
-    const { animation, ...propsToParse } = this.props;
     const {
-      inheritedAttributes,
-      inheritedClasses,
-      inheritedStyle,
-      unhandledProps,
-    } = this.getInheritedProps(propsToParse);
-
-    const {
-      children,
+      animation,
       className,
       collapsible,
       defaultIndex,
@@ -155,9 +151,9 @@ export default class Accordion extends BlockElement {
       selectorToggle,
       transition,
       ...rest
-    } = unhandledProps;
+    } = this.props;
 
-    const classes = classnames(className, inheritedClasses, 'uk-accordion');
+    const classes = classnames(className, 'uk-accordion');
 
     const componentOptions = getOptionsString({
       active: defaultIndex,
@@ -171,16 +167,13 @@ export default class Accordion extends BlockElement {
     });
 
     return (
-      <ul
+      <BlockElement
         {...rest}
+        as="ul"
         className={classes || undefined}
         ref={this.handleRef}
-        style={inheritedStyle}
         data-uk-accordion={componentOptions}
-        {...inheritedAttributes}
-      >
-        {children}
-      </ul>
+      />
     );
   }
 }

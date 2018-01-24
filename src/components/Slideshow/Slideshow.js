@@ -13,7 +13,7 @@ import {
 import { BlockElement } from '../Base';
 import SlideshowItem from './SlideshowItem';
 
-export default class Slideshow extends BlockElement {
+export default class Slideshow extends React.Component {
   static displayName = 'Slideshow';
 
   static propTypes = {
@@ -79,6 +79,8 @@ export default class Slideshow extends BlockElement {
     UIkit.util.on(this.ref, 'itemshown', this.props.onItemShown);
   }
 
+  handleRef = element => (this.ref = element);
+
   render() {
     const { animation, ...propsToParse } = this.props;
     const {
@@ -86,7 +88,7 @@ export default class Slideshow extends BlockElement {
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(propsToParse);
+    } = BlockElement.getInheritedProps(propsToParse);
 
     const {
       activeIndex,
@@ -128,6 +130,7 @@ export default class Slideshow extends BlockElement {
       <Element
         {...rest}
         className={classes || undefined}
+        ref={this.handleRef}
         style={inheritedStyle}
         data-uk-slideshow={componentOptions}
         {...inheritedAttributes}

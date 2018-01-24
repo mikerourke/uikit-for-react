@@ -11,7 +11,7 @@ import {
 } from '../../lib';
 import { BlockElement } from '../Base';
 
-export default class Navbar extends BlockElement {
+export default class Navbar extends React.Component {
   static displayName = 'Navbar';
 
   static propTypes = {

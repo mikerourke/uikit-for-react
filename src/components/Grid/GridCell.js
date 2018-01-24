@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get } from 'lodash';
+import { get, isNil } from 'lodash';
 import { buildClassName, UIK } from '../../lib';
 import { BlockElement } from '../Base';
 
-export default class GridCell extends BlockElement {
+export default class GridCell extends React.Component {
   static displayName = 'GridCell';
 
   static propTypes = {
@@ -41,7 +41,7 @@ export default class GridCell extends BlockElement {
       ...rest
     } = this.props;
 
-    const flexGrow = grow || grow.replace('full', '1');
+    const flexGrow = isNil(grow) ? null : grow.replace('full', '1');
 
     const classes = classnames(
       className,

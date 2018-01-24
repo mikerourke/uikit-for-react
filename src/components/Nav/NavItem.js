@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 
-export default class NavItem extends BlockElement {
+export default class NavItem extends React.Component {
   static displayName = 'NavItem';
 
   static propTypes = {
@@ -31,7 +31,7 @@ export default class NavItem extends BlockElement {
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(this.props);
+    } = BlockElement.getInheritedProps(this.props);
 
     const { active, children, className, disabled, ...rest } = unhandledProps;
 

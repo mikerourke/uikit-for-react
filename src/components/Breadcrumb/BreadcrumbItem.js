@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 
-export default class BreadcrumbItem extends BlockElement {
+export default class BreadcrumbItem extends React.Component {
   static displayName = 'BreadcrumbItem';
 
   static propTypes = {

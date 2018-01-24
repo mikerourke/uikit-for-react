@@ -4,15 +4,15 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { noop } from 'lodash';
 import { getOptionsString } from '../../lib';
-import { AnyElement } from '../Base';
+import { EveryElement } from '../Base';
 
-export default class Sticky extends AnyElement {
+export default class Sticky extends React.Component {
   static displayName = 'Sticky';
 
   static propTypes = {
-    ...AnyElement.propTypes,
+    ...EveryElement.propTypes,
     animation: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-    as: AnyElement.asPropType,
+    as: EveryElement.asPropType,
     bottom: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.number,
@@ -33,7 +33,7 @@ export default class Sticky extends AnyElement {
   };
 
   static defaultProps = {
-    ...AnyElement.defaultProps,
+    ...EveryElement.defaultProps,
     animation: false,
     as: 'div',
     bottom: false,
@@ -64,7 +64,7 @@ export default class Sticky extends AnyElement {
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(propsToParse);
+    } = EveryElement.getInheritedProps(propsToParse);
 
     const {
       bottom,
@@ -97,7 +97,7 @@ export default class Sticky extends AnyElement {
     });
 
     return (
-      <AnyElement
+      <EveryElement
         {...rest}
         className={classes || undefined}
         ref={this.handleRef}
@@ -106,7 +106,7 @@ export default class Sticky extends AnyElement {
         {...inheritedAttributes}
       >
         {children}
-      </AnyElement>
+      </EveryElement>
     );
   }
 }

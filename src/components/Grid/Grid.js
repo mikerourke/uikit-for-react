@@ -6,7 +6,7 @@ import { buildClassName, getOptionsString, UIK } from '../../lib';
 import { BlockElement } from '../Base';
 import GridCell from './GridCell';
 
-export default class Grid extends BlockElement {
+export default class Grid extends React.Component {
   static displayName = 'Grid';
 
   static propTypes = {

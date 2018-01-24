@@ -5,7 +5,7 @@ import { get } from 'lodash';
 import { buildClassName, HTML, UIK } from '../../lib';
 import { InlineElement } from '../Base';
 
-export default class Text extends InlineElement {
+export default class Text extends React.Component {
   static displayName = 'Text';
 
   static propTypes = {
@@ -16,7 +16,7 @@ export default class Text extends InlineElement {
       PropTypes.func,
     ]),
     bold: PropTypes.bool,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     className: PropTypes.string,
     danger: PropTypes.bool,
     horizontalAlign: PropTypes.oneOfType([
@@ -45,6 +45,7 @@ export default class Text extends InlineElement {
     ...InlineElement.defaultProps,
     as: 'div',
     bold: false,
+    children: null,
     className: null,
     danger: false,
     horizontalAlign: null,

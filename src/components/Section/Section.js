@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { buildClassName, UIK } from '../../lib';
 import { BlockElement } from '../Base';
 
-export default class Section extends BlockElement {
+export default class Section extends React.Component {
   static displayName = 'Section';
 
   static propTypes = {

@@ -6,7 +6,7 @@ import { buildClassName, UIK } from '../../lib';
 import { BlockElement } from '../Base';
 import Icon from '../Icon';
 
-export default class IconNavItem extends BlockElement {
+export default class IconNavItem extends React.Component {
   static displayName = 'IconNavItem';
 
   static propTypes = {

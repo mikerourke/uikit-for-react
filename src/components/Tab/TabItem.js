@@ -5,7 +5,7 @@ import { isObject } from 'lodash';
 import { buildClassName } from '../../lib';
 import { BlockElement } from '../Base';
 
-export default class TabItem extends BlockElement {
+export default class TabItem extends React.Component {
   static displayName = 'TabItem';
 
   static propTypes = {

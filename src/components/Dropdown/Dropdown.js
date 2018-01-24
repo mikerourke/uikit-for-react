@@ -14,7 +14,7 @@ import {
 } from '../../lib';
 import { BlockElement } from '../Base';
 
-export default class Dropdown extends BlockElement {
+export default class Dropdown extends React.Component {
   static displayName = 'Dropdown';
 
   static propTypes = {
@@ -110,8 +110,8 @@ export default class Dropdown extends BlockElement {
 
   handleRef = element => (this.ref = element);
 
-  renderChildren = () =>
-    appendClassNamesToChildren(this.props.children, {
+  renderChildren = children =>
+    appendClassNamesToChildren(children, {
       Grid: buildClassName('dropdown', 'grid'),
       Nav: buildClassName('dropdown', 'nav'),
     });
@@ -123,7 +123,7 @@ export default class Dropdown extends BlockElement {
       inheritedClasses,
       inheritedStyle,
       unhandledProps,
-    } = this.getInheritedProps(propsToParse);
+    } = BlockElement.getInheritedProps(propsToParse);
 
     const {
       boundaryAlign,
@@ -176,7 +176,7 @@ export default class Dropdown extends BlockElement {
           data-uk-dropdown={componentOptions}
           {...inheritedAttributes}
         >
-          {this.renderChildren()}
+          {this.renderChildren(children)}
         </Element>
       </Fragment>
     );

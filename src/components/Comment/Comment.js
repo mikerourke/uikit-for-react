@@ -9,7 +9,7 @@ import CommentHeader from './CommentHeader';
 import CommentMeta from './CommentMeta';
 import CommentTitle from './CommentTitle';
 
-export default class Comment extends BlockElement {
+export default class Comment extends React.Component {
   static displayName = 'Comment';
 
   static propTypes = {
@@ -32,7 +32,7 @@ export default class Comment extends BlockElement {
   static Title = CommentTitle;
 
   render() {
-    const { children, className, primary, ...rest } = this.props;
+    const { className, primary, ...rest } = this.props;
 
     const ukClass = 'uk-comment';
     const classes = classnames(className, ukClass, {
@@ -40,9 +40,7 @@ export default class Comment extends BlockElement {
     });
 
     return (
-      <BlockElement {...rest} as="article" className={classes || undefined}>
-        {children}
-      </BlockElement>
+      <BlockElement {...rest} as="article" className={classes || undefined} />
     );
   }
 }

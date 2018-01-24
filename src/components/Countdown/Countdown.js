@@ -11,7 +11,7 @@ import CountdownMinutes from './CountdownMinutes';
 import CountdownSeconds from './CountdownSeconds';
 import CountdownSeparator from './CountdownSeparator';
 
-export default class Countdown extends BlockElement {
+export default class Countdown extends React.Component {
   static displayName = 'Countdown';
 
   static propTypes = {
@@ -19,7 +19,6 @@ export default class Countdown extends BlockElement {
     as: BlockElement.asPropType,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
-    // TODO: Add validation to ensure date is in correct format and in the future.
     date: PropTypes.string.isRequired,
     paused: PropTypes.bool,
   };

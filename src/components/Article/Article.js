@@ -11,7 +11,7 @@ import ArticleTitle from './ArticleTitle';
  * Create articles within your page.
  * @see https://getuikit.com/docs/article
  */
-export default class Article extends BlockElement {
+export default class Article extends React.Component {
   static displayName = 'Article';
 
   static propTypes = {
@@ -33,7 +33,7 @@ export default class Article extends BlockElement {
   handleRef = element => (this.ref = element);
 
   render() {
-    const { children, className, ...rest } = this.props;
+    const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-article');
     return (
       <BlockElement
@@ -41,9 +41,7 @@ export default class Article extends BlockElement {
         as="article"
         className={classes || undefined}
         ref={this.handleRef}
-      >
-        {children}
-      </BlockElement>
+      />
     );
   }
 }

@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { buildClassName } from '../../lib';
 import { InlineElement } from '../Base';
 
-export default class Label extends InlineElement {
+export default class Label extends React.Component {
   static displayName = 'Label';
 
   static propTypes = {

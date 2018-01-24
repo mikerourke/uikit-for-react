@@ -5,7 +5,7 @@ import { restrictToChildTypes } from '../../lib';
 import { BlockElement } from '../Base';
 import BreadcrumbItem from './BreadcrumbItem';
 
-export default class Breadcrumb extends BlockElement {
+export default class Breadcrumb extends React.Component {
   static displayName = 'Breadcrumb';
 
   static propTypes = {
@@ -22,12 +22,8 @@ export default class Breadcrumb extends BlockElement {
   static Item = BreadcrumbItem;
 
   render() {
-    const { children, className, ...rest } = this.props;
+    const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-breadcrumb');
-    return (
-      <BlockElement {...rest} as="ul" className={classes || undefined}>
-        {children}
-      </BlockElement>
-    );
+    return <BlockElement {...rest} as="ul" className={classes || undefined} />;
   }
 }

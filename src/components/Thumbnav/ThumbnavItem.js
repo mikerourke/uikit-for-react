@@ -6,7 +6,7 @@ import { isNil } from 'lodash';
 import { buildClassName } from '../../lib';
 import { BlockElement, InlineElement } from '../Base';
 
-export default class ThumbnavItem extends BlockElement {
+export default class ThumbnavItem extends React.Component {
   static displayName = 'ThumbnavItem';
 
   static propTypes = {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { InlineElement } from '../Base';
 
-export default class Badge extends InlineElement {
+export default class Badge extends React.Component {
   static displayName = 'Badge';
 
   static propTypes = {

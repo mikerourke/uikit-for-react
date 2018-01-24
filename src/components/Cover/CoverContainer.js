@@ -7,7 +7,7 @@ import { getOptionsString } from '../../lib';
 import { BlockElement } from '../Base';
 import Cover from './Cover';
 
-export default class CoverContainer extends BlockElement {
+export default class CoverContainer extends React.Component {
   static displayName = 'CoverContainer';
 
   static propTypes = {

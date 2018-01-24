@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { buildClassName, getOptionsString, UIK } from '../../lib';
 import { InlineElement } from '../Base';
 
-export default class Icon extends InlineElement {
+export default class Icon extends React.Component {
   static displayName = 'Icon';
 
   static propTypes = {
