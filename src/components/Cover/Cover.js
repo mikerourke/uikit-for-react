@@ -29,14 +29,7 @@ export default class Cover extends React.Component {
   static Container = CoverContainer;
 
   render() {
-    const {
-      automute,
-      children,
-      className,
-      height,
-      width,
-      ...rest
-    } = this.props;
+    const { automute, className, height, width, ...rest } = this.props;
 
     const componentOptions = getOptionsString({
       automute,
@@ -49,9 +42,7 @@ export default class Cover extends React.Component {
         {...rest}
         className={className || undefined}
         data-uk-cover={componentOptions}
-      >
-        {children}
-      </BlockElement>
+      />
     );
   }
 }

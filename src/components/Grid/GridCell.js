@@ -33,7 +33,6 @@ export default class GridCell extends React.Component {
 
   render() {
     const {
-      children,
       className,
       grow,
       matchHeight,
@@ -55,9 +54,7 @@ export default class GridCell extends React.Component {
     );
 
     return (
-      <BlockElement {...rest} as="div" className={classes || undefined}>
-        {children}
-      </BlockElement>
+      <BlockElement {...rest} as="div" className={classes || undefined} />
     );
   }
 }

@@ -35,9 +35,7 @@ export default class Link extends React.Component {
     });
 
     return (
-      <InlineElement {...rest} as="a" className={classes || undefined}>
-        {children}
-      </InlineElement>
+      <InlineElement {...rest} as="a" className={classes || undefined} />
     );
   }
 }

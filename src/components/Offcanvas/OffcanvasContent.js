@@ -19,12 +19,8 @@ export default class OffcanvasContent extends React.Component {
   };
 
   render() {
-    const { children, className, ...rest } = this.props;
+    const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-offcanvas-content');
-    return (
-      <BlockElement {...rest} as="div" className={classes || undefined}>
-        {children}
-      </BlockElement>
-    );
+    return <BlockElement {...rest} as="div" className={classes || undefined} />;
   }
 }

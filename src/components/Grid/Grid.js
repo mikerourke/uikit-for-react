@@ -44,7 +44,6 @@ export default class Grid extends React.Component {
 
   render() {
     const {
-      children,
       className,
       direction,
       divider,
@@ -87,9 +86,7 @@ export default class Grid extends React.Component {
         {...rest}
         className={classes || undefined}
         data-uk-grid={componentOptions}
-      >
-        {children}
-      </BlockElement>
+      />
     );
   }
 }

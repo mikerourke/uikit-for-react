@@ -53,7 +53,6 @@ export default class Navbar extends React.Component {
   render() {
     const {
       boundaryAlign,
-      children,
       className,
       delayHide,
       delayShow,
@@ -91,9 +90,7 @@ export default class Navbar extends React.Component {
         as="nav"
         className={classes || undefined}
         data-uk-navbar={componentOptions}
-      >
-        {children}
-      </BlockElement>
+      />
     );
   }
 }

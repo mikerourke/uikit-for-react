@@ -30,8 +30,6 @@ export default class Article extends React.Component {
   static Meta = ArticleMeta;
   static Title = ArticleTitle;
 
-  handleRef = element => (this.ref = element);
-
   render() {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-article');
@@ -40,7 +38,6 @@ export default class Article extends React.Component {
         {...rest}
         as="article"
         className={classes || undefined}
-        ref={this.handleRef}
       />
     );
   }

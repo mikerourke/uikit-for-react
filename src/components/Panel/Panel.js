@@ -21,17 +21,13 @@ export default class Panel extends React.Component {
   };
 
   render() {
-    const { children, className, scrollable, ...rest } = this.props;
+    const { className, scrollable, ...rest } = this.props;
 
     const ukClass = 'uk-panel';
     const classes = classnames(className, ukClass, {
       [buildClassName(ukClass, 'scrollable')]: scrollable,
     });
 
-    return (
-      <BlockElement {...rest} as="div" className={classes || undefined}>
-        {children}
-      </BlockElement>
-    );
+    return <BlockElement {...rest} as="div" className={classes || undefined} />;
   }
 }

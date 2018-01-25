@@ -2,6 +2,7 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { isNil } from 'lodash';
 import { getOptionsString } from '../../lib';
 import { BlockElement } from '../Base';
 import CountdownDays from './CountdownDays';
@@ -48,10 +49,13 @@ export default class Countdown extends React.Component {
     }
   }
 
-  handleRef = element => (this.ref = element);
+  handleRef = element => {
+    if (!element) return;
+    this.ref = isNil(element.ref) ? element : element.ref;
+  };
 
   render() {
-    const { children, className, date, paused, ...rest } = this.props;
+    const { className, date, paused, ...rest } = this.props;
     const classes = classnames(className, 'uk-countdown');
     return (
       <BlockElement
@@ -59,9 +63,7 @@ export default class Countdown extends React.Component {
         className={classes || undefined}
         ref={this.handleRef}
         data-uk-countdown={getOptionsString({ date })}
-      >
-        {children}
-      </BlockElement>
+      />
     );
   }
 }

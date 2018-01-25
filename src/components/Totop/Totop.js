@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import UIkit from 'uikit';
-import { get, noop } from 'lodash';
+import { get, isNil, noop } from 'lodash';
 import { InlineElement } from '../Base';
 
 export default class Totop extends React.Component {
@@ -41,15 +41,12 @@ export default class Totop extends React.Component {
     );
   }
 
-  handleRef = element => (this.ref = element);
-
   render() {
     const { smooth, ...rest } = this.props;
     return (
       <InlineElement
         {...rest}
         href="#"
-        ref={this.handleRef}
         data-uk-totop
         data-uk-scroll={smooth || undefined}
         data-uikfr-scroll-totop

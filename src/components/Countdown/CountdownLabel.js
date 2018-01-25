@@ -20,12 +20,8 @@ export default class CountdownLabel extends React.Component {
   };
 
   render() {
-    const { children, className, ...rest } = this.props;
+    const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-countdown-label');
-    return (
-      <BlockElement {...rest} className={classes || undefined}>
-        {children}
-      </BlockElement>
-    );
+    return <BlockElement {...rest} className={classes || undefined} />;
   }
 }

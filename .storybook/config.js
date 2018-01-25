@@ -26,6 +26,7 @@ function loadStories() {
   require('../src/stories/Notification');
   require('../src/stories/Scroll');
   require('../src/stories/Tab');
+  require('../src/stories/Upload');
 }
 
 configure(loadStories, module);

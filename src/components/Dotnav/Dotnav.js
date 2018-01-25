@@ -24,18 +24,14 @@ class Dotnav extends React.Component {
   static Item = DotnavItem;
 
   render() {
-    const { children, className, vertical, ...rest } = this.props;
+    const { className, vertical, ...rest } = this.props;
 
     const ukClass = 'uk-dotnav';
     const classes = classnames(className, ukClass, {
       [buildClassName(ukClass, 'vertical')]: vertical,
     });
 
-    return (
-      <BlockElement {...rest} as="ul" className={classes || undefined}>
-        {children}
-      </BlockElement>
-    );
+    return <BlockElement {...rest} as="ul" className={classes || undefined} />;
   }
 }
 

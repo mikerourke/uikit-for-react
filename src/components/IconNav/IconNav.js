@@ -24,17 +24,13 @@ export default class IconNav extends React.Component {
   static Item = IconNavItem;
 
   render() {
-    const { children, className, vertical, ...rest } = this.props;
+    const { className, vertical, ...rest } = this.props;
 
     const ukClass = 'uk-iconnav';
     const classes = classnames(className, ukClass, {
       [buildClassName(ukClass, 'vertical')]: vertical,
     });
 
-    return (
-      <BlockElement {...rest} as="ul" className={classes || undefined}>
-        {children}
-      </BlockElement>
-    );
+    return <BlockElement {...rest} as="ul" className={classes || undefined} />;
   }
 }

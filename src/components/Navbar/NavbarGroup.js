@@ -24,12 +24,8 @@ export default class NavbarGroup extends React.Component {
   };
 
   render() {
-    const { align, children, className, ...rest } = this.props;
+    const { align, className, ...rest } = this.props;
     const classes = classnames(className, buildClassName('navbar', align));
-    return (
-      <BaseElement {...rest} className={classes || undefined}>
-        {children}
-      </BaseElement>
-    );
+    return <BaseElement {...rest} className={classes || undefined} />;
   }
 }

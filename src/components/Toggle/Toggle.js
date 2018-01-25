@@ -84,6 +84,7 @@ export default class Toggle extends React.Component {
   };
 
   componentDidMount() {
+    if (!this.ref) return;
     UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
     UIkit.util.on(this.ref, 'beforeshow', this.props.onBeforeShow);
     UIkit.util.on(this.ref, 'hidden', this.props.onHidden);

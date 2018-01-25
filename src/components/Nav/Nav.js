@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { buildClassName, getOptionsString, HTML, UIK } from '../../lib';
 import { BlockElement } from '../Base';
 import NavItem from './NavItem';
+import { isNil } from 'lodash';
 
 export default class Nav extends React.Component {
   static displayName = 'Nav';
@@ -59,14 +60,16 @@ export default class Nav extends React.Component {
 
   static Item = NavItem;
 
-  handleRef = element => (this.ref = element);
+  handleRef = element => {
+    if (!element) return;
+    this.ref = isNil(element.ref) ? element : element.ref;
+  };
 
   render() {
     const {
       accordion,
       animation,
       center,
-      children,
       className,
       collapsible,
       hideOpenAnimation,
@@ -104,9 +107,7 @@ export default class Nav extends React.Component {
         className={classes || undefined}
         ref={this.handleRef}
         data-uk-nav={accordion ? componentOptions : undefined}
-      >
-        {children}
-      </BlockElement>
+      />
     );
   }
 }

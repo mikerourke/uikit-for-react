@@ -32,9 +32,7 @@ export default class Flex extends React.Component {
     });
 
     return (
-      <BlockElement {...rest} className={classes || undefined}>
-        {children}
-      </BlockElement>
+      <BlockElement {...rest} className={classes || undefined} />
     );
   }
 }

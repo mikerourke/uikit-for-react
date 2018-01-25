@@ -25,14 +25,7 @@ export default class Label extends React.Component {
   };
 
   render() {
-    const {
-      children,
-      className,
-      danger,
-      success,
-      warning,
-      ...rest
-    } = this.props;
+    const { className, danger, success, warning, ...rest } = this.props;
 
     const ukClass = 'uk-label';
     const classes = classnames(className, ukClass, {
@@ -42,9 +35,7 @@ export default class Label extends React.Component {
     });
 
     return (
-      <InlineElement {...rest} as="span" className={classes || undefined}>
-        {children}
-      </InlineElement>
+      <InlineElement {...rest} as="span" className={classes || undefined} />
     );
   }
 }

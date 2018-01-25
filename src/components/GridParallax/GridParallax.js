@@ -22,7 +22,7 @@ export default class GridParallax extends React.Component {
   static Cell = GridCell;
 
   render() {
-    const { children, target, translate, ...rest } = this.props;
+    const { target, translate, ...rest } = this.props;
 
     const componentOptions = getOptionsString({
       target,
@@ -34,9 +34,7 @@ export default class GridParallax extends React.Component {
         {...rest}
         data-uk-grid={undefined}
         data-uk-grid-parallax={componentOptions}
-      >
-        {children}
-      </Grid>
+      />
     );
   }
 }

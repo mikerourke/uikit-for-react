@@ -26,17 +26,13 @@ export default class DescriptionList extends React.Component {
   static Term = DescriptionTerm;
 
   render() {
-    const { children, className, divider, ...rest } = this.props;
+    const { className, divider, ...rest } = this.props;
 
     const ukClass = 'uk-description-list';
     const classes = classnames(className, ukClass, {
       [buildClassName(ukClass, 'divider')]: divider,
     });
 
-    return (
-      <BlockElement {...rest} as="dl" className={classes || undefined}>
-        {children}
-      </BlockElement>
-    );
+    return <BlockElement {...rest} as="dl" className={classes || undefined} />;
   }
 }
