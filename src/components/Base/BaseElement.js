@@ -55,10 +55,10 @@ export default class BaseElement extends React.Component {
     ]),
     border: PropTypes.oneOf(['circle', 'rounded']),
     boxShadow: PropTypes.oneOfType([
-      PropTypes.oneOf(UIK.SIZES),
+      PropTypes.oneOf(UIK.GRID_SIZES),
       PropTypes.shape({
-        size: PropTypes.oneOf(UIK.SIZES),
-        hoverSize: PropTypes.oneOf(UIK.SIZES),
+        size: PropTypes.oneOf(UIK.GRID_SIZES),
+        hoverSize: PropTypes.oneOf(UIK.GRID_SIZES),
         bottom: PropTypes.bool,
       }),
     ]),
@@ -78,8 +78,8 @@ export default class BaseElement extends React.Component {
       'clearfix',
       'float',
     ),
-    height: PropTypes.oneOf(['full', ...without(UIK.SIZES, 'xlarge')]),
-    heightMax: PropTypes.oneOf(without(UIK.SIZES, 'xlarge')),
+    height: PropTypes.oneOf([...UIK.BASE_SIZES, 'full']),
+    heightMax: PropTypes.oneOf(UIK.BASE_SIZES),
     hidden: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.oneOf(UIK.BREAKPOINTS),
@@ -191,7 +191,7 @@ export default class BaseElement extends React.Component {
     overflow: null,
     parallax: null,
     resize: false,
-    responsive: false,
+    responsive: null,
     visible: null,
     width: null,
     wrap: null,

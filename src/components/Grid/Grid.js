@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get, isNil, without } from 'lodash';
+import { get, isNil } from 'lodash';
 import { buildClassName, getOptionsString, UIK } from '../../lib';
 import { BlockElement } from '../Base';
 import GridCell from './GridCell';
@@ -21,7 +21,7 @@ export default class Grid extends React.Component {
     divider: PropTypes.bool,
     firstColumn: PropTypes.string,
     grow: PropTypes.oneOf(['auto', 'full', 'none']),
-    gutter: PropTypes.oneOf([...without(UIK.SIZES, 'xlarge'), 'collapse']),
+    gutter: PropTypes.oneOf([...UIK.BASE_SIZES, 'collapse']),
     matchHeight: PropTypes.bool,
     nextRow: PropTypes.shape({
       spacing: PropTypes.oneOf(UIK.SPACING_MODIFIERS),

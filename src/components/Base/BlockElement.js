@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get, trim, without } from 'lodash';
+import { get, trim } from 'lodash';
 import {
   buildClassName,
   getElementType,
@@ -60,7 +60,7 @@ export default class BlockElement extends React.Component {
         horizontal: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
         vertical: PropTypes.oneOf(UIK.VERTICAL_POSITIONS),
         cover: PropTypes.bool,
-        marginSize: PropTypes.oneOf(without(UIK.SIZES, 'xlarge')),
+        marginSize: PropTypes.oneOf(UIK.BASE_SIZES),
         type: PropTypes.oneOf(UIK.CSS_POSITIONS),
         zIndexOfOne: PropTypes.bool,
       }),

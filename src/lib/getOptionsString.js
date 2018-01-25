@@ -9,7 +9,8 @@ import {
   kebabCase,
   toPairs,
 } from 'lodash';
-import { buildClassName, joinListProp } from './buildProps';
+import buildClassName from './buildClassName';
+import joinListProp from './joinListProp';
 
 /**
  * Returns an array of valid animation names based on the type of the specified optionValue

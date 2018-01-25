@@ -126,7 +126,7 @@ const ICON_NAMES = [
   'yelp',
   'youtube',
 ];
-const SIZES = ['small', 'medium', 'large', 'xlarge'];
+const BASE_SIZES = ['small', 'medium', 'large'];
 
 export const UIK = {
   ANIMATIONS: [
@@ -153,7 +153,7 @@ export const UIK = {
   BACKGROUND_SIZES: ['cover', 'contain'],
   ALL_WIDTHS: [
     ...CHILD_WIDTHS,
-    ...SIZES,
+    ...BASE_SIZES,
     '2/3',
     '2/4',
     '3/4',
@@ -164,8 +164,10 @@ export const UIK = {
     '3/6',
     '4/6',
     '5/6',
+    'xlarge',
     'xxlarge',
   ],
+  BASE_SIZES,
   BASE_WIDTHS,
   BLEND_MODES: [
     'multiply',
@@ -206,13 +208,14 @@ export const UIK = {
   ],
   FLEX_HORIZONTAL_MODIFIERS: [...HORIZONTAL_POSITIONS, 'around', 'between'],
   FLEX_VERTICAL_MODIFIERS: ['stretch', 'top', 'middle', 'bottom'],
+  FORM_WIDTHS: [...BASE_SIZES, 'xsmall'],
+  GRID_SIZES: [...BASE_SIZES, 'xlarge'],
   HORIZONTAL_POSITIONS,
   ICON_NAMES,
   LOCATIONS: ['top', 'bottom', 'left', 'right'],
   MODES: ['click', 'hover'],
-  SIZES,
   SLIDESHOW_ANIMATIONS: ['fade', 'pull', 'push', 'scale', 'slide'],
-  SPACING_MODIFIERS: [...SIZES, 'remove', 'auto'],
+  SPACING_MODIFIERS: [...BASE_SIZES, 'auto', 'remove', 'xlarge'],
   STATUS_COLORS: ['muted', 'primary', 'success', 'warning', 'danger'],
   TEXT_VERTICAL_MODIFIERS: ['baseline', 'top', 'middle', 'bottom'],
   VERTICAL_POSITIONS: ['top', 'center', 'bottom'],
