@@ -1,9 +1,9 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import Card from '../components/Card';
-import Container from '../components/Container';
-import Grid from '../components/Grid';
+import Card from '../components/containers/Card';
+import Container from '../components/layout/Container';
+import Grid from '../components/layout/Grid';
 
 Card.displayName = 'Card';
 

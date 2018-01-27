@@ -34,7 +34,7 @@ const recurseChildren = (children, callback) =>
  */
 const getIfIsOfType = (child, childType) =>
   isString(childType)
-    ? get(child, ['type', 'meta', 'name'], '') === childType
+    ? get(child, ['type', 'displayName'], '') === childType
     : child.type === childType;
 
 /**
@@ -100,7 +100,7 @@ export const appendClassNamesToChildren = (children, childOptions) =>
   React.Children.map(children, child => {
     if (!React.isValidElement(child)) return child;
 
-    const name = get(child, ['type', 'meta', 'name'], '');
+    const name = get(child, ['type', 'displayName'], '');
     const classToAppend = get(childOptions, name);
     return React.cloneElement(child, {
       className: classnames(child.className, classToAppend),

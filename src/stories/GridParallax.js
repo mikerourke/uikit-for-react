@@ -1,9 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { range } from 'lodash';
-import Card from '../components/Card';
-import GridParallax from '../components/GridParallax';
-import Container from '../components/Container';
+import Card from '../components/containers/Card';
+import GridParallax from '../components/layout/GridParallax';
+import Container from '../components/layout/Container';
 
 GridParallax.displayName = 'GridParallax';
 

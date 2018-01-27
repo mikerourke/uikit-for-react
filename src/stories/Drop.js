@@ -1,12 +1,12 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import Base from '../components/Base';
-import Button from '../components/Button';
-import Card from '../components/Card';
-import Drop from '../components/Drop';
-import Grid from '../components/Grid';
-import Container from '../components/Container';
+import Base from '../components/base';
+import Button from '../components/elements/Button';
+import Card from '../components/containers/Card';
+import Drop from '../components/elements/Drop';
+import Grid from '../components/layout/Grid';
+import Container from '../components/layout/Container';
 
 Drop.displayName = 'Drop';
 

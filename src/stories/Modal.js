@@ -1,8 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import Button from '../components/Button';
-import Modal from '../components/Modal';
-import Container from '../components/Container';
+import Button from '../components/elements/Button';
+import Modal from '../components/containers/Modal';
+import Container from '../components/layout/Container';
 
 Modal.displayName = 'Modal';
 

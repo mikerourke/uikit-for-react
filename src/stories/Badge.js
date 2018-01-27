@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import Badge from '../components/Badge';
-import Container from '../components/Container';
+import Badge from '../components/elements/Badge';
+import Container from '../components/layout/Container';
 
 Badge.displayName = 'Badge';
 

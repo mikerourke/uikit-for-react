@@ -1,8 +1,8 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import Alert from '../components/Alert';
-import Container from '../components/Container';
+import Alert from '../components/elements/Alert';
+import Container from '../components/layout/Container';
 
 Alert.displayName = 'Alert';
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import Button from '../components/Button';
-import Countdown from '../components/Countdown';
-import Grid from '../components/Grid';
-import Container from '../components/Container';
+import Button from '../components/elements/Button';
+import Countdown from '../components/elements/Countdown';
+import Grid from '../components/layout/Grid';
+import Container from '../components/layout/Container';
 
 Countdown.displayName = 'Countdown';
 

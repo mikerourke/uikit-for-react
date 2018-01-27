@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import Comment from '../components/Comment';
-import Container from '../components/Container';
+import Comment from '../components/elements/Comment';
+import Container from '../components/layout/Container';
 
 Comment.displayName = 'Comment';
 

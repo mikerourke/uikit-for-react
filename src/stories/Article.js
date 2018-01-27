@@ -1,8 +1,8 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import Article from '../components/Article';
-import Container from '../components/Container';
+import Article from '../components/containers/Article';
+import Container from '../components/layout/Container';
 
 Article.displayName = 'Article';
 

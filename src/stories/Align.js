@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import withAlign from '../components/Align';
-import Container from '../components/Container';
+import Container from '../components/layout/Container';
 
 Align.displayName = 'Align';
 

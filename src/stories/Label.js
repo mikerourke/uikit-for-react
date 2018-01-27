@@ -1,8 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import Base from '../components/Base';
-import Label from '../components/Label';
-import Container from '../components/Container';
+import Base from '../components/base';
+import Label from '../components/elements/Label';
+import Container from '../components/layout/Container';
 
 Label.displayName = 'Label';
 

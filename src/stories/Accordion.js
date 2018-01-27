@@ -2,8 +2,8 @@ import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import Accordion from '../components/Accordion';
-import Container from '../components/Container';
+import Accordion from '../components/containers/Accordion';
+import Container from '../components/layout/Container';
 
 Accordion.displayName = 'Accordion';
 
