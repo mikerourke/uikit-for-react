@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { get } from 'lodash';
-import { buildClassName, HTML, UIK } from '../../../lib/index';
-import { EveryElement } from '../../base/index';
+import { buildClassName, HTML, UIK } from '../../../lib';
+import { EveryElement } from '../../base';
 
 export default class Text extends React.Component {
   static displayName = 'Text';

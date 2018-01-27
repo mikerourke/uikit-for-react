@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, restrictToChildTypes } from '../../../lib/index';
-import { BlockElement } from '../../base/index';
-import SubnavItem from './SubnavItem';
+import { buildClassName, restrictToChildTypes } from '../../../lib';
+import { BlockElement } from '../../base';
+import SubNavItem from './SubNavItem';
 
-export default class Subnav extends React.Component {
-  static displayName = 'Subnav';
+export default class SubNav extends React.Component {
+  static displayName = 'SubNav';
 
   static propTypes = {
     ...BlockElement.propTypes,
-    children: restrictToChildTypes(SubnavItem),
+    children: restrictToChildTypes(SubNavItem),
     className: PropTypes.string,
     divider: PropTypes.bool,
     pill: PropTypes.bool,
@@ -23,7 +23,7 @@ export default class Subnav extends React.Component {
     pill: false,
   };
 
-  static Item = SubnavItem;
+  static Item = SubNavItem;
 
   render() {
     const { className, divider, pill, ...rest } = this.props;

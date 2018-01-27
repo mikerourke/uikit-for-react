@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { restrictToChildTypes } from '../../../lib/index';
-import { BlockElement } from '../../base/index';
+import { restrictToChildTypes } from '../../../lib';
+import { BlockElement } from '../../base';
 import PaginationItem from './PaginationItem';
 import PaginationNext from './PaginationNext';
 import PaginationPrevious from './PaginationPrevious';

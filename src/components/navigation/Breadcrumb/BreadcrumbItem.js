@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName } from '../../../lib/index';
-import { BlockElement } from '../../base/index';
+import { buildClassName } from '../../../lib';
+import { BlockElement } from '../../base';
 
 export default class BreadcrumbItem extends React.Component {
   static displayName = 'BreadcrumbItem';

@@ -4,7 +4,7 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isNil, kebabCase, noop, omit } from 'lodash';
-import { BlockElement } from '../../base/index';
+import { BlockElement } from '../../base';
 import UploadFileSelect from './UploadFileSelect';
 
 export default class Upload extends React.Component {

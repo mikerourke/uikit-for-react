@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { omit } from 'lodash';
-import { buildClassName } from '../../../lib/index';
-import { BlockElement } from '../../base/index';
+import { buildClassName } from '../../../lib';
+import { BlockElement } from '../../base';
 
 export default class Flex extends React.Component {
   static displayName = 'Flex';

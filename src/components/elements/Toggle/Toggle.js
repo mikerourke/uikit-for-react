@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { isNil, noop } from 'lodash';
-import { getOptionsString, joinListProp, UIK } from '../../../lib/index';
-import { InlineElement } from '../../base/index';
+import { getOptionsString, joinListProp, UIK } from '../../../lib';
+import { InlineElement } from '../../base';
 
 export default class Toggle extends React.Component {
   static displayName = 'Toggle';

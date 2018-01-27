@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { InlineElement } from '../../base/index';
+import { InlineElement } from '../../base';
 
 export default class LightboxItem extends React.Component {
   static displayName = 'LightboxItem';

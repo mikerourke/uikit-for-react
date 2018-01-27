@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getOptionsString } from '../../../lib/index';
-import Grid, { GridCell } from '../Grid/index';
+import { getOptionsString } from '../../../lib';
+import Grid, { GridCell } from '../Grid';
 
 export default class GridParallax extends React.Component {
   static displayName = 'GridParallax';

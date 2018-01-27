@@ -3,8 +3,8 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import { noop } from 'lodash';
-import { buildClassName, getOptionsString, UIK } from '../../../lib/index';
-import { BlockElement } from '../../base/index';
+import { buildClassName, getOptionsString, UIK } from '../../../lib';
+import { BlockElement } from '../../base';
 import SlideshowItem from './SlideshowItem';
 
 export default class Slideshow extends React.Component {

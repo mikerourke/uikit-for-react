@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BlockElement, InlineElement } from '../../base/index';
+import { BlockElement, InlineElement } from '../../base';
 
 export default class PaginationPrevious extends React.Component {
   static displayName = 'PaginationPrevious';

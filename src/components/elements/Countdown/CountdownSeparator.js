@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { EveryElement } from '../../base/index';
+import { EveryElement } from '../../base';
 
 export default class CountdownSeparator extends React.Component {
   static displayName = 'CountdownSeparator';

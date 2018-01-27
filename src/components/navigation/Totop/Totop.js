@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import UIkit from 'uikit';
 import { get, isNil, noop } from 'lodash';
-import { InlineElement } from '../../base/index';
+import { InlineElement } from '../../base';
 
 export default class Totop extends React.Component {
   static displayName = 'Totop';

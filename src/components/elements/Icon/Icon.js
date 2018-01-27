@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, getOptionsString, UIK } from '../../../lib/index';
-import { InlineElement } from '../../base/index';
+import { buildClassName, getOptionsString, UIK } from '../../../lib';
+import { InlineElement } from '../../base';
 
 export default class Icon extends React.Component {
   static displayName = 'Icon';

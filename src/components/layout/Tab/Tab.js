@@ -8,8 +8,8 @@ import {
   findChildByType,
   getOptionsString,
   UIK,
-} from '../../../lib/index';
-import { BlockElement } from '../../base/index';
+} from '../../../lib';
+import { BlockElement } from '../../base';
 import TabItem from './TabItem';
 
 export default class Tab extends React.Component {

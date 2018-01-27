@@ -1,5 +1,5 @@
 import React from 'react';
-import Text from '../../style/Text/index';
+import Text from '../../style/Text';
 
 export default class ArticleLead extends React.Component {
   static displayName = 'ArticleLead';

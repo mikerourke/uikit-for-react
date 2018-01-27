@@ -4,8 +4,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { buildClassName } from '../../../lib/index';
-import { InlineElement } from '../../base/index';
+import { buildClassName } from '../../../lib';
+import { InlineElement } from '../../base';
 import FormLabel from './FormLabel';
 
 export default class FormCheckbox extends React.Component {

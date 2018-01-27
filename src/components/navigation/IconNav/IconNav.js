@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, restrictToChildTypes } from '../../../lib/index';
-import { BlockElement } from '../../base/index';
+import { buildClassName, restrictToChildTypes } from '../../../lib';
+import { BlockElement } from '../../base';
 import IconNavItem from './IconNavItem';
 
 export default class IconNav extends React.Component {

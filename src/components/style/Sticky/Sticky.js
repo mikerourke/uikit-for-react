@@ -2,8 +2,8 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import { isNil, noop } from 'lodash';
-import { getOptionsString } from '../../../lib/index';
-import { EveryElement } from '../../base/index';
+import { getOptionsString } from '../../../lib';
+import { EveryElement } from '../../base';
 
 export default class Sticky extends React.Component {
   static displayName = 'Sticky';

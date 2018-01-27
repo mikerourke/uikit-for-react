@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get } from 'lodash';
-import { getOptionsString } from '../../../lib/index';
-import { BlockElement } from '../../base/index';
+import { getOptionsString } from '../../../lib';
+import { BlockElement } from '../../base';
 import Cover from './Cover';
 
 export default class CoverContainer extends React.Component {

@@ -3,8 +3,8 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isNil, noop } from 'lodash';
-import { getOptionsString, UIK } from '../../../lib/index';
-import { EveryElement } from '../../base/index';
+import { getOptionsString, UIK } from '../../../lib';
+import { EveryElement } from '../../base';
 
 export default class Tooltip extends React.Component {
   static displayName = 'Tooltip';

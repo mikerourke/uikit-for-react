@@ -5,8 +5,8 @@ import classnames from 'classnames';
 import { isNil } from 'lodash';
 import AccordionTitle from './AccordionTitle';
 import AccordionContent from './AccordionContent';
-import { buildClassName, restrictToChildTypes } from '../../../lib/index';
-import { BlockElement } from '../../base/index';
+import { buildClassName, restrictToChildTypes } from '../../../lib';
+import { BlockElement } from '../../base';
 
 /**
  * Component with the required Content and Title elements.

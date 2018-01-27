@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get, isNil } from 'lodash';
-import { buildClassName, getOptionsString } from '../../../lib/index';
-import { BlockElement } from '../../base/index';
+import { buildClassName, getOptionsString } from '../../../lib';
+import { BlockElement } from '../../base';
 
 export default class Form extends React.Component {
   static displayName = 'Form';

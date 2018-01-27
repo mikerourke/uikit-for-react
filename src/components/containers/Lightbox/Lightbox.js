@@ -4,8 +4,8 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isNil, noop } from 'lodash';
-import { buildClassName, restrictToChildTypes } from '../../../lib/index';
-import { BlockElement } from '../../base/index';
+import { buildClassName, restrictToChildTypes } from '../../../lib';
+import { BlockElement } from '../../base';
 import LightboxItem from './LightboxItem';
 
 export default class Lightbox extends React.Component {

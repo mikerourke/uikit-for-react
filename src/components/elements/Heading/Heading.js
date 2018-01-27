@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isString } from 'lodash';
-import { buildClassName, HTML } from '../../../lib/index';
-import { BlockElement } from '../../base/index';
-import Text from '../../style/Text/index';
+import { buildClassName, HTML } from '../../../lib';
+import { BlockElement } from '../../base';
+import Text from '../../style/Text';
 
 export default class Heading extends React.Component {
   static displayName = 'Heading';

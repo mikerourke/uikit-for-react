@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { buildClassName } from '../../../lib/index';
-import { BlockElement } from '../../base/index';
-import DotnavItem from './DotnavItem';
+import { buildClassName } from '../../../lib';
+import { BlockElement } from '../../base';
+import ThumbNavItem from './ThumbNavItem';
 
-class Dotnav extends React.Component {
-  static displayName = 'Dotnav';
+export default class ThumbNav extends React.Component {
+  static displayName = 'ThumbNav';
 
   static propTypes = {
     ...BlockElement.propTypes,
-    children: PropTypes.node.isRequired,
+    children: CustomPropTypes.childrenOfType(ThumbNavItem),
     className: PropTypes.string,
     vertical: PropTypes.bool,
   };
@@ -21,12 +22,12 @@ class Dotnav extends React.Component {
     vertical: false,
   };
 
-  static Item = DotnavItem;
+  static Item = ThumbNavItem;
 
   render() {
     const { className, vertical, ...rest } = this.props;
 
-    const ukClass = 'uk-dotnav';
+    const ukClass = 'uk-thumbnav';
     const classes = classnames(className, ukClass, {
       [buildClassName(ukClass, 'vertical')]: vertical,
     });
@@ -34,5 +35,3 @@ class Dotnav extends React.Component {
     return <BlockElement {...rest} as="ul" className={classes || undefined} />;
   }
 }
-
-export default Dotnav;

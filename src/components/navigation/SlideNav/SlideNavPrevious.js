@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName } from '../../../lib/index';
-import { InlineElement } from '../../base/index';
+import { buildClassName } from '../../../lib';
+import { InlineElement } from '../../base';
 
-export default class SlidenavPrevious extends React.Component {
-  static displayName = 'SlidenavPrevious';
+export default class SlideNavPrevious extends React.Component {
+  static displayName = 'SlideNavPrevious';
 
   static propTypes = {
     ...InlineElement.propTypes,

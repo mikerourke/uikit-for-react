@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { HTML } from '../../../lib/index';
-import { BlockElement } from '../../base/index';
+import { HTML } from '../../../lib';
+import { BlockElement } from '../../base';
 
 export default class CommentTitle extends React.Component {
   static displayName = 'CommentTitle';

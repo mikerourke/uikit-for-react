@@ -1,27 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { BlockElement } from '../../base/index';
-import SlidenavItem from './SlidenavPrevious';
+import { buildClassName, getElementType } from '../../lib';
+import { BlockElement } from '../Base';
 
-export default class SlidenavContainer extends React.Component {
-  static displayName = 'SlidenavContainer';
+export default class Overlay extends React.Component {
+  static displayName = 'Overlay';
 
   static propTypes = {
     ...BlockElement.propTypes,
-    children: CustomPropTypes.childrenOfType(SlidenavItem),
+    as: BlockElement.asPropType,
+    children: PropTypes.node.isRequired,
     className: PropTypes.string,
   };
 
   static defaultProps = {
     ...BlockElement.defaultProps,
+    as: 'div',
     className: null,
   };
 
   render() {
     const { className, ...rest } = this.props;
-    const classes = classnames(className, 'uk-slidenav-container');
+    const classes = classnames(className, 'uk-overlay');
     return <BlockElement {...rest} className={classes || undefined} />;
   }
 }

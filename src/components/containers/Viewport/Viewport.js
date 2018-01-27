@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getOptionsString } from '../../../lib/index';
-import { BlockElement } from '../../base/index';
+import { getOptionsString } from '../../../lib';
+import { BlockElement } from '../../base';
 
 export default class Viewport extends React.Component {
   static displayName = 'Viewport';

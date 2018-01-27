@@ -3,11 +3,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isNil } from 'lodash';
-import { buildClassName } from '../../../lib/index';
-import { BlockElement, InlineElement } from '../../base/index';
+import { buildClassName } from '../../../lib';
+import { BlockElement, InlineElement } from '../../base';
 
-export default class ThumbnavItem extends React.Component {
-  static displayName = 'ThumbnavItem';
+export default class ThumbNavItem extends React.Component {
+  static displayName = 'ThumbNavItem';
 
   static propTypes = {
     ...BlockElement.propTypes,

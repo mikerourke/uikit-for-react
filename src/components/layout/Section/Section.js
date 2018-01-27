@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, UIK } from '../../../lib/index';
-import { BlockElement } from '../../base/index';
+import { buildClassName, UIK } from '../../../lib';
+import { BlockElement } from '../../base';
 
 export default class Section extends React.Component {
   static displayName = 'Section';

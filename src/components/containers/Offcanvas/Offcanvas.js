@@ -3,9 +3,9 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isNil, noop } from 'lodash';
-import { getOptionsString } from '../../../lib/index';
-import { BlockElement } from '../../base/index';
-import Grid from '../../layout/Grid/index';
+import { getOptionsString } from '../../../lib';
+import { BlockElement } from '../../base';
+import Grid from '../../layout/Grid';
 
 export default class Offcanvas extends React.Component {
   static displayName = 'Offcanvas';

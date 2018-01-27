@@ -3,7 +3,7 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import { noop } from 'lodash';
-import { getElementType, getOptionsString, HTML } from '../../../lib/index';
+import { getElementType, getOptionsString, HTML } from '../../../lib';
 
 export default class ScrollPoint extends React.Component {
   static displayName = 'ScrollPoint';

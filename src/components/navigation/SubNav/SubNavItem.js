@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isObject } from 'lodash';
-import { buildClassName } from '../../../lib/index';
-import { BlockElement } from '../../base/index';
+import { buildClassName } from '../../../lib';
+import { BlockElement } from '../../base';
 
-export default class SubnavItem extends React.Component {
-  static displayName = 'SubnavItem';
+export default class SubNavItem extends React.Component {
+  static displayName = 'SubNavItem';
 
   static propTypes = {
     ...BlockElement.propTypes,

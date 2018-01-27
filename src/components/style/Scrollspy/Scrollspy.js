@@ -3,8 +3,8 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isNil, noop } from 'lodash';
-import { getOptionsString, joinListProp, UIK } from '../../../lib/index';
-import { BlockElement } from '../../base/index';
+import { getOptionsString, joinListProp, UIK } from '../../../lib';
+import { BlockElement } from '../../base';
 
 export default class Scrollspy extends React.Component {
   static displayName = 'Scrollspy';

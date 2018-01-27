@@ -10,8 +10,8 @@ import {
   getOptionsString,
   joinListProp,
   UIK,
-} from '../../../lib/index';
-import { BlockElement } from '../../base/index';
+} from '../../../lib';
+import { BlockElement } from '../../base';
 
 export default class Drop extends React.Component {
   static displayName = 'Drop';

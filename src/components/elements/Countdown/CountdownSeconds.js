@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, getElementType } from '../../../lib/index';
+import { buildClassName, getElementType } from '../../../lib';
 import CountdownLabel from './CountdownLabel';
 
 export default class CountdownSeconds extends React.Component {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, getElementType, HTML, UIK } from '../../../lib/index';
+import { buildClassName, getElementType, HTML, UIK } from '../../../lib';
 
 export default class Hidden extends React.Component {
   static displayName = 'Hidden';

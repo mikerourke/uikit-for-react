@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { InlineElement } from '../../base/index';
+import { InlineElement } from '../../base';
 
 export default class CommentAvatar extends React.Component {
   static displayName = 'CommentAvatar';

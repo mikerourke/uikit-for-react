@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { BlockElement } from '../../base/index';
+import { BlockElement } from '../../base';
 
 export default class CardFooter extends React.Component {
   static displayName = 'CardFooter';

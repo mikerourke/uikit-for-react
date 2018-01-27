@@ -10,9 +10,9 @@ import {
   getIfHasChildType,
   getOptionsString,
   UIK,
-} from '../../../lib/index';
-import { BlockElement } from '../../base/index';
-import Close from '../Close/index';
+} from '../../../lib';
+import { BlockElement } from '../../base';
+import Close from '../Close';
 
 /**
  * Display success, warning and error messages.

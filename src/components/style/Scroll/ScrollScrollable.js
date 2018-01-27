@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { generateIdentifier, getElementType, HTML } from '../../../lib/index';
+import { generateIdentifier, getElementType, HTML } from '../../../lib';
 import ScrollPoint from './ScrollPoint';
 
 export default class ScrollScrollable extends React.Component {

@@ -3,7 +3,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import { get, noop, without } from 'lodash';
-import { UIK } from '../../../lib/index';
+import { UIK } from '../../../lib';
 
 export default class Notification extends React.Component {
   static displayName = 'Notification';

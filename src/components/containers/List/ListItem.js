@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BlockElement } from '../../base/index';
+import { BlockElement } from '../../base';
 
 export default class ListItem extends React.Component {
   static displayName = 'ListItem';
