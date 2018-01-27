@@ -32,13 +32,7 @@ export default class GridCell extends React.Component {
   };
 
   render() {
-    const {
-      className,
-      grow,
-      matchHeight,
-      order,
-      ...rest
-    } = this.props;
+    const { className, grow, matchHeight, order, ...rest } = this.props;
 
     const flexGrow = isNil(grow) ? null : grow.replace('full', '1');
 
@@ -53,8 +47,6 @@ export default class GridCell extends React.Component {
       },
     );
 
-    return (
-      <BlockElement {...rest} as="div" className={classes || undefined} />
-    );
+    return <BlockElement {...rest} as="div" className={classes} />;
   }
 }

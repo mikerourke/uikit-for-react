@@ -37,7 +37,7 @@ export default class FormRange extends React.Component {
         {...rest}
         as="input"
         type="range"
-        className={classes || undefined}
+        className={classes}
       />
     );
   }

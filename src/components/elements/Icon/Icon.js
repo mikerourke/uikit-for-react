@@ -40,7 +40,7 @@ export default class Icon extends React.Component {
     return (
       <InlineElement
         {...rest}
-        className={classes || undefined}
+        className={classes}
         data-uk-icon={componentOptions}
       />
     );

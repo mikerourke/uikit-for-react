@@ -28,6 +28,6 @@ export default class Panel extends React.Component {
       [buildClassName(ukClass, 'scrollable')]: scrollable,
     });
 
-    return <BlockElement {...rest} as="div" className={classes || undefined} />;
+    return <BlockElement {...rest} as="div" className={classes} />;
   }
 }

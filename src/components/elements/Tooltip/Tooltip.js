@@ -127,7 +127,7 @@ export default class Tooltip extends React.Component {
     return (
       <EveryElement
         {...rest}
-        className={classes || undefined}
+        className={classes}
         ref={this.handleRef}
         data-uk-tooltip={componentOptions}
       />

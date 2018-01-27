@@ -22,6 +22,6 @@ export default class Badge extends React.Component {
   render() {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-badge');
-    return <InlineElement {...rest} className={classes || undefined} />;
+    return <InlineElement {...rest} className={classes} />;
   }
 }

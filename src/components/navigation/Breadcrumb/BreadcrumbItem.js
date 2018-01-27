@@ -22,7 +22,7 @@ export default class BreadcrumbItem extends React.Component {
     children: null,
     className: null,
     disabled: false,
-    href: '',
+    href: '#',
   };
 
   render() {
@@ -34,7 +34,7 @@ export default class BreadcrumbItem extends React.Component {
 
     const InnerElement = active ? 'span' : 'a';
     return (
-      <BlockElement {...rest} as="li" className={classes || undefined}>
+      <BlockElement {...rest} as="li" className={classes}>
         <InnerElement href={href}>{children}</InnerElement>
       </BlockElement>
     );

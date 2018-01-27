@@ -20,6 +20,6 @@ export default class CardBody extends React.Component {
   render() {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-card-body');
-    return <BlockElement {...rest} className={classes || undefined} />;
+    return <BlockElement {...rest} className={classes} />;
   }
 }

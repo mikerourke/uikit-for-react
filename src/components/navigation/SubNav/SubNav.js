@@ -33,6 +33,6 @@ export default class SubNav extends React.Component {
       [buildClassName('subnav', 'pill')]: pill,
     });
 
-    return <BlockElement {...rest} as="ul" className={classes || undefined} />;
+    return <BlockElement {...rest} as="ul" className={classes} />;
   }
 }

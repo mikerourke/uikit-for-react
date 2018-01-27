@@ -155,7 +155,7 @@ export default class Lightbox extends React.Component {
     return (
       <BlockElement
         {...rest}
-        className={classes || undefined}
+        className={classes}
         ref={this.handleRef}
         data-lightbox
       />

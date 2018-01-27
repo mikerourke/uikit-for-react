@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, getElementType } from '../../lib';
-import { BlockElement } from '../Base';
+import { buildClassName, getElementType } from '../../../lib';
+import { BlockElement } from '../../base';
 
 export default class Overlay extends React.Component {
   static displayName = 'Overlay';
@@ -23,6 +23,6 @@ export default class Overlay extends React.Component {
   render() {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-overlay');
-    return <BlockElement {...rest} className={classes || undefined} />;
+    return <BlockElement {...rest} className={classes} />;
   }
 }

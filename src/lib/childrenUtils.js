@@ -67,6 +67,7 @@ export const findChildByType = (children, childType) => {
   recurseChildren(children, child => {
     if (getIfIsOfType(child, childType)) childrenOfType.push(child);
   });
+  if (childrenOfType.length === 0) return null;
   return childrenOfType.length === 1 ? first(childrenOfType) : childrenOfType;
 };
 

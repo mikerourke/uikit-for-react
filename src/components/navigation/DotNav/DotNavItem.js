@@ -31,7 +31,7 @@ export default class DotNavItem extends React.Component {
     });
 
     return (
-      <BlockElement {...rest} as="li" className={classes || undefined}>
+      <BlockElement {...rest} as="li" className={classes}>
         <a href={href}>{children}</a>
       </BlockElement>
     );

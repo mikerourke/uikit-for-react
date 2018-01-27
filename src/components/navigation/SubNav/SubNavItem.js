@@ -20,7 +20,7 @@ export default class SubNavItem extends React.Component {
     ...BlockElement.defaultProps,
     active: false,
     className: null,
-    href: '',
+    href: '#',
   };
 
   render() {
@@ -31,7 +31,7 @@ export default class SubNavItem extends React.Component {
     });
 
     return (
-      <BlockElement {...rest} as="li" className={classes || undefined}>
+      <BlockElement {...rest} as="li" className={classes}>
         {isObject(children) ? children : <a href={href}>{children}</a>}
       </BlockElement>
     );

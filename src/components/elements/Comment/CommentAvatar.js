@@ -20,7 +20,7 @@ export default class CommentAvatar extends React.Component {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-comment-avatar');
     return (
-      <InlineElement {...rest} as="img" className={classes || undefined} />
+      <InlineElement {...rest} as="img" className={classes} />
     );
   }
 }

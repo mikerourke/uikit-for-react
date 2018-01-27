@@ -104,7 +104,7 @@ export default class Nav extends React.Component {
       <BlockElement
         {...rest}
         as="ul"
-        className={classes || undefined}
+        className={classes}
         ref={this.handleRef}
         data-uk-nav={accordion ? componentOptions : undefined}
       />

@@ -23,6 +23,6 @@ export default class CommentTitle extends React.Component {
   render() {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-comment-title');
-    return <BlockElement {...rest} className={classes || undefined} />;
+    return <BlockElement {...rest} className={classes} />;
   }
 }

@@ -39,7 +39,7 @@ export default class Container extends React.Component {
     );
 
     return (
-      <BlockElement {...rest} className={classes || undefined}>
+      <BlockElement {...rest} className={classes}>
         {children}
       </BlockElement>
     );

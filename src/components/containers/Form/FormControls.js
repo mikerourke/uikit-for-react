@@ -28,6 +28,6 @@ export default class FormControls extends React.Component {
       [buildClassName(ukClass, 'text')]: alignForText,
     });
 
-    return <BlockElement {...rest} as="div" className={classes || undefined} />;
+    return <BlockElement {...rest} as="div" className={classes} />;
   }
 }

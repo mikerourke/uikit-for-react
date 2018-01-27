@@ -42,7 +42,7 @@ export default class ThumbNavItem extends React.Component {
       <BlockElement
         {...rest}
         as="li"
-        className={classes || undefined}
+        className={classes}
         data-uk-slideshow-item={
           isNil(slideshowItem) ? undefined : slideshowItem
         }

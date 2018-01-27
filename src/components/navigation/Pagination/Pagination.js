@@ -28,6 +28,6 @@ export default class Pagination extends React.Component {
   render() {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-pagination');
-    return <BlockElement {...rest} as="ul" className={classes || undefined} />;
+    return <BlockElement {...rest} as="ul" className={classes} />;
   }
 }

@@ -21,7 +21,7 @@ export default class CommentHeader extends React.Component {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-comment-header');
     return (
-      <BlockElement {...rest} as="header" className={classes || undefined} />
+      <BlockElement {...rest} as="header" className={classes} />
     );
   }
 }

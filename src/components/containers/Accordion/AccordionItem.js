@@ -52,7 +52,7 @@ export default class AccordionItem extends React.Component {
 
     const classes = classnames(className, { [buildClassName('open')]: open });
     return (
-      <BlockElement {...rest} as="li" className={classes || undefined}>
+      <BlockElement {...rest} as="li" className={classes}>
         {title && <AccordionTitle>{title}</AccordionTitle>}
         {content && <AccordionContent>{content}</AccordionContent>}
         {children && children}

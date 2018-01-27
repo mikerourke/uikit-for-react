@@ -30,6 +30,6 @@ export default class Divider extends React.Component {
       [buildClassName(ukClass, 'small')]: small,
     });
 
-    return <BlockElement {...rest} as="hr" className={classes || undefined} />;
+    return <BlockElement {...rest} as="hr" className={classes} />;
   }
 }

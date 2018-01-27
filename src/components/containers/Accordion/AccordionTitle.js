@@ -24,6 +24,6 @@ export default class AccordionTitle extends React.Component {
   render() {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-accordion-title');
-    return <InlineElement {...rest} as="a" className={classes || undefined} />;
+    return <InlineElement {...rest} as="a" className={classes} />;
   }
 }

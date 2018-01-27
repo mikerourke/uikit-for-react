@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { invoke } from 'lodash';
-import { buildClassName } from '../../lib';
-import { InlineElement } from '../Base';
+import { buildClassName } from '../../../lib';
+import { InlineElement } from '../../base';
 
 export default class SearchIcon extends React.Component {
   static displayName = 'SearchIcon';
@@ -43,7 +43,7 @@ export default class SearchIcon extends React.Component {
     return (
       <InlineElement
         {...rest}
-        className={classes || undefined}
+        className={classes}
         onClick={this.handleClick}
         data-uk-search-icon
       />

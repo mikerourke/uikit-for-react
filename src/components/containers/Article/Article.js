@@ -34,11 +34,7 @@ export default class Article extends React.Component {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-article');
     return (
-      <BlockElement
-        {...rest}
-        as="article"
-        className={classes || undefined}
-      />
+      <BlockElement {...rest} as="article" className={classes} />
     );
   }
 }

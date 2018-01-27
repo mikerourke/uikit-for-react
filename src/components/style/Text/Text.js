@@ -107,6 +107,6 @@ export default class Text extends React.Component {
       },
     );
 
-    return <EveryElement {...rest} className={classes || undefined} />;
+    return <EveryElement {...rest} className={classes} />;
   }
 }

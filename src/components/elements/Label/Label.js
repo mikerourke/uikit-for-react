@@ -35,7 +35,7 @@ export default class Label extends React.Component {
     });
 
     return (
-      <InlineElement {...rest} as="span" className={classes || undefined} />
+      <InlineElement {...rest} as="span" className={classes} />
     );
   }
 }

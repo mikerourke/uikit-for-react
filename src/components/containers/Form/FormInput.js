@@ -46,7 +46,7 @@ export default class FormInput extends React.Component {
 
     return (
       <div className="uk-inline">
-        <Icon {...rest} className={classes || undefined} />
+        <Icon {...rest} className={classes} />
         {inputElement}
       </div>
     );
@@ -77,7 +77,7 @@ export default class FormInput extends React.Component {
     );
 
     const inputElement = (
-      <InlineElement {...rest} as="input" className={classes || undefined} />
+      <InlineElement {...rest} as="input" className={classes} />
     );
 
     if (!isNil(iconOptions)) {

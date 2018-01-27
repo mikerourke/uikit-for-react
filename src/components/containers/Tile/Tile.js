@@ -36,7 +36,7 @@ export default class Tile extends React.Component {
     });
 
     return (
-      <BlockElement {...rest} as="span" className={classes || undefined} />
+      <BlockElement {...rest} as="span" className={classes} />
     );
   }
 }

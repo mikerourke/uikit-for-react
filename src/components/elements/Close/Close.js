@@ -30,7 +30,7 @@ export default class Close extends React.Component {
     });
 
     return (
-      <InlineElement {...rest} className={classes || undefined} data-uk-close />
+      <InlineElement {...rest} className={classes} data-uk-close />
     );
   }
 }

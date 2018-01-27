@@ -64,7 +64,7 @@ export default class Form extends React.Component {
     });
 
     return (
-      <BlockElement {...rest} as="form" className={classes || undefined} />
+      <BlockElement {...rest} as="form" className={classes} />
     );
   }
 }

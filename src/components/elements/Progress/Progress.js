@@ -20,7 +20,7 @@ export default class Progress extends React.Component {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-progress');
     return (
-      <InlineElement {...rest} as="progress" className={classes || undefined} />
+      <InlineElement {...rest} as="progress" className={classes} />
     );
   }
 }

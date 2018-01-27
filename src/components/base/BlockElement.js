@@ -224,7 +224,7 @@ export default class BlockElement extends React.Component {
     return (
       <Element
         {...rest}
-        className={classes || undefined}
+        className={classes}
         style={inheritedStyle}
         ref={element => (this.ref = element)}
         tabIndex={transitionToggle ? 0 : undefined}

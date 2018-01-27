@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get } from 'lodash';
-import { buildClassName } from '../../lib';
-import { BlockElement, InlineElement } from '../Base';
+import { buildClassName } from '../../../lib';
+import { BlockElement, InlineElement } from '../../base';
 import SearchIcon from './SearchIcon';
 
 export default class Search extends React.Component {
@@ -57,7 +57,7 @@ export default class Search extends React.Component {
     };
 
     return (
-      <BlockElement {...rest} as="form" className={classes || undefined}>
+      <BlockElement {...rest} as="form" className={classes}>
         {icon && icon}
         <InlineElement {...inputProps} as="input" type="search" />
       </BlockElement>

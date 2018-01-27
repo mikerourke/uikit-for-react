@@ -137,7 +137,7 @@ export default class Toggle extends React.Component {
     return (
       <InlineElement
         {...rest}
-        className={classes || undefined}
+        className={classes}
         ref={this.handleRef}
         data-uk-toggle={componentOptions}
       />

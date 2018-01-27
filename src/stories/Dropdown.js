@@ -1,7 +1,7 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import Base from '../components/base';
+import { BlockElement } from '../components/base';
 import Button from '../components/elements/Button';
 import Dropdown from '../components/elements/Dropdown';
 import Grid from '../components/layout/Grid';
@@ -14,14 +14,14 @@ const message = faker.lorem.paragraph();
 storiesOf('Dropdown', module)
   .add('Basic Usage', () => (
     <Container margin={{ all: 'large' }}>
-      <Base inline>
+      <BlockElement inline>
         <Dropdown toggle={<Button>Hover</Button>}>{message}</Dropdown>
-      </Base>
-      <Base inline>
+      </BlockElement>
+      <BlockElement inline>
         <Dropdown mode="click" toggle={<Button>Click</Button>}>
           {message}
         </Dropdown>
-      </Base>
+      </BlockElement>
     </Container>
   ))
 
@@ -38,12 +38,12 @@ storiesOf('Dropdown', module)
 
   .add('Position', () => (
     <Container margin={{ all: 'large' }}>
-      <Base inline>
+      <BlockElement inline>
         <Dropdown toggle={<Button>Top Right</Button>} position="top-right">
           {message}
         </Dropdown>
-      </Base>
-      <Base inline>
+      </BlockElement>
+      <BlockElement inline>
         <Dropdown
           toggle={<Button>Bottom Justify</Button>}
           position="bottom-justify"
@@ -51,15 +51,15 @@ storiesOf('Dropdown', module)
         >
           {message}
         </Dropdown>
-      </Base>
-      <Base inline>
+      </BlockElement>
+      <BlockElement inline>
         <Dropdown
           toggle={<Button>Right Center</Button>}
           position="right-center"
         >
           {message}
         </Dropdown>
-      </Base>
+      </BlockElement>
     </Container>
   ))
 

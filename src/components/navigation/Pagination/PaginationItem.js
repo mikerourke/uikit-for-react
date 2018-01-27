@@ -21,7 +21,7 @@ export default class PaginationItem extends React.Component {
     active: false,
     className: null,
     disabled: false,
-    href: '',
+    href: '#',
   };
 
   render() {
@@ -34,7 +34,7 @@ export default class PaginationItem extends React.Component {
 
     const InnerElement = active || disabled ? 'span' : 'a';
     return (
-      <BlockElement {...rest} as="li" className={classes || undefined}>
+      <BlockElement {...rest} as="li" className={classes}>
         <InnerElement href={href}>{children}</InnerElement>
       </BlockElement>
     );

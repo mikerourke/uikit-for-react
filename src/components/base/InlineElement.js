@@ -83,7 +83,7 @@ export default class InlineElement extends React.Component {
     return (
       <Element
         {...rest}
-        className={classes || undefined}
+        className={classes}
         ref={element => (this.ref = element)}
         style={inheritedStyle}
         {...inheritedAttributes}

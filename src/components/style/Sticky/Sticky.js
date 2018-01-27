@@ -2,8 +2,9 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import { isNil, noop } from 'lodash';
-import { getOptionsString } from '../../../lib';
+import { findChildByType, getOptionsString } from '../../../lib';
 import { EveryElement } from '../../base';
+import Navbar from '../../navigation/Navbar';
 
 export default class Sticky extends React.Component {
   static displayName = 'Sticky';
@@ -60,6 +61,19 @@ export default class Sticky extends React.Component {
     this.ref = isNil(element.ref) ? element : element.ref;
   };
 
+  getOptionsForNavbar() {
+    const { clsActive, clsInactive, target } = this.props;
+    const childNavbar = findChildByType(Navbar);
+    if (!childNavbar) return {};
+    return {
+      clsActive: classnames(clsActive, 'uk-navbar-sticky'),
+      clsInactive: childNavbar.props.transparent
+        ? classnames(clsInactive, 'uk-navbar-transparent')
+        : clsInactive,
+      target: classnames(target, 'uk-navbar-container'),
+    };
+  }
+
   render() {
     const {
       animation,
@@ -86,6 +100,7 @@ export default class Sticky extends React.Component {
       target,
       top,
       widthElement,
+      ...this.getOptionsForNavbar(),
     });
 
     return (

@@ -31,8 +31,6 @@ export default class Flex extends React.Component {
       [buildClassName(ukClass, 'inline')]: inline,
     });
 
-    return (
-      <BlockElement {...rest} className={classes || undefined} />
-    );
+    return <BlockElement {...rest} className={classes} />;
   }
 }

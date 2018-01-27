@@ -37,7 +37,7 @@ export default class FormRadio extends React.Component {
         {...rest}
         as="input"
         type="radio"
-        className={classes || undefined}
+        className={classes}
       />
     );
   }

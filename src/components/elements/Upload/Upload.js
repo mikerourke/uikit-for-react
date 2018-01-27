@@ -110,7 +110,7 @@ export default class Upload extends React.Component {
     return (
       <BlockElement
         {...blockProps}
-        className={classes || undefined}
+        className={classes}
         ref={this.handleRef}
       />
     );

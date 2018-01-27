@@ -20,6 +20,6 @@ export default class ArticleMeta extends React.Component {
   render() {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-article-meta');
-    return <BlockElement {...rest} as="p" className={classes || undefined} />;
+    return <BlockElement {...rest} as="p" className={classes} />;
   }
 }

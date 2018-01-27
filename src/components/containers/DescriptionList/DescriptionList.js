@@ -33,6 +33,6 @@ export default class DescriptionList extends React.Component {
       [buildClassName(ukClass, 'divider')]: divider,
     });
 
-    return <BlockElement {...rest} as="dl" className={classes || undefined} />;
+    return <BlockElement {...rest} as="dl" className={classes} />;
   }
 }

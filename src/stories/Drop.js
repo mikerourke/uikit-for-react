@@ -1,7 +1,7 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import Base from '../components/base';
+import { BlockElement } from '../components/base';
 import Button from '../components/elements/Button';
 import Card from '../components/containers/Card';
 import Drop from '../components/elements/Drop';
@@ -15,16 +15,16 @@ const message = faker.lorem.paragraph();
 storiesOf('Drop', module)
   .add('Basic Usage', () => (
     <Container margin={{ all: 'large' }}>
-      <Base inline>
+      <BlockElement inline>
         <Drop toggle={<Button>Hover</Button>}>
           <Card>{message}</Card>
         </Drop>
-      </Base>
-      <Base inline>
+      </BlockElement>
+      <BlockElement inline>
         <Drop mode="click" toggle={<Button>Click</Button>}>
           <Card>{message}</Card>
         </Drop>
-      </Base>
+      </BlockElement>
     </Container>
   ))
 
@@ -43,24 +43,24 @@ storiesOf('Drop', module)
 
   .add('Position', () => (
     <Container margin={{ all: 'large' }}>
-      <Base inline>
+      <BlockElement inline>
         <Drop toggle={<Button>Top Right</Button>} position="top-right">
           <Card>{message}</Card>
         </Drop>
-      </Base>
-      <Base inline>
+      </BlockElement>
+      <BlockElement inline>
         <Drop
           toggle={<Button>Bottom Justify</Button>}
           position="bottom-justify"
         >
           <Card>{message}</Card>
         </Drop>
-      </Base>
-      <Base inline>
+      </BlockElement>
+      <BlockElement inline>
         <Drop toggle={<Button>Right Center</Button>} position="right-center">
           <Card>{message}</Card>
         </Drop>
-      </Base>
+      </BlockElement>
     </Container>
   ))
 

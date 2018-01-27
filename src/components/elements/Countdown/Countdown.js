@@ -60,7 +60,7 @@ export default class Countdown extends React.Component {
     return (
       <BlockElement
         {...rest}
-        className={classes || undefined}
+        className={classes}
         ref={this.handleRef}
         data-uk-countdown={getOptionsString({ date })}
       />

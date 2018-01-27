@@ -33,7 +33,7 @@ export default class NavItem extends React.Component {
     });
 
     return (
-      <BlockElement {...rest} as="li" className={classes || undefined}>
+      <BlockElement {...rest} as="li" className={classes}>
         {this.renderChildren(children)}
       </BlockElement>
     );

@@ -81,6 +81,6 @@ export default class Card extends React.Component {
       },
     );
 
-    return <BlockElement {...rest} as="div" className={classes || undefined} />;
+    return <BlockElement {...rest} as="div" className={classes} />;
   }
 }

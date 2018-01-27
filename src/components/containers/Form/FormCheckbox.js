@@ -55,7 +55,7 @@ export default class FormCheckbox extends React.Component {
         {...rest}
         as="input"
         type="checkbox"
-        className={classes || undefined}
+        className={classes}
       />
     );
 

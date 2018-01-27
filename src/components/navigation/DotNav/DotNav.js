@@ -31,7 +31,7 @@ class DotNav extends React.Component {
       [buildClassName(ukClass, 'vertical')]: vertical,
     });
 
-    return <BlockElement {...rest} as="ul" className={classes || undefined} />;
+    return <BlockElement {...rest} as="ul" className={classes} />;
   }
 }
 

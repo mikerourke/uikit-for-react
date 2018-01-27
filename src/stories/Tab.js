@@ -1,8 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Container from '../components/layout/Container';
-import Base from '../components/base';
-import Grid from '../components/layout/Grid/Grid';
+import { BlockElement } from '../components/base';
+import Grid from '../components/layout/Grid';
 import Tab from '../components/layout/Tab';
 
 Tab.displayName = 'Tab';
@@ -52,27 +52,27 @@ storiesOf('Tab', module)
 
   .add('Alignment', () => (
     <Container>
-      <Base margin={{ top: 'medium' }}>
+      <BlockElement margin={{ top: 'medium' }}>
         <Tab justifyContent="center">
           <Tab.Item active>Center</Tab.Item>
           <Tab.Item>Item</Tab.Item>
           <Tab.Item>Item</Tab.Item>
         </Tab>
-      </Base>
-      <Base margin={{ top: 'medium' }}>
+      </BlockElement>
+      <BlockElement margin={{ top: 'medium' }}>
         <Tab justifyContent="right">
           <Tab.Item active>Right</Tab.Item>
           <Tab.Item>Item</Tab.Item>
           <Tab.Item>Item</Tab.Item>
         </Tab>
-      </Base>
-      <Base>
+      </BlockElement>
+      <BlockElement>
         <Tab justifyContent="center" childWidth="expand">
           <Tab.Item active>Justify</Tab.Item>
           <Tab.Item>Item</Tab.Item>
           <Tab.Item>Item</Tab.Item>
           <Tab.Item>Item</Tab.Item>
         </Tab>
-      </Base>
+      </BlockElement>
     </Container>
   ));

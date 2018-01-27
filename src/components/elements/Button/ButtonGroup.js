@@ -20,6 +20,6 @@ export default class ButtonGroup extends React.Component {
   render() {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-button-group');
-    return <BlockElement {...rest} as="div" className={classes || undefined} />;
+    return <BlockElement {...rest} as="div" className={classes} />;
   }
 }

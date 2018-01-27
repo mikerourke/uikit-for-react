@@ -94,7 +94,7 @@ export default class Button extends React.Component {
       <InlineElement
         {...rest}
         as={hasIcon ? 'a' : as}
-        className={classes || undefined}
+        className={classes}
         disabled={(disabled && this.props.as === 'button') || undefined}
         onClick={this.handleClick}
         role="button"

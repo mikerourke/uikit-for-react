@@ -84,7 +84,7 @@ export default class Grid extends React.Component {
     return (
       <BlockElement
         {...rest}
-        className={classes || undefined}
+        className={classes}
         data-uk-grid={componentOptions}
       />
     );

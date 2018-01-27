@@ -26,6 +26,6 @@ export default class CountdownSeparator extends React.Component {
   render() {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-countdown-separator');
-    return <EveryElement {...rest} className={classes || undefined} />;
+    return <EveryElement {...rest} className={classes} />;
   }
 }

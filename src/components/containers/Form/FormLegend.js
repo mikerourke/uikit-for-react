@@ -22,7 +22,7 @@ export default class FormLegend extends React.Component {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-legend');
     return (
-      <InlineElement {...rest} as="legend" className={classes || undefined} />
+      <InlineElement {...rest} as="legend" className={classes} />
     );
   }
 }

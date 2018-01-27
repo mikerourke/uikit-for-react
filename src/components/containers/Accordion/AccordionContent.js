@@ -26,6 +26,6 @@ export default class AccordionContent extends React.Component {
   render() {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-accordion-content');
-    return <BlockElement {...rest} className={classes || undefined} />;
+    return <BlockElement {...rest} className={classes} />;
   }
 }

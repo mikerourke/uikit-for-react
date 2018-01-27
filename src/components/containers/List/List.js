@@ -40,6 +40,6 @@ export default class List extends React.Component {
       [buildClassName(ukClass, 'striped')]: striped,
     });
 
-    return <BlockElement {...rest} as="ul" className={classes || undefined} />;
+    return <BlockElement {...rest} as="ul" className={classes} />;
   }
 }

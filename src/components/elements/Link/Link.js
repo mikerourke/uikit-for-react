@@ -34,8 +34,6 @@ export default class Link extends React.Component {
       [buildClassName(ukClass, 'text')]: text,
     });
 
-    return (
-      <InlineElement {...rest} as="a" className={classes || undefined} />
-    );
+    return <InlineElement {...rest} as="a" className={classes} />;
   }
 }

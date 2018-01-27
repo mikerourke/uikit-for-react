@@ -40,7 +40,7 @@ export default class Comment extends React.Component {
     });
 
     return (
-      <BlockElement {...rest} as="article" className={classes || undefined} />
+      <BlockElement {...rest} as="article" className={classes} />
     );
   }
 }

@@ -54,7 +54,7 @@ export default class CoverContainer extends React.Component {
     return (
       <BlockElement
         {...rest}
-        className={classes || undefined}
+        className={classes}
         data-uk-height-viewport={getOptionsString(viewportOptions)}
       >
         {responsive && <canvas {...responsiveProps} />}

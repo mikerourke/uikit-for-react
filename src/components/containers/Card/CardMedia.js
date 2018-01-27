@@ -33,7 +33,7 @@ export default class CardMedia extends React.Component {
     );
 
     return (
-      <BlockElement {...rest} as="div" className={classes || undefined}>
+      <BlockElement {...rest} as="div" className={classes}>
         <img src={imgSrc} alt={imgAlt} />
       </BlockElement>
     );

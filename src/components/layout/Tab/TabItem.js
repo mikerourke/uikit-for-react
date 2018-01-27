@@ -22,7 +22,7 @@ export default class TabItem extends React.Component {
     active: false,
     className: null,
     disabled: false,
-    href: '',
+    href: '#',
   };
 
   render() {

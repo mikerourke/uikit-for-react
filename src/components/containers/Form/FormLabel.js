@@ -22,7 +22,7 @@ export default class FormLabel extends React.Component {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-form-label');
     return (
-      <InlineElement {...rest} as="label" className={classes || undefined} />
+      <InlineElement {...rest} as="label" className={classes} />
     );
   }
 }

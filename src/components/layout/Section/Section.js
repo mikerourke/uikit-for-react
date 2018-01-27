@@ -49,6 +49,6 @@ export default class Section extends React.Component {
       },
     );
 
-    return <BlockElement {...rest} className={classes || undefined} />;
+    return <BlockElement {...rest} className={classes} />;
   }
 }

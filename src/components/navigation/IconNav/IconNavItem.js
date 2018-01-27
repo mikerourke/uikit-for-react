@@ -22,7 +22,7 @@ export default class IconNavItem extends React.Component {
     ...BlockElement.defaultProps,
     active: false,
     className: null,
-    href: '',
+    href: '#',
     iconOptions: null,
   };
 
@@ -41,7 +41,7 @@ export default class IconNavItem extends React.Component {
     });
 
     return (
-      <BlockElement {...rest} as="li" className={classes || undefined}>
+      <BlockElement {...rest} as="li" className={classes}>
         <Icon {...iconOptions} href={href} name={iconName} />
       </BlockElement>
     );

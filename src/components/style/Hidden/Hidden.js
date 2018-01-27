@@ -59,7 +59,7 @@ export default class Hidden extends React.Component {
     return (
       <Element
         {...rest}
-        className={classes || undefined}
+        className={classes}
         hidden={hide || undefined}
       >
         {children}
