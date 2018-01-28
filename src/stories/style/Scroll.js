@@ -1,9 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { BlockElement } from '../components/base';
-import Button from '../components/elements/Button';
-import Scroll from '../components/style/Scroll';
-import Container from '../components/layout/Container';
+import { BlockElement, Button, Scroll, Container } from '../../components';
 
 Scroll.displayName = 'Scroll';
 

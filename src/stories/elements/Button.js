@@ -1,9 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { BlockElement } from '../components/base';
-import Button from '../components/elements/Button';
-import Container from '../components/layout/Container';
-import Dropdown from '../components/elements/Dropdown';
+import { BlockElement, Button, Container, Dropdown } from '../../components';
 
 Button.displayName = 'Button';
 

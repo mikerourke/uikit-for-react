@@ -1,9 +1,7 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import Alert from '../components/elements/Alert';
-import Close from '../components/elements/Close';
-import Container from '../components/layout/Container';
+import { Alert, Close, Container } from '../../components';
 
 Close.displayName = 'Close';
 

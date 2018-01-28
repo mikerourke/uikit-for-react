@@ -1,16 +1,32 @@
-// TODO: Figure out why this isn't working.
-export * as Accordion from './Accordion';
-export * as Article from './Article';
-export * as Card from './Card';
-export * as DescriptionList from './DescriptionList';
-export * as Form from './Form';
-export * as Lightbox from './Lightbox';
-export * as List from './List';
-export * as Modal from './Modal';
-export * as Offcanvas from './Offcanvas';
-export * as Panel from './Panel';
-export * as Slideshow from './Slideshow';
-export * as Sortable from './Sortable';
-export * as Table from './Table';
-export * as Tile from './Tile';
-export * as Viewport from './Viewport';
+export Accordion, { AccordionItem } from './Accordion';
+export Article, {
+  ArticleBody,
+  ArticleLead,
+  ArticleMeta,
+  ArticleTitle,
+} from './Article';
+export Card, {
+  CardBody,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardMedia,
+  CardTitle,
+} from './Card';
+export DescriptionList, {
+  DescriptionDetails,
+  DescriptionTerm,
+} from './DescriptionList';
+export Lightbox, { LightboxItem } from './Lightbox';
+export List, { ListItem } from './List';
+export Modal, {
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+} from './Modal';
+export Offcanvas, { OffcanvasContent } from './Offcanvas';
+export Panel from './Panel';
+export Slideshow, { SlideshowItem } from './Slideshow';
+export Tile from './Tile';
+export Viewport from './Viewport';

@@ -1,64 +1,67 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { BlockElement } from '../components/base';
-import Button from '../components/elements/Button';
-import Dropdown from '../components/elements/Dropdown';
-import Grid from '../components/layout/Grid';
-import Container from '../components/layout/Container';
+import {
+  BlockElement,
+  Button,
+  Card,
+  Drop,
+  Grid,
+  Container,
+} from '../../components';
 
-Dropdown.displayName = 'Dropdown';
+Drop.displayName = 'Drop';
 
 const message = faker.lorem.paragraph();
 
-storiesOf('Dropdown', module)
+storiesOf('Drop', module)
   .add('Basic Usage', () => (
     <Container margin={{ all: 'large' }}>
       <BlockElement inline>
-        <Dropdown toggle={<Button>Hover</Button>}>{message}</Dropdown>
+        <Drop toggle={<Button>Hover</Button>}>
+          <Card>{message}</Card>
+        </Drop>
       </BlockElement>
       <BlockElement inline>
-        <Dropdown mode="click" toggle={<Button>Click</Button>}>
-          {message}
-        </Dropdown>
+        <Drop mode="click" toggle={<Button>Click</Button>}>
+          <Card>{message}</Card>
+        </Drop>
       </BlockElement>
     </Container>
   ))
 
-  .add('Grid in dropdown', () => (
+  .add('Grid in drop', () => (
     <Container margin={{ all: 'large' }}>
-      <Dropdown toggle={<Button>Hover</Button>} width="large">
-        <Grid childWidth={{ atMd: '1/2' }}>
-          <Grid.Cell>{message}</Grid.Cell>
-          <Grid.Cell>{message}</Grid.Cell>
-        </Grid>
-      </Dropdown>
+      <Drop toggle={<Button>Hover</Button>} width="large">
+        <Card>
+          <Grid childWidth={{ atMd: '1/2' }}>
+            <Grid.Cell>{message}</Grid.Cell>
+            <Grid.Cell>{message}</Grid.Cell>
+          </Grid>
+        </Card>
+      </Drop>
     </Container>
   ))
 
   .add('Position', () => (
     <Container margin={{ all: 'large' }}>
       <BlockElement inline>
-        <Dropdown toggle={<Button>Top Right</Button>} position="top-right">
-          {message}
-        </Dropdown>
+        <Drop toggle={<Button>Top Right</Button>} position="top-right">
+          <Card>{message}</Card>
+        </Drop>
       </BlockElement>
       <BlockElement inline>
-        <Dropdown
+        <Drop
           toggle={<Button>Bottom Justify</Button>}
           position="bottom-justify"
-          animation={{ name: ['slide-right', 'fade'] }}
         >
-          {message}
-        </Dropdown>
+          <Card>{message}</Card>
+        </Drop>
       </BlockElement>
       <BlockElement inline>
-        <Dropdown
-          toggle={<Button>Right Center</Button>}
-          position="right-center"
-        >
-          {message}
-        </Dropdown>
+        <Drop toggle={<Button>Right Center</Button>} position="right-center">
+          <Card>{message}</Card>
+        </Drop>
       </BlockElement>
     </Container>
   ))
@@ -68,7 +71,7 @@ storiesOf('Dropdown', module)
 
     return (
       <Container margin={{ all: 'large' }}>
-        <Dropdown
+        <Drop
           toggle={<Button>Top Right</Button>}
           onBeforeShow={handleEvent('onToggle')}
           onShow={handleEvent('onShow')}
@@ -78,8 +81,8 @@ storiesOf('Dropdown', module)
           onHidden={handleEvent('onHidden')}
           onStack={handleEvent('onStack')}
         >
-          {message}
-        </Dropdown>
+          <Card>{message}</Card>
+        </Drop>
       </Container>
     );
   });

@@ -1,7 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import Breadcrumb from '../components/navigation/Breadcrumb';
-import Container from '../components/layout/Container';
+import { Breadcrumb, Container } from '../../components';
 
 Breadcrumb.displayName = 'Breadcrumb';
 

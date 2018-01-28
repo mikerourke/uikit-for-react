@@ -8,25 +8,25 @@ import { configure } from '@storybook/react'; // eslint-disable-line
 UIkit.use(Icons);
 
 function loadStories() {
-  require('../src/stories/Accordion');
-  require('../src/stories/Alert');
-  require('../src/stories/Article');
-  require('../src/stories/Badge');
-  require('../src/stories/Breadcrumb');
-  require('../src/stories/Button');
-  require('../src/stories/Card');
-  require('../src/stories/Close');
-  require('../src/stories/Comment');
-  require('../src/stories/Countdown');
-  require('../src/stories/Drop');
-  require('../src/stories/Dropdown');
-  require('../src/stories/Grid');
-  require('../src/stories/GridParallax');
-  require('../src/stories/Label');
-  require('../src/stories/Notification');
-  require('../src/stories/Scroll');
-  require('../src/stories/Tab');
-  require('../src/stories/Upload');
+  require('../src/stories/containers/Accordion');
+  require('../src/stories/containers/Article');
+  require('../src/stories/containers/Card');
+  require('../src/stories/elements/Alert');
+  require('../src/stories/elements/Badge');
+  require('../src/stories/elements/Button');
+  require('../src/stories/elements/Close');
+  require('../src/stories/elements/Comment');
+  require('../src/stories/elements/Countdown');
+  require('../src/stories/elements/Drop');
+  require('../src/stories/elements/Dropdown');
+  require('../src/stories/elements/Label');
+  require('../src/stories/elements/Notification');
+  require('../src/stories/elements/Upload');
+  require('../src/stories/layout/Grid');
+  require('../src/stories/layout/GridParallax');
+  require('../src/stories/layout/Tab');
+  require('../src/stories/navigation/Breadcrumb');
+  require('../src/stories/style/Scroll');
 }
 
 configure(loadStories, module);
