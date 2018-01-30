@@ -20,9 +20,8 @@ export default class Viewport extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     as: 'div',
-    className: null,
+    className: '',
     expand: false,
-    minHeight: null,
     offsetBottom: false,
     offsetTop: false,
   };

@@ -21,7 +21,7 @@ export default class Totop extends React.Component {
 
   static defaultProps = {
     ...InlineElement.defaultProps,
-    className: null,
+    className: '',
     scrollOptions: null,
     smooth: false,
   };

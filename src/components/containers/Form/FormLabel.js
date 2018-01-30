@@ -14,8 +14,7 @@ export default class FormLabel extends React.Component {
 
   static defaultProps = {
     ...InlineElement.defaultProps,
-    children: null,
-    className: null,
+    className: '',
   };
 
   render() {

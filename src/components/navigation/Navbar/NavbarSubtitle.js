@@ -16,7 +16,7 @@ export default class NavbarSubtitle extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
+    className: '',
   };
 
   render() {

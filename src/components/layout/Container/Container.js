@@ -18,8 +18,7 @@ export default class Container extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     as: 'div',
-    className: null,
-    size: null,
+    className: '',
   };
 
   render() {

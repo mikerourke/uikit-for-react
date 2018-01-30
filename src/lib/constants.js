@@ -212,6 +212,7 @@ export const UIK = {
   GRID_SIZES: [...BASE_SIZES, 'xlarge'],
   HORIZONTAL_POSITIONS,
   ICON_NAMES,
+  LIGHTBOX_ANIMATIONS: ['fade', 'scale', 'slide'],
   LOCATIONS: ['top', 'bottom', 'left', 'right'],
   MODES: ['click', 'hover'],
   SLIDESHOW_ANIMATIONS: ['fade', 'pull', 'push', 'scale', 'slide'],

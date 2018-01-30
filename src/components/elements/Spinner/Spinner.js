@@ -14,7 +14,7 @@ export default class Spinner extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     as: 'div',
-    className: null,
+    className: '',
   };
 
   render() {

@@ -28,7 +28,7 @@ export default class FormCheckbox extends React.Component {
   static defaultProps = {
     ...InlineElement.defaultProps,
     blank: false,
-    className: null,
+    className: '',
     danger: false,
     label: '',
     success: false,

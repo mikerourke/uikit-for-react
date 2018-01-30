@@ -64,13 +64,8 @@ export default class Toggle extends React.Component {
 
   static defaultProps = {
     ...InlineElement.defaultProps,
-    animation: null,
     as: 'button',
-    children: null,
-    className: null,
-    classToggled: null,
-    mediaTrigger: null,
-    mode: null,
+    className: '',
     onBeforeHide: noop,
     onBeforeShow: noop,
     onHidden: noop,
@@ -78,8 +73,6 @@ export default class Toggle extends React.Component {
     onShow: noop,
     onShown: noop,
     queued: false,
-    selectorTarget: null,
-    target: null,
     toggled: false,
   };
 

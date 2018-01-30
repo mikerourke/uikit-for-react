@@ -23,12 +23,10 @@ export default class Hidden extends React.Component {
 
   static defaultProps = {
     as: 'div',
-    breakpoint: null,
-    className: null,
+    className: '',
     hide: false,
     noTouchOnly: false,
     touchOnly: false,
-    whenHovered: null,
   };
 
   render() {

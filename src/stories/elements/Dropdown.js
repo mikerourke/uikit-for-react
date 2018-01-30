@@ -2,7 +2,7 @@ import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
 import {
-  BlockElement,
+  Block,
   Button,
   Dropdown,
   Grid,
@@ -16,14 +16,14 @@ const message = faker.lorem.paragraph();
 storiesOf('Dropdown', module)
   .add('Basic Usage', () => (
     <Container margin={{ all: 'large' }}>
-      <BlockElement inline>
+      <Block inline>
         <Dropdown toggle={<Button>Hover</Button>}>{message}</Dropdown>
-      </BlockElement>
-      <BlockElement inline>
+      </Block>
+      <Block inline>
         <Dropdown mode="click" toggle={<Button>Click</Button>}>
           {message}
         </Dropdown>
-      </BlockElement>
+      </Block>
     </Container>
   ))
 
@@ -40,12 +40,12 @@ storiesOf('Dropdown', module)
 
   .add('Position', () => (
     <Container margin={{ all: 'large' }}>
-      <BlockElement inline>
+      <Block inline>
         <Dropdown toggle={<Button>Top Right</Button>} position="top-right">
           {message}
         </Dropdown>
-      </BlockElement>
-      <BlockElement inline>
+      </Block>
+      <Block inline>
         <Dropdown
           toggle={<Button>Bottom Justify</Button>}
           position="bottom-justify"
@@ -53,15 +53,15 @@ storiesOf('Dropdown', module)
         >
           {message}
         </Dropdown>
-      </BlockElement>
-      <BlockElement inline>
+      </Block>
+      <Block inline>
         <Dropdown
           toggle={<Button>Right Center</Button>}
           position="right-center"
         >
           {message}
         </Dropdown>
-      </BlockElement>
+      </Block>
     </Container>
   ))
 

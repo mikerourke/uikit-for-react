@@ -21,7 +21,7 @@ export default class List extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     bullet: false,
-    className: null,
+    className: '',
     divider: false,
     large: false,
     striped: false,

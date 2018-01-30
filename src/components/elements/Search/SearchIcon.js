@@ -20,7 +20,7 @@ export default class SearchIcon extends React.Component {
   static defaultProps = {
     ...InlineElement.defaultProps,
     as: 'span',
-    className: null,
+    className: '',
     flip: false,
     href: null,
     onClick: null,

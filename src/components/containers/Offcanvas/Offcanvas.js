@@ -29,7 +29,7 @@ export default class Offcanvas extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
+    className: '',
     flip: false,
     mode: null,
     onBeforeHide: noop,

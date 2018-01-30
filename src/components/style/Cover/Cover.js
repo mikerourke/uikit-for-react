@@ -21,9 +21,7 @@ export default class Cover extends React.Component {
     ...BlockElement.defaultProps,
     as: 'img',
     automute: false,
-    className: null,
-    height: null,
-    width: null,
+    className: '',
   };
 
   static Container = CoverContainer;

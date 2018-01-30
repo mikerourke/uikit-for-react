@@ -15,8 +15,7 @@ export default class GridParallax extends React.Component {
 
   static defaultProps = {
     ...Grid.defaultProps,
-    target: null,
-    translate: null,
+    translate: 150,
   };
 
   static Cell = GridCell;

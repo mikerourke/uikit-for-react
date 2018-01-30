@@ -16,7 +16,7 @@ export default class Divider extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
+    className: '',
     icon: false,
     small: false,
   };

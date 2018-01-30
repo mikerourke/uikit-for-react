@@ -54,13 +54,8 @@ export default class Tooltip extends React.Component {
 
   static defaultProps = {
     ...EveryElement.defaultProps,
-    alignTo: null,
-    animation: null,
     as: 'div',
-    className: null,
-    clsActive: null,
-    delay: null,
-    offset: null,
+    className: '',
     onBeforeHide: noop,
     onBeforeShow: noop,
     onHidden: noop,
@@ -99,7 +94,6 @@ export default class Tooltip extends React.Component {
     const {
       alignTo,
       animation,
-      children,
       className,
       clsActive,
       delay,

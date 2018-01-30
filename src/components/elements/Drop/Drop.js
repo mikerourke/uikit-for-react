@@ -62,14 +62,10 @@ export default class Drop extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    animation: null,
     as: 'div',
     boundaryAlign: false,
-    className: null,
-    delayHide: null,
-    delayShow: null,
+    className: '',
     flip: false,
-    mode: null,
     onBeforeHide: noop,
     onBeforeShow: noop,
     onHidden: noop,
@@ -78,12 +74,7 @@ export default class Drop extends React.Component {
     onShown: noop,
     onStack: noop,
     onToggle: noop,
-    offset: null,
-    position: null,
-    selectorBoundary: null,
-    selectorToggle: null,
     shown: false,
-    toggle: null,
   };
 
   componentDidMount() {

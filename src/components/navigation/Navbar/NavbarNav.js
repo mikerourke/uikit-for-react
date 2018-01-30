@@ -16,7 +16,7 @@ export default class NavbarNav extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
+    className: '',
     splitSide: null,
   };
 

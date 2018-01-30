@@ -20,7 +20,7 @@ export default class CountdownSeparator extends React.Component {
   static defaultProps = {
     ...EveryElement.defaultProps,
     as: 'div',
-    className: null,
+    className: '',
   };
 
   render() {

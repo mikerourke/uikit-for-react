@@ -19,8 +19,7 @@ export default class BreadcrumbItem extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     active: false,
-    children: null,
-    className: null,
+    className: '',
     disabled: false,
     href: '#',
   };

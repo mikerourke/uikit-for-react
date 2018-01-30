@@ -53,25 +53,16 @@ export default class Navbar extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    alignOptions: null,
     boundaryAlign: false,
-    className: null,
+    className: '',
     container: false,
-    delayHide: null,
-    delayShow: null,
     dropbar: false,
-    dropbarMode: null,
-    dropdownAlign: null,
-    duration: null,
-    mode: null,
-    offset: null,
     onBeforeHide: noop,
     onBeforeShow: noop,
     onHidden: noop,
     onHide: noop,
     onShow: noop,
     onShown: noop,
-    selectorBoundary: null,
     transparent: false,
   };
 

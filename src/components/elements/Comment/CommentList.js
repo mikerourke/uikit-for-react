@@ -15,7 +15,7 @@ export default class CommentList extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
+    className: '',
   };
 
   static Comment = Comment;

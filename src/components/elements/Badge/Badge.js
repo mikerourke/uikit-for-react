@@ -9,14 +9,14 @@ export default class Badge extends React.Component {
   static propTypes = {
     ...InlineElement.propTypes,
     as: PropTypes.oneOf(['a', 'span']),
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     className: PropTypes.string,
   };
 
   static defaultProps = {
     ...InlineElement.defaultProps,
     as: 'span',
-    className: null,
+    className: '',
   };
 
   render() {

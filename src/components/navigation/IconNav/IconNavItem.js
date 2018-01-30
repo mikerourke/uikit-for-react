@@ -21,9 +21,8 @@ export default class IconNavItem extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     active: false,
-    className: null,
+    className: '',
     href: '#',
-    iconOptions: null,
   };
 
   render() {

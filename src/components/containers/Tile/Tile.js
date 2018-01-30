@@ -18,7 +18,7 @@ export default class Tile extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
+    className: '',
     muted: false,
     primary: false,
     secondary: false,

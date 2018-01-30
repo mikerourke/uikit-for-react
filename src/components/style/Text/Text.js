@@ -45,10 +45,8 @@ export default class Text extends React.Component {
     ...EveryElement.defaultProps,
     as: 'div',
     bold: false,
-    children: null,
-    className: null,
+    className: '',
     danger: false,
-    horizontalAlign: null,
     large: false,
     lead: false,
     meta: false,
@@ -56,15 +54,13 @@ export default class Text extends React.Component {
     primary: false,
     small: false,
     success: false,
-    transform: null,
-    verticalAlign: null,
     warning: false,
-    wrapping: null,
   };
 
   render() {
     const {
       bold,
+      children,
       className,
       danger,
       horizontalAlign,
@@ -107,6 +103,10 @@ export default class Text extends React.Component {
       },
     );
 
-    return <EveryElement {...rest} className={classes} />;
+    return (
+      <EveryElement {...rest} className={classes}>
+        {children}
+      </EveryElement>
+    );
   }
 }

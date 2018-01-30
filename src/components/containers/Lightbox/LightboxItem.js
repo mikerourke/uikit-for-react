@@ -15,18 +15,15 @@ export default class LightboxItem extends React.Component {
     caption: PropTypes.string,
     className: PropTypes.string,
     poster: PropTypes.string,
-    source: PropTypes.string,
+    source: PropTypes.string.isRequired,
     type: PropTypes.oneOf(['iframe', 'image', 'video']),
   };
 
   static defaultProps = {
     ...InlineElement.defaultProps,
     as: 'a',
-    caption: null,
-    className: null,
-    poster: null,
-    source: null,
-    type: null,
+    caption: '',
+    className: '',
   };
 
   render() {
@@ -34,11 +31,10 @@ export default class LightboxItem extends React.Component {
     return (
       <InlineElement
         {...rest}
-        as="a"
         href={source}
-        data-caption={caption}
-        data-poster={poster}
-        data-type={type}
+        data-caption={caption || undefined}
+        data-poster={poster || undefined}
+        data-type={type || undefined}
       />
     );
   }

@@ -18,7 +18,7 @@ export default class SubNav extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
+    className: '',
     divider: false,
     pill: false,
   };

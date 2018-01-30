@@ -17,7 +17,7 @@ export default class Overlay extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     as: 'div',
-    className: null,
+    className: '',
   };
 
   render() {

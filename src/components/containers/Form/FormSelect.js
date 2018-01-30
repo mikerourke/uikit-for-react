@@ -21,7 +21,7 @@ export default class FormSelect extends React.Component {
   static defaultProps = {
     ...InlineElement.defaultProps,
     blank: false,
-    className: null,
+    className: '',
     danger: false,
     formWidth: null,
     size: null,

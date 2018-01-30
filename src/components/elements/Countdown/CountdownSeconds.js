@@ -15,8 +15,7 @@ export default class CountdownSeconds extends React.Component {
 
   static defaultProps = {
     as: 'span',
-    className: null,
-    label: null,
+    className: '',
   };
 
   render() {

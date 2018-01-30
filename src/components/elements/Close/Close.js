@@ -17,7 +17,7 @@ export default class Close extends React.Component {
   static defaultProps = {
     ...InlineElement.defaultProps,
     as: 'a',
-    className: null,
+    className: '',
     large: false,
   };
 

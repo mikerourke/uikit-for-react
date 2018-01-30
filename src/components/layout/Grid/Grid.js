@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get, isNil } from 'lodash';
 import { buildClassName, getOptionsString, UIK } from '../../../lib';
@@ -16,7 +17,7 @@ export default class Grid extends React.Component {
       PropTypes.element,
       PropTypes.func,
     ]),
-    children: PropTypes.node.isRequired,
+    children: CustomPropTypes.childrenOfType(GridCell),
     className: PropTypes.string,
     divider: PropTypes.bool,
     firstColumn: PropTypes.string,
@@ -32,12 +33,9 @@ export default class Grid extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     as: 'div',
-    className: null,
+    className: '',
     divider: false,
-    firstColumn: null,
-    grow: null,
     matchHeight: false,
-    nextRow: null,
   };
 
   static Cell = GridCell;

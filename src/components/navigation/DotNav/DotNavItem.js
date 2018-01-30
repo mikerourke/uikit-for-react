@@ -18,9 +18,7 @@ export default class DotNavItem extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     active: false,
-    children: null,
-    className: null,
-    href: null,
+    className: '',
   };
 
   render() {

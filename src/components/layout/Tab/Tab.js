@@ -54,19 +54,14 @@ export default class Tab extends React.Component {
 
   static defaultProps = {
     activeIndex: 0,
-    align: null,
-    animation: null,
-    className: null,
+    className: '',
     defaultIndex: 0,
-    media: null,
     onBeforeHide: noop,
     onBeforeShow: noop,
     onHidden: noop,
     onHide: noop,
     onShow: noop,
     onShown: noop,
-    selectorConnect: null,
-    selectorToggle: null,
     swiping: false,
   };
 

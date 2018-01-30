@@ -6,7 +6,6 @@ import classnames from 'classnames';
 import { get, isNil, noop } from 'lodash';
 import {
   buildClassName,
-  getElementType,
   getIfHasChildType,
   getOptionsString,
   UIK,
@@ -32,7 +31,7 @@ export default class Alert extends React.Component {
       }),
     ]),
     as: BlockElement.asPropType,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     className: PropTypes.string,
     closeable: CustomPropTypes.and([
       PropTypes.bool,
@@ -57,16 +56,14 @@ export default class Alert extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    animation: null,
     as: 'div',
-    className: null,
+    className: '',
     closeable: false,
-    closeOptions: null,
     danger: false,
     onBeforeHide: noop,
     onHide: noop,
     primary: false,
-    selectorClose: null,
+    selectorClose: '.uk-alert-close',
     success: false,
     warning: false,
   };

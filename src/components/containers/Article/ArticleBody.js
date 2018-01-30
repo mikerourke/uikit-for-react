@@ -15,7 +15,7 @@ export default class ArticleBody extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     as: 'div',
-    className: null,
+    className: '',
   };
 
   render() {

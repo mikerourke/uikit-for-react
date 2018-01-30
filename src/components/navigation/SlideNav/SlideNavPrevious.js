@@ -16,7 +16,7 @@ export default class SlideNavPrevious extends React.Component {
 
   static defaultProps = {
     ...InlineElement.defaultProps,
-    className: null,
+    className: '',
     href: '#',
     large: false,
   };

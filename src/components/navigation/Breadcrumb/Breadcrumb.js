@@ -16,7 +16,7 @@ export default class Breadcrumb extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
+    className: '',
   };
 
   static Item = BreadcrumbItem;

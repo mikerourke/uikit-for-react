@@ -11,7 +11,7 @@ export default class Flex extends React.Component {
   static propTypes = {
     ...omit(BlockElement.propTypes, 'flex'),
     as: BlockElement.asPropType,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     className: PropTypes.string,
     inline: PropTypes.bool,
   };
@@ -19,12 +19,12 @@ export default class Flex extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     as: 'div',
-    className: null,
+    className: '',
     inline: false,
   };
 
   render() {
-    const { children, className, inline, ...rest } = this.props;
+    const { className, inline, ...rest } = this.props;
 
     const ukClass = 'uk-flex';
     const classes = classnames(className, ukClass, {

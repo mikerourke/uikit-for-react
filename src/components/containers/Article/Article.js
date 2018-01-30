@@ -22,7 +22,7 @@ export default class Article extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
+    className: '',
   };
 
   static Body = ArticleBody;

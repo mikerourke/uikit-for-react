@@ -14,7 +14,7 @@ export default class CardBody extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
+    className: '',
   };
 
   render() {

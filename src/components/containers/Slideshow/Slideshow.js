@@ -2,7 +2,7 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import { noop } from 'lodash';
+import { isNil, noop } from 'lodash';
 import { buildClassName, getOptionsString, UIK } from '../../../lib';
 import { BlockElement } from '../../base';
 import SlideshowItem from './SlideshowItem';
@@ -47,7 +47,7 @@ export default class Slideshow extends React.Component {
     as: 'div',
     autoplay: false,
     autoplayInterval: 7000,
-    className: null,
+    className: '',
     finite: false,
     maxHeight: false,
     minHeight: false,
@@ -72,6 +72,18 @@ export default class Slideshow extends React.Component {
     UIkit.util.on(this.ref, 'itemhide', this.props.onItemHide);
     UIkit.util.on(this.ref, 'itemshow', this.props.onItemShow);
     UIkit.util.on(this.ref, 'itemshown', this.props.onItemShown);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.ref) return;
+    const slideshowElement = UIkit.slideshow(this.ref);
+    if (nextProps.paused === true && this.props.paused === false) {
+      slideshowElement.stopAutoplay();
+    }
+
+    if (nextProps.paused === false && this.props.paused === true) {
+      slideshowElement.startAutoplay();
+    }
   }
 
   handleRef = element => {

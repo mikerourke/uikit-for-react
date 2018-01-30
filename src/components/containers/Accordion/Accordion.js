@@ -11,7 +11,8 @@ import AccordionItem from './AccordionItem';
 import AccordionTitle from './AccordionTitle';
 
 /**
- * Create a list of items that can be shown individually by clicking an item's header.
+ * Create a list of items that can be shown individually by clicking an item's
+ * header.
  * @see https://getuikit.com/docs/accordion
  */
 export default class Accordion extends React.Component {
@@ -44,11 +45,18 @@ export default class Accordion extends React.Component {
         PropTypes.arrayOf(PropTypes.number),
       ]),
       props => {
-        if (isArray(props.openIndex) && !props.multiple) {
-          return new Error(
-            'You must set multiple = true when you pass an array of values to the openIndex prop.',
-          );
+        const maxAllowed = React.Children.count(props.children) - 1;
+        const maxErrorMessage = `Invalid openIndex prop passed to Accordion, maximum allowed value is ${maxAllowed}.`;
+        if (isArray(props.openIndex)) {
+          if (!props.multiple) {
+            return new Error(
+              'You must set multiple = true when you pass an array of values to the openIndex prop.',
+            );
+          }
+          if (max(props.openIndex) > maxAllowed)
+            return new Error(maxErrorMessage);
         }
+        if (props.openIndex > maxAllowed) return new Error(maxErrorMessage);
         return null;
       },
     ]),
@@ -60,9 +68,12 @@ export default class Accordion extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    animation: null,
-    className: null,
-    collapsible: false,
+    animation: {
+      active: true,
+      duration: 200,
+    },
+    className: '',
+    collapsible: true,
     defaultIndex: 0,
     hideOpenAnimation: false,
     multiple: false,
@@ -72,11 +83,10 @@ export default class Accordion extends React.Component {
     onHide: noop,
     onShow: noop,
     onShown: noop,
-    openIndex: null,
-    selectorContent: null,
-    selectorTargets: null,
-    selectorToggle: null,
-    transition: null,
+    selectorContent: '> .uk-accordion-content',
+    selectorTargets: '> *',
+    selectorToggle: '> .uk-accordion-title',
+    transition: 'ease',
   };
 
   static Content = AccordionContent;
@@ -99,13 +109,15 @@ export default class Accordion extends React.Component {
   }
 
   /**
-   * Loops through each of the accordion items and either toggles them as open if they're not
-   *    currently open and should be, or toggles them as closed if they should be closed (based on
-   *    openIndex prop).
-   * @param {Object} props Props to evaluate to determine which items need to be toggled.
+   * Loops through each of the accordion items and either toggles them as open
+   *    if they're not currently open and should be, or toggles them as closed
+   *    if they should be closed (based on openIndex prop).
+   * @param {Object} props Props to evaluate to determine which items need to
+   *    be toggled.
    */
   toggleOpenItems = props => {
-    // Don't open or close any items if the user didn't specify an openIndex prop.
+    // Don't open or close any items if the user didn't specify an openIndex
+    // prop.
     if (isNil(props.openIndex)) return;
 
     const animate = !props.hideOpenAnimation;

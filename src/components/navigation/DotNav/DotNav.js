@@ -17,7 +17,7 @@ class DotNav extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
+    className: '',
     vertical: false,
   };
 

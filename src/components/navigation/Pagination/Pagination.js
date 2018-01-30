@@ -18,7 +18,7 @@ export default class Pagination extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
+    className: '',
   };
 
   static Item = PaginationItem;

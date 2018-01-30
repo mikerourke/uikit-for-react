@@ -1,6 +1,8 @@
 /* eslint-disable import/prefer-default-export */
 import React from 'react';
-import { isArray } from 'lodash';
+import CustomPropTypes from 'airbnb-prop-types';
+import { isArray, max } from 'lodash';
+import PropTypes from 'prop-types';
 
 export const restrictToChildTypes = childTypes => (
   props,

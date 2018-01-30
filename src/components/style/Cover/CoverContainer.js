@@ -30,9 +30,8 @@ export default class CoverContainer extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     as: 'div',
-    className: null,
+    className: '',
     responsive: false,
-    viewportOptions: null,
   };
 
   render() {

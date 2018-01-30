@@ -30,10 +30,8 @@ export default class AccordionItem extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
-    content: null,
+    className: '',
     open: false,
-    title: null,
   };
 
   render() {

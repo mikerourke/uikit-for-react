@@ -20,7 +20,7 @@ export default class NavItem extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     active: false,
-    className: null,
+    className: '',
     divider: false,
     header: false,
   };

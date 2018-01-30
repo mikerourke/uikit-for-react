@@ -14,14 +14,14 @@ export default class CardTitle extends React.Component {
       PropTypes.element,
       PropTypes.func,
     ]),
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     className: PropTypes.string,
   };
 
   static defaultProps = {
     ...BlockElement.defaultProps,
     as: 'h3',
-    className: null,
+    className: '',
   };
 
   render() {

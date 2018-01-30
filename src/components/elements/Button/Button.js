@@ -14,6 +14,7 @@ export default class Button extends React.Component {
     as: PropTypes.oneOf(['a', 'button']),
     children: PropTypes.node,
     className: PropTypes.string,
+    close: PropTypes.bool,
     danger: PropTypes.bool,
     disabled: PropTypes.bool,
     fullWidth: PropTypes.bool,
@@ -29,17 +30,14 @@ export default class Button extends React.Component {
   static defaultProps = {
     ...InlineElement.defaultProps,
     as: 'button',
-    children: null,
-    className: null,
+    className: '',
     danger: false,
     disabled: false,
     fullWidth: false,
-    icon: null,
     link: false,
     onClick: noop,
     primary: false,
     secondary: false,
-    size: null,
     text: false,
   };
 
@@ -90,10 +88,13 @@ export default class Button extends React.Component {
       [buildClassName('width', '1', '1')]: fullWidth,
     });
 
+    let asToUse = hasIcon ? 'a' : as;
+    if (this.props.href) asToUse = 'a';
+
     return (
       <InlineElement
         {...rest}
-        as={hasIcon ? 'a' : as}
+        as={asToUse}
         className={classes}
         disabled={(disabled && this.props.as === 'button') || undefined}
         onClick={this.handleClick}

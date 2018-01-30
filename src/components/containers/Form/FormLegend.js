@@ -15,7 +15,7 @@ export default class FormLegend extends React.Component {
   static defaultProps = {
     ...InlineElement.defaultProps,
     children: null,
-    className: null,
+    className: '',
   };
 
   render() {

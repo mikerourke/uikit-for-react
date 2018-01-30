@@ -10,7 +10,7 @@ export default class GridCell extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     className: PropTypes.string,
     grow: PropTypes.oneOf(['auto', 'full', 'none']),
     matchHeight: PropTypes.bool,
@@ -25,10 +25,8 @@ export default class GridCell extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
-    grow: null,
+    className: '',
     matchHeight: false,
-    order: null,
   };
 
   render() {

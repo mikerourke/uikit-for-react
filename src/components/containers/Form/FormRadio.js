@@ -18,7 +18,7 @@ export default class FormRadio extends React.Component {
   static defaultProps = {
     ...InlineElement.defaultProps,
     blank: false,
-    className: null,
+    className: '',
     danger: false,
     success: false,
   };

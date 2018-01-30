@@ -13,7 +13,7 @@ export default class SlideshowItem extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
+    className: '',
   };
 
   render() {

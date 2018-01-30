@@ -1,6 +1,7 @@
+/* eslint-disable react/no-danger */
 import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import PropTypes from 'prop-types';
-import { HTML } from '../../../lib';
 import { InlineElement } from '../../base';
 
 export default class Marker extends React.Component {
@@ -8,18 +9,23 @@ export default class Marker extends React.Component {
 
   static propTypes = {
     ...InlineElement.propTypes,
-    as: PropTypes.oneOf(HTML.ALL_ELEMENTS),
-    children: PropTypes.node.isRequired,
+    as: InlineElement.asPropType,
     className: PropTypes.string,
   };
 
   static defaultProps = {
     ...InlineElement.defaultProps,
     as: 'a',
-    className: null,
+    className: '',
+  };
+
+  createMarkup = () => {
+    const htmlString = renderToStaticMarkup(<InlineElement {...this.props} />);
+    const asString = `<${this.props.as} `;
+    return { __html: htmlString.replace(asString, `${asString} uk-marker `) };
   };
 
   render() {
-    return <InlineElement {...this.props} data-uk-marker />;
+    return <div dangerouslySetInnerHTML={this.createMarkup()} />;
   }
 }

@@ -30,7 +30,6 @@ export default class InlineElement extends React.Component {
 
   static defaultProps = {
     ...BaseElement.defaultProps,
-    align: null,
     columnSpan: false,
   };
 
@@ -83,7 +82,7 @@ export default class InlineElement extends React.Component {
     return (
       <Element
         {...rest}
-        className={classes}
+        className={classes || undefined}
         ref={element => (this.ref = element)}
         style={inheritedStyle}
         {...inheritedAttributes}

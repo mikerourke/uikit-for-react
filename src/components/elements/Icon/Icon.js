@@ -19,9 +19,8 @@ export default class Icon extends React.Component {
   static defaultProps = {
     ...InlineElement.defaultProps,
     as: 'span',
-    className: null,
+    className: '',
     link: false,
-    ratio: null,
   };
 
   render() {

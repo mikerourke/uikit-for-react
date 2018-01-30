@@ -1,23 +1,35 @@
-// TODO: Find out how to implement Panel.
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import { isNil, noop } from 'lodash';
-import { buildClassName, restrictToChildTypes } from '../../../lib';
+import CustomPropTypes from 'airbnb-prop-types';
+import { get, isNil, isPlainObject, noop } from 'lodash';
+import { getOptionsString, UIK } from '../../../lib';
 import { BlockElement } from '../../base';
 import LightboxItem from './LightboxItem';
+import LightboxPanel from './LightboxPanel';
 
 export default class Lightbox extends React.Component {
   static displayName = 'Lightbox';
 
   static propTypes = {
     ...BlockElement.propTypes,
-    activeIndex: PropTypes.number,
+    activeIndex: CustomPropTypes.and([
+      PropTypes.number,
+      CustomPropTypes.nonNegativeInteger,
+      props => {
+        const maxAllowed = React.Children.count(props.children) - 1;
+        if (props.activeIndex > maxAllowed) {
+          return new Error(
+            `Invalid activeIndex passed to Lightbox, the maximum value allowed is ${maxAllowed}`,
+          );
+        }
+        return null;
+      },
+    ]),
     animation: PropTypes.oneOfType([
-      PropTypes.oneOf(['fade', 'scale', 'slide']),
+      PropTypes.oneOf(UIK.LIGHTBOX_ANIMATIONS),
       PropTypes.shape({
-        name: PropTypes.oneOf(['fade', 'scale', 'slide']),
+        name: PropTypes.oneOf(UIK.LIGHTBOX_ANIMATIONS),
         velocity: PropTypes.number,
       }),
     ]),
@@ -25,16 +37,10 @@ export default class Lightbox extends React.Component {
       delay: PropTypes.number,
       interval: PropTypes.number,
     }),
-    children: PropTypes.node.isRequired,
+    as: BlockElement.asPropType,
+    children: PropTypes.node,
     className: PropTypes.string,
     defaultIndex: PropTypes.number,
-    delayControls: PropTypes.number,
-    items: PropTypes.arrayOf(
-      PropTypes.shape({
-        source: PropTypes.string,
-        caption: PropTypes.string,
-      }),
-    ),
     onBeforeHide: PropTypes.func,
     onBeforeItemHide: PropTypes.func,
     onBeforeItemShow: PropTypes.func,
@@ -48,26 +54,17 @@ export default class Lightbox extends React.Component {
     onItemShown: PropTypes.func,
     onShow: PropTypes.func,
     onShown: PropTypes.func,
-    panelIndex: PropTypes.number,
-    panelShown: PropTypes.number,
-    paused: PropTypes.bool,
     pauseOnHover: PropTypes.bool,
-    preload: PropTypes.number,
     selectorToggle: PropTypes.string,
     shown: PropTypes.bool,
-    template: PropTypes.string,
     videoAutoplay: PropTypes.bool,
   };
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    activeIndex: null,
-    animation: null,
-    autoplay: null,
-    className: null,
+    as: 'div',
+    className: '',
     defaultIndex: 0,
-    delayControls: null,
-    items: null,
     onBeforeHide: noop,
     onBeforeItemHide: noop,
     onBeforeItemShow: noop,
@@ -81,34 +78,34 @@ export default class Lightbox extends React.Component {
     onItemShown: noop,
     onShow: noop,
     onShown: noop,
-    panelIndex: 0,
-    panelShown: null,
-    paused: false,
     pauseOnHover: false,
-    preload: null,
-    selectorToggle: null,
+    selectorToggle: 'a',
     shown: false,
-    template: null,
     videoAutoplay: false,
   };
 
   static Item = LightboxItem;
+  static Panel = LightboxPanel;
 
-  componentDidMount() {
+  componentWillReceiveProps(nextProps) {
     if (!this.ref) return;
-    UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(this.ref, 'beforeitemhide', this.props.onBeforeItemHide);
-    UIkit.util.on(this.ref, 'beforeitemshow', this.props.onBeforeItemShow);
-    UIkit.util.on(this.ref, 'beforeshow', this.props.onBeforeShow);
-    UIkit.util.on(this.ref, 'hidden', this.props.onHidden);
-    UIkit.util.on(this.ref, 'hide', this.props.onHide);
-    UIkit.util.on(this.ref, 'itemhidden', this.props.onItemHidden);
-    UIkit.util.on(this.ref, 'itemhide', this.props.onItemHide);
-    UIkit.util.on(this.ref, 'itemload', this.props.onItemLoad);
-    UIkit.util.on(this.ref, 'itemshow', this.props.onItemShow);
-    UIkit.util.on(this.ref, 'itemshown', this.props.onItemShown);
-    UIkit.util.on(this.ref, 'show', this.props.onShow);
-    UIkit.util.on(this.ref, 'shown', this.props.onShown);
+
+    // TODO: Validate that these events work.
+    const lightboxElement = UIkit.lightbox(this.ref);
+    if (nextProps.activeIndex !== this.props.activeIndex) {
+      lightboxElement.show(nextProps.activeIndex);
+    }
+    if (nextProps.shown === true && this.props.shown === false) {
+      lightboxElement.show(nextProps.activeIndex || 0);
+    }
+    if (nextProps.shown === false && this.props.shown === true) {
+      lightboxElement.hide();
+    }
+
+    // Add event listeners to the Lightbox Panel after it appears.
+    const panelElement = document.querySelector('.uk-lightbox');
+    if (!panelElement) return;
+    LightboxPanel.addEventListeners(this.props, panelElement);
   }
 
   handleRef = element => {
@@ -121,10 +118,7 @@ export default class Lightbox extends React.Component {
       activeIndex,
       animation,
       autoplay,
-      className,
       defaultIndex,
-      delayControls,
-      items,
       onBeforeHide,
       onBeforeItemHide,
       onBeforeItemShow,
@@ -138,26 +132,33 @@ export default class Lightbox extends React.Component {
       onItemShown,
       onShow,
       onShown,
-      panelIndex,
-      panelShown,
-      paused,
       pauseOnHover,
-      preload,
       selectorToggle,
       shown,
-      template,
       videoAutoplay,
       ...rest
     } = this.props;
 
-    const classes = classnames(className, {});
+    const animationName = isPlainObject(animation)
+      ? get(animation, 'name', 'slide')
+      : animation;
+
+    const componentOptions = getOptionsString({
+      animation: animationName,
+      autoplay: get(autoplay, 'delay', 0),
+      autoplayInterval: get(autoplay, 'interval', 0),
+      index: defaultIndex,
+      pauseOnHover,
+      toggle: selectorToggle,
+      velocity: get(animation, 'velocity', 2),
+      videoAutoplay,
+    });
 
     return (
       <BlockElement
         {...rest}
-        className={classes}
         ref={this.handleRef}
-        data-lightbox
+        data-uk-lightbox={componentOptions.replace('uk-animation-', '')}
       />
     );
   }

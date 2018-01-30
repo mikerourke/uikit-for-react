@@ -13,7 +13,7 @@ export default class CommentAvatar extends React.Component {
 
   static defaultProps = {
     ...InlineElement.defaultProps,
-    className: null,
+    className: '',
   };
 
   render() {

@@ -9,7 +9,7 @@ export default class Link extends React.Component {
 
   static propTypes = {
     ...InlineElement.propTypes,
-    children: PropTypes.string.isRequired,
+    children: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     className: PropTypes.string,
     muted: PropTypes.bool,
     reset: PropTypes.bool,
@@ -18,14 +18,14 @@ export default class Link extends React.Component {
 
   static defaultProps = {
     ...InlineElement.defaultProps,
-    className: null,
+    className: '',
     muted: false,
     reset: false,
     text: false,
   };
 
   render() {
-    const { children, className, muted, reset, text, ...rest } = this.props;
+    const { className, muted, reset, text, ...rest } = this.props;
 
     const ukClass = 'uk-link';
     const classes = classnames(className, {

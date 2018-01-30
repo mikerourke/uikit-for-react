@@ -13,7 +13,7 @@ export default class Progress extends React.Component {
 
   static defaultProps = {
     ...InlineElement.defaultProps,
-    className: null,
+    className: '',
   };
 
   render() {

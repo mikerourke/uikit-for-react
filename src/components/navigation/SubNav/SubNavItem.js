@@ -19,7 +19,7 @@ export default class SubNavItem extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     active: false,
-    className: null,
+    className: '',
     href: '#',
   };
 

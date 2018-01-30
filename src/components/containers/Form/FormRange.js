@@ -18,7 +18,7 @@ export default class FormRange extends React.Component {
   static defaultProps = {
     ...InlineElement.defaultProps,
     blank: false,
-    className: null,
+    className: '',
     danger: false,
     success: false,
   };

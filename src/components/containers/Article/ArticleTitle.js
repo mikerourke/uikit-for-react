@@ -10,14 +10,14 @@ export default class ArticleTitle extends React.Component {
   static propTypes = {
     ...BlockElement.propTypes,
     as: PropTypes.oneOf(HTML.HEADING_ELEMENTS),
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     className: PropTypes.string,
   };
 
   static defaultProps = {
     ...BlockElement.defaultProps,
     as: 'h1',
-    className: null,
+    className: '',
   };
 
   render() {

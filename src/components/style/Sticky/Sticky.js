@@ -37,17 +37,11 @@ export default class Sticky extends React.Component {
     animation: false,
     as: 'div',
     bottom: false,
-    className: null,
-    clsActive: null,
-    clsInactive: null,
-    media: null,
-    offset: null,
+    className: '',
     onActive: noop,
     onInactive: noop,
     showOnUp: false,
     target: false,
-    top: null,
-    widthElement: null,
   };
 
   componentDidMount() {

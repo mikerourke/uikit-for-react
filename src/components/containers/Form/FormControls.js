@@ -17,7 +17,7 @@ export default class FormControls extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     alignForText: false,
-    className: null,
+    className: '',
   };
 
   render() {

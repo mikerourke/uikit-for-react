@@ -30,7 +30,7 @@ export default class Scrollspy extends React.Component {
   static defaultProps = {
     animation: 'uk-scrollspy-inview',
     as: 'div',
-    className: null,
+    className: '',
     delay: 0,
     hidden: true,
     offsetLeft: 0,

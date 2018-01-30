@@ -1,6 +1,7 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 import { Alert, Container } from '../../components';
 
 Alert.displayName = 'Alert';
@@ -32,6 +33,19 @@ storiesOf('Alert', module)
         {message}
       </Alert>
       <Alert closeable danger>
+        {message}
+      </Alert>
+    </Container>
+  ))
+
+  .add('Event handlers', () => (
+    <Container margin={{ all: 'large' }}>
+      <Alert
+        closeable
+        primary
+        onBeforeHide={action('onBeforeHide')}
+        onHide={action('onHide')}
+      >
         {message}
       </Alert>
     </Container>

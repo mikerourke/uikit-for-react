@@ -53,18 +53,6 @@ export default class BlockElement extends React.Component {
         size: PropTypes.oneOf(['large', 'small']),
       }),
     ]),
-    position: PropTypes.oneOfType([
-      PropTypes.oneOf(UIK.LOCATIONS),
-      PropTypes.oneOf(UIK.CSS_POSITIONS),
-      PropTypes.shape({
-        horizontal: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
-        vertical: PropTypes.oneOf(UIK.VERTICAL_POSITIONS),
-        cover: PropTypes.bool,
-        marginSize: PropTypes.oneOf(UIK.BASE_SIZES),
-        type: PropTypes.oneOf(UIK.CSS_POSITIONS),
-        zIndexOfOne: PropTypes.bool,
-      }),
-    ]),
     scrollspyNav: PropTypes.shape({
       clsActive: PropTypes.string,
       offset: PropTypes.number,
@@ -93,15 +81,8 @@ export default class BlockElement extends React.Component {
 
   static defaultProps = {
     ...BaseElement.defaultProps,
-    childWidth: null,
-    column: null,
     dynamic: false,
-    firstColumn: null,
-    nextRow: null,
     padding: false,
-    position: null,
-    scrollspyNav: null,
-    textAlign: null,
     transitionToggle: false,
   };
 
@@ -121,16 +102,11 @@ export default class BlockElement extends React.Component {
       firstColumn,
       nextRow,
       padding,
-      position,
       scrollspyNav,
       textAlign,
       transitionToggle,
       ...rest
     } = unhandledProps;
-
-    const horizProp = get(position, 'horizontal');
-    const vertProp = get(position, 'vertical');
-    const isCentered = horizProp === 'center' && vertProp === 'center';
 
     const classes = classnames(
       baseClasses,
@@ -148,11 +124,6 @@ export default class BlockElement extends React.Component {
       buildClassName('padding', padding),
       buildClassName('padding', get(padding, 'size')),
       buildClassName('padding', 'remove', get(padding, 'remove')),
-      buildClassName('position', position),
-      buildClassName('position', 'cover', get(position, 'cover')),
-      buildClassName('position', 'z', 'index', get(position, 'zIndexOfOne')),
-      buildClassName('position', get(position, 'marginSize')),
-      buildClassName('position', get(position, 'type')),
       buildClassName('text', textAlign),
       buildClassName('text', get(textAlign, 'atSm'), '@s'),
       buildClassName('text', get(textAlign, 'atMd'), '@m'),
@@ -160,8 +131,6 @@ export default class BlockElement extends React.Component {
       buildClassName('text', get(textAlign, 'atXl'), '@xl'),
       {
         [buildClassName('column', 'divider')]: get(column, 'divider', false),
-        [buildClassName('position', vertProp, horizProp)]: !isCentered,
-        [buildClassName('position', 'center')]: isCentered,
         [buildClassName('transition', 'toggle')]: transitionToggle,
       },
     );
@@ -224,7 +193,7 @@ export default class BlockElement extends React.Component {
     return (
       <Element
         {...rest}
-        className={classes}
+        className={classes || undefined}
         style={inheritedStyle}
         ref={element => (this.ref = element)}
         tabIndex={transitionToggle ? 0 : undefined}

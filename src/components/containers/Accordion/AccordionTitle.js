@@ -12,13 +12,13 @@ export default class AccordionTitle extends React.Component {
 
   static propTypes = {
     ...InlineElement.propTypes,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     className: PropTypes.string,
   };
 
   static defaultProps = {
     ...InlineElement.defaultProps,
-    className: null,
+    className: '',
   };
 
   render() {

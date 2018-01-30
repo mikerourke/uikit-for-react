@@ -16,7 +16,7 @@ export default class Panel extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
+    className: '',
     scrollable: false,
   };
 

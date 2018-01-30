@@ -1,4 +1,8 @@
-export BaseElement, { BlockElement, EveryElement, InlineElement } from './base';
+export {
+  BlockElement as Block,
+  EveryElement as Base,
+  InlineElement as Inline,
+} from './base';
 export {
   Accordion,
   AccordionItem,

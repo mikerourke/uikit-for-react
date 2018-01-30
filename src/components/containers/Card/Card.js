@@ -39,11 +39,10 @@ export default class Card extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
+    className: '',
     hover: false,
     primary: false,
     secondary: false,
-    size: null,
   };
 
   static Body = CardBody;
@@ -81,6 +80,10 @@ export default class Card extends React.Component {
       },
     );
 
-    return <BlockElement {...rest} as="div" className={classes} />;
+    return (
+      <BlockElement {...rest} as="div" className={classes}>
+        {children}
+      </BlockElement>
+    );
   }
 }

@@ -17,8 +17,7 @@ export default class CardMedia extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    alignTo: null,
-    className: null,
+    className: '',
     imgAlt: '',
   };
 

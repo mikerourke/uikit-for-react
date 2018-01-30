@@ -5,15 +5,15 @@ import classnames from 'classnames';
 import { omit } from 'lodash';
 import { buildClassName } from '../../../lib';
 import { BlockElement } from '../../base';
-import Dropdown from '../Dropdown';
-import NavItem from './NavItem';
+import { Dropdown } from '../../elements';
+import NavbarItem from './NavbarItem';
 
 export default class NavbarDropdown extends React.Component {
   static displayName = 'NavbarDropdown';
 
   static propTypes = {
     ...omit(Dropdown.propTypes, 'as'),
-    children: CustomPropTypes.elementType(NavItem),
+    children: CustomPropTypes.elementType(NavbarItem),
     className: PropTypes.string,
     multiplyWidth: PropTypes.oneOf([2, 3, 4, 5]),
     navOptions: PropTypes.shape(BlockElement.propTypes),
@@ -21,7 +21,7 @@ export default class NavbarDropdown extends React.Component {
 
   static defaultProps = {
     ...Dropdown.defaultProps,
-    className: null,
+    className: '',
     multiplyWidth: null,
     navOptions: null,
   };

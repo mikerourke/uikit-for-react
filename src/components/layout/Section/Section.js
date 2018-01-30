@@ -19,10 +19,8 @@ export default class Section extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    background: null,
-    className: null,
+    className: '',
     overlap: false,
-    padding: null,
     preserveColor: false,
   };
 

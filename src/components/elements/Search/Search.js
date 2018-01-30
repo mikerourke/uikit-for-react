@@ -23,7 +23,7 @@ export default class Search extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     autofocus: false,
-    className: null,
+    className: '',
     icon: null,
     inputOptions: null,
     large: false,

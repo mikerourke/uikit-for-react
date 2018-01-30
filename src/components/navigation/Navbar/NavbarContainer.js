@@ -17,7 +17,7 @@ export default class NavbarContainer extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     as: 'nav',
-    className: null,
+    className: '',
   };
 
   render() {

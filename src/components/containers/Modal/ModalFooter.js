@@ -14,7 +14,7 @@ export default class ModalFooter extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
+    className: '',
   };
 
   render() {

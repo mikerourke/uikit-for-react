@@ -52,18 +52,18 @@ export default class EveryElement extends React.Component {
       unhandledProps = {},
     } = EveryElement.getInheritedProps(this.props);
 
-    const { children, className = '', ...rest } = unhandledProps;
+    const { className = '', ...rest } = unhandledProps;
     const classes = classnames(className, inheritedClasses);
     const Element = getElementType(EveryElement, this.props);
     return (
       <Element
         {...rest}
-        className={classes}
+        className={classes || undefined}
         ref={element => (this.ref = element)}
         style={inheritedStyle}
         {...inheritedAttributes}
       >
-        {children}
+        {this.props.children}
       </Element>
     );
   }

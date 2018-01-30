@@ -34,7 +34,7 @@ export default class Form extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
+    className: '',
     custom: false,
     horizontal: false,
     stacked: false,

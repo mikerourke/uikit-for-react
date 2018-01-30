@@ -16,7 +16,7 @@ export default class CommentMeta extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     as: 'ul',
-    className: null,
+    className: '',
   };
 
   render() {

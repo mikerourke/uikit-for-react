@@ -142,6 +142,18 @@ export default class BaseElement extends React.Component {
       target: PropTypes.string,
       viewport: PropTypes.number,
     }),
+    position: PropTypes.oneOfType([
+      PropTypes.oneOf(UIK.LOCATIONS),
+      PropTypes.oneOf(UIK.CSS_POSITIONS),
+      PropTypes.shape({
+        horizontal: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
+        vertical: PropTypes.oneOf(UIK.VERTICAL_POSITIONS),
+        cover: PropTypes.bool,
+        marginSize: PropTypes.oneOf(UIK.BASE_SIZES),
+        type: PropTypes.oneOf(UIK.CSS_POSITIONS),
+        zIndexOfOne: PropTypes.bool,
+      }),
+    ]),
     resize: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.oneOf(['vertical']),
@@ -150,6 +162,7 @@ export default class BaseElement extends React.Component {
       PropTypes.bool,
       PropTypes.oneOf(['height', 'width']),
     ]),
+    transformCenter: PropTypes.bool,
     visible: PropTypes.oneOf(UIK.BREAKPOINTS),
     width: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.ALL_WIDTHS),
@@ -167,34 +180,15 @@ export default class BaseElement extends React.Component {
   };
 
   static defaultProps = {
-    alignItems: null,
-    animation: null,
-    background: null,
-    border: null,
-    boxShadow: null,
     clearfix: false,
-    direction: null,
-    display: null,
     flex: false,
-    float: null,
-    height: null,
-    heightMax: null,
     hidden: false,
     inline: false,
-    inverse: null,
     invisible: false,
-    justifyContent: null,
-    linkStyle: null,
     margin: false,
     marker: false,
-    order: null,
-    overflow: null,
-    parallax: null,
     resize: false,
-    responsive: null,
-    visible: null,
-    width: null,
-    wrap: null,
+    transformCenter: false,
   };
 
   static getBaseProps(props) {
@@ -223,14 +217,20 @@ export default class BaseElement extends React.Component {
       order,
       overflow,
       parallax,
+      position,
       resize,
       responsive,
       style = {},
+      transformCenter,
       visible,
       width,
       wrap,
       ...unhandledProps
     } = props;
+
+    const horizProp = get(position, 'horizontal');
+    const vertProp = get(position, 'vertical');
+    const isCentered = horizProp === 'center' && vertProp === 'center';
 
     const horizOrigin = get(animation, ['transformOrigin', 'horizontal']);
     const vertOrigin = get(animation, ['transformOrigin', 'vertical']);
@@ -282,6 +282,11 @@ export default class BaseElement extends React.Component {
       buildClassName('flex', get(wrap, 'alignment')),
       buildClassName('link', linkStyle),
       buildClassName('overflow', overflow),
+      buildClassName('position', position),
+      buildClassName('position', 'cover', get(position, 'cover')),
+      buildClassName('position', 'z', 'index', get(position, 'zIndexOfOne')),
+      buildClassName('position', get(position, 'marginSize')),
+      buildClassName('position', get(position, 'type')),
       buildClassName('responsive', responsive),
       buildClassName('transform', 'origin', vertOrigin, horizOrigin),
       buildClassName('transition', hoverTransition),
@@ -328,8 +333,11 @@ export default class BaseElement extends React.Component {
         [buildClassName('invisible')]: invisible,
         [buildClassName('margin', margin)]:
           isString(margin) && margin !== 'grid',
+        [buildClassName('position', vertProp, horizProp)]: !isCentered,
+        [buildClassName('position', 'center')]: isCentered,
         [buildClassName('preserve', 'width')]: responsive === false,
         [buildClassName('resize')]: resize,
+        [buildClassName('transform', 'center')]: transformCenter,
       },
     );
 
@@ -347,7 +355,7 @@ export default class BaseElement extends React.Component {
 
     return {
       baseAttributes: {
-        'data-uk-marker': marker || undefined,
+        'uk-marker': marker || undefined,
         'data-uk-parallax': parallax ? parallaxOptions : undefined,
       },
       baseClasses: trim(classes),

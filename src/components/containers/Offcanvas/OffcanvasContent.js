@@ -15,7 +15,7 @@ export default class OffcanvasContent extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
+    className: '',
   };
 
   render() {

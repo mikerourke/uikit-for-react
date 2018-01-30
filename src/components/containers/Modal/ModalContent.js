@@ -15,7 +15,7 @@ export default class ModalContent extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     as: 'div',
-    className: null,
+    className: '',
   };
 
   render() {

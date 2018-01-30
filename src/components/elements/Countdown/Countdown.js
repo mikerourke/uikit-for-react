@@ -27,7 +27,7 @@ export default class Countdown extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     as: 'div',
-    className: null,
+    className: '',
     paused: false,
   };
 

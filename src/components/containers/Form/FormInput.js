@@ -28,7 +28,7 @@ export default class FormInput extends React.Component {
   static defaultProps = {
     ...InlineElement.defaultProps,
     blank: false,
-    className: null,
+    className: '',
     danger: false,
     formWidth: null,
     iconOptions: null,

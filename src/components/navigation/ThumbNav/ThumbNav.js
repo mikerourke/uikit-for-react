@@ -18,7 +18,7 @@ export default class ThumbNav extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
+    className: '',
     vertical: false,
   };
 

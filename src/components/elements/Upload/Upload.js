@@ -73,7 +73,7 @@ export default class Upload extends React.Component {
     ...Upload.defaultUploadProps,
     as: null,
     children: null,
-    className: null,
+    className: '',
   };
 
   static FileSelect = UploadFileSelect;

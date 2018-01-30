@@ -13,7 +13,7 @@ export default class PaginationPrevious extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
+    className: '',
   };
 
   render() {

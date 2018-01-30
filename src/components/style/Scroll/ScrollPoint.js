@@ -26,14 +26,10 @@ export default class ScrollPoint extends React.Component {
 
   static defaultProps = {
     as: 'a',
-    className: null,
-    duration: null,
-    elementName: null,
+    className: '',
     goTo: 'next',
-    offset: null,
     onBeforeScroll: noop,
     onScrolled: noop,
-    pointIndex: null,
   };
 
   componentDidMount() {

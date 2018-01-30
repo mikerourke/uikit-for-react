@@ -8,13 +8,13 @@ export default class CardFooter extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     className: PropTypes.string,
   };
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
+    className: '',
   };
 
   render() {

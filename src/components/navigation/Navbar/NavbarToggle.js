@@ -19,7 +19,7 @@ export default class NavbarToggle extends React.Component {
 
   static defaultProps = {
     ...InlineElement.defaultProps,
-    className: null,
+    className: '',
     iconOptions: null,
     title: null,
     titleOptions: {},

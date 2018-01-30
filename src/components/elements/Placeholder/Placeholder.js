@@ -14,8 +14,7 @@ export default class Placeholder extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    children: null,
-    className: null,
+    className: '',
   };
 
   render() {

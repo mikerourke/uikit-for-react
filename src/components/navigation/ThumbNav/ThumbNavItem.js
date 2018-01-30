@@ -20,9 +20,7 @@ export default class ThumbNavItem extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     active: false,
-    className: null,
-    imageOptions: null,
-    slideshowItem: null,
+    className: '',
   };
 
   render() {

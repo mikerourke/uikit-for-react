@@ -17,7 +17,7 @@ export default class Modal extends React.Component {
   static propTypes = {
     ...BlockElement.propTypes,
     bgClose: PropTypes.bool,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     className: PropTypes.string,
     closeButton: PropTypes.bool,
     closeOptions: PropTypes.shape({
@@ -44,11 +44,9 @@ export default class Modal extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     bgClose: true,
-    className: null,
+    className: '',
     closeButton: false,
-    closeOptions: null,
     container: false,
-    dialogOptions: null,
     escClose: true,
     full: false,
     onBeforeHide: noop,
@@ -58,10 +56,8 @@ export default class Modal extends React.Component {
     onShow: noop,
     onShown: noop,
     padContent: false,
-    selectorContainer: null,
     shown: false,
     stack: false,
-    toggle: null,
   };
 
   static Content = ModalContent;

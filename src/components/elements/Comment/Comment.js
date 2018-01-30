@@ -21,7 +21,7 @@ export default class Comment extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    className: null,
+    className: '',
     primary: false,
   };
 

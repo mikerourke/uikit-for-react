@@ -17,7 +17,7 @@ export default class CommentTitle extends React.Component {
   static defaultProps = {
     ...BlockElement.defaultProps,
     as: 'h4',
-    className: null,
+    className: '',
   };
 
   render() {

@@ -28,10 +28,10 @@ export default class Notification extends React.Component {
   static defaultProps = {
     group: null,
     onClose: noop,
-    position: null,
+    position: 'top-center',
     shown: false,
     status: null,
-    timeout: null,
+    timeout: 5000,
   };
 
   componentWillReceiveProps(nextProps) {

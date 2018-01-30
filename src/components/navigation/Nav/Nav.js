@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { isNil } from 'lodash';
 import { buildClassName, getOptionsString, HTML, UIK } from '../../../lib';
 import { BlockElement } from '../../base';
 import NavItem from './NavItem';
-import { isNil } from 'lodash';
 
 export default class Nav extends React.Component {
   static displayName = 'Nav';
@@ -45,25 +45,15 @@ export default class Nav extends React.Component {
     ...BlockElement.defaultProps,
     activeIndex: 0,
     accordion: false,
-    animation: null,
     center: false,
-    className: null,
+    className: '',
     collapsible: false,
     hideOpenAnimation: false,
     multiple: false,
     primary: false,
-    selectorContent: null,
-    selectorTargets: null,
-    selectorToggle: null,
-    transition: null,
   };
 
   static Item = NavItem;
-
-  handleRef = element => {
-    if (!element) return;
-    this.ref = isNil(element.ref) ? element : element.ref;
-  };
 
   render() {
     const {
@@ -105,7 +95,6 @@ export default class Nav extends React.Component {
         {...rest}
         as="ul"
         className={classes}
-        ref={this.handleRef}
         data-uk-nav={accordion ? componentOptions : undefined}
       />
     );

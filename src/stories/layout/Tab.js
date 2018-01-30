@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { BlockElement, Container, Grid, Tab } from '../../components';
+import { Block, Container, Grid, Tab } from '../../components';
 
 Tab.displayName = 'Tab';
 
@@ -49,27 +49,27 @@ storiesOf('Tab', module)
 
   .add('Alignment', () => (
     <Container>
-      <BlockElement margin={{ top: 'medium' }}>
+      <Block margin={{ top: 'medium' }}>
         <Tab justifyContent="center">
           <Tab.Item active>Center</Tab.Item>
           <Tab.Item>Item</Tab.Item>
           <Tab.Item>Item</Tab.Item>
         </Tab>
-      </BlockElement>
-      <BlockElement margin={{ top: 'medium' }}>
+      </Block>
+      <Block margin={{ top: 'medium' }}>
         <Tab justifyContent="right">
           <Tab.Item active>Right</Tab.Item>
           <Tab.Item>Item</Tab.Item>
           <Tab.Item>Item</Tab.Item>
         </Tab>
-      </BlockElement>
-      <BlockElement>
+      </Block>
+      <Block>
         <Tab justifyContent="center" childWidth="expand">
           <Tab.Item active>Justify</Tab.Item>
           <Tab.Item>Item</Tab.Item>
           <Tab.Item>Item</Tab.Item>
           <Tab.Item>Item</Tab.Item>
         </Tab>
-      </BlockElement>
+      </Block>
     </Container>
   ));
