@@ -1,6 +1,6 @@
 export {
   BlockElement as Block,
-  EveryElement as Base,
+  AnyElement as Base,
   InlineElement as Inline,
 } from './base';
 export {
@@ -26,7 +26,10 @@ export {
   List,
   ListItem,
   Modal,
+  ModalBody,
+  ModalClose,
   ModalContent,
+  ModalDialog,
   ModalFooter,
   ModalHeader,
   ModalTitle,
@@ -36,7 +39,6 @@ export {
   Slideshow,
   SlideshowItem,
   Tile,
-  Viewport,
 } from './containers';
 export {
   Alert,
@@ -64,7 +66,9 @@ export {
   Heading,
   Icon,
   Label,
+  Leader,
   Link,
+  Logo,
   Marker,
   Notification,
   Overlay,
@@ -74,6 +78,9 @@ export {
   SearchIcon,
   Spinner,
   Toggle,
+  ToggleTarget,
+  ToggleTogglable,
+  ToggleToggle,
   Tooltip,
   Upload,
   UploadFileSelect,
@@ -88,6 +95,7 @@ export {
   Tab,
   TabItem,
 } from './layout';
+export { Gif, Svg, Video, VideoSource } from './media';
 export {
   Breadcrumb,
   BreadcrumbItem,

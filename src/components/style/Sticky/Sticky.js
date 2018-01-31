@@ -3,16 +3,16 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import { isNil, noop } from 'lodash';
 import { findChildByType, getOptionsString } from '../../../lib';
-import { EveryElement } from '../../base';
+import { AnyElement } from '../../base';
 import Navbar from '../../navigation/Navbar';
 
 export default class Sticky extends React.Component {
   static displayName = 'Sticky';
 
   static propTypes = {
-    ...EveryElement.propTypes,
+    ...AnyElement.propTypes,
     animation: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-    as: EveryElement.asPropType,
+    as: AnyElement.asPropType,
     bottom: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.number,
@@ -33,7 +33,7 @@ export default class Sticky extends React.Component {
   };
 
   static defaultProps = {
-    ...EveryElement.defaultProps,
+    ...AnyElement.defaultProps,
     animation: false,
     as: 'div',
     bottom: false,
@@ -98,7 +98,7 @@ export default class Sticky extends React.Component {
     });
 
     return (
-      <EveryElement
+      <AnyElement
         {...rest}
         ref={this.handleRef}
         data-uk-sticky={componentOptions}

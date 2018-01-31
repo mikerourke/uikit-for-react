@@ -71,6 +71,15 @@ export default class BlockElement extends React.Component {
       }),
     ]),
     transitionToggle: PropTypes.bool,
+    viewport: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.shape({
+        expand: PropTypes.bool,
+        minHeight: PropTypes.number,
+        offsetBottom: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
+        offsetTop: PropTypes.bool,
+      }),
+    ]),
   };
 
   static asPropType = PropTypes.oneOfType([
@@ -85,6 +94,19 @@ export default class BlockElement extends React.Component {
     padding: false,
     transitionToggle: false,
   };
+
+  static propNames = [
+    'childWidth',
+    'column',
+    'dynamic',
+    'firstColumn',
+    'nextRow',
+    'padding',
+    'scrollspyNav',
+    'textAlign',
+    'transitionToggle',
+    'viewport',
+  ];
 
   static getInheritedProps(props) {
     const {
@@ -105,6 +127,7 @@ export default class BlockElement extends React.Component {
       scrollspyNav,
       textAlign,
       transitionToggle,
+      viewport,
       ...rest
     } = unhandledProps;
 
@@ -161,6 +184,9 @@ export default class BlockElement extends React.Component {
           ? marginComponentOptions
           : undefined,
         'data-uk-scrollspy-nav': scrollspyNav ? scrollspyNavOptions : undefined,
+        'data-uk-height-viewport': viewport
+          ? getOptionsString(viewport)
+          : undefined,
       },
       inheritedClasses: trim(classes),
       inheritedStyle: baseStyle,

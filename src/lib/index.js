@@ -2,9 +2,10 @@ export { default as buildClassName } from './buildClassName';
 
 export {
   appendClassNamesToChildren,
+  childMatchesType,
+  childrenHaveClass,
   findChildByType,
-  getIfHasChildType,
-  getIfChildrenHaveClass,
+  hasChildType,
 } from './childrenUtils';
 
 export { restrictToChildTypes } from './customPropTypes';

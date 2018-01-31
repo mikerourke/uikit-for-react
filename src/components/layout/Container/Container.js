@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, getIfChildrenHaveClass } from '../../../lib';
+import { buildClassName, childrenHaveClass } from '../../../lib';
 import { BlockElement } from '../../base';
 
 export default class Container extends React.Component {
@@ -30,7 +30,7 @@ export default class Container extends React.Component {
       ukClass,
       buildClassName(ukClass, size),
       {
-        [buildClassName('inline')]: getIfChildrenHaveClass(
+        [buildClassName('inline')]: childrenHaveClass(
           children,
           'position',
         ),

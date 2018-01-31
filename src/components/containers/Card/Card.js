@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { buildClassName, getIfHasChildType } from '../../../lib';
+import { buildClassName, hasChildType } from '../../../lib';
 import { BlockElement } from '../../base';
 import CardBody from './CardBody';
 import CardContent from './CardContent';
@@ -20,8 +20,8 @@ export default class Card extends React.Component {
       PropTypes.node.isRequired,
       props => {
         if (
-          getIfHasChildType(props.children, CardBody) &&
-          getIfHasChildType(props.children, CardContent)
+          hasChildType(props.children, CardBody) &&
+          hasChildType(props.children, CardContent)
         ) {
           return new Error(
             'You cannot specify CardContent and CardBody as children, it must be one or the other.',
@@ -70,7 +70,7 @@ export default class Card extends React.Component {
       buildClassName('card', size),
       {
         [buildClassName(ukClass, 'default')]: !primary && !secondary,
-        [buildClassName(ukClass, 'body')]: !getIfHasChildType(
+        [buildClassName(ukClass, 'body')]: !hasChildType(
           children,
           CardBody,
         ),

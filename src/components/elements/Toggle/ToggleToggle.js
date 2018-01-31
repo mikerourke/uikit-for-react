@@ -1,26 +1,17 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
+import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { isNil, noop } from 'lodash';
-import { getOptionsString, UIK } from '../../../lib';
-import { AnyElement } from '../../base';
+import { getOptionsString, joinListProp, UIK } from '../../../lib';
+import { InlineElement } from '../../base';
 
-export default class Tooltip extends React.Component {
-  static displayName = 'Tooltip';
+export default class ToggleToggle extends React.Component {
+  static displayName = 'ToggleToggle';
 
   static propTypes = {
-    ...AnyElement.propTypes,
-    alignTo: PropTypes.oneOf([
-      'bottom',
-      'bottom-left',
-      'bottom-right',
-      'left',
-      'right',
-      'top',
-      'top-left',
-      'top-right',
-    ]),
+    ...InlineElement.propTypes,
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.ANIMATIONS),
       PropTypes.arrayOf(UIK.ANIMATIONS),
@@ -36,25 +27,43 @@ export default class Tooltip extends React.Component {
         duration: PropTypes.number,
       }),
     ]),
-    as: AnyElement.asPropType,
-    children: PropTypes.node.isRequired,
+    as: PropTypes.oneOfType([
+      PropTypes.oneOf(['a', 'button']),
+      PropTypes.element,
+      PropTypes.func,
+    ]),
+    children: PropTypes.node,
     className: PropTypes.string,
-    clsActive: PropTypes.string,
-    delay: PropTypes.number,
-    offset: PropTypes.number,
+    classToggled: PropTypes.string,
+    mediaTrigger: CustomPropTypes.and([
+      PropTypes.oneOfType([PropTypes.oneOf(UIK.BREAKPOINTS), PropTypes.number]),
+      props => {
+        if (props.mediaTrigger && props.mode !== 'media') {
+          return new Error(
+            'You must specify "media" for the "mode" prop in Toggle component.',
+          );
+        }
+        return null;
+      },
+    ]),
+    mode: PropTypes.oneOfType([
+      PropTypes.oneOf([...UIK.MODES, 'media']),
+      PropTypes.arrayOf(UIK.MODES),
+    ]),
     onBeforeHide: PropTypes.func,
     onBeforeShow: PropTypes.func,
     onHidden: PropTypes.func,
     onHide: PropTypes.func,
     onShow: PropTypes.func,
     onShown: PropTypes.func,
-    shown: PropTypes.bool,
-    title: PropTypes.string.isRequired,
+    queued: PropTypes.bool,
+    selectorTarget: PropTypes.string,
+    toggled: PropTypes.bool,
   };
 
   static defaultProps = {
-    ...AnyElement.defaultProps,
-    as: 'div',
+    ...InlineElement.defaultProps,
+    as: 'button',
     className: '',
     onBeforeHide: noop,
     onBeforeShow: noop,
@@ -62,7 +71,8 @@ export default class Tooltip extends React.Component {
     onHide: noop,
     onShow: noop,
     onShown: noop,
-    shown: false,
+    queued: false,
+    toggled: false,
   };
 
   componentDidMount() {
@@ -76,12 +86,8 @@ export default class Tooltip extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.shown === true && this.props.shown === false) {
-      UIkit.tooltip(this.ref).show();
-    }
-
-    if (nextProps.shown === false && this.props.shown === true) {
-      UIkit.tooltip(this.ref).hide();
+    if (nextProps.toggled !== this.props.toggled) {
+      UIkit.toggle(this.ref).toggle();
     }
   }
 
@@ -92,38 +98,40 @@ export default class Tooltip extends React.Component {
 
   render() {
     const {
-      alignTo,
       animation,
       className,
-      clsActive,
-      delay,
-      offset,
+      classToggled,
+      mediaTrigger,
+      mode,
       onBeforeHide,
       onBeforeShow,
       onHidden,
       onHide,
       onShow,
       onShown,
-      shown,
+      queued,
+      selectorTarget,
+      toggled,
       ...rest
     } = this.props;
 
-    const classes = classnames(className, 'uk-tooltip');
+    const classes = classnames(className, 'uk-toggle');
 
     const componentOptions = getOptionsString({
       animation,
-      cls: clsActive,
-      delay,
-      offset,
-      pos: alignTo,
+      cls: classToggled,
+      media: mediaTrigger,
+      mode: joinListProp(mode, ','),
+      queued,
+      target: selectorTarget,
     });
 
     return (
-      <AnyElement
+      <InlineElement
         {...rest}
         className={classes}
         ref={this.handleRef}
-        data-uk-tooltip={componentOptions}
+        data-uk-toggle={componentOptions}
       />
     );
   }

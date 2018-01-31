@@ -46,7 +46,7 @@ const getIfIsOfType = (child, childType) =>
  *    existence of.
  * @returns {boolean}
  */
-export const getIfHasChildType = (children, childType) => {
+export const hasChildType = (children, childType) => {
   let countOfChildType = 0;
   recurseChildren(children, child => {
     if (getIfIsOfType(child, childType)) countOfChildType += 1;
@@ -109,7 +109,7 @@ export const appendClassNamesToChildren = (children, childOptions) =>
     });
   });
 
-export const getIfChildrenHaveClass = (children, className) => {
+export const childrenHaveClass = (children, className) => {
   let classCount = 0;
   const classRegex = new RegExp(className, 'g');
   React.Children.forEach(children, child => {
@@ -119,3 +119,6 @@ export const getIfChildrenHaveClass = (children, className) => {
   });
   return classCount !== 0;
 };
+
+export const childMatchesType = (child, requiredType) =>
+  child.type === requiredType || child.props.as === requiredType;

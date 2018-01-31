@@ -1,8 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get, trim } from 'lodash';
-import { buildClassName, getElementType, HTML, UIK } from '../../lib';
+import {
+  buildClassName,
+  childMatchesType,
+  getElementType,
+  HTML,
+  UIK,
+} from '../../lib';
 import BaseElement from './BaseElement';
 
 export default class InlineElement extends React.Component {
@@ -20,6 +27,17 @@ export default class InlineElement extends React.Component {
       }),
     ]),
     columnSpan: PropTypes.bool,
+    dropcap: CustomPropTypes.and([
+      PropTypes.bool,
+      props => {
+        if (props.children && !childMatchesType('p')) {
+          return new Error(
+            'You can only specify the dropcap prop for a <p> element.',
+          );
+        }
+        return null;
+      },
+    ]),
   };
 
   static asPropType = PropTypes.oneOfType([
@@ -31,7 +49,10 @@ export default class InlineElement extends React.Component {
   static defaultProps = {
     ...BaseElement.defaultProps,
     columnSpan: false,
+    dropcap: false,
   };
+
+  static propNames = ['align', 'columnSpan', 'dropcap'];
 
   static getInheritedProps(props) {
     const {
@@ -41,7 +62,7 @@ export default class InlineElement extends React.Component {
       unhandledProps,
     } = BaseElement.getBaseProps(props);
 
-    const { align, as, columnSpan, ...rest } = unhandledProps;
+    const { align, columnSpan, dropcap, ...rest } = unhandledProps;
 
     const classes = classnames(
       baseClasses,
@@ -52,6 +73,7 @@ export default class InlineElement extends React.Component {
       buildClassName('align', get(align, 'atXl'), '@xl'),
       {
         [buildClassName('column', 'span')]: columnSpan,
+        [buildClassName('dropcap')]: dropcap,
       },
     );
 
@@ -76,7 +98,7 @@ export default class InlineElement extends React.Component {
       unhandledProps,
     } = InlineElement.getInheritedProps(this.props);
 
-    const { children, className = '', ...rest } = unhandledProps;
+    const { as, children, className = '', ...rest } = unhandledProps;
     const classes = classnames(className, inheritedClasses);
     const Element = getElementType(InlineElement, this.props);
     return (

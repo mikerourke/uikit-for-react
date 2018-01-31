@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import { get, isNil, noop } from 'lodash';
 import {
   buildClassName,
-  getIfHasChildType,
+  hasChildType,
   getOptionsString,
   UIK,
 } from '../../../lib';
@@ -36,7 +36,7 @@ export default class Alert extends React.Component {
     closeable: CustomPropTypes.and([
       PropTypes.bool,
       props => {
-        if (props.closeable && getIfHasChildType(props.children, Close)) {
+        if (props.closeable && hasChildType(props.children, Close)) {
           return new Error(
             'You cannot have an instance of Close inside an Alert if the "closeable" prop is true.',
           );

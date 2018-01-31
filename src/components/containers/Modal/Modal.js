@@ -1,12 +1,15 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
+import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { get, isNil, noop } from 'lodash';
+import { isNil, noop } from 'lodash';
 import { buildClassName, getOptionsString } from '../../../lib';
 import { BlockElement } from '../../base';
-import Close from '../../elements/Close';
+import ModalBody from './ModalBody';
+import ModalClose from './ModalClose';
 import ModalContent from './ModalContent';
+import ModalDialog from './ModalDialog';
 import ModalFooter from './ModalFooter';
 import ModalHeader from './ModalHeader';
 import ModalTitle from './ModalTitle';
@@ -17,15 +20,9 @@ export default class Modal extends React.Component {
   static propTypes = {
     ...BlockElement.propTypes,
     bgClose: PropTypes.bool,
-    children: PropTypes.node,
+    children: CustomPropTypes.elementType(ModalDialog),
     className: PropTypes.string,
-    closeButton: PropTypes.bool,
-    closeOptions: PropTypes.shape({
-      ...Close.propTypes,
-      outside: PropTypes.bool,
-    }),
     container: PropTypes.bool,
-    dialogOptions: PropTypes.shape(BlockElement.propTypes),
     escClose: PropTypes.bool,
     full: PropTypes.bool,
     onBeforeHide: PropTypes.func,
@@ -34,7 +31,6 @@ export default class Modal extends React.Component {
     onHide: PropTypes.func,
     onShow: PropTypes.func,
     onShown: PropTypes.func,
-    padContent: PropTypes.bool,
     selectorContainer: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     shown: PropTypes.bool,
     stack: PropTypes.bool,
@@ -45,7 +41,6 @@ export default class Modal extends React.Component {
     ...BlockElement.defaultProps,
     bgClose: true,
     className: '',
-    closeButton: false,
     container: false,
     escClose: true,
     full: false,
@@ -55,12 +50,14 @@ export default class Modal extends React.Component {
     onHide: noop,
     onShow: noop,
     onShown: noop,
-    padContent: false,
     shown: false,
     stack: false,
   };
 
+  static Body = ModalBody;
+  static Close = ModalClose;
   static Content = ModalContent;
+  static Dialog = ModalDialog;
   static Footer = ModalFooter;
   static Header = ModalHeader;
   static Title = ModalTitle;
@@ -95,10 +92,7 @@ export default class Modal extends React.Component {
       bgClose,
       children,
       className,
-      closeButton,
-      closeOptions,
       container,
-      dialogOptions,
       escClose,
       full,
       onBeforeHide,
@@ -107,7 +101,6 @@ export default class Modal extends React.Component {
       onHide,
       onShow,
       onShown,
-      padContent,
       selectorContainer,
       shown,
       stack,
@@ -128,20 +121,6 @@ export default class Modal extends React.Component {
       stack,
     });
 
-    const closeOutside = get(closeOptions, 'outside', false);
-    const closeClasses = classnames(get(closeOptions, 'className', ''), {
-      [buildClassName(ukClass, 'close', 'default')]: !closeOutside,
-      [buildClassName(ukClass, 'close', 'outside')]: closeOutside,
-    });
-
-    const dialogClasses = classnames(
-      get(dialogOptions, 'className', ''),
-      buildClassName(ukClass, 'dialog'),
-      {
-        [buildClassName(ukClass, 'body')]: padContent,
-      },
-    );
-
     return (
       <BlockElement
         {...rest}
@@ -150,10 +129,7 @@ export default class Modal extends React.Component {
         ref={this.handleRef}
         data-uk-modal={componentOptions}
       >
-        <div {...dialogOptions} className={dialogClasses}>
-          {closeButton && <Close {...closeOptions} className={closeClasses} />}
-          {children}
-        </div>
+        {children}
       </BlockElement>
     );
   }

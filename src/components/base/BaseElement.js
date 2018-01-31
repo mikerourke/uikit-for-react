@@ -104,6 +104,7 @@ export default class BaseElement extends React.Component {
       PropTypes.bool,
       PropTypes.oneOf([...UIK.LOCATIONS, ...UIK.SPACING_MODIFIERS, 'grid']),
       PropTypes.shape({
+        adjacent: PropTypes.oneOf(['remove']),
         all: PropTypes.oneOfType([
           PropTypes.bool,
           PropTypes.oneOf(UIK.SPACING_MODIFIERS),
@@ -123,6 +124,10 @@ export default class BaseElement extends React.Component {
         top: PropTypes.oneOfType([
           PropTypes.bool,
           PropTypes.oneOf(UIK.SPACING_MODIFIERS),
+        ]),
+        vertical: PropTypes.oneOfType([
+          PropTypes.bool,
+          PropTypes.oneOf(['auto', 'remove']),
         ]),
       }),
     ]),
@@ -238,10 +243,12 @@ export default class BaseElement extends React.Component {
     const allMargins = get(margin, 'all');
     let marginClasses = isNil(allMargins)
       ? [
+          buildClassName('margin', get(margin, 'adjacent'), 'adjacent'),
           buildClassName('margin', get(margin, 'bottom'), 'bottom'),
           buildClassName('margin', get(margin, 'left'), 'left'),
           buildClassName('margin', get(margin, 'right'), 'right'),
           buildClassName('margin', get(margin, 'top'), 'top'),
+          buildClassName('margin', get(margin, 'vertical'), 'vertical'),
         ]
       : UIK.LOCATIONS.map(location =>
           buildClassName('margin', allMargins, location),
@@ -357,6 +364,8 @@ export default class BaseElement extends React.Component {
       baseAttributes: {
         'uk-marker': marker || undefined,
         'data-uk-parallax': parallax ? parallaxOptions : undefined,
+        'data-uk-overflow-auto': overflow === 'auto' || undefined,
+        'data-uk-overflow-hidden': overflow === 'hidden' || undefined,
       },
       baseClasses: trim(classes),
       baseStyle,

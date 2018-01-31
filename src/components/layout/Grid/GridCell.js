@@ -10,6 +10,11 @@ export default class GridCell extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
+    as: PropTypes.oneOfType([
+      PropTypes.oneOf(['div']),
+      PropTypes.element,
+      PropTypes.func,
+    ]),
     children: PropTypes.node,
     className: PropTypes.string,
     grow: PropTypes.oneOf(['auto', 'full', 'none']),
@@ -45,6 +50,6 @@ export default class GridCell extends React.Component {
       },
     );
 
-    return <BlockElement {...rest} as="div" className={classes} />;
+    return <BlockElement {...rest} className={classes} />;
   }
 }

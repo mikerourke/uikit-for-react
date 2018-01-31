@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CustomPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { isNil } from 'lodash';
-import { buildClassName, getIfHasChildType } from '../../../lib';
+import { buildClassName, hasChildType } from '../../../lib';
 import { BlockElement, InlineElement } from '../../base';
 import NavbarDropdown from './NavbarDropdown';
 import NavbarSubtitle from './NavbarSubtitle';
@@ -31,8 +31,8 @@ export default class NavbarItem extends React.Component {
     const classes = classnames(className, {
       [buildClassName('active')]: active,
     });
-    const hasDropdown = getIfHasChildType(children, NavbarDropdown);
-    const hasSubtitle = getIfHasChildType(children, NavbarDropdown);
+    const hasDropdown = hasChildType(children, NavbarDropdown);
+    const hasSubtitle = hasChildType(children, NavbarDropdown);
     return (
       <BlockElement {...rest} as="li" className={classes}>
         {hasDropdown ? (

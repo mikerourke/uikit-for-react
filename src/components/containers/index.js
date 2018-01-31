@@ -20,7 +20,10 @@ export DescriptionList, {
 export Lightbox, { LightboxItem } from './Lightbox';
 export List, { ListItem } from './List';
 export Modal, {
+  ModalBody,
+  ModalClose,
   ModalContent,
+  ModalDialog,
   ModalFooter,
   ModalHeader,
   ModalTitle,
@@ -29,4 +32,3 @@ export Offcanvas, { OffcanvasContent } from './Offcanvas';
 export Panel from './Panel';
 export Slideshow, { SlideshowItem } from './Slideshow';
 export Tile from './Tile';
-export Viewport from './Viewport';
