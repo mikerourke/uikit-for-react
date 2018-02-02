@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, restrictToChildTypes } from '../../../lib';
+import { buildClassName, customPropTypes } from '../../../lib';
 import { BlockElement } from '../../base';
 import SubNavItem from './SubNavItem';
 
@@ -10,7 +10,7 @@ export default class SubNav extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    children: restrictToChildTypes(SubNavItem),
+    children: customPropTypes.restrictToChildTypes(SubNavItem),
     className: PropTypes.string,
     divider: PropTypes.bool,
     pill: PropTypes.bool,

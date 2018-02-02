@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CustomPropTypes from 'airbnb-prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import { getOptionsString } from '../../../lib';
 import { BlockElement } from '../../base';
 import VideoSource from './VideoSource';
@@ -20,7 +20,7 @@ export default class Video extends React.Component {
       PropTypes.bool,
       PropTypes.oneOf(['inview']),
     ]),
-    children: CustomPropTypes.childrenOfType(VideoSource),
+    children: ExtraPropTypes.childrenOfType(VideoSource),
     className: PropTypes.string,
   };
 

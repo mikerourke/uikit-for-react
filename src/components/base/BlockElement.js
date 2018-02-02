@@ -9,16 +9,17 @@ import {
   HTML,
   UIK,
 } from '../../lib';
-import BaseElement from './BaseElement';
+import RootElement from './RootElement';
 
 export default class BlockElement extends React.Component {
   static displayName = 'BlockElement';
 
   static propTypes = {
-    ...BaseElement.propTypes,
+    ...RootElement.propTypes,
     childWidth: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.CHILD_WIDTHS),
       PropTypes.shape({
+        default: PropTypes.oneOf(UIK.CHILD_WIDTHS),
         atSm: PropTypes.oneOf(UIK.CHILD_WIDTHS),
         atMd: PropTypes.oneOf(UIK.CHILD_WIDTHS),
         atLg: PropTypes.oneOf(UIK.CHILD_WIDTHS),
@@ -89,7 +90,7 @@ export default class BlockElement extends React.Component {
   ]);
 
   static defaultProps = {
-    ...BaseElement.defaultProps,
+    ...RootElement.defaultProps,
     dynamic: false,
     padding: false,
     transitionToggle: false,
@@ -114,10 +115,9 @@ export default class BlockElement extends React.Component {
       baseClasses,
       baseStyle,
       unhandledProps,
-    } = BaseElement.getBaseProps(props);
+    } = RootElement.getRootProps(props);
 
     const {
-      as,
       childWidth,
       column,
       dynamic,
@@ -134,6 +134,7 @@ export default class BlockElement extends React.Component {
     const classes = classnames(
       baseClasses,
       buildClassName('child', 'width', childWidth),
+      buildClassName('child', 'width', get(childWidth, 'default')),
       buildClassName('child', 'width', get(childWidth, 'atSm'), '@s'),
       buildClassName('child', 'width', get(childWidth, 'atMd'), '@m'),
       buildClassName('child', 'width', get(childWidth, 'atLg'), '@l'),
@@ -208,6 +209,7 @@ export default class BlockElement extends React.Component {
     } = BlockElement.getInheritedProps(this.props);
 
     const {
+      as,
       children,
       className = '',
       transitionToggle,

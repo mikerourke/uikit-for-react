@@ -1,5 +1,7 @@
 export { default as buildClassName } from './buildClassName';
 
+export { default as buildSelector } from './buildSelector';
+
 export {
   appendClassNamesToChildren,
   childMatchesType,
@@ -8,7 +10,7 @@ export {
   hasChildType,
 } from './childrenUtils';
 
-export { restrictToChildTypes } from './customPropTypes';
+export { default as customPropTypes } from './customPropTypes';
 
 export { default as getElementType } from './getElementType';
 

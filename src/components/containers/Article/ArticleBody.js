@@ -8,7 +8,7 @@ export default class ArticleBody extends React.Component {
   static propTypes = {
     ...BlockElement.propTypes,
     as: BlockElement.asPropType,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     className: PropTypes.string,
   };
 

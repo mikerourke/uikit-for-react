@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CustomPropTypes from 'airbnb-prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { buildClassName } from '../../../lib';
 import { BlockElement } from '../../base';
@@ -12,9 +12,9 @@ export default class DescriptionList extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    children: CustomPropTypes.or([
-      CustomPropTypes.elementType(DescriptionDetails),
-      CustomPropTypes.elementType(DescriptionTerm),
+    children: ExtraPropTypes.or([
+      ExtraPropTypes.elementType(DescriptionDetails),
+      ExtraPropTypes.elementType(DescriptionTerm),
     ]),
     className: PropTypes.string,
     divider: PropTypes.bool,

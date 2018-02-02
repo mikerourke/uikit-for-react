@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { restrictToChildTypes } from '../../../lib';
+import { customPropTypes } from '../../../lib';
 import { BlockElement } from '../../base';
 import BreadcrumbItem from './BreadcrumbItem';
 
@@ -10,7 +10,7 @@ export default class Breadcrumb extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    children: restrictToChildTypes(BreadcrumbItem),
+    children: customPropTypes.restrictToChildTypes(BreadcrumbItem),
     className: PropTypes.string,
   };
 

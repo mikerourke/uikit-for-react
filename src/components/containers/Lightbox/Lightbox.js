@@ -1,7 +1,7 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import CustomPropTypes from 'airbnb-prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import { get, isNil, isPlainObject, noop } from 'lodash';
 import { getOptionsString, UIK } from '../../../lib';
 import { BlockElement } from '../../base';
@@ -13,9 +13,8 @@ export default class Lightbox extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    activeIndex: CustomPropTypes.and([
-      PropTypes.number,
-      CustomPropTypes.nonNegativeInteger,
+    activeIndex: ExtraPropTypes.and([
+      ExtraPropTypes.nonNegativeInteger,
       props => {
         const maxAllowed = React.Children.count(props.children) - 1;
         if (props.activeIndex > maxAllowed) {

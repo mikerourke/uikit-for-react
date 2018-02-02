@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CustomPropTypes from 'airbnb-prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { isNil } from 'lodash';
 import { buildClassName } from '../../../lib';

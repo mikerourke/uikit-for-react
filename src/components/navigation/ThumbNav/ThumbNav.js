@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CustomPropTypes from 'airbnb-prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { buildClassName } from '../../../lib';
 import { BlockElement } from '../../base';
@@ -11,7 +11,7 @@ export default class ThumbNav extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    children: CustomPropTypes.childrenOfType(ThumbNavItem),
+    children: ExtraPropTypes.childrenOfType(ThumbNavItem),
     className: PropTypes.string,
     vertical: PropTypes.bool,
   };

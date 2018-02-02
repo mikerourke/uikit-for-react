@@ -14,18 +14,18 @@ storiesOf('Accordion', module)
   .add('Basic Usage', () => (
     <Container margin={{ all: 'large' }}>
       <Accordion collapsible>
-        <Accordion.Item>
+        <Accordion.Panel>
           <Accordion.Title href="#">Item 1</Accordion.Title>
           <Accordion.Content>{firstParagraph}</Accordion.Content>
-        </Accordion.Item>
-        <Accordion.Item>
+        </Accordion.Panel>
+        <Accordion.Panel>
           <Accordion.Title href="#">Item 2</Accordion.Title>
           <Accordion.Content>{secondParagraph}</Accordion.Content>
-        </Accordion.Item>
-        <Accordion.Item>
+        </Accordion.Panel>
+        <Accordion.Panel>
           <Accordion.Title href="#">Item 3</Accordion.Title>
           <Accordion.Content>{thirdParagraph}</Accordion.Content>
-        </Accordion.Item>
+        </Accordion.Panel>
       </Accordion>
     </Container>
   ))
@@ -33,18 +33,18 @@ storiesOf('Accordion', module)
   .add('No collapsing', () => (
     <Container margin={{ all: 'large' }}>
       <Accordion collapsible={false}>
-        <Accordion.Item>
+        <Accordion.Panel>
           <Accordion.Title href="#">Item 1</Accordion.Title>
           <Accordion.Content>{firstParagraph}</Accordion.Content>
-        </Accordion.Item>
-        <Accordion.Item>
+        </Accordion.Panel>
+        <Accordion.Panel>
           <Accordion.Title href="#">Item 2</Accordion.Title>
           <Accordion.Content>{secondParagraph}</Accordion.Content>
-        </Accordion.Item>
-        <Accordion.Item>
+        </Accordion.Panel>
+        <Accordion.Panel>
           <Accordion.Title href="#">Item 3</Accordion.Title>
           <Accordion.Content>{thirdParagraph}</Accordion.Content>
-        </Accordion.Item>
+        </Accordion.Panel>
       </Accordion>
     </Container>
   ))
@@ -52,18 +52,18 @@ storiesOf('Accordion', module)
   .add('Multiple open items', () => (
     <Container margin={{ all: 'large' }}>
       <Accordion collapsible multiple>
-        <Accordion.Item>
+        <Accordion.Panel>
           <Accordion.Title href="#">Item 1</Accordion.Title>
           <Accordion.Content>{firstParagraph}</Accordion.Content>
-        </Accordion.Item>
-        <Accordion.Item>
+        </Accordion.Panel>
+        <Accordion.Panel>
           <Accordion.Title href="#">Item 2</Accordion.Title>
           <Accordion.Content>{secondParagraph}</Accordion.Content>
-        </Accordion.Item>
-        <Accordion.Item>
+        </Accordion.Panel>
+        <Accordion.Panel>
           <Accordion.Title href="#">Item 3</Accordion.Title>
           <Accordion.Content>{thirdParagraph}</Accordion.Content>
-        </Accordion.Item>
+        </Accordion.Panel>
       </Accordion>
     </Container>
   ))
@@ -71,18 +71,18 @@ storiesOf('Accordion', module)
   .add('Set open items', () => (
     <Container margin={{ all: 'large' }}>
       <Accordion multiple openIndex={[0, 2]}>
-        <Accordion.Item open>
+        <Accordion.Panel open>
           <Accordion.Title href="#">Item 1</Accordion.Title>
           <Accordion.Content>{firstParagraph}</Accordion.Content>
-        </Accordion.Item>
-        <Accordion.Item>
+        </Accordion.Panel>
+        <Accordion.Panel>
           <Accordion.Title href="#">Item 2</Accordion.Title>
           <Accordion.Content>{secondParagraph}</Accordion.Content>
-        </Accordion.Item>
-        <Accordion.Item>
+        </Accordion.Panel>
+        <Accordion.Panel>
           <Accordion.Title href="#">Item 3</Accordion.Title>
           <Accordion.Content>{thirdParagraph}</Accordion.Content>
-        </Accordion.Item>
+        </Accordion.Panel>
       </Accordion>
     </Container>
   ))
@@ -98,18 +98,18 @@ storiesOf('Accordion', module)
         onShow={action('onShow')}
         onShown={action('onShown')}
       >
-        <Accordion.Item open>
+        <Accordion.Panel open>
           <Accordion.Title href="#">Item 1</Accordion.Title>
           <Accordion.Content>{firstParagraph}</Accordion.Content>
-        </Accordion.Item>
-        <Accordion.Item>
+        </Accordion.Panel>
+        <Accordion.Panel>
           <Accordion.Title href="#">Item 2</Accordion.Title>
           <Accordion.Content>{secondParagraph}</Accordion.Content>
-        </Accordion.Item>
-        <Accordion.Item>
+        </Accordion.Panel>
+        <Accordion.Panel>
           <Accordion.Title href="#">Item 3</Accordion.Title>
           <Accordion.Content>{thirdParagraph}</Accordion.Content>
-        </Accordion.Item>
+        </Accordion.Panel>
       </Accordion>
     </Container>
   ));

@@ -1,7 +1,13 @@
 export Breadcrumb, { BreadcrumbItem } from './Breadcrumb';
 export DotNav, { DotNavItem } from './DotNav';
 export IconNav, { IconNavItem } from './IconNav';
-export Nav, { NavItem } from './Nav';
+export Nav, {
+  NavDivider,
+  NavHeader,
+  NavItem,
+  NavItemGroup,
+  NavSubNav,
+} from './Nav';
 export Navbar, {
   NavbarContainer,
   NavbarDropdown,

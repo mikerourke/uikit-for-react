@@ -1,9 +1,10 @@
 // TODO: Add toggle and pause functionality.
 import React from 'react';
 import UIkit from 'uikit';
+import ExtraPropTypes from 'airbnb-prop-types';
 import PropTypes from 'prop-types';
 import { isNil, noop } from 'lodash';
-import { buildClassName, getOptionsString, UIK } from '../../../lib';
+import { buildClassName, generateSelector, getOptionsString, UIK } from '../../../lib';
 import { BlockElement } from '../../base';
 import SlideshowItem from './SlideshowItem';
 
@@ -12,7 +13,18 @@ export default class Slideshow extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    activeIndex: PropTypes.number,
+    activeIndex: ExtraPropTypes.and([
+      ExtraPropTypes.nonNegativeInteger,
+      props => {
+        const maxAllowed = React.Children.count(props.children) - 1;
+        if (props.activeIndex > maxAllowed) {
+          return new Error(
+            `Invalid activeIndex passed to Slideshow, the maximum value allowed is ${maxAllowed}`,
+          );
+        }
+        return null;
+      },
+    ]),
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.SLIDESHOW_ANIMATIONS),
       PropTypes.shape({
@@ -64,6 +76,11 @@ export default class Slideshow extends React.Component {
 
   static Item = SlideshowItem;
 
+  constructor() {
+    super();
+    this.selector = null;
+  }
+
   componentDidMount() {
     if (!this.ref) return;
     UIkit.util.on(this.ref, 'beforeitemhide', this.props.onBeforeItemHide);
@@ -113,6 +130,8 @@ export default class Slideshow extends React.Component {
       ...rest
     } = this.props;
 
+    this.selector = generateSelector();
+
     const componentOptions = getOptionsString({
       activeIndex,
       animation,
@@ -128,6 +147,7 @@ export default class Slideshow extends React.Component {
     return (
       <BlockElement
         {...rest}
+        className={this.selector}
         ref={this.handleRef}
         data-uk-slideshow={componentOptions}
       >

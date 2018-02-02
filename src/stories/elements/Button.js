@@ -1,6 +1,14 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Button, Container, Dropdown } from '../../components';
+import {
+  Block,
+  Button,
+  Container,
+  Dropdown,
+  Grid,
+  Icon,
+  Nav,
+} from '../../components';
 
 Button.displayName = 'Button';
 
@@ -17,22 +25,26 @@ storiesOf('Button', module)
 
   .add('Style modifiers', () => (
     <Container margin={{ all: 'large' }}>
-      <Button margin={{ right: 'small' }}>Default</Button>
-      <Button primary margin={{ right: 'small' }}>
-        Primary
-      </Button>
-      <Button secondary margin={{ right: 'small' }}>
-        Secondary
-      </Button>
-      <Button danger margin={{ right: 'small' }}>
-        Danger
-      </Button>
-      <Button text margin={{ right: 'small' }}>
-        Text
-      </Button>
-      <Button link margin={{ right: 'small' }}>
-        Link
-      </Button>
+      <Grid gutter="small" childWidth={{ atSm: 'expand' }} textAlign="center">
+        <Grid.Cell>
+          <Button>Default</Button>
+        </Grid.Cell>
+        <Grid.Cell>
+          <Button primary>Primary</Button>
+        </Grid.Cell>
+        <Grid.Cell>
+          <Button secondary>Secondary</Button>
+        </Grid.Cell>
+        <Grid.Cell>
+          <Button danger>Danger</Button>
+        </Grid.Cell>
+        <Grid.Cell>
+          <Button text>Text</Button>
+        </Grid.Cell>
+        <Grid.Cell>
+          <Button link>Link</Button>
+        </Grid.Cell>
+      </Grid>
     </Container>
   ))
 
@@ -103,11 +115,46 @@ storiesOf('Button', module)
     </Container>
   ))
 
-  // TODO: Add dropdown after complete.
   .add('Button with dropdowns', () => (
     <Container margin={{ all: 'large' }}>
+      <Dropdown toggle={<Button>Dropdown</Button>}>
+        <Nav>
+          <Nav.Item active>Active</Nav.Item>
+          <Nav.Item>Item</Nav.Item>
+          <Nav.Header>Header</Nav.Header>
+          <Nav.Item>Item</Nav.Item>
+          <Nav.Item>Item</Nav.Item>
+          <Nav.Divider />
+          <Nav.Item>Item</Nav.Item>
+        </Nav>
+      </Dropdown>
+    </Container>
+  ))
+
+  .add('Button group with dropdowns', () => (
+    <Container margin={{ all: 'large' }}>
       <Button.Group>
-        <Dropdown toggle={<Button>Dropdown</Button>} />
+        <Button>Dropdown</Button>
+        <Dropdown
+          toggle={
+            <Button>
+              <Icon name="triangle-down" />
+            </Button>
+          }
+          boundaryAlign
+          selectorBoundary="! .uk-button-group"
+          mode="click"
+        >
+          <Nav>
+            <Nav.Item active>Active</Nav.Item>
+            <Nav.Item>Item</Nav.Item>
+            <Nav.Header>Header</Nav.Header>
+            <Nav.Item>Item</Nav.Item>
+            <Nav.Item>Item</Nav.Item>
+            <Nav.Divider />
+            <Nav.Item>Item</Nav.Item>
+          </Nav>
+        </Dropdown>
       </Button.Group>
     </Container>
   ));

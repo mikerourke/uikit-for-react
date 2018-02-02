@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { AnyElement } from '../../base';
+import { BaseElement } from '../../base';
 
 export default class CountdownSeparator extends React.Component {
   static displayName = 'CountdownSeparator';
 
   static propTypes = {
-    ...AnyElement.propTypes,
+    ...BaseElement.propTypes,
     as: PropTypes.oneOfType([
       PropTypes.oneOf(['div', 'span']),
       PropTypes.element,
@@ -18,7 +18,7 @@ export default class CountdownSeparator extends React.Component {
   };
 
   static defaultProps = {
-    ...AnyElement.defaultProps,
+    ...BaseElement.defaultProps,
     as: 'div',
     className: '',
   };
@@ -26,6 +26,6 @@ export default class CountdownSeparator extends React.Component {
   render() {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-countdown-separator');
-    return <AnyElement {...rest} className={classes} />;
+    return <BaseElement {...rest} className={classes} />;
   }
 }

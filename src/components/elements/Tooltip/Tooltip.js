@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isNil, noop } from 'lodash';
 import { getOptionsString, UIK } from '../../../lib';
-import { AnyElement } from '../../base';
+import { BaseElement } from '../../base';
 
 export default class Tooltip extends React.Component {
   static displayName = 'Tooltip';
 
   static propTypes = {
-    ...AnyElement.propTypes,
+    ...BaseElement.propTypes,
     alignTo: PropTypes.oneOf([
       'bottom',
       'bottom-left',
@@ -36,7 +36,7 @@ export default class Tooltip extends React.Component {
         duration: PropTypes.number,
       }),
     ]),
-    as: AnyElement.asPropType,
+    as: BaseElement.asPropType,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     clsActive: PropTypes.string,
@@ -53,7 +53,7 @@ export default class Tooltip extends React.Component {
   };
 
   static defaultProps = {
-    ...AnyElement.defaultProps,
+    ...BaseElement.defaultProps,
     as: 'div',
     className: '',
     onBeforeHide: noop,
@@ -119,7 +119,7 @@ export default class Tooltip extends React.Component {
     });
 
     return (
-      <AnyElement
+      <BaseElement
         {...rest}
         className={classes}
         ref={this.handleRef}

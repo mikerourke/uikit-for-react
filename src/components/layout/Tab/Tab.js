@@ -1,14 +1,10 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { isNil, noop } from 'lodash';
-import {
-  buildClassName,
-  findChildByType,
-  getOptionsString,
-  UIK,
-} from '../../../lib';
+import { buildClassName, getOptionsString, UIK } from '../../../lib';
 import { BlockElement } from '../../base';
 import TabItem from './TabItem';
 
@@ -17,7 +13,18 @@ export default class Tab extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    activeIndex: PropTypes.number,
+    activeIndex: ExtraPropTypes.and([
+      ExtraPropTypes.nonNegativeInteger,
+      props => {
+        const maxAllowed = React.Children.count(props.children) - 1;
+        if (props.activeIndex > maxAllowed) {
+          return new Error(
+            `Invalid activeIndex passed to Lightbox, the maximum value allowed is ${maxAllowed}`,
+          );
+        }
+        return null;
+      },
+    ]),
     align: PropTypes.oneOf(['bottom', 'left', 'right']),
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.ANIMATIONS),
@@ -89,16 +96,6 @@ export default class Tab extends React.Component {
     this.ref = isNil(element.ref) ? element : element.ref;
   };
 
-  validateActiveIndex = () => {
-    const { children, activeIndex } = this.props;
-    const tabItems = findChildByType(children, TabItem);
-    if (activeIndex > tabItems.length) {
-      throw new Error(
-        'Invalid activeIndex specified, must be less than Tab item quantity.',
-      );
-    }
-  };
-
   render() {
     const {
       activeIndex,
@@ -118,8 +115,6 @@ export default class Tab extends React.Component {
       swiping,
       ...rest
     } = this.props;
-
-    this.validateActiveIndex();
 
     const classes = classnames(className, buildClassName('tab', align));
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import CustomPropTypes from 'airbnb-prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { isNil, noop } from 'lodash';
 import { getOptionsString, joinListProp, UIK } from '../../../lib';
@@ -35,7 +35,7 @@ export default class ToggleToggle extends React.Component {
     children: PropTypes.node,
     className: PropTypes.string,
     classToggled: PropTypes.string,
-    mediaTrigger: CustomPropTypes.and([
+    mediaTrigger: ExtraPropTypes.and([
       PropTypes.oneOfType([PropTypes.oneOf(UIK.BREAKPOINTS), PropTypes.number]),
       props => {
         if (props.mediaTrigger && props.mode !== 'media') {

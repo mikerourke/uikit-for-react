@@ -1,9 +1,10 @@
-// TODO: Come back to this, it requires some fanagling to get SubNav to work correctly.
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName } from '../../../lib';
+import { buildClassName, customPropTypes, hasChildType } from '../../../lib';
 import { BlockElement } from '../../base';
+import NavItemGroup from './NavItemGroup';
+import NavSubNav from './NavSubNav';
 
 export default class NavItem extends React.Component {
   static displayName = 'NavItem';
@@ -11,30 +12,34 @@ export default class NavItem extends React.Component {
   static propTypes = {
     ...BlockElement.propTypes,
     active: PropTypes.bool,
+    as: customPropTypes.customOrStringChild('li'),
     children: PropTypes.node,
     className: PropTypes.string,
-    divider: PropTypes.bool,
-    header: PropTypes.bool,
+    href: PropTypes.string,
   };
 
   static defaultProps = {
     ...BlockElement.defaultProps,
     active: false,
+    as: 'li',
     className: '',
-    divider: false,
-    header: false,
+    href: '#',
   };
 
   render() {
-    const { active, children, className, disabled, ...rest } = this.props;
-
+    const { active, children, className, disabled, href, ...rest } = this.props;
     const classes = classnames(className, {
+      [buildClassName('active')]: active,
       [buildClassName('disabled')]: disabled,
+      [buildClassName('parent')]: hasChildType(children, NavSubNav),
     });
-
     return (
-      <BlockElement {...rest} as="li" className={classes}>
-        {this.renderChildren(children)}
+      <BlockElement {...rest} className={classes}>
+        {hasChildType(children, NavItemGroup) ? (
+          children
+        ) : (
+          <a href={href}>{children}</a>
+        )}
       </BlockElement>
     );
   }

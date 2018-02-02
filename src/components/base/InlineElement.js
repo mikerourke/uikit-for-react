@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CustomPropTypes from 'airbnb-prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get, trim } from 'lodash';
 import {
@@ -10,13 +10,13 @@ import {
   HTML,
   UIK,
 } from '../../lib';
-import BaseElement from './BaseElement';
+import RootElement from './RootElement';
 
 export default class InlineElement extends React.Component {
   static displayName = 'InlineElement';
 
   static propTypes = {
-    ...BaseElement.propTypes,
+    ...RootElement.propTypes,
     align: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
       PropTypes.shape({
@@ -27,7 +27,7 @@ export default class InlineElement extends React.Component {
       }),
     ]),
     columnSpan: PropTypes.bool,
-    dropcap: CustomPropTypes.and([
+    dropcap: ExtraPropTypes.and([
       PropTypes.bool,
       props => {
         if (props.children && !childMatchesType('p')) {
@@ -47,7 +47,7 @@ export default class InlineElement extends React.Component {
   ]);
 
   static defaultProps = {
-    ...BaseElement.defaultProps,
+    ...RootElement.defaultProps,
     columnSpan: false,
     dropcap: false,
   };
@@ -60,7 +60,7 @@ export default class InlineElement extends React.Component {
       baseClasses,
       baseStyle,
       unhandledProps,
-    } = BaseElement.getBaseProps(props);
+    } = RootElement.getRootProps(props);
 
     const { align, columnSpan, dropcap, ...rest } = unhandledProps;
 

@@ -1,16 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CustomPropTypes from 'airbnb-prop-types';
 import { InlineElement } from '../../base';
 
-export default class Svg extends React.Component {
-  static displayName = 'Svg';
+export default class OverlayIcon extends React.Component {
+  static displayName = 'OverlayIcon';
 
   static propTypes = {
     ...InlineElement.propTypes,
-    children: CustomPropTypes.explicitNull,
+    children: PropTypes.node,
     className: PropTypes.string,
-    src: PropTypes.string.isRequired,
   };
 
   static defaultProps = {
@@ -19,6 +17,6 @@ export default class Svg extends React.Component {
   };
 
   render() {
-    return <InlineElement {...this.props} as="img" data-uk-svg />;
+    return <InlineElement {...this.props} as="span" data-uk-overlay-icon />;
   }
 }

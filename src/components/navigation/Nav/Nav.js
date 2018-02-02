@@ -1,17 +1,30 @@
 import React from 'react';
+import UIkit from 'uikit';
 import PropTypes from 'prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { isNil } from 'lodash';
-import { buildClassName, getOptionsString, HTML, UIK } from '../../../lib';
+import {
+  buildClassName,
+  customPropTypes,
+  generateSelector,
+  getOptionsString,
+  HTML,
+  UIK,
+} from '../../../lib';
 import { BlockElement } from '../../base';
+import NavDivider from './NavDivider';
+import NavHeader from './NavHeader';
 import NavItem from './NavItem';
+import NavItemGroup from './NavItemGroup';
+import NavSubNav from './NavSubNav';
 
 export default class Nav extends React.Component {
   static displayName = 'Nav';
 
   static propTypes = {
     ...BlockElement.propTypes,
-    activeIndex: PropTypes.number,
+    activeIndex: customPropTypes.validateIndex,
     accordion: PropTypes.bool,
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.ANIMATIONS),
@@ -25,9 +38,10 @@ export default class Nav extends React.Component {
           PropTypes.oneOf(UIK.ANIMATIONS),
           PropTypes.arrayOf(UIK.ANIMATIONS),
         ]),
-        duration: PropTypes.number,
+        duration: ExtraPropTypes.nonNegativeInteger,
       }),
     ]),
+    as: customPropTypes.customOrStringChild('ul'),
     center: PropTypes.bool,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
@@ -45,6 +59,7 @@ export default class Nav extends React.Component {
     ...BlockElement.defaultProps,
     activeIndex: 0,
     accordion: false,
+    as: 'ul',
     center: false,
     className: '',
     collapsible: false,
@@ -53,10 +68,36 @@ export default class Nav extends React.Component {
     primary: false,
   };
 
+  static Divider = NavDivider;
+  static Header = NavHeader;
   static Item = NavItem;
+  static ItemGroup = NavItemGroup;
+  static SubNav = NavSubNav;
+
+  constructor() {
+    super();
+    this.selector = null;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.activeIndex !== this.props.activeIndex) {
+      UIkit.nav(this.getRef()).toggle(
+        nextProps.activeIndex,
+        nextProps.hideOpenAnimation,
+      );
+    }
+  }
+
+  getRef = () => (isNil(this.ref) ? this.selector : this.ref);
+
+  handleRef = element => {
+    if (!element) return;
+    this.ref = isNil(element.ref) ? element : element.ref;
+  };
 
   render() {
     const {
+      activeIndex,
       accordion,
       animation,
       center,
@@ -72,12 +113,13 @@ export default class Nav extends React.Component {
       ...rest
     } = this.props;
 
+    this.selector = generateSelector();
     const ukClass = 'uk-nav';
-    const classes = classnames(className, ukClass, {
+    const classes = classnames(className, ukClass, this.selector, {
       [buildClassName(ukClass, 'center')]: center,
-      [buildClassName(ukClass, 'default')]: primary === false,
+      [buildClassName(ukClass, 'default')]: !primary,
       [buildClassName(ukClass, 'parent', 'icon')]: accordion,
-      [buildClassName(ukClass, 'primary')]: primary === true,
+      [buildClassName(ukClass, 'primary')]: primary,
     });
 
     const componentOptions = getOptionsString({
@@ -93,8 +135,8 @@ export default class Nav extends React.Component {
     return (
       <BlockElement
         {...rest}
-        as="ul"
         className={classes}
+        ref={this.handleRef}
         data-uk-nav={accordion ? componentOptions : undefined}
       />
     );

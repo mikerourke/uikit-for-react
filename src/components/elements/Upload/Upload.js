@@ -41,39 +41,44 @@ export default class Upload extends React.Component {
     url: PropTypes.string,
   };
 
-  static defaultUploadProps = {
-    abort: null,
-    allow: null,
-    beforeAll: null,
-    beforeSend: null,
-    clsDragover: 'uk-dragover',
-    complete: null,
-    completeAll: null,
-    concurrent: 1,
-    dataType: null,
-    error: null,
-    fail: null,
-    load: null,
-    loadEnd: null,
-    loadStart: null,
-    mime: null,
-    msgInvalidMime: null,
-    msgInvalidName: null,
-    multiple: false,
-    name: '',
-    onUpload: noop,
-    params: null,
-    progress: null,
-    requestType: 'POST',
-    url: '',
-  };
+  static propNames = [
+    'abort',
+    'allow',
+    'beforeAll',
+    'beforeSend',
+    'clsDragover',
+    'complete',
+    'completeAll',
+    'concurrent',
+    'dataType',
+    'error',
+    'fail',
+    'load',
+    'loadEnd',
+    'loadStart',
+    'mime',
+    'msgInvalidMime',
+    'msgInvalidName',
+    'multiple',
+    'name',
+    'onUpload',
+    'params',
+    'progress',
+    'requestType',
+    'url',
+  ];
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    ...Upload.defaultUploadProps,
     as: null,
     children: null,
     className: '',
+    clsDragover: 'uk-dragover',
+    concurrent: 1,
+    name: '',
+    onUpload: noop,
+    requestType: 'POST',
+    url: '',
   };
 
   static FileSelect = UploadFileSelect;
@@ -84,17 +89,14 @@ export default class Upload extends React.Component {
       fileInput.setAttribute('multiple', '');
     }
     if (!this.ref) return;
-    const uploadOptions = Object.keys(Upload.defaultUploadProps).reduce(
-      (acc, propName) => {
-        const optionKey =
-          propName === 'requestType' ? 'type' : kebabCase(propName);
-        return {
-          ...acc,
-          [optionKey]: this.props[propName],
-        };
-      },
-      {},
-    );
+    const uploadOptions = Upload.propNames.reduce((acc, propName) => {
+      const optionKey =
+        propName === 'requestType' ? 'type' : kebabCase(propName);
+      return {
+        ...acc,
+        [optionKey]: this.props[propName],
+      };
+    }, {});
     UIkit.upload(this.ref, uploadOptions);
   }
 
@@ -105,14 +107,10 @@ export default class Upload extends React.Component {
 
   render() {
     const { className, ...rest } = this.props;
-    const blockProps = omit(rest, Object.keys(Upload.defaultUploadProps));
+    const blockProps = omit(rest, Upload.propNames);
     const classes = classnames(className, 'uk-upload');
     return (
-      <BlockElement
-        {...blockProps}
-        className={classes}
-        ref={this.handleRef}
-      />
+      <BlockElement {...blockProps} className={classes} ref={this.handleRef} />
     );
   }
 }

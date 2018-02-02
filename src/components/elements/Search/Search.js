@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CustomPropTypes from 'airbnb-prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get } from 'lodash';
 import { buildClassName } from '../../../lib';
@@ -14,7 +14,7 @@ export default class Search extends React.Component {
     ...BlockElement.propTypes,
     autofocus: PropTypes.bool,
     className: PropTypes.string,
-    icon: CustomPropTypes.elementType(SearchIcon),
+    icon: ExtraPropTypes.elementType(SearchIcon),
     inputOptions: PropTypes.shape(InlineElement.propTypes),
     large: PropTypes.bool,
     placeholder: PropTypes.string,

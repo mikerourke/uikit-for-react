@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, restrictToChildTypes } from '../../../lib';
+import { buildClassName, customPropTypes } from '../../../lib';
 import { BlockElement } from '../../base';
 import IconNavItem from './IconNavItem';
 
@@ -10,7 +10,7 @@ export default class IconNav extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    children: restrictToChildTypes(IconNavItem),
+    children: customPropTypes.restrictToChildTypes(IconNavItem),
     className: PropTypes.string,
     vertical: PropTypes.bool,
   };

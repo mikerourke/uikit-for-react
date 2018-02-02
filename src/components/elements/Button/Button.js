@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { invoke, isNil, noop } from 'lodash';
+import { invoke, isNil, isObject, noop } from 'lodash';
 import { buildClassName, UIK } from '../../../lib';
 import { InlineElement } from '../../base';
 import ButtonGroup from './ButtonGroup';

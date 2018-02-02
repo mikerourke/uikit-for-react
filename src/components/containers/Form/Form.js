@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CustomPropTypes from 'airbnb-prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get, isNil } from 'lodash';
 import { buildClassName, getOptionsString } from '../../../lib';
@@ -20,16 +20,11 @@ export default class Form extends React.Component {
         selectorTarget: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
       }),
     ]),
-    horizontal: CustomPropTypes.mutuallyExclusiveProps(
-      PropTypes.bool,
+    horizontal: ExtraPropTypes.mutuallyExclusiveTrueProps(
       'horizontal',
       'stacked',
     ),
-    stacked: CustomPropTypes.mutuallyExclusiveProps(
-      PropTypes.bool,
-      'horizontal',
-      'stacked',
-    ),
+    stacked: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -63,8 +58,6 @@ export default class Form extends React.Component {
       [buildClassName(ukClass, 'stacked')]: stacked,
     });
 
-    return (
-      <BlockElement {...rest} as="form" className={classes} />
-    );
+    return <BlockElement {...rest} as="form" className={classes} />;
   }
 }

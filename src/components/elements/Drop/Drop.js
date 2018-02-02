@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import CustomPropTypes from 'airbnb-prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { isNil, noop } from 'lodash';
 import {
@@ -47,17 +47,13 @@ export default class Drop extends React.Component {
     onToggle: PropTypes.func,
     position: PropTypes.oneOf(UIK.DROP_POSITIONS),
     selectorBoundary: PropTypes.string,
-    selectorToggle: CustomPropTypes.mutuallyExclusiveProps(
+    selectorToggle: ExtraPropTypes.mutuallyExclusiveProps(
       PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
       'toggle',
       'selectorToggle',
     ),
     shown: PropTypes.bool,
-    toggle: CustomPropTypes.mutuallyExclusiveProps(
-      PropTypes.element,
-      'toggle',
-      'selectorToggle',
-    ),
+    toggle: PropTypes.element,
   };
 
   static defaultProps = {

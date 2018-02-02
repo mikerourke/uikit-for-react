@@ -1,27 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CustomPropTypes from 'airbnb-prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import { getOptionsString, UIK } from '../../../lib';
-import { AnyElement } from '../../base';
+import { BaseElement } from '../../base';
 
 export default class Leader extends React.Component {
   static displayName = 'Leader';
 
   static propTypes = {
-    ...AnyElement.propTypes,
-    as: AnyElement.asPropType,
+    ...BaseElement.propTypes,
+    as: BaseElement.asPropType,
     children: PropTypes.node,
     className: PropTypes.string,
     fill: PropTypes.string,
     media: PropTypes.oneOfType([
-      CustomPropTypes.nonNegativeInteger,
+      ExtraPropTypes.nonNegativeInteger,
       PropTypes.oneOf(UIK.BREAKPOINTS),
       PropTypes.string,
     ]),
   };
 
   static defaultProps = {
-    ...AnyElement.defaultProps,
+    ...BaseElement.defaultProps,
     as: 'div',
     className: '',
   };
@@ -32,6 +32,6 @@ export default class Leader extends React.Component {
       fill,
       media,
     });
-    return <AnyElement {...rest} data-uk-leader={componentOptions} />;
+    return <BaseElement {...rest} data-uk-leader={componentOptions} />;
   }
 }

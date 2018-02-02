@@ -1,4 +1,5 @@
 export default from './Card';
+export { default as CardBadge } from './CardBadge';
 export { default as CardBody } from './CardBody';
 export { default as CardContent } from './CardContent';
 export { default as CardFooter } from './CardFooter';

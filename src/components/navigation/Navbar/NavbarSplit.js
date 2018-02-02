@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CustomPropTypes from 'airbnb-prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { buildClassName } from '../../../lib';
 import { BlockElement } from '../../base';
@@ -11,7 +11,7 @@ export default class NavbarSplit extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    children: CustomPropTypes.elementType(NavbarNav),
+    children: ExtraPropTypes.elementType(NavbarNav),
     className: PropTypes.string,
     side: PropTypes.oneOf(['left', 'right']).isRequired,
   };

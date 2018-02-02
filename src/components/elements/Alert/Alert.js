@@ -1,13 +1,14 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import CustomPropTypes from 'airbnb-prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get, isNil, noop } from 'lodash';
 import {
   buildClassName,
-  hasChildType,
+  generateSelector,
   getOptionsString,
+  hasChildType,
   UIK,
 } from '../../../lib';
 import { BlockElement } from '../../base';
@@ -33,7 +34,7 @@ export default class Alert extends React.Component {
     as: BlockElement.asPropType,
     children: PropTypes.node,
     className: PropTypes.string,
-    closeable: CustomPropTypes.and([
+    closeable: ExtraPropTypes.and([
       PropTypes.bool,
       props => {
         if (props.closeable && hasChildType(props.children, Close)) {
@@ -59,6 +60,7 @@ export default class Alert extends React.Component {
     as: 'div',
     className: '',
     closeable: false,
+    closeOptions: Close.defaultProps,
     danger: false,
     onBeforeHide: noop,
     onHide: noop,
@@ -68,16 +70,33 @@ export default class Alert extends React.Component {
     warning: false,
   };
 
-  componentDidMount() {
-    if (!this.ref) return;
-    UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(this.ref, 'hide', this.props.onHide);
+  constructor() {
+    super();
+    this.selector = null;
   }
+
+  componentDidMount() {
+    const ref = this.getRef();
+    UIkit.util.on(ref, 'beforehide', this.props.onBeforeHide);
+    UIkit.util.on(ref, 'hide', this.props.onHide);
+  }
+
+  getRef = () => (isNil(this.ref) ? this.selector : this.ref);
 
   handleRef = element => {
     if (!element) return;
     this.ref = isNil(element.ref) ? element : element.ref;
   };
+
+  renderChildren = children =>
+    React.Children.map(children, child => {
+      if (child.type === Close) {
+        return React.cloneElement(child, {
+          className: classnames(child.props.className, 'uk-alert-close'),
+        });
+      }
+      return child;
+    });
 
   render() {
     const {
@@ -96,8 +115,9 @@ export default class Alert extends React.Component {
       ...rest
     } = this.props;
 
+    this.selector = generateSelector();
     const ukClass = 'uk-alert';
-    const classes = classnames(className, ukClass, {
+    const classes = classnames(className, ukClass, this.selector, {
       [buildClassName(ukClass, 'danger')]: danger,
       [buildClassName(ukClass, 'primary')]: primary,
       [buildClassName(ukClass, 'success')]: success,
@@ -111,7 +131,7 @@ export default class Alert extends React.Component {
 
     const closeClasses = classnames(
       get(closeOptions, 'className', ''),
-      buildClassName('alert', 'close'),
+      buildClassName(ukClass, 'close'),
       {
         [buildClassName('close', 'large')]: get(closeOptions, 'large'),
       },
@@ -125,7 +145,7 @@ export default class Alert extends React.Component {
         data-uk-alert={componentOptions}
       >
         {closeable && <Close {...closeOptions} className={closeClasses} />}
-        {children}
+        {this.renderChildren(children)}
       </BlockElement>
     );
   }

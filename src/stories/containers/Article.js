@@ -1,7 +1,7 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Article, Container } from '../../components';
+import { Article, Button, Container, Grid } from '../../components';
 
 Article.displayName = 'Article';
 
@@ -14,7 +14,19 @@ storiesOf('Article', module).add('Basic Usage', () => (
       <Article.Title>Heading</Article.Title>
       <Article.Meta>Written by Super User on March 1st, 2017</Article.Meta>
       <Article.Lead>{leadText}</Article.Lead>
-      <Article.Body>{bodyText}</Article.Body>
+      <Article.Body as="p">{bodyText}</Article.Body>
+      <Grid gutter="small" childWidth="auto">
+        <Grid.Cell>
+          <Button as="a" text>
+            Read more
+          </Button>
+        </Grid.Cell>
+        <Grid.Cell>
+          <Button as="a" text>
+            5 Comments
+          </Button>
+        </Grid.Cell>
+      </Grid>
     </Article>
   </Container>
 ));

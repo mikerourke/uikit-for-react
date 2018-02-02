@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { customPropTypes } from '../../../lib';
 import { InlineElement } from '../../base';
 
 /**
@@ -12,18 +13,20 @@ export default class AccordionTitle extends React.Component {
 
   static propTypes = {
     ...InlineElement.propTypes,
+    as: customPropTypes.customOrStringChild('a'),
     children: PropTypes.node,
     className: PropTypes.string,
   };
 
   static defaultProps = {
     ...InlineElement.defaultProps,
+    as: 'a',
     className: '',
   };
 
   render() {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-accordion-title');
-    return <InlineElement {...rest} as="a" className={classes} />;
+    return <InlineElement {...rest} className={classes} />;
   }
 }

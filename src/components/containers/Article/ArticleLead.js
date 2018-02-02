@@ -1,12 +1,21 @@
 import React from 'react';
+import { customPropTypes } from '../../../lib';
 import Text from '../../style/Text';
 
 export default class ArticleLead extends React.Component {
   static displayName = 'ArticleLead';
-  static propTypes = Text.propTypes;
-  static defaultProps = Text.defaultProps;
+
+  static propTypes = {
+    ...Text.propTypes,
+    as: customPropTypes.customOrStringChild('p'),
+  };
+
+  static defaultProps = {
+    ...Text.defaultProps,
+    as: 'p',
+  };
 
   render() {
-    return <Text {...this.props} as="p" lead />;
+    return <Text {...this.props} lead />;
   }
 }

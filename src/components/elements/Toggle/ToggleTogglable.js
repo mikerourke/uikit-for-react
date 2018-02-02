@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { childMatchesType, generateSelector } from '../../../lib';
-import { AnyElement } from '../../base';
+import { BaseElement } from '../../base';
 import ToggleTarget from './ToggleTarget';
 import ToggleToggle from './ToggleToggle';
 
@@ -10,8 +10,8 @@ export default class ToggleTogglable extends React.Component {
   static displayName = 'ToggleTogglable';
 
   static propTypes = {
-    ...AnyElement.propTypes,
-    as: AnyElement.asPropType,
+    ...BaseElement.propTypes,
+    as: BaseElement.asPropType,
     children: props => {
       let targetCount = 0;
       let toggleCount = 0;
@@ -35,7 +35,7 @@ export default class ToggleTogglable extends React.Component {
   };
 
   static defaultProps = {
-    ...AnyElement.defaultProps,
+    ...BaseElement.defaultProps,
     as: 'div',
     className: '',
   };
@@ -64,7 +64,7 @@ export default class ToggleTogglable extends React.Component {
     const { children, ...rest } = this.props;
     this.selector = generateSelector();
     return (
-      <AnyElement {...rest}>{this.renderChildren(children)}</AnyElement>
+      <BaseElement {...rest}>{this.renderChildren(children)}</BaseElement>
     );
   }
 }

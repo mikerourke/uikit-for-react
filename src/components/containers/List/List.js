@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, restrictToChildTypes } from '../../../lib';
+import { buildClassName, customPropTypes } from '../../../lib';
 import { BlockElement } from '../../base';
 import ListItem from './ListItem';
 
@@ -11,7 +11,7 @@ export default class List extends React.Component {
   static propTypes = {
     ...BlockElement.propTypes,
     bullet: PropTypes.bool,
-    children: restrictToChildTypes(ListItem),
+    children: customPropTypes.restrictToChildTypes(ListItem),
     className: PropTypes.string,
     divider: PropTypes.bool,
     large: PropTypes.bool,

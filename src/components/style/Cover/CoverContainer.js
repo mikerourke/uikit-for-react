@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CustomPropTypes from 'airbnb-prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get } from 'lodash';
 import { getOptionsString } from '../../../lib';
@@ -13,7 +13,7 @@ export default class CoverContainer extends React.Component {
   static propTypes = {
     ...BlockElement.propTypes,
     as: BlockElement.asPropType,
-    children: CustomPropTypes.elementType(Cover).isRequired,
+    children: ExtraPropTypes.elementType(Cover).isRequired,
     className: PropTypes.string,
     responsive: PropTypes.shape({
       height: PropTypes.number,

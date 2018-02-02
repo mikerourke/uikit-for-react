@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CustomPropTypes from 'airbnb-prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { omit } from 'lodash';
 import { buildClassName } from '../../../lib';
@@ -13,7 +13,7 @@ export default class NavbarDropdown extends React.Component {
 
   static propTypes = {
     ...omit(Dropdown.propTypes, 'as'),
-    children: CustomPropTypes.elementType(NavbarItem),
+    children: ExtraPropTypes.elementType(NavbarItem),
     className: PropTypes.string,
     multiplyWidth: PropTypes.oneOf([2, 3, 4, 5]),
     navOptions: PropTypes.shape(BlockElement.propTypes),

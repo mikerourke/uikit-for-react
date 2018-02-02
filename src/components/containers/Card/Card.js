@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CustomPropTypes from 'airbnb-prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { buildClassName, hasChildType } from '../../../lib';
+import { buildClassName, customPropTypes, hasChildType } from '../../../lib';
 import { BlockElement } from '../../base';
+import CardBadge from './CardBadge';
 import CardBody from './CardBody';
 import CardContent from './CardContent';
 import CardFooter from './CardFooter';
@@ -16,7 +17,8 @@ export default class Card extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    children: CustomPropTypes.and([
+    as: customPropTypes.customOrStringChild('div'),
+    children: ExtraPropTypes.and([
       PropTypes.node.isRequired,
       props => {
         if (
@@ -32,19 +34,27 @@ export default class Card extends React.Component {
     ]),
     className: PropTypes.string,
     hover: PropTypes.bool,
-    primary: PropTypes.bool,
+    primary: ExtraPropTypes.mutuallyExclusiveTrueProps(
+      'primary',
+      'secondary',
+      'simple',
+    ),
     secondary: PropTypes.bool,
+    simple: PropTypes.bool,
     size: PropTypes.oneOf(['small', 'large']),
   };
 
   static defaultProps = {
     ...BlockElement.defaultProps,
+    as: 'div',
     className: '',
     hover: false,
     primary: false,
     secondary: false,
+    simple: false,
   };
 
+  static Badge = CardBadge;
   static Body = CardBody;
   static Content = CardContent;
   static Footer = CardFooter;
@@ -59,6 +69,7 @@ export default class Card extends React.Component {
       hover,
       primary,
       secondary,
+      simple,
       size,
       ...rest
     } = this.props;
@@ -69,11 +80,8 @@ export default class Card extends React.Component {
       ukClass,
       buildClassName('card', size),
       {
-        [buildClassName(ukClass, 'default')]: !primary && !secondary,
-        [buildClassName(ukClass, 'body')]: !hasChildType(
-          children,
-          CardBody,
-        ),
+        [buildClassName(ukClass, 'default')]: !primary && !secondary && !simple,
+        [buildClassName(ukClass, 'body')]: !hasChildType(children, CardBody),
         [buildClassName(ukClass, 'hover')]: hover,
         [buildClassName(ukClass, 'primary')]: primary,
         [buildClassName(ukClass, 'secondary')]: secondary,
@@ -81,7 +89,7 @@ export default class Card extends React.Component {
     );
 
     return (
-      <BlockElement {...rest} as="div" className={classes}>
+      <BlockElement {...rest} className={classes}>
         {children}
       </BlockElement>
     );

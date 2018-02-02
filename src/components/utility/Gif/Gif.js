@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CustomPropTypes from 'airbnb-prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import { InlineElement } from '../../base';
 
 export default class Gif extends React.Component {
@@ -8,7 +8,7 @@ export default class Gif extends React.Component {
 
   static propTypes = {
     ...InlineElement.propTypes,
-    children: CustomPropTypes.explicitNull,
+    children: ExtraPropTypes.explicitNull,
     className: PropTypes.string,
     src: PropTypes.string.isRequired,
   };

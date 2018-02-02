@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { HTML } from '../../../lib';
+import { customPropTypes, HTML } from '../../../lib';
 import { BlockElement } from '../../base';
 
 export default class CardTitle extends React.Component {
@@ -9,11 +9,7 @@ export default class CardTitle extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    as: PropTypes.oneOfType([
-      PropTypes.oneOf(HTML.HEADING_ELEMENTS),
-      PropTypes.element,
-      PropTypes.func,
-    ]),
+    as: customPropTypes.customOrStringChild(HTML.HEADING_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
   };

@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import CustomPropTypes from 'airbnb-prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { isNil, noop } from 'lodash';
-import { buildClassName, getOptionsString } from '../../../lib';
+import {
+  buildClassName,
+  generateIdentifier,
+  generateSelector,
+  getOptionsString,
+} from '../../../lib';
 import { BlockElement } from '../../base';
 import ModalBody from './ModalBody';
 import ModalClose from './ModalClose';
@@ -20,7 +25,7 @@ export default class Modal extends React.Component {
   static propTypes = {
     ...BlockElement.propTypes,
     bgClose: PropTypes.bool,
-    children: CustomPropTypes.elementType(ModalDialog),
+    children: ExtraPropTypes.elementType(ModalDialog),
     className: PropTypes.string,
     container: PropTypes.bool,
     escClose: PropTypes.bool,
@@ -62,25 +67,32 @@ export default class Modal extends React.Component {
   static Header = ModalHeader;
   static Title = ModalTitle;
 
+  constructor() {
+    super();
+    this.selector = null;
+  }
+
   componentDidMount() {
-    if (!this.ref) return;
-    UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(this.ref, 'beforeshow', this.props.onBeforeShow);
-    UIkit.util.on(this.ref, 'hidden', this.props.onHidden);
-    UIkit.util.on(this.ref, 'hide', this.props.onHide);
-    UIkit.util.on(this.ref, 'show', this.props.onShow);
-    UIkit.util.on(this.ref, 'shown', this.props.onShown);
+    const ref = this.getRef();
+    UIkit.util.on(ref, 'beforehide', this.props.onBeforeHide);
+    UIkit.util.on(ref, 'beforeshow', this.props.onBeforeShow);
+    UIkit.util.on(ref, 'hidden', this.props.onHidden);
+    UIkit.util.on(ref, 'hide', this.props.onHide);
+    UIkit.util.on(ref, 'show', this.props.onShow);
+    UIkit.util.on(ref, 'shown', this.props.onShown);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.shown === true && this.props.shown === false) {
-      UIkit.modal(this.ref).show();
+      UIkit.modal(this.getRef()).show();
     }
 
     if (nextProps.shown === false && this.props.shown === true) {
-      UIkit.modal(this.ref).hide();
+      UIkit.modal(this.getRef()).hide();
     }
   }
+
+  getRef = () => (isNil(this.ref) ? this.selector : this.ref);
 
   handleRef = element => {
     if (!element) return;
@@ -108,8 +120,10 @@ export default class Modal extends React.Component {
       ...rest
     } = this.props;
 
+    this.selector = generateSelector();
+
     const ukClass = 'uk-modal';
-    const classes = classnames(className, ukClass, {
+    const classes = classnames(className, ukClass, this.selector, {
       [buildClassName(ukClass, 'container')]: container,
       [buildClassName(ukClass, 'full')]: full,
     });
@@ -121,16 +135,29 @@ export default class Modal extends React.Component {
       stack,
     });
 
+    let Toggle;
+    const identifier = generateIdentifier();
+    if (toggle) {
+      Toggle = React.cloneElement(toggle, {
+        href: `#${identifier}`,
+        'data-uk-toggle': '',
+      });
+    }
+
     return (
-      <BlockElement
-        {...rest}
-        as="div"
-        className={classes}
-        ref={this.handleRef}
-        data-uk-modal={componentOptions}
-      >
-        {children}
-      </BlockElement>
+      <Fragment>
+        {toggle && Toggle}
+        <BlockElement
+          {...rest}
+          as="div"
+          className={classes}
+          id={identifier}
+          ref={this.handleRef}
+          data-uk-modal={componentOptions}
+        >
+          {children}
+        </BlockElement>
+      </Fragment>
     );
   }
 }

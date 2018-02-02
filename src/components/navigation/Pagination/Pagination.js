@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { restrictToChildTypes } from '../../../lib';
+import { customPropTypes } from '../../../lib';
 import { BlockElement } from '../../base';
 import PaginationItem from './PaginationItem';
 import PaginationNext from './PaginationNext';
@@ -12,7 +12,7 @@ export default class Pagination extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    children: restrictToChildTypes(PaginationItem),
+    children: customPropTypes.restrictToChildTypes(PaginationItem),
     className: PropTypes.string,
   };
 

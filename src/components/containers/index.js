@@ -1,4 +1,8 @@
-export Accordion, { AccordionItem } from './Accordion';
+export Accordion, {
+  AccordionContent,
+  AccordionPanel,
+  AccordionTitle,
+} from './Accordion';
 export Article, {
   ArticleBody,
   ArticleLead,
@@ -6,6 +10,7 @@ export Article, {
   ArticleTitle,
 } from './Article';
 export Card, {
+  CardBadge,
   CardBody,
   CardContent,
   CardFooter,
@@ -17,6 +22,19 @@ export DescriptionList, {
   DescriptionDetails,
   DescriptionTerm,
 } from './DescriptionList';
+export Form, {
+  FormCheckbox,
+  FormControls,
+  FormFieldset,
+  FormInput,
+  FormLabel,
+  FormLegend,
+  FormOption,
+  FormRadio,
+  FormRange,
+  FormSelect,
+  FormTextArea,
+} from './Form';
 export Lightbox, { LightboxItem } from './Lightbox';
 export List, { ListItem } from './List';
 export Modal, {
@@ -31,4 +49,13 @@ export Modal, {
 export Offcanvas, { OffcanvasContent } from './Offcanvas';
 export Panel from './Panel';
 export Slideshow, { SlideshowItem } from './Slideshow';
+export Sortable from './Sortable';
+export Switcher, {
+  SwitcherContent,
+  SwitcherGoTo,
+  SwitcherItem,
+  SwitcherSwitchable,
+  SwitcherToggle,
+  SwitcherToggles,
+} from './Switcher';
 export Tile from './Tile';

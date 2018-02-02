@@ -1,13 +1,18 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import CustomPropTypes from 'airbnb-prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { flatten, isArray, isNil, max, noop } from 'lodash';
-import { getOptionsString, HTML } from '../../../lib';
+import { flatten, isNil, noop } from 'lodash';
+import {
+  customPropTypes,
+  generateSelector,
+  getOptionsString,
+  HTML,
+} from '../../../lib';
 import { BlockElement } from '../../base';
 import AccordionContent from './AccordionContent';
-import AccordionItem from './AccordionItem';
+import AccordionPanel from './AccordionPanel';
 import AccordionTitle from './AccordionTitle';
 
 /**
@@ -24,13 +29,14 @@ export default class Accordion extends React.Component {
       PropTypes.bool,
       PropTypes.shape({
         active: PropTypes.bool,
-        duration: PropTypes.number,
+        duration: ExtraPropTypes.nonNegativeInteger,
       }),
     ]),
-    children: PropTypes.node.isRequired,
+    as: customPropTypes.customOrStringChild('ul'),
+    children: PropTypes.node,
     className: PropTypes.string,
     collapsible: PropTypes.bool,
-    defaultIndex: PropTypes.number,
+    defaultIndex: customPropTypes.validateIndex,
     hideOpenAnimation: PropTypes.bool,
     multiple: PropTypes.bool,
     onBeforeHide: PropTypes.func,
@@ -39,27 +45,7 @@ export default class Accordion extends React.Component {
     onHide: PropTypes.func,
     onShow: PropTypes.func,
     onShown: PropTypes.func,
-    openIndex: CustomPropTypes.and([
-      PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.arrayOf(PropTypes.number),
-      ]),
-      props => {
-        const maxAllowed = React.Children.count(props.children) - 1;
-        const maxErrorMessage = `Invalid openIndex prop passed to Accordion, maximum allowed value is ${maxAllowed}.`;
-        if (isArray(props.openIndex)) {
-          if (!props.multiple) {
-            return new Error(
-              'You must set multiple = true when you pass an array of values to the openIndex prop.',
-            );
-          }
-          if (max(props.openIndex) > maxAllowed)
-            return new Error(maxErrorMessage);
-        }
-        if (props.openIndex > maxAllowed) return new Error(maxErrorMessage);
-        return null;
-      },
-    ]),
+    openIndex: customPropTypes.validateIndexArray,
     selectorContent: PropTypes.string,
     selectorTargets: PropTypes.string,
     selectorToggle: PropTypes.string,
@@ -72,9 +58,9 @@ export default class Accordion extends React.Component {
       active: true,
       duration: 200,
     },
+    as: 'ul',
     className: '',
     collapsible: true,
-    defaultIndex: 0,
     hideOpenAnimation: false,
     multiple: false,
     onBeforeHide: noop,
@@ -90,23 +76,30 @@ export default class Accordion extends React.Component {
   };
 
   static Content = AccordionContent;
-  static Item = AccordionItem;
+  static Panel = AccordionPanel;
   static Title = AccordionTitle;
 
+  constructor() {
+    super();
+    this.selector = null;
+  }
+
   componentDidMount() {
-    if (!this.ref) return;
-    UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(this.ref, 'beforeshow', this.props.onBeforeShow);
-    UIkit.util.on(this.ref, 'show', this.props.onShow);
-    UIkit.util.on(this.ref, 'shown', this.props.onShown);
-    UIkit.util.on(this.ref, 'hidden', this.props.onHidden);
-    UIkit.util.on(this.ref, 'hide', this.props.onHide);
+    const ref = this.getRef();
+    UIkit.util.on(ref, 'beforehide', this.props.onBeforeHide);
+    UIkit.util.on(ref, 'beforeshow', this.props.onBeforeShow);
+    UIkit.util.on(ref, 'show', this.props.onShow);
+    UIkit.util.on(ref, 'shown', this.props.onShown);
+    UIkit.util.on(ref, 'hidden', this.props.onHidden);
+    UIkit.util.on(ref, 'hide', this.props.onHide);
     this.toggleOpenItems(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
     this.toggleOpenItems(nextProps);
   }
+
+  getRef = () => (isNil(this.ref) ? this.selector : this.ref);
 
   /**
    * Loops through each of the accordion items and either toggles them as open
@@ -122,18 +115,12 @@ export default class Accordion extends React.Component {
 
     const animate = !props.hideOpenAnimation;
     const openIndices = flatten([props.openIndex]);
-    const maxAllowed = React.Children.count(props.children) - 1;
-    if (max(openIndices) > maxAllowed) {
-      throw new Error(
-        `Invalid openIndex prop passed to Accordion, maximum allowed value is ${maxAllowed}.`,
-      );
-    }
-
+    const accordion = UIkit.accordion(this.getRef());
     React.Children.toArray(props.children).forEach((child, childIndex) => {
       const isOpen = /uk-open/g.test(child.props.className);
       const shouldBeOpen = openIndices.includes(childIndex);
       if ((isOpen && !shouldBeOpen) || (!isOpen && shouldBeOpen)) {
-        UIkit.accordion(this.ref).toggle(childIndex, animate);
+        accordion.toggle(childIndex, animate);
       }
     });
   };
@@ -165,7 +152,8 @@ export default class Accordion extends React.Component {
       ...rest
     } = this.props;
 
-    const classes = classnames(className, 'uk-accordion');
+    this.selector = generateSelector();
+    const classes = classnames(className, this.selector, 'uk-accordion');
 
     const componentOptions = getOptionsString({
       active: defaultIndex,
@@ -181,7 +169,6 @@ export default class Accordion extends React.Component {
     return (
       <BlockElement
         {...rest}
-        as="ul"
         className={classes}
         ref={this.handleRef}
         data-uk-accordion={componentOptions}

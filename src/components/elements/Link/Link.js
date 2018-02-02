@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName } from '../../../lib';
+import { buildClassName, customPropTypes } from '../../../lib';
 import { InlineElement } from '../../base';
 
 export default class Link extends React.Component {
@@ -9,7 +9,8 @@ export default class Link extends React.Component {
 
   static propTypes = {
     ...InlineElement.propTypes,
-    children: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+    as: customPropTypes.customOrStringChild('a'),
+    children: PropTypes.node,
     className: PropTypes.string,
     muted: PropTypes.bool,
     reset: PropTypes.bool,
@@ -18,6 +19,7 @@ export default class Link extends React.Component {
 
   static defaultProps = {
     ...InlineElement.defaultProps,
+    as: 'a',
     className: '',
     muted: false,
     reset: false,
@@ -34,6 +36,6 @@ export default class Link extends React.Component {
       [buildClassName(ukClass, 'text')]: text,
     });
 
-    return <InlineElement {...rest} as="a" className={classes} />;
+    return <InlineElement {...rest} className={classes} />;
   }
 }

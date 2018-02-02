@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { customPropTypes } from '../../../lib';
 import { BlockElement } from '../../base';
 import ArticleBody from './ArticleBody';
 import ArticleLead from './ArticleLead';
@@ -16,12 +17,14 @@ export default class Article extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
+    as: customPropTypes.customOrStringChild('article'),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
   };
 
   static defaultProps = {
     ...BlockElement.defaultProps,
+    as: 'article',
     className: '',
   };
 
@@ -33,8 +36,6 @@ export default class Article extends React.Component {
   render() {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-article');
-    return (
-      <BlockElement {...rest} as="article" className={classes} />
-    );
+    return <BlockElement {...rest} className={classes} />;
   }
 }
