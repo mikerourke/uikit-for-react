@@ -20,8 +20,6 @@ export default class FormFieldset extends React.Component {
   render() {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-fieldset');
-    return (
-      <BlockElement {...rest} as="fieldset" className={classes} />
-    );
+    return <BlockElement {...rest} as="fieldset" className={classes} />;
   }
 }

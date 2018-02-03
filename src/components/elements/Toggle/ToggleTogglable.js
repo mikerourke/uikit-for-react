@@ -63,8 +63,6 @@ export default class ToggleTogglable extends React.Component {
   render() {
     const { children, ...rest } = this.props;
     this.selector = generateSelector();
-    return (
-      <BaseElement {...rest}>{this.renderChildren(children)}</BaseElement>
-    );
+    return <BaseElement {...rest}>{this.renderChildren(children)}</BaseElement>;
   }
 }

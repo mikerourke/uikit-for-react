@@ -2,7 +2,12 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import { isNil, noop } from 'lodash';
-import { findChildByType, getOptionsString } from '../../../lib';
+import classnames from 'classnames';
+import {
+  findChildByType,
+  generateSelector,
+  getOptionsString,
+} from '../../../lib';
 import { BaseElement } from '../../base';
 import Navbar from '../../navigation/Navbar';
 
@@ -44,16 +49,16 @@ export default class Sticky extends React.Component {
     target: false,
   };
 
-  componentDidMount() {
-    if (!this.ref) return;
-    UIkit.util.on(this.ref, 'active', this.props.onActive);
-    UIkit.util.on(this.ref, 'inactive', this.props.onInactive);
+  constructor() {
+    super();
+    this.selector = null;
   }
 
-  handleRef = element => {
-    if (!element) return;
-    this.ref = isNil(element.ref) ? element : element.ref;
-  };
+  componentDidMount() {
+    const ref = this.getRef();
+    UIkit.util.on(ref, 'active', this.props.onActive);
+    UIkit.util.on(ref, 'inactive', this.props.onInactive);
+  }
 
   getOptionsForNavbar() {
     const { clsActive, clsInactive, target } = this.props;
@@ -68,10 +73,18 @@ export default class Sticky extends React.Component {
     };
   }
 
+  getRef = () => (isNil(this.ref) ? this.selector : this.ref);
+
+  handleRef = element => {
+    if (!element) return;
+    this.ref = isNil(element.ref) ? element : element.ref;
+  };
+
   render() {
     const {
       animation,
       bottom,
+      className,
       clsActive,
       clsInactive,
       media,
@@ -82,6 +95,9 @@ export default class Sticky extends React.Component {
       widthElement,
       ...rest
     } = this.props;
+
+    this.selector = generateSelector();
+    const classes = classnames(className, this.selector);
 
     const componentOptions = getOptionsString({
       animation,
@@ -100,6 +116,7 @@ export default class Sticky extends React.Component {
     return (
       <BaseElement
         {...rest}
+        className={classes}
         ref={this.handleRef}
         data-uk-sticky={componentOptions}
       />

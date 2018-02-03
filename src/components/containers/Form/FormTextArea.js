@@ -51,8 +51,6 @@ export default class FormTextArea extends React.Component {
       },
     );
 
-    return (
-      <InlineElement {...rest} as="textarea" className={classes} />
-    );
+    return <InlineElement {...rest} as="textarea" className={classes} />;
   }
 }

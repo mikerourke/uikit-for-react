@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { isNil, noop } from 'lodash';
-import { buildClassName, getOptionsString, UIK } from '../../../lib';
+import {
+  buildClassName,
+  generateSelector,
+  getOptionsString,
+  UIK,
+} from '../../../lib';
 import { BlockElement } from '../../base';
 import TabItem from './TabItem';
 
@@ -54,8 +59,6 @@ export default class Tab extends React.Component {
     onHide: PropTypes.func,
     onShow: PropTypes.func,
     onShown: PropTypes.func,
-    selectorConnect: PropTypes.string,
-    selectorToggle: PropTypes.string,
     swiping: PropTypes.bool,
   };
 
@@ -74,22 +77,29 @@ export default class Tab extends React.Component {
 
   static Item = TabItem;
 
+  constructor() {
+    super();
+    this.selector = null;
+  }
+
   componentDidMount() {
-    if (!this.ref) return;
-    UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(this.ref, 'beforeshow', this.props.onBeforeShow);
-    UIkit.util.on(this.ref, 'hidden', this.props.onHidden);
-    UIkit.util.on(this.ref, 'hide', this.props.onHide);
-    UIkit.util.on(this.ref, 'show', this.props.onShow);
-    UIkit.util.on(this.ref, 'shown', this.props.onShown);
-    UIkit.tab(this.ref).show(this.props.activeIndex);
+    const ref = this.getRef();
+    UIkit.util.on(ref, 'beforehide', this.props.onBeforeHide);
+    UIkit.util.on(ref, 'beforeshow', this.props.onBeforeShow);
+    UIkit.util.on(ref, 'hidden', this.props.onHidden);
+    UIkit.util.on(ref, 'hide', this.props.onHide);
+    UIkit.util.on(ref, 'show', this.props.onShow);
+    UIkit.util.on(ref, 'shown', this.props.onShown);
+    UIkit.tab(ref).show(this.props.activeIndex);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.activeIndex !== this.props.activeIndex) {
-      UIkit.tab(this.ref).show(nextProps.activeIndex);
+      UIkit.tab(this.getRef()).show(nextProps.activeIndex);
     }
   }
+
+  getRef = () => (isNil(this.ref) ? this.selector : this.ref);
 
   handleRef = element => {
     if (!element) return;
@@ -110,21 +120,22 @@ export default class Tab extends React.Component {
       onHide,
       onShow,
       onShown,
-      selectorConnect,
-      selectorToggle,
       swiping,
       ...rest
     } = this.props;
 
-    const classes = classnames(className, buildClassName('tab', align));
+    this.selector = generateSelector();
+    const classes = classnames(
+      className,
+      this.selector,
+      buildClassName('tab', align),
+    );
 
     const componentOptions = getOptionsString({
       animation,
       active: defaultIndex,
-      connect: selectorConnect,
       media,
       swiping,
-      toggle: selectorToggle,
     });
 
     return (

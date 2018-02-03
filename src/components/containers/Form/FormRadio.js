@@ -33,12 +33,7 @@ export default class FormRadio extends React.Component {
     });
 
     return (
-      <InlineElement
-        {...rest}
-        as="input"
-        type="radio"
-        className={classes}
-      />
+      <InlineElement {...rest} as="input" type="radio" className={classes} />
     );
   }
 }

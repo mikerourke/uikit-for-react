@@ -49,9 +49,6 @@ export default class Nav extends React.Component {
     hideOpenAnimation: PropTypes.bool,
     multiple: PropTypes.bool,
     primary: PropTypes.bool,
-    selectorContent: PropTypes.string,
-    selectorTargets: PropTypes.string,
-    selectorToggle: PropTypes.string,
     transition: PropTypes.oneOf(HTML.CSS_EASING),
   };
 
@@ -106,9 +103,6 @@ export default class Nav extends React.Component {
       hideOpenAnimation,
       multiple,
       primary,
-      selectorContent,
-      selectorTargets,
-      selectorToggle,
       transition,
       ...rest
     } = this.props;
@@ -125,10 +119,7 @@ export default class Nav extends React.Component {
     const componentOptions = getOptionsString({
       animation,
       collapsible,
-      content: selectorContent,
       multiple,
-      targets: selectorTargets,
-      toggle: selectorToggle,
       transition,
     });
 

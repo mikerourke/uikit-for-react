@@ -50,7 +50,6 @@ export default class Alert extends React.Component {
     onBeforeHide: PropTypes.func,
     onHide: PropTypes.func,
     primary: PropTypes.bool,
-    selectorClose: PropTypes.string,
     success: PropTypes.bool,
     warning: PropTypes.bool,
   };
@@ -65,7 +64,6 @@ export default class Alert extends React.Component {
     onBeforeHide: noop,
     onHide: noop,
     primary: false,
-    selectorClose: '.uk-alert-close',
     success: false,
     warning: false,
   };
@@ -109,7 +107,6 @@ export default class Alert extends React.Component {
       onBeforeHide,
       onHide,
       primary,
-      selectorClose,
       success,
       warning,
       ...rest
@@ -124,10 +121,7 @@ export default class Alert extends React.Component {
       [buildClassName(ukClass, 'warning')]: warning,
     });
 
-    const componentOptions = getOptionsString({
-      animation,
-      selClose: selectorClose,
-    });
+    const componentOptions = getOptionsString({ animation });
 
     const closeClasses = classnames(
       get(closeOptions, 'className', ''),

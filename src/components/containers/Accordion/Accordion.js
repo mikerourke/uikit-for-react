@@ -46,9 +46,6 @@ export default class Accordion extends React.Component {
     onShow: PropTypes.func,
     onShown: PropTypes.func,
     openIndex: customPropTypes.validateIndexArray,
-    selectorContent: PropTypes.string,
-    selectorTargets: PropTypes.string,
-    selectorToggle: PropTypes.string,
     transition: PropTypes.oneOf(HTML.CSS_EASING),
   };
 
@@ -69,9 +66,6 @@ export default class Accordion extends React.Component {
     onHide: noop,
     onShow: noop,
     onShown: noop,
-    selectorContent: '> .uk-accordion-content',
-    selectorTargets: '> *',
-    selectorToggle: '> .uk-accordion-title',
     transition: 'ease',
   };
 
@@ -145,9 +139,6 @@ export default class Accordion extends React.Component {
       onHide,
       onHidden,
       openIndex,
-      selectorContent,
-      selectorTargets,
-      selectorToggle,
       transition,
       ...rest
     } = this.props;
@@ -159,10 +150,7 @@ export default class Accordion extends React.Component {
       active: defaultIndex,
       animation,
       collapsible,
-      content: selectorContent,
       multiple,
-      targets: selectorTargets,
-      toggle: selectorToggle,
       transition,
     });
 

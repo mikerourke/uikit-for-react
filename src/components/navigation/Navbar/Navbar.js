@@ -6,6 +6,8 @@ import classnames from 'classnames';
 import { get, isNil, noop, omit } from 'lodash';
 import {
   buildClassName,
+  customPropTypes,
+  generateSelector,
   getOptionsString,
   joinListProp,
   UIK,
@@ -26,6 +28,18 @@ export default class Navbar extends React.Component {
     ...BlockElement.propTypes,
     alignOptions: PropTypes.shape(omit(BlockElement.propTypes, 'as')),
     alignTo: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS).isRequired,
+    as: ExtraPropTypes.and([
+      customPropTypes.customOrStringChild(['nav', 'div']),
+      props => {
+        const elementType = get(props, ['as', 'type'], props.as);
+        if (props.container === true && elementType !== 'nav') {
+          return new Error(
+            'You must specify a <nav> element for the as prop in Navbar if container is true.',
+          );
+        }
+        return null;
+      },
+    ]),
     boundaryAlign: PropTypes.bool,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
@@ -47,7 +61,6 @@ export default class Navbar extends React.Component {
     onHide: PropTypes.func,
     onShow: PropTypes.func,
     onShown: PropTypes.func,
-    selectorBoundary: PropTypes.string,
     transparent: PropTypes.bool,
   };
 
@@ -74,15 +87,22 @@ export default class Navbar extends React.Component {
   static Subtitle = NavbarSubtitle;
   static Toggle = NavbarToggle;
 
-  componentDidMount() {
-    if (!this.ref) return;
-    UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(this.ref, 'beforeshow', this.props.onBeforeShow);
-    UIkit.util.on(this.ref, 'hidden', this.props.onHidden);
-    UIkit.util.on(this.ref, 'hide', this.props.onHide);
-    UIkit.util.on(this.ref, 'show', this.props.onShow);
-    UIkit.util.on(this.ref, 'shown', this.props.onShown);
+  constructor() {
+    super();
+    this.selector = null;
   }
+
+  componentDidMount() {
+    const ref = this.getRef();
+    UIkit.util.on(ref, 'beforehide', this.props.onBeforeHide);
+    UIkit.util.on(ref, 'beforeshow', this.props.onBeforeShow);
+    UIkit.util.on(ref, 'hidden', this.props.onHidden);
+    UIkit.util.on(ref, 'hide', this.props.onHide);
+    UIkit.util.on(ref, 'show', this.props.onShow);
+    UIkit.util.on(ref, 'shown', this.props.onShown);
+  }
+
+  getRef = () => (isNil(this.ref) ? this.selector : this.ref);
 
   handleRef = element => {
     if (!element) return;
@@ -106,7 +126,7 @@ export default class Navbar extends React.Component {
       alignTo,
       boundaryAlign,
       children,
-      classes,
+      className,
       container,
       delayHide,
       delayShow,
@@ -116,12 +136,13 @@ export default class Navbar extends React.Component {
       duration,
       mode,
       offset,
-      selectorBoundary,
+      transparent,
       ...rest
     } = this.props;
 
+    this.selector = generateSelector();
     const ukClass = 'uk-navbar';
-    const classNames = classnames(ukClass, {
+    const classes = classnames(className, ukClass, this.selector, {
       [buildClassName(ukClass, 'container')]: container,
       [buildClassName(ukClass, 'transparent')]: transparent,
     });
@@ -137,7 +158,6 @@ export default class Navbar extends React.Component {
 
     const componentOptions = getOptionsString({
       align: dropdownAlign,
-      boundary: selectorBoundary,
       boundaryAlign,
       delayHide,
       delayShow,
@@ -151,7 +171,6 @@ export default class Navbar extends React.Component {
     return (
       <BlockElement
         {...rest}
-        as={container ? 'nav' : 'div'}
         className={classes}
         ref={this.handleRef}
         data-uk-navbar={componentOptions}

@@ -29,8 +29,6 @@ export default class Close extends React.Component {
       [buildClassName(ukClass, 'large')]: large,
     });
 
-    return (
-      <InlineElement {...rest} className={classes} data-uk-close />
-    );
+    return <InlineElement {...rest} className={classes} data-uk-close />;
   }
 }

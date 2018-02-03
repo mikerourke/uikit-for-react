@@ -3,7 +3,7 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isNil } from 'lodash';
-import { getOptionsString } from '../../../lib';
+import { generateSelector, getOptionsString } from '../../../lib';
 import { BlockElement } from '../../base';
 import CountdownDays from './CountdownDays';
 import CountdownHours from './CountdownHours';
@@ -38,16 +38,22 @@ export default class Countdown extends React.Component {
   static Label = CountdownLabel;
   static Separator = CountdownSeparator;
 
-  componentWillReceiveProps(nextProps) {
-    const selector = this.ref instanceof Countdown ? this.ref : '.uk-countdown';
-    if (nextProps.paused === true && this.props.paused === false) {
-      UIkit.countdown(selector).stop();
-    }
+  constructor() {
+    super();
+    this.selector = null;
+  }
 
+  componentWillReceiveProps(nextProps) {
+    const countdown = UIkit.countdown(this.getRef());
+    if (nextProps.paused === true && this.props.paused === false) {
+      countdown.stop();
+    }
     if (nextProps.paused === false && this.props.paused === true) {
-      UIkit.countdown(selector).start();
+      countdown.start();
     }
   }
+
+  getRef = () => (isNil(this.ref) ? this.selector : this.ref);
 
   handleRef = element => {
     if (!element) return;
@@ -56,7 +62,8 @@ export default class Countdown extends React.Component {
 
   render() {
     const { className, date, paused, ...rest } = this.props;
-    const classes = classnames(className, 'uk-countdown');
+    this.selector = generateSelector();
+    const classes = classnames(className, this.selector, 'uk-countdown');
     return (
       <BlockElement
         {...rest}

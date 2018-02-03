@@ -1,18 +1,29 @@
-import classnames from 'classnames';
+// TODO: Test and validate this.
+import tokenizer from 'css-selector-tokenizer';
 
-const sanitizeSelector = selector => {
-  const validString = selector.replace(/\./gi, ' ');
-  const selectorElements = validString
-    .split(' ')
-    .filter(selectorElement => selectorElement.length > 0);
-  const selectorString = selectorElements.join('.');
-  return `.${selectorString}`;
-};
-
-const buildSelector = (...args) => {
+/**
+ * Creates a CSS selector by combining the initial selector and any additional
+ *    classes specified in ...args.
+ * @param {string} selector Initial selector specified by user.
+ * @param args Additional classes to append to selector.
+ */
+const buildSelector = (selector, ...args) => {
   const classElements = [...args];
-  const classes = classnames(classElements);
-  return sanitizeSelector(classes);
+  const parsedSelector = tokenizer.parse(selector);
+  const selectorDefinition = {
+    type: 'selectors',
+    nodes: [
+      ...parsedSelector.nodes,
+      {
+        type: 'selector',
+        nodes: classElements.map(name => ({
+          type: 'class',
+          name,
+        })),
+      },
+    ],
+  };
+  return tokenizer.stringify(selectorDefinition);
 };
 
 export default buildSelector;

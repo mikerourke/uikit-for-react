@@ -35,8 +35,6 @@ export default class Tile extends React.Component {
       [buildClassName(ukClass, 'secondary')]: secondary,
     });
 
-    return (
-      <BlockElement {...rest} as="span" className={classes} />
-    );
+    return <BlockElement {...rest} as="span" className={classes} />;
   }
 }

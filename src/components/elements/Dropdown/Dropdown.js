@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { isNil, noop } from 'lodash';
 import {
   appendClassNamesToChildren,
   buildClassName,
+  generateSelector,
   getOptionsString,
   joinListProp,
   UIK,
@@ -46,12 +46,6 @@ export default class Dropdown extends React.Component {
     onStack: PropTypes.func,
     onToggle: PropTypes.func,
     position: PropTypes.oneOf(UIK.DROP_POSITIONS),
-    selectorBoundary: PropTypes.string,
-    selectorToggle: ExtraPropTypes.mutuallyExclusiveProps(
-      PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-      'toggle',
-      'selectorToggle',
-    ),
     shown: PropTypes.bool,
     toggle: PropTypes.element,
   };
@@ -73,27 +67,34 @@ export default class Dropdown extends React.Component {
     shown: false,
   };
 
+  constructor() {
+    super();
+    this.selector = null;
+  }
+
   componentDidMount() {
-    if (!this.ref) return;
-    UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(this.ref, 'beforeshow', this.props.onBeforeShow);
-    UIkit.util.on(this.ref, 'hidden', this.props.onHidden);
-    UIkit.util.on(this.ref, 'hide', this.props.onHide);
-    UIkit.util.on(this.ref, 'show', this.props.onShow);
-    UIkit.util.on(this.ref, 'shown', this.props.onShown);
-    UIkit.util.on(this.ref, 'stack', this.props.onStack);
-    UIkit.util.on(this.ref, 'toggle', this.props.onToggle);
+    const ref = this.getRef();
+    UIkit.util.on(ref, 'beforehide', this.props.onBeforeHide);
+    UIkit.util.on(ref, 'beforeshow', this.props.onBeforeShow);
+    UIkit.util.on(ref, 'hidden', this.props.onHidden);
+    UIkit.util.on(ref, 'hide', this.props.onHide);
+    UIkit.util.on(ref, 'show', this.props.onShow);
+    UIkit.util.on(ref, 'shown', this.props.onShown);
+    UIkit.util.on(ref, 'stack', this.props.onStack);
+    UIkit.util.on(ref, 'toggle', this.props.onToggle);
   }
 
   componentWillReceiveProps(nextProps) {
+    const dropdown = UIkit.dropdown(this.getRef());
     if (nextProps.shown === true && this.props.shown === false) {
-      UIkit.dropdown(this.ref).show();
+      dropdown.show();
     }
-
     if (nextProps.shown === false && this.props.shown === true) {
-      UIkit.dropdown(this.ref).hide();
+      dropdown.hide();
     }
   }
+
+  getRef = () => (isNil(this.ref) ? this.selector : this.ref);
 
   handleRef = element => {
     if (!element) return;
@@ -126,18 +127,16 @@ export default class Dropdown extends React.Component {
       onStack,
       onToggle,
       position,
-      selectorBoundary,
-      selectorToggle,
       shown,
       toggle,
       ...rest
     } = this.props;
 
-    const classes = classnames(className, 'uk-dropdown');
+    this.selector = generateSelector();
+    const classes = classnames(className, this.selector, 'uk-dropdown');
 
     const componentOptions = getOptionsString({
       animation,
-      boundary: selectorBoundary,
       boundaryAlign,
       delayHide,
       delayShow,
@@ -145,7 +144,6 @@ export default class Dropdown extends React.Component {
       mode: joinListProp(mode, ','),
       offset,
       pos: position,
-      toggle: selectorToggle,
     });
 
     return (

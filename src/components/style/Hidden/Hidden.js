@@ -55,11 +55,7 @@ export default class Hidden extends React.Component {
 
     const Element = getElementType(Hidden, this.props);
     return (
-      <Element
-        {...rest}
-        className={classes}
-        hidden={hide || undefined}
-      >
+      <Element {...rest} className={classes} hidden={hide || undefined}>
         {children}
       </Element>
     );

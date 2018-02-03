@@ -2,6 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BlockElement } from '../../base';
 
+/**
+ * Contents/body of the Article.
+ * @see https://getuikit.com/docs/article
+ */
 export default class ArticleBody extends React.Component {
   static displayName = 'ArticleBody';
 
@@ -14,7 +18,7 @@ export default class ArticleBody extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
-    as: 'div',
+    as: 'p',
     className: '',
   };
 

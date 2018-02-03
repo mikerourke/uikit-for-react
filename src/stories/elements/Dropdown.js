@@ -1,13 +1,7 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import {
-  Block,
-  Button,
-  Dropdown,
-  Grid,
-  Container,
-} from '../../components';
+import { Block, Button, Dropdown, Grid, Container } from '../../components';
 
 Dropdown.displayName = 'Dropdown';
 

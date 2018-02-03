@@ -4,7 +4,12 @@ import UIkit from 'uikit';
 import ExtraPropTypes from 'airbnb-prop-types';
 import PropTypes from 'prop-types';
 import { isNil, noop } from 'lodash';
-import { buildClassName, generateSelector, getOptionsString, UIK } from '../../../lib';
+import {
+  buildClassName,
+  generateSelector,
+  getOptionsString,
+  UIK,
+} from '../../../lib';
 import { BlockElement } from '../../base';
 import SlideshowItem from './SlideshowItem';
 

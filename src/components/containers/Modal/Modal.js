@@ -36,7 +36,6 @@ export default class Modal extends React.Component {
     onHide: PropTypes.func,
     onShow: PropTypes.func,
     onShown: PropTypes.func,
-    selectorContainer: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     shown: PropTypes.bool,
     stack: PropTypes.bool,
     toggle: PropTypes.element,
@@ -83,12 +82,12 @@ export default class Modal extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const modal = UIkit.modal(this.getRef());
     if (nextProps.shown === true && this.props.shown === false) {
-      UIkit.modal(this.getRef()).show();
+      modal.show();
     }
-
     if (nextProps.shown === false && this.props.shown === true) {
-      UIkit.modal(this.getRef()).hide();
+      modal.hide();
     }
   }
 
@@ -113,7 +112,6 @@ export default class Modal extends React.Component {
       onHide,
       onShow,
       onShown,
-      selectorContainer,
       shown,
       stack,
       toggle,
@@ -130,7 +128,6 @@ export default class Modal extends React.Component {
 
     const componentOptions = getOptionsString({
       bgClose,
-      container: selectorContainer,
       escClose,
       stack,
     });

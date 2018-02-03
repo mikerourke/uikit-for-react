@@ -21,6 +21,7 @@
   "dependencies": {
     "airbnb-prop-types": "^2.8.1",
     "classnames": "^2.2.5",
+    "css-selector-tokenizer": "^0.7.0",
     "lodash": "^4.17.4",
     "nanoid": "^1.0.1",
     "prop-types": "^15.6.0"

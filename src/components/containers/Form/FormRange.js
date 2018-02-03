@@ -33,12 +33,7 @@ export default class FormRange extends React.Component {
     });
 
     return (
-      <InlineElement
-        {...rest}
-        as="input"
-        type="range"
-        className={classes}
-      />
+      <InlineElement {...rest} as="input" type="range" className={classes} />
     );
   }
 }

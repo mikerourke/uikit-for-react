@@ -30,10 +30,7 @@ export default class Container extends React.Component {
       ukClass,
       buildClassName(ukClass, size),
       {
-        [buildClassName('inline')]: childrenHaveClass(
-          children,
-          'position',
-        ),
+        [buildClassName('inline')]: childrenHaveClass(children, 'position'),
       },
     );
 

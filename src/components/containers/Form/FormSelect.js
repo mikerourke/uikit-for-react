@@ -51,8 +51,6 @@ export default class FormSelect extends React.Component {
       },
     );
 
-    return (
-      <InlineElement {...rest} as="select" className={classes} />
-    );
+    return <InlineElement {...rest} as="select" className={classes} />;
   }
 }

@@ -60,7 +60,6 @@ export default class BlockElement extends React.Component {
       onItemActive: PropTypes.func,
       overflow: PropTypes.bool,
       scroll: PropTypes.bool,
-      selectorClosest: PropTypes.string,
     }),
     textAlign: PropTypes.oneOfType([
       PropTypes.oneOf([...UIK.HORIZONTAL_POSITIONS, 'justify']),
@@ -171,7 +170,6 @@ export default class BlockElement extends React.Component {
     });
 
     const scrollspyNavOptions = getOptionsString({
-      closest: get(scrollspyNav, 'selectorClosest'),
       cls: get(scrollspyNav, 'clsActive'),
       offset: get(scrollspyNav, 'offset'),
       overflow: get(scrollspyNav, 'overflow'),

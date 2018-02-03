@@ -39,8 +39,6 @@ export default class Comment extends React.Component {
       [buildClassName(ukClass, 'primary')]: primary,
     });
 
-    return (
-      <BlockElement {...rest} as="article" className={classes} />
-    );
+    return <BlockElement {...rest} as="article" className={classes} />;
   }
 }

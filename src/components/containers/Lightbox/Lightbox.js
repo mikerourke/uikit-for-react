@@ -2,8 +2,9 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
+import classnames from 'classnames';
 import { get, isNil, isPlainObject, noop } from 'lodash';
-import { getOptionsString, UIK } from '../../../lib';
+import { generateSelector, getOptionsString, UIK } from '../../../lib';
 import { BlockElement } from '../../base';
 import LightboxItem from './LightboxItem';
 import LightboxPanel from './LightboxPanel';
@@ -54,7 +55,6 @@ export default class Lightbox extends React.Component {
     onShow: PropTypes.func,
     onShown: PropTypes.func,
     pauseOnHover: PropTypes.bool,
-    selectorToggle: PropTypes.string,
     shown: PropTypes.bool,
     videoAutoplay: PropTypes.bool,
   };
@@ -78,7 +78,6 @@ export default class Lightbox extends React.Component {
     onShow: noop,
     onShown: noop,
     pauseOnHover: false,
-    selectorToggle: 'a',
     shown: false,
     videoAutoplay: false,
   };
@@ -86,26 +85,31 @@ export default class Lightbox extends React.Component {
   static Item = LightboxItem;
   static Panel = LightboxPanel;
 
-  componentWillReceiveProps(nextProps) {
-    if (!this.ref) return;
+  constructor() {
+    super();
+    this.selector = null;
+  }
 
+  componentWillReceiveProps(nextProps) {
     // TODO: Validate that these events work.
-    const lightboxElement = UIkit.lightbox(this.ref);
+    const lightbox = UIkit.lightbox(this.getRef());
     if (nextProps.activeIndex !== this.props.activeIndex) {
-      lightboxElement.show(nextProps.activeIndex);
+      lightbox.show(nextProps.activeIndex);
     }
     if (nextProps.shown === true && this.props.shown === false) {
-      lightboxElement.show(nextProps.activeIndex || 0);
+      lightbox.show(nextProps.activeIndex || 0);
     }
     if (nextProps.shown === false && this.props.shown === true) {
-      lightboxElement.hide();
+      lightbox.hide();
     }
 
     // Add event listeners to the Lightbox Panel after it appears.
-    const panelElement = document.querySelector('.uk-lightbox');
-    if (!panelElement) return;
-    LightboxPanel.addEventListeners(this.props, panelElement);
+    const panel = document.querySelector('.uk-lightbox');
+    if (!panel) return;
+    LightboxPanel.addEventListeners(this.props, panel);
   }
+
+  getRef = () => (isNil(this.ref) ? this.selector : this.ref);
 
   handleRef = element => {
     if (!element) return;
@@ -117,6 +121,7 @@ export default class Lightbox extends React.Component {
       activeIndex,
       animation,
       autoplay,
+      className,
       defaultIndex,
       onBeforeHide,
       onBeforeItemHide,
@@ -132,11 +137,13 @@ export default class Lightbox extends React.Component {
       onShow,
       onShown,
       pauseOnHover,
-      selectorToggle,
       shown,
       videoAutoplay,
       ...rest
     } = this.props;
+
+    this.selector = generateSelector();
+    const classes = classnames(className, this.selector);
 
     const animationName = isPlainObject(animation)
       ? get(animation, 'name', 'slide')
@@ -148,7 +155,6 @@ export default class Lightbox extends React.Component {
       autoplayInterval: get(autoplay, 'interval', 0),
       index: defaultIndex,
       pauseOnHover,
-      toggle: selectorToggle,
       velocity: get(animation, 'velocity', 2),
       videoAutoplay,
     });
@@ -156,6 +162,7 @@ export default class Lightbox extends React.Component {
     return (
       <BlockElement
         {...rest}
+        className={classes}
         ref={this.handleRef}
         data-uk-lightbox={componentOptions.replace('uk-animation-', '')}
       />

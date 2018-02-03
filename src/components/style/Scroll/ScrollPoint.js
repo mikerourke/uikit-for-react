@@ -3,17 +3,18 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import { noop } from 'lodash';
-import { getElementType, getOptionsString, HTML } from '../../../lib';
+import {
+  customPropTypes,
+  getElementType,
+  getOptionsString,
+  HTML,
+} from '../../../lib';
 
 export default class ScrollPoint extends React.Component {
   static displayName = 'ScrollPoint';
 
   static propTypes = {
-    as: PropTypes.oneOfType([
-      PropTypes.oneOf(HTML.ALL_ELEMENTS),
-      PropTypes.element,
-      PropTypes.func,
-    ]),
+    as: customPropTypes.customOrStringChild(HTML.ALL_ELEMENTS),
     className: PropTypes.string,
     duration: PropTypes.number,
     elementName: PropTypes.string,

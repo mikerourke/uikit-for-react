@@ -24,9 +24,6 @@ export default class SwitcherItem extends React.Component {
   render() {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-switcher-item');
-    return (
-      <BlockElement {...rest} className={classes} />
-    );
+    return <BlockElement {...rest} className={classes} />;
   }
 }
-
