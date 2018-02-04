@@ -109,6 +109,13 @@ export const appendClassNamesToChildren = (children, childOptions) =>
     });
   });
 
+/**
+ * Evaluates the children specified and returns true if any of the child
+ *    elements has the specified CSS class name.
+ * @param {React.Children} children Children prop from parent React component.
+ * @param {string} className Class name to find in the child elements.
+ * @returns {boolean}
+ */
 export const childrenHaveClass = (children, className) => {
   let classCount = 0;
   const classRegex = new RegExp(className, 'g');
@@ -120,12 +127,33 @@ export const childrenHaveClass = (children, className) => {
   return classCount !== 0;
 };
 
+/**
+ * Returns true if the specified child matches the specified type, or if the
+ *    element's "as" component matches the specified type.
+ * @param {React.Node} child React component/element to check.
+ * @param requiredType Component type to check for.
+ * @returns {boolean}
+ */
 export const childMatchesType = (child, requiredType) =>
   child.type === requiredType || child.props.as === requiredType;
 
+/**
+ * Recurse through the specified element's ref, if no ref is found, return
+ *    the specified element.
+ * @param {React.Node|HTMLElement} element HTML element or component to check
+ *    for ref.
+ * @returns {HTMLElement}
+ */
 const recurseRefs = element => {
   if (!element.ref) return element;
+  console.log(element);
   return recurseRefs(element.ref);
 };
 
-export const getBaseRef = component => recurseRefs(component);
+/**
+ * Recurses through the refs of the specified element until an HTML Element is
+ *    found (not class or React component).
+ * @param {React.Node} element Element to recurse for refs.
+ * @returns {HTMLElement}
+ */
+export const getBaseRef = element => recurseRefs(element);

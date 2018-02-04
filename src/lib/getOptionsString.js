@@ -86,7 +86,7 @@ const getAnimationsOptionString = optionValue => {
  * console.log(getOptionsString(props));
  * > "offset: 50; top: 100"
  */
-const getOptionsString = props => {
+export default function getOptionsString(props) {
   if (isUndefined(props)) return undefined;
   if (!isPlainObject(props)) return '';
   const optionPairs = toPairs(props).reduce((acc, [key, value]) => {
@@ -104,6 +104,4 @@ const getOptionsString = props => {
   // If none of the option pairs had actual values, return an empty string to
   // ensure a data-attribute isn't added unnecessarily.
   return optionPairs.length > 0 ? optionPairs.join('; ') : '';
-};
-
-export default getOptionsString;
+}

@@ -17,8 +17,8 @@ const sanitizeClassName = className =>
   `uk-${className}`
     // This removes any duplicate "uk-" to ensure the class name is valid.
     .replace(/(uk-)(?=.*\1)/gi, '')
-    // This removes extra dashes left by a boolean value (we don't want the word "true" included)
-    // as well as spaces or trailing dashes.
+    // This removes extra dashes left by a boolean value (we don't want the word
+    // "true" included) as well as spaces or trailing dashes.
     .replace(/(--)(-$)( )/gi, '')
     // This removes the dash before a breakpoint value.
     .replace(/-@/gi, '@')
@@ -41,7 +41,7 @@ const sanitizeClassName = className =>
  * console.log(buildClassName('background', 'blend', 'multiply'));
  * > uk-background-blend-multiply
  */
-const buildClassName = (...args) => {
+export default function buildClassName(...args) {
   if (isUndefined(args))
     throw new Error('Missing class element in buildClassName');
 
@@ -64,6 +64,4 @@ const buildClassName = (...args) => {
     .join('-');
 
   return sanitizeClassName(classString);
-};
-
-export default buildClassName;
+}

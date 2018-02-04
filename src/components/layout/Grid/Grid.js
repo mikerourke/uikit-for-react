@@ -41,16 +41,6 @@ export default class Grid extends React.Component {
 
   static Cell = GridCell;
 
-  constructor() {
-    super();
-    this.ref = null;
-  }
-
-  handleRef = element => {
-    if (!element) return;
-    this.ref = isNil(element.ref) ? element : element.ref;
-  };
-
   render() {
     const {
       className,
@@ -94,7 +84,7 @@ export default class Grid extends React.Component {
       <BlockElement
         {...rest}
         className={classes}
-        ref={this.handleRef}
+        ref={element => (this.ref = element)}
         data-uk-grid={componentOptions}
       />
     );

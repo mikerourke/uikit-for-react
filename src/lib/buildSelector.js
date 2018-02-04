@@ -7,7 +7,7 @@ import tokenizer from 'css-selector-tokenizer';
  * @param {string} selector Initial selector specified by user.
  * @param args Additional classes to append to selector.
  */
-const buildSelector = (selector, ...args) => {
+export default function buildSelector(selector, ...args) {
   const classElements = [...args];
   const parsedSelector = tokenizer.parse(selector);
   const selectorDefinition = {
@@ -24,6 +24,4 @@ const buildSelector = (selector, ...args) => {
     ],
   };
   return tokenizer.stringify(selectorDefinition);
-};
-
-export default buildSelector;
+}
