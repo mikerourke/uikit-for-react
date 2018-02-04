@@ -52,8 +52,6 @@ export default class InlineElement extends React.Component {
     dropcap: false,
   };
 
-  static propNames = ['align', 'columnSpan', 'dropcap'];
-
   static getInheritedProps(props) {
     const {
       baseAttributes,
@@ -98,7 +96,7 @@ export default class InlineElement extends React.Component {
       unhandledProps,
     } = InlineElement.getInheritedProps(this.props);
 
-    const { as, children, className = '', ...rest } = unhandledProps;
+    const { as, className = '', ...rest } = unhandledProps;
     const classes = classnames(className, inheritedClasses);
     const Element = getElementType(InlineElement, this.props);
     return (
@@ -108,9 +106,7 @@ export default class InlineElement extends React.Component {
         ref={element => (this.ref = element)}
         style={inheritedStyle}
         {...inheritedAttributes}
-      >
-        {children}
-      </Element>
+      />
     );
   }
 }

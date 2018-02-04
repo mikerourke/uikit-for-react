@@ -14,7 +14,7 @@ export default class ScrollPoint extends React.Component {
   static displayName = 'ScrollPoint';
 
   static propTypes = {
-    as: customPropTypes.customOrStringChild(HTML.ALL_ELEMENTS),
+    as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
     className: PropTypes.string,
     duration: PropTypes.number,
     elementName: PropTypes.string,

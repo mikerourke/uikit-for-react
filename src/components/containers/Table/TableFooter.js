@@ -8,7 +8,7 @@ export default class TableFooter extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    as: customPropTypes.customOrStringChild('tfoot'),
+    as: customPropTypes.customOrStringElement('tfoot'),
     children: PropTypes.node,
     className: PropTypes.string,
   };

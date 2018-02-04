@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get, isNil, isPlainObject, noop } from 'lodash';
-import { generateSelector, getOptionsString, UIK } from '../../../lib';
+import {
+  generateSelector,
+  getBaseRef,
+  getOptionsString,
+  UIK,
+} from '../../../lib';
 import { BlockElement } from '../../base';
 import LightboxItem from './LightboxItem';
 import LightboxPanel from './LightboxPanel';
@@ -87,7 +92,7 @@ export default class Lightbox extends React.Component {
 
   constructor() {
     super();
-    this.selector = null;
+    this.selector = generateSelector();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -109,11 +114,11 @@ export default class Lightbox extends React.Component {
     LightboxPanel.addEventListeners(this.props, panel);
   }
 
-  getRef = () => (isNil(this.ref) ? this.selector : this.ref);
+  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
 
   handleRef = element => {
     if (!element) return;
-    this.ref = isNil(element.ref) ? element : element.ref;
+    this.ref = getBaseRef(element);
   };
 
   render() {
@@ -142,7 +147,6 @@ export default class Lightbox extends React.Component {
       ...rest
     } = this.props;
 
-    this.selector = generateSelector();
     const classes = classnames(className, this.selector);
 
     const animationName = isPlainObject(animation)

@@ -80,6 +80,7 @@ export default class BlockElement extends React.Component {
         offsetTop: PropTypes.bool,
       }),
     ]),
+    visibleToggle: PropTypes.bool,
   };
 
   static asPropType = PropTypes.oneOfType([
@@ -93,20 +94,8 @@ export default class BlockElement extends React.Component {
     dynamic: false,
     padding: false,
     transitionToggle: false,
+    visibleToggle: false,
   };
-
-  static propNames = [
-    'childWidth',
-    'column',
-    'dynamic',
-    'firstColumn',
-    'nextRow',
-    'padding',
-    'scrollspyNav',
-    'textAlign',
-    'transitionToggle',
-    'viewport',
-  ];
 
   static getInheritedProps(props) {
     const {
@@ -127,6 +116,7 @@ export default class BlockElement extends React.Component {
       textAlign,
       transitionToggle,
       viewport,
+      visibleToggle,
       ...rest
     } = unhandledProps;
 
@@ -155,6 +145,7 @@ export default class BlockElement extends React.Component {
       {
         [buildClassName('column', 'divider')]: get(column, 'divider', false),
         [buildClassName('transition', 'toggle')]: transitionToggle,
+        [buildClassName('visible', 'toggle')]: visibleToggle,
       },
     );
 

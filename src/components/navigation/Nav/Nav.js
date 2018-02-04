@@ -8,6 +8,7 @@ import {
   buildClassName,
   customPropTypes,
   generateSelector,
+  getBaseRef,
   getOptionsString,
   HTML,
   UIK,
@@ -41,7 +42,7 @@ export default class Nav extends React.Component {
         duration: ExtraPropTypes.nonNegativeInteger,
       }),
     ]),
-    as: customPropTypes.customOrStringChild('ul'),
+    as: customPropTypes.customOrStringElement('ul'),
     center: PropTypes.bool,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
@@ -73,7 +74,7 @@ export default class Nav extends React.Component {
 
   constructor() {
     super();
-    this.selector = null;
+    this.selector = generateSelector();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -85,11 +86,11 @@ export default class Nav extends React.Component {
     }
   }
 
-  getRef = () => (isNil(this.ref) ? this.selector : this.ref);
+  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
 
   handleRef = element => {
     if (!element) return;
-    this.ref = isNil(element.ref) ? element : element.ref;
+    this.ref = getBaseRef(element);
   };
 
   render() {
@@ -107,7 +108,6 @@ export default class Nav extends React.Component {
       ...rest
     } = this.props;
 
-    this.selector = generateSelector();
     const ukClass = 'uk-nav';
     const classes = classnames(className, ukClass, this.selector, {
       [buildClassName(ukClass, 'center')]: center,

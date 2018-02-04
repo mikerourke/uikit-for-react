@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { isNil } from 'lodash';
 import { buildClassName, UIK } from '../../../lib';
 import { InlineElement } from '../../base';
-import Icon from '../../elements/Icon';
+import { Icon } from '../../elements';
 
 export default class FormInput extends React.Component {
   static displayName = 'FormInput';

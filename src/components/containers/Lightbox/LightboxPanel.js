@@ -1,30 +1,17 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import ExtraPropTypes from 'airbnb-prop-types';
 import { get, isPlainObject, noop } from 'lodash';
+import { customPropTypes, UIK } from '../../../lib';
 import { BlockElement } from '../../base';
 import LightboxItem from './LightboxItem';
-import { UIK } from '../../../lib';
 
 export default class LightboxPanel extends React.Component {
   static displayName = 'LightboxPanel';
 
   static propTypes = {
     ...BlockElement.propTypes,
-    activeIndex: ExtraPropTypes.and([
-      PropTypes.number,
-      ExtraPropTypes.nonNegativeInteger,
-      props => {
-        const maxAllowed = React.Children.count(props.children) - 1;
-        if (props.activeIndex > maxAllowed) {
-          return new Error(
-            `Invalid activeIndex passed to LightboxPanel, the maximum value allowed is ${maxAllowed}`,
-          );
-        }
-        return null;
-      },
-    ]),
+    activeIndex: customPropTypes.validateIndex,
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.LIGHTBOX_ANIMATIONS),
       PropTypes.shape({
@@ -39,7 +26,7 @@ export default class LightboxPanel extends React.Component {
         interval: PropTypes.number,
       }),
     ]),
-    children: ExtraPropTypes.childrenOfType(LightboxItem),
+    children: customPropTypes.restrictToChildTypes(LightboxItem),
     defaultIndex: PropTypes.number,
     delayControls: PropTypes.number,
     onBeforeHide: PropTypes.func,

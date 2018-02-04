@@ -9,7 +9,7 @@ export default class ArticleTitle extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    as: customPropTypes.customOrStringChild(HTML.HEADING_ELEMENTS),
+    as: customPropTypes.customOrStringElement(HTML.HEADING_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
   };

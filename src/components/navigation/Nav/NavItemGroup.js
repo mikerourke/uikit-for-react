@@ -9,7 +9,7 @@ export default class NavItemGroup extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    as: customPropTypes.customOrStringChild('ul'),
+    as: customPropTypes.customOrStringElement('ul'),
     children: PropTypes.node,
     className: PropTypes.string,
     title: PropTypes.node.isRequired,

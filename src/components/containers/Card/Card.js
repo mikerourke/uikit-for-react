@@ -17,7 +17,7 @@ export default class Card extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    as: customPropTypes.customOrStringChild('div'),
+    as: customPropTypes.customOrStringElement('div'),
     children: ExtraPropTypes.and([
       PropTypes.node.isRequired,
       props => {

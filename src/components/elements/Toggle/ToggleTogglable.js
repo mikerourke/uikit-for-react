@@ -42,7 +42,7 @@ export default class ToggleTogglable extends React.Component {
 
   constructor() {
     super();
-    this.selector = null;
+    this.selector = generateSelector();
   }
 
   renderChildren = children =>
@@ -62,7 +62,6 @@ export default class ToggleTogglable extends React.Component {
 
   render() {
     const { children, ...rest } = this.props;
-    this.selector = generateSelector();
     return <BaseElement {...rest}>{this.renderChildren(children)}</BaseElement>;
   }
 }

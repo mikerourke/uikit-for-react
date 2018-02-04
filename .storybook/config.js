@@ -17,6 +17,7 @@ function loadStories() {
   require('../src/stories/containers/Card');
   require('../src/stories/elements/Close');
   require('../src/stories/elements/Comment');
+  require('../src/stories/style/Cover');
   require('../src/stories/elements/Countdown');
   require('../src/stories/containers/DescriptionList');
   require('../src/stories/elements/Divider');

@@ -7,7 +7,7 @@ export default class ArticleLead extends React.Component {
 
   static propTypes = {
     ...Text.propTypes,
-    as: customPropTypes.customOrStringChild('p'),
+    as: customPropTypes.customOrStringElement('p'),
   };
 
   static defaultProps = {

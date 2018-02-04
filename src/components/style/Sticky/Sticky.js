@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import {
   findChildByType,
   generateSelector,
+  getBaseRef,
   getOptionsString,
 } from '../../../lib';
 import { BaseElement } from '../../base';
@@ -51,7 +52,7 @@ export default class Sticky extends React.Component {
 
   constructor() {
     super();
-    this.selector = null;
+    this.selector = generateSelector();
   }
 
   componentDidMount() {
@@ -73,11 +74,11 @@ export default class Sticky extends React.Component {
     };
   }
 
-  getRef = () => (isNil(this.ref) ? this.selector : this.ref);
+  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
 
   handleRef = element => {
     if (!element) return;
-    this.ref = isNil(element.ref) ? element : element.ref;
+    this.ref = getBaseRef(element);
   };
 
   render() {
@@ -96,7 +97,6 @@ export default class Sticky extends React.Component {
       ...rest
     } = this.props;
 
-    this.selector = generateSelector();
     const classes = classnames(className, this.selector);
 
     const componentOptions = getOptionsString({

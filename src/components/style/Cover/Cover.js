@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getOptionsString } from '../../../lib';
+import { customPropTypes, getOptionsString } from '../../../lib';
 import { BlockElement } from '../../base';
 import CoverContainer from './CoverContainer';
 
@@ -9,12 +9,10 @@ export default class Cover extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    as: PropTypes.oneOf(['img', 'video', 'iframe']),
+    as: customPropTypes.customOrStringElement('img', 'video', 'iframe'),
     automute: PropTypes.bool,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     className: PropTypes.string,
-    height: PropTypes.number,
-    width: PropTypes.number,
   };
 
   static defaultProps = {
@@ -27,20 +25,8 @@ export default class Cover extends React.Component {
   static Container = CoverContainer;
 
   render() {
-    const { automute, className, height, width, ...rest } = this.props;
-
-    const componentOptions = getOptionsString({
-      automute,
-      height,
-      width,
-    });
-
-    return (
-      <BlockElement
-        {...rest}
-        className={className || undefined}
-        data-uk-cover={componentOptions}
-      />
-    );
+    const { automute, ...rest } = this.props;
+    const componentOptions = getOptionsString({ automute });
+    return <BlockElement {...rest} data-uk-cover={componentOptions} />;
   }
 }

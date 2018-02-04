@@ -7,6 +7,7 @@ import { flatten, isNil, noop } from 'lodash';
 import {
   customPropTypes,
   generateSelector,
+  getBaseRef,
   getOptionsString,
   HTML,
 } from '../../../lib';
@@ -32,7 +33,7 @@ export default class Accordion extends React.Component {
         duration: ExtraPropTypes.nonNegativeInteger,
       }),
     ]),
-    as: customPropTypes.customOrStringChild('ul'),
+    as: customPropTypes.customOrStringElement('ul'),
     children: PropTypes.node,
     className: PropTypes.string,
     collapsible: PropTypes.bool,
@@ -75,7 +76,7 @@ export default class Accordion extends React.Component {
 
   constructor() {
     super();
-    this.selector = null;
+    this.selector = generateSelector();
   }
 
   componentDidMount() {
@@ -93,7 +94,7 @@ export default class Accordion extends React.Component {
     this.toggleOpenItems(nextProps);
   }
 
-  getRef = () => (isNil(this.ref) ? this.selector : this.ref);
+  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
 
   /**
    * Loops through each of the accordion items and either toggles them as open
@@ -121,7 +122,7 @@ export default class Accordion extends React.Component {
 
   handleRef = element => {
     if (!element) return;
-    this.ref = isNil(element.ref) ? element : element.ref;
+    this.ref = getBaseRef(element);
   };
 
   render() {
@@ -143,7 +144,6 @@ export default class Accordion extends React.Component {
       ...rest
     } = this.props;
 
-    this.selector = generateSelector();
     const classes = classnames(className, this.selector, 'uk-accordion');
 
     const componentOptions = getOptionsString({

@@ -9,7 +9,7 @@ export default class ArticleMeta extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    as: customPropTypes.customOrStringChild('p'),
+    as: customPropTypes.customOrStringElement('p'),
     children: PropTypes.node,
     className: PropTypes.string,
   };

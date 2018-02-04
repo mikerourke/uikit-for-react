@@ -142,7 +142,7 @@ storiesOf('Button', module)
             </Button>
           }
           boundaryAlign
-          selectorBoundary="! .uk-button-group"
+          boundary="! .uk-button-group"
           mode="click"
         >
           <Nav>

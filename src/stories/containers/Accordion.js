@@ -69,6 +69,7 @@ storiesOf('Accordion', module)
   ))
 
   .add('Set open items', () => (
+    // TODO: Add checkboxes to demonstrate functionality.
     <Container margin={{ all: 'large' }}>
       <Accordion multiple openIndex={[0, 2]}>
         <Accordion.Panel open>

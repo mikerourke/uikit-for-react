@@ -2,7 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { get, isNil } from 'lodash';
-import { buildClassName, getOptionsString, UIK } from '../../../lib';
+import {
+  buildClassName,
+  customPropTypes,
+  getOptionsString,
+  HTML,
+  UIK,
+} from '../../../lib';
 import { BlockElement } from '../../base';
 import GridCell from './GridCell';
 
@@ -11,11 +17,7 @@ export default class Grid extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    as: PropTypes.oneOfType([
-      PropTypes.oneOf(['div', 'ul']),
-      PropTypes.element,
-      PropTypes.func,
-    ]),
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
     divider: PropTypes.bool,
@@ -38,6 +40,16 @@ export default class Grid extends React.Component {
   };
 
   static Cell = GridCell;
+
+  constructor() {
+    super();
+    this.ref = null;
+  }
+
+  handleRef = element => {
+    if (!element) return;
+    this.ref = isNil(element.ref) ? element : element.ref;
+  };
 
   render() {
     const {
@@ -82,6 +94,7 @@ export default class Grid extends React.Component {
       <BlockElement
         {...rest}
         className={classes}
+        ref={this.handleRef}
         data-uk-grid={componentOptions}
       />
     );

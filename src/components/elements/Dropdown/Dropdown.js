@@ -7,6 +7,7 @@ import {
   appendClassNamesToChildren,
   buildClassName,
   generateSelector,
+  getBaseRef,
   getOptionsString,
   joinListProp,
   UIK,
@@ -69,7 +70,7 @@ export default class Dropdown extends React.Component {
 
   constructor() {
     super();
-    this.selector = null;
+    this.selector = generateSelector();
   }
 
   componentDidMount() {
@@ -94,11 +95,11 @@ export default class Dropdown extends React.Component {
     }
   }
 
-  getRef = () => (isNil(this.ref) ? this.selector : this.ref);
+  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
 
   handleRef = element => {
     if (!element) return;
-    this.ref = isNil(element.ref) ? element : element.ref;
+    this.ref = getBaseRef(element);
   };
 
   renderChildren = children =>
@@ -132,7 +133,6 @@ export default class Dropdown extends React.Component {
       ...rest
     } = this.props;
 
-    this.selector = generateSelector();
     const classes = classnames(className, this.selector, 'uk-dropdown');
 
     const componentOptions = getOptionsString({

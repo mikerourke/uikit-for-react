@@ -9,7 +9,7 @@ export default class TableHeaderCell extends React.Component {
 
   static propTypes = {
     ...BaseElement.propTypes,
-    as: customPropTypes.customOrStringChild('th'),
+    as: customPropTypes.customOrStringElement('th'),
     children: PropTypes.node,
     className: PropTypes.string,
     expand: PropTypes.bool,

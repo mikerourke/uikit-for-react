@@ -3,22 +3,19 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import { flatten, isArray, max } from 'lodash';
 
-const customOrStringChild = (...args) =>
+const customOrStringElement = (...args) =>
   PropTypes.oneOfType([
     PropTypes.oneOf(flatten([...args])),
     PropTypes.element,
     PropTypes.func,
   ]);
 
-const restrictToChildTypes = childTypes => (props, propName, componentName) => {
+const restrictToChildTypes = (...args) => (props, propName, componentName) => {
   const childComponents = props[propName];
   let isInvalid = false;
+  const childTypes = [...args];
   React.Children.forEach(childComponents, child => {
-    if (isArray(childTypes)) {
-      isInvalid = !childTypes.includes(child.type);
-    } else {
-      isInvalid = child.type !== childTypes;
-    }
+    isInvalid = !childTypes.includes(child.type);
   });
   if (isInvalid) {
     return new Error(
@@ -58,7 +55,7 @@ const validateIndexArray = ExtraPropTypes.and([
 ]);
 
 export default {
-  customOrStringChild,
+  customOrStringElement,
   restrictToChildTypes,
   validateIndex,
   validateIndexArray,

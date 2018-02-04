@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { customPropTypes } from '../../../lib';
 import { InlineElement } from '../../base';
 
 export default class LightboxItem extends React.Component {
@@ -7,11 +8,7 @@ export default class LightboxItem extends React.Component {
 
   static propTypes = {
     ...InlineElement.propTypes,
-    as: PropTypes.oneOfType([
-      PropTypes.oneOf(['a']),
-      PropTypes.element,
-      PropTypes.func,
-    ]),
+    as: customPropTypes.customOrStringElement('a'),
     caption: PropTypes.string,
     className: PropTypes.string,
     poster: PropTypes.string,

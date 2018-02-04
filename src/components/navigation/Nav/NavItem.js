@@ -12,7 +12,7 @@ export default class NavItem extends React.Component {
   static propTypes = {
     ...BlockElement.propTypes,
     active: PropTypes.bool,
-    as: customPropTypes.customOrStringChild('li'),
+    as: customPropTypes.customOrStringElement('li'),
     children: PropTypes.node,
     className: PropTypes.string,
     href: PropTypes.string,

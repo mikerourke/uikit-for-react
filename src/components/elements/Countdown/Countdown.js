@@ -3,7 +3,7 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isNil } from 'lodash';
-import { generateSelector, getOptionsString } from '../../../lib';
+import { generateSelector, getBaseRef, getOptionsString } from '../../../lib';
 import { BlockElement } from '../../base';
 import CountdownDays from './CountdownDays';
 import CountdownHours from './CountdownHours';
@@ -40,7 +40,7 @@ export default class Countdown extends React.Component {
 
   constructor() {
     super();
-    this.selector = null;
+    this.selector = generateSelector();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -53,16 +53,15 @@ export default class Countdown extends React.Component {
     }
   }
 
-  getRef = () => (isNil(this.ref) ? this.selector : this.ref);
+  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
 
   handleRef = element => {
     if (!element) return;
-    this.ref = isNil(element.ref) ? element : element.ref;
+    this.ref = getBaseRef(element);
   };
 
   render() {
     const { className, date, paused, ...rest } = this.props;
-    this.selector = generateSelector();
     const classes = classnames(className, this.selector, 'uk-countdown');
     return (
       <BlockElement

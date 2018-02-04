@@ -8,7 +8,7 @@ export default class TableHeader extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    as: customPropTypes.customOrStringChild('thead'),
+    as: customPropTypes.customOrStringElement('thead'),
     children: PropTypes.node,
     className: PropTypes.string,
   };

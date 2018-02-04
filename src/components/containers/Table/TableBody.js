@@ -8,7 +8,7 @@ export default class TableBody extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    as: customPropTypes.customOrStringChild('tbody'),
+    as: customPropTypes.customOrStringElement('tbody'),
     children: PropTypes.node,
     className: PropTypes.string,
   };

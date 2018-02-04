@@ -9,7 +9,7 @@ export default class NavDivider extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    as: customPropTypes.customOrStringChild('li'),
+    as: customPropTypes.customOrStringElement('li'),
     children: PropTypes.node,
     className: PropTypes.string,
   };

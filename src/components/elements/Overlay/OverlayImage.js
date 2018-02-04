@@ -8,7 +8,7 @@ export default class OverlayImage extends React.Component {
 
   static propTypes = {
     ...InlineElement.propTypes,
-    children: ExtraPropTypes.explicitNull,
+    children: ExtraPropTypes.explicitNull(),
     className: PropTypes.string,
     src: PropTypes.string.isRequired,
   };

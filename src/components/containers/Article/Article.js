@@ -17,7 +17,7 @@ export default class Article extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    as: customPropTypes.customOrStringChild('article'),
+    as: customPropTypes.customOrStringElement('article'),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
   };

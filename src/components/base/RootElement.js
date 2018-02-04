@@ -2,15 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import {
-  get,
-  isNil,
-  isNumber,
-  isPlainObject,
-  isString,
-  trim,
-  without,
-} from 'lodash';
+import { get, isNil, isPlainObject, isString, trim, without } from 'lodash';
 import { buildClassName, getOptionsString, UIK } from '../../lib';
 
 export default class RootElement extends React.Component {
@@ -89,7 +81,7 @@ export default class RootElement extends React.Component {
     heightMax: PropTypes.oneOf(UIK.BASE_SIZES),
     hidden: PropTypes.oneOfType([
       PropTypes.bool,
-      PropTypes.oneOf(UIK.BREAKPOINTS),
+      PropTypes.oneOf([...UIK.BREAKPOINTS, 'hover']),
     ]),
     hoverTransition: PropTypes.oneOf(
       without(UIK.ANIMATIONS, ['kenburns', 'shake']),
@@ -162,6 +154,7 @@ export default class RootElement extends React.Component {
         vertical: PropTypes.oneOf(UIK.VERTICAL_POSITIONS),
         cover: PropTypes.bool,
         marginSize: PropTypes.oneOf(UIK.BASE_SIZES),
+        outside: PropTypes.oneOf(['left', 'right']),
         type: PropTypes.oneOf(UIK.CSS_POSITIONS),
         zIndexOfOne: PropTypes.bool,
       }),
@@ -320,6 +313,7 @@ export default class RootElement extends React.Component {
       buildClassName('link', linkStyle),
       buildClassName('overflow', overflow),
       buildClassName('position', position),
+      buildClassName('position', 'center', get(position, 'outside'), 'out'),
       buildClassName('position', 'cover', get(position, 'cover')),
       buildClassName('position', 'z', 'index', get(position, 'zIndexOfOne')),
       buildClassName('position', get(position, 'marginSize')),
@@ -391,9 +385,9 @@ export default class RootElement extends React.Component {
 
     return {
       baseAttributes: {
-        'uk-marker': marker || undefined,
-        'data-uk-overflow-auto': overflow === 'auto' || undefined,
-        'data-uk-overflow-hidden': overflow === 'hidden' || undefined,
+        'uk-marker': marker ? '' : undefined,
+        'data-uk-overflow-auto': overflow === 'auto' ? '' : undefined,
+        'data-uk-overflow-hidden': overflow === 'hidden' ? '' : undefined,
         'data-uk-parallax': parallax ? parallaxOptions : undefined,
       },
       baseClasses: trim(classes),

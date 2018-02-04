@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { buildClassName } from '../../../lib';
+import { buildClassName, customPropTypes } from '../../../lib';
 import { BlockElement } from '../../base';
 import DescriptionDetails from './DescriptionDetails';
 import DescriptionTerm from './DescriptionTerm';
@@ -12,16 +11,18 @@ export default class DescriptionList extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    children: ExtraPropTypes.or([
-      ExtraPropTypes.elementType(DescriptionDetails),
-      ExtraPropTypes.elementType(DescriptionTerm),
-    ]),
+    as: customPropTypes.customOrStringElement('dl'),
+    children: customPropTypes.restrictToChildTypes(
+      DescriptionDetails,
+      DescriptionTerm,
+    ),
     className: PropTypes.string,
     divider: PropTypes.bool,
   };
 
   static defaultProps = {
     ...BlockElement.defaultProps,
+    as: 'dl',
     className: '',
     divider: false,
   };
@@ -37,6 +38,6 @@ export default class DescriptionList extends React.Component {
       [buildClassName(ukClass, 'divider')]: divider,
     });
 
-    return <BlockElement {...rest} as="dl" className={classes} />;
+    return <BlockElement {...rest} className={classes} />;
   }
 }

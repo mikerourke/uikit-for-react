@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { customPropTypes } from '../../../lib';
 import { BlockElement } from '../../base';
 
 export default class DescriptionDetails extends React.Component {
@@ -7,16 +8,18 @@ export default class DescriptionDetails extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    children: PropTypes.node.isRequired,
+    as: customPropTypes.customOrStringElement('dd'),
+    children: PropTypes.node,
     className: PropTypes.string,
   };
 
   static defaultProps = {
     ...BlockElement.defaultProps,
+    as: 'dd',
     className: '',
   };
 
   render() {
-    return <BlockElement {...this.props} as="dd" />;
+    return <BlockElement {...this.props} />;
   }
 }

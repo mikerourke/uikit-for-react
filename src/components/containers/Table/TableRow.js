@@ -6,7 +6,7 @@ export default class TableRow extends React.Component {
   static displayName = 'TableRow';
 
   static propTypes = {
-    as: customPropTypes.customOrStringChild('tr'),
+    as: customPropTypes.customOrStringElement('tr'),
     children: PropTypes.node,
     className: PropTypes.string,
   };

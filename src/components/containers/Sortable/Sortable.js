@@ -7,6 +7,7 @@ import { isBoolean, isNil, noop } from 'lodash';
 import {
   buildSelector,
   generateSelector,
+  getBaseRef,
   getOptionsString,
 } from '../../../lib';
 import { BaseElement, BlockElement } from '../../base';
@@ -63,7 +64,7 @@ export default class Sortable extends React.Component {
 
   constructor() {
     super();
-    this.selector = null;
+    this.selector = generateSelector();
   }
 
   componentDidMount() {
@@ -75,11 +76,11 @@ export default class Sortable extends React.Component {
     UIkit.util.on(ref, 'stop', this.props.onStop);
   }
 
-  getRef = () => (isNil(this.ref) ? this.selector : this.ref);
+  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
 
   handleRef = element => {
     if (!element) return;
-    this.ref = isNil(element.ref) ? element : element.ref;
+    this.ref = getBaseRef(element);
   };
 
   activateSortedItems = children =>
@@ -115,7 +116,6 @@ export default class Sortable extends React.Component {
       ...rest
     } = this.props;
 
-    this.selector = generateSelector();
     const { inheritedClasses } = BaseElement.getInheritedProps(dragOptions);
 
     const componentOptions = getOptionsString({

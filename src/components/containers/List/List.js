@@ -10,6 +10,7 @@ export default class List extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
+    as: customPropTypes.customOrStringElement('ul'),
     bullet: PropTypes.bool,
     children: customPropTypes.restrictToChildTypes(ListItem),
     className: PropTypes.string,
@@ -20,6 +21,7 @@ export default class List extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
+    as: 'ul',
     bullet: false,
     className: '',
     divider: false,
@@ -40,6 +42,6 @@ export default class List extends React.Component {
       [buildClassName(ukClass, 'striped')]: striped,
     });
 
-    return <BlockElement {...rest} as="ul" className={classes} />;
+    return <BlockElement {...rest} className={classes} />;
   }
 }

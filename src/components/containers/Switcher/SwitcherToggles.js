@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get, isNil, isString, noop } from 'lodash';
-import { generateSelector, getOptionsString, UIK } from '../../../lib';
+import {
+  generateSelector,
+  getBaseRef,
+  getOptionsString,
+  UIK,
+} from '../../../lib';
 import { BlockElement } from '../../base';
 import { Tab } from '../../layout';
 
@@ -72,7 +77,7 @@ export default class SwitcherToggles extends React.Component {
 
   constructor() {
     super();
-    this.selector = null;
+    this.selector = generateSelector();
   }
 
   componentDidMount() {
@@ -92,11 +97,11 @@ export default class SwitcherToggles extends React.Component {
     }
   }
 
-  getRef = () => (isNil(this.ref) ? this.selector : this.ref);
+  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
 
   handleRef = element => {
     if (!element) return;
-    this.ref = isNil(element.ref) ? element : element.ref;
+    this.ref = getBaseRef();
   };
 
   render() {
@@ -118,7 +123,6 @@ export default class SwitcherToggles extends React.Component {
       ...rest
     } = this.props;
 
-    this.selector = generateSelector();
     const classes = classnames(className, this.selector);
 
     const componentOptions = getOptionsString({

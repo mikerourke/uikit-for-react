@@ -5,7 +5,6 @@ import classnames from 'classnames';
 import { get } from 'lodash';
 import { getOptionsString } from '../../../lib';
 import { BlockElement } from '../../base';
-import Cover from './Cover';
 
 export default class CoverContainer extends React.Component {
   static displayName = 'CoverContainer';
@@ -13,12 +12,15 @@ export default class CoverContainer extends React.Component {
   static propTypes = {
     ...BlockElement.propTypes,
     as: BlockElement.asPropType,
-    children: ExtraPropTypes.elementType(Cover).isRequired,
-    className: PropTypes.string,
-    responsive: PropTypes.shape({
+    aspectRatio: PropTypes.shape({
       height: PropTypes.number,
       width: PropTypes.number,
     }),
+    children: ExtraPropTypes.and([
+      PropTypes.node,
+      ExtraPropTypes.componentWithName('Cover').isRequired,
+    ]),
+    className: PropTypes.string,
     viewportOptions: PropTypes.shape({
       expand: PropTypes.bool,
       minHeight: PropTypes.number,
@@ -31,23 +33,22 @@ export default class CoverContainer extends React.Component {
     ...BlockElement.defaultProps,
     as: 'div',
     className: '',
-    responsive: false,
   };
 
   render() {
     const {
+      aspectRatio,
       children,
       className,
-      responsive,
       viewportOptions,
       ...rest
     } = this.props;
 
     const classes = classnames(className, 'uk-cover-container');
 
-    const responsiveProps = {
-      height: get(responsive, 'height', 600),
-      width: get(responsive, 'width', 800),
+    const canvasProps = {
+      height: get(aspectRatio, 'height', 600),
+      width: get(aspectRatio, 'width', 800),
     };
 
     return (
@@ -56,7 +57,7 @@ export default class CoverContainer extends React.Component {
         className={classes}
         data-uk-height-viewport={getOptionsString(viewportOptions)}
       >
-        {responsive && <canvas {...responsiveProps} />}
+        {aspectRatio && <canvas {...canvasProps} />}
         {children}
       </BlockElement>
     );

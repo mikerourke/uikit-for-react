@@ -8,6 +8,7 @@ import {
   buildClassName,
   customPropTypes,
   generateSelector,
+  getBaseRef,
   getOptionsString,
   joinListProp,
   UIK,
@@ -29,7 +30,7 @@ export default class Navbar extends React.Component {
     alignOptions: PropTypes.shape(omit(BlockElement.propTypes, 'as')),
     alignTo: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS).isRequired,
     as: ExtraPropTypes.and([
-      customPropTypes.customOrStringChild(['nav', 'div']),
+      customPropTypes.customOrStringElement('nav', 'div'),
       props => {
         const elementType = get(props, ['as', 'type'], props.as);
         if (props.container === true && elementType !== 'nav') {
@@ -89,7 +90,7 @@ export default class Navbar extends React.Component {
 
   constructor() {
     super();
-    this.selector = null;
+    this.selector = generateSelector();
   }
 
   componentDidMount() {
@@ -102,11 +103,11 @@ export default class Navbar extends React.Component {
     UIkit.util.on(ref, 'shown', this.props.onShown);
   }
 
-  getRef = () => (isNil(this.ref) ? this.selector : this.ref);
+  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
 
   handleRef = element => {
     if (!element) return;
-    this.ref = isNil(element.ref) ? element : element.ref;
+    this.ref = getBaseRef(element);
   };
 
   renderChildren = children =>
@@ -140,7 +141,6 @@ export default class Navbar extends React.Component {
       ...rest
     } = this.props;
 
-    this.selector = generateSelector();
     const ukClass = 'uk-navbar';
     const classes = classnames(className, ukClass, this.selector, {
       [buildClassName(ukClass, 'container')]: container,

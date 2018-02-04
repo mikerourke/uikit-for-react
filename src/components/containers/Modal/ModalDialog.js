@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { buildClassName, hasChildType } from '../../../lib';
+import { buildClassName, customPropTypes, hasChildType } from '../../../lib';
 import { BlockElement } from '../../base';
 import ModalBody from './ModalBody';
 
@@ -11,6 +11,7 @@ export default class ModalDialog extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
+    as: customPropTypes.customOrStringElement('div'),
     children: ExtraPropTypes.and([
       PropTypes.node,
       props => {
@@ -28,6 +29,7 @@ export default class ModalDialog extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
+    as: 'div',
     className: '',
     padContent: false,
   };
@@ -37,6 +39,6 @@ export default class ModalDialog extends React.Component {
     const classes = classnames(className, 'uk-modal-dialog', {
       [buildClassName('modal', 'body')]: padContent,
     });
-    return <BlockElement {...rest} as="div" className={classes} />;
+    return <BlockElement {...rest} className={classes} />;
   }
 }

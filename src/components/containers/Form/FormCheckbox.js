@@ -4,10 +4,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { buildClassName } from '../../../lib';
+import { invoke } from 'lodash';
+import { buildClassName, getBaseRef } from '../../../lib';
 import { InlineElement } from '../../base';
 import FormLabel from './FormLabel';
-import { invoke, isNil } from 'lodash';
 
 export default class FormCheckbox extends React.Component {
   static displayName = 'FormCheckbox';
@@ -47,7 +47,7 @@ export default class FormCheckbox extends React.Component {
 
   handleRef = element => {
     if (!element) return;
-    this.ref = isNil(element.ref) ? element : element.ref;
+    this.ref = getBaseRef(element);
   };
 
   handleChange = e => {

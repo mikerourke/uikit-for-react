@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { omit } from 'lodash';
 import { buildClassName, UIK } from '../../../lib';
 import { BlockElement } from '../../base';
-import Icon from '../../elements/Icon';
+import { Icon } from '../../elements';
 
 export default class IconNavItem extends React.Component {
   static displayName = 'IconNavItem';

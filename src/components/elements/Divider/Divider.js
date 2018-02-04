@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName } from '../../../lib';
+import { buildClassName, customPropTypes } from '../../../lib';
 import { BlockElement } from '../../base';
 
 export default class Divider extends React.Component {
@@ -9,6 +9,7 @@ export default class Divider extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
+    as: customPropTypes.customOrStringElement('hr'),
     className: PropTypes.string,
     icon: PropTypes.bool,
     small: PropTypes.bool,
@@ -16,6 +17,7 @@ export default class Divider extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
+    as: 'hr',
     className: '',
     icon: false,
     small: false,
@@ -30,6 +32,6 @@ export default class Divider extends React.Component {
       [buildClassName(ukClass, 'small')]: small,
     });
 
-    return <BlockElement {...rest} as="hr" className={classes} />;
+    return <BlockElement {...rest} className={classes} />;
   }
 }

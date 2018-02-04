@@ -7,6 +7,7 @@ import { isNil, noop } from 'lodash';
 import {
   buildClassName,
   generateSelector,
+  getBaseRef,
   getOptionsString,
   UIK,
 } from '../../../lib';
@@ -79,7 +80,7 @@ export default class Tab extends React.Component {
 
   constructor() {
     super();
-    this.selector = null;
+    this.selector = generateSelector();
   }
 
   componentDidMount() {
@@ -99,11 +100,11 @@ export default class Tab extends React.Component {
     }
   }
 
-  getRef = () => (isNil(this.ref) ? this.selector : this.ref);
+  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
 
   handleRef = element => {
     if (!element) return;
-    this.ref = isNil(element.ref) ? element : element.ref;
+    this.ref = getBaseRef(element);
   };
 
   render() {
@@ -124,7 +125,6 @@ export default class Tab extends React.Component {
       ...rest
     } = this.props;
 
-    this.selector = generateSelector();
     const classes = classnames(
       className,
       this.selector,

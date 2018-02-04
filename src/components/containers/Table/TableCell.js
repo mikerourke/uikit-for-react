@@ -14,7 +14,7 @@ export default class TableCell extends React.Component {
   static displayName = 'TableCell';
 
   static propTypes = {
-    as: customPropTypes.customOrStringChild('td'),
+    as: customPropTypes.customOrStringElement('td'),
     children: PropTypes.node,
     className: PropTypes.string,
     expand: PropTypes.bool,

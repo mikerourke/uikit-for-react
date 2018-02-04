@@ -6,8 +6,10 @@ import classnames from 'classnames';
 import { isNil, noop } from 'lodash';
 import {
   buildClassName,
+  customPropTypes,
   generateIdentifier,
   generateSelector,
+  getBaseRef,
   getOptionsString,
 } from '../../../lib';
 import { BlockElement } from '../../base';
@@ -24,6 +26,7 @@ export default class Modal extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
+    as: customPropTypes.customOrStringElement('div'),
     bgClose: PropTypes.bool,
     children: ExtraPropTypes.elementType(ModalDialog),
     className: PropTypes.string,
@@ -43,6 +46,7 @@ export default class Modal extends React.Component {
 
   static defaultProps = {
     ...BlockElement.defaultProps,
+    as: 'div',
     bgClose: true,
     className: '',
     container: false,
@@ -68,7 +72,7 @@ export default class Modal extends React.Component {
 
   constructor() {
     super();
-    this.selector = null;
+    this.selector = generateSelector();
   }
 
   componentDidMount() {
@@ -91,17 +95,16 @@ export default class Modal extends React.Component {
     }
   }
 
-  getRef = () => (isNil(this.ref) ? this.selector : this.ref);
+  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
 
   handleRef = element => {
     if (!element) return;
-    this.ref = isNil(element.ref) ? element : element.ref;
+    this.ref = getBaseRef(element);
   };
 
   render() {
     const {
       bgClose,
-      children,
       className,
       container,
       escClose,
@@ -117,8 +120,6 @@ export default class Modal extends React.Component {
       toggle,
       ...rest
     } = this.props;
-
-    this.selector = generateSelector();
 
     const ukClass = 'uk-modal';
     const classes = classnames(className, ukClass, this.selector, {
@@ -146,14 +147,11 @@ export default class Modal extends React.Component {
         {toggle && Toggle}
         <BlockElement
           {...rest}
-          as="div"
           className={classes}
           id={identifier}
           ref={this.handleRef}
           data-uk-modal={componentOptions}
-        >
-          {children}
-        </BlockElement>
+        />
       </Fragment>
     );
   }

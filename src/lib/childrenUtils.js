@@ -122,3 +122,10 @@ export const childrenHaveClass = (children, className) => {
 
 export const childMatchesType = (child, requiredType) =>
   child.type === requiredType || child.props.as === requiredType;
+
+const recurseRefs = element => {
+  if (!element.ref) return element;
+  return recurseRefs(element.ref);
+};
+
+export const getBaseRef = component => recurseRefs(component);

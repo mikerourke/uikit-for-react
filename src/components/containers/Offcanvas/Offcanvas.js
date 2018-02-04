@@ -6,6 +6,7 @@ import { isNil, noop } from 'lodash';
 import {
   customPropTypes,
   generateSelector,
+  getBaseRef,
   getOptionsString,
 } from '../../../lib';
 import { BlockElement } from '../../base';
@@ -15,7 +16,7 @@ export default class Offcanvas extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    as: customPropTypes.customOrStringChild('form'),
+    as: customPropTypes.customOrStringElement('form'),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     flip: PropTypes.bool,
@@ -45,7 +46,7 @@ export default class Offcanvas extends React.Component {
 
   constructor() {
     super();
-    this.selector = null;
+    this.selector = generateSelector();
   }
 
   componentDidMount() {
@@ -58,11 +59,11 @@ export default class Offcanvas extends React.Component {
     UIkit.util.on(ref, 'shown', this.props.onShown);
   }
 
-  getRef = () => (isNil(this.ref) ? this.selector : this.ref);
+  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
 
   handleRef = element => {
     if (!element) return;
-    this.ref = isNil(element.ref) ? element : element.ref;
+    this.ref = getBaseRef(element);
   };
 
   render() {
@@ -80,7 +81,6 @@ export default class Offcanvas extends React.Component {
       ...rest
     } = this.props;
 
-    this.selector = generateSelector();
     const classes = classnames(className, this.selector);
 
     const componentOptions = getOptionsString({

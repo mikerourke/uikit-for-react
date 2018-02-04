@@ -12,7 +12,7 @@ export default class CardMedia extends React.Component {
   static propTypes = {
     ...BlockElement.propTypes,
     alignTo: PropTypes.oneOf(UIK.LOCATIONS),
-    as: customPropTypes.customOrStringChild('div'),
+    as: customPropTypes.customOrStringElement('div'),
     className: PropTypes.string,
     cover: PropTypes.shape({
       height: ExtraPropTypes.nonNegativeInteger,

@@ -24,7 +24,7 @@ export default class SwitcherSwitchable extends React.Component {
 
   constructor() {
     super();
-    this.selector = null;
+    this.selector = generateSelector();
   }
 
   updateSwitchElements = children =>
@@ -52,7 +52,6 @@ export default class SwitcherSwitchable extends React.Component {
 
   render() {
     const { children, ...rest } = this.props;
-    this.selector = generateSelector();
     return (
       <BlockElement {...rest}>{this.renderChildren(children)}</BlockElement>
     );

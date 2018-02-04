@@ -16,7 +16,7 @@ export default class AccordionPanel extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    as: customPropTypes.customOrStringChild('li'),
+    as: customPropTypes.customOrStringElement('li'),
     children: ExtraPropTypes.or([
       ExtraPropTypes.elementType(AccordionContent),
       ExtraPropTypes.elementType(AccordionTitle),

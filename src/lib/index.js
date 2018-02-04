@@ -7,6 +7,7 @@ export {
   childMatchesType,
   childrenHaveClass,
   findChildByType,
+  getBaseRef,
   hasChildType,
 } from './childrenUtils';
 
