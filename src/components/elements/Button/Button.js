@@ -1,17 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { invoke, isNil, isObject, noop } from 'lodash';
-import { buildClassName, UIK } from '../../../lib';
-import { InlineElement } from '../../base';
+import { invoke, isNil, noop } from 'lodash';
+import {
+  buildClassName,
+  customPropTypes,
+  getElementType,
+  UIK,
+} from '../../../lib';
 import ButtonGroup from './ButtonGroup';
 
 export default class Button extends React.Component {
   static displayName = 'Button';
 
   static propTypes = {
-    ...InlineElement.propTypes,
-    as: PropTypes.oneOf(['a', 'button']),
+    as: customPropTypes.customOrStringElement('a', 'button'),
     children: PropTypes.node,
     className: PropTypes.string,
     close: PropTypes.bool,
@@ -28,7 +31,6 @@ export default class Button extends React.Component {
   };
 
   static defaultProps = {
-    ...InlineElement.defaultProps,
     as: 'button',
     className: '',
     danger: false,
@@ -88,20 +90,18 @@ export default class Button extends React.Component {
       [buildClassName('width', '1', '1')]: fullWidth,
     });
 
-    let asToUse = hasIcon ? 'a' : as;
-    if (this.props.href) asToUse = 'a';
-
+    let Element = getElementType(Button, this.props);
+    if (hasIcon) Element = 'a';
     return (
-      <InlineElement
+      <Element
         {...rest}
-        as={asToUse}
         className={classes}
         disabled={(disabled && this.props.as === 'button') || undefined}
         onClick={this.handleClick}
         data-uk-icon={hasIcon ? `icon: ${icon}` : undefined}
       >
         {!hasIcon && children}
-      </InlineElement>
+      </Element>
     );
   }
 }

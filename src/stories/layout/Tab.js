@@ -1,33 +1,33 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Container, Grid, Tab } from '../../components';
+import { Block, Grid, Tab } from '../../components';
 
 Tab.displayName = 'Tab';
 
 storiesOf('Tab', module)
   .add('Basic Usage', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Tab>
         <Tab.Item active>Left</Tab.Item>
         <Tab.Item>Item</Tab.Item>
         <Tab.Item>Item</Tab.Item>
         <Tab.Item disabled>Disabled</Tab.Item>
       </Tab>
-    </Container>
+    </Block>
   ))
 
   .add('Bottom modifier', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Tab align="bottom">
         <Tab.Item active>Left</Tab.Item>
         <Tab.Item>Item</Tab.Item>
         <Tab.Item>Item</Tab.Item>
       </Tab>
-    </Container>
+    </Block>
   ))
 
   .add('Left/right modifier', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth="1/2">
         <Grid.Cell>
           <Tab align="left">
@@ -44,11 +44,11 @@ storiesOf('Tab', module)
           </Tab>
         </Grid.Cell>
       </Grid>
-    </Container>
+    </Block>
   ))
 
   .add('Alignment', () => (
-    <Container>
+    <Block>
       <Block margin={{ top: 'medium' }}>
         <Tab justifyContent="center">
           <Tab.Item active>Center</Tab.Item>
@@ -71,5 +71,5 @@ storiesOf('Tab', module)
           <Tab.Item>Item</Tab.Item>
         </Tab>
       </Block>
-    </Container>
+    </Block>
   ));

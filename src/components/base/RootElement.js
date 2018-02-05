@@ -28,8 +28,7 @@ export default class RootElement extends React.Component {
             );
             if ((horizontal && !vertical) || (!horizontal && vertical)) {
               return new Error(
-                'You must specify both a horizontal and vertical property for transformOrigin in ' +
-                  'Animation.',
+                'You must specify both a horizontal and vertical property for transformOrigin in animation prop',
               );
             }
             return null;
@@ -263,11 +262,8 @@ export default class RootElement extends React.Component {
         );
     if (margin === true) marginClasses = buildClassName('margin');
 
-    const isReverse = get(direction, 'reverse', false);
-
     const customHeight = [...UIK.BASE_SIZES, 'full'].includes(height);
     const customWidth = UIK.ALL_WIDTHS.includes(width) || isPlainObject(width);
-
     const widthClasses = customWidth
       ? classnames(
           buildClassName('width', width),
@@ -287,13 +283,16 @@ export default class RootElement extends React.Component {
       buildClassName('background', 'blend', get(background, 'blendMode')),
       buildClassName('background', 'image', get(background, 'breakpoint')),
       buildClassName('background', get(background, 'color')),
-      buildClassName('background', get(background, 'color')),
       buildClassName('background', get(background, 'size')),
       buildClassName('border', border),
       buildClassName('box', 'shadow', boxShadow),
       buildClassName('box', 'shadow', get(boxShadow, 'size')),
       buildClassName('box', 'shadow', 'hover', get(boxShadow, 'hoverSize')),
-      buildClassName('flex', get(direction, 'as'), isReverse ? 'reverse' : ''),
+      buildClassName(
+        'flex',
+        get(direction, 'as'),
+        get(direction, 'reverse', false) ? 'reverse' : '',
+      ),
       buildClassName('display', display),
       buildClassName('float', float),
       buildClassName('height', 'max', heightMax),

@@ -1,30 +1,22 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import {
-  Block,
-  Button,
-  Container,
-  Dropdown,
-  Grid,
-  Icon,
-  Nav,
-} from '../../components';
+import { Block, Button, Dropdown, Grid, Icon, Nav } from '../../components';
 
 Button.displayName = 'Button';
 
 storiesOf('Button', module)
   .add('Basic Usage', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Button as="a" margin={{ right: 'small' }}>
         Link
       </Button>
       <Button margin={{ right: 'small' }}>Button</Button>
       <Button disabled>Disabled</Button>
-    </Container>
+    </Block>
   ))
 
   .add('Style modifiers', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid gutter="small" textAlign="center">
         <Grid.Cell>
           <Button>Default</Button>
@@ -45,11 +37,11 @@ storiesOf('Button', module)
           <Button link>Link</Button>
         </Grid.Cell>
       </Grid>
-    </Container>
+    </Block>
   ))
 
   .add('Size modifiers', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Block margin>
         <Button size="small" margin={{ right: 'small' }}>
           Small button
@@ -61,7 +53,7 @@ storiesOf('Button', module)
           Small button
         </Button>
       </Block>
-      <Container margin>
+      <Block margin>
         <Button size="large" margin={{ right: 'small' }}>
           Large button
         </Button>
@@ -71,12 +63,12 @@ storiesOf('Button', module)
         <Button size="large" secondary margin={{ right: 'small' }}>
           Large button
         </Button>
-      </Container>
-    </Container>
+      </Block>
+    </Block>
   ))
 
   .add('Width modifiers', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Button fullWidth margin={{ bottom: 'small' }}>
         Button
       </Button>
@@ -86,37 +78,37 @@ storiesOf('Button', module)
       <Button fullWidth secondary>
         Button
       </Button>
-    </Container>
+    </Block>
   ))
 
   .add('Group', () => (
-    <Container margin={{ all: 'large' }}>
-      <Container>
+    <Block margin={{ all: 'large' }}>
+      <Block>
         <Button.Group>
           <Button secondary>Button</Button>
           <Button secondary>Button</Button>
           <Button secondary>Button</Button>
         </Button.Group>
-      </Container>
-      <Container margin>
+      </Block>
+      <Block margin>
         <Button.Group>
           <Button primary>Button</Button>
           <Button primary>Button</Button>
           <Button primary>Button</Button>
         </Button.Group>
-      </Container>
-      <Container margin>
+      </Block>
+      <Block margin>
         <Button.Group>
           <Button danger>Button</Button>
           <Button danger>Button</Button>
           <Button danger>Button</Button>
         </Button.Group>
-      </Container>
-    </Container>
+      </Block>
+    </Block>
   ))
 
   .add('Button with dropdowns', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Dropdown toggle={<Button>Dropdown</Button>}>
         <Nav>
           <Nav.Item active>Active</Nav.Item>
@@ -128,11 +120,11 @@ storiesOf('Button', module)
           <Nav.Item>Item</Nav.Item>
         </Nav>
       </Dropdown>
-    </Container>
+    </Block>
   ))
 
   .add('Button group with dropdowns', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Button.Group>
         <Button>Dropdown</Button>
         <Dropdown
@@ -156,5 +148,5 @@ storiesOf('Button', module)
           </Nav>
         </Dropdown>
       </Button.Group>
-    </Container>
+    </Block>
   ));

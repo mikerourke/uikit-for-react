@@ -2,25 +2,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { BlockElement } from '../../base';
+import { customPropTypes, getElementType } from '../../../lib';
 
 export default class OffcanvasContent extends React.Component {
   static displayName = 'OffcanvasContent';
 
   static propTypes = {
-    ...BlockElement.propTypes,
+    as: customPropTypes.customOrStringElement('div'),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
+    as: 'div',
     className: '',
   };
 
   render() {
-    const { className, ...rest } = this.props;
+    const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-offcanvas-content');
-    return <BlockElement {...rest} as="div" className={classes} />;
+    const Element = getElementType(OffcanvasContent, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

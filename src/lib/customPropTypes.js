@@ -15,6 +15,21 @@ const customOrStringElement = (...args) =>
     PropTypes.func,
   ]);
 
+const forBreakpoints = (options, validators = []) => {
+  const validValidators = flatten([validators]);
+  return PropTypes.oneOfType([
+    ...validValidators,
+    PropTypes.oneOf(options),
+    PropTypes.shape({
+      default: PropTypes.oneOf(options),
+      atSm: PropTypes.oneOf(options),
+      atMd: PropTypes.oneOf(options),
+      atLg: PropTypes.oneOf(options),
+      atXl: PropTypes.oneOf(options),
+    }),
+  ]);
+};
+
 /**
  * Limits the children prop to only the specified component types or HTML
  *    elements.
@@ -83,6 +98,7 @@ const validateIndexArray = ExtraPropTypes.and([
 
 export default {
   customOrStringElement,
+  forBreakpoints,
   restrictToChildTypes,
   validateIndex,
   validateIndexArray,

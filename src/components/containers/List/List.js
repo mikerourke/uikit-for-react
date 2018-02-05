@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes } from '../../../lib';
-import { BlockElement } from '../../base';
+import { buildClassName, customPropTypes, getElementType } from '../../../lib';
 import ListItem from './ListItem';
 
 export default class List extends React.Component {
   static displayName = 'List';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     as: customPropTypes.customOrStringElement('ul'),
     bullet: PropTypes.bool,
     children: customPropTypes.restrictToChildTypes(ListItem),
@@ -20,7 +18,6 @@ export default class List extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'ul',
     bullet: false,
     className: '',
@@ -32,7 +29,15 @@ export default class List extends React.Component {
   static Item = ListItem;
 
   render() {
-    const { bullet, className, divider, large, striped, ...rest } = this.props;
+    const {
+      as,
+      bullet,
+      className,
+      divider,
+      large,
+      striped,
+      ...rest
+    } = this.props;
 
     const ukClass = 'uk-list';
     const classes = classnames(className, ukClass, {
@@ -42,6 +47,7 @@ export default class List extends React.Component {
       [buildClassName(ukClass, 'striped')]: striped,
     });
 
-    return <BlockElement {...rest} className={classes} />;
+    const Element = getElementType(List, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

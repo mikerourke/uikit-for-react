@@ -20,6 +20,7 @@ export default class InlineElement extends React.Component {
     align: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
       PropTypes.shape({
+        default: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
         atSm: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
         atMd: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
         atLg: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
@@ -65,6 +66,7 @@ export default class InlineElement extends React.Component {
     const classes = classnames(
       baseClasses,
       buildClassName('align', align),
+      buildClassName('align', get(align, 'default')),
       buildClassName('align', get(align, 'atSm'), '@s'),
       buildClassName('align', get(align, 'atMd'), '@m'),
       buildClassName('align', get(align, 'atLg'), '@l'),

@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
-import { InlineElement } from '../../base';
+import { customPropTypes, getElementType, HTML } from '../../../lib';
 
 export default class SwitcherGoTo extends React.Component {
   static displayName = 'SwitcherGoTo';
 
   static propTypes = {
-    ...InlineElement.propTypes,
-    as: InlineElement.asPropType,
+    as: customPropTypes.customOrStringElement(HTML.INLINE_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
     target: PropTypes.oneOfType([
@@ -18,15 +17,13 @@ export default class SwitcherGoTo extends React.Component {
   };
 
   static defaultProps = {
-    ...InlineElement.defaultProps,
     as: 'a',
     className: '',
   };
 
   render() {
-    const { target, ...rest } = this.props;
-    return (
-      <InlineElement {...rest} data-uk-switcher-item={target.toString()} />
-    );
+    const { as, target, ...rest } = this.props;
+    const Element = getElementType(SwitcherGoTo, this.props);
+    return <Element {...rest} data-uk-switcher-item={target.toString()} />;
   }
 }

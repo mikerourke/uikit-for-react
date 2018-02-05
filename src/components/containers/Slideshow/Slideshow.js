@@ -6,31 +6,21 @@ import PropTypes from 'prop-types';
 import { isNil, noop } from 'lodash';
 import {
   buildClassName,
+  customPropTypes,
   generateSelector,
   getBaseRef,
+  getElementType,
   getOptionsString,
+  HTML,
   UIK,
 } from '../../../lib';
-import { BlockElement } from '../../base';
 import SlideshowItem from './SlideshowItem';
 
 export default class Slideshow extends React.Component {
   static displayName = 'Slideshow';
 
   static propTypes = {
-    ...BlockElement.propTypes,
-    activeIndex: ExtraPropTypes.and([
-      ExtraPropTypes.nonNegativeInteger,
-      props => {
-        const maxAllowed = React.Children.count(props.children) - 1;
-        if (props.activeIndex > maxAllowed) {
-          return new Error(
-            `Invalid activeIndex passed to Slideshow, the maximum value allowed is ${maxAllowed}`,
-          );
-        }
-        return null;
-      },
-    ]),
+    activeIndex: customPropTypes.validateIndex,
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.SLIDESHOW_ANIMATIONS),
       PropTypes.shape({
@@ -38,15 +28,21 @@ export default class Slideshow extends React.Component {
         velocity: PropTypes.number,
       }),
     ]),
-    as: BlockElement.asPropType,
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     autoplay: PropTypes.bool,
     autoplayInterval: PropTypes.number,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     className: PropTypes.string,
-    defaultIndex: PropTypes.number,
+    defaultIndex: customPropTypes.validateIndex,
     finite: PropTypes.bool,
-    maxHeight: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
-    minHeight: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
+    maxHeight: PropTypes.oneOfType([
+      PropTypes.bool,
+      ExtraPropTypes.nonNegativeInteger,
+    ]),
+    minHeight: PropTypes.oneOfType([
+      PropTypes.bool,
+      ExtraPropTypes.nonNegativeInteger,
+    ]),
     onBeforeItemHide: PropTypes.func,
     onBeforeItemShow: PropTypes.func,
     onItemHidden: PropTypes.func,
@@ -59,9 +55,7 @@ export default class Slideshow extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     activeIndex: 0,
-    animation: null,
     as: 'div',
     autoplay: false,
     autoplayInterval: 7000,
@@ -88,26 +82,26 @@ export default class Slideshow extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.ref) return;
-    UIkit.util.on(this.ref, 'beforeitemhide', this.props.onBeforeItemHide);
-    UIkit.util.on(this.ref, 'beforeitemshow', this.props.onBeforeItemShow);
-    UIkit.util.on(this.ref, 'itemhidden', this.props.onItemHidden);
-    UIkit.util.on(this.ref, 'itemhide', this.props.onItemHide);
-    UIkit.util.on(this.ref, 'itemshow', this.props.onItemShow);
-    UIkit.util.on(this.ref, 'itemshown', this.props.onItemShown);
+    const ref = this.getRef();
+    UIkit.util.on(ref, 'beforeitemhide', this.props.onBeforeItemHide);
+    UIkit.util.on(ref, 'beforeitemshow', this.props.onBeforeItemShow);
+    UIkit.util.on(ref, 'itemhidden', this.props.onItemHidden);
+    UIkit.util.on(ref, 'itemhide', this.props.onItemHide);
+    UIkit.util.on(ref, 'itemshow', this.props.onItemShow);
+    UIkit.util.on(ref, 'itemshown', this.props.onItemShown);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!this.ref) return;
-    const slideshowElement = UIkit.slideshow(this.ref);
+    const slideshow = UIkit.slideshow(this.getRef());
     if (nextProps.paused === true && this.props.paused === false) {
-      slideshowElement.stopAutoplay();
+      slideshow.stopAutoplay();
     }
-
     if (nextProps.paused === false && this.props.paused === true) {
-      slideshowElement.startAutoplay();
+      slideshow.startAutoplay();
     }
   }
+
+  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
 
   handleRef = element => {
     if (!element) return;
@@ -118,9 +112,11 @@ export default class Slideshow extends React.Component {
     const {
       activeIndex,
       animation,
+      as,
       autoplay,
       autoplayInterval,
       children,
+      defaultIndex,
       finite,
       maxHeight,
       minHeight,
@@ -137,7 +133,7 @@ export default class Slideshow extends React.Component {
     } = this.props;
 
     const componentOptions = getOptionsString({
-      activeIndex,
+      activeIndex: defaultIndex,
       animation,
       autoplay,
       autoplayInterval,
@@ -148,15 +144,16 @@ export default class Slideshow extends React.Component {
       ratio,
     });
 
+    const Element = getElementType(Slideshow, this.props);
     return (
-      <BlockElement
+      <Element
         {...rest}
         className={this.selector}
         ref={this.handleRef}
         data-uk-slideshow={componentOptions}
       >
         <ul className={buildClassName('slideshow', 'items')}>{children}</ul>
-      </BlockElement>
+      </Element>
     );
   }
 }

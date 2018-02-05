@@ -1,39 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ExtraPropTypes from 'airbnb-prop-types';
-import { getOptionsString } from '../../../lib';
-import { BlockElement } from '../../base';
+import {
+  customPropTypes,
+  getElementType,
+  getOptionsString,
+} from '../../../lib';
 import VideoSource from './VideoSource';
 
 export default class Video extends React.Component {
   static displayName = 'Video';
 
   static propTypes = {
-    ...BlockElement.propTypes,
-    as: PropTypes.oneOfType([
-      PropTypes.oneOf(['video', 'iframe']),
-      PropTypes.element,
-      PropTypes.func,
-    ]),
+    as: customPropTypes.customOrStringElement('video', 'iframe'),
     automute: PropTypes.bool,
     autoplay: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.oneOf(['inview']),
     ]),
-    children: ExtraPropTypes.childrenOfType(VideoSource),
+    children: customPropTypes.restrictToChildTypes(VideoSource),
     className: PropTypes.string,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
+    as: 'video',
     className: '',
   };
 
   static Source = VideoSource;
 
   render() {
-    const { automute, autoplay, ...rest } = this.props;
-    const componentOptions = getOptionsString({ automute, autoplay });
-    return <BlockElement {...rest} data-uk-video={componentOptions} />;
+    const { as, automute, autoplay, ...rest } = this.props;
+    const Element = getElementType(Video, this.props);
+    return (
+      <Element
+        {...rest}
+        data-uk-video={getOptionsString({ automute, autoplay })}
+      />
+    );
   }
 }

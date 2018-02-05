@@ -1,7 +1,7 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Block, Button, Card, Drop, Grid, Container } from '../../components';
+import { Block, Button, Card, Drop, Grid } from '../../components';
 
 Drop.displayName = 'Drop';
 
@@ -9,7 +9,7 @@ const message = faker.lorem.paragraph();
 
 storiesOf('Drop', module)
   .add('Basic Usage', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Block inline>
         <Drop toggle={<Button>Hover</Button>}>
           <Card>{message}</Card>
@@ -20,11 +20,11 @@ storiesOf('Drop', module)
           <Card>{message}</Card>
         </Drop>
       </Block>
-    </Container>
+    </Block>
   ))
 
   .add('Grid in drop', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Drop toggle={<Button>Hover</Button>} width="large">
         <Card>
           <Grid childWidth={{ atMd: '1/2' }}>
@@ -33,11 +33,11 @@ storiesOf('Drop', module)
           </Grid>
         </Card>
       </Drop>
-    </Container>
+    </Block>
   ))
 
   .add('Position', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Block inline>
         <Drop toggle={<Button>Top Right</Button>} position="top-right">
           <Card>{message}</Card>
@@ -56,14 +56,14 @@ storiesOf('Drop', module)
           <Card>{message}</Card>
         </Drop>
       </Block>
-    </Container>
+    </Block>
   ))
 
   .add('Events', () => {
     const handleEvent = eventName => () => console.log(eventName);
 
     return (
-      <Container margin={{ all: 'large' }}>
+      <Block margin={{ all: 'large' }}>
         <Drop
           toggle={<Button>Top Right</Button>}
           onBeforeShow={handleEvent('onToggle')}
@@ -76,6 +76,6 @@ storiesOf('Drop', module)
         >
           <Card>{message}</Card>
         </Drop>
-      </Container>
+      </Block>
     );
   });

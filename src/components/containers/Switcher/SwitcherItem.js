@@ -1,29 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { buildClassName } from '../../../lib';
-import { BlockElement } from '../../base';
+import { customPropTypes, getElementType, HTML } from '../../../lib';
 
 export default class SwitcherItem extends React.Component {
   static displayName = 'SwitcherItem';
 
   static propTypes = {
-    ...BlockElement.propTypes,
-    as: BlockElement.asPropType,
-    children: PropTypes.node.isRequired,
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
+    children: PropTypes.node,
     className: PropTypes.string,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'div',
     className: '',
   };
 
   render() {
-    const { className, ...rest } = this.props;
+    const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-switcher-item');
-    return <BlockElement {...rest} className={classes} />;
+    const Element = getElementType(SwitcherItem, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

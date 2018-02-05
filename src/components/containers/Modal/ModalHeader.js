@@ -1,25 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { BlockElement } from '../../base';
+import { customPropTypes, getElementType } from '../../../lib';
 
 export default class ModalHeader extends React.Component {
   static displayName = 'ModalHeader';
 
   static propTypes = {
-    ...BlockElement.propTypes,
+    as: customPropTypes.customOrStringElement('div'),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
+    as: 'div',
     className: '',
   };
 
   render() {
-    const { className, ...rest } = this.props;
+    const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-modal-header');
-    return <BlockElement {...rest} as="div" className={classes} />;
+    const Element = getElementType(ModalHeader, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

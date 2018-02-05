@@ -1,13 +1,13 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { range } from 'lodash';
-import { Card, Container, GridParallax } from '../../components';
+import { Block, Card, GridParallax } from '../../components';
 
 GridParallax.displayName = 'GridParallax';
 
 storiesOf('GridParallax', module)
   .add('Basic Usage', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <GridParallax childWidth={{ atSm: 'expand' }}>
         <GridParallax.Cell>
           <Card margin="grid">Item</Card>
@@ -25,11 +25,11 @@ storiesOf('GridParallax', module)
           <Card margin="grid">Item</Card>
         </GridParallax.Cell>
       </GridParallax>
-    </Container>
+    </Block>
   ))
 
   .add('Wrapping into next line', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <GridParallax
         translate={200}
         childWidth={{ atSm: '1/2', atMd: '1/3', atLg: '1/4' }}
@@ -41,5 +41,5 @@ storiesOf('GridParallax', module)
           </GridParallax.Cell>
         ))}
       </GridParallax>
-    </Container>
+    </Block>
   ));

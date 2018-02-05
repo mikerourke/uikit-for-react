@@ -1,19 +1,19 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Container, Inline, Link, List } from '../../components';
+import { Block, Inline, Link, List } from '../../components';
 
 Link.displayName = 'Link';
 
 storiesOf('Link', module)
   .add('Basic Usage', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Link href="#">Link</Link>
-    </Container>
+    </Block>
   ))
 
   .add('Link muted', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Link href="#" muted>
         Link
       </Link>
@@ -24,11 +24,11 @@ storiesOf('Link', module)
         sed do <a href="#">eiusmod</a> tempor incididunt ut{' '}
         <a href="#">labore et</a> dolore magna aliqua.
       </Inline>
-    </Container>
+    </Block>
   ))
 
   .add('Link text', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <List linkStyle="text">
         <List.Item>
           <Link>Link</Link>
@@ -40,13 +40,13 @@ storiesOf('Link', module)
           <Link>Link</Link>
         </List.Item>
       </List>
-    </Container>
+    </Block>
   ))
 
   .add('Link reset', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Link reset href="#">
         Link
       </Link>
-    </Container>
+    </Block>
   ));

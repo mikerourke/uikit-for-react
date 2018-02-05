@@ -1,7 +1,7 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Block, Button, Dropdown, Grid, Container } from '../../components';
+import { Block, Button, Dropdown, Grid } from '../../components';
 
 Dropdown.displayName = 'Dropdown';
 
@@ -9,7 +9,7 @@ const message = faker.lorem.paragraph();
 
 storiesOf('Dropdown', module)
   .add('Basic Usage', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Block inline>
         <Dropdown toggle={<Button>Hover</Button>}>{message}</Dropdown>
       </Block>
@@ -18,22 +18,22 @@ storiesOf('Dropdown', module)
           {message}
         </Dropdown>
       </Block>
-    </Container>
+    </Block>
   ))
 
   .add('Grid in dropdown', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Dropdown toggle={<Button>Hover</Button>} width="large">
         <Grid childWidth={{ atMd: '1/2' }}>
           <Grid.Cell>{message}</Grid.Cell>
           <Grid.Cell>{message}</Grid.Cell>
         </Grid>
       </Dropdown>
-    </Container>
+    </Block>
   ))
 
   .add('Position', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Block inline>
         <Dropdown toggle={<Button>Top Right</Button>} position="top-right">
           {message}
@@ -56,14 +56,14 @@ storiesOf('Dropdown', module)
           {message}
         </Dropdown>
       </Block>
-    </Container>
+    </Block>
   ))
 
   .add('Events', () => {
     const handleEvent = eventName => () => console.log(eventName);
 
     return (
-      <Container margin={{ all: 'large' }}>
+      <Block margin={{ all: 'large' }}>
         <Dropdown
           toggle={<Button>Top Right</Button>}
           onBeforeShow={handleEvent('onToggle')}
@@ -76,6 +76,6 @@ storiesOf('Dropdown', module)
         >
           {message}
         </Dropdown>
-      </Container>
+      </Block>
     );
   });

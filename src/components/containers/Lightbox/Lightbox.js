@@ -1,16 +1,17 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get, isNil, isPlainObject, noop } from 'lodash';
 import {
+  customPropTypes,
   generateSelector,
   getBaseRef,
+  getElementType,
   getOptionsString,
+  HTML,
   UIK,
 } from '../../../lib';
-import { BlockElement } from '../../base';
 import LightboxItem from './LightboxItem';
 import LightboxPanel from './LightboxPanel';
 
@@ -18,19 +19,7 @@ export default class Lightbox extends React.Component {
   static displayName = 'Lightbox';
 
   static propTypes = {
-    ...BlockElement.propTypes,
-    activeIndex: ExtraPropTypes.and([
-      ExtraPropTypes.nonNegativeInteger,
-      props => {
-        const maxAllowed = React.Children.count(props.children) - 1;
-        if (props.activeIndex > maxAllowed) {
-          return new Error(
-            `Invalid activeIndex passed to Lightbox, the maximum value allowed is ${maxAllowed}`,
-          );
-        }
-        return null;
-      },
-    ]),
+    activeIndex: customPropTypes.validateIndex,
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.LIGHTBOX_ANIMATIONS),
       PropTypes.shape({
@@ -42,10 +31,10 @@ export default class Lightbox extends React.Component {
       delay: PropTypes.number,
       interval: PropTypes.number,
     }),
-    as: BlockElement.asPropType,
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
-    defaultIndex: PropTypes.number,
+    defaultIndex: customPropTypes.validateIndex,
     onBeforeHide: PropTypes.func,
     onBeforeItemHide: PropTypes.func,
     onBeforeItemShow: PropTypes.func,
@@ -65,7 +54,6 @@ export default class Lightbox extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'div',
     className: '',
     defaultIndex: 0,
@@ -125,6 +113,7 @@ export default class Lightbox extends React.Component {
     const {
       activeIndex,
       animation,
+      as,
       autoplay,
       className,
       defaultIndex,
@@ -163,8 +152,9 @@ export default class Lightbox extends React.Component {
       videoAutoplay,
     });
 
+    const Element = getElementType(Lightbox, this.props);
     return (
-      <BlockElement
+      <Element
         {...rest}
         className={classes}
         ref={this.handleRef}

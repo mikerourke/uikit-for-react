@@ -9,20 +9,13 @@ import { get } from 'lodash';
  *
  * @param {Function} Component A function or ReactClass.
  * @param {Object} props Props from React component.
- * @param {Function} [getDefault] A function that returns a default element type.
  * @returns {string|function} A ReactElement type
  */
-const getElementType = (Component, props, getDefault) => {
+const getElementType = (Component, props) => {
   const { defaultProps = {} } = Component;
 
   // User defined "as" element type:
   if (props.as && props.as !== defaultProps.as) return props.as;
-
-  // Computed default element type:
-  if (getDefault) {
-    const computedDefault = getDefault();
-    if (computedDefault) return computedDefault;
-  }
 
   // Infer anchor links.
   if (props.href) return 'a';

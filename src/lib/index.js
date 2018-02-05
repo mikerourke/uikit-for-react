@@ -1,4 +1,4 @@
-export { default as buildClassName } from './buildClassName';
+export { buildClassName, buildBreakpointClasses } from './buildClasses';
 
 export { default as buildSelector } from './buildSelector';
 

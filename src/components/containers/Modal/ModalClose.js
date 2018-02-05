@@ -2,15 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isString } from 'lodash';
-import { buildClassName, customPropTypes } from '../../../lib';
-import { InlineElement } from '../../base';
+import { buildClassName, customPropTypes, getElementType } from '../../../lib';
 import { Close } from '../../elements';
 
 export default class ModalClose extends React.Component {
   static displayName = 'ModalClose';
 
   static propTypes = {
-    ...InlineElement.propTypes,
     as: customPropTypes.customOrStringElement('a', 'button'),
     children: PropTypes.node,
     className: PropTypes.string,
@@ -20,7 +18,6 @@ export default class ModalClose extends React.Component {
   };
 
   static defaultProps = {
-    ...InlineElement.defaultProps,
     as: 'button',
     className: '',
     full: false,
@@ -43,10 +40,10 @@ export default class ModalClose extends React.Component {
       });
     }
 
+    const Element = getElementType(ModalClose, this.props);
     return (
-      <InlineElement
+      <Element
         {...rest}
-        as={as}
         className={classes}
         data-uk-close={isClose ? '' : undefined}
       />

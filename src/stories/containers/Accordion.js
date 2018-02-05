@@ -2,7 +2,7 @@ import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Accordion, Container } from '../../components/index';
+import { Accordion, Block } from '../../components';
 
 Accordion.displayName = 'Accordion';
 
@@ -12,7 +12,7 @@ const thirdParagraph = <p>{faker.lorem.paragraph()}</p>;
 
 storiesOf('Accordion', module)
   .add('Basic Usage', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Accordion collapsible>
         <Accordion.Panel>
           <Accordion.Title href="#">Item 1</Accordion.Title>
@@ -27,11 +27,11 @@ storiesOf('Accordion', module)
           <Accordion.Content>{thirdParagraph}</Accordion.Content>
         </Accordion.Panel>
       </Accordion>
-    </Container>
+    </Block>
   ))
 
   .add('No collapsing', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Accordion collapsible={false}>
         <Accordion.Panel>
           <Accordion.Title href="#">Item 1</Accordion.Title>
@@ -46,11 +46,11 @@ storiesOf('Accordion', module)
           <Accordion.Content>{thirdParagraph}</Accordion.Content>
         </Accordion.Panel>
       </Accordion>
-    </Container>
+    </Block>
   ))
 
   .add('Multiple open items', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Accordion collapsible multiple>
         <Accordion.Panel>
           <Accordion.Title href="#">Item 1</Accordion.Title>
@@ -65,12 +65,12 @@ storiesOf('Accordion', module)
           <Accordion.Content>{thirdParagraph}</Accordion.Content>
         </Accordion.Panel>
       </Accordion>
-    </Container>
+    </Block>
   ))
 
   .add('Set open items', () => (
     // TODO: Add checkboxes to demonstrate functionality.
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Accordion multiple openIndex={[0, 2]}>
         <Accordion.Panel open>
           <Accordion.Title href="#">Item 1</Accordion.Title>
@@ -85,11 +85,11 @@ storiesOf('Accordion', module)
           <Accordion.Content>{thirdParagraph}</Accordion.Content>
         </Accordion.Panel>
       </Accordion>
-    </Container>
+    </Block>
   ))
 
   .add('Event handlers', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Accordion
         collapsible
         onBeforeHide={action('onBeforeHide')}
@@ -112,5 +112,5 @@ storiesOf('Accordion', module)
           <Accordion.Content>{thirdParagraph}</Accordion.Content>
         </Accordion.Panel>
       </Accordion>
-    </Container>
+    </Block>
   ));

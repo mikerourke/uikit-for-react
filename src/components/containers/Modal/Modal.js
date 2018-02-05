@@ -10,9 +10,9 @@ import {
   generateIdentifier,
   generateSelector,
   getBaseRef,
+  getElementType,
   getOptionsString,
 } from '../../../lib';
-import { BlockElement } from '../../base';
 import ModalBody from './ModalBody';
 import ModalClose from './ModalClose';
 import ModalContent from './ModalContent';
@@ -25,7 +25,6 @@ export default class Modal extends React.Component {
   static displayName = 'Modal';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     as: customPropTypes.customOrStringElement('div'),
     bgClose: PropTypes.bool,
     children: ExtraPropTypes.elementType(ModalDialog),
@@ -45,7 +44,6 @@ export default class Modal extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'div',
     bgClose: true,
     className: '',
@@ -104,6 +102,7 @@ export default class Modal extends React.Component {
 
   render() {
     const {
+      as,
       bgClose,
       className,
       container,
@@ -142,10 +141,11 @@ export default class Modal extends React.Component {
       });
     }
 
+    const Element = getElementType(Modal, this.props);
     return (
       <Fragment>
         {toggle && Toggle}
-        <BlockElement
+        <Element
           {...rest}
           className={classes}
           id={identifier}

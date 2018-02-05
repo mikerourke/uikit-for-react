@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes } from '../../../lib';
-import { BaseElement } from '../../base';
+import { buildClassName, customPropTypes, getElementType } from '../../../lib';
 
 export default class TableHeaderCell extends React.Component {
   static displayName = 'TableHeaderCell';
 
   static propTypes = {
-    ...BaseElement.propTypes,
     as: customPropTypes.customOrStringElement('th'),
     children: PropTypes.node,
     className: PropTypes.string,
@@ -18,7 +16,6 @@ export default class TableHeaderCell extends React.Component {
   };
 
   static defaultProps = {
-    ...BaseElement.defaultProps,
     as: 'th',
     className: '',
     expand: false,
@@ -27,7 +24,8 @@ export default class TableHeaderCell extends React.Component {
   };
 
   render() {
-    const { className, expand, link, shrink, ...rest } = this.props;
+    const { as, className, expand, link, shrink, ...rest } = this.props;
+
     const ukClass = 'uk-table';
     const classes = classnames(className, {
       [buildClassName(ukClass, 'expand')]: expand,
@@ -35,6 +33,8 @@ export default class TableHeaderCell extends React.Component {
       [buildClassName('link', 'reset')]: link === 'reset',
       [buildClassName(ukClass, 'shrink')]: shrink,
     });
-    return <BaseElement {...rest} className={classes} />;
+
+    const Element = getElementType(TableHeaderCell, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

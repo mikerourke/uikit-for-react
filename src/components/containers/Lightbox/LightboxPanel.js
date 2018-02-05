@@ -3,14 +3,12 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import { get, isPlainObject, noop } from 'lodash';
 import { customPropTypes, UIK } from '../../../lib';
-import { BlockElement } from '../../base';
 import LightboxItem from './LightboxItem';
 
 export default class LightboxPanel extends React.Component {
   static displayName = 'LightboxPanel';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     activeIndex: customPropTypes.validateIndex,
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.LIGHTBOX_ANIMATIONS),
@@ -51,7 +49,6 @@ export default class LightboxPanel extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     defaultIndex: 0,
     delayControls: 3000,
     onBeforeHide: noop,

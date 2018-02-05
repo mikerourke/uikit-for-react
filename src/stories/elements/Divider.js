@@ -1,24 +1,24 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Container, Divider } from '../../components';
+import { Block, Divider } from '../../components';
 
 Divider.displayName = 'Divider';
 
 storiesOf('Divider', module)
   .add('Basic Usage', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Divider />
-    </Container>
+    </Block>
   ))
 
   .add('Divider icon', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Divider icon />
-    </Container>
+    </Block>
   ))
 
   .add('Divider small', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Divider small />
-    </Container>
+    </Block>
   ));

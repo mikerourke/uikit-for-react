@@ -1,50 +1,35 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getElementType, getOptionsString } from '../../../lib';
-import { BaseElement } from '../../base';
+import { omit } from 'lodash';
+import { customPropTypes, getElementType, HTML } from '../../../lib';
+import { Parallax } from '../../common';
 
 export default class SlideshowParallax extends React.Component {
   static displayName = 'SlideshowParallax';
 
   static propTypes = {
-    animate: PropTypes.object,
-    as: BaseElement.asPropType,
-    children: PropTypes.node.isRequired,
+    ...Parallax.propShape,
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
+    children: PropTypes.node,
     className: PropTypes.string,
-    easing: PropTypes.number,
-    media: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    target: PropTypes.string,
-    viewport: PropTypes.number,
   };
 
   static defaultProps = {
     as: 'div',
     className: '',
-    easing: 1,
-    viewport: 1,
   };
 
   render() {
-    const {
-      as,
-      animate,
-      easing,
-      media,
-      target,
-      viewport,
-      ...rest
-    } = this.props;
-
-    const componentOptions = getOptionsString({
-      ...animate,
-      easing,
-      media,
-      target,
-      viewport,
-    });
-
+    const { as, ...rest } = this.props;
+    const componentOptions = Parallax.getOptions(rest);
+    const elementProps = omit(rest, Object.keys(Parallax.propShape));
     const Element = getElementType(SlideshowParallax, this.props);
-    return <Element {...rest} data-uk-slideshow-parallax={componentOptions} />;
+    return (
+      <Element
+        {...elementProps}
+        data-uk-slideshow-parallax={componentOptions}
+      />
+    );
   }
 }

@@ -146,7 +146,6 @@ export const childMatchesType = (child, requiredType) =>
  */
 const recurseRefs = element => {
   if (!element.ref) return element;
-  console.log(element);
   return recurseRefs(element.ref);
 };
 

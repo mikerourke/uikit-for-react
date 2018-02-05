@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes } from '../../../lib';
-import { BlockElement } from '../../base';
+import { customPropTypes, getElementType } from '../../../lib';
+import { Margin } from '../../common';
 import ArticleBody from './ArticleBody';
 import ArticleLead from './ArticleLead';
 import ArticleMeta from './ArticleMeta';
@@ -16,14 +16,13 @@ export default class Article extends React.Component {
   static displayName = 'Article';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     as: customPropTypes.customOrStringElement('article'),
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     className: PropTypes.string,
+    margin: Margin.propTypes,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'article',
     className: '',
   };
@@ -34,8 +33,15 @@ export default class Article extends React.Component {
   static Title = ArticleTitle;
 
   render() {
-    const { className, ...rest } = this.props;
-    const classes = classnames(className, 'uk-article');
-    return <BlockElement {...rest} className={classes} />;
+    const { as, className, margin, ...rest } = this.props;
+
+    const classes = classnames(
+      className,
+      'uk-article',
+      Margin.getClasses(margin),
+    );
+
+    const Element = getElementType(Article, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

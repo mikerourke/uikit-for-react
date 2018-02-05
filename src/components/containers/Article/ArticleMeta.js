@@ -1,28 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes } from '../../../lib';
-import { BlockElement } from '../../base';
+import { customPropTypes, getElementType } from '../../../lib';
+import { Margin } from '../../common';
 
 export default class ArticleMeta extends React.Component {
   static displayName = 'ArticleMeta';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     as: customPropTypes.customOrStringElement('p'),
     children: PropTypes.node,
     className: PropTypes.string,
+    margin: Margin.propTypes,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'p',
     className: '',
   };
 
   render() {
-    const { className, ...rest } = this.props;
-    const classes = classnames(className, 'uk-article-meta');
-    return <BlockElement {...rest} className={classes} />;
+    const { as, className, margin, ...rest } = this.props;
+
+    const classes = classnames(
+      className,
+      'uk-article-meta',
+      Margin.getClasses(margin),
+    );
+
+    const Element = getElementType(ArticleMeta, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

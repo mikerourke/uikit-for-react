@@ -1,25 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { BlockElement } from '../../base';
+import { customPropTypes, getElementType } from '../../../lib';
 
 export default class ButtonGroup extends React.Component {
   static displayName = 'ButtonGroup';
 
   static propTypes = {
-    ...BlockElement.propTypes,
-    children: PropTypes.node.isRequired,
+    as: customPropTypes.customOrStringElement('div'),
+    children: PropTypes.node,
     className: PropTypes.string,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
+    as: 'div',
     className: '',
   };
 
   render() {
-    const { className, ...rest } = this.props;
+    const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-button-group');
-    return <BlockElement {...rest} as="div" className={classes} />;
+    const Element = getElementType(ButtonGroup, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

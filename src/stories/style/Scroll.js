@@ -1,11 +1,11 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Button, Scroll, Container } from '../../components';
+import { Block, Button, Scroll } from '../../components';
 
 Scroll.displayName = 'Scroll';
 
 storiesOf('Scroll', module).add('Basic Usage', () => (
-  <Container margin={{ all: 'large' }}>
+  <Block margin={{ all: 'large' }}>
     <Scroll.Scrollable>
       <Scroll.Point
         as={Button}
@@ -39,5 +39,5 @@ storiesOf('Scroll', module).add('Basic Usage', () => (
         Test 3
       </Block>
     </Scroll.Scrollable>
-  </Container>
+  </Block>
 ));

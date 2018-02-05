@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
+import { customPropTypes } from '../../../lib';
 import { BlockElement } from '../../base';
 import SlideNavItem from './SlideNavPrevious';
 
@@ -10,7 +10,7 @@ export default class SlideNavContainer extends React.Component {
 
   static propTypes = {
     ...BlockElement.propTypes,
-    children: ExtraPropTypes.childrenOfType(SlideNavItem),
+    children: customPropTypes.restrictToChildTypes(SlideNavItem),
     className: PropTypes.string,
   };
 

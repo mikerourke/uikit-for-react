@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes } from '../../../lib';
-import { BlockElement } from '../../base';
+import { buildClassName, customPropTypes, getElementType } from '../../../lib';
 import DescriptionDetails from './DescriptionDetails';
 import DescriptionTerm from './DescriptionTerm';
 
@@ -10,7 +9,6 @@ export default class DescriptionList extends React.Component {
   static displayName = 'DescriptionList';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     as: customPropTypes.customOrStringElement('dl'),
     children: customPropTypes.restrictToChildTypes(
       DescriptionDetails,
@@ -21,7 +19,6 @@ export default class DescriptionList extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'dl',
     className: '',
     divider: false,
@@ -31,13 +28,14 @@ export default class DescriptionList extends React.Component {
   static Term = DescriptionTerm;
 
   render() {
-    const { className, divider, ...rest } = this.props;
+    const { as, className, divider, ...rest } = this.props;
 
     const ukClass = 'uk-description-list';
     const classes = classnames(className, ukClass, {
       [buildClassName(ukClass, 'divider')]: divider,
     });
 
-    return <BlockElement {...rest} className={classes} />;
+    const Element = getElementType(DescriptionList, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

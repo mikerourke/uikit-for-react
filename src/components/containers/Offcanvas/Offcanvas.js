@@ -7,15 +7,14 @@ import {
   customPropTypes,
   generateSelector,
   getBaseRef,
+  getElementType,
   getOptionsString,
 } from '../../../lib';
-import { BlockElement } from '../../base';
 
 export default class Offcanvas extends React.Component {
   static displayName = 'Offcanvas';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     as: customPropTypes.customOrStringElement('form'),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
@@ -31,7 +30,6 @@ export default class Offcanvas extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'form',
     className: '',
     flip: false,
@@ -68,6 +66,7 @@ export default class Offcanvas extends React.Component {
 
   render() {
     const {
+      as,
       className,
       flip,
       mode,
@@ -83,18 +82,13 @@ export default class Offcanvas extends React.Component {
 
     const classes = classnames(className, this.selector);
 
-    const componentOptions = getOptionsString({
-      flip,
-      mode,
-      overlay,
-    });
-
+    const Element = getElementType(Offcanvas, this.props);
     return (
-      <BlockElement
+      <Element
         {...rest}
         className={classes}
         ref={this.handleRef}
-        data-uk-offcanvas={componentOptions}
+        data-uk-offcanvas={getOptionsString({ flip, mode, overlay })}
       />
     );
   }

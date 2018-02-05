@@ -10,7 +10,6 @@ export default class Heading extends React.Component {
   static displayName = 'Heading';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     as: PropTypes.oneOf(HTML.HEADING_ELEMENTS),
     bullet: PropTypes.bool,
     children: PropTypes.node.isRequired,
@@ -26,7 +25,6 @@ export default class Heading extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'h1',
     bullet: false,
     className: '',

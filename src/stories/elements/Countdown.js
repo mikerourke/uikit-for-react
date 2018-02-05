@@ -1,12 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Button, Countdown, Container, Grid } from '../../components';
+import { Button, Countdown, Block, Grid } from '../../components';
 
 Countdown.displayName = 'Countdown';
 
 storiesOf('Countdown', module)
   .add('Basic Usage', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Countdown
         as={Grid}
         date="2025-01-16T00:00:00+00:00"
@@ -41,7 +41,7 @@ storiesOf('Countdown', module)
           </Countdown.Label>
         </Grid.Cell>
       </Countdown>
-    </Container>
+    </Block>
   ))
 
   .add('Starting and stopping', () => {
@@ -60,7 +60,7 @@ storiesOf('Countdown', module)
         const buttonLabel = this.state.paused ? 'Continue' : 'Pause';
 
         return (
-          <Container margin={{ all: 'large' }}>
+          <Block margin={{ all: 'large' }}>
             <Button
               onClick={this.handleClick}
               margin={{ bottom: 'large' }}
@@ -104,7 +104,7 @@ storiesOf('Countdown', module)
                 </Countdown.Label>
               </Grid.Cell>
             </Countdown>
-          </Container>
+          </Block>
         );
       }
     }

@@ -1,24 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BlockElement } from '../../base';
+import { customPropTypes, getElementType, HTML } from '../../../lib';
 
 export default class CardContent extends React.Component {
   static displayName = 'CardContent';
 
   static propTypes = {
-    ...BlockElement.propTypes,
-    as: BlockElement.asPropType,
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'p',
     className: '',
   };
 
   render() {
-    return <BlockElement {...this.props} />;
+    const { as, ...rest } = this.props;
+    const Element = getElementType(CardContent, this.props);
+    return <Element {...rest} />;
   }
 }

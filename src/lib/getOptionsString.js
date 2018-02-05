@@ -9,7 +9,7 @@ import {
   kebabCase,
   toPairs,
 } from 'lodash';
-import buildClassName from './buildClassName';
+import {buildClassName} from './buildClasses';
 import joinListProp from './joinListProp';
 
 /**

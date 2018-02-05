@@ -3,14 +3,17 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get, isNil } from 'lodash';
-import { buildClassName, customPropTypes, UIK } from '../../../lib';
-import { BlockElement } from '../../base';
+import {
+  buildClassName,
+  customPropTypes,
+  getElementType,
+  UIK,
+} from '../../../lib';
 
 export default class CardMedia extends React.Component {
   static displayName = 'CardMedia';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     alignTo: PropTypes.oneOf(UIK.LOCATIONS),
     as: customPropTypes.customOrStringElement('div'),
     className: PropTypes.string,
@@ -23,14 +26,21 @@ export default class CardMedia extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'div',
     className: '',
     imgAlt: '',
   };
 
   render() {
-    const { alignTo, className, cover, imgAlt, imgSrc, ...rest } = this.props;
+    const {
+      alignTo,
+      as,
+      className,
+      cover,
+      imgAlt,
+      imgSrc,
+      ...rest
+    } = this.props;
 
     const isCover = !isNil(cover);
     const ukClass = 'uk-card-media';
@@ -43,13 +53,14 @@ export default class CardMedia extends React.Component {
       },
     );
 
+    const Element = getElementType(CardMedia, this.props);
     return (
-      <BlockElement {...rest} className={classes}>
+      <Element {...rest} className={classes}>
         <img src={imgSrc} alt={imgAlt} data-uk-cover={isCover || undefined} />
         {isCover && (
           <canvas height={get(cover, 'height')} width={get(cover, 'width')} />
         )}
-      </BlockElement>
+      </Element>
     );
   }
 }

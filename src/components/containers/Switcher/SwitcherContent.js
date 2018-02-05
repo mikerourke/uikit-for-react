@@ -1,27 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { BlockElement } from '../../base';
+import { customPropTypes, getElementType, HTML } from '../../../lib';
 
 export default class SwitcherContent extends React.Component {
   static displayName = 'SwitcherContent';
 
   static propTypes = {
-    ...BlockElement.propTypes,
-    as: BlockElement.asPropType,
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'ul',
     className: '',
   };
 
   render() {
-    const { className, ...rest } = this.props;
+    const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-switcher');
-    return <BlockElement {...rest} className={classes} />;
+    const Element = getElementType(SwitcherContent, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

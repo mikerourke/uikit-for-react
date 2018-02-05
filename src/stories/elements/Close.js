@@ -6,7 +6,6 @@ import {
   Block,
   Button,
   Close,
-  Container,
   Modal,
 } from '../../components';
 
@@ -14,25 +13,25 @@ Close.displayName = 'Close';
 
 storiesOf('Close', module)
   .add('Basic Usage', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Close />
-    </Container>
+    </Block>
   ))
 
   .add('Large modifier', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Close large />
-    </Container>
+    </Block>
   ))
 
   .add('Close in alerts', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Alert closeable>{faker.lorem.sentence()}</Alert>
-    </Container>
+    </Block>
   ))
 
   .add('Close in modals', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Modal toggle={<Button>Open modal</Button>}>
         <Modal.Dialog padContent>
           <Modal.Close />
@@ -46,5 +45,5 @@ storiesOf('Close', module)
           </Modal.Content>
         </Modal.Dialog>
       </Modal>
-    </Container>
+    </Block>
   ));

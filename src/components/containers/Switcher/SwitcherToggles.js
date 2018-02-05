@@ -1,35 +1,24 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { get, isNil, isString, noop } from 'lodash';
+import { get, isNil, noop } from 'lodash';
 import {
+  customPropTypes,
   generateSelector,
   getBaseRef,
+  getElementType,
   getOptionsString,
+  HTML,
   UIK,
 } from '../../../lib';
-import { BlockElement } from '../../base';
 import { Tab } from '../../layout';
 
 export default class SwitcherToggles extends React.Component {
   static displayName = 'SwitcherToggles';
 
   static propTypes = {
-    ...BlockElement.propTypes,
-    activeIndex: ExtraPropTypes.and([
-      ExtraPropTypes.nonNegativeInteger,
-      props => {
-        const maxAllowed = React.Children.count(props.children) - 1;
-        if (props.activeIndex > maxAllowed) {
-          return new Error(
-            `Invalid activeIndex passed to SwitcherToggles, the maximum value allowed is ${maxAllowed}`,
-          );
-        }
-        return null;
-      },
-    ]),
+    activeIndex: customPropTypes.validateIndex,
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.ANIMATIONS),
       PropTypes.arrayOf(UIK.ANIMATIONS),
@@ -45,10 +34,10 @@ export default class SwitcherToggles extends React.Component {
         duration: PropTypes.number,
       }),
     ]),
-    as: BlockElement.asPropType,
-    children: PropTypes.node.isRequired,
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
+    children: PropTypes.node,
     className: PropTypes.string,
-    defaultIndex: PropTypes.number,
+    defaultIndex: customPropTypes.validateIndex,
     onBeforeHide: PropTypes.func,
     onBeforeShow: PropTypes.func,
     onHidden: PropTypes.func,
@@ -61,7 +50,6 @@ export default class SwitcherToggles extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'ul',
     className: '',
     defaultIndex: 0,
@@ -133,7 +121,7 @@ export default class SwitcherToggles extends React.Component {
       toggle: selectorToggle,
     });
 
-    const Element = isString(as) ? BlockElement : as;
+    const Element = getElementType(SwitcherToggles, this.props);
     return (
       <Element
         {...rest}

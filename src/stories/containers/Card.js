@@ -5,7 +5,7 @@ import {
   Base,
   Button,
   Card,
-  Container,
+  Block,
   Grid,
   Label,
   Link,
@@ -20,7 +20,7 @@ const cardContent = faker.lorem.paragraph();
 
 storiesOf('Card', module)
   .add('Basic Usage', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Card width={{ atMd: '1/2' }}>
         <Card.Title>Default</Card.Title>
         <Card.Content>
@@ -28,11 +28,11 @@ storiesOf('Card', module)
           sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </Card.Content>
       </Card>
-    </Container>
+    </Block>
   ))
 
   .add('Style modifiers', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atMd: '1/3' }} gutter="small" matchHeight>
         <Grid.Cell>
           <Card>
@@ -53,11 +53,11 @@ storiesOf('Card', module)
           </Card>
         </Grid.Cell>
       </Grid>
-    </Container>
+    </Block>
   ))
 
   .add('Hover modifier', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: '1/2' }} matchHeight>
         <Grid.Cell>
           <Card hover simple>
@@ -84,11 +84,11 @@ storiesOf('Card', module)
           </Card>
         </Grid.Cell>
       </Grid>
-    </Container>
+    </Block>
   ))
 
   .add('Size modifiers', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: '1/2' }} matchHeight>
         <Grid.Cell>
           <Card size="small">
@@ -103,11 +103,11 @@ storiesOf('Card', module)
           </Card>
         </Grid.Cell>
       </Grid>
-    </Container>
+    </Block>
   ))
 
   .add('Header & footer', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Card width={{ atMd: '1/2' }}>
         <Card.Header>
           <Grid gutter="small" alignItems="middle">
@@ -137,11 +137,11 @@ storiesOf('Card', module)
           </Button>
         </Card.Footer>
       </Card>
-    </Container>
+    </Block>
   ))
 
   .add('Media', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atMd: '1/2' }}>
         <Grid.Cell width="auto">
           <Card>
@@ -162,11 +162,11 @@ storiesOf('Card', module)
           </Card>
         </Grid.Cell>
       </Grid>
-    </Container>
+    </Block>
   ))
 
   .add('Horizontal alignment', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Card as={Grid} childWidth={{ atSm: '1/2' }} gutter="collapse" margin>
         <Card.Media
           alignTo="left"
@@ -190,15 +190,15 @@ storiesOf('Card', module)
           <p>{cardContent}</p>
         </Card.Body>
       </Card>
-    </Container>
+    </Block>
   ))
 
   .add('Badge', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Card width={{ atMd: '1/2' }}>
         <Card.Badge as={Label}>Badge</Card.Badge>
         <Card.Title>Title</Card.Title>
         <Card.Content>{cardContent}</Card.Content>
       </Card>
-    </Container>
+    </Block>
   ));

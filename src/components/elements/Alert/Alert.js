@@ -6,13 +6,16 @@ import classnames from 'classnames';
 import { get, isNil, noop } from 'lodash';
 import {
   buildClassName,
+  customPropTypes,
   generateSelector,
   getBaseRef,
+  getElementType,
   getOptionsString,
   hasChildType,
+  HTML,
   UIK,
 } from '../../../lib';
-import { BlockElement } from '../../base';
+import { Flex, Margin } from '../../common';
 import Close from '../Close';
 
 /**
@@ -23,7 +26,6 @@ export default class Alert extends React.Component {
   static displayName = 'Alert';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     animation: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.oneOf(UIK.ANIMATIONS),
@@ -32,7 +34,7 @@ export default class Alert extends React.Component {
         duration: PropTypes.number,
       }),
     ]),
-    as: BlockElement.asPropType,
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
     closeable: ExtraPropTypes.and([
@@ -48,6 +50,8 @@ export default class Alert extends React.Component {
     ]),
     closeOptions: PropTypes.shape(Close.propTypes),
     danger: PropTypes.bool,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
     onBeforeHide: PropTypes.func,
     onHide: PropTypes.func,
     primary: PropTypes.bool,
@@ -56,7 +60,6 @@ export default class Alert extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'div',
     className: '',
     closeable: false,
@@ -100,11 +103,14 @@ export default class Alert extends React.Component {
   render() {
     const {
       animation,
+      as,
       children,
       className,
       closeable,
       closeOptions,
       danger,
+      flex,
+      margin,
       onBeforeHide,
       onHide,
       primary,
@@ -114,14 +120,19 @@ export default class Alert extends React.Component {
     } = this.props;
 
     const ukClass = 'uk-alert';
-    const classes = classnames(className, ukClass, this.selector, {
-      [buildClassName(ukClass, 'danger')]: danger,
-      [buildClassName(ukClass, 'primary')]: primary,
-      [buildClassName(ukClass, 'success')]: success,
-      [buildClassName(ukClass, 'warning')]: warning,
-    });
-
-    const componentOptions = getOptionsString({ animation });
+    const classes = classnames(
+      className,
+      ukClass,
+      this.selector,
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      {
+        [buildClassName(ukClass, 'danger')]: danger,
+        [buildClassName(ukClass, 'primary')]: primary,
+        [buildClassName(ukClass, 'success')]: success,
+        [buildClassName(ukClass, 'warning')]: warning,
+      },
+    );
 
     const closeClasses = classnames(
       get(closeOptions, 'className', ''),
@@ -131,16 +142,17 @@ export default class Alert extends React.Component {
       },
     );
 
+    const Element = getElementType(Alert, this.props);
     return (
-      <BlockElement
+      <Element
         {...rest}
         className={classes}
         ref={this.handleRef}
-        data-uk-alert={componentOptions}
+        data-uk-alert={getOptionsString({ animation })}
       >
         {closeable && <Close {...closeOptions} className={closeClasses} />}
         {this.renderChildren(children)}
-      </BlockElement>
+      </Element>
     );
   }
 }

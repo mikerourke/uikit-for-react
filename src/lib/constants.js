@@ -218,6 +218,7 @@ export const UIK = {
   SLIDESHOW_ANIMATIONS: ['fade', 'pull', 'push', 'scale', 'slide'],
   SPACING_MODIFIERS: [...BASE_SIZES, 'auto', 'remove', 'xlarge'],
   STATUS_COLORS: ['muted', 'primary', 'success', 'warning', 'danger'],
+  TEXT_ALIGNMENTS: [...HORIZONTAL_POSITIONS, 'justify'],
   TEXT_VERTICAL_MODIFIERS: ['baseline', 'top', 'middle', 'bottom'],
   VERTICAL_POSITIONS: ['top', 'center', 'bottom'],
 };

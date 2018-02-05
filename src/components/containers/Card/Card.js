@@ -2,8 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes, hasChildType } from '../../../lib';
-import { BlockElement } from '../../base';
+import {
+  buildClassName,
+  customPropTypes,
+  getElementType,
+  hasChildType,
+} from '../../../lib';
+import { Margin } from '../../common';
 import CardBadge from './CardBadge';
 import CardBody from './CardBody';
 import CardContent from './CardContent';
@@ -16,10 +21,9 @@ export default class Card extends React.Component {
   static displayName = 'Card';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     as: customPropTypes.customOrStringElement('div'),
     children: ExtraPropTypes.and([
-      PropTypes.node.isRequired,
+      PropTypes.node,
       props => {
         if (
           hasChildType(props.children, CardBody) &&
@@ -34,6 +38,7 @@ export default class Card extends React.Component {
     ]),
     className: PropTypes.string,
     hover: PropTypes.bool,
+    margin: Margin.propTypes,
     primary: ExtraPropTypes.mutuallyExclusiveTrueProps(
       'primary',
       'secondary',
@@ -45,7 +50,6 @@ export default class Card extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'div',
     className: '',
     hover: false,
@@ -64,9 +68,11 @@ export default class Card extends React.Component {
 
   render() {
     const {
+      as,
       children,
       className,
       hover,
+      margin,
       primary,
       secondary,
       simple,
@@ -74,24 +80,25 @@ export default class Card extends React.Component {
       ...rest
     } = this.props;
 
-    const ukClass = 'uk-card';
     const classes = classnames(
       className,
-      ukClass,
+      'uk-card',
       buildClassName('card', size),
+      Margin.getClasses(margin),
       {
-        [buildClassName(ukClass, 'default')]: !primary && !secondary && !simple,
-        [buildClassName(ukClass, 'body')]: !hasChildType(children, CardBody),
-        [buildClassName(ukClass, 'hover')]: hover,
-        [buildClassName(ukClass, 'primary')]: primary,
-        [buildClassName(ukClass, 'secondary')]: secondary,
+        [buildClassName('card', 'default')]: !primary && !secondary && !simple,
+        [buildClassName('card', 'body')]: !hasChildType(children, CardBody),
+        [buildClassName('card', 'hover')]: hover,
+        [buildClassName('card', 'primary')]: primary,
+        [buildClassName('card', 'secondary')]: secondary,
       },
     );
 
+    const Element = getElementType(Card, this.props);
     return (
-      <BlockElement {...rest} className={classes}>
+      <Element {...rest} className={classes}>
         {children}
-      </BlockElement>
+      </Element>
     );
   }
 }

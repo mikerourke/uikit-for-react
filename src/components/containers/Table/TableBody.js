@@ -1,25 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { customPropTypes } from '../../../lib';
-import { BlockElement } from '../../base';
+import { customPropTypes, getElementType } from '../../../lib';
 
 export default class TableBody extends React.Component {
   static displayName = 'TableBody';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     as: customPropTypes.customOrStringElement('tbody'),
     children: PropTypes.node,
     className: PropTypes.string,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'tbody',
     className: '',
   };
 
   render() {
-    return <BlockElement {...this.props} />;
+    const { as, ...rest } = this.props;
+    const Element = getElementType(TableBody, this.props);
+    return <Element {...rest} />;
   }
 }

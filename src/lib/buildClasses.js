@@ -1,5 +1,7 @@
+import classnames from 'classnames';
 import {
   first,
+  get,
   isBoolean,
   isNil,
   isPlainObject,
@@ -41,7 +43,7 @@ const sanitizeClassName = className =>
  * console.log(buildClassName('background', 'blend', 'multiply'));
  * > uk-background-blend-multiply
  */
-export default function buildClassName(...args) {
+export const buildClassName = (...args) => {
   if (isUndefined(args))
     throw new Error('Missing class element in buildClassName');
 
@@ -64,4 +66,14 @@ export default function buildClassName(...args) {
     .join('-');
 
   return sanitizeClassName(classString);
-}
+};
+
+export const buildBreakpointClasses = (classPrefix, propValue) =>
+  classnames(
+    buildClassName(classPrefix, propValue),
+    buildClassName(classPrefix, get(propValue, 'default')),
+    buildClassName(classPrefix, get(propValue, 'atSm'), '@s'),
+    buildClassName(classPrefix, get(propValue, 'atMd'), '@m'),
+    buildClassName(classPrefix, get(propValue, 'atLg'), '@l'),
+    buildClassName(classPrefix, get(propValue, 'atXl'), '@xl'),
+  );

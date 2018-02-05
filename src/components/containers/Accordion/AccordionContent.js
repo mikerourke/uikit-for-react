@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { BlockElement } from '../../base';
+import { customPropTypes, getElementType, HTML } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 
 /**
  * Content part for each accordion item.
@@ -11,21 +12,31 @@ export default class AccordionContent extends React.Component {
   static displayName = 'AccordionContent';
 
   static propTypes = {
-    ...BlockElement.propTypes,
-    as: BlockElement.asPropType,
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'div',
     className: '',
   };
 
   render() {
-    const { className, ...rest } = this.props;
-    const classes = classnames(className, 'uk-accordion-content');
-    return <BlockElement {...rest} className={classes} />;
+    const { as, className, flex, margin, width, ...rest } = this.props;
+
+    const classes = classnames(
+      className,
+      'uk-accordion-content',
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
+
+    const Element = getElementType(AccordionContent, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

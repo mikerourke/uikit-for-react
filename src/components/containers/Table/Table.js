@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName } from '../../../lib';
-import { BlockElement } from '../../base';
+import { buildClassName, customPropTypes, getElementType } from '../../../lib';
 import TableBody from './TableBody';
 import TableCell from './TableCell';
 import TableFooter from './TableFooter';
@@ -14,12 +13,7 @@ export default class Table extends React.Component {
   static displayName = 'Table';
 
   static propTypes = {
-    ...BlockElement.propTypes,
-    as: PropTypes.oneOfType([
-      PropTypes.oneOf(['table']),
-      PropTypes.element,
-      PropTypes.func,
-    ]),
+    as: customPropTypes.customOrStringElement('table'),
     children: PropTypes.node,
     className: PropTypes.string,
     divider: PropTypes.bool,
@@ -32,7 +26,7 @@ export default class Table extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
+    as: 'table',
     className: '',
     divider: false,
     hover: false,
@@ -52,6 +46,7 @@ export default class Table extends React.Component {
 
   render() {
     const {
+      as,
       className,
       divider,
       hover,
@@ -74,6 +69,7 @@ export default class Table extends React.Component {
       [buildClassName(ukClass, 'striped')]: striped,
     });
 
-    return <BlockElement {...rest} as="table" className={classes} />;
+    const Element = getElementType(Table, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Block, Container, Grid, Marker } from '../../components';
+import { Block, Grid, Marker } from '../../components';
 
 const darkImage = 'https://getuikit.com/docs/images/dark.jpg';
 const lightImage = 'https://getuikit.com/docs/images/light.jpg';
@@ -9,7 +9,7 @@ const lightImage = 'https://getuikit.com/docs/images/light.jpg';
 Marker.displayName = 'Marker';
 
 storiesOf('Marker', module).add('Basic Usage', () => (
-  <Container margin={{ all: 'small' }}>
+  <Block margin={{ all: 'small' }}>
     <Grid childWidth="1/2">
       <Grid.Cell>
         <Block inline inverse="dark">
@@ -58,5 +58,5 @@ storiesOf('Marker', module).add('Basic Usage', () => (
         </Block>
       </Grid.Cell>
     </Grid>
-  </Container>
+  </Block>
 ));

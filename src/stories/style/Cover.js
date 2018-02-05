@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Container, Cover, Video } from '../../components';
+import { Block, Cover, Video } from '../../components';
 
 Cover.displayName = 'Cover';
 
@@ -8,15 +8,15 @@ const mediaLink = 'https://getuikit.com/docs/images/dark.jpg';
 
 storiesOf('Cover', module)
   .add('Basic Usage', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Cover.Container height="medium">
         <Cover src={mediaLink} />
       </Cover.Container>
-    </Container>
+    </Block>
   ))
 
   .add('Video', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Cover.Container height="medium">
         <Cover as={Video} autoplay loop muted playsInline>
           <Video.Source
@@ -29,11 +29,11 @@ storiesOf('Cover', module)
           />
         </Cover>
       </Cover.Container>
-    </Container>
+    </Block>
   ))
 
   .add('Iframe', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Cover.Container height="medium">
         <Cover
           as="iframe"
@@ -44,21 +44,21 @@ storiesOf('Cover', module)
           allowFullScreen
         />
       </Cover.Container>
-    </Container>
+    </Block>
   ))
 
   .add('Responsive height', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Cover.Container aspectRatio={{ height: 200, width: 400 }}>
         <Cover src={mediaLink} />
       </Cover.Container>
-    </Container>
+    </Block>
   ))
 
   .add('Viewport height', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Cover.Container viewport>
         <Cover src={mediaLink} />
       </Cover.Container>
-    </Container>
+    </Block>
   ));

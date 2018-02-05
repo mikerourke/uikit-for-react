@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { BlockElement } from '../../base';
-import { generateSelector } from '../../../lib';
+import {
+  customPropTypes,
+  generateSelector,
+  getElementType,
+  HTML,
+} from '../../../lib';
 import SwitcherContent from './SwitcherContent';
 import SwitcherToggles from './SwitcherToggles';
 
@@ -10,14 +14,12 @@ export default class SwitcherSwitchable extends React.Component {
   static displayName = 'SwitcherSwitchable';
 
   static propTypes = {
-    ...BlockElement.propTypes,
-    as: BlockElement.asPropType,
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'div',
     className: '',
   };
@@ -51,9 +53,8 @@ export default class SwitcherSwitchable extends React.Component {
   renderChildren = children => this.updateSwitchElements(children);
 
   render() {
-    const { children, ...rest } = this.props;
-    return (
-      <BlockElement {...rest}>{this.renderChildren(children)}</BlockElement>
-    );
+    const { as, children, ...rest } = this.props;
+    const Element = getElementType(SwitcherSwitchable, this.props);
+    return <Element {...rest}>{this.renderChildren(children)}</Element>;
   }
 }

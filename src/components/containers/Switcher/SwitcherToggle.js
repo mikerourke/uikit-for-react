@@ -1,21 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isString } from 'lodash';
-import { BlockElement } from '../../base';
+import { customPropTypes, getElementType, HTML } from '../../../lib';
 
 export default class SwitcherToggle extends React.Component {
   static displayName = 'SwitcherToggle';
 
   static propTypes = {
-    ...BlockElement.propTypes,
-    as: BlockElement.asPropType,
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
     href: PropTypes.string,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'li',
     className: '',
     href: '#',
@@ -24,9 +22,9 @@ export default class SwitcherToggle extends React.Component {
   render() {
     const { as, children, href, ...rest } = this.props;
     const isAsString = isString(as);
-    const Element = isAsString ? BlockElement : as;
+    const Element = getElementType(SwitcherToggle, this.props);
     return (
-      <Element {...rest} as={as}>
+      <Element {...rest}>
         {isAsString ? <a href={href}>{children}</a> : children}
       </Element>
     );

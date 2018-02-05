@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Button, Container, Grid, Heading, Lightbox } from '../../components';
+import { Button, Block, Grid, Heading, Lightbox } from '../../components';
 
 Lightbox.displayName = 'Lightbox';
 
@@ -18,12 +18,12 @@ class SimpleLightbox extends React.Component {
 
   render() {
     return (
-      <Container margin={{ all: 'large' }}>
+      <Block margin={{ all: 'large' }}>
         <Button onClick={() => this.setState({ shown: !this.state.shown })}>
           Open Lightbox
         </Button>
         <Lightbox shown={this.state.shown}>{this.props.children}</Lightbox>
-      </Container>
+      </Block>
     );
   }
 }
@@ -65,15 +65,15 @@ storiesOf('Lightbox', module)
   ))
 
   .add('Animations', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <AnimationLightbox animationName="Slide" />
       <AnimationLightbox animationName="Fade" />
       <AnimationLightbox animationName="Scale" />
-    </Container>
+    </Block>
   ))
 
   .add('Panel API and Event Listeners', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Lightbox.Panel
         onBeforeHide={action('onBeforeHide')}
         onBeforeItemHide={action('onBeforeItemHide')}
@@ -89,5 +89,5 @@ storiesOf('Lightbox', module)
       >
         <Lightbox.Item source={imageLinks[0]} caption="Hooray" />
       </Lightbox.Panel>
-    </Container>
+    </Block>
   ));

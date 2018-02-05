@@ -1,13 +1,13 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Block, Card, Container, Grid } from '../../components';
+import { Block, Card, Grid } from '../../components';
 
 Grid.displayName = 'Grid';
 
 storiesOf('Grid', module)
   .add('Basic Usage', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: 'expand' }} textAlign="center">
         <Grid.Cell>
           <Card>Item</Card>
@@ -19,11 +19,11 @@ storiesOf('Grid', module)
           <Card>Item</Card>
         </Grid.Cell>
       </Grid>
-    </Container>
+    </Block>
   ))
 
   .add('Gutter modifiers', () => (
-    <Container margin={{ all: 'large' }} nextRow={{ spacing: 'large' }}>
+    <Block margin={{ all: 'large' }} nextRow={{ spacing: 'large' }}>
       {['small', 'medium', 'large'].map(gutter => (
         <Grid
           key={gutter}
@@ -63,11 +63,11 @@ storiesOf('Grid', module)
           </Block>
         </Grid.Cell>
       </Grid>
-    </Container>
+    </Block>
   ))
 
   .add('Nested grid', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth="1/2" textAlign="center">
         <Grid.Cell>
           <Card>Item</Card>
@@ -83,21 +83,21 @@ storiesOf('Grid', module)
           </Grid>
         </Grid.Cell>
       </Grid>
-    </Container>
+    </Block>
   ))
 
   .add('Divider modifier', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: 'expand' }} divider>
         <Grid.Cell>{faker.lorem.paragraph()}</Grid.Cell>
         <Grid.Cell>{faker.lorem.paragraph()}</Grid.Cell>
         <Grid.Cell>{faker.lorem.paragraph()}</Grid.Cell>
       </Grid>
-    </Container>
+    </Block>
   ))
 
   .add('Match height', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: 'expand' }} textAlign="center" matchHeight>
         <Grid.Cell>
           <Card>Item</Card>
@@ -113,11 +113,11 @@ storiesOf('Grid', module)
           </Card>
         </Grid.Cell>
       </Grid>
-    </Container>
+    </Block>
   ))
 
   .add('Match only one cell', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: 'expand' }}>
         <Grid.Cell matchHeight>
           <Card>
@@ -130,11 +130,11 @@ storiesOf('Grid', module)
           <p>{faker.lorem.paragraph()}</p>
         </Grid.Cell>
       </Grid>
-    </Container>
+    </Block>
   ))
 
   .add('Grids and width', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid textAlign="center">
         <Grid.Cell width={{ atMd: 'auto' }}>
           <Card>Auto</Card>
@@ -146,11 +146,11 @@ storiesOf('Grid', module)
           <Card>Expand</Card>
         </Grid.Cell>
       </Grid>
-    </Container>
+    </Block>
   ))
 
   .add('Child width', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: '1/2', atMd: '1/3' }} textAlign="center">
         <Grid.Cell>
           <Card>Item</Card>
@@ -162,11 +162,11 @@ storiesOf('Grid', module)
           <Card>Item</Card>
         </Grid.Cell>
       </Grid>
-    </Container>
+    </Block>
   ))
 
   .add('Grid and flex', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid
         gutter="small"
         childWidth={{ atSm: '1/4' }}
@@ -192,11 +192,11 @@ storiesOf('Grid', module)
           <Card>Item 6</Card>
         </Grid.Cell>
       </Grid>
-    </Container>
+    </Block>
   ))
 
   .add('Component attributes', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: '1/2' }} nextRow={{ spacing: 'large' }}>
         <Grid.Cell>
           <Card>Item</Card>
@@ -208,5 +208,5 @@ storiesOf('Grid', module)
           <Card>Item</Card>
         </Grid.Cell>
       </Grid>
-    </Container>
+    </Block>
   ));

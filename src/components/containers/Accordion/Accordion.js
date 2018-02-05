@@ -8,10 +8,11 @@ import {
   customPropTypes,
   generateSelector,
   getBaseRef,
+  getElementType,
   getOptionsString,
   HTML,
 } from '../../../lib';
-import { BlockElement } from '../../base';
+import { Flex, Margin, Width } from '../../common';
 import AccordionContent from './AccordionContent';
 import AccordionPanel from './AccordionPanel';
 import AccordionTitle from './AccordionTitle';
@@ -25,7 +26,6 @@ export default class Accordion extends React.Component {
   static displayName = 'Accordion';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     animation: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.shape({
@@ -38,7 +38,9 @@ export default class Accordion extends React.Component {
     className: PropTypes.string,
     collapsible: PropTypes.bool,
     defaultIndex: customPropTypes.validateIndex,
+    flex: Flex.propTypes,
     hideOpenAnimation: PropTypes.bool,
+    margin: Margin.propTypes,
     multiple: PropTypes.bool,
     onBeforeHide: PropTypes.func,
     onBeforeShow: PropTypes.func,
@@ -48,10 +50,10 @@ export default class Accordion extends React.Component {
     onShown: PropTypes.func,
     openIndex: customPropTypes.validateIndexArray,
     transition: PropTypes.oneOf(HTML.CSS_EASING),
+    width: Width.propTypes,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     animation: {
       active: true,
       duration: 200,
@@ -128,10 +130,13 @@ export default class Accordion extends React.Component {
   render() {
     const {
       animation,
+      as,
       className,
       collapsible,
       defaultIndex,
+      flex,
       hideOpenAnimation,
+      margin,
       multiple,
       onBeforeShow,
       onShow,
@@ -141,10 +146,18 @@ export default class Accordion extends React.Component {
       onHidden,
       openIndex,
       transition,
+      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(className, this.selector, 'uk-accordion');
+    const classes = classnames(
+      className,
+      this.selector,
+      'uk-accordion',
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
 
     const componentOptions = getOptionsString({
       active: defaultIndex,
@@ -154,8 +167,9 @@ export default class Accordion extends React.Component {
       transition,
     });
 
+    const Element = getElementType(Accordion, this.props);
     return (
-      <BlockElement
+      <Element
         {...rest}
         className={classes}
         ref={this.handleRef}

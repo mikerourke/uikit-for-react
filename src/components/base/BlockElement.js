@@ -29,6 +29,7 @@ export default class BlockElement extends React.Component {
     column: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.BASE_WIDTHS),
       PropTypes.shape({
+        default: PropTypes.oneOf(UIK.BASE_WIDTHS),
         atSm: PropTypes.oneOf(UIK.BASE_WIDTHS),
         atMd: PropTypes.oneOf(UIK.BASE_WIDTHS),
         atLg: PropTypes.oneOf(UIK.BASE_WIDTHS),
@@ -130,6 +131,7 @@ export default class BlockElement extends React.Component {
       buildClassName('child', 'width', get(childWidth, 'atXl'), '@xl'),
       buildClassName('column', column),
       buildClassName('column', get(column, 'width')),
+      buildClassName('column', get(column, 'default')),
       buildClassName('column', get(column, 'atSm'), '@s'),
       buildClassName('column', get(column, 'atMd'), '@m'),
       buildClassName('column', get(column, 'atLg'), '@l'),

@@ -4,7 +4,6 @@ import { storiesOf } from '@storybook/react';
 import {
   Block,
   Comment,
-  Container,
   Grid,
   Link,
   SubNav,
@@ -16,7 +15,7 @@ const avatarLink = 'https://getuikit.com/docs/images/avatar.jpg';
 
 storiesOf('Comment', module)
   .add('Basic Usage', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Comment>
         <Grid as={Comment.Header} alignItems="middle">
           <Grid.Cell width="auto">
@@ -36,11 +35,11 @@ storiesOf('Comment', module)
           <p>{faker.lorem.paragraph()}</p>
         </Comment.Body>
       </Comment>
-    </Container>
+    </Block>
   ))
 
   .add('Primary modifier', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Comment primary>
         <Grid as={Comment.Header} alignItems="middle">
           <Grid.Cell width="auto">
@@ -60,12 +59,12 @@ storiesOf('Comment', module)
           <p>{faker.lorem.paragraph()}</p>
         </Comment.Body>
       </Comment>
-    </Container>
+    </Block>
   ))
 
   // TODO: Fix this, the list style isn't working
   .add('Comment list', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Comment.List>
         <Comment visibleToggle>
           <Comment.Header position="relative">
@@ -163,5 +162,5 @@ storiesOf('Comment', module)
           </Comment>
         </Comment.List>
       </Comment.List>
-    </Container>
+    </Block>
   ));
