@@ -16,8 +16,10 @@ export default class Offcanvas extends React.Component {
 
   static propTypes = {
     as: customPropTypes.customOrStringElement('form'),
+    bgClose: PropTypes.bool,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
+    escClose: PropTypes.bool,
     flip: PropTypes.bool,
     mode: PropTypes.oneOf(['none', 'push', 'reveal', 'slide']),
     onBeforeHide: PropTypes.func,
@@ -31,7 +33,9 @@ export default class Offcanvas extends React.Component {
 
   static defaultProps = {
     as: 'form',
+    bgClose: true,
     className: '',
+    escClose: true,
     flip: false,
     onBeforeHide: noop,
     onBeforeShow: noop,
@@ -67,7 +71,9 @@ export default class Offcanvas extends React.Component {
   render() {
     const {
       as,
+      bgClose,
       className,
+      escClose,
       flip,
       mode,
       onBeforeHide,
@@ -81,7 +87,13 @@ export default class Offcanvas extends React.Component {
     } = this.props;
 
     const classes = classnames(className, this.selector);
-    const componentOptions = getOptionsString({ flip, mode, overlay });
+    const componentOptions = getOptionsString({
+      bgClose,
+      escClose,
+      flip,
+      mode,
+      overlay,
+    });
 
     const Element = getElementType(Offcanvas, as);
     return (

@@ -8,6 +8,7 @@ import {
   getElementType,
   HTML,
 } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 
 export default class Container extends React.Component {
   static displayName = 'Container';
@@ -16,7 +17,10 @@ export default class Container extends React.Component {
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
     size: PropTypes.oneOf(['expand', 'large', 'small']),
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -25,15 +29,26 @@ export default class Container extends React.Component {
   };
 
   render() {
-    const { as, children, className, size, ...rest } = this.props;
+    const {
+      as,
+      children,
+      className,
+      flex,
+      margin,
+      size,
+      width,
+      ...rest
+    } = this.props;
 
-    const ukClass = 'uk-container';
     const classes = classnames(
       className,
-      ukClass,
-      buildClassName(ukClass, size),
+      'uk-container',
+      buildClassName('container', size),
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
       {
-        [buildClassName('inline')]: childrenHaveClass(children, 'position'),
+        'uk-inline': childrenHaveClass(children, 'position'),
       },
     );
 

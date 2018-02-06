@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes, getElementType } from '../../../lib';
+import { customPropTypes, getElementType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 import SearchIcon from './SearchIcon';
 import SearchInput from './SearchInput';
 
@@ -13,6 +14,7 @@ export default class Search extends React.Component {
     as: customPropTypes.customOrStringElement('form'),
     children: customPropTypes.restrictToChildTypes(SearchIcon, SearchInput),
     className: PropTypes.string,
+    flex: Flex.propTypes,
     icon: ExtraPropTypes.mutuallyExclusiveProps(
       ExtraPropTypes.elementType(SearchIcon),
       'icon',
@@ -24,6 +26,8 @@ export default class Search extends React.Component {
       'children',
     ),
     large: PropTypes.bool,
+    margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -36,13 +40,30 @@ export default class Search extends React.Component {
   static Input = SearchInput;
 
   render() {
-    const { as, children, className, icon, input, large, ...rest } = this.props;
+    const {
+      as,
+      children,
+      className,
+      flex,
+      icon,
+      input,
+      large,
+      margin,
+      width,
+      ...rest
+    } = this.props;
 
-    const ukClass = 'uk-search';
-    const classes = classnames(className, ukClass, {
-      [buildClassName(ukClass, 'default')]: !large,
-      [buildClassName(ukClass, 'large')]: large,
-    });
+    const classes = classnames(
+      className,
+      'uk-search',
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+      {
+        'uk-search-default': !large,
+        'uk-search-large': large,
+      },
+    );
 
     const Element = getElementType(Search, as);
     return (

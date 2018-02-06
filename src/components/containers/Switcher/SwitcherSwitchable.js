@@ -7,6 +7,7 @@ import {
   getElementType,
   HTML,
 } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 import SwitcherContent from './SwitcherContent';
 import SwitcherToggles from './SwitcherToggles';
 
@@ -17,6 +18,9 @@ export default class SwitcherSwitchable extends React.Component {
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -53,8 +57,28 @@ export default class SwitcherSwitchable extends React.Component {
   renderChildren = children => this.updateSwitchElements(children);
 
   render() {
-    const { as, children, ...rest } = this.props;
+    const {
+      as,
+      children,
+      className,
+      flex,
+      margin,
+      width,
+      ...rest
+    } = this.props;
+
+    const classes = classnames(
+      className,
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
+
     const Element = getElementType(SwitcherSwitchable, as);
-    return <Element {...rest}>{this.renderChildren(children)}</Element>;
+    return (
+      <Element {...rest} className={classes || undefined}>
+        {this.renderChildren(children)}
+      </Element>
+    );
   }
 }

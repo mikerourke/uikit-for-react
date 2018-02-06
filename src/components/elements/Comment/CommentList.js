@@ -2,15 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 
 export default class CommentList extends React.Component {
   static displayName = 'CommentList';
 
   static propTypes = {
     as: customPropTypes.customOrStringElement('ul'),
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
     nested: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -20,11 +24,26 @@ export default class CommentList extends React.Component {
   };
 
   render() {
-    const { as, children, className, nested, ...rest } = this.props;
+    const {
+      as,
+      children,
+      className,
+      flex,
+      margin,
+      nested,
+      width,
+      ...rest
+    } = this.props;
 
-    const classes = classnames(className, {
-      'uk-comment-list': !nested,
-    });
+    const classes = classnames(
+      className,
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+      {
+        'uk-comment-list': !nested,
+      },
+    );
 
     const Element = getElementType(CommentList, as);
     return (

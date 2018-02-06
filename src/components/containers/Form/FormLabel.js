@@ -33,6 +33,6 @@ export default class FormLabel extends React.Component {
     );
 
     const Element = getElementType(FormLabel, as);
-    return <Element {...rest} as="label" className={classes} />;
+    return <Element {...rest} className={classes} />;
   }
 }

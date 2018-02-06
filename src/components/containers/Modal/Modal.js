@@ -5,14 +5,15 @@ import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { isNil, noop } from 'lodash';
 import {
-  buildClassName,
   customPropTypes,
   generateIdentifier,
   generateSelector,
   getBaseRef,
   getElementType,
   getOptionsString,
+  getValidProps,
 } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 import ModalBody from './ModalBody';
 import ModalClose from './ModalClose';
 import ModalContent from './ModalContent';
@@ -31,7 +32,9 @@ export default class Modal extends React.Component {
     className: PropTypes.string,
     container: PropTypes.bool,
     escClose: PropTypes.bool,
+    flex: Flex.propTypes,
     full: PropTypes.bool,
+    margin: Margin.propTypes,
     onBeforeHide: PropTypes.func,
     onBeforeShow: PropTypes.func,
     onHidden: PropTypes.func,
@@ -41,6 +44,7 @@ export default class Modal extends React.Component {
     shown: PropTypes.bool,
     stack: PropTypes.bool,
     toggle: PropTypes.element,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -107,30 +111,29 @@ export default class Modal extends React.Component {
       className,
       container,
       escClose,
+      flex,
       full,
-      onBeforeHide,
-      onBeforeShow,
-      onHidden,
-      onHide,
-      onShow,
-      onShown,
-      shown,
+      margin,
       stack,
       toggle,
+      width,
       ...rest
     } = this.props;
 
-    const ukClass = 'uk-modal';
-    const classes = classnames(className, ukClass, this.selector, {
-      [buildClassName(ukClass, 'container')]: container,
-      [buildClassName(ukClass, 'full')]: full,
-    });
+    const classes = classnames(
+      className,
+      'uk-modal',
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+      this.selector,
+      {
+        'uk-modal-container': container,
+        'uk-modal-full': full,
+      },
+    );
 
-    const componentOptions = getOptionsString({
-      bgClose,
-      escClose,
-      stack,
-    });
+    const componentOptions = getOptionsString({ bgClose, escClose, stack });
 
     let Toggle;
     const identifier = generateIdentifier();
@@ -146,7 +149,7 @@ export default class Modal extends React.Component {
       <Fragment>
         {toggle && Toggle}
         <Element
-          {...rest}
+          {...getValidProps(Modal, rest)}
           className={classes}
           id={identifier}
           ref={this.handleRef}

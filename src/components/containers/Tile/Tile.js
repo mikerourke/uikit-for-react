@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes, getElementType } from '../../../lib';
+import { customPropTypes, getElementType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 
 export default class Tile extends React.Component {
   static displayName = 'Tile';
@@ -10,9 +11,12 @@ export default class Tile extends React.Component {
     as: customPropTypes.customOrStringElement('span'),
     children: PropTypes.node,
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
     muted: PropTypes.bool,
     primary: PropTypes.bool,
     secondary: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -24,15 +28,31 @@ export default class Tile extends React.Component {
   };
 
   render() {
-    const { as, className, muted, primary, secondary, ...rest } = this.props;
+    const {
+      as,
+      className,
+      flex,
+      margin,
+      muted,
+      primary,
+      secondary,
+      width,
+      ...rest
+    } = this.props;
 
-    const ukClass = 'uk-tile';
-    const classes = classnames(className, ukClass, {
-      [buildClassName(ukClass, 'default')]: !muted && !primary && !secondary,
-      [buildClassName(ukClass, 'muted')]: muted,
-      [buildClassName(ukClass, 'primary')]: primary,
-      [buildClassName(ukClass, 'secondary')]: secondary,
-    });
+    const classes = classnames(
+      className,
+      'uk-tile',
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+      {
+        'uk-tile-default': !muted && !primary && !secondary,
+        'uk-tile-muted': muted,
+        'uk-tile-primary': primary,
+        'uk-tile-secondary': secondary,
+      },
+    );
 
     const Element = getElementType(Tile, as);
     return <Element {...rest} className={classes} />;

@@ -8,6 +8,7 @@ import {
   HTML,
   UIK,
 } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 
 export default class Section extends React.Component {
   static displayName = 'Section';
@@ -17,9 +18,12 @@ export default class Section extends React.Component {
     background: PropTypes.oneOf(UIK.BACKGROUND_COLORS),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
     overlap: PropTypes.bool,
     padding: PropTypes.oneOf(['xsmall', 'small', 'large', 'xlarge', 'remove']),
     preserveColor: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -34,22 +38,27 @@ export default class Section extends React.Component {
       as,
       background,
       className,
+      flex,
+      margin,
       overlap,
       padding,
       preserveColor,
+      width,
       ...rest
     } = this.props;
 
-    const ukClass = 'uk-section';
     const paddingClass = padding.replace('remove', 'remove-vertical');
     const classes = classnames(
       className,
-      ukClass,
-      buildClassName(ukClass, background),
-      buildClassName(ukClass, paddingClass),
+      'uk-section',
+      buildClassName('section', background),
+      buildClassName('section', paddingClass),
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
       {
-        [buildClassName(ukClass, 'overlap')]: overlap,
-        [buildClassName(ukClass, 'preserve', 'color')]: preserveColor,
+        'uk-section-overlap': overlap,
+        'uk-section-preserve-color': preserveColor,
       },
     );
 

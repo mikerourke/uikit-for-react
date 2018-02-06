@@ -5,17 +5,17 @@ import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get, isNil, noop } from 'lodash';
 import {
-  buildClassName,
   customPropTypes,
   generateSelector,
   getBaseRef,
   getElementType,
   getOptionsString,
+  getValidProps,
   hasChildType,
   HTML,
   UIK,
 } from '../../../lib';
-import { Flex, Margin } from '../../common';
+import { Flex, Margin, Width } from '../../common';
 import Close from '../Close';
 
 /**
@@ -57,6 +57,7 @@ export default class Alert extends React.Component {
     primary: PropTypes.bool,
     success: PropTypes.bool,
     warning: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -111,47 +112,49 @@ export default class Alert extends React.Component {
       danger,
       flex,
       margin,
-      onBeforeHide,
-      onHide,
       primary,
       success,
       warning,
+      width,
       ...rest
     } = this.props;
 
-    const ukClass = 'uk-alert';
     const classes = classnames(
       className,
-      ukClass,
+      'uk-alert',
       this.selector,
       Flex.getClasses(flex),
       Margin.getClasses(margin),
+      Width.getClasses(width),
       {
-        [buildClassName(ukClass, 'danger')]: danger,
-        [buildClassName(ukClass, 'primary')]: primary,
-        [buildClassName(ukClass, 'success')]: success,
-        [buildClassName(ukClass, 'warning')]: warning,
+        'uk-alert-danger': danger,
+        'uk-alert-primary': primary,
+        'uk-alert-success': success,
+        'uk-alert-warning': warning,
       },
     );
 
-    const closeClasses = classnames(
-      get(closeOptions, 'className', ''),
-      buildClassName(ukClass, 'close'),
-      {
-        [buildClassName('close', 'large')]: get(closeOptions, 'large'),
-      },
-    );
+    const closeProps = {
+      ...closeOptions,
+      className: classnames(
+        get(closeOptions, 'className', ''),
+        'uk-alert-close',
+        {
+          'uk-close-large': get(closeOptions, 'large'),
+        },
+      ),
+    };
 
     const componentOptions = getOptionsString({ animation });
     const Element = getElementType(Alert, as);
     return (
       <Element
-        {...rest}
+        {...getValidProps(Alert, rest)}
         className={classes}
         ref={this.handleRef}
         data-uk-alert={componentOptions}
       >
-        {closeable && <Close {...closeOptions} className={closeClasses} />}
+        {closeable && <Close {...closeProps} />}
         {this.renderChildren(children)}
       </Element>
     );

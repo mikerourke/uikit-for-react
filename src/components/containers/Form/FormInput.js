@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { isNil } from 'lodash';
 import {
@@ -20,8 +21,11 @@ export default class FormInput extends React.Component {
     className: PropTypes.string,
     danger: PropTypes.bool,
     flex: Flex.propTypes,
-    // TODO: Add validation to ensure "width" isn't specified.
-    formWidth: PropTypes.oneOf(UIK.FORM_WIDTHS),
+    formWidth: ExtraPropTypes.mutuallyExclusiveProps(
+      PropTypes.oneOf(UIK.FORM_WIDTHS),
+      'formWidth',
+      'width',
+    ),
     iconOptions: PropTypes.shape({
       ...Icon.propTypes,
       as: PropTypes.oneOf(['a', 'button', 'span']),

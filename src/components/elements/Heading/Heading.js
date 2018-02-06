@@ -9,9 +9,10 @@ export default class Heading extends React.Component {
   static displayName = 'Heading';
 
   static propTypes = {
+    ...Text.propTypes,
     as: customPropTypes.customOrStringElement(HTML.HEADING_ELEMENTS),
     bullet: PropTypes.bool,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     className: PropTypes.string,
     divider: PropTypes.bool,
     headingClass: PropTypes.oneOf(HTML.HEADING_ELEMENTS),
@@ -24,6 +25,7 @@ export default class Heading extends React.Component {
   };
 
   static defaultProps = {
+    ...Text.defaultProps,
     as: 'h1',
     bullet: false,
     className: '',
@@ -46,17 +48,16 @@ export default class Heading extends React.Component {
       ...rest
     } = this.props;
 
-    const ukClass = 'uk-heading';
     const classes = classnames(
       className,
-      ukClass,
-      buildClassName(headingClass),
-      buildClassName(ukClass, 'line', line),
+      'uk-heading',
+      `uk-${headingClass}`,
+      buildClassName('heading', 'line', line),
       {
-        [buildClassName(ukClass, 'bullet')]: bullet,
-        [buildClassName(ukClass, 'divider')]: divider,
-        [buildClassName(ukClass, 'hero')]: hero,
-        [buildClassName(ukClass, 'primary')]: primary,
+        'uk-heading-bullet': bullet,
+        'uk-heading-divider': divider,
+        'uk-heading-hero': hero,
+        'uk-heading-primary': primary,
       },
     );
 

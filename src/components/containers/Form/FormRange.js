@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes, getElementType } from '../../../lib';
+import { customPropTypes, getElementType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 
 export default class FormRange extends React.Component {
   static displayName = 'FormRange';
@@ -11,7 +12,10 @@ export default class FormRange extends React.Component {
     blank: PropTypes.bool,
     className: PropTypes.string,
     danger: PropTypes.bool,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
     success: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -23,13 +27,30 @@ export default class FormRange extends React.Component {
   };
 
   render() {
-    const { as, blank, className, danger, success, ...rest } = this.props;
+    const {
+      as,
+      blank,
+      className,
+      danger,
+      flex,
+      margin,
+      success,
+      width,
+      ...rest
+    } = this.props;
 
-    const classes = classnames(className, 'uk-range', {
-      'uk-form-blank': blank,
-      'uk-form-danger': danger,
-      'uk-form-success': success,
-    },);
+    const classes = classnames(
+      className,
+      'uk-range',
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+      {
+        'uk-form-blank': blank,
+        'uk-form-danger': danger,
+        'uk-form-success': success,
+      },
+    );
 
     const Element = getElementType(FormRange, as);
     return <Element {...rest} type="range" className={classes} />;

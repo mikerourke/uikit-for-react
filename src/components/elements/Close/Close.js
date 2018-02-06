@@ -1,15 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes, getElementType } from '../../../lib';
+import { customPropTypes, getElementType } from '../../../lib';
+import { Align, Flex, Margin, Width } from '../../common';
 
 export default class Close extends React.Component {
   static displayName = 'Close';
 
   static propTypes = {
+    align: Align.propTypes,
     as: customPropTypes.customOrStringElement('a', 'button'),
     className: PropTypes.string,
+    flex: Flex.propTypes,
     large: PropTypes.bool,
+    margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -19,12 +24,28 @@ export default class Close extends React.Component {
   };
 
   render() {
-    const { as, className, large, ...rest } = this.props;
+    const {
+      align,
+      as,
+      className,
+      flex,
+      large,
+      margin,
+      width,
+      ...rest
+    } = this.props;
 
-    const ukClass = 'uk-close';
-    const classes = classnames(className, ukClass, {
-      [buildClassName(ukClass, 'large')]: large,
-    });
+    const classes = classnames(
+      className,
+      'uk-close',
+      Align.getClasses(align),
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+      {
+        'uk-close-large': large,
+      },
+    );
 
     const Element = getElementType(Close, as);
     return <Element {...rest} className={classes} data-uk-close="" />;

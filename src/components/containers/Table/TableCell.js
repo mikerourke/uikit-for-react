@@ -1,13 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get } from 'lodash';
-import {
-  buildClassName,
-  customPropTypes,
-  getElementType,
-  UIK,
-} from '../../../lib';
+import { buildClassName, customPropTypes, getElementType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 import { Link } from '../../elements';
 
 export default class TableCell extends React.Component {
@@ -18,20 +13,13 @@ export default class TableCell extends React.Component {
     children: PropTypes.node,
     className: PropTypes.string,
     expand: PropTypes.bool,
+    flex: Flex.propTypes,
     link: PropTypes.bool,
+    margin: Margin.propTypes,
     middle: PropTypes.bool,
     shrink: PropTypes.bool,
     textWrapping: PropTypes.oneOf(['nowrap', 'truncate']),
-    width: PropTypes.oneOfType([
-      PropTypes.oneOf(UIK.ALL_WIDTHS),
-      PropTypes.shape({
-        default: PropTypes.oneOf(UIK.ALL_WIDTHS),
-        atSm: PropTypes.oneOf(UIK.ALL_WIDTHS),
-        atMd: PropTypes.oneOf(UIK.ALL_WIDTHS),
-        atLg: PropTypes.oneOf(UIK.ALL_WIDTHS),
-        atXl: PropTypes.oneOf(UIK.ALL_WIDTHS),
-      }),
-    ]),
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -64,7 +52,9 @@ export default class TableCell extends React.Component {
       children,
       className,
       expand,
+      flex,
       link,
+      margin,
       middle,
       shrink,
       textWrapping,
@@ -72,27 +62,23 @@ export default class TableCell extends React.Component {
       ...rest
     } = this.props;
 
-    const ukClass = 'uk-table';
     const classes = classnames(
       className,
       buildClassName('text', textWrapping),
-      buildClassName('width', width),
-      buildClassName('width', get(width, 'default')),
-      buildClassName('width', get(width, 'atSm'), '@s'),
-      buildClassName('width', get(width, 'atMd'), '@m'),
-      buildClassName('width', get(width, 'atLg'), '@l'),
-      buildClassName('width', get(width, 'atXl'), '@xl'),
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
       {
-        [buildClassName(ukClass, 'expand')]: expand,
-        [buildClassName(ukClass, 'link')]: link,
-        [buildClassName(ukClass, 'middle')]: middle,
-        [buildClassName(ukClass, 'shrink')]: shrink,
+        'uk-table-expand': expand,
+        'uk-table-link': link,
+        'uk-table-middle': middle,
+        'uk-table-shrink': shrink,
       },
     );
 
     const Element = getElementType(TableCell, as);
     return (
-      <Element {...rest} className={classes}>
+      <Element {...rest} className={classes || undefined}>
         {this.renderChildren(children)}
       </Element>
     );

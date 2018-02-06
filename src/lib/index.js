@@ -17,6 +17,8 @@ export { default as getElementType } from './getElementType';
 
 export { default as getOptionsString } from './getOptionsString';
 
+export { default as getValidProps } from './getValidProps';
+
 export { default as joinListProp } from './joinListProp';
 
 export { generateIdentifier, generateSelector } from './generateRandom';

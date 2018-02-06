@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes, getElementType } from '../../../lib';
+import { customPropTypes, getElementType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 import ListItem from './ListItem';
 
 export default class List extends React.Component {
@@ -13,8 +14,11 @@ export default class List extends React.Component {
     children: customPropTypes.restrictToChildTypes(ListItem),
     className: PropTypes.string,
     divider: PropTypes.bool,
+    flex: Flex.propTypes,
     large: PropTypes.bool,
+    margin: Margin.propTypes,
     striped: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -34,18 +38,27 @@ export default class List extends React.Component {
       bullet,
       className,
       divider,
+      flex,
       large,
+      margin,
       striped,
+      width,
       ...rest
     } = this.props;
 
-    const ukClass = 'uk-list';
-    const classes = classnames(className, ukClass, {
-      [buildClassName(ukClass, 'bullet')]: bullet,
-      [buildClassName(ukClass, 'divider')]: divider,
-      [buildClassName(ukClass, 'large')]: large,
-      [buildClassName(ukClass, 'striped')]: striped,
-    });
+    const classes = classnames(
+      className,
+      'uk-list',
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+      {
+        'uk-list-bullet': bullet,
+        'uk-list-divider': divider,
+        'uk-list-large': large,
+        'uk-list-striped': striped,
+      },
+    );
 
     const Element = getElementType(List, as);
     return <Element {...rest} className={classes} />;

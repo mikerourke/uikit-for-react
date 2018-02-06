@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes, getElementType } from '../../../lib';
-import { Flex, Margin } from '../../common';
+import { customPropTypes, getElementType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 import CommentAvatar from './CommentAvatar';
 import CommentBody from './CommentBody';
 import CommentHeader from './CommentHeader';
@@ -20,6 +20,7 @@ export default class Comment extends React.Component {
     flex: Flex.propTypes,
     margin: Margin.propTypes,
     primary: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -36,16 +37,16 @@ export default class Comment extends React.Component {
   static Title = CommentTitle;
 
   render() {
-    const { as, className, flex, margin, primary, ...rest } = this.props;
+    const { as, className, flex, margin, primary, width, ...rest } = this.props;
 
-    const ukClass = 'uk-comment';
     const classes = classnames(
       className,
-      ukClass,
+      'uk-comment',
       Flex.getClasses(flex),
       Margin.getClasses(margin),
+      Width.getClasses(width),
       {
-        [buildClassName(ukClass, 'primary')]: primary,
+        'uk-comment-primary': primary,
       },
     );
 

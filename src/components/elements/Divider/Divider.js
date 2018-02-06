@@ -1,16 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes, getElementType } from '../../../lib';
+import { customPropTypes, getElementType } from '../../../lib';
+import { Align, Flex, Margin, Width } from '../../common';
 
 export default class Divider extends React.Component {
   static displayName = 'Divider';
 
   static propTypes = {
+    align: Align.propTypes,
     as: customPropTypes.customOrStringElement('hr'),
     className: PropTypes.string,
+    flex: Flex.propTypes,
     icon: PropTypes.bool,
+    margin: Margin.propTypes,
     small: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -21,13 +26,29 @@ export default class Divider extends React.Component {
   };
 
   render() {
-    const { as, className, icon, small, ...rest } = this.props;
+    const {
+      align,
+      as,
+      className,
+      flex,
+      icon,
+      margin,
+      small,
+      width,
+      ...rest
+    } = this.props;
 
-    const ukClass = 'uk-divider';
-    const classes = classnames(className, {
-      [buildClassName(ukClass, 'icon')]: icon,
-      [buildClassName(ukClass, 'small')]: small,
-    });
+    const classes = classnames(
+      className,
+      Align.getClasses(align),
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+      {
+        'uk-divider-icon': icon,
+        'uk-divider-small': small,
+      },
+    );
 
     const Element = getElementType(Divider, as);
     return <Element {...rest} className={classes} />;

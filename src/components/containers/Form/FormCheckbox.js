@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-for */
 // TODO: Make sure the icon thing works.
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
@@ -77,7 +77,7 @@ export default class FormCheckbox extends React.Component {
       className,
       danger,
       flex,
-      label: Label,
+      label: labelElement,
       margin,
       success,
       width,
@@ -109,19 +109,21 @@ export default class FormCheckbox extends React.Component {
       />
     );
 
-    if (React.isValidElement(Label)) {
-      return (
-        <Label>
-          {checkboxInput}
-          {Label.children}
-        </Label>
-      );
+    if (React.isValidElement(labelElement)) {
+      return React.cloneElement(labelElement, {
+        children: (
+          <Fragment>
+            {checkboxInput}
+            {labelElement.props.children}
+          </Fragment>
+        ),
+      });
     }
 
     return (
       <label>
         {checkboxInput}
-        {Label}
+        {labelElement}
       </label>
     );
   }

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { buildClassName, customPropTypes, getElementType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 
 export default class Panel extends React.Component {
   static displayName = 'Panel';
@@ -10,7 +11,10 @@ export default class Panel extends React.Component {
     as: customPropTypes.customOrStringElement('div'),
     children: PropTypes.node,
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
     scrollable: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -20,12 +24,26 @@ export default class Panel extends React.Component {
   };
 
   render() {
-    const { as, className, scrollable, ...rest } = this.props;
+    const {
+      as,
+      className,
+      flex,
+      margin,
+      scrollable,
+      width,
+      ...rest
+    } = this.props;
 
-    const ukClass = 'uk-panel';
-    const classes = classnames(className, ukClass, {
-      [buildClassName(ukClass, 'scrollable')]: scrollable,
-    });
+    const classes = classnames(
+      className,
+      'uk-panel',
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+      {
+        'uk-panel-scrollable': scrollable,
+      },
+    );
 
     const Element = getElementType(Panel, as);
     return <Element {...rest} className={classes} />;

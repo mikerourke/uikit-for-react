@@ -3,9 +3,9 @@ import React from 'react';
 import UIkit from 'uikit';
 import ExtraPropTypes from 'airbnb-prop-types';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { isNil, noop } from 'lodash';
 import {
-  buildClassName,
   customPropTypes,
   generateSelector,
   getBaseRef,
@@ -14,6 +14,7 @@ import {
   HTML,
   UIK,
 } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 import SlideshowItem from './SlideshowItem';
 
 export default class Slideshow extends React.Component {
@@ -35,6 +36,8 @@ export default class Slideshow extends React.Component {
     className: PropTypes.string,
     defaultIndex: customPropTypes.validateIndex,
     finite: PropTypes.bool,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
     maxHeight: PropTypes.oneOfType([
       PropTypes.bool,
       ExtraPropTypes.nonNegativeInteger,
@@ -52,6 +55,7 @@ export default class Slideshow extends React.Component {
     paused: PropTypes.bool,
     pauseOnHover: PropTypes.bool,
     ratio: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -110,27 +114,31 @@ export default class Slideshow extends React.Component {
 
   render() {
     const {
-      activeIndex,
       animation,
       as,
       autoplay,
       autoplayInterval,
       children,
+      className,
       defaultIndex,
       finite,
+      flex,
+      margin,
       maxHeight,
       minHeight,
-      onBeforeItemHide,
-      onBeforeItemShow,
-      onItemHidden,
-      onItemHide,
-      onItemShow,
-      onItemShown,
-      paused,
       pauseOnHover,
       ratio,
+      width,
       ...rest
     } = this.props;
+
+    const classes = classnames(
+      className,
+      this.selector,
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
 
     const componentOptions = getOptionsString({
       activeIndex: defaultIndex,
@@ -148,11 +156,11 @@ export default class Slideshow extends React.Component {
     return (
       <Element
         {...rest}
-        className={this.selector}
+        className={classes}
         ref={this.handleRef}
         data-uk-slideshow={componentOptions}
       >
-        <ul className={buildClassName('slideshow', 'items')}>{children}</ul>
+        <ul className="uk-slideshow-items">{children}</ul>
       </Element>
     );
   }

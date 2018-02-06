@@ -12,7 +12,7 @@ import {
   HTML,
   UIK,
 } from '../../../lib';
-import { Flex, Margin } from '../../common';
+import { Flex, Margin, Width } from '../../common';
 import GridCell from './GridCell';
 
 export default class Grid extends React.Component {
@@ -34,6 +34,7 @@ export default class Grid extends React.Component {
       location: PropTypes.oneOf(UIK.LOCATIONS),
     }),
     textAlign: customPropTypes.forBreakpoints(UIK.TEXT_ALIGNMENTS),
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -63,20 +64,21 @@ export default class Grid extends React.Component {
       matchHeight,
       nextRow,
       textAlign,
+      width,
       ...rest
     } = this.props;
 
-    const ukClass = 'uk-grid';
     const classes = classnames(
       className,
       Flex.getClasses(flex),
       Margin.getClasses(margin),
+      Width.getClasses(width),
       buildBreakpointClasses('childWidth', childWidth),
       buildBreakpointClasses('text', textAlign),
-      buildClassName(ukClass, gutter),
+      buildClassName('grid', gutter),
       {
-        [buildClassName(ukClass, 'divider')]: divider,
-        [buildClassName(ukClass, 'match')]: matchHeight,
+        'uk-grid-divider': divider,
+        'uk-grid-match': matchHeight,
       },
     );
 
@@ -95,7 +97,7 @@ export default class Grid extends React.Component {
     return (
       <Element
         {...rest}
-        className={classes}
+        className={classes || undefined}
         ref={this.handleRef}
         data-uk-grid={componentOptions}
       />

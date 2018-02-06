@@ -2,12 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import {
-  buildClassName,
-  customPropTypes,
-  getElementType,
-  hasChildType,
-} from '../../../lib';
+import { customPropTypes, getElementType, hasChildType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 import ModalBody from './ModalBody';
 
 export default class ModalDialog extends React.Component {
@@ -27,7 +23,10 @@ export default class ModalDialog extends React.Component {
       },
     ]),
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
     padContent: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -37,11 +36,26 @@ export default class ModalDialog extends React.Component {
   };
 
   render() {
-    const { as, className, padContent, ...rest } = this.props;
+    const {
+      as,
+      className,
+      flex,
+      margin,
+      padContent,
+      width,
+      ...rest
+    } = this.props;
 
-    const classes = classnames(className, 'uk-modal-dialog', {
-      [buildClassName('modal', 'body')]: padContent,
-    });
+    const classes = classnames(
+      className,
+      'uk-modal-dialog',
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+      {
+        'uk-modal-body': padContent,
+      },
+    );
 
     const Element = getElementType(ModalDialog, as);
     return <Element {...rest} className={classes} />;

@@ -1,38 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  buildClassName,
-  customPropTypes,
-  getElementType,
-  HTML,
-} from '../../../lib';
+import { omit } from 'lodash';
+import { customPropTypes, getElementType, HTML } from '../../../lib';
+import { Flex as flexProps, Margin, Width } from '../../common';
 
 export default class Flex extends React.Component {
   static displayName = 'Flex';
 
   static propTypes = {
+    ...flexProps.propShape,
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
-    inline: PropTypes.bool,
+    margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
     as: 'div',
     className: '',
-    inline: false,
   };
 
   render() {
-    const { as, className, inline, ...rest } = this.props;
+    const { as, className, margin, width, ...rest } = this.props;
 
-    const ukClass = 'uk-flex';
-    const classes = classnames(className, ukClass, {
-      [buildClassName(ukClass, 'inline')]: inline,
-    });
+    const classes = classnames(
+      className,
+      'uk-flex',
+      flexProps.getClasses(rest),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
 
     const Element = getElementType(Flex, as);
-    return <Element {...rest} className={classes} />;
+    const elementProps = omit(rest, Object.keys(flexProps.propShape));
+    return <Element {...elementProps} className={classes} />;
   }
 }

@@ -1,9 +1,10 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { omit } from 'lodash';
 import { customPropTypes, getElementType, HTML } from '../../../lib';
-import { Parallax } from '../../common';
+import { Flex, Margin, Parallax, Width } from '../../common';
 
 export default class SlideshowParallax extends React.Component {
   static displayName = 'SlideshowParallax';
@@ -13,6 +14,9 @@ export default class SlideshowParallax extends React.Component {
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -21,13 +25,22 @@ export default class SlideshowParallax extends React.Component {
   };
 
   render() {
-    const { as, ...rest } = this.props;
+    const { as, className, flex, margin, width, ...rest } = this.props;
+
+    const classes = classnames(
+      className,
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
+
     const componentOptions = Parallax.getOptions(rest);
-    const elementProps = omit(rest, Object.keys(Parallax.propShape));
     const Element = getElementType(SlideshowParallax, as);
+    const elementProps = omit(rest, Object.keys(Parallax.propShape));
     return (
       <Element
         {...elementProps}
+        className={classes || undefined}
         data-uk-slideshow-parallax={componentOptions}
       />
     );

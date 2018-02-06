@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { customPropTypes, getElementType, HTML } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 
 export default class ModalContent extends React.Component {
   static displayName = 'ModalContent';
@@ -9,6 +11,9 @@ export default class ModalContent extends React.Component {
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -17,8 +22,16 @@ export default class ModalContent extends React.Component {
   };
 
   render() {
-    const { as, ...rest } = this.props;
+    const { as, className, flex, margin, width, ...rest } = this.props;
+
+    const classes = classnames(
+      className,
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
+
     const Element = getElementType(ModalContent, as);
-    return <Element {...rest} />;
+    return <Element {...rest} className={classes || undefined} />;
   }
 }

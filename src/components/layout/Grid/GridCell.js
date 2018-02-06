@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes, getElementType } from '../../../lib';
+import { customPropTypes, getElementType } from '../../../lib';
 import { Flex, Margin, Width } from '../../common';
 
 export default class GridCell extends React.Component {
@@ -40,7 +40,7 @@ export default class GridCell extends React.Component {
       Margin.getClasses(margin),
       Width.getClasses(width),
       {
-        [buildClassName('grid', 'item', 'match')]: matchHeight,
+        'uk-grid-item-match': matchHeight,
       },
     );
 

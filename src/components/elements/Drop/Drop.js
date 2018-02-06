@@ -5,16 +5,17 @@ import classnames from 'classnames';
 import { isNil, noop } from 'lodash';
 import {
   appendClassNamesToChildren,
-  buildClassName,
   customPropTypes,
   generateSelector,
   getBaseRef,
   getElementType,
   getOptionsString,
+  getValidProps,
   joinListProp,
   HTML,
   UIK,
 } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 
 export default class Drop extends React.Component {
   static displayName = 'Drop';
@@ -33,7 +34,9 @@ export default class Drop extends React.Component {
     className: PropTypes.string,
     delayHide: PropTypes.number,
     delayShow: PropTypes.number,
+    flex: Flex.propTypes,
     flip: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['x', 'y'])]),
+    margin: Margin.propTypes,
     mode: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.MODES),
       PropTypes.arrayOf(UIK.MODES),
@@ -50,6 +53,7 @@ export default class Drop extends React.Component {
     position: PropTypes.oneOf(UIK.DROP_POSITIONS),
     shown: PropTypes.bool,
     toggle: PropTypes.element,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -104,7 +108,7 @@ export default class Drop extends React.Component {
 
   renderChildren = children =>
     appendClassNamesToChildren(children, {
-      Grid: buildClassName('drop', 'grid'),
+      Grid: 'uk-drop-grid',
     });
 
   render() {
@@ -116,23 +120,25 @@ export default class Drop extends React.Component {
       className,
       delayHide,
       delayShow,
+      flex,
       flip,
+      margin,
       mode,
       offset,
-      onBeforeHide,
-      onBeforeShow,
-      onHidden,
-      onHide,
-      onShow,
-      onShown,
-      onStack,
-      onToggle,
       position,
       toggle,
+      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(className, this.selector, 'uk-drop');
+    const classes = classnames(
+      className,
+      this.selector,
+      'uk-drop',
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
 
     const componentOptions = getOptionsString({
       animation,
@@ -150,7 +156,7 @@ export default class Drop extends React.Component {
       <Fragment>
         {toggle && toggle}
         <Element
-          {...rest}
+          {...getValidProps(Drop, rest)}
           className={classes}
           ref={this.handleRef}
           data-uk-drop={componentOptions}

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes, getElementType } from '../../../lib';
+import { customPropTypes, getElementType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 
 export default class TableHeaderCell extends React.Component {
   static displayName = 'TableHeaderCell';
@@ -11,8 +12,11 @@ export default class TableHeaderCell extends React.Component {
     children: PropTypes.node,
     className: PropTypes.string,
     expand: PropTypes.bool,
+    flex: Flex.propTypes,
     link: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['reset'])]),
+    margin: Margin.propTypes,
     shrink: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -24,17 +28,32 @@ export default class TableHeaderCell extends React.Component {
   };
 
   render() {
-    const { as, className, expand, link, shrink, ...rest } = this.props;
+    const {
+      as,
+      className,
+      expand,
+      flex,
+      link,
+      margin,
+      shrink,
+      width,
+      ...rest
+    } = this.props;
 
-    const ukClass = 'uk-table';
-    const classes = classnames(className, {
-      [buildClassName(ukClass, 'expand')]: expand,
-      [buildClassName(ukClass, 'link')]: link === true,
-      [buildClassName('link', 'reset')]: link === 'reset',
-      [buildClassName(ukClass, 'shrink')]: shrink,
-    });
+    const classes = classnames(
+      className,
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+      {
+        'uk-table-expand': expand,
+        'uk-table-link': link === true,
+        'uk-link-reset': link === 'reset',
+        'uk-table-shrink': shrink,
+      },
+    );
 
     const Element = getElementType(TableHeaderCell, as);
-    return <Element {...rest} className={classes} />;
+    return <Element {...rest} className={classes || undefined} />;
   }
 }

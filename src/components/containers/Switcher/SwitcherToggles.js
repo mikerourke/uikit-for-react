@@ -9,9 +9,11 @@ import {
   getBaseRef,
   getElementType,
   getOptionsString,
+  getValidProps,
   HTML,
   UIK,
 } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 import { Tab } from '../../layout';
 
 export default class SwitcherToggles extends React.Component {
@@ -37,7 +39,9 @@ export default class SwitcherToggles extends React.Component {
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
+    flex: Flex.propTypes,
     defaultIndex: customPropTypes.validateIndex,
+    margin: Margin.propTypes,
     onBeforeHide: PropTypes.func,
     onBeforeShow: PropTypes.func,
     onHidden: PropTypes.func,
@@ -47,9 +51,11 @@ export default class SwitcherToggles extends React.Component {
     selectorConnect: PropTypes.string,
     selectorToggle: PropTypes.string,
     swiping: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
+    activeIndex: 0,
     as: 'ul',
     className: '',
     defaultIndex: 0,
@@ -94,24 +100,26 @@ export default class SwitcherToggles extends React.Component {
 
   render() {
     const {
-      activeIndex,
       animation,
       as,
       className,
       defaultIndex,
-      onBeforeHide,
-      onBeforeShow,
-      onHidden,
-      onHide,
-      onShow,
-      onShown,
+      flex,
+      margin,
       selectorConnect,
       selectorToggle,
       swiping,
+      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(className, this.selector);
+    const classes = classnames(
+      className,
+      this.selector,
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
 
     const componentOptions = getOptionsString({
       active: defaultIndex,
@@ -124,7 +132,7 @@ export default class SwitcherToggles extends React.Component {
     const Element = getElementType(SwitcherToggles, as);
     return (
       <Element
-        {...rest}
+        {...getValidProps(SwitcherToggles, rest)}
         className={classes}
         ref={this.handleRef}
         data-uk-switcher={

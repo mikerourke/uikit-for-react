@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 
 export default class ButtonGroup extends React.Component {
   static displayName = 'ButtonGroup';
@@ -10,6 +11,9 @@ export default class ButtonGroup extends React.Component {
     as: customPropTypes.customOrStringElement('div'),
     children: PropTypes.node,
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -18,8 +22,16 @@ export default class ButtonGroup extends React.Component {
   };
 
   render() {
-    const { as, className, ...rest } = this.props;
-    const classes = classnames(className, 'uk-button-group');
+    const { as, className, flex, margin, width, ...rest } = this.props;
+
+    const classes = classnames(
+      className,
+      'uk-button-group',
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
+
     const Element = getElementType(ButtonGroup, as);
     return <Element {...rest} className={classes} />;
   }

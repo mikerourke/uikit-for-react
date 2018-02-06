@@ -1,7 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes, getElementType, UIK } from '../../../lib';
+import {
+  buildClassName,
+  customPropTypes,
+  getElementType,
+  UIK,
+} from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 
 export default class FormSelect extends React.Component {
   static displayName = 'FormSelect';
@@ -11,10 +18,16 @@ export default class FormSelect extends React.Component {
     blank: PropTypes.bool,
     className: PropTypes.string,
     danger: PropTypes.bool,
-    // TODO: Add validation to ensure "width" isn't specified.
-    formWidth: PropTypes.oneOf(UIK.FORM_WIDTHS),
+    flex: Flex.propTypes,
+    formWidth: ExtraPropTypes.mutuallyExclusiveProps(
+      PropTypes.oneOf(UIK.FORM_WIDTHS),
+      'formWidth',
+      'width',
+    ),
+    margin: Margin.propTypes,
     size: PropTypes.oneOf(['large', 'small']),
     success: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -31,9 +44,12 @@ export default class FormSelect extends React.Component {
       blank,
       className,
       danger,
+      flex,
       formWidth,
+      margin,
       size,
       success,
+      width,
       ...rest
     } = this.props;
 
@@ -42,6 +58,9 @@ export default class FormSelect extends React.Component {
       'uk-select',
       buildClassName('form', size),
       buildClassName('form', 'width', formWidth),
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
       {
         'uk-form-blank': blank,
         'uk-form-danger': danger,

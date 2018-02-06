@@ -12,6 +12,7 @@ import {
   getOptionsString,
   UIK,
 } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 import TabItem from './TabItem';
 
 export default class Tab extends React.Component {
@@ -39,6 +40,8 @@ export default class Tab extends React.Component {
     children: PropTypes.node,
     className: PropTypes.string,
     defaultIndex: customPropTypes.validateIndex,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
     media: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.oneOf(UIK.BREAKPOINTS),
@@ -50,6 +53,7 @@ export default class Tab extends React.Component {
     onShow: PropTypes.func,
     onShown: PropTypes.func,
     swiping: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -98,20 +102,16 @@ export default class Tab extends React.Component {
 
   render() {
     const {
-      activeIndex,
       align,
       animation,
       as,
       className,
       defaultIndex,
+      flex,
+      margin,
       media,
-      onBeforeHide,
-      onBeforeShow,
-      onHidden,
-      onHide,
-      onShow,
-      onShown,
       swiping,
+      width,
       ...rest
     } = this.props;
 
@@ -119,6 +119,9 @@ export default class Tab extends React.Component {
       className,
       this.selector,
       buildClassName('tab', align),
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
     );
 
     const componentOptions = getOptionsString({

@@ -9,9 +9,11 @@ import {
   getBaseRef,
   getElementType,
   getOptionsString,
+  getValidProps,
   HTML,
   UIK,
 } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 import LightboxItem from './LightboxItem';
 import LightboxPanel from './LightboxPanel';
 
@@ -35,6 +37,8 @@ export default class Lightbox extends React.Component {
     children: PropTypes.node,
     className: PropTypes.string,
     defaultIndex: customPropTypes.validateIndex,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
     onBeforeHide: PropTypes.func,
     onBeforeItemHide: PropTypes.func,
     onBeforeItemShow: PropTypes.func,
@@ -51,9 +55,11 @@ export default class Lightbox extends React.Component {
     pauseOnHover: PropTypes.bool,
     shown: PropTypes.bool,
     videoAutoplay: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
+    activeIndex: 0,
     as: 'div',
     className: '',
     defaultIndex: 0,
@@ -84,7 +90,6 @@ export default class Lightbox extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // TODO: Validate that these events work.
     const lightbox = UIkit.lightbox(this.getRef());
     if (nextProps.activeIndex !== this.props.activeIndex) {
       lightbox.show(nextProps.activeIndex);
@@ -111,32 +116,26 @@ export default class Lightbox extends React.Component {
 
   render() {
     const {
-      activeIndex,
       animation,
       as,
       autoplay,
       className,
       defaultIndex,
-      onBeforeHide,
-      onBeforeItemHide,
-      onBeforeItemShow,
-      onBeforeShow,
-      onHidden,
-      onHide,
-      onItemHidden,
-      onItemHide,
-      onItemLoad,
-      onItemShow,
-      onItemShown,
-      onShow,
-      onShown,
+      flex,
+      margin,
       pauseOnHover,
-      shown,
       videoAutoplay,
+      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(className, this.selector);
+    const classes = classnames(
+      className,
+      this.selector,
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
 
     const animationName = isPlainObject(animation)
       ? get(animation, 'name', 'slide')
@@ -150,15 +149,15 @@ export default class Lightbox extends React.Component {
       pauseOnHover,
       velocity: get(animation, 'velocity', 2),
       videoAutoplay,
-    });
+    }).replace('uk-animation-', '');
 
     const Element = getElementType(Lightbox, as);
     return (
       <Element
-        {...rest}
+        {...getValidProps(Lightbox, rest)}
         className={classes}
         ref={this.handleRef}
-        data-uk-lightbox={componentOptions.replace('uk-animation-', '')}
+        data-uk-lightbox={componentOptions}
       />
     );
   }

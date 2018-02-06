@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes, getElementType } from '../../../lib';
+import { customPropTypes, getElementType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 
 export default class LightboxItem extends React.Component {
   static displayName = 'LightboxItem';
@@ -10,10 +11,13 @@ export default class LightboxItem extends React.Component {
     as: customPropTypes.customOrStringElement('a'),
     caption: PropTypes.string,
     className: PropTypes.string,
+    flex: Flex.propTypes,
     inline: PropTypes.bool,
+    margin: Margin.propTypes,
     poster: PropTypes.string,
     source: PropTypes.string.isRequired,
     type: PropTypes.oneOf(['iframe', 'image', 'video']),
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -28,16 +32,25 @@ export default class LightboxItem extends React.Component {
       as,
       caption,
       className,
+      flex,
       inline,
+      margin,
       poster,
       source,
       type,
+      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(className, {
-      [buildClassName('inline')]: inline,
-    });
+    const classes = classnames(
+      className,
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+      {
+        'uk-inline': inline,
+      },
+    );
 
     const Element = getElementType(LightboxItem, as);
     return (

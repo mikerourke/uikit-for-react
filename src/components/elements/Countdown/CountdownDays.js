@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes, getElementType } from '../../../lib';
+import { customPropTypes, getElementType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 import CountdownLabel from './CountdownLabel';
 
 export default class CountdownDays extends React.Component {
@@ -10,7 +11,10 @@ export default class CountdownDays extends React.Component {
   static propTypes = {
     as: customPropTypes.customOrStringElement('div', 'span'),
     className: PropTypes.string,
+    flex: Flex.propTypes,
     label: PropTypes.instanceOf(CountdownLabel),
+    margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -19,19 +23,22 @@ export default class CountdownDays extends React.Component {
   };
 
   render() {
-    const { as, className, label, ...rest } = this.props;
+    const { as, className, flex, label, margin, width, ...rest } = this.props;
 
     const classes = classnames(
       className,
       'uk-countdown-days',
-      buildClassName('countdown', 'number'),
+      'uk-countdown-number',
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
     );
 
-    const Element = getElementType(CountdownDays, rest);
-    if (!label) return <Element className={classes} />;
+    const Element = getElementType(CountdownDays, as);
+    if (!label) return <Element {...rest} className={classes} />;
     return (
       <div>
-        <Element className={classes} />
+        <Element {...rest} className={classes} />
         {label}
       </div>
     );

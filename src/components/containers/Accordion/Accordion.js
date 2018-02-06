@@ -10,6 +10,7 @@ import {
   getBaseRef,
   getElementType,
   getOptionsString,
+  getValidProps,
   HTML,
 } from '../../../lib';
 import { Flex, Margin, Width } from '../../common';
@@ -69,6 +70,7 @@ export default class Accordion extends React.Component {
     onHide: noop,
     onShow: noop,
     onShown: noop,
+    openIndex: 0,
     transition: 'ease',
   };
 
@@ -135,16 +137,8 @@ export default class Accordion extends React.Component {
       collapsible,
       defaultIndex,
       flex,
-      hideOpenAnimation,
       margin,
       multiple,
-      onBeforeShow,
-      onShow,
-      onShown,
-      onBeforeHide,
-      onHide,
-      onHidden,
-      openIndex,
       transition,
       width,
       ...rest
@@ -170,7 +164,7 @@ export default class Accordion extends React.Component {
     const Element = getElementType(Accordion, as);
     return (
       <Element
-        {...rest}
+        {...getValidProps(Accordion, rest)}
         className={classes}
         ref={this.handleRef}
         data-uk-accordion={componentOptions}

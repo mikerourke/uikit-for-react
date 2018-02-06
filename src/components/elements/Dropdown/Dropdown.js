@@ -5,7 +5,6 @@ import classnames from 'classnames';
 import { isNil, noop } from 'lodash';
 import {
   appendClassNamesToChildren,
-  buildClassName,
   customPropTypes,
   generateSelector,
   getBaseRef,
@@ -14,7 +13,9 @@ import {
   joinListProp,
   HTML,
   UIK,
+  getValidProps,
 } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 
 export default class Dropdown extends React.Component {
   static displayName = 'Dropdown';
@@ -33,7 +34,9 @@ export default class Dropdown extends React.Component {
     className: PropTypes.string,
     delayHide: PropTypes.number,
     delayShow: PropTypes.number,
+    flex: Flex.propTypes,
     flip: PropTypes.oneOf([true, false, 'x', 'y']),
+    margin: Margin.propTypes,
     mode: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.MODES),
       PropTypes.arrayOf(UIK.MODES),
@@ -50,6 +53,7 @@ export default class Dropdown extends React.Component {
     position: PropTypes.oneOf(UIK.DROP_POSITIONS),
     shown: PropTypes.bool,
     toggle: PropTypes.element,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -104,8 +108,8 @@ export default class Dropdown extends React.Component {
 
   renderChildren = children =>
     appendClassNamesToChildren(children, {
-      Grid: buildClassName('dropdown', 'grid'),
-      Nav: buildClassName('dropdown', 'nav'),
+      Grid: 'uk-dropdown-grid',
+      Nav: 'uk-dropdown-nav',
     });
 
   render() {
@@ -117,24 +121,25 @@ export default class Dropdown extends React.Component {
       className,
       delayHide,
       delayShow,
+      flex,
       flip,
+      margin,
       mode,
       offset,
-      onBeforeHide,
-      onBeforeShow,
-      onHidden,
-      onHide,
-      onShow,
-      onShown,
-      onStack,
-      onToggle,
       position,
-      shown,
       toggle,
+      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(className, this.selector, 'uk-dropdown');
+    const classes = classnames(
+      className,
+      this.selector,
+      'uk-dropdown',
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
 
     const componentOptions = getOptionsString({
       animation,
@@ -152,7 +157,7 @@ export default class Dropdown extends React.Component {
       <Fragment>
         {toggle && toggle}
         <Element
-          {...rest}
+          {...getValidProps(Dropdown, rest)}
           className={classes}
           ref={this.handleRef}
           data-uk-dropdown={componentOptions}
