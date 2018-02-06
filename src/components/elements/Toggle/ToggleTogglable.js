@@ -16,10 +16,7 @@ export default class ToggleTogglable extends React.Component {
   static displayName = 'ToggleTogglable';
 
   static propTypes = {
-    as: customPropTypes.customOrStringElement([
-      ...HTML.BLOCK_ELEMENTS,
-      ...HTML.INLINE_ELEMENTS,
-    ]),
+    as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
     children: ExtraPropTypes.and([
       PropTypes.node,
       props => {

@@ -10,10 +10,7 @@ export default class Text extends React.Component {
 
   static propTypes = {
     ...textProps.propShape,
-    as: customPropTypes.customOrStringElement([
-      ...HTML.BLOCK_ELEMENTS,
-      ...HTML.TEXT_ELEMENTS,
-    ]),
+    as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
   };

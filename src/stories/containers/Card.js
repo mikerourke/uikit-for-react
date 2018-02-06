@@ -110,7 +110,7 @@ storiesOf('Card', module)
     <Block margin={{ all: 'large' }}>
       <Card width={{ atMd: '1/2' }}>
         <Card.Header>
-          <Grid gutter="small" alignItems="middle">
+          <Grid gutter="small" flex={{ align: 'middle' }}>
             <Grid.Cell width="auto">
               <Base
                 as="img"
@@ -183,7 +183,7 @@ storiesOf('Card', module)
           alignTo="right"
           cover={{ width: 600, height: 400 }}
           imgSrc={mediaLink}
-          order={{ last: '@s' }}
+          flex={{ order: { last: '@s' } }}
         />
         <Card.Body>
           <Card.Title>Media Right</Card.Title>

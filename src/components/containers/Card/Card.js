@@ -8,7 +8,7 @@ import {
   getElementType,
   hasChildType,
 } from '../../../lib';
-import { Margin } from '../../common';
+import { Margin, Width } from '../../common';
 import CardBadge from './CardBadge';
 import CardBody from './CardBody';
 import CardContent from './CardContent';
@@ -47,6 +47,7 @@ export default class Card extends React.Component {
     secondary: PropTypes.bool,
     simple: PropTypes.bool,
     size: PropTypes.oneOf(['small', 'large']),
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -77,6 +78,7 @@ export default class Card extends React.Component {
       secondary,
       simple,
       size,
+      width,
       ...rest
     } = this.props;
 
@@ -85,6 +87,7 @@ export default class Card extends React.Component {
       'uk-card',
       buildClassName('card', size),
       Margin.getClasses(margin),
+      Width.getClasses(width),
       {
         [buildClassName('card', 'default')]: !primary && !secondary && !simple,
         [buildClassName('card', 'body')]: !hasChildType(children, CardBody),

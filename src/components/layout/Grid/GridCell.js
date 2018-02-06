@@ -1,14 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get, isNil } from 'lodash';
-import {
-  buildClassName,
-  customPropTypes,
-  getElementType,
-  UIK,
-} from '../../../lib';
-import { Flex, Margin } from '../../common';
+import { buildClassName, customPropTypes, getElementType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 
 export default class GridCell extends React.Component {
   static displayName = 'GridCell';
@@ -20,6 +14,7 @@ export default class GridCell extends React.Component {
     flex: Flex.propTypes,
     margin: Margin.propTypes,
     matchHeight: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -29,18 +24,27 @@ export default class GridCell extends React.Component {
   };
 
   render() {
-    const { as, className, flex, margin, matchHeight, ...rest } = this.props;
+    const {
+      as,
+      className,
+      flex,
+      margin,
+      matchHeight,
+      width,
+      ...rest
+    } = this.props;
 
     const classes = classnames(
       className,
       Flex.getClasses(flex),
       Margin.getClasses(margin),
+      Width.getClasses(width),
       {
         [buildClassName('grid', 'item', 'match')]: matchHeight,
       },
     );
 
     const Element = getElementType(GridCell, this.props);
-    return <Element {...rest} className={classes} />;
+    return <Element {...rest} className={classes || undefined} />;
   }
 }

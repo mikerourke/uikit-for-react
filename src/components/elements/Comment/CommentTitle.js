@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType, HTML } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 
 export default class CommentTitle extends React.Component {
   static displayName = 'CommentTitle';
@@ -10,6 +11,9 @@ export default class CommentTitle extends React.Component {
     as: customPropTypes.customOrStringElement(HTML.HEADING_ELEMENTS),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -18,8 +22,16 @@ export default class CommentTitle extends React.Component {
   };
 
   render() {
-    const { as, className, ...rest } = this.props;
-    const classes = classnames(className, 'uk-comment-title');
+    const { as, className, flex, margin, width, ...rest } = this.props;
+
+    const classes = classnames(
+      className,
+      'uk-comment-title',
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
+
     const Element = getElementType(CommentTitle, this.props);
     return <Element {...rest} className={classes} />;
   }

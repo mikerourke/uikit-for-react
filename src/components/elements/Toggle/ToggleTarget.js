@@ -6,10 +6,7 @@ export default class ToggleTarget extends React.Component {
   static displayName = 'ToggleTarget';
 
   static propTypes = {
-    as: customPropTypes.customOrStringElement([
-      ...HTML.BLOCK_ELEMENTS,
-      ...HTML.INLINE_ELEMENTS,
-    ]),
+    as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
   };

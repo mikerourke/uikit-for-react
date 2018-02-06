@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { buildClassName, customPropTypes, getElementType } from '../../../lib';
+import { Flex, Margin } from '../../common';
 import CommentAvatar from './CommentAvatar';
 import CommentBody from './CommentBody';
 import CommentHeader from './CommentHeader';
@@ -16,6 +17,8 @@ export default class Comment extends React.Component {
     as: customPropTypes.customOrStringElement('article'),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
     primary: PropTypes.bool,
   };
 
@@ -33,12 +36,18 @@ export default class Comment extends React.Component {
   static Title = CommentTitle;
 
   render() {
-    const { as, className, primary, ...rest } = this.props;
+    const { as, className, flex, margin, primary, ...rest } = this.props;
 
     const ukClass = 'uk-comment';
-    const classes = classnames(className, ukClass, {
-      [buildClassName(ukClass, 'primary')]: primary,
-    });
+    const classes = classnames(
+      className,
+      ukClass,
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      {
+        [buildClassName(ukClass, 'primary')]: primary,
+      },
+    );
 
     const Element = getElementType(Comment, this.props);
     return <Element {...rest} className={classes} />;

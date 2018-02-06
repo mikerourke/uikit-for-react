@@ -1,25 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes } from '../../../lib';
-import { InlineElement } from '../../base';
+import { customPropTypes, getElementType } from '../../../lib';
 
 export default class CommentAvatar extends React.Component {
   static displayName = 'CommentAvatar';
 
   static propTypes = {
-        as: customPropTypes.customOrStringElement('img'),
+    as: customPropTypes.customOrStringElement('img'),
     className: PropTypes.string,
   };
 
   static defaultProps = {
-        as: 'img',
+    as: 'img',
     className: '',
   };
 
   render() {
-    const { className, ...rest } = this.props;
+    const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-comment-avatar');
-    return <Element{...rest} className={classes} />;
+    const Element = getElementType(CommentAvatar, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

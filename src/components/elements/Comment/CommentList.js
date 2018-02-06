@@ -28,7 +28,7 @@ export default class CommentList extends React.Component {
 
     const Element = getElementType(CommentList, this.props);
     return (
-      <Element {...rest} className={classes}>
+      <Element {...rest} className={classes || undefined}>
         {React.Children.map(children, child => <li>{child}</li>)}
       </Element>
     );

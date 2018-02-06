@@ -1,13 +1,7 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import {
-  Block,
-  Comment,
-  Grid,
-  Link,
-  SubNav,
-} from '../../components';
+import { Block, Comment, Grid, Link, SubNav } from '../../components';
 
 Comment.displayName = 'Comment';
 
@@ -17,7 +11,7 @@ storiesOf('Comment', module)
   .add('Basic Usage', () => (
     <Block margin={{ all: 'large' }}>
       <Comment>
-        <Grid as={Comment.Header} alignItems="middle">
+        <Grid as={Comment.Header} flex={{ align: 'middle' }}>
           <Grid.Cell width="auto">
             <Comment.Avatar src={avatarLink} width={80} height={80} />
           </Grid.Cell>
@@ -41,7 +35,7 @@ storiesOf('Comment', module)
   .add('Primary modifier', () => (
     <Block margin={{ all: 'large' }}>
       <Comment primary>
-        <Grid as={Comment.Header} alignItems="middle">
+        <Grid as={Comment.Header} flex={{ align: 'middle' }}>
           <Grid.Cell width="auto">
             <Comment.Avatar src={avatarLink} width={80} height={80} />
           </Grid.Cell>
@@ -68,7 +62,7 @@ storiesOf('Comment', module)
       <Comment.List>
         <Comment visibleToggle>
           <Comment.Header position="relative">
-            <Grid alignItems="middle" gutter="medium">
+            <Grid flex={{ align: 'middle' }} gutter="medium">
               <Grid.Cell width="auto">
                 <Comment.Avatar src={avatarLink} width={80} height={80} />
               </Grid.Cell>
@@ -100,7 +94,7 @@ storiesOf('Comment', module)
         <Comment.List nested>
           <Comment primary visibleToggle>
             <Comment.Header position="relative">
-              <Grid alignItems="middle" gutter="medium">
+              <Grid flex={{ align: 'middle' }} gutter="medium">
                 <Grid.Cell width="auto">
                   <Comment.Avatar src={avatarLink} width={80} height={80} />
                 </Grid.Cell>
@@ -131,7 +125,7 @@ storiesOf('Comment', module)
           </Comment>
           <Comment visibleToggle>
             <Comment.Header position="relative">
-              <Grid alignItems="middle" gutter="medium">
+              <Grid flex={{ align: 'middle' }} gutter="medium">
                 <Grid.Cell width="auto">
                   <Comment.Avatar src={avatarLink} width={80} height={80} />
                 </Grid.Cell>

@@ -9,6 +9,7 @@ import {
   getElementType,
   UIK,
 } from '../../../lib';
+import { Flex, Margin } from '../../common';
 
 export default class CardMedia extends React.Component {
   static displayName = 'CardMedia';
@@ -21,8 +22,10 @@ export default class CardMedia extends React.Component {
       height: ExtraPropTypes.nonNegativeInteger,
       width: ExtraPropTypes.nonNegativeInteger,
     }),
+    flex: Flex.propTypes,
     imgAlt: PropTypes.string,
     imgSrc: PropTypes.string.isRequired,
+    margin: Margin.propTypes,
   };
 
   static defaultProps = {
@@ -37,8 +40,10 @@ export default class CardMedia extends React.Component {
       as,
       className,
       cover,
+      flex,
       imgAlt,
       imgSrc,
+      margin,
       ...rest
     } = this.props;
 
@@ -48,6 +53,8 @@ export default class CardMedia extends React.Component {
       className,
       ukClass,
       buildClassName(ukClass, alignTo),
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
       {
         [buildClassName('cover', 'container')]: isCover,
       },

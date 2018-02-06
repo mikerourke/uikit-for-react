@@ -17,9 +17,6 @@ const getElementType = (Component, props) => {
   // User defined "as" element type:
   if (props.as && props.as !== defaultProps.as) return props.as;
 
-  // Infer anchor links.
-  if (props.href) return 'a';
-
   // If the "as" prop was defined, return it.
   if (defaultProps.as) return defaultProps.as;
 

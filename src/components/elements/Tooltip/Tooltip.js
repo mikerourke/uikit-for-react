@@ -42,10 +42,7 @@ export default class Tooltip extends React.Component {
         duration: PropTypes.number,
       }),
     ]),
-    as: customPropTypes.customOrStringElement([
-      ...HTML.BLOCK_ELEMENTS,
-      ...HTML.INLINE_ELEMENTS,
-    ]),
+    as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
     clsActive: PropTypes.string,
