@@ -1,17 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, getElementType, HTML, UIK } from '../../../lib';
+import {
+  buildClassName,
+  customPropTypes,
+  getElementType,
+  HTML,
+  UIK,
+} from '../../../lib';
 
 export default class Hidden extends React.Component {
   static displayName = 'Hidden';
 
   static propTypes = {
-    as: PropTypes.oneOfType([
-      PropTypes.oneOf(HTML.ALL_ELEMENTS),
-      PropTypes.element,
-      PropTypes.func,
-    ]),
+    as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
     breakpoint: PropTypes.oneOf(UIK.BREAKPOINTS),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
@@ -31,8 +33,8 @@ export default class Hidden extends React.Component {
 
   render() {
     const {
+      as,
       breakpoint,
-      children,
       className,
       hide,
       noTouchOnly,
@@ -54,10 +56,6 @@ export default class Hidden extends React.Component {
     );
 
     const Element = getElementType(Hidden, this.props);
-    return (
-      <Element {...rest} className={classes} hidden={hide || undefined}>
-        {children}
-      </Element>
-    );
+    return <Element {...rest} className={classes} hidden={hide || undefined} />;
   }
 }

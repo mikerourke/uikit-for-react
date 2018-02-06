@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, UIK } from '../../../lib';
-import { InlineElement } from '../../base';
+import {
+  buildClassName,
+  customPropTypes,
+  getElementType,
+  UIK,
+} from '../../../lib';
 
 export default class FormTextArea extends React.Component {
   static displayName = 'FormTextArea';
 
   static propTypes = {
-    ...InlineElement.propTypes,
+    as: customPropTypes.customOrStringElement('textarea'),
     blank: PropTypes.bool,
     className: PropTypes.string,
     danger: PropTypes.bool,
@@ -19,17 +23,16 @@ export default class FormTextArea extends React.Component {
   };
 
   static defaultProps = {
-    ...InlineElement.defaultProps,
+    as: 'textarea',
     blank: false,
     className: '',
     danger: false,
-    formWidth: null,
-    size: null,
     success: false,
   };
 
   render() {
     const {
+      as,
       blank,
       className,
       danger,
@@ -51,6 +54,7 @@ export default class FormTextArea extends React.Component {
       },
     );
 
-    return <InlineElement {...rest} as="textarea" className={classes} />;
+    const Element = getElementType(FormTextArea, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

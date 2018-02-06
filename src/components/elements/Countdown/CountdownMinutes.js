@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, getElementType } from '../../../lib';
+import { buildClassName, customPropTypes, getElementType } from '../../../lib';
 import CountdownLabel from './CountdownLabel';
 
 export default class CountdownMinutes extends React.Component {
   static displayName = 'CountdownMinutes';
 
   static propTypes = {
-    as: PropTypes.oneOf(['div', 'span']),
+    as: customPropTypes.customOrStringElement('div', 'span'),
     className: PropTypes.string,
     label: PropTypes.instanceOf(CountdownLabel),
   };
@@ -19,7 +19,7 @@ export default class CountdownMinutes extends React.Component {
   };
 
   render() {
-    const { className, label, ...rest } = this.props;
+    const { as, className, label, ...rest } = this.props;
 
     const classes = classnames(
       className,

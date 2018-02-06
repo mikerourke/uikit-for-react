@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { generateIdentifier, getElementType, HTML } from '../../../lib';
+import {
+  customPropTypes,
+  generateIdentifier,
+  getElementType,
+  HTML,
+} from '../../../lib';
 import ScrollPoint from './ScrollPoint';
 
 export default class ScrollScrollable extends React.Component {
   static displayName = 'ScrollScrollable';
 
   static propTypes = {
-    as: PropTypes.oneOfType([
-      PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
-      PropTypes.element,
-      PropTypes.func,
-    ]),
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node.isRequired,
   };
 

@@ -40,9 +40,9 @@ export default class IconNavItem extends React.Component {
     });
 
     return (
-      <BlockElement {...rest} as="li" className={classes}>
+      <Element {...rest} as="li" className={classes}>
         <Icon {...iconOptions} href={href} name={iconName} />
-      </BlockElement>
+      </Element>
     );
   }
 }

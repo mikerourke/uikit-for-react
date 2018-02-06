@@ -1,48 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { isNil } from 'lodash';
-import { buildClassName, hasChildType } from '../../../lib';
-import { BlockElement, InlineElement } from '../../base';
+import {
+  buildClassName,
+  customPropTypes,
+  getElementType,
+  hasChildType,
+} from '../../../lib';
 import NavbarDropdown from './NavbarDropdown';
-import NavbarSubtitle from './NavbarSubtitle';
 
 export default class NavbarItem extends React.Component {
   static displayName = 'NavbarItem';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     active: PropTypes.bool,
+    as: customPropTypes.customOrStringElement('li'),
     children: PropTypes.node,
     className: PropTypes.string,
     href: PropTypes.string,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     active: false,
+    as: 'li',
     className: '',
     href: '#',
   };
 
   render() {
-    const { active, children, className, href, ...rest } = this.props;
+    const { active, as, children, className, href, ...rest } = this.props;
+
     const classes = classnames(className, {
       [buildClassName('active')]: active,
     });
+
     const hasDropdown = hasChildType(children, NavbarDropdown);
     const hasSubtitle = hasChildType(children, NavbarDropdown);
+    const Element = getElementType(NavbarItem, this.props);
     return (
-      <BlockElement {...rest} as="li" className={classes}>
+      <Element {...rest} className={classes}>
         {hasDropdown ? (
           children
         ) : (
-          <InlineElement as="a" href={href}>
-            {hasSubtitle ? <div>{children}</div> : children}
-          </InlineElement>
+          <a href={href}>{hasSubtitle ? <div>{children}</div> : children}</a>
         )}
-      </BlockElement>
+      </Element>
     );
   }
 }

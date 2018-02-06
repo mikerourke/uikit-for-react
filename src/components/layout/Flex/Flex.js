@@ -1,36 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { omit } from 'lodash';
-import { buildClassName } from '../../../lib';
-import { BlockElement } from '../../base';
+import {
+  buildClassName,
+  customPropTypes,
+  getElementType,
+  HTML,
+} from '../../../lib';
 
 export default class Flex extends React.Component {
   static displayName = 'Flex';
 
   static propTypes = {
-    ...omit(BlockElement.propTypes, 'flex'),
-    as: BlockElement.asPropType,
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
     inline: PropTypes.bool,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'div',
     className: '',
     inline: false,
   };
 
   render() {
-    const { className, inline, ...rest } = this.props;
+    const { as, className, inline, ...rest } = this.props;
 
     const ukClass = 'uk-flex';
     const classes = classnames(className, ukClass, {
       [buildClassName(ukClass, 'inline')]: inline,
     });
 
-    return <BlockElement {...rest} className={classes} />;
+    const Element = getElementType(Flex, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

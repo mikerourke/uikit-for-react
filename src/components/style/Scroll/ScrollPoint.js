@@ -70,11 +70,7 @@ export default class ScrollPoint extends React.Component {
       ...rest
     } = this.props;
 
-    const componentOptions = getOptionsString({
-      duration,
-      offset,
-    });
-
+    const componentOptions = getOptionsString({ duration, offset });
     const Element = getElementType(ScrollPoint, this.props);
     return (
       <Element

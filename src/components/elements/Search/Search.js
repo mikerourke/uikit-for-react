@@ -2,46 +2,41 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { get } from 'lodash';
-import { buildClassName } from '../../../lib';
-import { BlockElement, InlineElement } from '../../base';
+import { buildClassName, customPropTypes, getElementType } from '../../../lib';
 import SearchIcon from './SearchIcon';
+import SearchInput from './SearchInput';
 
 export default class Search extends React.Component {
   static displayName = 'Search';
 
   static propTypes = {
-    ...BlockElement.propTypes,
-    autofocus: PropTypes.bool,
+    as: customPropTypes.customOrStringElement('form'),
+    children: customPropTypes.restrictToChildTypes(SearchIcon, SearchInput),
     className: PropTypes.string,
-    icon: ExtraPropTypes.elementType(SearchIcon),
-    inputOptions: PropTypes.shape(InlineElement.propTypes),
+    icon: ExtraPropTypes.mutuallyExclusiveProps(
+      ExtraPropTypes.elementType(SearchIcon),
+      'icon',
+      'children',
+    ),
+    input: ExtraPropTypes.mutuallyExclusiveProps(
+      ExtraPropTypes.elementType(SearchInput),
+      'input',
+      'children',
+    ),
     large: PropTypes.bool,
-    placeholder: PropTypes.string,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
-    autofocus: false,
+    as: 'form',
     className: '',
-    icon: null,
-    inputOptions: null,
     large: false,
-    placeholder: 'Search...',
   };
 
   static Icon = SearchIcon;
+  static Input = SearchInput;
 
   render() {
-    const {
-      autofocus,
-      className,
-      icon,
-      inputOptions,
-      large,
-      placeholder,
-      ...rest
-    } = this.props;
+    const { as, children, className, icon, input, large, ...rest } = this.props;
 
     const ukClass = 'uk-search';
     const classes = classnames(className, ukClass, {
@@ -49,18 +44,13 @@ export default class Search extends React.Component {
       [buildClassName(ukClass, 'large')]: large,
     });
 
-    const inputProps = {
-      ...inputOptions,
-      autofocus,
-      placeholder,
-      className: classnames(get(inputOptions, 'className'), 'uk-search-input'),
-    };
-
+    const Element = getElementType(Search, this.props);
     return (
-      <BlockElement {...rest} as="form" className={classes}>
+      <Element {...rest} className={classes}>
         {icon && icon}
-        <InlineElement {...inputProps} as="input" type="search" />
-      </BlockElement>
+        {input && input}
+        {children && children}
+      </Element>
     );
   }
 }

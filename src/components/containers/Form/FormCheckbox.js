@@ -5,15 +5,19 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { invoke } from 'lodash';
-import { buildClassName, getBaseRef } from '../../../lib';
-import { InlineElement } from '../../base';
+import {
+  buildClassName,
+  customPropTypes,
+  getBaseRef,
+  getElementType,
+} from '../../../lib';
 import FormLabel from './FormLabel';
 
 export default class FormCheckbox extends React.Component {
   static displayName = 'FormCheckbox';
 
   static propTypes = {
-    ...InlineElement.propTypes,
+    as: customPropTypes.customOrStringElement('input'),
     blank: PropTypes.bool,
     checked: PropTypes.bool,
     className: PropTypes.string,
@@ -24,12 +28,13 @@ export default class FormCheckbox extends React.Component {
       PropTypes.number,
     ]),
     danger: PropTypes.bool,
+    disabled: PropTypes.bool,
     defaultChecked: PropTypes.bool,
     success: PropTypes.bool,
   };
 
   static defaultProps = {
-    ...InlineElement.defaultProps,
+    as: 'input',
     blank: false,
     checked: false,
     className: '',
@@ -68,6 +73,7 @@ export default class FormCheckbox extends React.Component {
 
   render() {
     const {
+      as,
       blank,
       className,
       danger,
@@ -82,10 +88,10 @@ export default class FormCheckbox extends React.Component {
       [buildClassName('form', 'success')]: success,
     });
 
+    const Element = getElementType(FormCheckbox, this.props);
     const checkboxInput = (
-      <InlineElement
+      <Element
         {...rest}
-        as="input"
         className={classes}
         onChange={this.handleChange}
         onClick={this.handleClick}

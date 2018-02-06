@@ -3,8 +3,14 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isNil } from 'lodash';
-import { generateSelector, getBaseRef, getOptionsString } from '../../../lib';
-import { BlockElement } from '../../base';
+import {
+  customPropTypes,
+  generateSelector,
+  getBaseRef,
+  getElementType,
+  getOptionsString,
+  HTML,
+} from '../../../lib';
 import CountdownDays from './CountdownDays';
 import CountdownHours from './CountdownHours';
 import CountdownLabel from './CountdownLabel';
@@ -16,8 +22,7 @@ export default class Countdown extends React.Component {
   static displayName = 'Countdown';
 
   static propTypes = {
-    ...BlockElement.propTypes,
-    as: BlockElement.asPropType,
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     date: PropTypes.string.isRequired,
@@ -25,7 +30,6 @@ export default class Countdown extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'div',
     className: '',
     paused: false,
@@ -61,14 +65,16 @@ export default class Countdown extends React.Component {
   };
 
   render() {
-    const { className, date, paused, ...rest } = this.props;
+    const { as, className, date, paused, ...rest } = this.props;
     const classes = classnames(className, this.selector, 'uk-countdown');
+    const componentOptions = getOptionsString({ date });
+    const Element = getElementType(Countdown, this.props);
     return (
-      <BlockElement
+      <Element
         {...rest}
         className={classes}
         ref={this.handleRef}
-        data-uk-countdown={getOptionsString({ date })}
+        data-uk-countdown={componentOptions}
       />
     );
   }

@@ -1,26 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { InlineElement } from '../../base';
+import { customPropTypes, getElementType } from '../../../lib';
 
 export default class FormLegend extends React.Component {
   static displayName = 'FormLegend';
 
   static propTypes = {
-    ...InlineElement.propTypes,
+    as: customPropTypes.customOrStringElement('legend'),
     children: PropTypes.node,
     className: PropTypes.string,
   };
 
   static defaultProps = {
-    ...InlineElement.defaultProps,
-    children: null,
+    as: 'legend',
     className: '',
   };
 
   render() {
-    const { className, ...rest } = this.props;
+    const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-legend');
-    return <InlineElement {...rest} as="legend" className={classes} />;
+    const Element = getElementType(FormLegend, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

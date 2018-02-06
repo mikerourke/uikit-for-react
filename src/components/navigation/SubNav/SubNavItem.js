@@ -2,38 +2,38 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isObject } from 'lodash';
-import { buildClassName } from '../../../lib';
-import { BlockElement } from '../../base';
+import { buildClassName, customPropTypes, getElementType } from '../../../lib';
 
 export default class SubNavItem extends React.Component {
   static displayName = 'SubNavItem';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     active: PropTypes.bool,
+    as: customPropTypes.customOrStringElement('li'),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     href: PropTypes.string,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     active: false,
+    as: 'li',
     className: '',
     href: '#',
   };
 
   render() {
-    const { active, children, className, href, ...rest } = this.props;
+    const { active, as, children, className, href, ...rest } = this.props;
 
     const classes = classnames(className, {
       [buildClassName('active')]: active,
     });
 
+    const Element = getElementType(SubNavItem, this.props);
     return (
-      <BlockElement {...rest} as="li" className={classes}>
+      <Element {...rest} className={classes}>
         {isObject(children) ? children : <a href={href}>{children}</a>}
-      </BlockElement>
+      </Element>
     );
   }
 }

@@ -28,5 +28,5 @@ export SlideNav, {
   SlideNavPrevious,
 } from './SlideNav';
 export SubNav, { SubNavItem } from './SubNav';
-export ThumbNav, { ThumbNavItem } from './ThumbNav';
+export ThumbNav, { ThumbNavImage, ThumbNavItem } from './ThumbNav';
 export Totop from './Totop';

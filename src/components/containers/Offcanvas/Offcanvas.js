@@ -81,6 +81,7 @@ export default class Offcanvas extends React.Component {
     } = this.props;
 
     const classes = classnames(className, this.selector);
+    const componentOptions = getOptionsString({ flip, mode, overlay });
 
     const Element = getElementType(Offcanvas, this.props);
     return (
@@ -88,7 +89,7 @@ export default class Offcanvas extends React.Component {
         {...rest}
         className={classes}
         ref={this.handleRef}
-        data-uk-offcanvas={getOptionsString({ flip, mode, overlay })}
+        data-uk-offcanvas={componentOptions}
       />
     );
   }

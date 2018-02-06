@@ -1,19 +1,20 @@
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { get, isNil, noop, omit } from 'lodash';
+import { get, isNil, noop } from 'lodash';
 import {
   buildClassName,
   customPropTypes,
   generateSelector,
   getBaseRef,
+  getElementType,
   getOptionsString,
   joinListProp,
   UIK,
 } from '../../../lib';
-import { BlockElement } from '../../base';
 import NavbarContainer from './NavbarContainer';
 import NavbarDropdown from './NavbarDropdown';
 import NavbarItem from './NavbarItem';
@@ -26,8 +27,7 @@ export default class Navbar extends React.Component {
   static displayName = 'Navbar';
 
   static propTypes = {
-    ...BlockElement.propTypes,
-    alignOptions: PropTypes.shape(omit(BlockElement.propTypes, 'as')),
+    alignOptions: PropTypes.object,
     alignTo: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS).isRequired,
     as: ExtraPropTypes.and([
       customPropTypes.customOrStringElement('nav', 'div'),
@@ -42,7 +42,7 @@ export default class Navbar extends React.Component {
       },
     ]),
     boundaryAlign: PropTypes.bool,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     className: PropTypes.string,
     container: PropTypes.bool,
     delayHide: PropTypes.number,
@@ -66,7 +66,7 @@ export default class Navbar extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
+    as: 'nav',
     boundaryAlign: false,
     className: '',
     container: false,
@@ -125,6 +125,7 @@ export default class Navbar extends React.Component {
     const {
       alignOptions,
       alignTo,
+      as,
       boundaryAlign,
       children,
       className,
@@ -149,7 +150,6 @@ export default class Navbar extends React.Component {
 
     const alignProps = {
       ...alignOptions,
-      as: 'div',
       className: classnames(
         alignOptions.className,
         buildClassName(ukClass, alignTo),
@@ -168,17 +168,16 @@ export default class Navbar extends React.Component {
       offset,
     });
 
+    const Element = getElementType(Navbar, this.props);
     return (
-      <BlockElement
+      <Element
         {...rest}
         className={classes}
         ref={this.handleRef}
         data-uk-navbar={componentOptions}
       >
-        <BlockElement {...alignProps}>
-          {this.renderChildren(children)}
-        </BlockElement>
-      </BlockElement>
+        <div {...alignProps}>{this.renderChildren(children)}</div>
+      </Element>
     );
   }
 }

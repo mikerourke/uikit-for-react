@@ -1,27 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes } from '../../../lib';
-import { BlockElement } from '../../base';
-import SlideNavItem from './SlideNavPrevious';
+import { customPropTypes, getElementType } from '../../../lib';
+import SlideNavNext from './SlideNavNext';
+import SlideNavPrevious from './SlideNavPrevious';
 
 export default class SlideNavContainer extends React.Component {
   static displayName = 'SlideNavContainer';
 
   static propTypes = {
-    ...BlockElement.propTypes,
-    children: customPropTypes.restrictToChildTypes(SlideNavItem),
+    as: customPropTypes.customOrStringElement('div'),
+    children: customPropTypes.restrictToChildTypes(
+      SlideNavNext,
+      SlideNavPrevious,
+    ),
     className: PropTypes.string,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
+    as: 'div',
     className: '',
   };
 
   render() {
-    const { className, ...rest } = this.props;
+    const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-slidenav-container');
-    return <BlockElement {...rest} className={classes} />;
+    const Element = getElementType(SlideNavContainer, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

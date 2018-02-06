@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes } from '../../../lib';
-import { BlockElement } from '../../base';
+import { buildClassName, customPropTypes, getElementType } from '../../../lib';
 import SubNavItem from './SubNavItem';
 
 export default class SubNav extends React.Component {
   static displayName = 'SubNav';
 
   static propTypes = {
-    ...BlockElement.propTypes,
+    as: customPropTypes.customOrStringElement('ul'),
     children: customPropTypes.restrictToChildTypes(SubNavItem),
     className: PropTypes.string,
     divider: PropTypes.bool,
@@ -17,7 +16,7 @@ export default class SubNav extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
+    as: 'ul',
     className: '',
     divider: false,
     pill: false,
@@ -26,13 +25,14 @@ export default class SubNav extends React.Component {
   static Item = SubNavItem;
 
   render() {
-    const { className, divider, pill, ...rest } = this.props;
+    const { as, className, divider, pill, ...rest } = this.props;
 
     const classes = classnames(className, 'uk-subnav', {
       [buildClassName('subnav', 'divider')]: divider,
       [buildClassName('subnav', 'pill')]: pill,
     });
 
-    return <BlockElement {...rest} as="ul" className={classes} />;
+    const Element = getElementType(SubNav, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

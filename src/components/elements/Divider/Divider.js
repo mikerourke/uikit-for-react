@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes } from '../../../lib';
-import { BlockElement } from '../../base';
+import { buildClassName, customPropTypes, getElementType } from '../../../lib';
 
 export default class Divider extends React.Component {
   static displayName = 'Divider';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     as: customPropTypes.customOrStringElement('hr'),
     className: PropTypes.string,
     icon: PropTypes.bool,
@@ -16,7 +14,6 @@ export default class Divider extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'hr',
     className: '',
     icon: false,
@@ -24,7 +21,7 @@ export default class Divider extends React.Component {
   };
 
   render() {
-    const { className, icon, small, ...rest } = this.props;
+    const { as, className, icon, small, ...rest } = this.props;
 
     const ukClass = 'uk-divider';
     const classes = classnames(className, {
@@ -32,6 +29,7 @@ export default class Divider extends React.Component {
       [buildClassName(ukClass, 'small')]: small,
     });
 
-    return <BlockElement {...rest} className={classes} />;
+    const Element = getElementType(Divider, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

@@ -1,22 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { InlineElement } from '../../base';
+import { customPropTypes, getElementType } from '../../../lib';
 
 export default class OverlayIcon extends React.Component {
   static displayName = 'OverlayIcon';
 
   static propTypes = {
-    ...InlineElement.propTypes,
+    as: customPropTypes.customOrStringElement('span'),
     children: PropTypes.node,
     className: PropTypes.string,
   };
 
   static defaultProps = {
-    ...InlineElement.defaultProps,
+    as: 'span',
     className: '',
   };
 
   render() {
-    return <InlineElement {...this.props} as="span" data-uk-overlay-icon />;
+    const { as, ...rest } = this.props;
+    const Element = getElementType(OverlayIcon, this.props);
+    return <Element {...rest} data-uk-overlay-icon="" />;
   }
 }

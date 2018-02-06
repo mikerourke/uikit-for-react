@@ -1,29 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes } from '../../../lib';
-import { BlockElement } from '../../base';
+import { customPropTypes, getElementType } from '../../../lib';
 import BreadcrumbItem from './BreadcrumbItem';
 
 export default class Breadcrumb extends React.Component {
   static displayName = 'Breadcrumb';
 
   static propTypes = {
-    ...BlockElement.propTypes,
+    as: customPropTypes.customOrStringElement('ul'),
     children: customPropTypes.restrictToChildTypes(BreadcrumbItem),
     className: PropTypes.string,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
+    as: 'ul',
     className: '',
   };
 
   static Item = BreadcrumbItem;
 
   render() {
-    const { className, ...rest } = this.props;
+    const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-breadcrumb');
-    return <BlockElement {...rest} as="ul" className={classes} />;
+    const Element = getElementType(Breadcrumb, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

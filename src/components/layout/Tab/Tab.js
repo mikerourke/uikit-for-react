@@ -1,36 +1,24 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { isNil, noop } from 'lodash';
 import {
   buildClassName,
+  customPropTypes,
   generateSelector,
   getBaseRef,
+  getElementType,
   getOptionsString,
   UIK,
 } from '../../../lib';
-import { BlockElement } from '../../base';
 import TabItem from './TabItem';
 
 export default class Tab extends React.Component {
   static displayName = 'Tab';
 
   static propTypes = {
-    ...BlockElement.propTypes,
-    activeIndex: ExtraPropTypes.and([
-      ExtraPropTypes.nonNegativeInteger,
-      props => {
-        const maxAllowed = React.Children.count(props.children) - 1;
-        if (props.activeIndex > maxAllowed) {
-          return new Error(
-            `Invalid activeIndex passed to Lightbox, the maximum value allowed is ${maxAllowed}`,
-          );
-        }
-        return null;
-      },
-    ]),
+    activeIndex: customPropTypes.validateIndex,
     align: PropTypes.oneOf(['bottom', 'left', 'right']),
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.ANIMATIONS),
@@ -47,9 +35,10 @@ export default class Tab extends React.Component {
         duration: PropTypes.number,
       }),
     ]),
-    children: PropTypes.node.isRequired,
+    as: customPropTypes.customOrStringElement('ul'),
+    children: PropTypes.node,
     className: PropTypes.string,
-    defaultIndex: PropTypes.number,
+    defaultIndex: customPropTypes.validateIndex,
     media: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.oneOf(UIK.BREAKPOINTS),
@@ -112,6 +101,7 @@ export default class Tab extends React.Component {
       activeIndex,
       align,
       animation,
+      as,
       className,
       defaultIndex,
       media,
@@ -138,10 +128,10 @@ export default class Tab extends React.Component {
       swiping,
     });
 
+    const Element = getElementType(Tab, this.props);
     return (
-      <BlockElement
+      <Element
         {...rest}
-        as="ul"
         className={classes}
         ref={this.handleRef}
         data-uk-tab={componentOptions}

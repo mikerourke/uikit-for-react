@@ -142,13 +142,14 @@ export default class Alert extends React.Component {
       },
     );
 
+    const componentOptions = getOptionsString({ animation });
     const Element = getElementType(Alert, this.props);
     return (
       <Element
         {...rest}
         className={classes}
         ref={this.handleRef}
-        data-uk-alert={getOptionsString({ animation })}
+        data-uk-alert={componentOptions}
       >
         {closeable && <Close {...closeOptions} className={closeClasses} />}
         {this.renderChildren(children)}

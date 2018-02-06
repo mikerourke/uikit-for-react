@@ -4,14 +4,20 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { isNil, noop } from 'lodash';
-import { getOptionsString, joinListProp, UIK } from '../../../lib';
-import { InlineElement } from '../../base';
+import {
+  customPropTypes,
+  generateSelector,
+  getBaseRef,
+  getElementType,
+  getOptionsString,
+  joinListProp,
+  UIK,
+} from '../../../lib';
 
 export default class ToggleToggle extends React.Component {
   static displayName = 'ToggleToggle';
 
   static propTypes = {
-    ...InlineElement.propTypes,
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.ANIMATIONS),
       PropTypes.arrayOf(UIK.ANIMATIONS),
@@ -27,11 +33,7 @@ export default class ToggleToggle extends React.Component {
         duration: PropTypes.number,
       }),
     ]),
-    as: PropTypes.oneOfType([
-      PropTypes.oneOf(['a', 'button']),
-      PropTypes.element,
-      PropTypes.func,
-    ]),
+    as: customPropTypes.customOrStringElement('a', 'button'),
     children: PropTypes.node,
     className: PropTypes.string,
     classToggled: PropTypes.string,
@@ -62,7 +64,6 @@ export default class ToggleToggle extends React.Component {
   };
 
   static defaultProps = {
-    ...InlineElement.defaultProps,
     as: 'button',
     className: '',
     onBeforeHide: noop,
@@ -75,30 +76,38 @@ export default class ToggleToggle extends React.Component {
     toggled: false,
   };
 
+  constructor() {
+    super();
+    this.selector = generateSelector();
+  }
+
   componentDidMount() {
-    if (!this.ref) return;
-    UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(this.ref, 'beforeshow', this.props.onBeforeShow);
-    UIkit.util.on(this.ref, 'hidden', this.props.onHidden);
-    UIkit.util.on(this.ref, 'hide', this.props.onHide);
-    UIkit.util.on(this.ref, 'show', this.props.onShow);
-    UIkit.util.on(this.ref, 'shown', this.props.onShown);
+    const ref = this.getRef();
+    UIkit.util.on(ref, 'beforehide', this.props.onBeforeHide);
+    UIkit.util.on(ref, 'beforeshow', this.props.onBeforeShow);
+    UIkit.util.on(ref, 'hidden', this.props.onHidden);
+    UIkit.util.on(ref, 'hide', this.props.onHide);
+    UIkit.util.on(ref, 'show', this.props.onShow);
+    UIkit.util.on(ref, 'shown', this.props.onShown);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.toggled !== this.props.toggled) {
-      UIkit.toggle(this.ref).toggle();
+      UIkit.toggle(this.getRef()).toggle();
     }
   }
 
+  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
+
   handleRef = element => {
     if (!element) return;
-    this.ref = isNil(element.ref) ? element : element.ref;
+    this.ref = getBaseRef(element);
   };
 
   render() {
     const {
       animation,
+      as,
       className,
       classToggled,
       mediaTrigger,
@@ -115,7 +124,7 @@ export default class ToggleToggle extends React.Component {
       ...rest
     } = this.props;
 
-    const classes = classnames(className, 'uk-toggle');
+    const classes = classnames(className, 'uk-toggle', this.selector);
 
     const componentOptions = getOptionsString({
       animation,
@@ -126,8 +135,9 @@ export default class ToggleToggle extends React.Component {
       target: selectorTarget,
     });
 
+    const Element = getElementType(ToggleToggle, this.props);
     return (
-      <InlineElement
+      <Element
         {...rest}
         className={classes}
         ref={this.handleRef}

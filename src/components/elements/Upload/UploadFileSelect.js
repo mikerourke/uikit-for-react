@@ -1,28 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BlockElement } from '../../base';
+import { customPropTypes, getElementType } from '../../../lib';
 
 export default class UploadFileSelect extends React.Component {
   static displayName = 'UploadFileSelect';
 
   static propTypes = {
-    ...BlockElement.propTypes,
+    as: customPropTypes.customOrStringElement('div'),
     children: PropTypes.node,
     className: PropTypes.string,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
+    as: 'div',
     className: '',
   };
 
   render() {
-    const { children, ...rest } = this.props;
+    const { as, children, ...rest } = this.props;
+    const Element = getElementType(UploadFileSelect, this.props);
     return (
-      <BlockElement {...rest} as="div" data-uk-form-custom>
+      <Element {...rest} data-uk-form-custom="">
         <input type="file" />
         {children}
-      </BlockElement>
+      </Element>
     );
   }
 }

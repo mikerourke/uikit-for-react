@@ -8,7 +8,7 @@ export default class GridParallax extends React.Component {
 
   static propTypes = {
     ...Grid.propTypes,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     target: PropTypes.string,
     translate: PropTypes.number,
   };
@@ -22,12 +22,7 @@ export default class GridParallax extends React.Component {
 
   render() {
     const { target, translate, ...rest } = this.props;
-
-    const componentOptions = getOptionsString({
-      target,
-      translate,
-    });
-
+    const componentOptions = getOptionsString({ target, translate });
     return (
       <Grid
         {...rest}

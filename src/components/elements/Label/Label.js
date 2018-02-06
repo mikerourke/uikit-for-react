@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName } from '../../../lib';
-import { InlineElement } from '../../base';
+import { buildClassName, customPropTypes, getElementType } from '../../../lib';
 
 export default class Label extends React.Component {
   static displayName = 'Label';
 
   static propTypes = {
-    ...InlineElement.propTypes,
+    as: customPropTypes.customOrStringElement('span'),
     children: PropTypes.node,
     className: PropTypes.string,
     danger: PropTypes.bool,
@@ -17,7 +16,7 @@ export default class Label extends React.Component {
   };
 
   static defaultProps = {
-    ...InlineElement.defaultProps,
+    as: 'span',
     className: '',
     danger: false,
     success: false,
@@ -34,6 +33,7 @@ export default class Label extends React.Component {
       [buildClassName(ukClass, 'warning')]: warning,
     });
 
-    return <InlineElement {...rest} as="span" className={classes} />;
+    const Element = getElementType(Label, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

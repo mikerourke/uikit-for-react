@@ -1,14 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, UIK } from '../../../lib';
-import { BlockElement } from '../../base';
+import {
+  buildClassName,
+  customPropTypes,
+  getElementType,
+  HTML,
+  UIK,
+} from '../../../lib';
 
 export default class Section extends React.Component {
   static displayName = 'Section';
 
   static propTypes = {
-    ...BlockElement.propTypes,
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     background: PropTypes.oneOf(UIK.BACKGROUND_COLORS),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
@@ -18,7 +23,7 @@ export default class Section extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
+    as: 'div',
     className: '',
     overlap: false,
     preserveColor: false,
@@ -26,6 +31,7 @@ export default class Section extends React.Component {
 
   render() {
     const {
+      as,
       background,
       className,
       overlap,
@@ -47,6 +53,7 @@ export default class Section extends React.Component {
       },
     );
 
-    return <BlockElement {...rest} className={classes} />;
+    const Element = getElementType(Section, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

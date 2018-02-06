@@ -1,24 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { InlineElement } from '../../base';
+import { customPropTypes, getElementType } from '../../../lib';
 
 export default class Progress extends React.Component {
   static displayName = 'Progress';
 
   static propTypes = {
-    ...InlineElement.propTypes,
+    as: customPropTypes.customOrStringElement('progress'),
     className: PropTypes.string,
   };
 
   static defaultProps = {
-    ...InlineElement.defaultProps,
+    as: 'progress',
     className: '',
   };
 
   render() {
-    const { className, ...rest } = this.props;
+    const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-progress');
-    return <InlineElement {...rest} as="progress" className={classes} />;
+    const Element = getElementType(Progress, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

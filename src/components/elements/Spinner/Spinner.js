@@ -1,23 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BlockElement } from '../../base';
+import { customPropTypes, getElementType, HTML } from '../../../lib';
 
 export default class Spinner extends React.Component {
   static displayName = 'Spinner';
 
   static propTypes = {
-    ...BlockElement.propTypes,
-    as: BlockElement.asPropType,
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     className: PropTypes.string,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'div',
     className: '',
   };
 
   render() {
-    return <BlockElement {...this.props} data-uk-spinner />;
+    const { as, ...rest } = this.props;
+    const Element = getElementType(Spinner, this.props);
+    return <Element {...rest} data-uk-spinner="" />;
   }
 }

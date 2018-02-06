@@ -1,16 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { invoke } from 'lodash';
-import { buildClassName } from '../../../lib';
-import { InlineElement } from '../../base';
+import { invoke, noop } from 'lodash';
+import { buildClassName, customPropTypes, getElementType } from '../../../lib';
 
 export default class SearchIcon extends React.Component {
   static displayName = 'SearchIcon';
 
   static propTypes = {
-    ...InlineElement.propTypes,
-    as: PropTypes.oneOf(['a', 'button', 'span']),
+    as: customPropTypes.customOrStringElement('a', 'button', 'span'),
     className: PropTypes.string,
     flip: PropTypes.bool,
     onClick: PropTypes.func,
@@ -18,12 +16,10 @@ export default class SearchIcon extends React.Component {
   };
 
   static defaultProps = {
-    ...InlineElement.defaultProps,
     as: 'span',
     className: '',
     flip: false,
-    href: null,
-    onClick: null,
+    onClick: noop,
     toggle: false,
   };
 
@@ -32,7 +28,7 @@ export default class SearchIcon extends React.Component {
   };
 
   render() {
-    const { className, flip, toggle, ...rest } = this.props;
+    const { as, className, flip, toggle, ...rest } = this.props;
 
     const ukClass = 'uk-search-icon';
     const classes = classnames(className, ukClass, {
@@ -40,12 +36,13 @@ export default class SearchIcon extends React.Component {
       [buildClassName(ukClass, 'toggle')]: toggle,
     });
 
+    const Element = getElementType(SearchIcon, this.props);
     return (
-      <InlineElement
+      <Element
         {...rest}
         className={classes}
         onClick={this.handleClick}
-        data-uk-search-icon
+        data-uk-search-icon=""
       />
     );
   }

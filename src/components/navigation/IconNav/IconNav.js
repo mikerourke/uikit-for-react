@@ -1,22 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes } from '../../../lib';
-import { BlockElement } from '../../base';
+import { buildClassName, customPropTypes, getElementType } from '../../../lib';
 import IconNavItem from './IconNavItem';
 
 export default class IconNav extends React.Component {
   static displayName = 'IconNav';
 
   static propTypes = {
-    ...BlockElement.propTypes,
+    as: customPropTypes.customOrStringElement('ul'),
     children: customPropTypes.restrictToChildTypes(IconNavItem),
     className: PropTypes.string,
     vertical: PropTypes.bool,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
+    as: 'ul',
     className: '',
     vertical: false,
   };
@@ -24,13 +23,14 @@ export default class IconNav extends React.Component {
   static Item = IconNavItem;
 
   render() {
-    const { className, vertical, ...rest } = this.props;
+    const { as, className, vertical, ...rest } = this.props;
 
     const ukClass = 'uk-iconnav';
     const classes = classnames(className, ukClass, {
       [buildClassName(ukClass, 'vertical')]: vertical,
     });
 
-    return <BlockElement {...rest} as="ul" className={classes} />;
+    const Element = getElementType(IconNav, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

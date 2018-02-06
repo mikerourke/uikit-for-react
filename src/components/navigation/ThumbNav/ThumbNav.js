@@ -1,36 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes } from '../../../lib';
-import { BlockElement } from '../../base';
+import { buildClassName, customPropTypes, getElementType } from '../../../lib';
+import ThumbNavImage from './ThumbNavImage';
 import ThumbNavItem from './ThumbNavItem';
 
 export default class ThumbNav extends React.Component {
   static displayName = 'ThumbNav';
 
   static propTypes = {
-    ...BlockElement.propTypes,
+    as: customPropTypes.customOrStringElement('ul'),
     children: customPropTypes.restrictToChildTypes(ThumbNavItem),
     className: PropTypes.string,
     vertical: PropTypes.bool,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
+    as: 'ul',
     className: '',
     vertical: false,
   };
 
+  static Image = ThumbNavImage;
   static Item = ThumbNavItem;
 
   render() {
-    const { className, vertical, ...rest } = this.props;
+    const { as, className, vertical, ...rest } = this.props;
 
     const ukClass = 'uk-thumbnav';
     const classes = classnames(className, ukClass, {
       [buildClassName(ukClass, 'vertical')]: vertical,
     });
 
-    return <BlockElement {...rest} as="ul" className={classes} />;
+    const Element = getElementType(ThumbNav, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

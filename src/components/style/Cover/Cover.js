@@ -5,7 +5,6 @@ import {
   getElementType,
   getOptionsString,
 } from '../../../lib';
-import { BlockElement } from '../../base';
 import CoverContainer from './CoverContainer';
 
 export default class Cover extends React.Component {

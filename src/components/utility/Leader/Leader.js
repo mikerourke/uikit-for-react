@@ -1,15 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
-import { getOptionsString, UIK } from '../../../lib';
-import { BaseElement } from '../../base';
+import {
+  customPropTypes,
+  getElementType,
+  getOptionsString,
+  HTML,
+  UIK,
+} from '../../../lib';
 
 export default class Leader extends React.Component {
   static displayName = 'Leader';
 
   static propTypes = {
-    ...BaseElement.propTypes,
-    as: BaseElement.asPropType,
+    as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
     fill: PropTypes.string,
@@ -21,17 +25,14 @@ export default class Leader extends React.Component {
   };
 
   static defaultProps = {
-    ...BaseElement.defaultProps,
     as: 'div',
     className: '',
   };
 
   render() {
-    const { fill, media, ...rest } = this.props;
-    const componentOptions = getOptionsString({
-      fill,
-      media,
-    });
-    return <BaseElement {...rest} data-uk-leader={componentOptions} />;
+    const { as, fill, media, ...rest } = this.props;
+    const componentOptions = getOptionsString({ fill, media });
+    const Element = getElementType(Leader, this.props);
+    return <Element {...rest} data-uk-leader={componentOptions} />;
   }
 }

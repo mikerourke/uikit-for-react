@@ -1,51 +1,43 @@
+/* eslint-disable jsx-a11y/anchor-has-content */
 import React from 'react';
 import PropTypes from 'prop-types';
-import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { isNil } from 'lodash';
-import { buildClassName } from '../../../lib';
+import { customPropTypes, getElementType } from '../../../lib';
 import { InlineElement } from '../../base';
 
 export default class NavbarToggle extends React.Component {
   static displayName = 'NavbarToggle';
 
   static propTypes = {
-    ...InlineElement.propTypes,
+    as: customPropTypes.customOrStringElement('a'),
     className: PropTypes.string,
-    iconOptions: PropTypes.shape(InlineElement.propTypes),
+    icon: PropTypes.node,
     title: PropTypes.node,
-    titleOptions: PropTypes.shape(InlineElement.propTypes),
   };
 
   static defaultProps = {
-    ...InlineElement.defaultProps,
+    as: 'a',
     className: '',
-    iconOptions: null,
-    title: null,
-    titleOptions: {},
   };
 
   render() {
-    const { className, iconOptions, title, titleOptions, ...rest } = this.props;
+    const { as, className, icon, title, ...rest } = this.props;
+
+    const iconProp = { 'data-uk-navbar-toggle-icon': '' };
     const ukClass = 'uk-navbar-toggle';
     const classes = classnames(className, ukClass);
     if (!isNil(title)) {
-      return (
-        <InlineElement
-          {...rest}
-          as="a"
-          className={classes}
-          data-uk-navbar-toggle-icon
-        />
-      );
+      const LinkElement = getElementType(NavbarToggle, this.props);
+      return <LinkElement {...rest} className={classes} {...iconProp} />;
     }
+
+    const OuterElement = getElementType(NavbarToggle, this.props);
     return (
-      <InlineElement {...rest} as="a" className={classes}>
-        <InlineElement {...iconOptions} as="span" data-uk-navbar-toggle-icon />
-        <InlineElement {...titleOptions} as="span">
-          {title}
-        </InlineElement>
-      </InlineElement>
+      <OuterElement {...rest} className={classes}>
+        {icon && React.cloneElement(icon, iconProp)}
+        {title && title}
+      </OuterElement>
     );
   }
 }

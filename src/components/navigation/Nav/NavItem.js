@@ -34,13 +34,13 @@ export default class NavItem extends React.Component {
       [buildClassName('parent')]: hasChildType(children, NavSubNav),
     });
     return (
-      <BlockElement {...rest} className={classes}>
+      <Element {...rest} className={classes}>
         {hasChildType(children, NavItemGroup) ? (
           children
         ) : (
           <a href={href}>{children}</a>
         )}
-      </BlockElement>
+      </Element>
     );
   }
 }

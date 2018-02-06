@@ -3,20 +3,27 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isNil, noop } from 'lodash';
-import { getOptionsString, joinListProp, UIK } from '../../../lib';
-import { BlockElement } from '../../base';
+import {
+  customPropTypes,
+  generateSelector,
+  getBaseRef,
+  getElementType,
+  getOptionsString,
+  joinListProp,
+  HTML,
+  UIK,
+} from '../../../lib';
 
 export default class Scrollspy extends React.Component {
   static displayName = 'Scrollspy';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.ANIMATIONS),
       PropTypes.arrayOf(UIK.ANIMATIONS),
     ]),
-    as: BlockElement.asPropType,
-    children: PropTypes.node.isRequired,
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
+    children: PropTypes.node,
     className: PropTypes.string,
     delay: PropTypes.number,
     hidden: PropTypes.bool,
@@ -40,20 +47,28 @@ export default class Scrollspy extends React.Component {
     repeat: null,
   };
 
-  componentDidMount() {
-    if (!this.ref) return;
-    UIkit.util.on(this.ref, 'inview', this.props.onInview);
-    UIkit.util.on(this.ref, 'outview', this.props.onOutview);
+  constructor() {
+    super();
+    this.selector = generateSelector();
   }
+
+  componentDidMount() {
+    const ref = this.getRef();
+    UIkit.util.on(ref, 'inview', this.props.onInview);
+    UIkit.util.on(ref, 'outview', this.props.onOutview);
+  }
+
+  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
 
   handleRef = element => {
     if (!element) return;
-    this.ref = isNil(element.ref) ? element : element.ref;
+    this.ref = getBaseRef(element);
   };
 
   render() {
     const {
       animation,
+      as,
       className,
       delay,
       hidden,
@@ -65,7 +80,7 @@ export default class Scrollspy extends React.Component {
       ...rest
     } = this.props;
 
-    const classes = classnames(className, 'uk-scrollspy');
+    const classes = classnames(className, 'uk-scrollspy', this.selector);
 
     const componentOptions = getOptionsString({
       cls: joinListProp(animation),
@@ -76,8 +91,9 @@ export default class Scrollspy extends React.Component {
       repeat,
     });
 
+    const Element = getElementType(Scrollspy, this.props);
     return (
-      <BlockElement
+      <Element
         {...rest}
         className={classes}
         ref={this.handleRef}

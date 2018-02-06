@@ -2,23 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { customPropTypes, getElementType } from '../../../lib';
 
-export default class FormOption extends React.Component {
-  static displayName = 'FormOption';
+export default class ThumbNavImage extends React.Component {
+  static displayName = 'ThumbNavImage';
 
   static propTypes = {
-    as: customPropTypes.customOrStringElement('option'),
+    as: customPropTypes.customOrStringElement('img'),
     children: PropTypes.node,
     className: PropTypes.string,
   };
 
   static defaultProps = {
-    as: 'option',
+    as: 'img',
     className: '',
   };
 
   render() {
     const { as, ...rest } = this.props;
-    const Element = getElementType(FormOption, this.props);
+    const Element = getElementType(ThumbNavImage, this.props);
     return <Element {...rest} />;
   }
 }

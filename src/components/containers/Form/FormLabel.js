@@ -1,25 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { InlineElement } from '../../base';
+import { customPropTypes, getElementType } from '../../../lib';
 
 export default class FormLabel extends React.Component {
   static displayName = 'FormLabel';
 
   static propTypes = {
-    ...InlineElement.propTypes,
+    as: customPropTypes.customOrStringElement('label'),
     children: PropTypes.node,
     className: PropTypes.string,
   };
 
   static defaultProps = {
-    ...InlineElement.defaultProps,
+    as: 'label',
     className: '',
   };
 
   render() {
-    const { className, ...rest } = this.props;
+    const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-form-label');
-    return <InlineElement {...rest} as="label" className={classes} />;
+    const Element = getElementType(FormLabel, this.props);
+    return <Element {...rest} as="label" className={classes} />;
   }
 }

@@ -1,10 +1,10 @@
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { omit } from 'lodash';
-import { buildClassName } from '../../../lib';
-import { BlockElement } from '../../base';
+import { buildClassName, customPropTypes, getElementType } from '../../../lib';
 import { Dropdown } from '../../elements';
 import NavbarItem from './NavbarItem';
 
@@ -12,18 +12,18 @@ export default class NavbarDropdown extends React.Component {
   static displayName = 'NavbarDropdown';
 
   static propTypes = {
-    ...omit(Dropdown.propTypes, 'as'),
+    ...Dropdown.propTypes,
+    as: customPropTypes.customOrStringElement('div'),
     children: ExtraPropTypes.elementType(NavbarItem),
     className: PropTypes.string,
     multiplyWidth: PropTypes.oneOf([2, 3, 4, 5]),
-    navOptions: PropTypes.shape(BlockElement.propTypes),
+    navOptions: PropTypes.object,
   };
 
   static defaultProps = {
     ...Dropdown.defaultProps,
+    as: 'div',
     className: '',
-    multiplyWidth: null,
-    navOptions: null,
   };
 
   render() {
@@ -43,18 +43,18 @@ export default class NavbarDropdown extends React.Component {
     );
 
     const navProps = {
-      ...navOptions,
+      ...omit(navOptions, 'as'),
       className: classnames(
         navOptions.className,
         'uk-nav',
         buildClassName(ukClass, 'nav'),
       ),
     };
+
+    const InnerElement = getElementType(navOptions, navOptions);
     return (
-      <Dropdown {...rest} as="div" className={classes}>
-        <BlockElement {...navProps} as="ul">
-          {children}
-        </BlockElement>
+      <Dropdown {...rest} className={classes}>
+        <InnerElement {...navProps}>{children}</InnerElement>
       </Dropdown>
     );
   }

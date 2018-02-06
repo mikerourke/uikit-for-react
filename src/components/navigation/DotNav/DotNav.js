@@ -1,22 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName } from '../../../lib';
-import { BlockElement } from '../../base';
+import { buildClassName, customPropTypes, getElementType } from '../../../lib';
 import DotNavItem from './DotNavItem';
 
 class DotNav extends React.Component {
   static displayName = 'DotNav';
 
   static propTypes = {
-    ...BlockElement.propTypes,
-    children: PropTypes.node.isRequired,
+    as: customPropTypes.customOrStringElement('ul'),
+    children: customPropTypes.restrictToChildTypes(DotNavItem),
     className: PropTypes.string,
     vertical: PropTypes.bool,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
+    as: 'ul',
     className: '',
     vertical: false,
   };
@@ -24,14 +23,15 @@ class DotNav extends React.Component {
   static Item = DotNavItem;
 
   render() {
-    const { className, vertical, ...rest } = this.props;
+    const { as, className, vertical, ...rest } = this.props;
 
     const ukClass = 'uk-dotnav';
     const classes = classnames(className, ukClass, {
       [buildClassName(ukClass, 'vertical')]: vertical,
     });
 
-    return <BlockElement {...rest} as="ul" className={classes} />;
+    const Element = getElementType(DotNav, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }
 

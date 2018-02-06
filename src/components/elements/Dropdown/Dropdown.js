@@ -6,19 +6,20 @@ import { isNil, noop } from 'lodash';
 import {
   appendClassNamesToChildren,
   buildClassName,
+  customPropTypes,
   generateSelector,
   getBaseRef,
+  getElementType,
   getOptionsString,
   joinListProp,
+  HTML,
   UIK,
 } from '../../../lib';
-import { BlockElement } from '../../base';
 
 export default class Dropdown extends React.Component {
   static displayName = 'Dropdown';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     animation: PropTypes.shape({
       name: PropTypes.oneOfType([
         PropTypes.oneOf(UIK.ANIMATIONS),
@@ -26,7 +27,7 @@ export default class Dropdown extends React.Component {
       ]),
       duration: PropTypes.number,
     }),
-    as: BlockElement.asPropType,
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     boundaryAlign: PropTypes.bool,
     children: PropTypes.node,
     className: PropTypes.string,
@@ -52,7 +53,6 @@ export default class Dropdown extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'div',
     boundaryAlign: false,
     className: '',
@@ -111,6 +111,7 @@ export default class Dropdown extends React.Component {
   render() {
     const {
       animation,
+      as,
       boundaryAlign,
       children,
       className,
@@ -146,17 +147,18 @@ export default class Dropdown extends React.Component {
       pos: position,
     });
 
+    const Element = getElementType(Dropdown, this.props);
     return (
       <Fragment>
         {toggle && toggle}
-        <BlockElement
+        <Element
           {...rest}
           className={classes}
           ref={this.handleRef}
           data-uk-dropdown={componentOptions}
         >
           {this.renderChildren(children)}
-        </BlockElement>
+        </Element>
       </Fragment>
     );
   }

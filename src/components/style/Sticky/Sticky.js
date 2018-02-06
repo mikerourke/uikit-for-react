@@ -4,21 +4,22 @@ import PropTypes from 'prop-types';
 import { isNil, noop } from 'lodash';
 import classnames from 'classnames';
 import {
+  customPropTypes,
   findChildByType,
   generateSelector,
   getBaseRef,
+  getElementType,
   getOptionsString,
+  HTML,
 } from '../../../lib';
-import { BaseElement } from '../../base';
 import Navbar from '../../navigation/Navbar';
 
 export default class Sticky extends React.Component {
   static displayName = 'Sticky';
 
   static propTypes = {
-    ...BaseElement.propTypes,
     animation: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-    as: BaseElement.asPropType,
+    as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
     bottom: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.number,
@@ -39,7 +40,6 @@ export default class Sticky extends React.Component {
   };
 
   static defaultProps = {
-    ...BaseElement.defaultProps,
     animation: false,
     as: 'div',
     bottom: false,
@@ -62,8 +62,8 @@ export default class Sticky extends React.Component {
   }
 
   getOptionsForNavbar() {
-    const { clsActive, clsInactive, target } = this.props;
-    const childNavbar = findChildByType(Navbar);
+    const { children, clsActive, clsInactive, target } = this.props;
+    const childNavbar = findChildByType(children, Navbar);
     if (!childNavbar) return {};
     return {
       clsActive: classnames(clsActive, 'uk-navbar-sticky'),
@@ -84,6 +84,7 @@ export default class Sticky extends React.Component {
   render() {
     const {
       animation,
+      as,
       bottom,
       className,
       clsActive,
@@ -113,8 +114,9 @@ export default class Sticky extends React.Component {
       ...this.getOptionsForNavbar(),
     });
 
+    const Element = getElementType(Sticky, this.props);
     return (
-      <BaseElement
+      <Element
         {...rest}
         className={classes}
         ref={this.handleRef}

@@ -3,15 +3,18 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get } from 'lodash';
-import { getOptionsString } from '../../../lib';
-import { BlockElement } from '../../base';
+import {
+  customPropTypes,
+  getElementType,
+  getOptionsString,
+  HTML,
+} from '../../../lib';
 
 export default class CoverContainer extends React.Component {
   static displayName = 'CoverContainer';
 
   static propTypes = {
-    ...BlockElement.propTypes,
-    as: BlockElement.asPropType,
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     aspectRatio: PropTypes.shape({
       height: PropTypes.number,
       width: PropTypes.number,
@@ -30,13 +33,13 @@ export default class CoverContainer extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'div',
     className: '',
   };
 
   render() {
     const {
+      as,
       aspectRatio,
       children,
       className,
@@ -45,21 +48,22 @@ export default class CoverContainer extends React.Component {
     } = this.props;
 
     const classes = classnames(className, 'uk-cover-container');
-
+    const componentOptions = getOptionsString(viewportOptions);
     const canvasProps = {
       height: get(aspectRatio, 'height', 600),
       width: get(aspectRatio, 'width', 800),
     };
 
+    const Element = getElementType(CoverContainer, this.props);
     return (
-      <BlockElement
+      <Element
         {...rest}
         className={classes}
-        data-uk-height-viewport={getOptionsString(viewportOptions)}
+        data-uk-height-viewport={componentOptions}
       >
         {aspectRatio && <canvas {...canvasProps} />}
         {children}
-      </BlockElement>
+      </Element>
     );
   }
 }

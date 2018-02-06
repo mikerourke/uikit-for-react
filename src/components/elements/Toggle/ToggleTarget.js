@@ -1,24 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BaseElement } from '../../base';
+import { customPropTypes, getElementType, HTML } from '../../../lib';
 
 export default class ToggleTarget extends React.Component {
   static displayName = 'ToggleTarget';
 
   static propTypes = {
-    ...BaseElement.propTypes,
-    as: BaseElement.asPropType,
+    as: customPropTypes.customOrStringElement([
+      ...HTML.BLOCK_ELEMENTS,
+      ...HTML.INLINE_ELEMENTS,
+    ]),
     children: PropTypes.node,
     className: PropTypes.string,
   };
 
   static defaultProps = {
-    ...BaseElement.defaultProps,
     as: 'div',
     className: '',
   };
 
   render() {
-    return <BaseElement {...this.props} />;
+    const { as, ...rest } = this.props;
+    const Element = getElementType(ToggleTarget, this.props);
+    return <Element {...rest} />;
   }
 }

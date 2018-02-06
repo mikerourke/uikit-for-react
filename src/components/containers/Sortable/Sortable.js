@@ -1,3 +1,4 @@
+// TODO: Finish this.
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
@@ -6,19 +7,20 @@ import classnames from 'classnames';
 import { isBoolean, isNil, noop } from 'lodash';
 import {
   buildSelector,
+  customPropTypes,
   generateSelector,
   getBaseRef,
+  getElementType,
   getOptionsString,
+  HTML,
 } from '../../../lib';
-import { BaseElement, BlockElement } from '../../base';
 
 export default class Sortable extends React.Component {
   static displayName = 'Sortable';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     animationDuration: ExtraPropTypes.nonNegativeInteger,
-    as: BlockElement.asPropType,
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
     clsBase: PropTypes.string,
@@ -29,7 +31,6 @@ export default class Sortable extends React.Component {
     clsItem: PropTypes.string,
     clsNoDrag: PropTypes.string,
     clsPlaceholder: PropTypes.string,
-    dragOptions: PropTypes.shape(BaseElement.propTypes),
     group: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     onAdded: PropTypes.func,
     onMoved: PropTypes.func,
@@ -41,7 +42,6 @@ export default class Sortable extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     animationDuration: 150,
     as: 'ul',
     className: '',
@@ -100,6 +100,7 @@ export default class Sortable extends React.Component {
   render() {
     const {
       animationDuration,
+      as,
       children,
       clsBase,
       clsCustom,
@@ -109,19 +110,16 @@ export default class Sortable extends React.Component {
       clsItem,
       clsNoDrag,
       clsPlaceholder,
-      dragOptions,
       group,
       selectorHandle,
       threshold,
       ...rest
     } = this.props;
 
-    const { inheritedClasses } = BaseElement.getInheritedProps(dragOptions);
-
     const componentOptions = getOptionsString({
       animation: animationDuration,
       clsBase,
-      clsCustom: buildSelector(clsCustom, inheritedClasses),
+      clsCustom,
       clsDrag,
       clsDragState,
       clsEmpty,
@@ -133,14 +131,15 @@ export default class Sortable extends React.Component {
       threshold,
     });
 
+    const Element = getElementType(Sortable, this.props);
     return (
-      <BlockElement
+      <Element
         {...rest}
         ref={this.handleRef}
         data-uk-sortable={componentOptions}
       >
         {this.renderChildren(children)}
-      </BlockElement>
+      </Element>
     );
   }
 }

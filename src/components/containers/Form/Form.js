@@ -3,20 +3,25 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get, isNil } from 'lodash';
-import { buildClassName, getOptionsString } from '../../../lib';
-import { BlockElement } from '../../base';
+import {
+  buildClassName,
+  customPropTypes,
+  getElementType,
+  getOptionsString,
+  HTML,
+} from '../../../lib';
 
 export default class Form extends React.Component {
   static displayName = 'Form';
 
   static propTypes = {
-    ...BlockElement.propTypes,
+    as: customPropTypes.customOrStringElement('form'),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     custom: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.shape({
-        as: BlockElement.asPropType,
+        as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
         selectorTarget: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
       }),
     ]),
@@ -28,28 +33,22 @@ export default class Form extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
+    as: 'form',
     className: '',
-    custom: false,
     horizontal: false,
     stacked: false,
   };
 
   render() {
-    const { className, custom, horizontal, stacked, ...rest } = this.props;
+    const { as, className, custom, horizontal, stacked, ...rest } = this.props;
 
     if (!isNil(custom)) {
       const componentOptions = getOptionsString({
         target: get(custom, 'selectorTarget', false),
       });
 
-      return (
-        <BlockElement
-          {...rest}
-          as={get(custom, 'as', 'div')}
-          data-uk-form-custom={componentOptions}
-        />
-      );
+      const Element = getElementType(custom, custom);
+      return <Element {...rest} data-uk-form-custom={componentOptions} />;
     }
 
     const ukClass = 'uk-form';
@@ -58,6 +57,7 @@ export default class Form extends React.Component {
       [buildClassName(ukClass, 'stacked')]: stacked,
     });
 
-    return <BlockElement {...rest} as="form" className={classes} />;
+    const Element = getElementType(Form, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

@@ -151,6 +151,7 @@ export {
   SubNav,
   SubNavItem,
   ThumbNav,
+  ThumbNavImage,
   ThumbNavItem,
   Totop,
 } from './navigation';

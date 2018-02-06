@@ -1,24 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
-import { InlineElement } from '../../base';
+import { customPropTypes, getElementType } from '../../../lib';
 
 export default class OverlayImage extends React.Component {
   static displayName = 'OverlayImage';
 
   static propTypes = {
-    ...InlineElement.propTypes,
+    as: customPropTypes.customOrStringElement('img'),
     children: ExtraPropTypes.explicitNull(),
     className: PropTypes.string,
     src: PropTypes.string.isRequired,
   };
 
   static defaultProps = {
-    ...InlineElement.defaultProps,
+    as: 'img',
     className: '',
   };
 
   render() {
-    return <InlineElement {...this.props} as="img" />;
+    const { as, ...rest } = this.props;
+    const Element = getElementType(OverlayImage, this.props);
+    return <Element {...rest} />;
   }
 }

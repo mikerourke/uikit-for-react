@@ -8,20 +8,18 @@ export default class CommentAvatar extends React.Component {
   static displayName = 'CommentAvatar';
 
   static propTypes = {
-    ...InlineElement.propTypes,
-    as: customPropTypes.customOrStringElement('img'),
+        as: customPropTypes.customOrStringElement('img'),
     className: PropTypes.string,
   };
 
   static defaultProps = {
-    ...InlineElement.defaultProps,
-    as: 'img',
+        as: 'img',
     className: '',
   };
 
   render() {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-comment-avatar');
-    return <InlineElement {...rest} className={classes} />;
+    return <Element{...rest} className={classes} />;
   }
 }

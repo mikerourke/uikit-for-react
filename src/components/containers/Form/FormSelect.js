@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, UIK } from '../../../lib';
-import { InlineElement } from '../../base';
+import { buildClassName, customPropTypes, UIK } from '../../../lib';
 
 export default class FormSelect extends React.Component {
   static displayName = 'FormSelect';
 
   static propTypes = {
-    ...InlineElement.propTypes,
+    as: customPropTypes.customOrStringElement('select'),
     blank: PropTypes.bool,
     className: PropTypes.string,
     danger: PropTypes.bool,
@@ -19,17 +18,16 @@ export default class FormSelect extends React.Component {
   };
 
   static defaultProps = {
-    ...InlineElement.defaultProps,
+    as: 'select',
     blank: false,
     className: '',
     danger: false,
-    formWidth: null,
-    size: null,
     success: false,
   };
 
   render() {
     const {
+      as,
       blank,
       className,
       danger,
@@ -51,6 +49,7 @@ export default class FormSelect extends React.Component {
       },
     );
 
-    return <InlineElement {...rest} as="select" className={classes} />;
+    const Element = getElementType(FormSelect, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

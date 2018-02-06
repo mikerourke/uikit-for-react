@@ -9,7 +9,7 @@ export default class Notification extends React.Component {
   static displayName = 'Notification';
 
   static propTypes = {
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     group: PropTypes.string,
     onClose: PropTypes.func,
     position: PropTypes.oneOf([

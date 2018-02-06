@@ -9,11 +9,11 @@ import {
   customPropTypes,
   generateSelector,
   getBaseRef,
+  getElementType,
   getOptionsString,
   HTML,
   UIK,
 } from '../../../lib';
-import { BlockElement } from '../../base';
 import NavDivider from './NavDivider';
 import NavHeader from './NavHeader';
 import NavItem from './NavItem';
@@ -24,7 +24,6 @@ export default class Nav extends React.Component {
   static displayName = 'Nav';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     activeIndex: customPropTypes.validateIndex,
     accordion: PropTypes.bool,
     animation: PropTypes.oneOfType([
@@ -54,7 +53,6 @@ export default class Nav extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     activeIndex: 0,
     accordion: false,
     as: 'ul',
@@ -98,6 +96,7 @@ export default class Nav extends React.Component {
       activeIndex,
       accordion,
       animation,
+      as,
       center,
       className,
       collapsible,
@@ -123,8 +122,9 @@ export default class Nav extends React.Component {
       transition,
     });
 
+    const Element = getElementType(Nav, this.props);
     return (
-      <BlockElement
+      <Element
         {...rest}
         className={classes}
         ref={this.handleRef}

@@ -2,15 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isString } from 'lodash';
-import { buildClassName, HTML } from '../../../lib';
-import { BlockElement } from '../../base';
+import { buildClassName, customPropTypes, HTML } from '../../../lib';
 import Text from '../../style/Text';
 
 export default class Heading extends React.Component {
   static displayName = 'Heading';
 
   static propTypes = {
-    as: PropTypes.oneOf(HTML.HEADING_ELEMENTS),
+    as: customPropTypes.customOrStringElement(HTML.HEADING_ELEMENTS),
     bullet: PropTypes.bool,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,

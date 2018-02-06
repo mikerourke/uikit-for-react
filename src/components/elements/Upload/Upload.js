@@ -4,17 +4,22 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isNil, kebabCase, noop, omit } from 'lodash';
-import { BlockElement } from '../../base';
+import {
+  customPropTypes,
+  generateSelector,
+  getBaseRef,
+  getElementType,
+  HTML,
+} from '../../../lib';
 import UploadFileSelect from './UploadFileSelect';
 
 export default class Upload extends React.Component {
   static displayName = 'Upload';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     abort: PropTypes.func,
     allow: PropTypes.string,
-    as: BlockElement.asPropType,
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     beforeAll: PropTypes.func,
     beforeSend: PropTypes.func,
     children: PropTypes.node,
@@ -69,9 +74,7 @@ export default class Upload extends React.Component {
   ];
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
-    as: null,
-    children: null,
+    as: 'div',
     className: '',
     clsDragover: 'uk-dragover',
     concurrent: 1,
@@ -83,12 +86,16 @@ export default class Upload extends React.Component {
 
   static FileSelect = UploadFileSelect;
 
+  constructor() {
+    super();
+    this.selector = generateSelector();
+  }
+
   componentDidMount() {
     const fileInput = document.querySelector('input[type="file"]');
     if (fileInput && this.props.multiple) {
       fileInput.setAttribute('multiple', '');
     }
-    if (!this.ref) return;
     const uploadOptions = Upload.propNames.reduce((acc, propName) => {
       const optionKey =
         propName === 'requestType' ? 'type' : kebabCase(propName);
@@ -97,20 +104,23 @@ export default class Upload extends React.Component {
         [optionKey]: this.props[propName],
       };
     }, {});
-    UIkit.upload(this.ref, uploadOptions);
+    UIkit.upload(this.getRef(), uploadOptions);
   }
+
+  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
 
   handleRef = element => {
     if (!element) return;
-    this.ref = isNil(element.ref) ? element : element.ref;
+    this.ref = getBaseRef(element);
   };
 
   render() {
-    const { className, ...rest } = this.props;
-    const blockProps = omit(rest, Upload.propNames);
-    const classes = classnames(className, 'uk-upload');
+    const { as, className, ...rest } = this.props;
+    const elementProps = omit(rest, Upload.propNames);
+    const classes = classnames(className, 'uk-upload', this.selector);
+    const Element = getElementType(Upload, this.props);
     return (
-      <BlockElement {...blockProps} className={classes} ref={this.handleRef} />
+      <Element {...elementProps} className={classes} ref={this.handleRef} />
     );
   }
 }

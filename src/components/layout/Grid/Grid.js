@@ -6,6 +6,7 @@ import {
   buildBreakpointClasses,
   buildClassName,
   customPropTypes,
+  getBaseRef,
   getElementType,
   getOptionsString,
   HTML,
@@ -43,6 +44,11 @@ export default class Grid extends React.Component {
   };
 
   static Cell = GridCell;
+
+  handleRef = element => {
+    if (!element) return;
+    this.ref = getBaseRef(element);
+  };
 
   render() {
     const {
@@ -90,7 +96,7 @@ export default class Grid extends React.Component {
       <Element
         {...rest}
         className={classes}
-        ref={element => (this.ref = element)}
+        ref={this.handleRef}
         data-uk-grid={componentOptions}
       />
     );

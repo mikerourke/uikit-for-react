@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes } from '../../../lib';
-import { BlockElement } from '../../base';
+import { buildClassName, customPropTypes, getElementType } from '../../../lib';
 import CommentAvatar from './CommentAvatar';
 import CommentBody from './CommentBody';
 import CommentHeader from './CommentHeader';
@@ -14,7 +13,6 @@ export default class Comment extends React.Component {
   static displayName = 'Comment';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     as: customPropTypes.customOrStringElement('article'),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
@@ -22,7 +20,6 @@ export default class Comment extends React.Component {
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'article',
     className: '',
     primary: false,
@@ -36,11 +33,14 @@ export default class Comment extends React.Component {
   static Title = CommentTitle;
 
   render() {
-    const { className, primary, ...rest } = this.props;
+    const { as, className, primary, ...rest } = this.props;
+
     const ukClass = 'uk-comment';
     const classes = classnames(className, ukClass, {
       [buildClassName(ukClass, 'primary')]: primary,
     });
-    return <BlockElement {...rest} className={classes} />;
+
+    const Element = getElementType(Comment, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

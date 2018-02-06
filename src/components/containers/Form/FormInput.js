@@ -2,15 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isNil } from 'lodash';
-import { buildClassName, UIK } from '../../../lib';
-import { InlineElement } from '../../base';
+import {
+  buildClassName,
+  customPropTypes,
+  getElementType,
+  UIK,
+} from '../../../lib';
 import { Icon } from '../../elements';
 
 export default class FormInput extends React.Component {
   static displayName = 'FormInput';
 
   static propTypes = {
-    ...InlineElement.propTypes,
+    as: customPropTypes.customOrStringElement('input'),
     blank: PropTypes.bool,
     className: PropTypes.string,
     danger: PropTypes.bool,
@@ -26,13 +30,10 @@ export default class FormInput extends React.Component {
   };
 
   static defaultProps = {
-    ...InlineElement.defaultProps,
+    as: 'input',
     blank: false,
     className: '',
     danger: false,
-    formWidth: null,
-    iconOptions: null,
-    size: null,
     success: false,
   };
 
@@ -54,6 +55,7 @@ export default class FormInput extends React.Component {
 
   render() {
     const {
+      as,
       blank,
       className,
       danger,
@@ -76,9 +78,8 @@ export default class FormInput extends React.Component {
       },
     );
 
-    const inputElement = (
-      <InlineElement {...rest} as="input" className={classes} />
-    );
+    const Element = getElementType(FormInput, this.props);
+    const inputElement = <Element {...rest} className={classes} />;
 
     if (!isNil(iconOptions)) {
       return this.renderWithIcon(iconOptions, inputElement);

@@ -30,12 +30,8 @@ export default class Video extends React.Component {
 
   render() {
     const { as, automute, autoplay, ...rest } = this.props;
+    const componentOptions = getOptionsString({ automute, autoplay });
     const Element = getElementType(Video, this.props);
-    return (
-      <Element
-        {...rest}
-        data-uk-video={getOptionsString({ automute, autoplay })}
-      />
-    );
+    return <Element {...rest} data-uk-video={componentOptions} />;
   }
 }

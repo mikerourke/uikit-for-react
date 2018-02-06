@@ -1,28 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { buildClassName } from '../../../lib';
-import { BlockElement } from '../../base';
+import { customPropTypes, getElementType } from '../../../lib';
 
 export default class NavbarNav extends React.Component {
   static displayName = 'NavbarNav';
 
   static propTypes = {
-    ...BlockElement.propTypes,
-    children: PropTypes.node.isRequired,
+    as: customPropTypes.customOrStringElement('ul'),
+    children: PropTypes.node,
     className: PropTypes.string,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
+    as: 'ul',
     className: '',
-    splitSide: null,
   };
 
   render() {
-    const { className, ...rest } = this.props;
+    const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-navbar-nav');
-    return <BlockElement {...rest} as="ul" className={classes} />;
+    const Element = getElementType(NavbarNav, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

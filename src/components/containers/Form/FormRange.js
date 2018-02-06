@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName } from '../../../lib';
-import { InlineElement } from '../../base';
+import { buildClassName, customPropTypes, getElementType } from '../../../lib';
 
 export default class FormRange extends React.Component {
   static displayName = 'FormRange';
 
   static propTypes = {
-    ...InlineElement.propTypes,
+    as: customPropTypes.customOrStringElement('input'),
     blank: PropTypes.bool,
     className: PropTypes.string,
     danger: PropTypes.bool,
@@ -16,7 +15,7 @@ export default class FormRange extends React.Component {
   };
 
   static defaultProps = {
-    ...InlineElement.defaultProps,
+    as: 'input',
     blank: false,
     className: '',
     danger: false,
@@ -24,7 +23,7 @@ export default class FormRange extends React.Component {
   };
 
   render() {
-    const { blank, className, danger, success, ...rest } = this.props;
+    const { as, blank, className, danger, success, ...rest } = this.props;
 
     const classes = classnames(className, 'uk-range', {
       [buildClassName('form', 'blank')]: blank,
@@ -32,8 +31,7 @@ export default class FormRange extends React.Component {
       [buildClassName('form', 'success')]: success,
     });
 
-    return (
-      <InlineElement {...rest} as="input" type="range" className={classes} />
-    );
+    const Element = getElementType(FormRange, this.props);
+    return <Element {...rest} type="range" className={classes} />;
   }
 }

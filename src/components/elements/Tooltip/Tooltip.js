@@ -3,14 +3,20 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isNil, noop } from 'lodash';
-import { getOptionsString, UIK } from '../../../lib';
-import { BaseElement } from '../../base';
+import {
+  customPropTypes,
+  generateSelector,
+  getBaseRef,
+  getElementType,
+  getOptionsString,
+  HTML,
+  UIK,
+} from '../../../lib';
 
 export default class Tooltip extends React.Component {
   static displayName = 'Tooltip';
 
   static propTypes = {
-    ...BaseElement.propTypes,
     alignTo: PropTypes.oneOf([
       'bottom',
       'bottom-left',
@@ -36,8 +42,11 @@ export default class Tooltip extends React.Component {
         duration: PropTypes.number,
       }),
     ]),
-    as: BaseElement.asPropType,
-    children: PropTypes.node.isRequired,
+    as: customPropTypes.customOrStringElement([
+      ...HTML.BLOCK_ELEMENTS,
+      ...HTML.INLINE_ELEMENTS,
+    ]),
+    children: PropTypes.node,
     className: PropTypes.string,
     clsActive: PropTypes.string,
     delay: PropTypes.number,
@@ -53,7 +62,6 @@ export default class Tooltip extends React.Component {
   };
 
   static defaultProps = {
-    ...BaseElement.defaultProps,
     as: 'div',
     className: '',
     onBeforeHide: noop,
@@ -65,35 +73,43 @@ export default class Tooltip extends React.Component {
     shown: false,
   };
 
+  constructor() {
+    super();
+    this.selector = generateSelector();
+  }
+
   componentDidMount() {
-    if (!this.ref) return;
-    UIkit.util.on(this.ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(this.ref, 'beforeshow', this.props.onBeforeShow);
-    UIkit.util.on(this.ref, 'hidden', this.props.onHidden);
-    UIkit.util.on(this.ref, 'hide', this.props.onHide);
-    UIkit.util.on(this.ref, 'show', this.props.onShow);
-    UIkit.util.on(this.ref, 'shown', this.props.onShown);
+    const ref = this.getRef();
+    UIkit.util.on(ref, 'beforehide', this.props.onBeforeHide);
+    UIkit.util.on(ref, 'beforeshow', this.props.onBeforeShow);
+    UIkit.util.on(ref, 'hidden', this.props.onHidden);
+    UIkit.util.on(ref, 'hide', this.props.onHide);
+    UIkit.util.on(ref, 'show', this.props.onShow);
+    UIkit.util.on(ref, 'shown', this.props.onShown);
   }
 
   componentWillReceiveProps(nextProps) {
+    const tooltip = UIkit.tooltip(this.getRef());
     if (nextProps.shown === true && this.props.shown === false) {
-      UIkit.tooltip(this.ref).show();
+      tooltip.show();
     }
-
     if (nextProps.shown === false && this.props.shown === true) {
-      UIkit.tooltip(this.ref).hide();
+      tooltip.hide();
     }
   }
 
+  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
+
   handleRef = element => {
     if (!element) return;
-    this.ref = isNil(element.ref) ? element : element.ref;
+    this.ref = getBaseRef(element);
   };
 
   render() {
     const {
       alignTo,
       animation,
+      as,
       className,
       clsActive,
       delay,
@@ -108,7 +124,7 @@ export default class Tooltip extends React.Component {
       ...rest
     } = this.props;
 
-    const classes = classnames(className, 'uk-tooltip');
+    const classes = classnames(className, 'uk-tooltip', this.selector);
 
     const componentOptions = getOptionsString({
       animation,
@@ -118,8 +134,9 @@ export default class Tooltip extends React.Component {
       pos: alignTo,
     });
 
+    const Element = getElementType(Tooltip, this.props);
     return (
-      <BaseElement
+      <Element
         {...rest}
         className={classes}
         ref={this.handleRef}

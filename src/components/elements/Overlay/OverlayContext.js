@@ -1,28 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { omit } from 'lodash';
-import { BlockElement } from '../../base';
+import { customPropTypes, getElementType, HTML } from '../../../lib';
 
 export default class OverlayContext extends React.Component {
   static displayName = 'OverlayContext';
 
   static propTypes = {
-    ...omit(BlockElement.propTypes, 'inline'),
-    as: BlockElement.asPropType,
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     as: 'div',
     className: '',
   };
 
   render() {
-    const { className, ...rest } = this.props;
+    const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-inline');
-    return <BlockElement {...rest} className={classes} />;
+    const Element = getElementType(OverlayContext, this.props);
+    return <Element {...rest} className={classes} />;
   }
 }

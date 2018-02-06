@@ -1,55 +1,58 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import UIkit from 'uikit';
-import { get, isNil, noop } from 'lodash';
-import { InlineElement } from '../../base';
+import PropTypes from 'prop-types';
+import { noop } from 'lodash';
+import { customPropTypes, getElementType } from '../../../lib';
 
 export default class Totop extends React.Component {
   static displayName = 'Totop';
 
   static propTypes = {
-    ...InlineElement.propTypes,
+    as: customPropTypes.customOrStringElement('a'),
     className: PropTypes.string,
-    scrollOptions: PropTypes.shape({
-      duration: PropTypes.number,
-      offset: PropTypes.number,
-      onBeforeScroll: PropTypes.func,
-      onScrolled: PropTypes.func,
-    }),
+    onBeforeScroll: PropTypes.func,
+    onScrolled: PropTypes.func,
+    scrollDuration: PropTypes.number,
+    scrollOffset: PropTypes.number,
     smooth: PropTypes.bool,
   };
 
   static defaultProps = {
-    ...InlineElement.defaultProps,
+    as: 'a',
     className: '',
-    scrollOptions: null,
+    onBeforeScroll: noop,
+    onScrolled: noop,
     smooth: false,
   };
 
   componentDidMount() {
     const element = document.querySelector('[data-uikfr-scroll-totop]');
     if (!element) return;
-    UIkit.util.on(
-      element,
-      'beforescroll',
-      get(this.props, ['scrollOptions', 'onBeforeScroll'], noop),
-    );
-    UIkit.util.on(
-      element,
-      'scrolled',
-      get(this.props, ['scrollOptions', 'onScrolled'], noop),
-    );
+    UIkit.util.on(element, 'beforescroll', this.props.onBeforeScroll);
+    UIkit.util.on(element, 'scrolled', this.props.onScrolled);
   }
 
   render() {
-    const { smooth, ...rest } = this.props;
+    const {
+      as,
+      onBeforeScroll,
+      onScrolled,
+      scrollDuration,
+      scrollOffset,
+      smooth,
+      ...rest
+    } = this.props;
+
+    const Element = getElementType(Totop, this.props);
     return (
-      <InlineElement
+      <Element
         {...rest}
         href="#"
-        data-uk-totop
+        data-uk-totop=""
         data-uk-scroll={smooth || undefined}
-        data-uikfr-scroll-totop
+        data-uikfr-scroll-totop=""
+        duration={scrollDuration}
+        offset={scrollOffset}
       />
     );
   }
