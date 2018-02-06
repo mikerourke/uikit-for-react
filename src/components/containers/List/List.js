@@ -47,7 +47,7 @@ export default class List extends React.Component {
       [buildClassName(ukClass, 'striped')]: striped,
     });
 
-    const Element = getElementType(List, this.props);
+    const Element = getElementType(List, as);
     return <Element {...rest} className={classes} />;
   }
 }

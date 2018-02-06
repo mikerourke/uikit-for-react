@@ -18,7 +18,7 @@ export default class PaginationPrevious extends React.Component {
 
   render() {
     const { as, ...rest } = this.props;
-    const Element = getElementType(PaginationPrevious, this.props);
+    const Element = getElementType(PaginationPrevious, as);
     return <Element {...rest} data-uk-pagination-previous="" />;
   }
 }

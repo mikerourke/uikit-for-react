@@ -42,7 +42,7 @@ export default class ScrollScrollable extends React.Component {
 
   render() {
     const { as, children, ...rest } = this.props;
-    const Element = getElementType(ScrollScrollable, this.props);
+    const Element = getElementType(ScrollScrollable, as);
     return <Element {...rest}>{this.renderChildren(children)}</Element>;
   }
 }

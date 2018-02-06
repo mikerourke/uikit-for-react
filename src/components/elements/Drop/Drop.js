@@ -145,7 +145,7 @@ export default class Drop extends React.Component {
       pos: position,
     });
 
-    const Element = getElementType(Drop, this.props);
+    const Element = getElementType(Drop, as);
     return (
       <Fragment>
         {toggle && toggle}

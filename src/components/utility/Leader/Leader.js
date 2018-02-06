@@ -32,7 +32,7 @@ export default class Leader extends React.Component {
   render() {
     const { as, fill, media, ...rest } = this.props;
     const componentOptions = getOptionsString({ fill, media });
-    const Element = getElementType(Leader, this.props);
+    const Element = getElementType(Leader, as);
     return <Element {...rest} data-uk-leader={componentOptions} />;
   }
 }

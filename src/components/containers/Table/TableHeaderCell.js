@@ -34,7 +34,7 @@ export default class TableHeaderCell extends React.Component {
       [buildClassName(ukClass, 'shrink')]: shrink,
     });
 
-    const Element = getElementType(TableHeaderCell, this.props);
+    const Element = getElementType(TableHeaderCell, as);
     return <Element {...rest} className={classes} />;
   }
 }

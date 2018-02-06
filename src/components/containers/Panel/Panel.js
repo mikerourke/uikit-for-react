@@ -27,7 +27,7 @@ export default class Panel extends React.Component {
       [buildClassName(ukClass, 'scrollable')]: scrollable,
     });
 
-    const Element = getElementType(Panel, this.props);
+    const Element = getElementType(Panel, as);
     return <Element {...rest} className={classes} />;
   }
 }

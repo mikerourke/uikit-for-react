@@ -118,7 +118,7 @@ export default class Upload extends React.Component {
     const { as, className, ...rest } = this.props;
     const elementProps = omit(rest, Upload.propNames);
     const classes = classnames(className, 'uk-upload', this.selector);
-    const Element = getElementType(Upload, this.props);
+    const Element = getElementType(Upload, as);
     return (
       <Element {...elementProps} className={classes} ref={this.handleRef} />
     );

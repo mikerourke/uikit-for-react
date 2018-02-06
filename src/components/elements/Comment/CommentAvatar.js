@@ -19,7 +19,7 @@ export default class CommentAvatar extends React.Component {
   render() {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-comment-avatar');
-    const Element = getElementType(CommentAvatar, this.props);
+    const Element = getElementType(CommentAvatar, as);
     return <Element {...rest} className={classes} />;
   }
 }

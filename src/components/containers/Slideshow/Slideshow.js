@@ -144,7 +144,7 @@ export default class Slideshow extends React.Component {
       ratio,
     });
 
-    const Element = getElementType(Slideshow, this.props);
+    const Element = getElementType(Slideshow, as);
     return (
       <Element
         {...rest}

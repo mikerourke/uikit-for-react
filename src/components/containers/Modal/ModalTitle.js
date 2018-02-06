@@ -20,7 +20,7 @@ export default class ModalTitle extends React.Component {
   render() {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-modal-title');
-    const Element = getElementType(ModalTitle, this.props);
+    const Element = getElementType(ModalTitle, as);
     return <Element {...rest} className={classes} />;
   }
 }

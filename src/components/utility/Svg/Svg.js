@@ -20,7 +20,7 @@ export default class Svg extends React.Component {
 
   render() {
     const { as, ...rest } = this.props;
-    const Element = getElementType(Svg, this.props);
+    const Element = getElementType(Svg, as);
     return <Element {...rest} data-uk-svg="" />;
   }
 }

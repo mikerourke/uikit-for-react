@@ -45,7 +45,7 @@ export default class Overlay extends React.Component {
       [buildClassName(ukClass, 'default')]: simple,
     });
 
-    const Element = getElementType(Overlay, this.props);
+    const Element = getElementType(Overlay, as);
     return <Element {...rest} className={classes} />;
   }
 }

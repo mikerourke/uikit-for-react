@@ -32,7 +32,7 @@ export default class SubNav extends React.Component {
       [buildClassName('subnav', 'pill')]: pill,
     });
 
-    const Element = getElementType(SubNav, this.props);
+    const Element = getElementType(SubNav, as);
     return <Element {...rest} className={classes} />;
   }
 }

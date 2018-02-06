@@ -66,7 +66,7 @@ export default class BaseElement extends React.Component {
     const { as, className, ...rest } = unhandledProps;
     const classes = classnames(className, inheritedClasses);
 
-    const Element = getElementType(BaseElement, this.props);
+    const Element = getElementType(BaseElement, as);
     return (
       <Element
         {...rest}

@@ -36,7 +36,7 @@ export default class SearchIcon extends React.Component {
       [buildClassName(ukClass, 'toggle')]: toggle,
     });
 
-    const Element = getElementType(SearchIcon, this.props);
+    const Element = getElementType(SearchIcon, as);
     return (
       <Element
         {...rest}

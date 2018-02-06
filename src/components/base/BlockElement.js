@@ -208,7 +208,7 @@ export default class BlockElement extends React.Component {
     } = unhandledProps;
 
     const classes = classnames(className, inheritedClasses);
-    const Element = getElementType(BlockElement, this.props);
+    const Element = getElementType(BlockElement, as);
     return (
       <Element
         {...rest}

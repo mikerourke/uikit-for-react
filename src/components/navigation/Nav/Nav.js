@@ -122,7 +122,7 @@ export default class Nav extends React.Component {
       transition,
     });
 
-    const Element = getElementType(Nav, this.props);
+    const Element = getElementType(Nav, as);
     return (
       <Element
         {...rest}

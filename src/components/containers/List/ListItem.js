@@ -18,7 +18,7 @@ export default class ListItem extends React.Component {
 
   render() {
     const { as, ...rest } = this.props;
-    const Element = getElementType(ListItem, this.props);
+    const Element = getElementType(ListItem, as);
     return <Element {...rest} />;
   }
 }

@@ -22,7 +22,7 @@ export default class SwitcherToggle extends React.Component {
   render() {
     const { as, children, href, ...rest } = this.props;
     const isAsString = isString(as);
-    const Element = getElementType(SwitcherToggle, this.props);
+    const Element = getElementType(SwitcherToggle, as);
     return (
       <Element {...rest}>
         {isAsString ? <a href={href}>{children}</a> : children}

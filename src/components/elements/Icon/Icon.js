@@ -39,7 +39,7 @@ export default class Icon extends React.Component {
       ratio,
     });
 
-    const Element = getElementType(Icon, this.props);
+    const Element = getElementType(Icon, as);
     return (
       <Element {...rest} className={classes} data-uk-icon={componentOptions} />
     );

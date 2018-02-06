@@ -37,7 +37,7 @@ export default class Container extends React.Component {
       },
     );
 
-    const Element = getElementType(Container, this.props);
+    const Element = getElementType(Container, as);
     return (
       <Element {...rest} className={classes}>
         {children}

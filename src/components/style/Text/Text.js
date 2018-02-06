@@ -24,7 +24,7 @@ export default class Text extends React.Component {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, textProps.getClasses(rest));
     const elementProps = omit(rest, Object.keys(textProps.propShape));
-    const Element = getElementType(Text, this.props);
+    const Element = getElementType(Text, as);
     return <Element {...elementProps} className={classes || undefined} />;
   }
 }

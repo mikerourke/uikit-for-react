@@ -20,7 +20,7 @@ export default class OverlayImage extends React.Component {
 
   render() {
     const { as, ...rest } = this.props;
-    const Element = getElementType(OverlayImage, this.props);
+    const Element = getElementType(OverlayImage, as);
     return <Element {...rest} />;
   }
 }

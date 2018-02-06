@@ -48,13 +48,13 @@ export default class FormTextArea extends React.Component {
       buildClassName('form', size),
       buildClassName('form', 'width', formWidth),
       {
-        [buildClassName('form', 'blank')]: blank,
-        [buildClassName('form', 'danger')]: danger,
-        [buildClassName('form', 'success')]: success,
+        'uk-form-blank': blank,
+        'uk-form-danger': danger,
+        'uk-form-success': success,
       },
     );
 
-    const Element = getElementType(FormTextArea, this.props);
+    const Element = getElementType(FormTextArea, as);
     return <Element {...rest} className={classes} />;
   }
 }

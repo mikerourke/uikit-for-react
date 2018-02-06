@@ -20,7 +20,7 @@ export default class CountdownLabel extends React.Component {
   render() {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-countdown-label');
-    const Element = getElementType(CountdownLabel, this.props);
+    const Element = getElementType(CountdownLabel, as);
     return <Element {...rest} className={classes} />;
   }
 }

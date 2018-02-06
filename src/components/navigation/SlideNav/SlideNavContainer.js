@@ -25,7 +25,7 @@ export default class SlideNavContainer extends React.Component {
   render() {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-slidenav-container');
-    const Element = getElementType(SlideNavContainer, this.props);
+    const Element = getElementType(SlideNavContainer, as);
     return <Element {...rest} className={classes} />;
   }
 }

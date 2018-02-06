@@ -38,7 +38,7 @@ export default class BreadcrumbItem extends React.Component {
       [buildClassName('disabled')]: disabled,
     });
 
-    const Element = getElementType(BreadcrumbItem, this.props);
+    const Element = getElementType(BreadcrumbItem, as);
     const InnerElement = active ? 'span' : 'a';
     return (
       <Element {...rest} className={classes}>

@@ -90,7 +90,7 @@ export default class TableCell extends React.Component {
       },
     );
 
-    const Element = getElementType(TableCell, this.props);
+    const Element = getElementType(TableCell, as);
     return (
       <Element {...rest} className={classes}>
         {this.renderChildren(children)}

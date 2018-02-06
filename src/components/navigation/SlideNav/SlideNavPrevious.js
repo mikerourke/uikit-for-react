@@ -27,7 +27,7 @@ export default class SlideNavPrevious extends React.Component {
       [buildClassName('slidenav', 'large')]: large,
     });
 
-    const Element = getElementType(SlideNavPrevious, this.props);
+    const Element = getElementType(SlideNavPrevious, as);
     return (
       <Element {...rest} className={classes} data-uk-slidenav-previous="" />
     );

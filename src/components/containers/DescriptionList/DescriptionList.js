@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes, getElementType } from '../../../lib';
+import { customPropTypes, getElementType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 import DescriptionDetails from './DescriptionDetails';
 import DescriptionTerm from './DescriptionTerm';
 
@@ -16,6 +17,9 @@ export default class DescriptionList extends React.Component {
     ),
     className: PropTypes.string,
     divider: PropTypes.bool,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -28,14 +32,20 @@ export default class DescriptionList extends React.Component {
   static Term = DescriptionTerm;
 
   render() {
-    const { as, className, divider, ...rest } = this.props;
+    const { as, className, divider, flex, margin, width, ...rest } = this.props;
 
-    const ukClass = 'uk-description-list';
-    const classes = classnames(className, ukClass, {
-      [buildClassName(ukClass, 'divider')]: divider,
-    });
+    const classes = classnames(
+      className,
+      'uk-description-list',
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+      {
+        'uk-description-list-divider': divider,
+      },
+    );
 
-    const Element = getElementType(DescriptionList, this.props);
+    const Element = getElementType(DescriptionList, as);
     return <Element {...rest} className={classes} />;
   }
 }

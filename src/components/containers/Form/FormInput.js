@@ -8,6 +8,7 @@ import {
   getElementType,
   UIK,
 } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 import { Icon } from '../../elements';
 
 export default class FormInput extends React.Component {
@@ -18,6 +19,7 @@ export default class FormInput extends React.Component {
     blank: PropTypes.bool,
     className: PropTypes.string,
     danger: PropTypes.bool,
+    flex: Flex.propTypes,
     // TODO: Add validation to ensure "width" isn't specified.
     formWidth: PropTypes.oneOf(UIK.FORM_WIDTHS),
     iconOptions: PropTypes.shape({
@@ -25,8 +27,10 @@ export default class FormInput extends React.Component {
       as: PropTypes.oneOf(['a', 'button', 'span']),
       flip: PropTypes.bool,
     }),
+    margin: Margin.propTypes,
     size: PropTypes.oneOf(['large', 'small']),
     success: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -40,9 +44,8 @@ export default class FormInput extends React.Component {
   renderWithIcon(iconOptions, inputElement) {
     const { className, flip, ...rest } = iconOptions;
 
-    const ukClass = 'uk-form-icon';
-    const classes = classnames(className, ukClass, {
-      [buildClassName(ukClass, 'flip')]: flip,
+    const classes = classnames(className, 'uk-form-icon', {
+      'uk-form-icon-flip': flip,
     });
 
     return (
@@ -59,10 +62,13 @@ export default class FormInput extends React.Component {
       blank,
       className,
       danger,
+      flex,
       formWidth,
       iconOptions,
+      margin,
       size,
       success,
+      width,
       ...rest
     } = this.props;
 
@@ -71,14 +77,17 @@ export default class FormInput extends React.Component {
       'uk-input',
       buildClassName('form', size),
       buildClassName('form', 'width', formWidth),
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
       {
-        [buildClassName('form', 'blank')]: blank,
-        [buildClassName('form', 'danger')]: danger,
-        [buildClassName('form', 'success')]: success,
+        'uk-form-blank': blank,
+        'uk-form-danger': danger,
+        'uk-form-success': success,
       },
     );
 
-    const Element = getElementType(FormInput, this.props);
+    const Element = getElementType(FormInput, as);
     const inputElement = <Element {...rest} className={classes} />;
 
     if (!isNil(iconOptions)) {

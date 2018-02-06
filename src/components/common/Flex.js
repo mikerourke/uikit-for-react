@@ -59,9 +59,9 @@ const getClasses = flexProp => {
     buildClassName('flex', get(flexProp, ['wrap', 'type'])),
     buildClassName('flex', get(flexProp, ['wrap', 'alignment'])),
     {
-      [buildClassName('flex')]: flexProp === true,
-      [buildClassName('flex', 'inline')]: flexProp === 'inline',
-      [buildClassName('flex', '1')]: growProp === 'full',
+      'uk-flex': flexProp === true,
+      'uk-flex-inline': flexProp === 'inline',
+      'uk-flex-1': growProp === 'full',
       [buildClassName('flex', growProp)]:
         !isNil(growProp) && growProp !== 'full',
     },

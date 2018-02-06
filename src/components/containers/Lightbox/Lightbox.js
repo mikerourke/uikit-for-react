@@ -152,7 +152,7 @@ export default class Lightbox extends React.Component {
       videoAutoplay,
     });
 
-    const Element = getElementType(Lightbox, this.props);
+    const Element = getElementType(Lightbox, as);
     return (
       <Element
         {...rest}

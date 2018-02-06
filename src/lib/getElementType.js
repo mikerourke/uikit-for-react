@@ -8,14 +8,14 @@ import { get } from 'lodash';
  * @see https://github.com/Semantic-Org/Semantic-UI-React/blob/master/src/lib/getElementType.js
  *
  * @param {Function} Component A function or ReactClass.
- * @param {Object} props Props from React component.
+ * @param {string|Function} asProp Value of the "as" prop.
  * @returns {string|function} A ReactElement type
  */
-const getElementType = (Component, props) => {
+const getElementType = (Component, asProp) => {
   const { defaultProps = {} } = Component;
 
   // User defined "as" element type:
-  if (props.as && props.as !== defaultProps.as) return props.as;
+  if (asProp && asProp !== defaultProps.as) return asProp;
 
   // If the "as" prop was defined, return it.
   if (defaultProps.as) return defaultProps.as;

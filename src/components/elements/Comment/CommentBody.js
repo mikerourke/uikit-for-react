@@ -20,7 +20,7 @@ export default class CommentBody extends React.Component {
   render() {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-comment-body');
-    const Element = getElementType(CommentBody, this.props);
+    const Element = getElementType(CommentBody, as);
     return <Element {...rest} className={classes} />;
   }
 }

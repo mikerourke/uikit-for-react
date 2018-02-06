@@ -23,7 +23,7 @@ export default class SwitcherGoTo extends React.Component {
 
   render() {
     const { as, target, ...rest } = this.props;
-    const Element = getElementType(SwitcherGoTo, this.props);
+    const Element = getElementType(SwitcherGoTo, as);
     return <Element {...rest} data-uk-switcher-item={target.toString()} />;
   }
 }

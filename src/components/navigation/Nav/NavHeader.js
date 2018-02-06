@@ -20,7 +20,7 @@ export default class NavHeader extends React.Component {
   render() {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-nav-header');
-    const Element = getElementType(NavHeader, this.props);
+    const Element = getElementType(NavHeader, as);
     return <Element {...rest} className={classes} />;
   }
 }

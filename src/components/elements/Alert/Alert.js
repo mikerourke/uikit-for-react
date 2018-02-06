@@ -143,7 +143,7 @@ export default class Alert extends React.Component {
     );
 
     const componentOptions = getOptionsString({ animation });
-    const Element = getElementType(Alert, this.props);
+    const Element = getElementType(Alert, as);
     return (
       <Element
         {...rest}

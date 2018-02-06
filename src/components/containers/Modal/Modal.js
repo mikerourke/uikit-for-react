@@ -141,7 +141,7 @@ export default class Modal extends React.Component {
       });
     }
 
-    const Element = getElementType(Modal, this.props);
+    const Element = getElementType(Modal, as);
     return (
       <Fragment>
         {toggle && Toggle}

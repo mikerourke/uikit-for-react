@@ -33,7 +33,7 @@ export default class Label extends React.Component {
       [buildClassName(ukClass, 'warning')]: warning,
     });
 
-    const Element = getElementType(Label, this.props);
+    const Element = getElementType(Label, as);
     return <Element {...rest} className={classes} />;
   }
 }

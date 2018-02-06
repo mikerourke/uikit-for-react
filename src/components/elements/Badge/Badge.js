@@ -20,7 +20,7 @@ export default class Badge extends React.Component {
   render() {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-badge');
-    const Element = getElementType(Badge, this.props);
+    const Element = getElementType(Badge, as);
     return <Element {...rest} className={classes} />;
   }
 }

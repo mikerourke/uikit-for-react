@@ -24,7 +24,7 @@ export default class SearchInput extends React.Component {
   render() {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-search-input');
-    const Element = getElementType(SearchInput, this.props);
+    const Element = getElementType(SearchInput, as);
     return <Element {...rest} type="search" className={classes} />;
   }
 }

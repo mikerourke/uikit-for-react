@@ -135,7 +135,7 @@ export default class ToggleToggle extends React.Component {
       target: selectorTarget,
     });
 
-    const Element = getElementType(ToggleToggle, this.props);
+    const Element = getElementType(ToggleToggle, as);
     return (
       <Element
         {...rest}

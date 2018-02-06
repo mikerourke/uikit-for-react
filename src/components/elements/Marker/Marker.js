@@ -19,7 +19,7 @@ export default class Marker extends React.Component {
 
   createMarkup = () => {
     const { as, ...rest } = this.props;
-    const Element = getElementType(Marker, this.props);
+    const Element = getElementType(Marker, as);
     const htmlString = renderToStaticMarkup(<Element {...rest} />);
     const asString = `<${as} `;
     return { __html: htmlString.replace(asString, `${asString} uk-marker `) };

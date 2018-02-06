@@ -20,7 +20,7 @@ export default class Placeholder extends React.Component {
   render() {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-placeholder');
-    const Element = getElementType(Placeholder, this.props);
+    const Element = getElementType(Placeholder, as);
     return <Element {...rest} className={classes} />;
   }
 }

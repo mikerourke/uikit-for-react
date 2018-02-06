@@ -131,7 +131,7 @@ export default class Tooltip extends React.Component {
       pos: alignTo,
     });
 
-    const Element = getElementType(Tooltip, this.props);
+    const Element = getElementType(Tooltip, as);
     return (
       <Element
         {...rest}

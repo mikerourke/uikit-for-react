@@ -21,7 +21,7 @@ export default class OffcanvasContent extends React.Component {
   render() {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-offcanvas-content');
-    const Element = getElementType(OffcanvasContent, this.props);
+    const Element = getElementType(OffcanvasContent, as);
     return <Element {...rest} className={classes} />;
   }
 }

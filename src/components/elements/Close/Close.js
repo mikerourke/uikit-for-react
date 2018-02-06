@@ -26,7 +26,7 @@ export default class Close extends React.Component {
       [buildClassName(ukClass, 'large')]: large,
     });
 
-    const Element = getElementType(Close, this.props);
+    const Element = getElementType(Close, as);
     return <Element {...rest} className={classes} data-uk-close="" />;
   }
 }

@@ -39,7 +39,7 @@ export default class PaginationItem extends React.Component {
       [buildClassName('disabled')]: disabled,
     });
 
-    const Element = getElementType(PaginationItem, this.props);
+    const Element = getElementType(PaginationItem, as);
     const InnerElement = active || disabled ? 'span' : 'a';
     return (
       <Element {...rest} className={classes}>

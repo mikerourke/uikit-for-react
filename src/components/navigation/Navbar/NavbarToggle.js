@@ -28,11 +28,11 @@ export default class NavbarToggle extends React.Component {
     const ukClass = 'uk-navbar-toggle';
     const classes = classnames(className, ukClass);
     if (!isNil(title)) {
-      const LinkElement = getElementType(NavbarToggle, this.props);
+      const LinkElement = getElementType(NavbarToggle, as);
       return <LinkElement {...rest} className={classes} {...iconProp} />;
     }
 
-    const OuterElement = getElementType(NavbarToggle, this.props);
+    const OuterElement = getElementType(NavbarToggle, as);
     return (
       <OuterElement {...rest} className={classes}>
         {icon && React.cloneElement(icon, iconProp)}

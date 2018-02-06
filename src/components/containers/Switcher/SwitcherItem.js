@@ -20,7 +20,7 @@ export default class SwitcherItem extends React.Component {
   render() {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-switcher-item');
-    const Element = getElementType(SwitcherItem, this.props);
+    const Element = getElementType(SwitcherItem, as);
     return <Element {...rest} className={classes} />;
   }
 }

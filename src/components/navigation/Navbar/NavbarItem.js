@@ -36,7 +36,7 @@ export default class NavbarItem extends React.Component {
 
     const hasDropdown = hasChildType(children, NavbarDropdown);
     const hasSubtitle = hasChildType(children, NavbarDropdown);
-    const Element = getElementType(NavbarItem, this.props);
+    const Element = getElementType(NavbarItem, as);
     return (
       <Element {...rest} className={classes}>
         {hasDropdown ? (

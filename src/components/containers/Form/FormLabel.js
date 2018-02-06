@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 
 export default class FormLabel extends React.Component {
   static displayName = 'FormLabel';
@@ -10,6 +11,9 @@ export default class FormLabel extends React.Component {
     as: customPropTypes.customOrStringElement('label'),
     children: PropTypes.node,
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -18,9 +22,17 @@ export default class FormLabel extends React.Component {
   };
 
   render() {
-    const { as, className, ...rest } = this.props;
-    const classes = classnames(className, 'uk-form-label');
-    const Element = getElementType(FormLabel, this.props);
+    const { as, className, flex, margin, width, ...rest } = this.props;
+
+    const classes = classnames(
+      className,
+      'uk-form-label',
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
+
+    const Element = getElementType(FormLabel, as);
     return <Element {...rest} as="label" className={classes} />;
   }
 }

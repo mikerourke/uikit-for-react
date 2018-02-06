@@ -32,7 +32,7 @@ export default class CommentHeader extends React.Component {
       Width.getClasses(width),
     );
 
-    const Element = getElementType(CommentHeader, this.props);
+    const Element = getElementType(CommentHeader, as);
     return <Element {...rest} className={classes} />;
   }
 }

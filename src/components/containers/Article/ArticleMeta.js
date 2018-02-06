@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Margin } from '../../common';
+import { Flex, Margin, Width } from '../../common';
 
 export default class ArticleMeta extends React.Component {
   static displayName = 'ArticleMeta';
@@ -11,7 +11,9 @@ export default class ArticleMeta extends React.Component {
     as: customPropTypes.customOrStringElement('p'),
     children: PropTypes.node,
     className: PropTypes.string,
+    flex: Flex.propTypes,
     margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -20,15 +22,17 @@ export default class ArticleMeta extends React.Component {
   };
 
   render() {
-    const { as, className, margin, ...rest } = this.props;
+    const { as, className, flex, margin, width, ...rest } = this.props;
 
     const classes = classnames(
       className,
       'uk-article-meta',
+      Flex.getClasses(flex),
       Margin.getClasses(margin),
+      Width.getClasses(width),
     );
 
-    const Element = getElementType(ArticleMeta, this.props);
+    const Element = getElementType(ArticleMeta, as);
     return <Element {...rest} className={classes} />;
   }
 }

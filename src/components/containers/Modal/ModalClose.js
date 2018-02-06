@@ -40,7 +40,7 @@ export default class ModalClose extends React.Component {
       });
     }
 
-    const Element = getElementType(ModalClose, this.props);
+    const Element = getElementType(ModalClose, as);
     return (
       <Element
         {...rest}

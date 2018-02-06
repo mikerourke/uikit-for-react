@@ -20,7 +20,7 @@ export default class NavbarNav extends React.Component {
   render() {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-navbar-nav');
-    const Element = getElementType(NavbarNav, this.props);
+    const Element = getElementType(NavbarNav, as);
     return <Element {...rest} className={classes} />;
   }
 }

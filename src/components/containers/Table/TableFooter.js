@@ -18,7 +18,7 @@ export default class TableFooter extends React.Component {
 
   render() {
     const { as, ...rest } = this.props;
-    const Element = getElementType(TableFooter, this.props);
+    const Element = getElementType(TableFooter, as);
     return <Element {...rest} />;
   }
 }

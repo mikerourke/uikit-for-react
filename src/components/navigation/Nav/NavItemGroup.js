@@ -21,7 +21,7 @@ export default class NavItemGroup extends React.Component {
   render() {
     const { as, children, title, ...rest } = this.props;
     const Title = React.isValidElement(title) ? title : <a href="#">{title}</a>;
-    const Element = getElementType(NavItemGroup, this.props);
+    const Element = getElementType(NavItemGroup, as);
     return (
       <Fragment>
         <Title />

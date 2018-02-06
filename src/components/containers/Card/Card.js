@@ -8,7 +8,7 @@ import {
   getElementType,
   hasChildType,
 } from '../../../lib';
-import { Margin, Width } from '../../common';
+import { Flex, Margin, Width } from '../../common';
 import CardBadge from './CardBadge';
 import CardBody from './CardBody';
 import CardContent from './CardContent';
@@ -37,6 +37,7 @@ export default class Card extends React.Component {
       },
     ]),
     className: PropTypes.string,
+    flex: Flex.propTypes,
     hover: PropTypes.bool,
     margin: Margin.propTypes,
     primary: ExtraPropTypes.mutuallyExclusiveTrueProps(
@@ -72,6 +73,7 @@ export default class Card extends React.Component {
       as,
       children,
       className,
+      flex,
       hover,
       margin,
       primary,
@@ -86,18 +88,19 @@ export default class Card extends React.Component {
       className,
       'uk-card',
       buildClassName('card', size),
+      Flex.getClasses(flex),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {
-        [buildClassName('card', 'default')]: !primary && !secondary && !simple,
-        [buildClassName('card', 'body')]: !hasChildType(children, CardBody),
-        [buildClassName('card', 'hover')]: hover,
-        [buildClassName('card', 'primary')]: primary,
-        [buildClassName('card', 'secondary')]: secondary,
+        'uk-card-default': !primary && !secondary && !simple,
+        'uk-card-body': !hasChildType(children, CardBody),
+        'uk-card-hover': hover,
+        'uk-card-primary': primary,
+        'uk-card-secondary': secondary,
       },
     );
 
-    const Element = getElementType(Card, this.props);
+    const Element = getElementType(Card, as);
     return (
       <Element {...rest} className={classes}>
         {children}

@@ -18,7 +18,7 @@ export default class ToggleTarget extends React.Component {
 
   render() {
     const { as, ...rest } = this.props;
-    const Element = getElementType(ToggleTarget, this.props);
+    const Element = getElementType(ToggleTarget, as);
     return <Element {...rest} />;
   }
 }

@@ -27,7 +27,7 @@ export default class Pagination extends React.Component {
   render() {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-pagination');
-    const Element = getElementType(Pagination, this.props);
+    const Element = getElementType(Pagination, as);
     return <Element {...rest} className={classes} />;
   }
 }

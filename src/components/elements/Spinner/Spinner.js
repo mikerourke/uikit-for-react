@@ -17,7 +17,7 @@ export default class Spinner extends React.Component {
 
   render() {
     const { as, ...rest } = this.props;
-    const Element = getElementType(Spinner, this.props);
+    const Element = getElementType(Spinner, as);
     return <Element {...rest} data-uk-spinner="" />;
   }
 }

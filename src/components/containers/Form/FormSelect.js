@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes, UIK } from '../../../lib';
+import { buildClassName, customPropTypes, getElementType, UIK } from '../../../lib';
 
 export default class FormSelect extends React.Component {
   static displayName = 'FormSelect';
@@ -43,13 +43,13 @@ export default class FormSelect extends React.Component {
       buildClassName('form', size),
       buildClassName('form', 'width', formWidth),
       {
-        [buildClassName('form', 'blank')]: blank,
-        [buildClassName('form', 'danger')]: danger,
-        [buildClassName('form', 'success')]: success,
+        'uk-form-blank': blank,
+        'uk-form-danger': danger,
+        'uk-form-success': success,
       },
     );
 
-    const Element = getElementType(FormSelect, this.props);
+    const Element = getElementType(FormSelect, as);
     return <Element {...rest} className={classes} />;
   }
 }

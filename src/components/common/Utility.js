@@ -42,17 +42,9 @@ const getClasses = utilityProp =>
     ),
     buildClassName('responsive', get(utilityProp, 'responsive')),
     {
-      [buildClassName('box', 'shadow', 'bottom')]: get(
-        utilityProp,
-        ['boxShadow', 'bottom'],
-        false,
-      ),
-      [buildClassName('clearfix')]: get(utilityProp, 'clearfix'),
-      [buildClassName('transform', 'center')]: get(
-        utilityProp,
-        'transformCenter',
-        false,
-      ),
+      'uk-box-shadow-bottom': get(utilityProp, ['boxShadow', 'bottom'], false),
+      'uk-clearfix': get(utilityProp, 'clearfix'),
+      'uk-transform-center': get(utilityProp, 'transformCenter', false),
     },
   );
 

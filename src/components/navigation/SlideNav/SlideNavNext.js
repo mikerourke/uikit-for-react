@@ -27,7 +27,7 @@ export default class SlideNavNext extends React.Component {
       [buildClassName('slidenav', 'large')]: large,
     });
 
-    const Element = getElementType(SlideNavNext, this.props);
+    const Element = getElementType(SlideNavNext, as);
     return <Element {...rest} className={classes} data-uk-slidenav-next="" />;
   }
 }

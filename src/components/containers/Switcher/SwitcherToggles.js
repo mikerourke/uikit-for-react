@@ -121,7 +121,7 @@ export default class SwitcherToggles extends React.Component {
       toggle: selectorToggle,
     });
 
-    const Element = getElementType(SwitcherToggles, this.props);
+    const Element = getElementType(SwitcherToggles, as);
     return (
       <Element
         {...rest}

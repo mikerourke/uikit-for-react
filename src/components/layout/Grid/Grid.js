@@ -91,7 +91,7 @@ export default class Grid extends React.Component {
           ),
     });
 
-    const Element = getElementType(Grid, this.props);
+    const Element = getElementType(Grid, as);
     return (
       <Element
         {...rest}

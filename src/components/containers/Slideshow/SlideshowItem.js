@@ -18,7 +18,7 @@ export default class SlideshowItem extends React.Component {
 
   render() {
     const { as, ...rest } = this.props;
-    const Element = getElementType(SlideshowItem, this.props);
+    const Element = getElementType(SlideshowItem, as);
     return <Element {...rest} />;
   }
 }

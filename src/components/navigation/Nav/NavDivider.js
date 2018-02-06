@@ -20,7 +20,7 @@ export default class NavDivider extends React.Component {
   render() {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-nav-divider');
-    const Element = getElementType(NavDivider, this.props);
+    const Element = getElementType(NavDivider, as);
     return <Element {...rest} className={classes} />;
   }
 }

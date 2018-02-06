@@ -114,7 +114,7 @@ export default class Sticky extends React.Component {
       ...this.getOptionsForNavbar(),
     });
 
-    const Element = getElementType(Sticky, this.props);
+    const Element = getElementType(Sticky, as);
     return (
       <Element
         {...rest}

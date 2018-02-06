@@ -90,7 +90,7 @@ export default class Button extends React.Component {
       [buildClassName('width', '1', '1')]: fullWidth,
     });
 
-    let Element = getElementType(Button, this.props);
+    let Element = getElementType(Button, as);
     if (hasIcon) Element = 'a';
     return (
       <Element

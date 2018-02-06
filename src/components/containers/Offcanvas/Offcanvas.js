@@ -83,7 +83,7 @@ export default class Offcanvas extends React.Component {
     const classes = classnames(className, this.selector);
     const componentOptions = getOptionsString({ flip, mode, overlay });
 
-    const Element = getElementType(Offcanvas, this.props);
+    const Element = getElementType(Offcanvas, as);
     return (
       <Element
         {...rest}

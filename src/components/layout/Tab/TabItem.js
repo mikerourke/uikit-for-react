@@ -40,7 +40,7 @@ export default class TabItem extends React.Component {
       [buildClassName('disabled')]: disabled,
     });
 
-    const Element = getElementType(TabItem, this.props);
+    const Element = getElementType(TabItem, as);
     return (
       <Element {...rest} className={classes}>
         {isObject(children) ? children : <a href={href}>{children}</a>}

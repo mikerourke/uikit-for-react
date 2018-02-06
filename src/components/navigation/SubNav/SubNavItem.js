@@ -29,7 +29,7 @@ export default class SubNavItem extends React.Component {
       [buildClassName('active')]: active,
     });
 
-    const Element = getElementType(SubNavItem, this.props);
+    const Element = getElementType(SubNavItem, as);
     return (
       <Element {...rest} className={classes || undefined}>
         {isObject(children) ? children : <a href={href}>{children}</a>}

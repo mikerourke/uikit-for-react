@@ -23,7 +23,7 @@ export default class NavSubNav extends React.Component {
     const { className, title, ...rest } = this.props;
     const classes = classnames(className, 'uk-nav-sub');
     const Title = React.isValidElement(title) ? title : <a href="#">{title}</a>;
-    const Element = getElementType(NavSubNav, this.props);
+    const Element = getElementType(NavSubNav, as);
     return (
       <Fragment>
         <Title />

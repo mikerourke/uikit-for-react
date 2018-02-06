@@ -147,7 +147,7 @@ export default class Dropdown extends React.Component {
       pos: position,
     });
 
-    const Element = getElementType(Dropdown, this.props);
+    const Element = getElementType(Dropdown, as);
     return (
       <Fragment>
         {toggle && toggle}

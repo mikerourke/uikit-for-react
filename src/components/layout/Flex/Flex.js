@@ -32,7 +32,7 @@ export default class Flex extends React.Component {
       [buildClassName(ukClass, 'inline')]: inline,
     });
 
-    const Element = getElementType(Flex, this.props);
+    const Element = getElementType(Flex, as);
     return <Element {...rest} className={classes} />;
   }
 }

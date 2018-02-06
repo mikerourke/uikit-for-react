@@ -26,12 +26,12 @@ export default class FormRadio extends React.Component {
     const { as, blank, className, danger, success, ...rest } = this.props;
 
     const classes = classnames(className, 'uk-radio', {
-      [buildClassName('form', 'blank')]: blank,
-      [buildClassName('form', 'danger')]: danger,
-      [buildClassName('form', 'success')]: success,
-    });
+      'uk-form-blank': blank,
+      'uk-form-danger': danger,
+      'uk-form-success': success,
+    },);
 
-    const Element = getElementType(FormRadio, this.props);
+    const Element = getElementType(FormRadio, as);
     return <Element {...rest} type="radio" className={classes} />;
   }
 }

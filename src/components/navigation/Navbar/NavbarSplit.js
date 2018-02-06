@@ -27,7 +27,7 @@ export default class NavbarSplit extends React.Component {
       buildClassName('navbar', 'center', side),
     );
 
-    const Element = getElementType(NavbarSplit, this.props);
+    const Element = getElementType(NavbarSplit, as);
     return <Element {...rest} className={classes} />;
   }
 }

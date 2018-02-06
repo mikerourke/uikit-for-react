@@ -33,7 +33,7 @@ export default class Link extends React.Component {
       [buildClassName(ukClass, 'text')]: text,
     });
 
-    const Element = getElementType(Link, this.props);
+    const Element = getElementType(Link, as);
     return <Element {...rest} className={classes} />;
   }
 }

@@ -37,7 +37,7 @@ export default class ThumbNavItem extends React.Component {
       [buildClassName('active')]: active,
     });
 
-    const Element = getElementType(ThumbNavItem, this.props);
+    const Element = getElementType(ThumbNavItem, as);
     return (
       <Element
         {...rest}

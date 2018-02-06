@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType, HTML } from '../../../lib';
-import { Margin, Text } from '../../common';
+import { Flex, Margin, Text, Width } from '../../common';
 
 export default class ArticleTitle extends React.Component {
   static displayName = 'ArticleTitle';
@@ -11,8 +11,10 @@ export default class ArticleTitle extends React.Component {
     as: customPropTypes.customOrStringElement(HTML.HEADING_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
+    flex: Flex.propTypes,
     margin: Margin.propTypes,
     text: Text.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -21,16 +23,18 @@ export default class ArticleTitle extends React.Component {
   };
 
   render() {
-    const { as, className, margin, text, ...rest } = this.props;
+    const { as, className, flex, margin, text, width, ...rest } = this.props;
 
     const classes = classnames(
       className,
       'uk-article-title',
+      Flex.getClasses(flex),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Width.getClasses(width),
     );
 
-    const Element = getElementType(ArticleTitle, this.props);
+    const Element = getElementType(ArticleTitle, as);
     return <Element {...rest} className={classes} />;
   }
 }

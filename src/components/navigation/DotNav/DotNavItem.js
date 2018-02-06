@@ -27,7 +27,7 @@ export default class DotNavItem extends React.Component {
       [buildClassName('active')]: active,
     });
 
-    const Element = getElementType(DotNavItem, this.props);
+    const Element = getElementType(DotNavItem, as);
     return (
       <Element {...rest} className={classes}>
         <a href={href}>{children}</a>

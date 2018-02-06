@@ -44,7 +44,7 @@ export default class Search extends React.Component {
       [buildClassName(ukClass, 'large')]: large,
     });
 
-    const Element = getElementType(Search, this.props);
+    const Element = getElementType(Search, as);
     return (
       <Element {...rest} className={classes}>
         {icon && icon}

@@ -168,7 +168,7 @@ export default class Navbar extends React.Component {
       offset,
     });
 
-    const Element = getElementType(Navbar, this.props);
+    const Element = getElementType(Navbar, as);
     return (
       <Element
         {...rest}

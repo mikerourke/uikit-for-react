@@ -68,7 +68,7 @@ export default class Countdown extends React.Component {
     const { as, className, date, paused, ...rest } = this.props;
     const classes = classnames(className, this.selector, 'uk-countdown');
     const componentOptions = getOptionsString({ date });
-    const Element = getElementType(Countdown, this.props);
+    const Element = getElementType(Countdown, as);
     return (
       <Element
         {...rest}

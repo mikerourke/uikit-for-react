@@ -43,7 +43,7 @@ export default class ModalDialog extends React.Component {
       [buildClassName('modal', 'body')]: padContent,
     });
 
-    const Element = getElementType(ModalDialog, this.props);
+    const Element = getElementType(ModalDialog, as);
     return <Element {...rest} className={classes} />;
   }
 }

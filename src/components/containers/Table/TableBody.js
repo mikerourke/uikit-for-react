@@ -18,7 +18,7 @@ export default class TableBody extends React.Component {
 
   render() {
     const { as, ...rest } = this.props;
-    const Element = getElementType(TableBody, this.props);
+    const Element = getElementType(TableBody, as);
     return <Element {...rest} />;
   }
 }

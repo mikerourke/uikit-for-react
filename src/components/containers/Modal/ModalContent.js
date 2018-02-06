@@ -18,7 +18,7 @@ export default class ModalContent extends React.Component {
 
   render() {
     const { as, ...rest } = this.props;
-    const Element = getElementType(ModalContent, this.props);
+    const Element = getElementType(ModalContent, as);
     return <Element {...rest} />;
   }
 }

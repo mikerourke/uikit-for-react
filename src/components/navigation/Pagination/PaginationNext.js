@@ -18,7 +18,7 @@ export default class PaginationNext extends React.Component {
 
   render() {
     const { as, ...rest } = this.props;
-    const Element = getElementType(PaginationNext, this.props);
+    const Element = getElementType(PaginationNext, as);
     return <Element {...rest} data-uk-pagination-next="" />;
   }
 }

@@ -167,7 +167,7 @@ export default class Accordion extends React.Component {
       transition,
     });
 
-    const Element = getElementType(Accordion, this.props);
+    const Element = getElementType(Accordion, as);
     return (
       <Element
         {...rest}

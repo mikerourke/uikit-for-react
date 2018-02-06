@@ -53,7 +53,7 @@ export default class Section extends React.Component {
       },
     );
 
-    const Element = getElementType(Section, this.props);
+    const Element = getElementType(Section, as);
     return <Element {...rest} className={classes} />;
   }
 }

@@ -32,7 +32,7 @@ export default class ThumbNav extends React.Component {
       [buildClassName(ukClass, 'vertical')]: vertical,
     });
 
-    const Element = getElementType(ThumbNav, this.props);
+    const Element = getElementType(ThumbNav, as);
     return <Element {...rest} className={classes} />;
   }
 }

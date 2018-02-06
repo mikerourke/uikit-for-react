@@ -69,7 +69,7 @@ export default class ToggleTogglable extends React.Component {
 
   render() {
     const { as, children, ...rest } = this.props;
-    const Element = getElementType(ToggleTogglable, this.props);
+    const Element = getElementType(ToggleTogglable, as);
     return <Element {...rest}>{this.renderChildren(children)}</Element>;
   }
 }

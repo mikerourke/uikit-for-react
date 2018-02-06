@@ -18,7 +18,7 @@ export default class TableRow extends React.Component {
 
   render() {
     const { as, ...rest } = this.props;
-    const Element = getElementType(TableRow, this.props);
+    const Element = getElementType(TableRow, as);
     return <Element {...rest} />;
   }
 }

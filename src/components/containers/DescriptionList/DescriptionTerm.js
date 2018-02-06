@@ -18,7 +18,7 @@ export default class DescriptionTerm extends React.Component {
 
   render() {
     const { as, ...rest } = this.props;
-    const Element = getElementType(DescriptionTerm, this.props);
+    const Element = getElementType(DescriptionTerm, as);
     return <Element {...rest} />;
   }
 }

@@ -23,7 +23,7 @@ export default class Breadcrumb extends React.Component {
   render() {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-breadcrumb');
-    const Element = getElementType(Breadcrumb, this.props);
+    const Element = getElementType(Breadcrumb, as);
     return <Element {...rest} className={classes} />;
   }
 }

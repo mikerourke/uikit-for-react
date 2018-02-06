@@ -39,7 +39,7 @@ export default class LightboxItem extends React.Component {
       [buildClassName('inline')]: inline,
     });
 
-    const Element = getElementType(LightboxItem, this.props);
+    const Element = getElementType(LightboxItem, as);
     return (
       <Element
         {...rest}

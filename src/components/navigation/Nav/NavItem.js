@@ -46,7 +46,7 @@ export default class NavItem extends React.Component {
       [buildClassName('parent')]: hasChildType(children, NavSubNav),
     });
 
-    const Element = getElementType(NavItem, this.props);
+    const Element = getElementType(NavItem, as);
     return (
       <Element {...rest} className={classes}>
         {hasChildType(children, NavItemGroup) ? (

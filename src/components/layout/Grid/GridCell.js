@@ -44,7 +44,7 @@ export default class GridCell extends React.Component {
       },
     );
 
-    const Element = getElementType(GridCell, this.props);
+    const Element = getElementType(GridCell, as);
     return <Element {...rest} className={classes || undefined} />;
   }
 }

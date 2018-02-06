@@ -26,12 +26,12 @@ export default class FormRange extends React.Component {
     const { as, blank, className, danger, success, ...rest } = this.props;
 
     const classes = classnames(className, 'uk-range', {
-      [buildClassName('form', 'blank')]: blank,
-      [buildClassName('form', 'danger')]: danger,
-      [buildClassName('form', 'success')]: success,
-    });
+      'uk-form-blank': blank,
+      'uk-form-danger': danger,
+      'uk-form-success': success,
+    },);
 
-    const Element = getElementType(FormRange, this.props);
+    const Element = getElementType(FormRange, as);
     return <Element {...rest} type="range" className={classes} />;
   }
 }

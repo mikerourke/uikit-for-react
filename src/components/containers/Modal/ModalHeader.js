@@ -20,7 +20,7 @@ export default class ModalHeader extends React.Component {
   render() {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-modal-header');
-    const Element = getElementType(ModalHeader, this.props);
+    const Element = getElementType(ModalHeader, as);
     return <Element {...rest} className={classes} />;
   }
 }

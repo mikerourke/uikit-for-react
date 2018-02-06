@@ -4,12 +4,12 @@ import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get, isNil } from 'lodash';
 import {
-  buildClassName,
   customPropTypes,
   getElementType,
   getOptionsString,
   HTML,
 } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 
 export default class Form extends React.Component {
   static displayName = 'Form';
@@ -25,11 +25,14 @@ export default class Form extends React.Component {
         selectorTarget: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
       }),
     ]),
+    flex: Flex.propTypes,
     horizontal: ExtraPropTypes.mutuallyExclusiveTrueProps(
       'horizontal',
       'stacked',
     ),
+    margin: Margin.propTypes,
     stacked: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -40,7 +43,17 @@ export default class Form extends React.Component {
   };
 
   render() {
-    const { as, className, custom, horizontal, stacked, ...rest } = this.props;
+    const {
+      as,
+      className,
+      custom,
+      flex,
+      horizontal,
+      margin,
+      stacked,
+      width,
+      ...rest
+    } = this.props;
 
     if (!isNil(custom)) {
       const componentOptions = getOptionsString({
@@ -51,13 +64,19 @@ export default class Form extends React.Component {
       return <Element {...rest} data-uk-form-custom={componentOptions} />;
     }
 
-    const ukClass = 'uk-form';
-    const classes = classnames(className, ukClass, {
-      [buildClassName(ukClass, 'horizontal')]: horizontal,
-      [buildClassName(ukClass, 'stacked')]: stacked,
-    });
+    const classes = classnames(
+      className,
+      'uk-form',
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+      {
+        'uk-form-horizontal': horizontal,
+        'uk-form-stacked': stacked,
+      },
+    );
 
-    const Element = getElementType(Form, this.props);
+    const Element = getElementType(Form, as);
     return <Element {...rest} className={classes} />;
   }
 }

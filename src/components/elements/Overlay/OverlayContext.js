@@ -20,7 +20,7 @@ export default class OverlayContext extends React.Component {
   render() {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-inline');
-    const Element = getElementType(OverlayContext, this.props);
+    const Element = getElementType(OverlayContext, as);
     return <Element {...rest} className={classes} />;
   }
 }

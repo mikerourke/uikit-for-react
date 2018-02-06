@@ -20,7 +20,7 @@ export default class NavbarSubtitle extends React.Component {
   render() {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-navbar-subtitle');
-    const Element = getElementType(NavbarSubtitle, this.props);
+    const Element = getElementType(NavbarSubtitle, as);
     return <Element {...rest} className={classes} />;
   }
 }

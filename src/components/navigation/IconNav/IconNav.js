@@ -30,7 +30,7 @@ export default class IconNav extends React.Component {
       [buildClassName(ukClass, 'vertical')]: vertical,
     });
 
-    const Element = getElementType(IconNav, this.props);
+    const Element = getElementType(IconNav, as);
     return <Element {...rest} className={classes} />;
   }
 }

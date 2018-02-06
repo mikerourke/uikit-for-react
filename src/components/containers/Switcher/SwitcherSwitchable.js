@@ -54,7 +54,7 @@ export default class SwitcherSwitchable extends React.Component {
 
   render() {
     const { as, children, ...rest } = this.props;
-    const Element = getElementType(SwitcherSwitchable, this.props);
+    const Element = getElementType(SwitcherSwitchable, as);
     return <Element {...rest}>{this.renderChildren(children)}</Element>;
   }
 }

@@ -69,7 +69,7 @@ export default class Table extends React.Component {
       [buildClassName(ukClass, 'striped')]: striped,
     });
 
-    const Element = getElementType(Table, this.props);
+    const Element = getElementType(Table, as);
     return <Element {...rest} className={classes} />;
   }
 }

@@ -25,13 +25,13 @@ const getClasses = positionProp => {
   return classnames(
     buildClassName('position', positionProp),
     buildClassName('position', 'center', get(positionProp, 'outside'), 'out'),
-    buildClassName('position', 'cover', get(positionProp, 'cover')),
-    buildClassName('position', 'z', 'index', get(positionProp, 'zIndexOfOne')),
     buildClassName('position', get(positionProp, 'marginSize')),
     buildClassName('position', get(positionProp, 'type')),
     {
       [buildClassName('position', vertProp, horizProp)]: !isCentered,
-      [buildClassName('position', 'center')]: isCentered,
+      'uk-position-center': isCentered,
+      'uk-position-cover': get(positionProp, 'cover', false),
+      'uk-position-z-index': get(positionProp, 'zIndexOfOne', false),
     },
   );
 };

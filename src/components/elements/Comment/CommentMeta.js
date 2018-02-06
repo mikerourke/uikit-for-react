@@ -20,7 +20,7 @@ export default class CommentMeta extends React.Component {
   render() {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-comment-meta');
-    const Element = getElementType(CommentMeta, this.props);
+    const Element = getElementType(CommentMeta, as);
     return <Element {...rest} className={classes} />;
   }
 }

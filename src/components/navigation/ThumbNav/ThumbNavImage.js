@@ -18,7 +18,7 @@ export default class ThumbNavImage extends React.Component {
 
   render() {
     const { as, ...rest } = this.props;
-    const Element = getElementType(ThumbNavImage, this.props);
+    const Element = getElementType(ThumbNavImage, as);
     return <Element {...rest} />;
   }
 }

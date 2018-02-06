@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Margin } from '../../common';
+import { Flex, Margin, Width } from '../../common';
 import ArticleBody from './ArticleBody';
 import ArticleLead from './ArticleLead';
 import ArticleMeta from './ArticleMeta';
@@ -19,7 +19,9 @@ export default class Article extends React.Component {
     as: customPropTypes.customOrStringElement('article'),
     children: PropTypes.node,
     className: PropTypes.string,
+    flex: Flex.propTypes,
     margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -33,15 +35,17 @@ export default class Article extends React.Component {
   static Title = ArticleTitle;
 
   render() {
-    const { as, className, margin, ...rest } = this.props;
+    const { as, className, flex, margin, width, ...rest } = this.props;
 
     const classes = classnames(
       className,
       'uk-article',
+      Flex.getClasses(flex),
       Margin.getClasses(margin),
+      Width.getClasses(width),
     );
 
-    const Element = getElementType(Article, this.props);
+    const Element = getElementType(Article, as);
     return <Element {...rest} className={classes} />;
   }
 }

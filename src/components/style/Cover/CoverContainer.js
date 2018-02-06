@@ -54,7 +54,7 @@ export default class CoverContainer extends React.Component {
       width: get(aspectRatio, 'width', 800),
     };
 
-    const Element = getElementType(CoverContainer, this.props);
+    const Element = getElementType(CoverContainer, as);
     return (
       <Element
         {...rest}

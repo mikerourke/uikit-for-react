@@ -42,13 +42,9 @@ const getClasses = animationProp => {
     buildClassName('animation', get(animationProp, 'name')),
     buildClassName('transform', 'origin', vertOrigin, horizOrigin),
     {
-      [buildClassName('animation', 'fast')]: get(animationProp, 'fast', false),
-      [buildClassName('animation', 'reverse')]: get(
-        animationProp,
-        'reverse',
-        false,
-      ),
-      [buildClassName('animation', 'transform', 'center')]: get(
+      'uk-animation-fast': get(animationProp, 'fast', false),
+      'uk-animation-reverse': get(animationProp, 'reverse', false),
+      'uk-animation-transform-center': get(
         animationProp,
         'transformCenter',
         false,

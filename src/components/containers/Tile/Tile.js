@@ -34,7 +34,7 @@ export default class Tile extends React.Component {
       [buildClassName(ukClass, 'secondary')]: secondary,
     });
 
-    const Element = getElementType(Tile, this.props);
+    const Element = getElementType(Tile, as);
     return <Element {...rest} className={classes} />;
   }
 }

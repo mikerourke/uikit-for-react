@@ -33,16 +33,8 @@ const getClasses = backgroundProp =>
       get(backgroundProp, ['position', 'horizontal']),
     ),
     {
-      [buildClassName('background', 'fixed')]: get(
-        backgroundProp,
-        'fixed',
-        false,
-      ),
-      [buildClassName('background', 'norepeat')]: get(
-        backgroundProp,
-        'norepeat',
-        false,
-      ),
+      'uk-background-fixed': get(backgroundProp, 'fixed', false),
+      'uk-background-norepeat': get(backgroundProp, 'norepeat', false),
     },
   );
 

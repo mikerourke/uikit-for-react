@@ -29,7 +29,7 @@ export default class Divider extends React.Component {
       [buildClassName(ukClass, 'small')]: small,
     });
 
-    const Element = getElementType(Divider, this.props);
+    const Element = getElementType(Divider, as);
     return <Element {...rest} className={classes} />;
   }
 }

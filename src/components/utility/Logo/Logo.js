@@ -22,7 +22,7 @@ export default class Logo extends React.Component {
   render() {
     const { as, className, imgSrc, inverse, ...rest } = this.props;
     const classes = classnames(className, 'uk-logo');
-    const Element = getElementType(Logo, this.props);
+    const Element = getElementType(Logo, as);
     return (
       <Element {...rest} className={classes}>
         {imgSrc && <img src={imgSrc} alt="" />}

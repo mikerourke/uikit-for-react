@@ -18,7 +18,7 @@ export default class OverlayIcon extends React.Component {
 
   render() {
     const { as, ...rest } = this.props;
-    const Element = getElementType(OverlayIcon, this.props);
+    const Element = getElementType(OverlayIcon, as);
     return <Element {...rest} data-uk-overlay-icon="" />;
   }
 }

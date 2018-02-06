@@ -28,7 +28,7 @@ export default class Cover extends React.Component {
   render() {
     const { as, automute, ...rest } = this.props;
     const componentOptions = getOptionsString({ automute });
-    const Element = getElementType(Cover, this.props);
+    const Element = getElementType(Cover, as);
     return <Element {...rest} data-uk-cover={componentOptions} />;
   }
 }

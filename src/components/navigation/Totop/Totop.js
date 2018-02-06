@@ -43,7 +43,7 @@ export default class Totop extends React.Component {
       ...rest
     } = this.props;
 
-    const Element = getElementType(Totop, this.props);
+    const Element = getElementType(Totop, as);
     return (
       <Element
         {...rest}

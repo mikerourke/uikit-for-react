@@ -100,7 +100,7 @@ export default class InlineElement extends React.Component {
 
     const { as, className = '', ...rest } = unhandledProps;
     const classes = classnames(className, inheritedClasses);
-    const Element = getElementType(InlineElement, this.props);
+    const Element = getElementType(InlineElement, as);
     return (
       <Element
         {...rest}

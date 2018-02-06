@@ -24,7 +24,7 @@ export default class SlideshowParallax extends React.Component {
     const { as, ...rest } = this.props;
     const componentOptions = Parallax.getOptions(rest);
     const elementProps = omit(rest, Object.keys(Parallax.propShape));
-    const Element = getElementType(SlideshowParallax, this.props);
+    const Element = getElementType(SlideshowParallax, as);
     return (
       <Element
         {...elementProps}

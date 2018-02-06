@@ -5,12 +5,8 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { invoke } from 'lodash';
-import {
-  buildClassName,
-  customPropTypes,
-  getBaseRef,
-  getElementType,
-} from '../../../lib';
+import { customPropTypes, getBaseRef, getElementType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 import FormLabel from './FormLabel';
 
 export default class FormCheckbox extends React.Component {
@@ -21,16 +17,19 @@ export default class FormCheckbox extends React.Component {
     blank: PropTypes.bool,
     checked: PropTypes.bool,
     className: PropTypes.string,
+    danger: PropTypes.bool,
+    disabled: PropTypes.bool,
+    defaultChecked: PropTypes.bool,
+    flex: Flex.propTypes,
     label: PropTypes.oneOfType([
       ExtraPropTypes.elementType(FormLabel),
       ExtraPropTypes.elementType('label'),
       PropTypes.string,
       PropTypes.number,
     ]),
-    danger: PropTypes.bool,
-    disabled: PropTypes.bool,
-    defaultChecked: PropTypes.bool,
+    margin: Margin.propTypes,
     success: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -77,18 +76,28 @@ export default class FormCheckbox extends React.Component {
       blank,
       className,
       danger,
+      flex,
       label: Label,
+      margin,
       success,
+      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(className, 'uk-checkbox', {
-      [buildClassName('form', 'blank')]: blank,
-      [buildClassName('form', 'danger')]: danger,
-      [buildClassName('form', 'success')]: success,
-    });
+    const classes = classnames(
+      className,
+      'uk-checkbox',
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+      {
+        'uk-form-blank': blank,
+        'uk-form-danger': danger,
+        'uk-form-success': success,
+      },
+    );
 
-    const Element = getElementType(FormCheckbox, this.props);
+    const Element = getElementType(FormCheckbox, as);
     const checkboxInput = (
       <Element
         {...rest}

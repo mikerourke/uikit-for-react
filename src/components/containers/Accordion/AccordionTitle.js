@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Margin } from '../../common';
+import { Flex, Margin, Width } from '../../common';
 
 /**
  * Toggle for each accordion item.
@@ -15,7 +15,9 @@ export default class AccordionTitle extends React.Component {
     as: customPropTypes.customOrStringElement('a'),
     children: PropTypes.node,
     className: PropTypes.string,
+    flex: Flex.propTypes,
     margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -24,15 +26,17 @@ export default class AccordionTitle extends React.Component {
   };
 
   render() {
-    const { as, className, margin, ...rest } = this.props;
+    const { as, className, flex, margin, width, ...rest } = this.props;
 
     const classes = classnames(
       className,
       'uk-accordion-title',
+      Flex.getClasses(flex),
       Margin.getClasses(margin),
+      Width.getClasses(width),
     );
 
-    const Element = getElementType(AccordionTitle, this.props);
+    const Element = getElementType(AccordionTitle, as);
     return <Element {...rest} className={classes} />;
   }
 }

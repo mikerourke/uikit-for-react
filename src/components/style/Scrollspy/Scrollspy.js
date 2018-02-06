@@ -91,7 +91,7 @@ export default class Scrollspy extends React.Component {
       repeat,
     });
 
-    const Element = getElementType(Scrollspy, this.props);
+    const Element = getElementType(Scrollspy, as);
     return (
       <Element
         {...rest}

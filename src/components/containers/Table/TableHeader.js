@@ -18,7 +18,7 @@ export default class TableHeader extends React.Component {
 
   render() {
     const { as, ...rest } = this.props;
-    const Element = getElementType(TableHeader, this.props);
+    const Element = getElementType(TableHeader, as);
     return <Element {...rest} />;
   }
 }

@@ -20,7 +20,7 @@ export default class ModalFooter extends React.Component {
   render() {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-modal-footer');
-    const Element = getElementType(ModalFooter, this.props);
+    const Element = getElementType(ModalFooter, as);
     return <Element {...rest} as="div" className={classes} />;
   }
 }

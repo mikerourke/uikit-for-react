@@ -30,7 +30,7 @@ class DotNav extends React.Component {
       [buildClassName(ukClass, 'vertical')]: vertical,
     });
 
-    const Element = getElementType(DotNav, this.props);
+    const Element = getElementType(DotNav, as);
     return <Element {...rest} className={classes} />;
   }
 }

@@ -49,7 +49,7 @@ export default class Comment extends React.Component {
       },
     );
 
-    const Element = getElementType(Comment, this.props);
+    const Element = getElementType(Comment, as);
     return <Element {...rest} className={classes} />;
   }
 }

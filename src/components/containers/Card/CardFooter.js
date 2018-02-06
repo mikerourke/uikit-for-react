@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 
 export default class CardFooter extends React.Component {
   static displayName = 'CardFooter';
@@ -10,6 +11,9 @@ export default class CardFooter extends React.Component {
     as: customPropTypes.customOrStringElement('div'),
     children: PropTypes.node,
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -18,9 +22,17 @@ export default class CardFooter extends React.Component {
   };
 
   render() {
-    const { as, className, ...rest } = this.props;
-    const classes = classnames(className, 'uk-card-footer');
-    const Element = getElementType(CardFooter, this.props);
+    const { as, className, flex, margin, width, ...rest } = this.props;
+
+    const classes = classnames(
+      className,
+      'uk-card-footer',
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
+
+    const Element = getElementType(CardFooter, as);
     return <Element {...rest} className={classes} />;
   }
 }

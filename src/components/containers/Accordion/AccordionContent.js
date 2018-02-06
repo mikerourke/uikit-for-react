@@ -36,7 +36,7 @@ export default class AccordionContent extends React.Component {
       Width.getClasses(width),
     );
 
-    const Element = getElementType(AccordionContent, this.props);
+    const Element = getElementType(AccordionContent, as);
     return <Element {...rest} className={classes} />;
   }
 }

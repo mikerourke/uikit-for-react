@@ -128,7 +128,7 @@ export default class Tab extends React.Component {
       swiping,
     });
 
-    const Element = getElementType(Tab, this.props);
+    const Element = getElementType(Tab, as);
     return (
       <Element
         {...rest}

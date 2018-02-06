@@ -131,7 +131,7 @@ export default class Sortable extends React.Component {
       threshold,
     });
 
-    const Element = getElementType(Sortable, this.props);
+    const Element = getElementType(Sortable, as);
     return (
       <Element
         {...rest}

@@ -20,7 +20,7 @@ export default class ModalBody extends React.Component {
   render() {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-modal-body');
-    const Element = getElementType(ModalBody, this.props);
+    const Element = getElementType(ModalBody, as);
     return <Element {...rest} className={classes} />;
   }
 }

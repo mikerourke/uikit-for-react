@@ -18,7 +18,7 @@ export default class UploadFileSelect extends React.Component {
 
   render() {
     const { as, children, ...rest } = this.props;
-    const Element = getElementType(UploadFileSelect, this.props);
+    const Element = getElementType(UploadFileSelect, as);
     return (
       <Element {...rest} data-uk-form-custom="">
         <input type="file" />

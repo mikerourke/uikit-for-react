@@ -19,7 +19,7 @@ export default class Progress extends React.Component {
   render() {
     const { as, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-progress');
-    const Element = getElementType(Progress, this.props);
+    const Element = getElementType(Progress, as);
     return <Element {...rest} className={classes} />;
   }
 }
