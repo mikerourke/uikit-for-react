@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "React component library for UIkit CSS framework.",
   "main": "index.js",
-  "repository": "https://github.com/wolfspace/uikit-for-react.git",
+  "repository": "https://github.com/mikerourke/uikit-for-react.git",
   "author": "Mike Rourke <mike.w.rourke@gmail.com>",
   "license": "MIT",
   "private": false,
