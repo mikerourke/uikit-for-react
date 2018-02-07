@@ -9,7 +9,7 @@ import {
   getOptionsString,
   HTML,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 
 export default class Form extends React.Component {
   static displayName = 'Form';
@@ -33,6 +33,7 @@ export default class Form extends React.Component {
     inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     stacked: PropTypes.bool,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -53,6 +54,7 @@ export default class Form extends React.Component {
       inverse,
       margin,
       stacked,
+      text,
       width,
       ...rest
     } = this.props;
@@ -72,6 +74,7 @@ export default class Form extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
       {
         'uk-form-horizontal': horizontal,

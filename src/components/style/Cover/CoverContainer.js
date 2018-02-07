@@ -9,7 +9,7 @@ import {
   getOptionsString,
   HTML,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 
 export default class CoverContainer extends React.Component {
   static displayName = 'CoverContainer';
@@ -34,6 +34,7 @@ export default class CoverContainer extends React.Component {
       offsetBottom: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
       offsetTop: PropTypes.bool,
     }),
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -52,6 +53,7 @@ export default class CoverContainer extends React.Component {
       inverse,
       margin,
       viewportOptions,
+      text,
       width,
       ...rest
     } = this.props;
@@ -62,6 +64,7 @@ export default class CoverContainer extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
     );
     const componentOptions = getOptionsString(viewportOptions);

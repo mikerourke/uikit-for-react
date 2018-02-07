@@ -8,7 +8,7 @@ import {
   getElementType,
   UIK,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 import { Icon } from '../../elements';
 
 export default class IconNavItem extends React.Component {
@@ -24,6 +24,7 @@ export default class IconNavItem extends React.Component {
     iconName: PropTypes.oneOf(UIK.ICON_NAMES).isRequired,
     iconOptions: PropTypes.shape(omit(Icon.propTypes, 'name')),
     margin: Margin.propTypes,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -43,6 +44,7 @@ export default class IconNavItem extends React.Component {
       flex,
       inverse,
       margin,
+      text,
       width,
       iconName,
       iconOptions,
@@ -54,6 +56,7 @@ export default class IconNavItem extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
       {
         [buildClassName('active')]: active,

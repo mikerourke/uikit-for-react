@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Align, Flex, Inverse, Margin, Width } from '../../common';
+import { Align, Flex, Inverse, Margin, Text, Width } from '../../common';
 
 export default class Gif extends React.Component {
   static displayName = 'Gif';
@@ -17,6 +17,7 @@ export default class Gif extends React.Component {
     inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     src: PropTypes.string.isRequired,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -33,6 +34,7 @@ export default class Gif extends React.Component {
       flex,
       inverse,
       margin,
+      text,
       width,
       ...rest
     } = this.props;
@@ -43,6 +45,7 @@ export default class Gif extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
     );
 

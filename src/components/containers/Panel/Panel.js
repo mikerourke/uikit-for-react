@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 
 export default class Panel extends React.Component {
   static displayName = 'Panel';
@@ -15,6 +15,7 @@ export default class Panel extends React.Component {
     inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     scrollable: PropTypes.bool,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -32,6 +33,7 @@ export default class Panel extends React.Component {
       inverse,
       margin,
       scrollable,
+      text,
       width,
       ...rest
     } = this.props;
@@ -42,6 +44,7 @@ export default class Panel extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
       {
         'uk-panel-scrollable': scrollable,

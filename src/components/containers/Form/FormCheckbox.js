@@ -6,7 +6,7 @@ import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { invoke } from 'lodash';
 import { customPropTypes, getBaseRef, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 import FormLabel from './FormLabel';
 
 export default class FormCheckbox extends React.Component {
@@ -30,6 +30,7 @@ export default class FormCheckbox extends React.Component {
     ]),
     margin: Margin.propTypes,
     success: PropTypes.bool,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -82,6 +83,7 @@ export default class FormCheckbox extends React.Component {
       inverse,
       margin,
       success,
+      text,
       width,
       ...rest
     } = this.props;
@@ -92,6 +94,7 @@ export default class FormCheckbox extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
       {
         'uk-form-blank': blank,

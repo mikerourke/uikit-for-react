@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { omit } from 'lodash';
 import { customPropTypes, getElementType, HTML } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
-import textProps from '../../common/Text';
+import { Flex, Margin, Text as textProps, Width } from '../../common';
 
 export default class Text extends React.Component {
   static displayName = 'Text';

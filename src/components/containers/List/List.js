@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 import ListItem from './ListItem';
 
 export default class List extends React.Component {
@@ -19,6 +19,7 @@ export default class List extends React.Component {
     large: PropTypes.bool,
     margin: Margin.propTypes,
     striped: PropTypes.bool,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -44,6 +45,7 @@ export default class List extends React.Component {
       inverse,
       margin,
       striped,
+      text,
       width,
       ...rest
     } = this.props;
@@ -54,6 +56,7 @@ export default class List extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
       {
         'uk-list-bullet': bullet,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 
 export default class OverlayImage extends React.Component {
   static displayName = 'OverlayImage';
@@ -16,6 +16,7 @@ export default class OverlayImage extends React.Component {
     inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     src: PropTypes.string.isRequired,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -25,13 +26,23 @@ export default class OverlayImage extends React.Component {
   };
 
   render() {
-    const { as, className, flex, inverse, margin, width, ...rest } = this.props;
+    const {
+      as,
+      className,
+      flex,
+      inverse,
+      margin,
+      text,
+      width,
+      ...rest
+    } = this.props;
 
     const classes = classnames(
       className,
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
     );
 

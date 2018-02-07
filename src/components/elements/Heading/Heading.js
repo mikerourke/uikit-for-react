@@ -65,7 +65,7 @@ export default class Heading extends React.Component {
       <Text
         {...rest}
         className={classes}
-        horizontalAlign={isString(line) ? line : undefined}
+        align={isString(line) ? line : undefined}
       >
         {line === true ? <span>{children}</span> : children}
       </Text>

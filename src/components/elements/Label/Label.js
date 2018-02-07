@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Align, Flex, Inverse, Margin, Width } from '../../common';
+import { Align, Flex, Inverse, Margin, Text, Width } from '../../common';
 
 export default class Label extends React.Component {
   static displayName = 'Label';
@@ -18,6 +18,7 @@ export default class Label extends React.Component {
     margin: Margin.propTypes,
     success: PropTypes.bool,
     warning: PropTypes.bool,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -40,6 +41,7 @@ export default class Label extends React.Component {
       margin,
       success,
       warning,
+      text,
       width,
       ...rest
     } = this.props;
@@ -51,6 +53,7 @@ export default class Label extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
       {
         'uk-label-danger': danger,

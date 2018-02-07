@@ -9,12 +9,12 @@ import {
 } from '../../lib';
 
 const propShape = {
+  align: PropTypes.oneOfType([
+    PropTypes.oneOf(['justify']),
+    customPropTypes.forBreakpoints(UIK.HORIZONTAL_POSITIONS),
+  ]),
   bold: PropTypes.bool,
   danger: PropTypes.bool,
-  horizontalAlign: customPropTypes.forBreakpoints([
-    ...UIK.HORIZONTAL_POSITIONS,
-    'justify',
-  ]),
   large: PropTypes.bool,
   lead: PropTypes.bool,
   meta: PropTypes.bool,
@@ -32,7 +32,7 @@ const propTypes = PropTypes.shape(propShape);
 
 const getClasses = textProp =>
   classnames(
-    buildBreakpointClasses('text', get(textProp, 'horizontalAlign')),
+    buildBreakpointClasses('text', get(textProp, 'align')),
     buildClassName('text', get(textProp, 'transform')),
     buildClassName('text', get(textProp, 'verticalAlign')),
     buildClassName('text', get(textProp, 'wrapping')),

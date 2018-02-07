@@ -6,7 +6,7 @@ import {
   getElementType,
   getOptionsString,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 import VideoSource from './VideoSource';
 
 export default class Video extends React.Component {
@@ -24,6 +24,7 @@ export default class Video extends React.Component {
     flex: Flex.propTypes,
     inverse: Inverse.propTypes,
     margin: Margin.propTypes,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -43,6 +44,7 @@ export default class Video extends React.Component {
       flex,
       inverse,
       margin,
+      text,
       width,
       ...rest
     } = this.props;
@@ -52,6 +54,7 @@ export default class Video extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
     );
 

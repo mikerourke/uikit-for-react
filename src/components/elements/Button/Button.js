@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { invoke, isNil, noop } from 'lodash';
+import { invoke, isBoolean, isNil, noop } from 'lodash';
 import {
   buildClassName,
   customPropTypes,
   getElementType,
   UIK,
 } from '../../../lib';
-import { Align, Flex, Inverse, Margin, Width } from '../../common';
+import { Align, Flex, Inverse, Margin, Text, Width } from '../../common';
 import ButtonGroup from './ButtonGroup';
 
 export default class Button extends React.Component {
@@ -32,7 +32,10 @@ export default class Button extends React.Component {
     primary: PropTypes.bool,
     secondary: PropTypes.bool,
     size: PropTypes.oneOf(['large', 'small']),
-    text: PropTypes.bool,
+    text: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.shape(Text.propShape),
+    ]),
     width: Width.propTypes,
   };
 
@@ -88,8 +91,10 @@ export default class Button extends React.Component {
       ) === 0;
     const hasIcon = !isNil(icon);
 
+    const textClasses = isBoolean(text) ? '' : Text.getClasses(text);
     const classes = classnames(
       className,
+      textClasses,
       Align.getClasses(align),
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
@@ -103,7 +108,7 @@ export default class Button extends React.Component {
         'uk-button-link': link,
         'uk-button-primary': primary,
         'uk-button-secondary': secondary,
-        'uk-button-text': text,
+        'uk-button-text': text === true,
         'uk-icon-button': hasIcon,
         'uk-width-1-1': fullWidth,
       },

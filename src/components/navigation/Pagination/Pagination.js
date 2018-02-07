@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 import PaginationItem from './PaginationItem';
 import PaginationNext from './PaginationNext';
 import PaginationPrevious from './PaginationPrevious';
@@ -17,6 +17,7 @@ export default class Pagination extends React.Component {
     flex: Flex.propTypes,
     inverse: Inverse.propTypes,
     margin: Margin.propTypes,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -30,7 +31,16 @@ export default class Pagination extends React.Component {
   static Previous = PaginationPrevious;
 
   render() {
-    const { as, className, flex, inverse, margin, width, ...rest } = this.props;
+    const {
+      as,
+      className,
+      flex,
+      inverse,
+      margin,
+      text,
+      width,
+      ...rest
+    } = this.props;
 
     const classes = classnames(
       className,
@@ -38,6 +48,7 @@ export default class Pagination extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
     );
 

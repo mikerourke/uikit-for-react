@@ -17,7 +17,7 @@ storiesOf('Button', module)
 
   .add('Style modifiers', () => (
     <Block margin={{ all: 'large' }}>
-      <Grid gutter="small" textAlign="center">
+      <Grid gutter="small" text={{ align: 'center' }}>
         <Grid.Cell>
           <Button>Default</Button>
         </Grid.Cell>

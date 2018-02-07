@@ -8,7 +8,7 @@ Grid.displayName = 'Grid';
 storiesOf('Grid', module)
   .add('Basic Usage', () => (
     <Block margin={{ all: 'large' }}>
-      <Grid childWidth={{ atSm: 'expand' }} textAlign="center">
+      <Grid childWidth={{ atSm: 'expand' }} text={{ align: 'center' }}>
         <Grid.Cell>
           <Card>Item</Card>
         </Grid.Cell>
@@ -29,7 +29,7 @@ storiesOf('Grid', module)
           key={gutter}
           gutter={gutter}
           childWidth={{ atSm: 'expand' }}
-          textAlign="center"
+          text={{ align: 'center' }}
         >
           <Grid.Cell>
             <Card>Item</Card>
@@ -45,7 +45,7 @@ storiesOf('Grid', module)
       <Grid
         gutter="collapse"
         childWidth={{ atSm: 'expand' }}
-        textAlign="center"
+        text={{ align: 'center' }}
       >
         <Grid.Cell>
           <Block as="div" background="muted" padding>
@@ -68,12 +68,12 @@ storiesOf('Grid', module)
 
   .add('Nested grid', () => (
     <Block margin={{ all: 'large' }}>
-      <Grid childWidth="1/2" textAlign="center">
+      <Grid childWidth="1/2" text={{ align: 'center' }}>
         <Grid.Cell>
           <Card>Item</Card>
         </Grid.Cell>
         <Grid.Cell>
-          <Grid childWidth="1/2" textAlign="center">
+          <Grid childWidth="1/2" text={{ align: 'center' }}>
             <Grid.Cell>
               <Card primary>Item</Card>
             </Grid.Cell>
@@ -98,7 +98,7 @@ storiesOf('Grid', module)
 
   .add('Match height', () => (
     <Block margin={{ all: 'large' }}>
-      <Grid childWidth={{ atSm: 'expand' }} textAlign="center" matchHeight>
+      <Grid childWidth={{ atSm: 'expand' }} text={{ align: 'center' }} matchHeight>
         <Grid.Cell>
           <Card>Item</Card>
         </Grid.Cell>
@@ -135,7 +135,7 @@ storiesOf('Grid', module)
 
   .add('Grids and width', () => (
     <Block margin={{ all: 'large' }}>
-      <Grid textAlign="center">
+      <Grid text={{ align: 'center' }}>
         <Grid.Cell width={{ atMd: 'auto' }}>
           <Card>Auto</Card>
         </Grid.Cell>
@@ -151,7 +151,7 @@ storiesOf('Grid', module)
 
   .add('Child width', () => (
     <Block margin={{ all: 'large' }}>
-      <Grid childWidth={{ atSm: '1/2', atMd: '1/3' }} textAlign="center">
+      <Grid childWidth={{ atSm: '1/2', atMd: '1/3' }} text={{ align: 'center' }}>
         <Grid.Cell>
           <Card>Item</Card>
         </Grid.Cell>
@@ -171,7 +171,7 @@ storiesOf('Grid', module)
         gutter="small"
         childWidth={{ atSm: '1/4' }}
         justifyContent="center"
-        textAlign="center"
+        text={{ align: 'center' }}
       >
         <Grid.Cell>
           <Card>Item 1</Card>

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 import IconNavItem from './IconNavItem';
 
 export default class IconNav extends React.Component {
@@ -16,6 +16,7 @@ export default class IconNav extends React.Component {
     inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     vertical: PropTypes.bool,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -35,6 +36,7 @@ export default class IconNav extends React.Component {
       inverse,
       margin,
       vertical,
+      text,
       width,
       ...rest
     } = this.props;
@@ -45,6 +47,7 @@ export default class IconNav extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
       {
         'uk-iconnav-vertical': vertical,

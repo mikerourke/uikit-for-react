@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { omit } from 'lodash';
 import { customPropTypes, getElementType, HTML } from '../../../lib';
-import { Flex, Inverse, Margin, Parallax, Width } from '../../common';
+import { Flex, Inverse, Margin, Parallax, Text, Width } from '../../common';
 
 export default class SlideshowParallax extends React.Component {
   static displayName = 'SlideshowParallax';
@@ -16,6 +16,7 @@ export default class SlideshowParallax extends React.Component {
     className: PropTypes.string,
     flex: Flex.propTypes,
     margin: Margin.propTypes,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -25,13 +26,23 @@ export default class SlideshowParallax extends React.Component {
   };
 
   render() {
-    const { as, className, flex, inverse, margin, width, ...rest } = this.props;
+    const {
+      as,
+      className,
+      flex,
+      inverse,
+      margin,
+      text,
+      width,
+      ...rest
+    } = this.props;
 
     const classes = classnames(
       className,
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
     );
 

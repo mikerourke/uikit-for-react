@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { invoke, noop } from 'lodash';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Align, Flex, Inverse, Margin, Width } from '../../common';
+import { Align, Flex, Inverse, Margin, Text, Width } from '../../common';
 
 export default class SearchIcon extends React.Component {
   static displayName = 'SearchIcon';
@@ -18,6 +18,7 @@ export default class SearchIcon extends React.Component {
     margin: Margin.propTypes,
     onClick: PropTypes.func,
     toggle: PropTypes.bool,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -43,6 +44,7 @@ export default class SearchIcon extends React.Component {
       inverse,
       margin,
       toggle,
+      text,
       width,
       ...rest
     } = this.props;
@@ -54,6 +56,7 @@ export default class SearchIcon extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
       {
         'uk-search-icon-flip': flip,

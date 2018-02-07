@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isObject } from 'lodash';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 
 export default class TabItem extends React.Component {
   static displayName = 'TabItem';
@@ -18,6 +18,7 @@ export default class TabItem extends React.Component {
     href: PropTypes.string,
     inverse: Inverse.propTypes,
     margin: Margin.propTypes,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -40,6 +41,7 @@ export default class TabItem extends React.Component {
       href,
       inverse,
       margin,
+      text,
       width,
       ...rest
     } = this.props;
@@ -49,6 +51,7 @@ export default class TabItem extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
       {
         'uk-active': active,

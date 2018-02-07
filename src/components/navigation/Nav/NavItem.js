@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType, hasChildType } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 import NavItemGroup from './NavItemGroup';
 import NavSubNav from './NavSubNav';
 
@@ -19,6 +19,7 @@ export default class NavItem extends React.Component {
     inverse: Inverse.propTypes,
     href: PropTypes.string,
     margin: Margin.propTypes,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -40,6 +41,7 @@ export default class NavItem extends React.Component {
       inverse,
       href,
       margin,
+      text,
       width,
       ...rest
     } = this.props;
@@ -49,6 +51,7 @@ export default class NavItem extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
       {
         'uk-active': active,

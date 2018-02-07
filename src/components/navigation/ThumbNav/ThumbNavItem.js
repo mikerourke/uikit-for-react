@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isNil } from 'lodash';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 import ThumbNavImage from './ThumbNavImage';
 
 export default class ThumbNavItem extends React.Component {
@@ -19,6 +19,7 @@ export default class ThumbNavItem extends React.Component {
     inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     slideshowItem: PropTypes.number,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -37,6 +38,7 @@ export default class ThumbNavItem extends React.Component {
       flex,
       inverse,
       margin,
+      text,
       width,
       slideshowItem,
       ...rest
@@ -47,6 +49,7 @@ export default class ThumbNavItem extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
       {
         'uk-active': active,

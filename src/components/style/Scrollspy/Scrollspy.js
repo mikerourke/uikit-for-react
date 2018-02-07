@@ -14,7 +14,7 @@ import {
   HTML,
   UIK,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 
 export default class Scrollspy extends React.Component {
   static displayName = 'Scrollspy';
@@ -37,6 +37,7 @@ export default class Scrollspy extends React.Component {
     onInview: PropTypes.func,
     onOutview: PropTypes.func,
     repeat: PropTypes.bool,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -83,6 +84,7 @@ export default class Scrollspy extends React.Component {
       offsetLeft,
       offsetTop,
       repeat,
+      text,
       width,
       ...rest
     } = this.props;
@@ -94,6 +96,7 @@ export default class Scrollspy extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
     );
 

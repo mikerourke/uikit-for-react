@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 import CountdownLabel from './CountdownLabel';
 
 export default class CountdownDays extends React.Component {
@@ -15,6 +15,7 @@ export default class CountdownDays extends React.Component {
     label: PropTypes.instanceOf(CountdownLabel),
     inverse: Inverse.propTypes,
     margin: Margin.propTypes,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -31,6 +32,7 @@ export default class CountdownDays extends React.Component {
       label,
       inverse,
       margin,
+      text,
       width,
       ...rest
     } = this.props;
@@ -42,6 +44,7 @@ export default class CountdownDays extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
     );
 

@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { isBoolean } from 'lodash';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Align, Flex, Inverse, Margin, Width } from '../../common';
+import { Align, Flex, Inverse, Margin, Text, Width } from '../../common';
 
 export default class Link extends React.Component {
   static displayName = 'Link';
@@ -17,7 +18,10 @@ export default class Link extends React.Component {
     margin: Margin.propTypes,
     muted: PropTypes.bool,
     reset: PropTypes.bool,
-    text: PropTypes.bool,
+    text: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.shape(Text.propShape),
+    ]),
     width: Width.propTypes,
   };
 
@@ -44,9 +48,11 @@ export default class Link extends React.Component {
       ...rest
     } = this.props;
 
+    const textClasses = isBoolean(text) ? '' : Text.getClasses(text);
     const classes = classnames(
       className,
       'uk-link',
+      textClasses,
       Align.getClasses(align),
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
@@ -55,7 +61,7 @@ export default class Link extends React.Component {
       {
         'uk-link-muted': muted,
         'uk-link-reset': reset,
-        'uk-link-text': text,
+        'uk-link-text': text === true,
       },
     );
 

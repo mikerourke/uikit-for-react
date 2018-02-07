@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isString } from 'lodash';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 import { Close } from '../../elements';
 
 export default class ModalClose extends React.Component {
@@ -19,6 +19,7 @@ export default class ModalClose extends React.Component {
     large: PropTypes.bool,
     margin: Margin.propTypes,
     outside: PropTypes.bool,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -40,6 +41,7 @@ export default class ModalClose extends React.Component {
       inverse,
       margin,
       outside,
+      text,
       width,
       ...rest
     } = this.props;
@@ -51,6 +53,7 @@ export default class ModalClose extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
     );
 

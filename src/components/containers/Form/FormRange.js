@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 
 export default class FormRange extends React.Component {
   static displayName = 'FormRange';
@@ -16,6 +16,7 @@ export default class FormRange extends React.Component {
     inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     success: PropTypes.bool,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -37,6 +38,7 @@ export default class FormRange extends React.Component {
       inverse,
       margin,
       success,
+      text,
       width,
       ...rest
     } = this.props;
@@ -47,6 +49,7 @@ export default class FormRange extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
       {
         'uk-form-blank': blank,

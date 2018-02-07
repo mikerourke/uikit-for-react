@@ -15,28 +15,44 @@ storiesOf('Countdown', module)
       >
         <Grid.Cell>
           <Countdown.Days />
-          <Countdown.Label textAlign="center" margin="small" visible="@s">
+          <Countdown.Label
+            text={{ align: 'center' }}
+            margin="small"
+            visible="@s"
+          >
             Days
           </Countdown.Label>
         </Grid.Cell>
         <Countdown.Separator>:</Countdown.Separator>
         <Grid.Cell>
           <Countdown.Hours />
-          <Countdown.Label textAlign="center" margin="small" visible="@s">
+          <Countdown.Label
+            text={{ align: 'center' }}
+            margin="small"
+            visible="@s"
+          >
             Hours
           </Countdown.Label>
         </Grid.Cell>
         <Countdown.Separator>:</Countdown.Separator>
         <Grid.Cell>
           <Countdown.Minutes />
-          <Countdown.Label textAlign="center" margin="small" visible="@s">
+          <Countdown.Label
+            text={{ align: 'center' }}
+            margin="small"
+            visible="@s"
+          >
             Minutes
           </Countdown.Label>
         </Grid.Cell>
         <Countdown.Separator>:</Countdown.Separator>
         <Grid.Cell>
           <Countdown.Seconds />
-          <Countdown.Label textAlign="center" margin="small" visible="@s">
+          <Countdown.Label
+            text={{ align: 'center' }}
+            margin="small"
+            visible="@s"
+          >
             Seconds
           </Countdown.Label>
         </Grid.Cell>
@@ -78,28 +94,44 @@ storiesOf('Countdown', module)
             >
               <Grid.Cell>
                 <Countdown.Days />
-                <Countdown.Label textAlign="center" margin="small" visible="@s">
+                <Countdown.Label
+                  text={{ align: 'center' }}
+                  margin="small"
+                  visible="@s"
+                >
                   Days
                 </Countdown.Label>
               </Grid.Cell>
               <Countdown.Separator>:</Countdown.Separator>
               <Grid.Cell>
                 <Countdown.Hours />
-                <Countdown.Label textAlign="center" margin="small" visible="@s">
+                <Countdown.Label
+                  text={{ align: 'center' }}
+                  margin="small"
+                  visible="@s"
+                >
                   Hours
                 </Countdown.Label>
               </Grid.Cell>
               <Countdown.Separator>:</Countdown.Separator>
               <Grid.Cell>
                 <Countdown.Minutes />
-                <Countdown.Label textAlign="center" margin="small" visible="@s">
+                <Countdown.Label
+                  text={{ align: 'center' }}
+                  margin="small"
+                  visible="@s"
+                >
                   Minutes
                 </Countdown.Label>
               </Grid.Cell>
               <Countdown.Separator>:</Countdown.Separator>
               <Grid.Cell>
                 <Countdown.Seconds />
-                <Countdown.Label textAlign="center" margin="small" visible="@s">
+                <Countdown.Label
+                  text={{ align: 'center' }}
+                  margin="small"
+                  visible="@s"
+                >
                   Seconds
                 </Countdown.Label>
               </Grid.Cell>

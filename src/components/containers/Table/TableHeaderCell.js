@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 
 export default class TableHeaderCell extends React.Component {
   static displayName = 'TableHeaderCell';
@@ -17,6 +17,7 @@ export default class TableHeaderCell extends React.Component {
     link: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['reset'])]),
     margin: Margin.propTypes,
     shrink: PropTypes.bool,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -38,6 +39,7 @@ export default class TableHeaderCell extends React.Component {
       inverse,
       margin,
       shrink,
+      text,
       width,
       ...rest
     } = this.props;
@@ -47,6 +49,7 @@ export default class TableHeaderCell extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
       {
         'uk-table-expand': expand,

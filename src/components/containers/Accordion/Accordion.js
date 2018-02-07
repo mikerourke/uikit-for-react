@@ -13,7 +13,7 @@ import {
   getValidProps,
   HTML,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 import AccordionContent from './AccordionContent';
 import AccordionPanel from './AccordionPanel';
 import AccordionTitle from './AccordionTitle';
@@ -52,6 +52,7 @@ export default class Accordion extends React.Component {
     onShown: PropTypes.func,
     openIndex: customPropTypes.validateIndexArray,
     transition: PropTypes.oneOf(HTML.CSS_EASING),
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -142,6 +143,7 @@ export default class Accordion extends React.Component {
       margin,
       multiple,
       transition,
+      text,
       width,
       ...rest
     } = this.props;
@@ -153,6 +155,7 @@ export default class Accordion extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
     );
 

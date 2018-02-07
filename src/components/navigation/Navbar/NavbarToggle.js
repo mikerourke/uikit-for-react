@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isNil } from 'lodash';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Align, Flex, Inverse, Margin, Width } from '../../common';
+import { Align, Flex, Inverse, Margin, Text, Width } from '../../common';
 
 export default class NavbarToggle extends React.Component {
   static displayName = 'NavbarToggle';
@@ -18,6 +18,7 @@ export default class NavbarToggle extends React.Component {
     icon: PropTypes.node,
     margin: Margin.propTypes,
     title: PropTypes.node,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -36,6 +37,7 @@ export default class NavbarToggle extends React.Component {
       icon,
       margin,
       title,
+      text,
       width,
       ...rest
     } = this.props;
@@ -49,6 +51,7 @@ export default class NavbarToggle extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
     );
 

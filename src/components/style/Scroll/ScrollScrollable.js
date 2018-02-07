@@ -7,7 +7,7 @@ import {
   getElementType,
   HTML,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 import ScrollPoint from './ScrollPoint';
 
 export default class ScrollScrollable extends React.Component {
@@ -20,6 +20,7 @@ export default class ScrollScrollable extends React.Component {
     flex: Flex.propTypes,
     inverse: Inverse.propTypes,
     margin: Margin.propTypes,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -56,6 +57,7 @@ export default class ScrollScrollable extends React.Component {
       flex,
       inverse,
       margin,
+      text,
       width,
       ...rest
     } = this.props;
@@ -65,6 +67,7 @@ export default class ScrollScrollable extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
     );
 

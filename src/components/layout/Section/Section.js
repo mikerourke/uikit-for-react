@@ -8,7 +8,7 @@ import {
   HTML,
   UIK,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 
 export default class Section extends React.Component {
   static displayName = 'Section';
@@ -24,6 +24,7 @@ export default class Section extends React.Component {
     overlap: PropTypes.bool,
     padding: PropTypes.oneOf(['xsmall', 'small', 'large', 'xlarge', 'remove']),
     preserveColor: PropTypes.bool,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -45,6 +46,7 @@ export default class Section extends React.Component {
       overlap,
       padding,
       preserveColor,
+      text,
       width,
       ...rest
     } = this.props;
@@ -58,6 +60,7 @@ export default class Section extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
       {
         'uk-section-overlap': overlap,

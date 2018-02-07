@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { noop } from 'lodash';
 import { customPropTypes, getElementType, getValidProps } from '../../../lib';
-import { Align, Flex, Inverse, Margin, Width } from '../../common';
+import { Align, Flex, Inverse, Margin, Text, Width } from '../../common';
 
 export default class Totop extends React.Component {
   static displayName = 'Totop';
@@ -21,6 +21,7 @@ export default class Totop extends React.Component {
     scrollDuration: PropTypes.number,
     scrollOffset: PropTypes.number,
     smooth: PropTypes.bool,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -49,6 +50,7 @@ export default class Totop extends React.Component {
       scrollDuration,
       scrollOffset,
       smooth,
+      text,
       width,
       ...rest
     } = this.props;
@@ -58,6 +60,7 @@ export default class Totop extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
     );
 

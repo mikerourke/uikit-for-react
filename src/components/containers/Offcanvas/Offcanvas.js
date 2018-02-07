@@ -11,7 +11,7 @@ import {
   getOptionsString,
   getValidProps,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 
 export default class Offcanvas extends React.Component {
   static displayName = 'Offcanvas';
@@ -34,6 +34,7 @@ export default class Offcanvas extends React.Component {
     onShow: PropTypes.func,
     onShown: PropTypes.func,
     overlay: PropTypes.bool,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -86,6 +87,7 @@ export default class Offcanvas extends React.Component {
       flex,
       inverse,
       margin,
+      text,
       width,
       ...rest
     } = this.props;
@@ -96,6 +98,7 @@ export default class Offcanvas extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
     );
 

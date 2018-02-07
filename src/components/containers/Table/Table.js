@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 import TableBody from './TableBody';
 import TableCell from './TableCell';
 import TableFooter from './TableFooter';
@@ -27,6 +27,7 @@ export default class Table extends React.Component {
     small: PropTypes.bool,
     stackable: PropTypes.bool,
     striped: PropTypes.bool,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -63,6 +64,7 @@ export default class Table extends React.Component {
       small,
       stackable,
       striped,
+      text,
       width,
       ...rest
     } = this.props;
@@ -73,6 +75,7 @@ export default class Table extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
       {
         'uk-table-divider': divider,

@@ -11,7 +11,7 @@ import {
   getOptionsString,
   HTML,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 import CountdownDays from './CountdownDays';
 import CountdownHours from './CountdownHours';
 import CountdownLabel from './CountdownLabel';
@@ -31,6 +31,7 @@ export default class Countdown extends React.Component {
     inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     paused: PropTypes.bool,
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -78,6 +79,7 @@ export default class Countdown extends React.Component {
       inverse,
       margin,
       paused,
+      text,
       width,
       ...rest
     } = this.props;
@@ -89,6 +91,7 @@ export default class Countdown extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
     );
 

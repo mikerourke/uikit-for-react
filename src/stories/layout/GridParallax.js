@@ -33,7 +33,7 @@ storiesOf('GridParallax', module)
       <GridParallax
         translate={200}
         childWidth={{ atSm: '1/2', atMd: '1/3', atLg: '1/4' }}
-        textAlign="center"
+        text={{ align: 'center' }}
       >
         {range(0, 12).map(cell => (
           <GridParallax.Cell key={cell}>

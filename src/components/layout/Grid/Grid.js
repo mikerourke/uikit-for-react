@@ -12,7 +12,7 @@ import {
   HTML,
   UIK,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Width } from '../../common';
 import GridCell from './GridCell';
 
 export default class Grid extends React.Component {
@@ -35,6 +35,7 @@ export default class Grid extends React.Component {
       location: PropTypes.oneOf(UIK.LOCATIONS),
     }),
     textAlign: customPropTypes.forBreakpoints(UIK.TEXT_ALIGNMENTS),
+    text: Text.propTypes,
     width: Width.propTypes,
   };
 
@@ -66,6 +67,7 @@ export default class Grid extends React.Component {
       matchHeight,
       nextRow,
       textAlign,
+      text,
       width,
       ...rest
     } = this.props;
@@ -75,6 +77,7 @@ export default class Grid extends React.Component {
       Flex.getClasses(flex),
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Text.getClasses(text),
       Width.getClasses(width),
       buildBreakpointClasses('childWidth', childWidth),
       buildBreakpointClasses('text', textAlign),

@@ -235,6 +235,7 @@ export default class RootElement extends React.Component {
       style = {},
       transformCenter,
       visible,
+      text,
       width,
       wrap,
       ...unhandledProps
@@ -394,7 +395,8 @@ export default class RootElement extends React.Component {
       unhandledProps: {
         ...unhandledProps,
         height: customHeight ? undefined : height,
-        width: customWidth ? undefined : width,
+        width: customWidth ? undefined : text,
+        width,
       },
     };
   }
