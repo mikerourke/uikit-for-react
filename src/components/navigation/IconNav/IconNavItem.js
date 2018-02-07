@@ -2,25 +2,33 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { omit } from 'lodash';
-import { buildClassName, UIK } from '../../../lib';
-import { BlockElement } from '../../base';
+import {
+  buildClassName,
+  customPropTypes,
+  getElementType,
+  UIK,
+} from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 import { Icon } from '../../elements';
 
 export default class IconNavItem extends React.Component {
   static displayName = 'IconNavItem';
 
   static propTypes = {
-    ...BlockElement.propTypes,
     active: PropTypes.bool,
+    as: customPropTypes.customOrStringElement('li'),
     className: PropTypes.string,
+    flex: Flex.propTypes,
     href: PropTypes.string,
     iconName: PropTypes.oneOf(UIK.ICON_NAMES).isRequired,
     iconOptions: PropTypes.shape(omit(Icon.propTypes, 'name')),
+    margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
-    ...BlockElement.defaultProps,
     active: false,
+    as: 'li',
     className: '',
     href: '#',
   };
@@ -28,19 +36,30 @@ export default class IconNavItem extends React.Component {
   render() {
     const {
       active,
+      as,
       className,
       href,
+      flex,
+      margin,
+      width,
       iconName,
       iconOptions,
       ...rest
     } = this.props;
 
-    const classes = classnames(className, {
-      [buildClassName('active')]: active,
-    });
+    const classes = classnames(
+      className,
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+      {
+        [buildClassName('active')]: active,
+      },
+    );
 
+    const Element = getElementType(IconNavItem, as);
     return (
-      <Element {...rest} as="li" className={classes}>
+      <Element {...rest} className={classes}>
         <Icon {...iconOptions} href={href} name={iconName} />
       </Element>
     );

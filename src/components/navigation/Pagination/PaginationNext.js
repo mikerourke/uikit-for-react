@@ -1,14 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
+import { Align, Flex, Margin, Width } from '../../common';
 
 export default class PaginationNext extends React.Component {
   static displayName = 'PaginationNext';
 
   static propTypes = {
+    align: Align.propTypes,
     as: customPropTypes.customOrStringElement('span'),
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -17,8 +23,23 @@ export default class PaginationNext extends React.Component {
   };
 
   render() {
-    const { as, ...rest } = this.props;
+    const { align, as, className, flex, margin, width, ...rest } = this.props;
+
+    const classes = classnames(
+      className,
+      Align.getClasses(align),
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
+
     const Element = getElementType(PaginationNext, as);
-    return <Element {...rest} data-uk-pagination-next="" />;
+    return (
+      <Element
+        {...rest}
+        className={classes || undefined}
+        data-uk-pagination-next=""
+      />
+    );
   }
 }

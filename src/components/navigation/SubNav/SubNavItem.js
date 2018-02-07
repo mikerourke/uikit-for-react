@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isObject } from 'lodash';
-import { buildClassName, customPropTypes, getElementType } from '../../../lib';
+import { customPropTypes, getElementType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 
 export default class SubNavItem extends React.Component {
   static displayName = 'SubNavItem';
@@ -10,9 +11,12 @@ export default class SubNavItem extends React.Component {
   static propTypes = {
     active: PropTypes.bool,
     as: customPropTypes.customOrStringElement('li'),
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     className: PropTypes.string,
+    flex: Flex.propTypes,
     href: PropTypes.string,
+    margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -23,11 +27,27 @@ export default class SubNavItem extends React.Component {
   };
 
   render() {
-    const { active, as, children, className, href, ...rest } = this.props;
+    const {
+      active,
+      as,
+      children,
+      className,
+      flex,
+      href,
+      margin,
+      width,
+      ...rest
+    } = this.props;
 
-    const classes = classnames(className, {
-      [buildClassName('active')]: active,
-    });
+    const classes = classnames(
+      className,
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+      {
+        'uk-active': active,
+      },
+    );
 
     const Element = getElementType(SubNavItem, as);
     return (

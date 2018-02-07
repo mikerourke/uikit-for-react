@@ -35,11 +35,10 @@ export default class NavbarDropdown extends React.Component {
       ...rest
     } = this.props;
 
-    const ukClass = 'uk-navbar-dropdown';
     const classes = classnames(
       className,
-      ukClass,
-      buildClassName(ukClass, 'width', multiplyWidth),
+      'uk-navbar-dropdown',
+      buildClassName('navbar', 'dropdown', 'width', multiplyWidth),
     );
 
     const navProps = {
@@ -47,11 +46,11 @@ export default class NavbarDropdown extends React.Component {
       className: classnames(
         navOptions.className,
         'uk-nav',
-        buildClassName(ukClass, 'nav'),
+        'uk-navbar-dropdown-nav',
       ),
     };
 
-    const InnerElement = getElementType(navOptions, navOptions);
+    const InnerElement = getElementType(navOptions, navOptions.as);
     return (
       <Dropdown {...rest} className={classes}>
         <InnerElement {...navProps}>{children}</InnerElement>

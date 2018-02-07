@@ -5,15 +5,16 @@ import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { isNil } from 'lodash';
 import {
-  buildClassName,
   customPropTypes,
   generateSelector,
   getBaseRef,
   getElementType,
   getOptionsString,
+  getValidProps,
   HTML,
   UIK,
 } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 import NavDivider from './NavDivider';
 import NavHeader from './NavHeader';
 import NavItem from './NavItem';
@@ -24,8 +25,8 @@ export default class Nav extends React.Component {
   static displayName = 'Nav';
 
   static propTypes = {
-    activeIndex: customPropTypes.validateIndex,
     accordion: PropTypes.bool,
+    activeIndex: customPropTypes.validateIndex,
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.ANIMATIONS),
       PropTypes.arrayOf(UIK.ANIMATIONS),
@@ -46,15 +47,18 @@ export default class Nav extends React.Component {
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     collapsible: PropTypes.bool,
+    flex: Flex.propTypes,
     hideOpenAnimation: PropTypes.bool,
+    margin: Margin.propTypes,
     multiple: PropTypes.bool,
     primary: PropTypes.bool,
     transition: PropTypes.oneOf(HTML.CSS_EASING),
+    width: Width.propTypes,
   };
 
   static defaultProps = {
-    activeIndex: 0,
     accordion: false,
+    activeIndex: 0,
     as: 'ul',
     center: false,
     className: '',
@@ -93,27 +97,35 @@ export default class Nav extends React.Component {
 
   render() {
     const {
-      activeIndex,
       accordion,
       animation,
       as,
       center,
       className,
       collapsible,
-      hideOpenAnimation,
+      flex,
+      margin,
       multiple,
       primary,
       transition,
+      width,
       ...rest
     } = this.props;
 
-    const ukClass = 'uk-nav';
-    const classes = classnames(className, ukClass, this.selector, {
-      [buildClassName(ukClass, 'center')]: center,
-      [buildClassName(ukClass, 'default')]: !primary,
-      [buildClassName(ukClass, 'parent', 'icon')]: accordion,
-      [buildClassName(ukClass, 'primary')]: primary,
-    });
+    const classes = classnames(
+      className,
+      'uk-nav',
+      this.selector,
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+      {
+        'uk-nav-center': center,
+        'uk-nav-default': !primary,
+        'uk-nav-parent-icon': accordion,
+        'uk-nav-primary': primary,
+      },
+    );
 
     const componentOptions = getOptionsString({
       animation,
@@ -125,7 +137,7 @@ export default class Nav extends React.Component {
     const Element = getElementType(Nav, as);
     return (
       <Element
-        {...rest}
+        {...getValidProps(Nav, rest)}
         className={classes}
         ref={this.handleRef}
         data-uk-nav={accordion ? componentOptions : undefined}

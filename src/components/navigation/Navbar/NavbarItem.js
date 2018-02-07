@@ -1,12 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  buildClassName,
-  customPropTypes,
-  getElementType,
-  hasChildType,
-} from '../../../lib';
+import { customPropTypes, getElementType, hasChildType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 import NavbarDropdown from './NavbarDropdown';
 
 export default class NavbarItem extends React.Component {
@@ -17,7 +13,10 @@ export default class NavbarItem extends React.Component {
     as: customPropTypes.customOrStringElement('li'),
     children: PropTypes.node,
     className: PropTypes.string,
+    flex: Flex.propTypes,
     href: PropTypes.string,
+    margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -28,11 +27,27 @@ export default class NavbarItem extends React.Component {
   };
 
   render() {
-    const { active, as, children, className, href, ...rest } = this.props;
+    const {
+      active,
+      as,
+      children,
+      className,
+      flex,
+      href,
+      margin,
+      width,
+      ...rest
+    } = this.props;
 
-    const classes = classnames(className, {
-      [buildClassName('active')]: active,
-    });
+    const classes = classnames(
+      className,
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+      {
+        'uk-active': active,
+      },
+    );
 
     const hasDropdown = hasChildType(children, NavbarDropdown);
     const hasSubtitle = hasChildType(children, NavbarDropdown);

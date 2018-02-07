@@ -4,16 +4,20 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isNil } from 'lodash';
 import { customPropTypes, getElementType } from '../../../lib';
-import { InlineElement } from '../../base';
+import { Align, Flex, Margin, Width } from '../../common';
 
 export default class NavbarToggle extends React.Component {
   static displayName = 'NavbarToggle';
 
   static propTypes = {
+    align: Align.propTypes,
     as: customPropTypes.customOrStringElement('a'),
     className: PropTypes.string,
+    flex: Flex.propTypes,
     icon: PropTypes.node,
+    margin: Margin.propTypes,
     title: PropTypes.node,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -22,22 +26,39 @@ export default class NavbarToggle extends React.Component {
   };
 
   render() {
-    const { as, className, icon, title, ...rest } = this.props;
+    const {
+      align,
+      as,
+      className,
+      flex,
+      icon,
+      margin,
+      title,
+      width,
+      ...rest
+    } = this.props;
 
     const iconProp = { 'data-uk-navbar-toggle-icon': '' };
-    const ukClass = 'uk-navbar-toggle';
-    const classes = classnames(className, ukClass);
+
+    const classes = classnames(
+      className,
+      'uk-navbar-toggle',
+      Align.getClasses(align),
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
+
+    const Element = getElementType(NavbarToggle, as);
     if (!isNil(title)) {
-      const LinkElement = getElementType(NavbarToggle, as);
-      return <LinkElement {...rest} className={classes} {...iconProp} />;
+      return <Element {...rest} className={classes} {...iconProp} />;
     }
 
-    const OuterElement = getElementType(NavbarToggle, as);
     return (
-      <OuterElement {...rest} className={classes}>
+      <Element {...rest} className={classes}>
         {icon && React.cloneElement(icon, iconProp)}
         {title && title}
-      </OuterElement>
+      </Element>
     );
   }
 }

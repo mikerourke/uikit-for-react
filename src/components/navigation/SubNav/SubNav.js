@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes, getElementType } from '../../../lib';
+import { customPropTypes, getElementType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 import SubNavItem from './SubNavItem';
 
 export default class SubNav extends React.Component {
@@ -12,7 +13,10 @@ export default class SubNav extends React.Component {
     children: customPropTypes.restrictToChildTypes(SubNavItem),
     className: PropTypes.string,
     divider: PropTypes.bool,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
     pill: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -25,12 +29,28 @@ export default class SubNav extends React.Component {
   static Item = SubNavItem;
 
   render() {
-    const { as, className, divider, pill, ...rest } = this.props;
+    const {
+      as,
+      className,
+      divider,
+      flex,
+      margin,
+      pill,
+      width,
+      ...rest
+    } = this.props;
 
-    const classes = classnames(className, 'uk-subnav', {
-      [buildClassName('subnav', 'divider')]: divider,
-      [buildClassName('subnav', 'pill')]: pill,
-    });
+    const classes = classnames(
+      className,
+      'uk-subnav',
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+      {
+        'uk-subnav-divider': divider,
+        'uk-subnav-pill': pill,
+      },
+    );
 
     const Element = getElementType(SubNav, as);
     return <Element {...rest} className={classes} />;

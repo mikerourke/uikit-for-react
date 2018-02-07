@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes, getElementType } from '../../../lib';
+import { customPropTypes, getElementType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 import DotNavItem from './DotNavItem';
 
 class DotNav extends React.Component {
@@ -11,7 +12,10 @@ class DotNav extends React.Component {
     as: customPropTypes.customOrStringElement('ul'),
     children: customPropTypes.restrictToChildTypes(DotNavItem),
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
     vertical: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -23,12 +27,26 @@ class DotNav extends React.Component {
   static Item = DotNavItem;
 
   render() {
-    const { as, className, vertical, ...rest } = this.props;
+    const {
+      as,
+      className,
+      flex,
+      margin,
+      vertical,
+      width,
+      ...rest
+    } = this.props;
 
-    const ukClass = 'uk-dotnav';
-    const classes = classnames(className, ukClass, {
-      [buildClassName(ukClass, 'vertical')]: vertical,
-    });
+    const classes = classnames(
+      className,
+      'uk-dotnav',
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+      {
+        'uk-dotnav-vertical': vertical,
+      },
+    );
 
     const Element = getElementType(DotNav, as);
     return <Element {...rest} className={classes} />;

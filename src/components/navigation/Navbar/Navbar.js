@@ -15,6 +15,7 @@ import {
   joinListProp,
   UIK,
 } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 import NavbarContainer from './NavbarContainer';
 import NavbarDropdown from './NavbarDropdown';
 import NavbarItem from './NavbarItem';
@@ -51,6 +52,8 @@ export default class Navbar extends React.Component {
     dropbarMode: PropTypes.oneOf(['push', 'slide']),
     dropdownAlign: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
     duration: PropTypes.number,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
     mode: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.MODES),
       PropTypes.arrayOf(UIK.MODES),
@@ -63,6 +66,7 @@ export default class Navbar extends React.Component {
     onShow: PropTypes.func,
     onShown: PropTypes.func,
     transparent: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -114,10 +118,7 @@ export default class Navbar extends React.Component {
     React.Children.map(children, child => {
       if (child.type === NavbarItem) return child;
       return React.cloneElement(child, {
-        className: classnames(
-          child.props.className,
-          buildClassName('navbar', 'item'),
-        ),
+        className: classnames(child.props.className, 'uk-navbar-item'),
       });
     });
 
@@ -136,23 +137,33 @@ export default class Navbar extends React.Component {
       dropbarMode,
       dropdownAlign,
       duration,
+      flex,
+      margin,
       mode,
       offset,
       transparent,
+      width,
       ...rest
     } = this.props;
 
-    const ukClass = 'uk-navbar';
-    const classes = classnames(className, ukClass, this.selector, {
-      [buildClassName(ukClass, 'container')]: container,
-      [buildClassName(ukClass, 'transparent')]: transparent,
-    });
+    const classes = classnames(
+      className,
+      'uk-navbar',
+      this.selector,
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+      {
+        'uk-navbar-container': container,
+        'uk-navbar-transparent': transparent,
+      },
+    );
 
     const alignProps = {
       ...alignOptions,
       className: classnames(
         alignOptions.className,
-        buildClassName(ukClass, alignTo),
+        buildClassName('navbar', alignTo),
       ),
     };
 

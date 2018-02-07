@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
+import { Flex, Margin, Width } from '../../common';
 
 export default class NavSubNav extends React.Component {
   static displayName = 'NavSubNav';
@@ -11,7 +12,10 @@ export default class NavSubNav extends React.Component {
     as: customPropTypes.customOrStringElement('ul'),
     children: PropTypes.node,
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    margin: Margin.propTypes,
     title: PropTypes.node.isRequired,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -20,8 +24,16 @@ export default class NavSubNav extends React.Component {
   };
 
   render() {
-    const { className, title, ...rest } = this.props;
-    const classes = classnames(className, 'uk-nav-sub');
+    const { as, className, flex, margin, title, width, ...rest } = this.props;
+
+    const classes = classnames(
+      className,
+      'uk-nav-sub',
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
+
     const Title = React.isValidElement(title) ? title : <a href="#">{title}</a>;
     const Element = getElementType(NavSubNav, as);
     return (
