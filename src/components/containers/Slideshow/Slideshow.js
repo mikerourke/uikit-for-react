@@ -11,10 +11,11 @@ import {
   getBaseRef,
   getElementType,
   getOptionsString,
+  getValidProps,
   HTML,
   UIK,
 } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import SlideshowItem from './SlideshowItem';
 
 export default class Slideshow extends React.Component {
@@ -37,6 +38,7 @@ export default class Slideshow extends React.Component {
     defaultIndex: customPropTypes.validateIndex,
     finite: PropTypes.bool,
     flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     maxHeight: PropTypes.oneOfType([
       PropTypes.bool,
@@ -123,6 +125,7 @@ export default class Slideshow extends React.Component {
       defaultIndex,
       finite,
       flex,
+      inverse,
       margin,
       maxHeight,
       minHeight,
@@ -136,6 +139,7 @@ export default class Slideshow extends React.Component {
       className,
       this.selector,
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
     );
@@ -155,7 +159,7 @@ export default class Slideshow extends React.Component {
     const Element = getElementType(Slideshow, as);
     return (
       <Element
-        {...rest}
+        {...getValidProps(Slideshow, rest)}
         className={classes}
         ref={this.handleRef}
         data-uk-slideshow={componentOptions}

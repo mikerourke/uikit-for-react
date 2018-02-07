@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 
 export default class LightboxItem extends React.Component {
   static displayName = 'LightboxItem';
@@ -13,6 +13,7 @@ export default class LightboxItem extends React.Component {
     className: PropTypes.string,
     flex: Flex.propTypes,
     inline: PropTypes.bool,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     poster: PropTypes.string,
     source: PropTypes.string.isRequired,
@@ -34,6 +35,7 @@ export default class LightboxItem extends React.Component {
       className,
       flex,
       inline,
+      inverse,
       margin,
       poster,
       source,
@@ -45,6 +47,7 @@ export default class LightboxItem extends React.Component {
     const classes = classnames(
       className,
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

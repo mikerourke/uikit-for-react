@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isObject } from 'lodash';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 
 export default class SubNavItem extends React.Component {
   static displayName = 'SubNavItem';
@@ -14,6 +14,7 @@ export default class SubNavItem extends React.Component {
     children: PropTypes.node,
     className: PropTypes.string,
     flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     href: PropTypes.string,
     margin: Margin.propTypes,
     width: Width.propTypes,
@@ -33,6 +34,7 @@ export default class SubNavItem extends React.Component {
       children,
       className,
       flex,
+      inverse,
       href,
       margin,
       width,
@@ -42,6 +44,7 @@ export default class SubNavItem extends React.Component {
     const classes = classnames(
       className,
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

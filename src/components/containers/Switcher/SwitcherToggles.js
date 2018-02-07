@@ -13,7 +13,7 @@ import {
   HTML,
   UIK,
 } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import { Tab } from '../../layout';
 
 export default class SwitcherToggles extends React.Component {
@@ -39,8 +39,9 @@ export default class SwitcherToggles extends React.Component {
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node,
     className: PropTypes.string,
-    flex: Flex.propTypes,
     defaultIndex: customPropTypes.validateIndex,
+    flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     onBeforeHide: PropTypes.func,
     onBeforeShow: PropTypes.func,
@@ -105,6 +106,7 @@ export default class SwitcherToggles extends React.Component {
       className,
       defaultIndex,
       flex,
+      inverse,
       margin,
       selectorConnect,
       selectorToggle,
@@ -117,6 +119,7 @@ export default class SwitcherToggles extends React.Component {
       className,
       this.selector,
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
     );

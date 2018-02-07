@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { buildClassName, customPropTypes, getElementType } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import { Link } from '../../elements';
 
 export default class TableCell extends React.Component {
@@ -14,6 +14,7 @@ export default class TableCell extends React.Component {
     className: PropTypes.string,
     expand: PropTypes.bool,
     flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     link: PropTypes.bool,
     margin: Margin.propTypes,
     middle: PropTypes.bool,
@@ -54,6 +55,7 @@ export default class TableCell extends React.Component {
       expand,
       flex,
       link,
+      inverse,
       margin,
       middle,
       shrink,
@@ -66,6 +68,7 @@ export default class TableCell extends React.Component {
       className,
       buildClassName('text', textWrapping),
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

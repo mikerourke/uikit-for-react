@@ -15,7 +15,7 @@ import {
   UIK,
   getValidProps,
 } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 
 export default class Dropdown extends React.Component {
   static displayName = 'Dropdown';
@@ -36,6 +36,7 @@ export default class Dropdown extends React.Component {
     delayShow: PropTypes.number,
     flex: Flex.propTypes,
     flip: PropTypes.oneOf([true, false, 'x', 'y']),
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     mode: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.MODES),
@@ -123,6 +124,7 @@ export default class Dropdown extends React.Component {
       delayShow,
       flex,
       flip,
+      inverse,
       margin,
       mode,
       offset,
@@ -137,6 +139,7 @@ export default class Dropdown extends React.Component {
       this.selector,
       'uk-dropdown',
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
     );

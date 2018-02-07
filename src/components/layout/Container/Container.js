@@ -8,7 +8,7 @@ import {
   getElementType,
   HTML,
 } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 
 export default class Container extends React.Component {
   static displayName = 'Container';
@@ -18,6 +18,7 @@ export default class Container extends React.Component {
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     size: PropTypes.oneOf(['expand', 'large', 'small']),
     width: Width.propTypes,
@@ -34,6 +35,7 @@ export default class Container extends React.Component {
       children,
       className,
       flex,
+      inverse,
       margin,
       size,
       width,
@@ -45,6 +47,7 @@ export default class Container extends React.Component {
       'uk-container',
       buildClassName('container', size),
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

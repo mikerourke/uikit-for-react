@@ -8,7 +8,7 @@ import {
   getElementType,
   hasChildType,
 } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import CardBadge from './CardBadge';
 import CardBody from './CardBody';
 import CardContent from './CardContent';
@@ -39,6 +39,7 @@ export default class Card extends React.Component {
     className: PropTypes.string,
     flex: Flex.propTypes,
     hover: PropTypes.bool,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     primary: ExtraPropTypes.mutuallyExclusiveTrueProps(
       'primary',
@@ -75,6 +76,7 @@ export default class Card extends React.Component {
       className,
       flex,
       hover,
+      inverse,
       margin,
       primary,
       secondary,
@@ -89,6 +91,7 @@ export default class Card extends React.Component {
       'uk-card',
       buildClassName('card', size),
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

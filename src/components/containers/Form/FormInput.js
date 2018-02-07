@@ -9,7 +9,7 @@ import {
   getElementType,
   UIK,
 } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import { Icon } from '../../elements';
 
 export default class FormInput extends React.Component {
@@ -31,6 +31,7 @@ export default class FormInput extends React.Component {
       as: PropTypes.oneOf(['a', 'button', 'span']),
       flip: PropTypes.bool,
     }),
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     size: PropTypes.oneOf(['large', 'small']),
     success: PropTypes.bool,
@@ -69,6 +70,7 @@ export default class FormInput extends React.Component {
       flex,
       formWidth,
       iconOptions,
+      inverse,
       margin,
       size,
       success,
@@ -82,6 +84,7 @@ export default class FormInput extends React.Component {
       buildClassName('form', size),
       buildClassName('form', 'width', formWidth),
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

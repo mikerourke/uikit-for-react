@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 
 export default class FormRadio extends React.Component {
   static displayName = 'FormRadio';
@@ -13,6 +13,7 @@ export default class FormRadio extends React.Component {
     className: PropTypes.string,
     danger: PropTypes.bool,
     flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     success: PropTypes.bool,
     width: Width.propTypes,
@@ -33,6 +34,7 @@ export default class FormRadio extends React.Component {
       className,
       danger,
       flex,
+      inverse,
       margin,
       success,
       width,
@@ -43,6 +45,7 @@ export default class FormRadio extends React.Component {
       className,
       'uk-radio',
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

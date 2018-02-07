@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 
 export default class NavSubNav extends React.Component {
   static displayName = 'NavSubNav';
@@ -13,6 +13,7 @@ export default class NavSubNav extends React.Component {
     children: PropTypes.node,
     className: PropTypes.string,
     flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     title: PropTypes.node.isRequired,
     width: Width.propTypes,
@@ -24,12 +25,22 @@ export default class NavSubNav extends React.Component {
   };
 
   render() {
-    const { as, className, flex, margin, title, width, ...rest } = this.props;
+    const {
+      as,
+      className,
+      flex,
+      inverse,
+      margin,
+      title,
+      width,
+      ...rest
+    } = this.props;
 
     const classes = classnames(
       className,
       'uk-nav-sub',
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
     );

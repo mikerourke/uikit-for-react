@@ -11,7 +11,7 @@ import {
   getOptionsString,
   HTML,
 } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import CountdownDays from './CountdownDays';
 import CountdownHours from './CountdownHours';
 import CountdownLabel from './CountdownLabel';
@@ -28,6 +28,7 @@ export default class Countdown extends React.Component {
     className: PropTypes.string,
     date: PropTypes.string.isRequired,
     flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     paused: PropTypes.bool,
     width: Width.propTypes,
@@ -74,6 +75,7 @@ export default class Countdown extends React.Component {
       className,
       date,
       flex,
+      inverse,
       margin,
       paused,
       width,
@@ -85,6 +87,7 @@ export default class Countdown extends React.Component {
       this.selector,
       'uk-countdown',
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
     );

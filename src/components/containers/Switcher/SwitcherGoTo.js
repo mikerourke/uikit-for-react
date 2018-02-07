@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType, HTML } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 
 export default class SwitcherGoTo extends React.Component {
   static displayName = 'SwitcherGoTo';
@@ -13,6 +13,7 @@ export default class SwitcherGoTo extends React.Component {
     children: PropTypes.node,
     className: PropTypes.string,
     flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     target: PropTypes.oneOfType([
       PropTypes.oneOf(['next', 'previous']),
@@ -27,11 +28,21 @@ export default class SwitcherGoTo extends React.Component {
   };
 
   render() {
-    const { as, className, flex, margin, target, width, ...rest } = this.props;
+    const {
+      as,
+      className,
+      flex,
+      inverse,
+      margin,
+      target,
+      width,
+      ...rest
+    } = this.props;
 
     const classes = classnames(
       className,
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
     );

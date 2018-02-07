@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
+import { Flex, Inverse, Margin, Width } from '../../common';
 
 export default class DescriptionTerm extends React.Component {
   static displayName = 'DescriptionTerm';
@@ -9,6 +11,10 @@ export default class DescriptionTerm extends React.Component {
     as: customPropTypes.customOrStringElement('dt'),
     children: PropTypes.node,
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
+    margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -17,8 +23,18 @@ export default class DescriptionTerm extends React.Component {
   };
 
   render() {
-    const { as, ...rest } = this.props;
+    const { as, className, flex, inverse, margin, width, ...rest } = this.props;
+
+    const classes = classnames(
+      className,
+      Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
+      Inverse.getClasses(inverse),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
+
     const Element = getElementType(DescriptionTerm, as);
-    return <Element {...rest} />;
+    return <Element {...rest} className={classes || undefined} />;
   }
 }

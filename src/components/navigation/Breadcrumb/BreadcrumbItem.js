@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 
 export default class BreadcrumbItem extends React.Component {
   static displayName = 'BreadcrumbItem';
@@ -14,6 +14,7 @@ export default class BreadcrumbItem extends React.Component {
     className: PropTypes.string,
     disabled: PropTypes.bool,
     flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     href: PropTypes.string,
     margin: Margin.propTypes,
     width: Width.propTypes,
@@ -36,6 +37,7 @@ export default class BreadcrumbItem extends React.Component {
       disabled,
       flex,
       href,
+      inverse,
       margin,
       width,
       ...rest
@@ -44,6 +46,7 @@ export default class BreadcrumbItem extends React.Component {
     const classes = classnames(
       className,
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType, HTML } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 
 /**
  * Contents/body of the Article.
@@ -16,6 +16,7 @@ export default class ArticleBody extends React.Component {
     children: PropTypes.node,
     className: PropTypes.string,
     flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     width: Width.propTypes,
   };
@@ -26,11 +27,12 @@ export default class ArticleBody extends React.Component {
   };
 
   render() {
-    const { as, className, flex, margin, width, ...rest } = this.props;
+    const { as, className, flex, inverse, margin, width, ...rest } = this.props;
 
     const classes = classnames(
       className,
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
     );

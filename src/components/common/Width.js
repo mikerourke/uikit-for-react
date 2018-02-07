@@ -10,7 +10,7 @@ const propTypes = customPropTypes.forBreakpoints(
 const getClasses = widthProp => {
   const isCustomWidth =
     UIK.ALL_WIDTHS.includes(widthProp) || isPlainObject(widthProp);
-  return isCustomWidth ? buildBreakpointClasses('width', widthProp) : '';
+  return isCustomWidth ? buildBreakpointClasses('width', widthProp) : widthProp;
 };
 
 export default {

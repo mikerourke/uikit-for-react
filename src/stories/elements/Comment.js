@@ -1,7 +1,14 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Block, Comment, Grid, Link, SubNav } from '../../components';
+import {
+  Block,
+  Comment,
+  Grid,
+  Link,
+  SubNav,
+  Visibility,
+} from '../../components';
 
 Comment.displayName = 'Comment';
 
@@ -11,7 +18,7 @@ storiesOf('Comment', module)
   .add('Basic Usage', () => (
     <Block margin={{ all: 'large' }}>
       <Comment>
-        <Grid as={Comment.Header} flex={{ align: 'middle' }}>
+        <Grid as={Comment.Header} flex={{ align: 'middle' }} gutter="medium">
           <Grid.Cell width="auto">
             <Comment.Avatar src={avatarLink} width={80} height={80} />
           </Grid.Cell>
@@ -60,7 +67,7 @@ storiesOf('Comment', module)
   .add('Comment list', () => (
     <Block margin={{ all: 'large' }}>
       <Comment.List>
-        <Comment visibleToggle>
+        <Visibility.Togglable as={Comment}>
           <Comment.Header position="relative">
             <Grid flex={{ align: 'middle' }} gutter="medium">
               <Grid.Cell width="auto">
@@ -75,24 +82,24 @@ storiesOf('Comment', module)
                 </Comment.Meta>
               </Grid.Cell>
             </Grid>
-            <Block
-              as="div"
+            <Visibility.Toggle
+              as={Block}
               position={{
                 horizontal: 'right',
                 vertical: 'top',
                 marginSize: 'small',
               }}
-              hidden="hover"
+              whenHovered="hidden"
             >
               <Link muted>Reply</Link>
-            </Block>
+            </Visibility.Toggle>
           </Comment.Header>
           <Comment.Body>
             <p>{faker.lorem.paragraph()}</p>
           </Comment.Body>
-        </Comment>
+        </Visibility.Togglable>
         <Comment.List nested>
-          <Comment primary visibleToggle>
+          <Visibility.Togglable as={Comment} primary>
             <Comment.Header position="relative">
               <Grid flex={{ align: 'middle' }} gutter="medium">
                 <Grid.Cell width="auto">
@@ -107,23 +114,23 @@ storiesOf('Comment', module)
                   </Comment.Meta>
                 </Grid.Cell>
               </Grid>
-              <Block
-                as="div"
+              <Visibility.Toggle
+                as={Block}
                 position={{
                   horizontal: 'right',
                   vertical: 'top',
                   marginSize: 'small',
                 }}
-                hidden="hover"
+                whenHovered="hidden"
               >
                 <Link muted>Reply</Link>
-              </Block>
+              </Visibility.Toggle>
             </Comment.Header>
             <Comment.Body>
               <p>{faker.lorem.paragraph()}</p>
             </Comment.Body>
-          </Comment>
-          <Comment visibleToggle>
+          </Visibility.Togglable>
+          <Visibility.Togglable as={Comment}>
             <Comment.Header position="relative">
               <Grid flex={{ align: 'middle' }} gutter="medium">
                 <Grid.Cell width="auto">
@@ -138,22 +145,22 @@ storiesOf('Comment', module)
                   </Comment.Meta>
                 </Grid.Cell>
               </Grid>
-              <Block
-                as="div"
+              <Visibility.Toggle
+                as={Block}
                 position={{
                   horizontal: 'right',
                   vertical: 'top',
                   marginSize: 'small',
                 }}
-                hidden="hover"
+                whenHovered="hidden"
               >
                 <Link muted>Reply</Link>
-              </Block>
+              </Visibility.Toggle>
             </Comment.Header>
             <Comment.Body>
               <p>{faker.lorem.paragraph()}</p>
             </Comment.Body>
-          </Comment>
+          </Visibility.Togglable>
         </Comment.List>
       </Comment.List>
     </Block>

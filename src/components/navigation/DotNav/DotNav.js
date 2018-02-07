@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import DotNavItem from './DotNavItem';
 
 class DotNav extends React.Component {
@@ -13,6 +13,7 @@ class DotNav extends React.Component {
     children: customPropTypes.restrictToChildTypes(DotNavItem),
     className: PropTypes.string,
     flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     vertical: PropTypes.bool,
     width: Width.propTypes,
@@ -31,6 +32,7 @@ class DotNav extends React.Component {
       as,
       className,
       flex,
+      inverse,
       margin,
       vertical,
       width,
@@ -41,6 +43,7 @@ class DotNav extends React.Component {
       className,
       'uk-dotnav',
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

@@ -9,6 +9,7 @@ import {
   getOptionsString,
   HTML,
 } from '../../../lib';
+import { Flex, Inverse, Margin, Width } from '../../common';
 
 export default class CoverContainer extends React.Component {
   static displayName = 'CoverContainer';
@@ -24,12 +25,16 @@ export default class CoverContainer extends React.Component {
       ExtraPropTypes.componentWithName('Cover').isRequired,
     ]),
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
+    margin: Margin.propTypes,
     viewportOptions: PropTypes.shape({
       expand: PropTypes.bool,
       minHeight: PropTypes.number,
       offsetBottom: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
       offsetTop: PropTypes.bool,
     }),
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -43,11 +48,22 @@ export default class CoverContainer extends React.Component {
       aspectRatio,
       children,
       className,
+      flex,
+      inverse,
+      margin,
       viewportOptions,
+      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(className, 'uk-cover-container');
+    const classes = classnames(
+      className,
+      'uk-cover-container',
+      Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
     const componentOptions = getOptionsString(viewportOptions);
     const canvasProps = {
       height: get(aspectRatio, 'height', 600),

@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import {
   customPropTypes,
   generateIdentifier,
   getElementType,
   HTML,
 } from '../../../lib';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import ScrollPoint from './ScrollPoint';
 
 export default class ScrollScrollable extends React.Component {
@@ -14,10 +16,16 @@ export default class ScrollScrollable extends React.Component {
   static propTypes = {
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node.isRequired,
+    className: PropTypes.string,
+    flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
+    margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
     as: 'div',
+    className: '',
   };
 
   activateScrollPoints = children =>
@@ -41,8 +49,30 @@ export default class ScrollScrollable extends React.Component {
   };
 
   render() {
-    const { as, children, ...rest } = this.props;
+    const {
+      as,
+      children,
+      className,
+      flex,
+      inverse,
+      margin,
+      width,
+      ...rest
+    } = this.props;
+
+    const classes = classnames(
+      className,
+      Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
+
     const Element = getElementType(ScrollScrollable, as);
-    return <Element {...rest}>{this.renderChildren(children)}</Element>;
+    return (
+      <Element {...rest} className={classes || undefined}>
+        {this.renderChildren(children)}
+      </Element>
+    );
   }
 }

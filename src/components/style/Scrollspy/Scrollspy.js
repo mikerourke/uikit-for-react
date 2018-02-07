@@ -9,10 +9,12 @@ import {
   getBaseRef,
   getElementType,
   getOptionsString,
+  getValidProps,
   joinListProp,
   HTML,
   UIK,
 } from '../../../lib';
+import { Flex, Inverse, Margin, Width } from '../../common';
 
 export default class Scrollspy extends React.Component {
   static displayName = 'Scrollspy';
@@ -26,12 +28,16 @@ export default class Scrollspy extends React.Component {
     children: PropTypes.node,
     className: PropTypes.string,
     delay: PropTypes.number,
+    flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     hidden: PropTypes.bool,
+    margin: Margin.propTypes,
     offsetLeft: PropTypes.number,
     offsetTop: PropTypes.number,
     onInview: PropTypes.func,
     onOutview: PropTypes.func,
     repeat: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -44,7 +50,6 @@ export default class Scrollspy extends React.Component {
     offsetTop: 0,
     onInview: noop,
     onOutview: noop,
-    repeat: null,
   };
 
   constructor() {
@@ -71,16 +76,26 @@ export default class Scrollspy extends React.Component {
       as,
       className,
       delay,
+      flex,
+      inverse,
       hidden,
+      margin,
       offsetLeft,
       offsetTop,
-      onInview,
-      onOutview,
       repeat,
+      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(className, 'uk-scrollspy', this.selector);
+    const classes = classnames(
+      className,
+      'uk-scrollspy',
+      this.selector,
+      Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
 
     const componentOptions = getOptionsString({
       cls: joinListProp(animation),
@@ -94,7 +109,7 @@ export default class Scrollspy extends React.Component {
     const Element = getElementType(Scrollspy, as);
     return (
       <Element
-        {...rest}
+        {...getValidProps(Scrollspy, rest)}
         className={classes}
         ref={this.handleRef}
         data-uk-scrollspy={componentOptions}

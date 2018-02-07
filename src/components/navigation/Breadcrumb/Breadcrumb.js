@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import BreadcrumbItem from './BreadcrumbItem';
 
 export default class Breadcrumb extends React.Component {
@@ -13,6 +13,7 @@ export default class Breadcrumb extends React.Component {
     children: customPropTypes.restrictToChildTypes(BreadcrumbItem),
     className: PropTypes.string,
     flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     width: Width.propTypes,
   };
@@ -25,12 +26,13 @@ export default class Breadcrumb extends React.Component {
   static Item = BreadcrumbItem;
 
   render() {
-    const { as, className, flex, margin, width, ...rest } = this.props;
+    const { as, className, flex, inverse, margin, width, ...rest } = this.props;
 
     const classes = classnames(
       className,
       'uk-breadcrumb',
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
     );

@@ -12,7 +12,7 @@ import {
   HTML,
   UIK,
 } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import GridCell from './GridCell';
 
 export default class Grid extends React.Component {
@@ -27,6 +27,7 @@ export default class Grid extends React.Component {
     firstColumn: PropTypes.string,
     flex: Flex.propTypes,
     gutter: PropTypes.oneOf([...UIK.BASE_SIZES, 'collapse']),
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     matchHeight: PropTypes.bool,
     nextRow: PropTypes.shape({
@@ -60,6 +61,7 @@ export default class Grid extends React.Component {
       firstColumn,
       flex,
       gutter,
+      inverse,
       margin,
       matchHeight,
       nextRow,
@@ -71,6 +73,7 @@ export default class Grid extends React.Component {
     const classes = classnames(
       className,
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       buildBreakpointClasses('childWidth', childWidth),

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import SearchIcon from './SearchIcon';
 import SearchInput from './SearchInput';
 
@@ -26,6 +26,7 @@ export default class Search extends React.Component {
       'children',
     ),
     large: PropTypes.bool,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     width: Width.propTypes,
   };
@@ -48,6 +49,7 @@ export default class Search extends React.Component {
       icon,
       input,
       large,
+      inverse,
       margin,
       width,
       ...rest
@@ -57,6 +59,7 @@ export default class Search extends React.Component {
       className,
       'uk-search',
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

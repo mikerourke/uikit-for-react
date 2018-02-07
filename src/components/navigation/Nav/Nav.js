@@ -14,7 +14,7 @@ import {
   HTML,
   UIK,
 } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import NavDivider from './NavDivider';
 import NavHeader from './NavHeader';
 import NavItem from './NavItem';
@@ -48,6 +48,7 @@ export default class Nav extends React.Component {
     className: PropTypes.string,
     collapsible: PropTypes.bool,
     flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     hideOpenAnimation: PropTypes.bool,
     margin: Margin.propTypes,
     multiple: PropTypes.bool,
@@ -104,6 +105,7 @@ export default class Nav extends React.Component {
       className,
       collapsible,
       flex,
+      inverse,
       margin,
       multiple,
       primary,
@@ -117,6 +119,7 @@ export default class Nav extends React.Component {
       'uk-nav',
       this.selector,
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

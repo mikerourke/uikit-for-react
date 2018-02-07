@@ -12,6 +12,7 @@ import {
   getOptionsString,
   HTML,
 } from '../../../lib';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import Navbar from '../../navigation/Navbar';
 
 export default class Sticky extends React.Component {
@@ -25,10 +26,13 @@ export default class Sticky extends React.Component {
       PropTypes.number,
       PropTypes.string,
     ]),
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     className: PropTypes.string,
     clsActive: PropTypes.string,
     clsInactive: PropTypes.string,
+    flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
+    margin: Margin.propTypes,
     media: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     offset: PropTypes.number,
     onActive: PropTypes.func,
@@ -36,6 +40,7 @@ export default class Sticky extends React.Component {
     showOnUp: PropTypes.bool,
     target: PropTypes.bool,
     top: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    width: Width.propTypes,
     widthElement: PropTypes.string,
   };
 
@@ -89,16 +94,27 @@ export default class Sticky extends React.Component {
       className,
       clsActive,
       clsInactive,
+      flex,
+      inverse,
+      margin,
       media,
       offset,
       showOnUp,
       target,
       top,
+      width,
       widthElement,
       ...rest
     } = this.props;
 
-    const classes = classnames(className, this.selector);
+    const classes = classnames(
+      className,
+      this.selector,
+      Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
 
     const componentOptions = getOptionsString({
       animation,

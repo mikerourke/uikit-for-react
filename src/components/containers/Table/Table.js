@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import TableBody from './TableBody';
 import TableCell from './TableCell';
 import TableFooter from './TableFooter';
@@ -20,6 +20,7 @@ export default class Table extends React.Component {
     divider: PropTypes.bool,
     flex: Flex.propTypes,
     hover: PropTypes.bool,
+    inverse: Inverse.propTypes,
     justify: PropTypes.bool,
     margin: Margin.propTypes,
     middle: PropTypes.bool,
@@ -56,6 +57,7 @@ export default class Table extends React.Component {
       flex,
       hover,
       justify,
+      inverse,
       margin,
       middle,
       small,
@@ -69,6 +71,7 @@ export default class Table extends React.Component {
       className,
       'uk-table',
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

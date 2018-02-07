@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isObject } from 'lodash';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 
 export default class TabItem extends React.Component {
   static displayName = 'TabItem';
@@ -16,6 +16,7 @@ export default class TabItem extends React.Component {
     disabled: PropTypes.bool,
     flex: Flex.propTypes,
     href: PropTypes.string,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     width: Width.propTypes,
   };
@@ -37,6 +38,7 @@ export default class TabItem extends React.Component {
       disabled,
       flex,
       href,
+      inverse,
       margin,
       width,
       ...rest
@@ -45,6 +47,7 @@ export default class TabItem extends React.Component {
     const classes = classnames(
       className,
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

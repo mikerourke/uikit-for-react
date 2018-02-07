@@ -8,6 +8,7 @@ import {
   HTML,
   UIK,
 } from '../../../lib';
+import { Flex, Inverse, Margin, Width } from '../../common';
 
 export default class Hidden extends React.Component {
   static displayName = 'Hidden';
@@ -17,10 +18,14 @@ export default class Hidden extends React.Component {
     breakpoint: PropTypes.oneOf(UIK.BREAKPOINTS),
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     hide: PropTypes.bool,
+    margin: Margin.propTypes,
     noTouchOnly: PropTypes.bool,
     touchOnly: PropTypes.bool,
     whenHovered: PropTypes.oneOf(['hidden', 'invisible']),
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -36,22 +41,29 @@ export default class Hidden extends React.Component {
       as,
       breakpoint,
       className,
+      flex,
+      inverse,
       hide,
+      margin,
       noTouchOnly,
       touchOnly,
       whenHovered,
+      width,
       ...rest
     } = this.props;
 
-    const ukClass = 'uk-hidden';
     const classes = classnames(
       className,
       buildClassName(whenHovered, 'hover'),
-      buildClassName(ukClass, breakpoint),
+      buildClassName('hidden', breakpoint),
+      Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
       {
-        [buildClassName(ukClass)]: hide,
-        [buildClassName(ukClass, 'notouch')]: noTouchOnly,
-        [buildClassName(ukClass, 'touch')]: touchOnly,
+        'uk-hidden': hide,
+        'uk-hidden-notouch': noTouchOnly,
+        'uk-hidden-touch': touchOnly,
       },
     );
 

@@ -8,7 +8,6 @@ import SwitcherToggles from './SwitcherToggles';
 
 export default class Switcher extends React.Component {
   static displayName = 'Switcher';
-
   static Content = SwitcherContent;
   static GoTo = SwitcherGoTo;
   static Item = SwitcherItem;

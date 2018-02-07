@@ -8,7 +8,7 @@ import {
   getElementType,
   UIK,
 } from '../../../lib';
-import { Align, Flex, Margin, Width } from '../../common';
+import { Align, Flex, Inverse, Margin, Width } from '../../common';
 import ButtonGroup from './ButtonGroup';
 
 export default class Button extends React.Component {
@@ -26,6 +26,7 @@ export default class Button extends React.Component {
     fullWidth: PropTypes.bool,
     icon: PropTypes.oneOf(UIK.ICON_NAMES),
     link: PropTypes.bool,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     onClick: PropTypes.func,
     primary: PropTypes.bool,
@@ -70,6 +71,7 @@ export default class Button extends React.Component {
       fullWidth,
       icon,
       link,
+      inverse,
       margin,
       primary,
       secondary,
@@ -90,6 +92,7 @@ export default class Button extends React.Component {
       className,
       Align.getClasses(align),
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       buildClassName('button', size),

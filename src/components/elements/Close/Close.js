@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Align, Flex, Margin, Width } from '../../common';
+import { Align, Flex, Inverse, Margin, Width } from '../../common';
 
 export default class Close extends React.Component {
   static displayName = 'Close';
@@ -13,6 +13,7 @@ export default class Close extends React.Component {
     className: PropTypes.string,
     flex: Flex.propTypes,
     large: PropTypes.bool,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     width: Width.propTypes,
   };
@@ -30,6 +31,7 @@ export default class Close extends React.Component {
       className,
       flex,
       large,
+      inverse,
       margin,
       width,
       ...rest
@@ -40,6 +42,7 @@ export default class Close extends React.Component {
       'uk-close',
       Align.getClasses(align),
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

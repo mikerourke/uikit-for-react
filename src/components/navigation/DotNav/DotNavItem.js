@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 
 export default class DotNavItem extends React.Component {
   static displayName = 'DotNavItem';
@@ -13,6 +13,7 @@ export default class DotNavItem extends React.Component {
     children: PropTypes.node,
     className: PropTypes.string,
     flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     href: PropTypes.string,
     margin: Margin.propTypes,
     width: Width.propTypes,
@@ -32,6 +33,7 @@ export default class DotNavItem extends React.Component {
       className,
       flex,
       href,
+      inverse,
       margin,
       width,
       ...rest
@@ -40,6 +42,7 @@ export default class DotNavItem extends React.Component {
     const classes = classnames(
       className,
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

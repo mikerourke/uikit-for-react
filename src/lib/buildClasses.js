@@ -70,10 +70,12 @@ export const buildClassName = (...args) => {
 
 export const buildBreakpointClasses = (classPrefix, propValue) =>
   classnames(
-    buildClassName(classPrefix, propValue),
     buildClassName(classPrefix, get(propValue, 'default')),
     buildClassName(classPrefix, get(propValue, 'atSm'), '@s'),
     buildClassName(classPrefix, get(propValue, 'atMd'), '@m'),
     buildClassName(classPrefix, get(propValue, 'atLg'), '@l'),
     buildClassName(classPrefix, get(propValue, 'atXl'), '@xl'),
+    {
+      [buildClassName(classPrefix, propValue)]: !isUndefined(propValue),
+    },
   );

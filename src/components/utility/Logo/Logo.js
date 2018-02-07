@@ -2,15 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType, HTML } from '../../../lib';
+import { Align, Flex, Margin, Width } from '../../common';
 
 export default class Logo extends React.Component {
   static displayName = 'Logo';
 
   static propTypes = {
+    align: Align.propTypes,
     as: customPropTypes.customOrStringElement(HTML.INLINE_ELEMENTS),
     className: PropTypes.string,
+    flex: Flex.propTypes,
     imgSrc: PropTypes.string,
     inverse: PropTypes.bool,
+    margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -20,8 +25,27 @@ export default class Logo extends React.Component {
   };
 
   render() {
-    const { as, className, imgSrc, inverse, ...rest } = this.props;
-    const classes = classnames(className, 'uk-logo');
+    const {
+      align,
+      as,
+      className,
+      flex,
+      margin,
+      width,
+      imgSrc,
+      inverse,
+      ...rest
+    } = this.props;
+
+    const classes = classnames(
+      className,
+      'uk-logo',
+      Align.getClasses(align),
+      Flex.getClasses(flex),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
+
     const Element = getElementType(Logo, as);
     return (
       <Element {...rest} className={classes}>

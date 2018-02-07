@@ -7,7 +7,7 @@ import {
   getOptionsString,
   UIK,
 } from '../../../lib';
-import { Align, Flex, Margin, Width } from '../../common';
+import { Align, Flex, Inverse, Margin, Width } from '../../common';
 
 export default class Icon extends React.Component {
   static displayName = 'Icon';
@@ -18,6 +18,7 @@ export default class Icon extends React.Component {
     className: PropTypes.string,
     flex: Flex.propTypes,
     link: PropTypes.bool,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     name: PropTypes.oneOf(UIK.ICON_NAMES).isRequired,
     ratio: PropTypes.number,
@@ -37,6 +38,7 @@ export default class Icon extends React.Component {
       className,
       flex,
       link,
+      inverse,
       margin,
       name,
       ratio,
@@ -49,6 +51,7 @@ export default class Icon extends React.Component {
       'uk-icon',
       Align.getClasses(align),
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Position, Width } from '../../common';
 
 export default class CommentHeader extends React.Component {
   static displayName = 'CommentHeader';
@@ -12,7 +12,9 @@ export default class CommentHeader extends React.Component {
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
+    position: Position.propTypes,
     width: Width.propTypes,
   };
 
@@ -22,13 +24,24 @@ export default class CommentHeader extends React.Component {
   };
 
   render() {
-    const { as, className, flex, margin, width, ...rest } = this.props;
+    const {
+      as,
+      className,
+      flex,
+      inverse,
+      margin,
+      position,
+      width,
+      ...rest
+    } = this.props;
 
     const classes = classnames(
       className,
       'uk-comment-header',
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
+      Position.getClasses(position),
       Width.getClasses(width),
     );
 

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isNil } from 'lodash';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import ThumbNavImage from './ThumbNavImage';
 
 export default class ThumbNavItem extends React.Component {
@@ -16,6 +16,7 @@ export default class ThumbNavItem extends React.Component {
     children: customPropTypes.restrictToChildTypes(ThumbNavImage),
     className: PropTypes.string,
     flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     slideshowItem: PropTypes.number,
     width: Width.propTypes,
@@ -34,6 +35,7 @@ export default class ThumbNavItem extends React.Component {
       children,
       className,
       flex,
+      inverse,
       margin,
       width,
       slideshowItem,
@@ -43,6 +45,7 @@ export default class ThumbNavItem extends React.Component {
     const classes = classnames(
       className,
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

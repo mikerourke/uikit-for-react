@@ -8,7 +8,7 @@ import {
   getElementType,
   UIK,
 } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 
 export default class FormTextArea extends React.Component {
   static displayName = 'FormTextArea';
@@ -24,6 +24,7 @@ export default class FormTextArea extends React.Component {
       'formWidth',
       'width',
     ),
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     size: PropTypes.oneOf(['large', 'small']),
     success: PropTypes.bool,
@@ -46,6 +47,7 @@ export default class FormTextArea extends React.Component {
       danger,
       flex,
       formWidth,
+      inverse,
       margin,
       size,
       success,
@@ -59,6 +61,7 @@ export default class FormTextArea extends React.Component {
       buildClassName('form', size),
       buildClassName('form', 'width', formWidth),
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

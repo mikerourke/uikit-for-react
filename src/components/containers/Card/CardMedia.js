@@ -9,7 +9,7 @@ import {
   getElementType,
   UIK,
 } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 
 export default class CardMedia extends React.Component {
   static displayName = 'CardMedia';
@@ -25,6 +25,7 @@ export default class CardMedia extends React.Component {
     flex: Flex.propTypes,
     imgAlt: PropTypes.string,
     imgSrc: PropTypes.string.isRequired,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     width: Width.propTypes,
   };
@@ -44,6 +45,7 @@ export default class CardMedia extends React.Component {
       flex,
       imgAlt,
       imgSrc,
+      inverse,
       margin,
       width,
       ...rest
@@ -56,6 +58,7 @@ export default class CardMedia extends React.Component {
       ukClass,
       buildClassName(ukClass, alignTo),
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

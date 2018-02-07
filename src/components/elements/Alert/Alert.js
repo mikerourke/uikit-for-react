@@ -15,7 +15,7 @@ import {
   HTML,
   UIK,
 } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import Close from '../Close';
 
 /**
@@ -51,6 +51,7 @@ export default class Alert extends React.Component {
     closeOptions: PropTypes.shape(Close.propTypes),
     danger: PropTypes.bool,
     flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     onBeforeHide: PropTypes.func,
     onHide: PropTypes.func,
@@ -111,6 +112,7 @@ export default class Alert extends React.Component {
       closeOptions,
       danger,
       flex,
+      inverse,
       margin,
       primary,
       success,
@@ -124,6 +126,7 @@ export default class Alert extends React.Component {
       'uk-alert',
       this.selector,
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

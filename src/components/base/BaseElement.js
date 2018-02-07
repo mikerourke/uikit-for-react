@@ -25,8 +25,6 @@ export default class BaseElement extends React.Component {
     ...InlineElement.defaultProps,
   };
 
-  static asPropType = asPropType;
-
   static getInheritedProps(props) {
     const {
       inheritedAttributes: blockAttributes,

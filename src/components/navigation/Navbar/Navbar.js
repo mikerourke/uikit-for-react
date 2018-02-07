@@ -15,7 +15,7 @@ import {
   joinListProp,
   UIK,
 } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import NavbarContainer from './NavbarContainer';
 import NavbarDropdown from './NavbarDropdown';
 import NavbarItem from './NavbarItem';
@@ -53,6 +53,7 @@ export default class Navbar extends React.Component {
     dropdownAlign: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
     duration: PropTypes.number,
     flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     mode: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.MODES),
@@ -138,6 +139,7 @@ export default class Navbar extends React.Component {
       dropdownAlign,
       duration,
       flex,
+      inverse,
       margin,
       mode,
       offset,
@@ -151,6 +153,7 @@ export default class Navbar extends React.Component {
       'uk-navbar',
       this.selector,
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

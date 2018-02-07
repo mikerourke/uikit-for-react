@@ -7,7 +7,6 @@ import {
   buildClassName,
   childMatchesType,
   getElementType,
-  HTML,
   UIK,
 } from '../../lib';
 import RootElement from './RootElement';
@@ -40,12 +39,6 @@ export default class InlineElement extends React.Component {
       },
     ]),
   };
-
-  static asPropType = PropTypes.oneOfType([
-    PropTypes.oneOf(HTML.INLINE_ELEMENTS),
-    PropTypes.element,
-    PropTypes.func,
-  ]);
 
   static defaultProps = {
     ...RootElement.defaultProps,

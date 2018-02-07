@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import {
   customPropTypes,
   getElementType,
   getOptionsString,
 } from '../../../lib';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import VideoSource from './VideoSource';
 
 export default class Video extends React.Component {
@@ -19,6 +21,10 @@ export default class Video extends React.Component {
     ]),
     children: customPropTypes.restrictToChildTypes(VideoSource),
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
+    margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -29,9 +35,35 @@ export default class Video extends React.Component {
   static Source = VideoSource;
 
   render() {
-    const { as, automute, autoplay, ...rest } = this.props;
+    const {
+      as,
+      automute,
+      autoplay,
+      className,
+      flex,
+      inverse,
+      margin,
+      width,
+      ...rest
+    } = this.props;
+
+    const classes = classnames(
+      className,
+      Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
+
     const componentOptions = getOptionsString({ automute, autoplay });
+
     const Element = getElementType(Video, as);
-    return <Element {...rest} data-uk-video={componentOptions} />;
+    return (
+      <Element
+        {...rest}
+        className={classes || undefined}
+        data-uk-video={componentOptions}
+      />
+    );
   }
 }

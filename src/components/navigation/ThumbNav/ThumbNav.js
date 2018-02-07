@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import ThumbNavImage from './ThumbNavImage';
 import ThumbNavItem from './ThumbNavItem';
 
@@ -14,6 +14,7 @@ export default class ThumbNav extends React.Component {
     children: customPropTypes.restrictToChildTypes(ThumbNavItem),
     className: PropTypes.string,
     flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     vertical: PropTypes.bool,
     width: Width.propTypes,
@@ -33,6 +34,7 @@ export default class ThumbNav extends React.Component {
       as,
       className,
       flex,
+      inverse,
       margin,
       width,
       vertical,
@@ -43,6 +45,7 @@ export default class ThumbNav extends React.Component {
       className,
       'uk-thumbnav',
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

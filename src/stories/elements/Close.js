@@ -1,13 +1,7 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import {
-  Alert,
-  Block,
-  Button,
-  Close,
-  Modal,
-} from '../../components';
+import { Alert, Block, Button, Close, Modal } from '../../components';
 
 Close.displayName = 'Close';
 

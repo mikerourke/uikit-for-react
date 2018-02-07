@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import DescriptionDetails from './DescriptionDetails';
 import DescriptionTerm from './DescriptionTerm';
 
@@ -18,6 +18,7 @@ export default class DescriptionList extends React.Component {
     className: PropTypes.string,
     divider: PropTypes.bool,
     flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     width: Width.propTypes,
   };
@@ -32,12 +33,22 @@ export default class DescriptionList extends React.Component {
   static Term = DescriptionTerm;
 
   render() {
-    const { as, className, divider, flex, margin, width, ...rest } = this.props;
+    const {
+      as,
+      className,
+      divider,
+      flex,
+      inverse,
+      margin,
+      width,
+      ...rest
+    } = this.props;
 
     const classes = classnames(
       className,
       'uk-description-list',
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

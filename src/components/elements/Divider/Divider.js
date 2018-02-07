@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Align, Flex, Margin, Width } from '../../common';
+import { Align, Flex, Inverse, Margin, Width } from '../../common';
 
 export default class Divider extends React.Component {
   static displayName = 'Divider';
@@ -13,6 +13,7 @@ export default class Divider extends React.Component {
     className: PropTypes.string,
     flex: Flex.propTypes,
     icon: PropTypes.bool,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     small: PropTypes.bool,
     width: Width.propTypes,
@@ -32,6 +33,7 @@ export default class Divider extends React.Component {
       className,
       flex,
       icon,
+      inverse,
       margin,
       small,
       width,
@@ -42,6 +44,7 @@ export default class Divider extends React.Component {
       className,
       Align.getClasses(align),
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isString } from 'lodash';
 import { customPropTypes, getElementType, HTML } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 
 export default class SwitcherToggle extends React.Component {
   static displayName = 'SwitcherToggle';
@@ -14,6 +14,7 @@ export default class SwitcherToggle extends React.Component {
     className: PropTypes.string,
     flex: Flex.propTypes,
     href: PropTypes.string,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     width: Width.propTypes,
   };
@@ -31,6 +32,7 @@ export default class SwitcherToggle extends React.Component {
       children,
       flex,
       href,
+      inverse,
       margin,
       width,
       ...rest
@@ -39,6 +41,7 @@ export default class SwitcherToggle extends React.Component {
     const classes = classnames(
       className,
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
     );

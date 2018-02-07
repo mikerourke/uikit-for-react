@@ -13,7 +13,7 @@ import {
   HTML,
   UIK,
 } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import LightboxItem from './LightboxItem';
 import LightboxPanel from './LightboxPanel';
 
@@ -38,6 +38,7 @@ export default class Lightbox extends React.Component {
     className: PropTypes.string,
     defaultIndex: customPropTypes.validateIndex,
     flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     onBeforeHide: PropTypes.func,
     onBeforeItemHide: PropTypes.func,
@@ -122,6 +123,7 @@ export default class Lightbox extends React.Component {
       className,
       defaultIndex,
       flex,
+      inverse,
       margin,
       pauseOnHover,
       videoAutoplay,
@@ -133,6 +135,7 @@ export default class Lightbox extends React.Component {
       className,
       this.selector,
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
     );

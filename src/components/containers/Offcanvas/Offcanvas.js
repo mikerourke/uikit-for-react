@@ -9,7 +9,9 @@ import {
   getBaseRef,
   getElementType,
   getOptionsString,
+  getValidProps,
 } from '../../../lib';
+import { Flex, Inverse, Margin, Width } from '../../common';
 
 export default class Offcanvas extends React.Component {
   static displayName = 'Offcanvas';
@@ -20,7 +22,10 @@ export default class Offcanvas extends React.Component {
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     escClose: PropTypes.bool,
+    flex: Flex.propTypes,
     flip: PropTypes.bool,
+    inverse: Inverse.propTypes,
+    margin: Margin.propTypes,
     mode: PropTypes.oneOf(['none', 'push', 'reveal', 'slide']),
     onBeforeHide: PropTypes.func,
     onBeforeShow: PropTypes.func,
@@ -29,6 +34,7 @@ export default class Offcanvas extends React.Component {
     onShow: PropTypes.func,
     onShown: PropTypes.func,
     overlay: PropTypes.bool,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -76,17 +82,23 @@ export default class Offcanvas extends React.Component {
       escClose,
       flip,
       mode,
-      onBeforeHide,
-      onBeforeShow,
-      onHidden,
-      onHide,
-      onShow,
-      onShown,
       overlay,
+      flex,
+      inverse,
+      margin,
+      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(className, this.selector);
+    const classes = classnames(
+      className,
+      this.selector,
+      Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
+
     const componentOptions = getOptionsString({
       bgClose,
       escClose,
@@ -98,7 +110,7 @@ export default class Offcanvas extends React.Component {
     const Element = getElementType(Offcanvas, as);
     return (
       <Element
-        {...rest}
+        {...getValidProps(Offcanvas, rest)}
         className={classes}
         ref={this.handleRef}
         data-uk-offcanvas={componentOptions}

@@ -13,7 +13,7 @@ import {
   getOptionsString,
   getValidProps,
 } from '../../../lib';
-import { Flex, Margin, Width } from '../../common';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import ModalBody from './ModalBody';
 import ModalClose from './ModalClose';
 import ModalContent from './ModalContent';
@@ -34,6 +34,7 @@ export default class Modal extends React.Component {
     escClose: PropTypes.bool,
     flex: Flex.propTypes,
     full: PropTypes.bool,
+    inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     onBeforeHide: PropTypes.func,
     onBeforeShow: PropTypes.func,
@@ -113,6 +114,7 @@ export default class Modal extends React.Component {
       escClose,
       flex,
       full,
+      inverse,
       margin,
       stack,
       toggle,
@@ -124,6 +126,7 @@ export default class Modal extends React.Component {
       className,
       'uk-modal',
       Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Width.getClasses(width),
       this.selector,

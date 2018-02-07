@@ -84,12 +84,6 @@ export default class BlockElement extends React.Component {
     visibleToggle: PropTypes.bool,
   };
 
-  static asPropType = PropTypes.oneOfType([
-    PropTypes.oneOf(HTML.BLOCK_ELEMENTS),
-    PropTypes.element,
-    PropTypes.func,
-  ]);
-
   static defaultProps = {
     ...RootElement.defaultProps,
     dynamic: false,

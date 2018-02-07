@@ -155,5 +155,15 @@ export {
   ThumbNavItem,
   Totop,
 } from './navigation';
-export { Cover, Hidden, Scroll, Scrollspy, Sticky, Text } from './style';
+export {
+  Cover,
+  Hidden,
+  Scroll,
+  Scrollspy,
+  Sticky,
+  Text,
+  Visibility,
+  VisibilityTogglable,
+  VisibilityToggle,
+} from './style';
 export { Gif, Leader, Logo, Svg, Video, VideoSource } from './utility';

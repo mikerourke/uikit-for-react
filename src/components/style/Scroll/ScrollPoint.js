@@ -2,13 +2,16 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { noop } from 'lodash';
 import {
   customPropTypes,
   getElementType,
   getOptionsString,
+  getValidProps,
   HTML,
 } from '../../../lib';
+import { Flex, Inverse, Margin, Width } from '../../common';
 
 export default class ScrollPoint extends React.Component {
   static displayName = 'ScrollPoint';
@@ -18,11 +21,15 @@ export default class ScrollPoint extends React.Component {
     className: PropTypes.string,
     duration: PropTypes.number,
     elementName: PropTypes.string,
+    flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
     goTo: PropTypes.oneOf(['next', 'previous']),
+    margin: Margin.propTypes,
     offset: PropTypes.number,
     onBeforeScroll: PropTypes.func,
     onScrolled: PropTypes.func,
     pointIndex: PropTypes.number,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -60,21 +67,33 @@ export default class ScrollPoint extends React.Component {
   render() {
     const {
       as,
+      className,
       duration,
       elementName,
-      goTo,
+      flex,
+      inverse,
+      margin,
       offset,
-      onBeforeScroll,
-      onScrolled,
       pointIndex,
+      width,
       ...rest
     } = this.props;
 
+    const classes = classnames(
+      className,
+      Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
+
     const componentOptions = getOptionsString({ duration, offset });
+
     const Element = getElementType(ScrollPoint, as);
     return (
       <Element
-        {...rest}
+        {...getValidProps(ScrollPoint, rest)}
+        className={classes || undefined}
         onClick={this.handleClick}
         ref={this.handleRef}
         data-uk-scroll={componentOptions}

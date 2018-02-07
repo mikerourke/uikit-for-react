@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import {
   customPropTypes,
   getElementType,
   getOptionsString,
 } from '../../../lib';
+import { Flex, Inverse, Margin, Width } from '../../common';
 import CoverContainer from './CoverContainer';
 
 export default class Cover extends React.Component {
@@ -15,6 +17,10 @@ export default class Cover extends React.Component {
     automute: PropTypes.bool,
     children: PropTypes.node,
     className: PropTypes.string,
+    flex: Flex.propTypes,
+    inverse: Inverse.propTypes,
+    margin: Margin.propTypes,
+    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -26,9 +32,33 @@ export default class Cover extends React.Component {
   static Container = CoverContainer;
 
   render() {
-    const { as, automute, ...rest } = this.props;
+    const {
+      as,
+      automute,
+      className,
+      flex,
+      inverse,
+      margin,
+      width,
+      ...rest
+    } = this.props;
+
+    const classes = classnames(
+      className,
+      Flex.getClasses(flex),
+      Inverse.getClasses(inverse),
+      Margin.getClasses(margin),
+      Width.getClasses(width),
+    );
+
     const componentOptions = getOptionsString({ automute });
     const Element = getElementType(Cover, as);
-    return <Element {...rest} data-uk-cover={componentOptions} />;
+    return (
+      <Element
+        {...rest}
+        className={classes || undefined}
+        data-uk-cover={componentOptions}
+      />
+    );
   }
 }
