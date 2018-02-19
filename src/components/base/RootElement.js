@@ -3,7 +3,18 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { get, isNil, isPlainObject, isString, trim, without } from 'lodash';
-import { buildClassName, getOptionsString, UIK } from '../../lib';
+import {
+  buildBreakpointClasses,
+  buildClassName,
+  customPropTypes,
+  getOptionsString,
+  UIK,
+} from '../../lib';
+
+const marginSpacingPropType = PropTypes.oneOfType([
+  PropTypes.bool,
+  PropTypes.oneOf(UIK.SPACING_MODIFIERS),
+]);
 
 export default class RootElement extends React.Component {
   static propTypes = {
@@ -73,6 +84,7 @@ export default class RootElement extends React.Component {
     display: PropTypes.oneOf(['block', 'inline', 'inline-block']),
     flex: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['inline'])]),
     float: PropTypes.oneOf(['left', 'right']),
+    grow: PropTypes.oneOf(['auto', 'full', 'none']),
     height: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.oneOf([...UIK.BASE_SIZES, 'full']),
@@ -88,41 +100,20 @@ export default class RootElement extends React.Component {
     inline: PropTypes.bool,
     inverse: PropTypes.oneOf(['dark', 'light']),
     invisible: PropTypes.bool,
-    justifyContent: PropTypes.oneOfType([
-      PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-      PropTypes.shape({
-        atSm: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-        atMd: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-        atLg: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-        atXl: PropTypes.oneOf(UIK.FLEX_HORIZONTAL_MODIFIERS),
-      }),
-    ]),
+    justifyContent: customPropTypes.forBreakpoints(
+      UIK.FLEX_HORIZONTAL_MODIFIERS,
+    ),
     linkStyle: PropTypes.oneOf(['muted', 'text']),
     margin: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.oneOf([...UIK.LOCATIONS, ...UIK.SPACING_MODIFIERS, 'grid']),
       PropTypes.shape({
         adjacent: PropTypes.oneOf(['remove']),
-        all: PropTypes.oneOfType([
-          PropTypes.bool,
-          PropTypes.oneOf(UIK.SPACING_MODIFIERS),
-        ]),
-        bottom: PropTypes.oneOfType([
-          PropTypes.bool,
-          PropTypes.oneOf(UIK.SPACING_MODIFIERS),
-        ]),
-        left: PropTypes.oneOfType([
-          PropTypes.bool,
-          PropTypes.oneOf(UIK.SPACING_MODIFIERS),
-        ]),
-        right: PropTypes.oneOfType([
-          PropTypes.bool,
-          PropTypes.oneOf(UIK.SPACING_MODIFIERS),
-        ]),
-        top: PropTypes.oneOfType([
-          PropTypes.bool,
-          PropTypes.oneOf(UIK.SPACING_MODIFIERS),
-        ]),
+        all: marginSpacingPropType,
+        bottom: marginSpacingPropType,
+        left: marginSpacingPropType,
+        right: marginSpacingPropType,
+        top: marginSpacingPropType,
         vertical: PropTypes.oneOfType([
           PropTypes.bool,
           PropTypes.oneOf(['auto', 'remove']),
@@ -170,17 +161,7 @@ export default class RootElement extends React.Component {
     sorted: PropTypes.bool,
     transformCenter: PropTypes.bool,
     visible: PropTypes.oneOf(UIK.BREAKPOINTS),
-    width: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.oneOf(UIK.ALL_WIDTHS),
-      PropTypes.shape({
-        default: PropTypes.oneOf(UIK.ALL_WIDTHS),
-        atSm: PropTypes.oneOf(UIK.ALL_WIDTHS),
-        atMd: PropTypes.oneOf(UIK.ALL_WIDTHS),
-        atLg: PropTypes.oneOf(UIK.ALL_WIDTHS),
-        atXl: PropTypes.oneOf(UIK.ALL_WIDTHS),
-      }),
-    ]),
+    width: customPropTypes.forBreakpoints(UIK.ALL_WIDTHS, PropTypes.number),
     wrap: PropTypes.shape({
       type: PropTypes.oneOf(['nowrap', 'reverse', 'wrap']),
       alignment: PropTypes.oneOf(UIK.FLEX_VERTICAL_MODIFIERS),
@@ -213,6 +194,7 @@ export default class RootElement extends React.Component {
       display,
       flex,
       float,
+      grow,
       height,
       heightMax,
       hidden,
@@ -236,7 +218,6 @@ export default class RootElement extends React.Component {
       transformCenter,
       visible,
       text,
-      utility,
       width,
       wrap,
       ...unhandledProps
@@ -267,14 +248,7 @@ export default class RootElement extends React.Component {
     const customHeight = [...UIK.BASE_SIZES, 'full'].includes(height);
     const customWidth = UIK.ALL_WIDTHS.includes(width) || isPlainObject(width);
     const widthClasses = customWidth
-      ? classnames(
-          buildClassName('width', width),
-          buildClassName('width', get(width, 'default')),
-          buildClassName('width', get(width, 'atSm'), '@s'),
-          buildClassName('width', get(width, 'atMd'), '@m'),
-          buildClassName('width', get(width, 'atLg'), '@l'),
-          buildClassName('width', get(width, 'atXl'), '@xl'),
-        )
+      ? buildBreakpointClasses('width', width)
       : '';
 
     const classes = classnames(
@@ -296,21 +270,22 @@ export default class RootElement extends React.Component {
         get(direction, 'reverse', false) ? 'reverse' : '',
       ),
       buildClassName('display', display),
-      buildClassName('float', float),
       buildClassName('height', 'max', heightMax),
       buildClassName('hidden', hidden),
       buildClassName(inverse),
       buildClassName('flex', alignItems),
-      buildClassName('flex', justifyContent),
-      buildClassName('flex', get(justifyContent, 'atSm'), '@s'),
-      buildClassName('flex', get(justifyContent, 'atMd'), '@m'),
-      buildClassName('flex', get(justifyContent, 'atLg'), '@l'),
-      buildClassName('flex', get(justifyContent, 'atXl'), '@xl'),
+      buildClassName(
+        'flex',
+        get(flex, ['direction', 'as']),
+        get(flex, ['direction', 'reverse'], false) ? 'reverse' : '',
+      ),
+      buildBreakpointClasses('flex', justifyContent),
       buildClassName('flex', order),
       buildClassName('flex', 'first', get(order, 'first')),
       buildClassName('flex', 'last', get(order, 'last')),
       buildClassName('flex', get(wrap, 'type')),
       buildClassName('flex', get(wrap, 'alignment')),
+      buildClassName('float', float),
       buildClassName('link', linkStyle),
       buildClassName('overflow', overflow),
       buildClassName('position', position),
@@ -325,35 +300,26 @@ export default class RootElement extends React.Component {
       buildClassName('visible', visible),
       {
         [sortableHandle]: isString(sortableHandle),
-        [buildClassName('animation', 'fast')]: get(animation, 'fast', false),
-        [buildClassName('animation', 'reverse')]: get(
-          animation,
-          'reverse',
-          false,
-        ),
-        [buildClassName('animation', 'transform', 'center')]: get(
+        'uk-animation-fast': get(animation, 'fast', false),
+        'uk-animation-reverse': get(animation, 'reverse', false),
+        'uk-animation-transform-center': get(
           animation,
           'transformCenter',
           false,
         ),
-        [buildClassName('background', 'fixed')]: get(
-          background,
-          'fixed',
-          false,
-        ),
-        [buildClassName('background', 'norepeat')]: get(
-          background,
-          'norepeat',
-          false,
-        ),
+        'uk-background-fixed': get(background, 'fixed', false),
+        'uk-background-norepeat': get(background, 'norepeat', false),
+        'uk-flex': flex === true,
+        'uk-flex-inline': flex === 'inline',
+        'uk-flex-1': grow === 'full',
+        [buildClassName('flex')]: flex === true,
+        [buildClassName('flex', 'inline')]: flex === 'inline',
         [buildClassName('box', 'shadow', 'bottom')]: get(
           boxShadow,
           'bottom',
           false,
         ),
         [buildClassName('clearfix')]: clearfix,
-        [buildClassName('flex')]: flex === true,
-        [buildClassName('flex', 'inline')]: flex === 'inline',
         [buildClassName('grid', 'margin')]: margin === 'grid',
         [buildClassName('height', '1', '1')]: height === 'full',
         [buildClassName('height', height)]: customHeight
