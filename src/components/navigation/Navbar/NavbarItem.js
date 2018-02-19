@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType, hasChildType } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
 import NavbarDropdown from './NavbarDropdown';
 
 export default class NavbarItem extends React.Component {
@@ -18,6 +18,7 @@ export default class NavbarItem extends React.Component {
     href: PropTypes.string,
     margin: Margin.propTypes,
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
   };
 
@@ -39,6 +40,7 @@ export default class NavbarItem extends React.Component {
       href,
       margin,
       text,
+      utility,
       width,
       ...rest
     } = this.props;
@@ -49,6 +51,7 @@ export default class NavbarItem extends React.Component {
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
       {
         'uk-active': active,

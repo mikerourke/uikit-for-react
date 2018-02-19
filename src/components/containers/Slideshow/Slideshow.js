@@ -15,7 +15,7 @@ import {
   HTML,
   UIK,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
 import SlideshowItem from './SlideshowItem';
 
 export default class Slideshow extends React.Component {
@@ -58,6 +58,7 @@ export default class Slideshow extends React.Component {
     pauseOnHover: PropTypes.bool,
     ratio: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
   };
 
@@ -133,6 +134,7 @@ export default class Slideshow extends React.Component {
       pauseOnHover,
       ratio,
       text,
+      utility,
       width,
       ...rest
     } = this.props;
@@ -144,6 +146,7 @@ export default class Slideshow extends React.Component {
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
     );
 

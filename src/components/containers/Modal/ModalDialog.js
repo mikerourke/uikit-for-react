@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType, hasChildType } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
 import ModalBody from './ModalBody';
 
 export default class ModalDialog extends React.Component {
@@ -28,6 +28,7 @@ export default class ModalDialog extends React.Component {
     margin: Margin.propTypes,
     padContent: PropTypes.bool,
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
   };
 
@@ -46,6 +47,7 @@ export default class ModalDialog extends React.Component {
       margin,
       padContent,
       text,
+      utility,
       width,
       ...rest
     } = this.props;
@@ -57,6 +59,7 @@ export default class ModalDialog extends React.Component {
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
       {
         'uk-modal-body': padContent,

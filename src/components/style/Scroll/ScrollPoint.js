@@ -11,7 +11,7 @@ import {
   getValidProps,
   HTML,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
 
 export default class ScrollPoint extends React.Component {
   static displayName = 'ScrollPoint';
@@ -30,6 +30,7 @@ export default class ScrollPoint extends React.Component {
     onScrolled: PropTypes.func,
     pointIndex: PropTypes.number,
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
   };
 
@@ -77,6 +78,7 @@ export default class ScrollPoint extends React.Component {
       offset,
       pointIndex,
       text,
+      utility,
       width,
       ...rest
     } = this.props;
@@ -87,6 +89,7 @@ export default class ScrollPoint extends React.Component {
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
     );
 

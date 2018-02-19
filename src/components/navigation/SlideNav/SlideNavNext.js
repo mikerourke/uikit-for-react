@@ -2,7 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Align, Flex, Inverse, Margin, Text, Width } from '../../common';
+import {
+  Align,
+  Flex,
+  Inverse,
+  Margin,
+  Text,
+  Utility,
+  Width,
+} from '../../common';
 
 export default class SlideNavNext extends React.Component {
   static displayName = 'SlideNavNext';
@@ -16,6 +24,7 @@ export default class SlideNavNext extends React.Component {
     href: PropTypes.string,
     margin: Margin.propTypes,
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
     large: PropTypes.bool,
   };
@@ -37,6 +46,7 @@ export default class SlideNavNext extends React.Component {
       large,
       margin,
       text,
+      utility,
       width,
       ...rest
     } = this.props;
@@ -48,6 +58,7 @@ export default class SlideNavNext extends React.Component {
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
       {
         'uk-slidenav-large': large,

@@ -9,7 +9,7 @@ import {
   HTML,
   UIK,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
 
 export default class Leader extends React.Component {
   static displayName = 'Leader';
@@ -28,6 +28,7 @@ export default class Leader extends React.Component {
       PropTypes.string,
     ]),
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
   };
 
@@ -46,6 +47,7 @@ export default class Leader extends React.Component {
       flex,
       margin,
       text,
+      utility,
       width,
       ...rest
     } = this.props;
@@ -56,6 +58,7 @@ export default class Leader extends React.Component {
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
     );
 

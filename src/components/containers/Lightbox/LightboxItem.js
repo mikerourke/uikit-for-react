@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
 
 export default class LightboxItem extends React.Component {
   static displayName = 'LightboxItem';
@@ -19,6 +19,7 @@ export default class LightboxItem extends React.Component {
     source: PropTypes.string.isRequired,
     type: PropTypes.oneOf(['iframe', 'image', 'video']),
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
   };
 
@@ -42,6 +43,7 @@ export default class LightboxItem extends React.Component {
       source,
       type,
       text,
+      utility,
       width,
       ...rest
     } = this.props;
@@ -52,6 +54,7 @@ export default class LightboxItem extends React.Component {
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
       {
         'uk-inline': inline,

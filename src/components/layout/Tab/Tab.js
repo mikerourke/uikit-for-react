@@ -12,7 +12,7 @@ import {
   getOptionsString,
   UIK,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
 import TabItem from './TabItem';
 
 export default class Tab extends React.Component {
@@ -55,6 +55,7 @@ export default class Tab extends React.Component {
     onShown: PropTypes.func,
     swiping: PropTypes.bool,
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
   };
 
@@ -115,6 +116,7 @@ export default class Tab extends React.Component {
       media,
       swiping,
       text,
+      utility,
       width,
       ...rest
     } = this.props;
@@ -127,6 +129,7 @@ export default class Tab extends React.Component {
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
     );
 

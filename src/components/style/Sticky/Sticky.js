@@ -12,7 +12,7 @@ import {
   getOptionsString,
   HTML,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
 import Navbar from '../../navigation/Navbar';
 
 export default class Sticky extends React.Component {
@@ -41,6 +41,7 @@ export default class Sticky extends React.Component {
     target: PropTypes.bool,
     top: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
     widthElement: PropTypes.string,
   };
@@ -104,6 +105,7 @@ export default class Sticky extends React.Component {
       target,
       top,
       text,
+      utility,
       width,
       widthElement,
       ...rest
@@ -116,6 +118,7 @@ export default class Sticky extends React.Component {
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
     );
 

@@ -9,7 +9,7 @@ import {
   getElementType,
   UIK,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
 import { Icon } from '../../elements';
 
 export default class FormInput extends React.Component {
@@ -36,6 +36,7 @@ export default class FormInput extends React.Component {
     size: PropTypes.oneOf(['large', 'small']),
     success: PropTypes.bool,
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
   };
 
@@ -76,6 +77,7 @@ export default class FormInput extends React.Component {
       size,
       success,
       text,
+      utility,
       width,
       ...rest
     } = this.props;
@@ -89,6 +91,7 @@ export default class FormInput extends React.Component {
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
       {
         'uk-form-blank': blank,

@@ -37,7 +37,7 @@ storiesOf('Drop', module)
   ))
 
   .add('Position', () => (
-    <Block margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }} viewport>
       <Block inline>
         <Drop toggle={<Button>Top Right</Button>} position="top-right">
           <Card>{message}</Card>

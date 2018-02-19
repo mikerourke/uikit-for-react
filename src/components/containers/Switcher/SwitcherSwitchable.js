@@ -7,7 +7,7 @@ import {
   getElementType,
   HTML,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
 import SwitcherContent from './SwitcherContent';
 import SwitcherToggles from './SwitcherToggles';
 
@@ -22,6 +22,7 @@ export default class SwitcherSwitchable extends React.Component {
     inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
   };
 
@@ -67,6 +68,7 @@ export default class SwitcherSwitchable extends React.Component {
       inverse,
       margin,
       text,
+      utility,
       width,
       ...rest
     } = this.props;
@@ -77,6 +79,7 @@ export default class SwitcherSwitchable extends React.Component {
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
     );
 

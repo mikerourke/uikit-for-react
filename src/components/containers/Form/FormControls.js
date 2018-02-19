@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
 
 export default class FormControls extends React.Component {
   static displayName = 'FormControls';
@@ -16,6 +16,7 @@ export default class FormControls extends React.Component {
     inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
   };
 
@@ -34,6 +35,7 @@ export default class FormControls extends React.Component {
       inverse,
       margin,
       text,
+      utility,
       width,
       ...rest
     } = this.props;
@@ -45,6 +47,7 @@ export default class FormControls extends React.Component {
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
       {
         'uk-form-controls-text': alignForText,

@@ -14,7 +14,7 @@ import {
   HTML,
   UIK,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
 import NavDivider from './NavDivider';
 import NavHeader from './NavHeader';
 import NavItem from './NavItem';
@@ -55,6 +55,7 @@ export default class Nav extends React.Component {
     primary: PropTypes.bool,
     transition: PropTypes.oneOf(HTML.CSS_EASING),
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
   };
 
@@ -112,6 +113,7 @@ export default class Nav extends React.Component {
       primary,
       transition,
       text,
+      utility,
       width,
       ...rest
     } = this.props;
@@ -124,6 +126,7 @@ export default class Nav extends React.Component {
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
       {
         'uk-nav-center': center,

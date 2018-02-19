@@ -3,7 +3,15 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType, HTML } from '../../../lib';
-import { Flex, Inverse, Margin, Position, Text, Width } from '../../common';
+import {
+  Flex,
+  Inverse,
+  Margin,
+  Position,
+  Text,
+  Utility,
+  Width,
+} from '../../common';
 import OverlayContext from './OverlayContext';
 import OverlayIcon from './OverlayIcon';
 import OverlayImage from './OverlayImage';
@@ -22,6 +30,7 @@ export default class Overlay extends React.Component {
     primary: ExtraPropTypes.mutuallyExclusiveTrueProps('primary', 'simple'),
     simple: PropTypes.bool,
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
   };
 
@@ -47,6 +56,7 @@ export default class Overlay extends React.Component {
       primary,
       simple,
       text,
+      utility,
       width,
       ...rest
     } = this.props;
@@ -59,6 +69,7 @@ export default class Overlay extends React.Component {
       Margin.getClasses(margin),
       Position.getClasses(position),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
       {
         'uk-overlay-primary': primary,

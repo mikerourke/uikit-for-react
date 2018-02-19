@@ -98,7 +98,11 @@ storiesOf('Grid', module)
 
   .add('Match height', () => (
     <Block margin={{ all: 'large' }}>
-      <Grid childWidth={{ atSm: 'expand' }} text={{ align: 'center' }} matchHeight>
+      <Grid
+        childWidth={{ atSm: 'expand' }}
+        text={{ align: 'center' }}
+        matchHeight
+      >
         <Grid.Cell>
           <Card>Item</Card>
         </Grid.Cell>
@@ -151,7 +155,10 @@ storiesOf('Grid', module)
 
   .add('Child width', () => (
     <Block margin={{ all: 'large' }}>
-      <Grid childWidth={{ atSm: '1/2', atMd: '1/3' }} text={{ align: 'center' }}>
+      <Grid
+        childWidth={{ atSm: '1/2', atMd: '1/3' }}
+        text={{ align: 'center' }}
+      >
         <Grid.Cell>
           <Card>Item</Card>
         </Grid.Cell>

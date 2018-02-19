@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
 
 export default class NavItemGroup extends React.Component {
   static displayName = 'NavItemGroup';
@@ -17,6 +17,7 @@ export default class NavItemGroup extends React.Component {
     margin: Margin.propTypes,
     title: PropTypes.node.isRequired,
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
   };
 
@@ -35,6 +36,7 @@ export default class NavItemGroup extends React.Component {
       margin,
       title,
       text,
+      utility,
       width,
       ...rest
     } = this.props;
@@ -45,6 +47,7 @@ export default class NavItemGroup extends React.Component {
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
     );
 

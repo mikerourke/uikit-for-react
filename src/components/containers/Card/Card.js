@@ -8,7 +8,7 @@ import {
   getElementType,
   hasChildType,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
 import CardBadge from './CardBadge';
 import CardBody from './CardBody';
 import CardContent from './CardContent';
@@ -50,6 +50,7 @@ export default class Card extends React.Component {
     simple: PropTypes.bool,
     size: PropTypes.oneOf(['small', 'large']),
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
   };
 
@@ -84,6 +85,7 @@ export default class Card extends React.Component {
       simple,
       size,
       text,
+      utility,
       width,
       ...rest
     } = this.props;
@@ -96,6 +98,7 @@ export default class Card extends React.Component {
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
       {
         'uk-card-default': !primary && !secondary && !simple,

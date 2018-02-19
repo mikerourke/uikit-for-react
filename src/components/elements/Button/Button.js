@@ -8,7 +8,15 @@ import {
   getElementType,
   UIK,
 } from '../../../lib';
-import { Align, Flex, Inverse, Margin, Text, Width } from '../../common';
+import {
+  Align,
+  Flex,
+  Inverse,
+  Margin,
+  Text,
+  Utility,
+  Width,
+} from '../../common';
 import ButtonGroup from './ButtonGroup';
 
 export default class Button extends React.Component {
@@ -80,6 +88,7 @@ export default class Button extends React.Component {
       secondary,
       size,
       text,
+      utility,
       width,
       ...rest
     } = this.props;

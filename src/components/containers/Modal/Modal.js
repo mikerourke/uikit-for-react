@@ -13,7 +13,7 @@ import {
   getOptionsString,
   getValidProps,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
 import ModalBody from './ModalBody';
 import ModalClose from './ModalClose';
 import ModalContent from './ModalContent';
@@ -46,6 +46,7 @@ export default class Modal extends React.Component {
     stack: PropTypes.bool,
     toggle: PropTypes.element,
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
   };
 
@@ -120,6 +121,7 @@ export default class Modal extends React.Component {
       stack,
       toggle,
       text,
+      utility,
       width,
       ...rest
     } = this.props;
@@ -131,6 +133,7 @@ export default class Modal extends React.Component {
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
       this.selector,
       {

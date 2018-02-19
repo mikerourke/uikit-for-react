@@ -3,7 +3,15 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isBoolean } from 'lodash';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Align, Flex, Inverse, Margin, Text, Width } from '../../common';
+import {
+  Align,
+  Flex,
+  Inverse,
+  Margin,
+  Text,
+  Utility,
+  Width,
+} from '../../common';
 
 export default class Link extends React.Component {
   static displayName = 'Link';
@@ -44,6 +52,7 @@ export default class Link extends React.Component {
       muted,
       reset,
       text,
+      utility,
       width,
       ...rest
     } = this.props;

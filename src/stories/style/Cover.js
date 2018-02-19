@@ -9,7 +9,7 @@ const mediaLink = 'https://getuikit.com/docs/images/dark.jpg';
 storiesOf('Cover', module)
   .add('Basic Usage', () => (
     <Block margin={{ all: 'large' }}>
-      <Cover.Container height="medium">
+      <Cover.Container utility={{ height: 'medium' }}>
         <Cover src={mediaLink} />
       </Cover.Container>
     </Block>
@@ -17,7 +17,7 @@ storiesOf('Cover', module)
 
   .add('Video', () => (
     <Block margin={{ all: 'large' }}>
-      <Cover.Container height="medium">
+      <Cover.Container utility={{ height: 'medium' }}>
         <Cover as={Video} autoplay loop muted playsInline>
           <Video.Source
             src="//www.quirksmode.org/html5/videos/big_buck_bunny.mp4"
@@ -34,7 +34,7 @@ storiesOf('Cover', module)
 
   .add('Iframe', () => (
     <Block margin={{ all: 'large' }}>
-      <Cover.Container height="medium">
+      <Cover.Container utility={{ height: 'medium' }}>
         <Cover
           as="iframe"
           src="//www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent"

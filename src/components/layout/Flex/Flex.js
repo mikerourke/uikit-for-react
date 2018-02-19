@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { omit } from 'lodash';
 import { customPropTypes, getElementType, HTML } from '../../../lib';
-import { Flex as flexProps, Inverse, Margin, Text, Width } from '../../common';
+import {
+  Flex as flexProps,
+  Inverse,
+  Margin,
+  Text,
+  Utility,
+  Width,
+} from '../../common';
 
 export default class Flex extends React.Component {
   static displayName = 'Flex';
@@ -16,6 +23,7 @@ export default class Flex extends React.Component {
     inverse: Inverse.propTypes,
     margin: Margin.propTypes,
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
   };
 
@@ -33,6 +41,7 @@ export default class Flex extends React.Component {
       flexProps.getClasses(rest),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
     );
 

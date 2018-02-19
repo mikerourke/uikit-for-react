@@ -15,7 +15,7 @@ import {
   HTML,
   UIK,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
 import Close from '../Close';
 
 /**
@@ -59,6 +59,7 @@ export default class Alert extends React.Component {
     success: PropTypes.bool,
     warning: PropTypes.bool,
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
   };
 
@@ -119,6 +120,7 @@ export default class Alert extends React.Component {
       success,
       warning,
       text,
+      utility,
       width,
       ...rest
     } = this.props;
@@ -131,6 +133,7 @@ export default class Alert extends React.Component {
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
       {
         'uk-alert-danger': danger,

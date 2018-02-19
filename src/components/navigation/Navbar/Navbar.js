@@ -15,7 +15,7 @@ import {
   joinListProp,
   UIK,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
 import NavbarContainer from './NavbarContainer';
 import NavbarDropdown from './NavbarDropdown';
 import NavbarItem from './NavbarItem';
@@ -68,6 +68,7 @@ export default class Navbar extends React.Component {
     onShown: PropTypes.func,
     transparent: PropTypes.bool,
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
   };
 
@@ -146,6 +147,7 @@ export default class Navbar extends React.Component {
       offset,
       transparent,
       text,
+      utility,
       width,
       ...rest
     } = this.props;
@@ -158,6 +160,7 @@ export default class Navbar extends React.Component {
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
       {
         'uk-navbar-container': container,

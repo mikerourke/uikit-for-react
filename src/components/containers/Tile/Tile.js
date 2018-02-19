@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
 
 export default class Tile extends React.Component {
   static displayName = 'Tile';
@@ -18,6 +18,7 @@ export default class Tile extends React.Component {
     primary: PropTypes.bool,
     secondary: PropTypes.bool,
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
   };
 
@@ -40,6 +41,7 @@ export default class Tile extends React.Component {
       primary,
       secondary,
       text,
+      utility,
       width,
       ...rest
     } = this.props;
@@ -51,6 +53,7 @@ export default class Tile extends React.Component {
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
       {
         'uk-tile-default': !muted && !primary && !secondary,

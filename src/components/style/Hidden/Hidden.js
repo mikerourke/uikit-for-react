@@ -8,7 +8,7 @@ import {
   HTML,
   UIK,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
 
 export default class Hidden extends React.Component {
   static displayName = 'Hidden';
@@ -26,6 +26,7 @@ export default class Hidden extends React.Component {
     touchOnly: PropTypes.bool,
     whenHovered: PropTypes.oneOf(['hidden', 'invisible']),
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
   };
 
@@ -50,6 +51,7 @@ export default class Hidden extends React.Component {
       touchOnly,
       whenHovered,
       text,
+      utility,
       width,
       ...rest
     } = this.props;
@@ -62,6 +64,7 @@ export default class Hidden extends React.Component {
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
       {
         'uk-hidden': hide,

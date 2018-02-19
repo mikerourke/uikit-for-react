@@ -15,7 +15,7 @@ import {
   UIK,
   getValidProps,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Width } from '../../common';
+import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
 
 export default class Dropdown extends React.Component {
   static displayName = 'Dropdown';
@@ -55,6 +55,7 @@ export default class Dropdown extends React.Component {
     shown: PropTypes.bool,
     toggle: PropTypes.element,
     text: Text.propTypes,
+    utility: Utility.propTypes,
     width: Width.propTypes,
   };
 
@@ -132,6 +133,7 @@ export default class Dropdown extends React.Component {
       position,
       toggle,
       text,
+      utility,
       width,
       ...rest
     } = this.props;
@@ -144,6 +146,7 @@ export default class Dropdown extends React.Component {
       Inverse.getClasses(inverse),
       Margin.getClasses(margin),
       Text.getClasses(text),
+      Utility.getClasses(utility),
       Width.getClasses(width),
     );
 
