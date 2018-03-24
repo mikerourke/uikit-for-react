@@ -2,21 +2,23 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { isNil, noop } from 'lodash';
+import isNil from 'lodash/isNil';
+import noop from 'lodash/noop';
 import {
   customPropTypes,
   generateSelector,
   getBaseRef,
-  getElementType,
   getOptionsString,
   HTML,
   UIK,
 } from '../../../lib';
+import Base from '../../base';
 
 export default class Tooltip extends React.Component {
   static displayName = 'Tooltip';
 
   static propTypes = {
+    ...Base.propTypes,
     alignTo: PropTypes.oneOf([
       'bottom',
       'bottom-left',
@@ -44,7 +46,6 @@ export default class Tooltip extends React.Component {
     ]),
     as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
     children: PropTypes.node,
-    className: PropTypes.string,
     clsActive: PropTypes.string,
     delay: PropTypes.number,
     offset: PropTypes.number,
@@ -59,8 +60,8 @@ export default class Tooltip extends React.Component {
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'div',
-    className: '',
     onBeforeHide: noop,
     onBeforeShow: noop,
     onHidden: noop,
@@ -106,17 +107,10 @@ export default class Tooltip extends React.Component {
     const {
       alignTo,
       animation,
-      as,
       className,
       clsActive,
       delay,
       offset,
-      onBeforeHide,
-      onBeforeShow,
-      onHidden,
-      onHide,
-      onShow,
-      onShown,
       shown,
       ...rest
     } = this.props;
@@ -131,12 +125,12 @@ export default class Tooltip extends React.Component {
       pos: alignTo,
     });
 
-    const Element = getElementType(Tooltip, as);
     return (
-      <Element
+      <Base
         {...rest}
+        baseRef={this.handleRef}
         className={classes}
-        ref={this.handleRef}
+        component={Tooltip}
         data-uk-tooltip={componentOptions}
       />
     );

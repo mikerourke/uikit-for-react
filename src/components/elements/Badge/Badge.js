@@ -1,65 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import { customPropTypes, getElementType } from '../../../lib';
-import {
-  Align,
-  Flex,
-  Inverse,
-  Margin,
-  Text,
-  Utility,
-  Width,
-} from '../../common';
+import { customPropTypes } from '../../../lib';
+import { getCustomBase } from '../../base';
 
-export default class Badge extends React.Component {
-  static displayName = 'Badge';
-
-  static propTypes = {
-    align: Align.propTypes,
-    as: customPropTypes.customOrStringElement('a', 'span'),
-    children: PropTypes.node,
-    className: PropTypes.string,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
-  };
-
-  static defaultProps = {
-    as: 'span',
-    className: '',
-  };
-
-  render() {
-    const {
-      align,
-      as,
-      className,
-      flex,
-      inverse,
-      margin,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
-
-    const classes = classnames(
-      className,
-      'uk-badge',
-      Align.getClasses(align),
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
-
-    const Element = getElementType(Badge, as);
-    return <Element {...rest} className={classes} />;
-  }
-}
+export default getCustomBase({
+  displayName: 'Badge',
+  className: 'uk-badge',
+  asType: customPropTypes.customOrStringElement('a', 'span'),
+  asDefault: 'span',
+});

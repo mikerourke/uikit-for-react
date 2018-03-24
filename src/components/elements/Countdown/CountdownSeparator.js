@@ -1,54 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import { customPropTypes } from '../../../lib';
+import { getCustomBase } from '../../base';
 
-export default class CountdownSeparator extends React.Component {
-  static displayName = 'CountdownSeparator';
-
-  static propTypes = {
-    as: customPropTypes.customOrStringElement('div', 'span'),
-    children: PropTypes.string.isRequired,
-    className: PropTypes.string,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
-  };
-
-  static defaultProps = {
-    as: 'div',
-    className: '',
-  };
-
-  render() {
-    const {
-      as,
-      className,
-      flex,
-      inverse,
-      margin,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
-
-    const classes = classnames(
-      className,
-      'uk-countdown-separator',
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
-
-    const Element = getElementType(CountdownSeparator, as);
-    return <Element {...rest} className={classes} />;
-  }
-}
+export default getCustomBase({
+  displayName: 'CountdownSeparator',
+  className: 'uk-countdown-separator',
+  asType: customPropTypes.customOrStringElement('div', 'span'),
+});

@@ -1,57 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import { customPropTypes, getElementType, HTML } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import { customPropTypes, HTML } from '../../../lib';
+import { getCustomBase } from '../../base';
 
 /**
  * Contents/body of the Article.
  * @see https://getuikit.com/docs/article
  */
-export default class ArticleBody extends React.Component {
-  static displayName = 'ArticleBody';
-
-  static propTypes = {
-    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
-    children: PropTypes.node,
-    className: PropTypes.string,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
-  };
-
-  static defaultProps = {
-    as: 'p',
-    className: '',
-  };
-
-  render() {
-    const {
-      as,
-      className,
-      flex,
-      inverse,
-      margin,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
-
-    const classes = classnames(
-      className,
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
-
-    const Element = getElementType(ArticleBody, as);
-    return <Element {...rest} className={classes || undefined} />;
-  }
-}
+export default getCustomBase({
+  displayName: 'ArticleBody',
+  asType: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
+  asDefault: 'p',
+});

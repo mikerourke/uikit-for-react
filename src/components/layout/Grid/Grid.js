@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get, isNil } from 'lodash';
+import get from 'lodash/get';
+import isNil from 'lodash/isNil';
 import {
   buildBreakpointClasses,
   buildClassName,
   customPropTypes,
   getBaseRef,
-  getElementType,
   getOptionsString,
   HTML,
   UIK,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import Base from '../../base';
 import GridCell from './GridCell';
 
 export default class Grid extends React.Component {
@@ -22,27 +22,19 @@ export default class Grid extends React.Component {
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node,
     childWidth: customPropTypes.forBreakpoints(UIK.CHILD_WIDTHS),
-    className: PropTypes.string,
     divider: PropTypes.bool,
     firstColumn: PropTypes.string,
-    flex: Flex.propTypes,
     gutter: PropTypes.oneOf([...UIK.BASE_SIZES, 'collapse']),
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     matchHeight: PropTypes.bool,
     nextRow: PropTypes.shape({
       spacing: PropTypes.oneOf(UIK.SPACING_MODIFIERS),
       location: PropTypes.oneOf(UIK.LOCATIONS),
     }),
     textAlign: customPropTypes.forBreakpoints(UIK.TEXT_ALIGNMENTS),
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
     as: 'div',
-    className: '',
     divider: false,
     matchHeight: false,
   };
@@ -56,32 +48,19 @@ export default class Grid extends React.Component {
 
   render() {
     const {
-      as,
       childWidth,
       className,
       divider,
       firstColumn,
-      flex,
       gutter,
-      inverse,
-      margin,
       matchHeight,
       nextRow,
       textAlign,
-      text,
-      utility,
-      width,
       ...rest
     } = this.props;
 
     const classes = classnames(
       className,
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
       buildBreakpointClasses('childWidth', childWidth),
       buildBreakpointClasses('text', textAlign),
       buildClassName('grid', gutter),
@@ -102,12 +81,12 @@ export default class Grid extends React.Component {
           ),
     });
 
-    const Element = getElementType(Grid, as);
     return (
-      <Element
+      <Base
         {...rest}
+        baseRef={this.handleRef}
         className={classes || undefined}
-        ref={this.handleRef}
+        component={Grid}
         data-uk-grid={componentOptions}
       />
     );

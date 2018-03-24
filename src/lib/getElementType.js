@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import get from 'lodash/get';
 
 /**
  * Returns a createElement() type based on the props of the Component.
@@ -12,7 +12,7 @@ import { get } from 'lodash';
  * @returns {string|function} A ReactElement type
  */
 const getElementType = (Component, asProp) => {
-  const { defaultProps = {} } = Component;
+  const defaultProps = get(Component, 'defaultProps', { as: '' });
 
   // User defined "as" element type:
   if (asProp && asProp !== defaultProps.as) return asProp;
@@ -20,10 +20,7 @@ const getElementType = (Component, asProp) => {
   // If the "as" prop was defined, return it.
   if (defaultProps.as) return defaultProps.as;
 
-  // If no "as" prop was defined, determine if the component inherits one of
-  // the base elements. The default Inline element is a <span>, all others can
-  // be a <div>.
-  return get(Component, 'displayName') === 'InlineElement' ? 'span' : 'div';
+  return 'div';
 };
 
 export default getElementType;

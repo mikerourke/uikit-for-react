@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import { customPropTypes } from '../../../lib';
+import Base from '../../base';
 import SlideNavNext from './SlideNavNext';
 import SlideNavPrevious from './SlideNavPrevious';
 
@@ -10,50 +9,22 @@ export default class SlideNavContainer extends React.Component {
   static displayName = 'SlideNavContainer';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('div'),
     children: customPropTypes.restrictToChildTypes(
       SlideNavNext,
       SlideNavPrevious,
     ),
-    className: PropTypes.string,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'div',
-    className: '',
   };
 
   render() {
-    const {
-      as,
-      className,
-      flex,
-      inverse,
-      margin,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
-
-    const classes = classnames(
-      className,
-      'uk-slidenav-container',
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
-
-    const Element = getElementType(SlideNavContainer, as);
-    return <Element {...rest} className={classes} />;
+    const { className, ...rest } = this.props;
+    const classes = classnames(className, 'uk-slidenav-container');
+    return <Base {...rest} className={classes} component={SlideNavContainer} />;
   }
 }

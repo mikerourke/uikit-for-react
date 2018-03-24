@@ -156,6 +156,12 @@
         }
       ],
       "react/prefer-stateless-function": "off",
+      "react/prop-types": [
+        "error",
+        {
+          "ignore": ["className"]
+        }
+      ],
       "react/no-unused-prop-types": "off",
       "react/require-default-props": "off"
     },

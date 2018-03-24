@@ -2,63 +2,41 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import { customPropTypes } from '../../../lib';
+
+import Base from '../../base';
 
 export default class NavItemGroup extends React.Component {
   static displayName = 'NavItemGroup';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('ul'),
     children: PropTypes.node,
-    className: PropTypes.string,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     title: PropTypes.node.isRequired,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'ul',
-    className: '',
   };
 
   render() {
-    const {
-      as,
-      children,
-      className,
-      flex,
-      inverse,
-      margin,
-      title,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
+    const { children, className, title, ...rest } = this.props;
 
-    const classes = classnames(
-      className,
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
+    const classes = classnames(className);
 
     const Title = React.isValidElement(title) ? title : <a href="#">{title}</a>;
-    const Element = getElementType(NavItemGroup, as);
     return (
       <Fragment>
         <Title />
-        <Element {...rest} className={classes || undefined}>
+        <Base
+          {...rest}
+          className={classes || undefined}
+          component={NavItemGroup}
+        >
           {children}
-        </Element>
+        </Base>
       </Fragment>
     );
   }

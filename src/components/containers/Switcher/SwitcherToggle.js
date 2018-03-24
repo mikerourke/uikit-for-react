@@ -1,63 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import { isString } from 'lodash';
-import { customPropTypes, getElementType, HTML } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import isString from 'lodash/isString';
+import { customPropTypes, HTML } from '../../../lib';
+import Base from '../../base';
 
 export default class SwitcherToggle extends React.Component {
   static displayName = 'SwitcherToggle';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node,
-    className: PropTypes.string,
-    flex: Flex.propTypes,
     href: PropTypes.string,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'li',
-    className: '',
     href: '#',
   };
 
   render() {
-    const {
-      as,
-      className,
-      children,
-      flex,
-      href,
-      inverse,
-      margin,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
-
-    const classes = classnames(
-      className,
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
-
+    const { as, children, href, ...rest } = this.props;
     const isAsString = isString(as);
-    const Element = getElementType(SwitcherToggle, as);
     return (
-      <Element {...rest} className={classes || undefined}>
+      <Base {...rest} as={as} component={SwitcherToggle}>
         {isAsString ? <a href={href}>{children}</a> : children}
-      </Element>
+      </Base>
     );
   }
 }

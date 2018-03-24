@@ -2,13 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import {
-  buildClassName,
-  customPropTypes,
-  getElementType,
-  hasChildType,
-} from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import { buildClassName, customPropTypes, hasChildType } from '../../../lib';
+import Base from '../../base';
 import CardBadge from './CardBadge';
 import CardBody from './CardBody';
 import CardContent from './CardContent';
@@ -36,11 +31,7 @@ export default class Card extends React.Component {
         return null;
       },
     ]),
-    className: PropTypes.string,
-    flex: Flex.propTypes,
     hover: PropTypes.bool,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     primary: ExtraPropTypes.mutuallyExclusiveTrueProps(
       'primary',
       'secondary',
@@ -49,14 +40,10 @@ export default class Card extends React.Component {
     secondary: PropTypes.bool,
     simple: PropTypes.bool,
     size: PropTypes.oneOf(['small', 'large']),
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
     as: 'div',
-    className: '',
     hover: false,
     primary: false,
     secondary: false,
@@ -73,20 +60,13 @@ export default class Card extends React.Component {
 
   render() {
     const {
-      as,
       children,
       className,
-      flex,
       hover,
-      inverse,
-      margin,
       primary,
       secondary,
       simple,
       size,
-      text,
-      utility,
-      width,
       ...rest
     } = this.props;
 
@@ -94,12 +74,6 @@ export default class Card extends React.Component {
       className,
       'uk-card',
       buildClassName('card', size),
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
       {
         'uk-card-default': !primary && !secondary && !simple,
         'uk-card-body': !hasChildType(children, CardBody),
@@ -109,11 +83,10 @@ export default class Card extends React.Component {
       },
     );
 
-    const Element = getElementType(Card, as);
     return (
-      <Element {...rest} className={classes}>
+      <Base {...rest} component={Card} className={classes}>
         {children}
-      </Element>
+      </Base>
     );
   }
 }

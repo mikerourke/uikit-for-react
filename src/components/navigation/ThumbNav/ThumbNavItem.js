@@ -2,74 +2,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { isNil } from 'lodash';
-import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import isNil from 'lodash/isNil';
+import { customPropTypes } from '../../../lib';
+
+import Base from '../../base';
 import ThumbNavImage from './ThumbNavImage';
 
 export default class ThumbNavItem extends React.Component {
   static displayName = 'ThumbNavItem';
 
   static propTypes = {
+    ...Base.propTypes,
     active: PropTypes.bool,
     as: customPropTypes.customOrStringElement('li'),
     children: customPropTypes.restrictToChildTypes(ThumbNavImage),
-    className: PropTypes.string,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     slideshowItem: PropTypes.number,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     active: false,
     as: 'li',
-    className: '',
   };
 
   render() {
-    const {
-      active,
-      as,
-      children,
-      className,
-      flex,
-      inverse,
-      margin,
-      text,
-      utility,
-      width,
-      slideshowItem,
-      ...rest
-    } = this.props;
+    const { active, children, className, slideshowItem, ...rest } = this.props;
 
-    const classes = classnames(
-      className,
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-      {
-        'uk-active': active,
-      },
-    );
+    const classes = classnames(className, {
+      'uk-active': active,
+    });
 
-    const Element = getElementType(ThumbNavItem, as);
     return (
-      <Element
+      <Base
         {...rest}
         className={classes || undefined}
+        component={ThumbNavItem}
         data-uk-slideshow-item={
           isNil(slideshowItem) ? undefined : slideshowItem
         }
       >
         <a href="#">{children}</a>
-      </Element>
+      </Base>
     );
   }
 }

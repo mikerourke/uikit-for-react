@@ -2,25 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { isNil } from 'lodash';
-import {
-  buildClassName,
-  customPropTypes,
-  getElementType,
-  UIK,
-} from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import isNil from 'lodash/isNil';
+import { buildClassName, customPropTypes, UIK } from '../../../lib';
+import Base from '../../base';
 import { Icon } from '../../elements';
 
 export default class FormInput extends React.Component {
   static displayName = 'FormInput';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('input'),
     blank: PropTypes.bool,
-    className: PropTypes.string,
     danger: PropTypes.bool,
-    flex: Flex.propTypes,
     formWidth: ExtraPropTypes.mutuallyExclusiveProps(
       PropTypes.oneOf(UIK.FORM_WIDTHS),
       'formWidth',
@@ -31,19 +25,14 @@ export default class FormInput extends React.Component {
       as: PropTypes.oneOf(['a', 'button', 'span']),
       flip: PropTypes.bool,
     }),
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     size: PropTypes.oneOf(['large', 'small']),
     success: PropTypes.bool,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'input',
     blank: false,
-    className: '',
     danger: false,
     success: false,
   };
@@ -65,20 +54,13 @@ export default class FormInput extends React.Component {
 
   render() {
     const {
-      as,
       blank,
       className,
       danger,
-      flex,
       formWidth,
       iconOptions,
-      inverse,
-      margin,
       size,
       success,
-      text,
-      utility,
-      width,
       ...rest
     } = this.props;
 
@@ -87,12 +69,6 @@ export default class FormInput extends React.Component {
       'uk-input',
       buildClassName('form', size),
       buildClassName('form', 'width', formWidth),
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
       {
         'uk-form-blank': blank,
         'uk-form-danger': danger,
@@ -100,8 +76,9 @@ export default class FormInput extends React.Component {
       },
     );
 
-    const Element = getElementType(FormInput, as);
-    const inputElement = <Element {...rest} className={classes} />;
+    const inputElement = (
+      <Base {...rest} component={FormInput} className={classes} />
+    );
 
     if (!isNil(iconOptions)) {
       return this.renderWithIcon(iconOptions, inputElement);

@@ -1,4 +1,6 @@
-import { flatten, isArray, isNil } from 'lodash';
+import flatten from 'lodash/flatten';
+import isArray from 'lodash/isArray';
+import isNil from 'lodash/isNil';
 
 /**
  * Converts the specified prop value from an array to a string separated by

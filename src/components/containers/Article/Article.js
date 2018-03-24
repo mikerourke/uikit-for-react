@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import { customPropTypes } from '../../../lib';
+import Base from '../../base';
 import ArticleBody from './ArticleBody';
 import ArticleLead from './ArticleLead';
 import ArticleMeta from './ArticleMeta';
@@ -16,20 +16,14 @@ export default class Article extends React.Component {
   static displayName = 'Article';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('article'),
     children: PropTypes.node,
-    className: PropTypes.string,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'article',
-    className: '',
   };
 
   static Body = ArticleBody;
@@ -38,30 +32,8 @@ export default class Article extends React.Component {
   static Title = ArticleTitle;
 
   render() {
-    const {
-      as,
-      className,
-      flex,
-      inverse,
-      margin,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
-
-    const classes = classnames(
-      className,
-      'uk-article',
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
-
-    const Element = getElementType(Article, as);
-    return <Element {...rest} className={classes} />;
+    const { className, ...rest } = this.props;
+    const classes = classnames(className, 'uk-article');
+    return <Base {...rest} component={Article} className={classes} />;
   }
 }

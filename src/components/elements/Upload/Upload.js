@@ -3,27 +3,30 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { isNil, kebabCase, noop, omit } from 'lodash';
+import kebabCase from 'lodash/kebabCase';
+import isNil from 'lodash/isNil';
+import omit from 'lodash/omit';
+import noop from 'lodash/noop';
 import {
   customPropTypes,
   generateSelector,
   getBaseRef,
-  getElementType,
   HTML,
 } from '../../../lib';
+import Base from '../../base';
 import UploadFileSelect from './UploadFileSelect';
 
 export default class Upload extends React.Component {
   static displayName = 'Upload';
 
   static propTypes = {
+    ...Base.propTypes,
     abort: PropTypes.func,
     allow: PropTypes.string,
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     beforeAll: PropTypes.func,
     beforeSend: PropTypes.func,
     children: PropTypes.node,
-    className: PropTypes.string,
     clsDragover: PropTypes.string,
     complete: PropTypes.func,
     completeAll: PropTypes.func,
@@ -74,8 +77,8 @@ export default class Upload extends React.Component {
   ];
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'div',
-    className: '',
     clsDragover: 'uk-dragover',
     concurrent: 1,
     name: '',
@@ -115,12 +118,16 @@ export default class Upload extends React.Component {
   };
 
   render() {
-    const { as, className, ...rest } = this.props;
+    const { className, ...rest } = this.props;
     const elementProps = omit(rest, Upload.propNames);
     const classes = classnames(className, 'uk-upload', this.selector);
-    const Element = getElementType(Upload, as);
     return (
-      <Element {...elementProps} className={classes} ref={this.handleRef} />
+      <Base
+        {...elementProps}
+        baseRef={this.handleRef}
+        className={classes}
+        component={Upload}
+      />
     );
   }
 }

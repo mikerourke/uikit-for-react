@@ -1,63 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { invoke, isBoolean, isNil, noop } from 'lodash';
-import {
-  buildClassName,
-  customPropTypes,
-  getElementType,
-  UIK,
-} from '../../../lib';
-import {
-  Align,
-  Flex,
-  Inverse,
-  Margin,
-  Text,
-  Utility,
-  Width,
-} from '../../common';
+import invoke from 'lodash/invoke';
+import isNil from 'lodash/isNil';
+import noop from 'lodash/noop';
+import { buildClassName, customPropTypes, UIK } from '../../../lib';
+import Base from '../../base';
 import ButtonGroup from './ButtonGroup';
 
 export default class Button extends React.Component {
   static displayName = 'Button';
 
   static propTypes = {
-    align: Align.propTypes,
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('a', 'button'),
+    asText: PropTypes.bool,
     children: PropTypes.node,
-    className: PropTypes.string,
     close: PropTypes.bool,
     danger: PropTypes.bool,
     disabled: PropTypes.bool,
-    flex: Flex.propTypes,
     fullWidth: PropTypes.bool,
     icon: PropTypes.oneOf(UIK.ICON_NAMES),
     link: PropTypes.bool,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     onClick: PropTypes.func,
     primary: PropTypes.bool,
     secondary: PropTypes.bool,
     size: PropTypes.oneOf(['large', 'small']),
-    text: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.shape(Text.propShape),
-    ]),
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'button',
-    className: '',
+    asText: false,
     danger: false,
-    disabled: false,
     fullWidth: false,
     link: false,
-    onClick: noop,
     primary: false,
     secondary: false,
-    text: false,
   };
 
   static Group = ButtonGroup;
@@ -72,69 +51,55 @@ export default class Button extends React.Component {
 
   render() {
     const {
-      align,
       as,
+      asText,
       children,
       className,
       danger,
       disabled,
-      flex,
       fullWidth,
       icon,
       link,
-      inverse,
-      margin,
       primary,
       secondary,
       size,
-      text,
-      utility,
-      width,
       ...rest
     } = this.props;
 
+    const validStyles = UIK.BUTTON_STYLES.map(
+      styleName => (styleName === 'text' ? 'asText' : styleName),
+    );
     const hasDefault =
-      UIK.BUTTON_STYLES.reduce(
+      validStyles.reduce(
         (acc, styleName) => (this.props[styleName] ? acc + 1 : acc),
         0,
       ) === 0;
     const hasIcon = !isNil(icon);
 
-    const textClasses = isBoolean(text) ? '' : Text.getClasses(text);
-    const classes = classnames(
-      className,
-      textClasses,
-      Align.getClasses(align),
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Width.getClasses(width),
-      buildClassName('button', size),
-      {
-        'uk-button': !hasIcon,
-        'uk-button-danger': danger,
-        'uk-button-default': !hasIcon && hasDefault,
-        'uk-button-link': link,
-        'uk-button-primary': primary,
-        'uk-button-secondary': secondary,
-        'uk-button-text': text === true,
-        'uk-icon-button': hasIcon,
-        'uk-width-1-1': fullWidth,
-      },
-    );
+    const classes = classnames(className, buildClassName('button', size), {
+      'uk-button': !hasIcon,
+      'uk-button-danger': danger,
+      'uk-button-default': !hasIcon && hasDefault,
+      'uk-button-link': link,
+      'uk-button-primary': primary,
+      'uk-button-secondary': secondary,
+      'uk-button-text': asText,
+      'uk-icon-button': hasIcon,
+      'uk-width-1-1': fullWidth,
+    });
 
-    let Element = getElementType(Button, as);
-    if (hasIcon) Element = 'a';
     return (
-      <Element
+      <Base
         {...rest}
+        as={hasIcon ? 'a' : as}
         className={classes}
+        component={Button}
         disabled={(disabled && this.props.as === 'button') || undefined}
         onClick={this.handleClick}
         data-uk-icon={hasIcon ? `icon: ${icon}` : undefined}
       >
         {!hasIcon && children}
-      </Element>
+      </Base>
     );
   }
 }

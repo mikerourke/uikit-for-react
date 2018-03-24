@@ -2,16 +2,15 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { isNil } from 'lodash';
+import isNil from 'lodash/isNil';
 import {
   customPropTypes,
   generateSelector,
   getBaseRef,
-  getElementType,
   getOptionsString,
   HTML,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import Base from '../../base';
 import CountdownDays from './CountdownDays';
 import CountdownHours from './CountdownHours';
 import CountdownLabel from './CountdownLabel';
@@ -23,22 +22,16 @@ export default class Countdown extends React.Component {
   static displayName = 'Countdown';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node.isRequired,
-    className: PropTypes.string,
     date: PropTypes.string.isRequired,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     paused: PropTypes.bool,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'div',
-    className: '',
     paused: false,
   };
 
@@ -72,40 +65,15 @@ export default class Countdown extends React.Component {
   };
 
   render() {
-    const {
-      as,
-      className,
-      date,
-      flex,
-      inverse,
-      margin,
-      paused,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
-
-    const classes = classnames(
-      className,
-      this.selector,
-      'uk-countdown',
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
-
-    const componentOptions = getOptionsString({ date });
-    const Element = getElementType(Countdown, as);
+    const { className, date, paused, ...rest } = this.props;
+    const classes = classnames(className, this.selector, 'uk-countdown');
     return (
-      <Element
+      <Base
         {...rest}
+        baseRef={this.handleRef}
         className={classes}
-        ref={this.handleRef}
-        data-uk-countdown={componentOptions}
+        component={Countdown}
+        data-uk-countdown={getOptionsString({ date })}
       />
     );
   }

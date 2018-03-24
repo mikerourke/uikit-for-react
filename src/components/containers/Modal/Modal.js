@@ -3,17 +3,16 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { isNil, noop } from 'lodash';
+import isNil from 'lodash/isNil';
+import noop from 'lodash/noop';
 import {
   customPropTypes,
   generateIdentifier,
   generateSelector,
   getBaseRef,
-  getElementType,
   getOptionsString,
-  getValidProps,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import Base from '../../base';
 import ModalBody from './ModalBody';
 import ModalClose from './ModalClose';
 import ModalContent from './ModalContent';
@@ -26,16 +25,13 @@ export default class Modal extends React.Component {
   static displayName = 'Modal';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('div'),
     bgClose: PropTypes.bool,
     children: ExtraPropTypes.elementType(ModalDialog),
-    className: PropTypes.string,
     container: PropTypes.bool,
     escClose: PropTypes.bool,
-    flex: Flex.propTypes,
     full: PropTypes.bool,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     onBeforeHide: PropTypes.func,
     onBeforeShow: PropTypes.func,
     onHidden: PropTypes.func,
@@ -45,15 +41,12 @@ export default class Modal extends React.Component {
     shown: PropTypes.bool,
     stack: PropTypes.bool,
     toggle: PropTypes.element,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'div',
     bgClose: true,
-    className: '',
     container: false,
     escClose: true,
     full: false,
@@ -109,38 +102,20 @@ export default class Modal extends React.Component {
 
   render() {
     const {
-      as,
       bgClose,
       className,
       container,
       escClose,
-      flex,
       full,
-      inverse,
-      margin,
       stack,
       toggle,
-      text,
-      utility,
-      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(
-      className,
-      'uk-modal',
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-      this.selector,
-      {
-        'uk-modal-container': container,
-        'uk-modal-full': full,
-      },
-    );
+    const classes = classnames(className, 'uk-modal', this.selector, {
+      'uk-modal-container': container,
+      'uk-modal-full': full,
+    });
 
     const componentOptions = getOptionsString({ bgClose, escClose, stack });
 
@@ -153,15 +128,15 @@ export default class Modal extends React.Component {
       });
     }
 
-    const Element = getElementType(Modal, as);
     return (
       <Fragment>
         {toggle && Toggle}
-        <Element
-          {...getValidProps(Modal, rest)}
+        <Base
+          {...rest}
+          baseId={identifier}
+          baseRef={this.handleRef}
           className={classes}
-          id={identifier}
-          ref={this.handleRef}
+          component={Modal}
           data-uk-modal={componentOptions}
         />
       </Fragment>

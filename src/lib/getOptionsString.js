@@ -1,14 +1,12 @@
-import {
-  flatten,
-  isArray,
-  isBoolean,
-  isNil,
-  isPlainObject,
-  isString,
-  isUndefined,
-  kebabCase,
-  toPairs,
-} from 'lodash';
+import flatten from 'lodash/flatten';
+import isArray from 'lodash/isArray';
+import isBoolean from 'lodash/isBoolean';
+import isNil from 'lodash/isNil';
+import isPlainObject from 'lodash/isPlainObject';
+import isString from 'lodash/isString';
+import isUndefined from 'lodash/isUndefined';
+import kebabCase from 'lodash/kebabCase';
+import toPairs from 'lodash/toPairs';
 import { buildClassName } from './buildClasses';
 import joinListProp from './joinListProp';
 

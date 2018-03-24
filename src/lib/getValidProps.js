@@ -1,4 +1,4 @@
-import { has } from 'lodash';
+import has from 'lodash/has';
 
 /**
  * Returns an object with valid (non-custom) props based on the defaultProps

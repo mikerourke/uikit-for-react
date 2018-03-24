@@ -4,21 +4,24 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { isBoolean, isNil, noop } from 'lodash';
+import isNil from 'lodash/isNil';
+import isBoolean from 'lodash/isBoolean';
+import noop from 'lodash/noop';
 import {
   buildSelector,
   customPropTypes,
   generateSelector,
   getBaseRef,
-  getElementType,
   getOptionsString,
   HTML,
 } from '../../../lib';
+import Base from '../../base';
 
 export default class Sortable extends React.Component {
   static displayName = 'Sortable';
 
   static propTypes = {
+    ...Base.propTypes,
     animationDuration: ExtraPropTypes.nonNegativeInteger,
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node,
@@ -42,6 +45,7 @@ export default class Sortable extends React.Component {
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     animationDuration: 150,
     as: 'ul',
     className: '',
@@ -100,7 +104,6 @@ export default class Sortable extends React.Component {
   render() {
     const {
       animationDuration,
-      as,
       children,
       clsBase,
       clsCustom,
@@ -131,15 +134,15 @@ export default class Sortable extends React.Component {
       threshold,
     });
 
-    const Element = getElementType(Sortable, as);
     return (
-      <Element
+      <Base
         {...rest}
-        ref={this.handleRef}
+        baseRef={this.handleRef}
+        component={Sortable}
         data-uk-sortable={componentOptions}
       >
         {this.renderChildren(children)}
-      </Element>
+      </Base>
     );
   }
 }

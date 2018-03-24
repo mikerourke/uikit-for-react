@@ -1,39 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { invoke, noop } from 'lodash';
-import { customPropTypes, getElementType } from '../../../lib';
-import {
-  Align,
-  Flex,
-  Inverse,
-  Margin,
-  Text,
-  Utility,
-  Width,
-} from '../../common';
+import invoke from 'lodash/invoke';
+import noop from 'lodash/noop';
+import { customPropTypes } from '../../../lib';
+import Base from '../../base';
 
 export default class SearchIcon extends React.Component {
   static displayName = 'SearchIcon';
 
   static propTypes = {
-    align: Align.propTypes,
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('a', 'button', 'span'),
-    className: PropTypes.string,
-    flex: Flex.propTypes,
     flip: PropTypes.bool,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     onClick: PropTypes.func,
     toggle: PropTypes.bool,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'span',
-    className: '',
     flip: false,
     onClick: noop,
     toggle: false,
@@ -44,42 +30,18 @@ export default class SearchIcon extends React.Component {
   };
 
   render() {
-    const {
-      align,
-      as,
-      className,
-      flex,
-      flip,
-      inverse,
-      margin,
-      toggle,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
+    const { className, flip, toggle, ...rest } = this.props;
 
-    const classes = classnames(
-      className,
-      'uk-search-icon',
-      Align.getClasses(align),
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-      {
-        'uk-search-icon-flip': flip,
-        'uk-search-icon-toggle': toggle,
-      },
-    );
+    const classes = classnames(className, 'uk-search-icon', {
+      'uk-search-icon-flip': flip,
+      'uk-search-icon-toggle': toggle,
+    });
 
-    const Element = getElementType(SearchIcon, as);
     return (
-      <Element
+      <Base
         {...rest}
         className={classes}
+        component={SearchIcon}
         onClick={this.handleClick}
         data-uk-search-icon=""
       />

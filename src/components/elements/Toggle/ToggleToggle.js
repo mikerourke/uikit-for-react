@@ -3,21 +3,23 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { isNil, noop } from 'lodash';
+import isNil from 'lodash/isNil';
+import noop from 'lodash/noop';
 import {
   customPropTypes,
   generateSelector,
   getBaseRef,
-  getElementType,
   getOptionsString,
   joinListProp,
   UIK,
 } from '../../../lib';
+import Base from '../../base';
 
 export default class ToggleToggle extends React.Component {
   static displayName = 'ToggleToggle';
 
   static propTypes = {
+    ...Base.propTypes,
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.ANIMATIONS),
       PropTypes.arrayOf(UIK.ANIMATIONS),
@@ -35,7 +37,6 @@ export default class ToggleToggle extends React.Component {
     ]),
     as: customPropTypes.customOrStringElement('a', 'button'),
     children: PropTypes.node,
-    className: PropTypes.string,
     classToggled: PropTypes.string,
     mediaTrigger: ExtraPropTypes.and([
       PropTypes.oneOfType([PropTypes.oneOf(UIK.BREAKPOINTS), PropTypes.number]),
@@ -64,8 +65,8 @@ export default class ToggleToggle extends React.Component {
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'button',
-    className: '',
     onBeforeHide: noop,
     onBeforeShow: noop,
     onHidden: noop,
@@ -107,17 +108,10 @@ export default class ToggleToggle extends React.Component {
   render() {
     const {
       animation,
-      as,
       className,
       classToggled,
       mediaTrigger,
       mode,
-      onBeforeHide,
-      onBeforeShow,
-      onHidden,
-      onHide,
-      onShow,
-      onShown,
       queued,
       selectorTarget,
       toggled,
@@ -135,12 +129,12 @@ export default class ToggleToggle extends React.Component {
       target: selectorTarget,
     });
 
-    const Element = getElementType(ToggleToggle, as);
     return (
-      <Element
+      <Base
         {...rest}
+        baseRef={this.handleRef}
         className={classes}
-        ref={this.handleRef}
+        component={ToggleToggle}
         data-uk-toggle={componentOptions}
       />
     );

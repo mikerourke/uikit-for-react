@@ -2,25 +2,25 @@ import React, { Fragment } from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { isNil, noop } from 'lodash';
+import isNil from 'lodash/isNil';
+import noop from 'lodash/noop';
 import {
   appendClassNamesToChildren,
   customPropTypes,
   generateSelector,
   getBaseRef,
-  getElementType,
   getOptionsString,
-  getValidProps,
   joinListProp,
   HTML,
   UIK,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import Base from '../../base';
 
 export default class Drop extends React.Component {
   static displayName = 'Drop';
 
   static propTypes = {
+    ...Base.propTypes,
     animation: PropTypes.shape({
       name: PropTypes.oneOfType([
         PropTypes.oneOf(UIK.ANIMATIONS),
@@ -31,13 +31,9 @@ export default class Drop extends React.Component {
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     boundaryAlign: PropTypes.bool,
     children: PropTypes.node.isRequired,
-    className: PropTypes.string,
     delayHide: PropTypes.number,
     delayShow: PropTypes.number,
-    flex: Flex.propTypes,
     flip: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['x', 'y'])]),
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     mode: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.MODES),
       PropTypes.arrayOf(UIK.MODES),
@@ -54,15 +50,12 @@ export default class Drop extends React.Component {
     position: PropTypes.oneOf(UIK.DROP_POSITIONS),
     shown: PropTypes.bool,
     toggle: PropTypes.element,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'div',
     boundaryAlign: false,
-    className: '',
     flip: false,
     onBeforeHide: noop,
     onBeforeShow: noop,
@@ -117,37 +110,20 @@ export default class Drop extends React.Component {
   render() {
     const {
       animation,
-      as,
       boundaryAlign,
       children,
       className,
       delayHide,
       delayShow,
-      flex,
       flip,
-      inverse,
-      margin,
       mode,
       offset,
       position,
       toggle,
-      text,
-      utility,
-      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(
-      className,
-      this.selector,
-      'uk-drop',
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
+    const classes = classnames(className, this.selector, 'uk-drop');
 
     const componentOptions = getOptionsString({
       animation,
@@ -160,18 +136,18 @@ export default class Drop extends React.Component {
       pos: position,
     });
 
-    const Element = getElementType(Drop, as);
     return (
       <Fragment>
         {toggle && toggle}
-        <Element
-          {...getValidProps(Drop, rest)}
+        <Base
+          {...rest}
+          baseRef={this.handleRef}
           className={classes}
-          ref={this.handleRef}
+          component={Drop}
           data-uk-drop={componentOptions}
         >
           {this.renderChildren(children)}
-        </Element>
+        </Base>
       </Fragment>
     );
   }

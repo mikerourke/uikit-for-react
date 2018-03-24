@@ -2,60 +2,42 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import {
-  buildClassName,
-  customPropTypes,
-  getElementType,
-  UIK,
-} from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import { buildClassName, customPropTypes, UIK } from '../../../lib';
+import Base from '../../base';
 
 export default class FormSelect extends React.Component {
   static displayName = 'FormSelect';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('select'),
     blank: PropTypes.bool,
-    className: PropTypes.string,
     danger: PropTypes.bool,
-    flex: Flex.propTypes,
     formWidth: ExtraPropTypes.mutuallyExclusiveProps(
       PropTypes.oneOf(UIK.FORM_WIDTHS),
       'formWidth',
       'width',
     ),
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     size: PropTypes.oneOf(['large', 'small']),
     success: PropTypes.bool,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'select',
     blank: false,
-    className: '',
     danger: false,
     success: false,
   };
 
   render() {
     const {
-      as,
       blank,
       className,
       danger,
-      flex,
       formWidth,
-      inverse,
-      margin,
       size,
       success,
-      text,
-      utility,
-      width,
       ...rest
     } = this.props;
 
@@ -64,12 +46,6 @@ export default class FormSelect extends React.Component {
       'uk-select',
       buildClassName('form', size),
       buildClassName('form', 'width', formWidth),
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
       {
         'uk-form-blank': blank,
         'uk-form-danger': danger,
@@ -77,7 +53,6 @@ export default class FormSelect extends React.Component {
       },
     );
 
-    const Element = getElementType(FormSelect, as);
-    return <Element {...rest} className={classes} />;
+    return <Base {...rest} component={FormSelect} className={classes} />;
   }
 }

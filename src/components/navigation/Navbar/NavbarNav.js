@@ -1,54 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import { customPropTypes } from '../../../lib';
+import { getCustomBase } from '../../base';
 
-export default class NavbarNav extends React.Component {
-  static displayName = 'NavbarNav';
-
-  static propTypes = {
-    as: customPropTypes.customOrStringElement('ul'),
-    children: PropTypes.node,
-    className: PropTypes.string,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
-  };
-
-  static defaultProps = {
-    as: 'ul',
-    className: '',
-  };
-
-  render() {
-    const {
-      as,
-      className,
-      flex,
-      inverse,
-      margin,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
-
-    const classes = classnames(
-      className,
-      'uk-navbar-nav',
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
-
-    const Element = getElementType(NavbarNav, as);
-    return <Element {...rest} className={classes} />;
-  }
-}
+export default getCustomBase({
+  displayName: 'NavbarNav',
+  className: 'uk-navbar-nav',
+  asType: customPropTypes.customOrStringElement('ul'),
+  asDefault: 'ul',
+});

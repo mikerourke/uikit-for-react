@@ -1,58 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import { customPropTypes } from '../../../lib';
+import Base from '../../base';
 
 export default class SearchInput extends React.Component {
   static displayName = 'SearchInput';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('input'),
     autofocus: PropTypes.bool,
     children: PropTypes.node,
-    className: PropTypes.string,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     placeholder: PropTypes.string,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'input',
     autofocus: false,
-    className: '',
     placeholder: 'Search...',
   };
 
   render() {
-    const {
-      as,
-      className,
-      flex,
-      inverse,
-      margin,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
+    const { className, ...rest } = this.props;
 
-    const classes = classnames(
-      className,
-      'uk-search-input',
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
+    const classes = classnames(className, 'uk-search-input');
+
+    return (
+      <Base
+        {...rest}
+        type="search"
+        className={classes}
+        component={SearchInput}
+      />
     );
-
-    const Element = getElementType(SearchInput, as);
-    return <Element {...rest} type="search" className={classes} />;
   }
 }

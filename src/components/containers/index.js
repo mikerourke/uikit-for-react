@@ -18,6 +18,7 @@ export Card, {
   CardMedia,
   CardTitle,
 } from './Card';
+export Column from './Column';
 export DescriptionList, {
   DescriptionDetails,
   DescriptionTerm,

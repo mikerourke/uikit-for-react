@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import { customPropTypes } from '../../../lib';
+import Base from '../../base';
 import SearchIcon from './SearchIcon';
 import SearchInput from './SearchInput';
 
@@ -11,10 +11,9 @@ export default class Search extends React.Component {
   static displayName = 'Search';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('form'),
     children: customPropTypes.restrictToChildTypes(SearchIcon, SearchInput),
-    className: PropTypes.string,
-    flex: Flex.propTypes,
     icon: ExtraPropTypes.mutuallyExclusiveProps(
       ExtraPropTypes.elementType(SearchIcon),
       'icon',
@@ -26,16 +25,11 @@ export default class Search extends React.Component {
       'children',
     ),
     large: PropTypes.bool,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'form',
-    className: '',
     large: false,
   };
 
@@ -43,44 +37,19 @@ export default class Search extends React.Component {
   static Input = SearchInput;
 
   render() {
-    const {
-      as,
-      children,
-      className,
-      flex,
-      icon,
-      input,
-      large,
-      inverse,
-      margin,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
+    const { children, className, icon, input, large, ...rest } = this.props;
 
-    const classes = classnames(
-      className,
-      'uk-search',
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-      {
-        'uk-search-default': !large,
-        'uk-search-large': large,
-      },
-    );
+    const classes = classnames(className, 'uk-search', {
+      'uk-search-default': !large,
+      'uk-search-large': large,
+    });
 
-    const Element = getElementType(Search, as);
     return (
-      <Element {...rest} className={classes}>
+      <Base {...rest} className={classes} component={Search}>
         {icon && icon}
         {input && input}
         {children && children}
-      </Element>
+      </Base>
     );
   }
 }

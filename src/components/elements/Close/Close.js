@@ -1,70 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, getElementType } from '../../../lib';
-import {
-  Align,
-  Flex,
-  Inverse,
-  Margin,
-  Text,
-  Utility,
-  Width,
-} from '../../common';
+import { customPropTypes } from '../../../lib';
+import Base from '../../base';
 
 export default class Close extends React.Component {
   static displayName = 'Close';
 
   static propTypes = {
-    align: Align.propTypes,
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('a', 'button'),
-    className: PropTypes.string,
-    flex: Flex.propTypes,
     large: PropTypes.bool,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'a',
-    className: '',
     large: false,
   };
 
   render() {
-    const {
-      align,
-      as,
-      className,
-      flex,
-      large,
-      inverse,
-      margin,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
-
-    const classes = classnames(
-      className,
-      'uk-close',
-      Align.getClasses(align),
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-      {
-        'uk-close-large': large,
-      },
+    const { className, large, ...rest } = this.props;
+    const classes = classnames(className, 'uk-close', {
+      'uk-close-large': large,
+    });
+    return (
+      <Base {...rest} className={classes} component={Close} data-uk-close="" />
     );
-
-    const Element = getElementType(Close, as);
-    return <Element {...rest} className={classes} data-uk-close="" />;
   }
 }

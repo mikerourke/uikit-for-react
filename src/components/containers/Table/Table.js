@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import { customPropTypes } from '../../../lib';
+import Base from '../../base';
 import TableBody from './TableBody';
 import TableCell from './TableCell';
 import TableFooter from './TableFooter';
@@ -14,27 +14,21 @@ export default class Table extends React.Component {
   static displayName = 'Table';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('table'),
     children: PropTypes.node,
-    className: PropTypes.string,
     divider: PropTypes.bool,
-    flex: Flex.propTypes,
     hover: PropTypes.bool,
-    inverse: Inverse.propTypes,
     justify: PropTypes.bool,
-    margin: Margin.propTypes,
     middle: PropTypes.bool,
     small: PropTypes.bool,
     stackable: PropTypes.bool,
     striped: PropTypes.bool,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'table',
-    className: '',
     divider: false,
     hover: false,
     justify: false,
@@ -53,45 +47,27 @@ export default class Table extends React.Component {
 
   render() {
     const {
-      as,
       className,
       divider,
-      flex,
       hover,
       justify,
-      inverse,
-      margin,
       middle,
       small,
       stackable,
       striped,
-      text,
-      utility,
-      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(
-      className,
-      'uk-table',
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-      {
-        'uk-table-divider': divider,
-        'uk-table-hover': hover,
-        'uk-table-justify': justify,
-        'uk-table-middle': middle,
-        'uk-table-responsive': stackable,
-        'uk-table-small': small,
-        'uk-table-striped': striped,
-      },
-    );
+    const classes = classnames(className, 'uk-table', {
+      'uk-table-divider': divider,
+      'uk-table-hover': hover,
+      'uk-table-justify': justify,
+      'uk-table-middle': middle,
+      'uk-table-responsive': stackable,
+      'uk-table-small': small,
+      'uk-table-striped': striped,
+    });
 
-    const Element = getElementType(Table, as);
-    return <Element {...rest} className={classes} />;
+    return <Base {...rest} className={classes} component={Table} />;
   }
 }

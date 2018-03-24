@@ -1,14 +1,14 @@
 import React from 'react';
 import faker from 'faker';
-import { range } from 'lodash';
+import range from 'lodash/range';
 import { storiesOf } from '@storybook/react';
-import { Block, Button, Grid, Heading, Modal, Toggle } from '../../components';
+import { Base, Button, Grid, Heading, Modal, Toggle } from '../../components';
 
 Modal.displayName = 'Modal';
 
 storiesOf('Modal', module)
   .add('Basic Usage', () => (
-    <Block margin={{ all: 'large' }}>
+    <Base margin={{ all: 'large' }}>
       <Toggle.Togglable>
         <Toggle.Toggle as={Button} margin={{ right: 'small' }}>
           Open
@@ -18,18 +18,18 @@ storiesOf('Modal', module)
           <Modal.Dialog padContent>
             <Modal.Title>Headline</Modal.Title>
             <Modal.Content as="p">{faker.lorem.paragraph()}</Modal.Content>
-            <Block textAlign="right">
+            <Base textAlign="right">
               <Modal.Close as={Button}>Cancel</Modal.Close>
               <Button primary>Save</Button>
-            </Block>
+            </Base>
           </Modal.Dialog>
         </Toggle.Target>
       </Toggle.Togglable>
-    </Block>
+    </Base>
   ))
 
   .add('Close button', () => (
-    <Block margin={{ all: 'large' }}>
+    <Base margin={{ all: 'large' }}>
       <Toggle.Togglable as="span">
         <Toggle.Toggle as={Button} margin={{ right: 'small' }}>
           Default
@@ -50,11 +50,11 @@ storiesOf('Modal', module)
           <Modal.Content as="p">{faker.lorem.paragraph()}</Modal.Content>
         </Toggle.Target>
       </Toggle.Togglable>
-    </Block>
+    </Base>
   ))
 
   .add('Center modal', () => (
-    <Block margin={{ all: 'large' }}>
+    <Base margin={{ all: 'large' }}>
       <Toggle.Togglable>
         <Toggle.Toggle as={Button}>Open</Toggle.Toggle>
         <Toggle.Target as={Modal} alignItems="top">
@@ -64,11 +64,11 @@ storiesOf('Modal', module)
           </Modal.Dialog>
         </Toggle.Target>
       </Toggle.Togglable>
-    </Block>
+    </Base>
   ))
 
   .add('Header and footer', () => (
-    <Block margin={{ all: 'large' }}>
+    <Base margin={{ all: 'large' }}>
       <Toggle.Togglable>
         <Toggle.Toggle as={Button}>Open</Toggle.Toggle>
         <Toggle.Target as={Modal}>
@@ -87,11 +87,11 @@ storiesOf('Modal', module)
           </Modal.Dialog>
         </Toggle.Target>
       </Toggle.Togglable>
-    </Block>
+    </Base>
   ))
 
   .add('Container modifier', () => (
-    <Block margin={{ all: 'large' }}>
+    <Base margin={{ all: 'large' }}>
       <Toggle.Togglable>
         <Toggle.Toggle as={Button}>Open</Toggle.Toggle>
         <Toggle.Target as={Modal} container>
@@ -102,11 +102,11 @@ storiesOf('Modal', module)
           </Modal.Dialog>
         </Toggle.Target>
       </Toggle.Togglable>
-    </Block>
+    </Base>
   ))
 
   .add('Full modifier', () => (
-    <Block margin={{ all: 'large' }}>
+    <Base margin={{ all: 'large' }}>
       <Toggle.Togglable>
         <Toggle.Toggle as={Button}>Open</Toggle.Toggle>
         <Toggle.Target as={Modal} full>
@@ -134,11 +134,11 @@ storiesOf('Modal', module)
           </Modal.Dialog>
         </Toggle.Target>
       </Toggle.Togglable>
-    </Block>
+    </Base>
   ))
 
   .add('Overflow', () => (
-    <Block margin={{ all: 'large' }}>
+    <Base margin={{ all: 'large' }}>
       <Toggle.Togglable>
         <Toggle.Toggle as={Button}>Open</Toggle.Toggle>
         <Toggle.Target as={Modal}>
@@ -161,5 +161,5 @@ storiesOf('Modal', module)
           </Modal.Dialog>
         </Toggle.Target>
       </Toggle.Togglable>
-    </Block>
+    </Base>
   ));

@@ -22,12 +22,11 @@ export default class GridParallax extends React.Component {
 
   render() {
     const { target, translate, ...rest } = this.props;
-    const componentOptions = getOptionsString({ target, translate });
     return (
       <Grid
         {...rest}
         data-uk-grid={undefined}
-        data-uk-grid-parallax={componentOptions}
+        data-uk-grid-parallax={getOptionsString({ target, translate })}
       />
     );
   }

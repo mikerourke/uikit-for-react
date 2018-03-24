@@ -2,13 +2,17 @@ import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import { get, noop, without } from 'lodash';
+import get from 'lodash/get';
+import noop from 'lodash/noop';
+import without from 'lodash/without';
 import { UIK } from '../../../lib';
+import Base from '../../base';
 
 export default class Notification extends React.Component {
   static displayName = 'Notification';
 
   static propTypes = {
+    ...Base.propTypes,
     children: PropTypes.node,
     group: PropTypes.string,
     onClose: PropTypes.func,
@@ -26,6 +30,7 @@ export default class Notification extends React.Component {
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     group: null,
     onClose: noop,
     position: 'top-center',

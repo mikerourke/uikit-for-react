@@ -1,8 +1,4 @@
-export {
-  BaseElement as Base,
-  BlockElement as Block,
-  InlineElement as Inline,
-} from './base';
+export Base from './base';
 export {
   Accordion,
   AccordionContent,
@@ -21,6 +17,7 @@ export {
   CardHeader,
   CardMedia,
   CardTitle,
+  Column,
   DescriptionList,
   DescriptionDetails,
   DescriptionTerm,

@@ -6,9 +6,9 @@ import {
   childMatchesType,
   customPropTypes,
   generateSelector,
-  getElementType,
   HTML,
 } from '../../../lib';
+import Base from '../../base';
 import ToggleTarget from './ToggleTarget';
 import ToggleToggle from './ToggleToggle';
 
@@ -16,6 +16,7 @@ export default class ToggleTogglable extends React.Component {
   static displayName = 'ToggleTogglable';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
     children: ExtraPropTypes.and([
       PropTypes.node,
@@ -39,12 +40,11 @@ export default class ToggleTogglable extends React.Component {
         return null;
       },
     ]),
-    className: PropTypes.string,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'div',
-    className: '',
   };
 
   constructor() {
@@ -68,8 +68,11 @@ export default class ToggleTogglable extends React.Component {
     });
 
   render() {
-    const { as, children, ...rest } = this.props;
-    const Element = getElementType(ToggleTogglable, as);
-    return <Element {...rest}>{this.renderChildren(children)}</Element>;
+    const { children, ...rest } = this.props;
+    return (
+      <Base {...rest} component={ToggleTogglable}>
+        {this.renderChildren(children)}
+      </Base>
+    );
   }
 }

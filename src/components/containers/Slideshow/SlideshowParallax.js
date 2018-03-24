@@ -1,69 +1,44 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import { omit } from 'lodash';
-import { customPropTypes, getElementType, HTML } from '../../../lib';
-import {
-  Flex,
-  Inverse,
-  Margin,
-  Parallax,
-  Text,
-  Utility,
-  Width,
-} from '../../common';
+import omit from 'lodash/omit';
+import { customPropTypes, getOptionsString, HTML } from '../../../lib';
+import Base from '../../base';
 
 export default class SlideshowParallax extends React.Component {
   static displayName = 'SlideshowParallax';
 
   static propTypes = {
-    ...Parallax.propShape,
+    ...omit(Base.propTypes, 'parallax'),
+    animate: PropTypes.object,
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     children: PropTypes.node,
-    className: PropTypes.string,
-    flex: Flex.propTypes,
-    margin: Margin.propTypes,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
+    easing: PropTypes.number,
+    media: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    target: PropTypes.string,
+    viewport: PropTypes.number,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'div',
-    className: '',
   };
 
   render() {
-    const {
-      as,
-      className,
-      flex,
-      inverse,
-      margin,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
+    const { animate, easing, media, target, viewport, ...rest } = this.props;
 
-    const classes = classnames(
-      className,
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
+    const componentOptions = getOptionsString({
+      ...animate,
+      easing,
+      media,
+      target,
+      viewport,
+    });
 
-    const componentOptions = Parallax.getOptions(rest);
-    const Element = getElementType(SlideshowParallax, as);
-    const elementProps = omit(rest, Object.keys(Parallax.propShape));
     return (
-      <Element
-        {...elementProps}
-        className={classes || undefined}
+      <Base
+        {...rest}
+        component={SlideshowParallax}
         data-uk-slideshow-parallax={componentOptions}
       />
     );

@@ -2,7 +2,7 @@ import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
 import {
-  Block,
+  Base,
   Comment,
   Grid,
   Link,
@@ -16,9 +16,9 @@ const avatarLink = 'https://getuikit.com/docs/images/avatar.jpg';
 
 storiesOf('Comment', module)
   .add('Basic Usage', () => (
-    <Block margin={{ all: 'large' }}>
+    <Base margin={{ all: 'large' }}>
       <Comment>
-        <Grid as={Comment.Header} flex={{ align: 'middle' }} gutter="medium">
+        <Grid as={Comment.Header} alignItems="middle" gutter="medium">
           <Grid.Cell width="auto">
             <Comment.Avatar src={avatarLink} width={80} height={80} />
           </Grid.Cell>
@@ -36,13 +36,13 @@ storiesOf('Comment', module)
           <p>{faker.lorem.paragraph()}</p>
         </Comment.Body>
       </Comment>
-    </Block>
+    </Base>
   ))
 
   .add('Primary modifier', () => (
-    <Block margin={{ all: 'large' }}>
+    <Base margin={{ all: 'large' }}>
       <Comment primary>
-        <Grid as={Comment.Header} flex={{ align: 'middle' }}>
+        <Grid as={Comment.Header} alignItems="middle">
           <Grid.Cell width="auto">
             <Comment.Avatar src={avatarLink} width={80} height={80} />
           </Grid.Cell>
@@ -60,16 +60,16 @@ storiesOf('Comment', module)
           <p>{faker.lorem.paragraph()}</p>
         </Comment.Body>
       </Comment>
-    </Block>
+    </Base>
   ))
 
   // TODO: Fix this, the list style isn't working
   .add('Comment list', () => (
-    <Block margin={{ all: 'large' }}>
+    <Base margin={{ all: 'large' }}>
       <Comment.List>
         <Visibility.Togglable as={Comment}>
           <Comment.Header position="relative">
-            <Grid flex={{ align: 'middle' }} gutter="medium">
+            <Grid alignItems="middle" gutter="medium">
               <Grid.Cell width="auto">
                 <Comment.Avatar src={avatarLink} width={80} height={80} />
               </Grid.Cell>
@@ -83,7 +83,7 @@ storiesOf('Comment', module)
               </Grid.Cell>
             </Grid>
             <Visibility.Toggle
-              as={Block}
+              as={Base}
               position={{
                 horizontal: 'right',
                 vertical: 'top',
@@ -101,7 +101,7 @@ storiesOf('Comment', module)
         <Comment.List nested>
           <Visibility.Togglable as={Comment} primary>
             <Comment.Header position="relative">
-              <Grid flex={{ align: 'middle' }} gutter="medium">
+              <Grid alignItems="middle" gutter="medium">
                 <Grid.Cell width="auto">
                   <Comment.Avatar src={avatarLink} width={80} height={80} />
                 </Grid.Cell>
@@ -115,7 +115,7 @@ storiesOf('Comment', module)
                 </Grid.Cell>
               </Grid>
               <Visibility.Toggle
-                as={Block}
+                as={Base}
                 position={{
                   horizontal: 'right',
                   vertical: 'top',
@@ -132,7 +132,7 @@ storiesOf('Comment', module)
           </Visibility.Togglable>
           <Visibility.Togglable as={Comment}>
             <Comment.Header position="relative">
-              <Grid flex={{ align: 'middle' }} gutter="medium">
+              <Grid alignItems="middle" gutter="medium">
                 <Grid.Cell width="auto">
                   <Comment.Avatar src={avatarLink} width={80} height={80} />
                 </Grid.Cell>
@@ -146,7 +146,7 @@ storiesOf('Comment', module)
                 </Grid.Cell>
               </Grid>
               <Visibility.Toggle
-                as={Block}
+                as={Base}
                 position={{
                   horizontal: 'right',
                   vertical: 'top',
@@ -163,5 +163,5 @@ storiesOf('Comment', module)
           </Visibility.Togglable>
         </Comment.List>
       </Comment.List>
-    </Block>
+    </Base>
   ));

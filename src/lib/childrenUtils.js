@@ -1,6 +1,8 @@
 import * as React from 'react';
 import classnames from 'classnames';
-import { first, get, isString } from 'lodash';
+import first from 'lodash/first';
+import get from 'lodash/get';
+import isString from 'lodash/isString';
 
 /**
  * Loops through the children of a React component recursively and applies the

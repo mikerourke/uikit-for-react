@@ -2,23 +2,24 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { isNil, noop } from 'lodash';
+import isNil from 'lodash/isNil';
+import noop from 'lodash/noop';
 import {
   buildClassName,
   customPropTypes,
   generateSelector,
   getBaseRef,
-  getElementType,
   getOptionsString,
   UIK,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import Base from '../../base';
 import TabItem from './TabItem';
 
 export default class Tab extends React.Component {
   static displayName = 'Tab';
 
   static propTypes = {
+    ...Base.propTypes,
     activeIndex: customPropTypes.validateIndex,
     align: PropTypes.oneOf(['bottom', 'left', 'right']),
     animation: PropTypes.oneOfType([
@@ -40,9 +41,6 @@ export default class Tab extends React.Component {
     children: PropTypes.node,
     className: PropTypes.string,
     defaultIndex: customPropTypes.validateIndex,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     media: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.oneOf(UIK.BREAKPOINTS),
@@ -54,12 +52,10 @@ export default class Tab extends React.Component {
     onShow: PropTypes.func,
     onShown: PropTypes.func,
     swiping: PropTypes.bool,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     activeIndex: 0,
     className: '',
     defaultIndex: 0,
@@ -107,17 +103,10 @@ export default class Tab extends React.Component {
     const {
       align,
       animation,
-      as,
       className,
       defaultIndex,
-      flex,
-      inverse,
-      margin,
       media,
       swiping,
-      text,
-      utility,
-      width,
       ...rest
     } = this.props;
 
@@ -125,12 +114,6 @@ export default class Tab extends React.Component {
       className,
       this.selector,
       buildClassName('tab', align),
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
     );
 
     const componentOptions = getOptionsString({
@@ -140,12 +123,12 @@ export default class Tab extends React.Component {
       swiping,
     });
 
-    const Element = getElementType(Tab, as);
     return (
-      <Element
+      <Base
         {...rest}
+        baseRef={this.handleRef}
         className={classes}
-        ref={this.handleRef}
+        component={Tab}
         data-uk-tab={componentOptions}
       />
     );

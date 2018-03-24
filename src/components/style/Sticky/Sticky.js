@@ -1,24 +1,25 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import { isNil, noop } from 'lodash';
+import isNil from 'lodash/isNil';
+import noop from 'lodash/noop';
 import classnames from 'classnames';
 import {
   customPropTypes,
   findChildByType,
   generateSelector,
   getBaseRef,
-  getElementType,
   getOptionsString,
   HTML,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import Base from '../../base';
 import Navbar from '../../navigation/Navbar';
 
 export default class Sticky extends React.Component {
   static displayName = 'Sticky';
 
   static propTypes = {
+    ...Base.propTypes,
     animation: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
     bottom: PropTypes.oneOfType([
@@ -27,12 +28,8 @@ export default class Sticky extends React.Component {
       PropTypes.string,
     ]),
     children: PropTypes.node,
-    className: PropTypes.string,
     clsActive: PropTypes.string,
     clsInactive: PropTypes.string,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     media: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     offset: PropTypes.number,
     onActive: PropTypes.func,
@@ -40,17 +37,14 @@ export default class Sticky extends React.Component {
     showOnUp: PropTypes.bool,
     target: PropTypes.bool,
     top: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
     widthElement: PropTypes.string,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     animation: false,
     as: 'div',
     bottom: false,
-    className: '',
     onActive: noop,
     onInactive: noop,
     showOnUp: false,
@@ -91,36 +85,20 @@ export default class Sticky extends React.Component {
   render() {
     const {
       animation,
-      as,
       bottom,
       className,
       clsActive,
       clsInactive,
-      flex,
-      inverse,
-      margin,
       media,
       offset,
       showOnUp,
       target,
       top,
-      text,
-      utility,
-      width,
       widthElement,
       ...rest
     } = this.props;
 
-    const classes = classnames(
-      className,
-      this.selector,
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
+    const classes = classnames(className, this.selector);
 
     const componentOptions = getOptionsString({
       animation,
@@ -136,12 +114,12 @@ export default class Sticky extends React.Component {
       ...this.getOptionsForNavbar(),
     });
 
-    const Element = getElementType(Sticky, as);
     return (
-      <Element
+      <Base
         {...rest}
+        baseRef={this.handleRef}
         className={classes}
-        ref={this.handleRef}
+        component={Sticky}
         data-uk-sticky={componentOptions}
       />
     );

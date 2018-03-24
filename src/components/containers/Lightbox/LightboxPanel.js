@@ -1,10 +1,11 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import { get, isPlainObject, noop } from 'lodash';
+import get from 'lodash/get';
+import isPlainObject from 'lodash/isPlainObject';
+import noop from 'lodash/noop';
 import { customPropTypes, UIK } from '../../../lib';
 import LightboxItem from './LightboxItem';
-import { Inverse } from '../../common';
 
 export default class LightboxPanel extends React.Component {
   static displayName = 'LightboxPanel';
@@ -28,7 +29,6 @@ export default class LightboxPanel extends React.Component {
     children: customPropTypes.restrictToChildTypes(LightboxItem),
     defaultIndex: PropTypes.number,
     delayControls: PropTypes.number,
-    inverse: Inverse.propTypes,
     onBeforeHide: PropTypes.func,
     onBeforeItemHide: PropTypes.func,
     onBeforeItemShow: PropTypes.func,

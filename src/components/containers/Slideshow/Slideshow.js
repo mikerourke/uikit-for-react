@@ -4,24 +4,25 @@ import UIkit from 'uikit';
 import ExtraPropTypes from 'airbnb-prop-types';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { isNil, noop } from 'lodash';
+import isNil from 'lodash/isNil';
+import noop from 'lodash/noop';
 import {
   customPropTypes,
   generateSelector,
   getBaseRef,
-  getElementType,
   getOptionsString,
-  getValidProps,
   HTML,
   UIK,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import Base from '../../base';
 import SlideshowItem from './SlideshowItem';
+import SlideshowItems from './SlideshowItems';
 
 export default class Slideshow extends React.Component {
   static displayName = 'Slideshow';
 
   static propTypes = {
+    ...Base.propTypes,
     activeIndex: customPropTypes.validateIndex,
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.SLIDESHOW_ANIMATIONS),
@@ -34,12 +35,8 @@ export default class Slideshow extends React.Component {
     autoplay: PropTypes.bool,
     autoplayInterval: PropTypes.number,
     children: PropTypes.node,
-    className: PropTypes.string,
     defaultIndex: customPropTypes.validateIndex,
     finite: PropTypes.bool,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     maxHeight: PropTypes.oneOfType([
       PropTypes.bool,
       ExtraPropTypes.nonNegativeInteger,
@@ -57,9 +54,6 @@ export default class Slideshow extends React.Component {
     paused: PropTypes.bool,
     pauseOnHover: PropTypes.bool,
     ratio: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
@@ -67,7 +61,6 @@ export default class Slideshow extends React.Component {
     as: 'div',
     autoplay: false,
     autoplayInterval: 7000,
-    className: '',
     finite: false,
     maxHeight: false,
     minHeight: false,
@@ -83,6 +76,7 @@ export default class Slideshow extends React.Component {
   };
 
   static Item = SlideshowItem;
+  static Items = SlideshowItems;
 
   constructor() {
     super();
@@ -119,36 +113,20 @@ export default class Slideshow extends React.Component {
   render() {
     const {
       animation,
-      as,
       autoplay,
       autoplayInterval,
       children,
       className,
       defaultIndex,
       finite,
-      flex,
-      inverse,
-      margin,
       maxHeight,
       minHeight,
       pauseOnHover,
       ratio,
-      text,
-      utility,
-      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(
-      className,
-      this.selector,
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
+    const classes = classnames(className, this.selector);
 
     const componentOptions = getOptionsString({
       activeIndex: defaultIndex,
@@ -162,16 +140,16 @@ export default class Slideshow extends React.Component {
       ratio,
     });
 
-    const Element = getElementType(Slideshow, as);
     return (
-      <Element
-        {...getValidProps(Slideshow, rest)}
+      <Base
+        {...rest}
+        baseRef={this.handleRef}
         className={classes}
-        ref={this.handleRef}
+        component={Slideshow}
         data-uk-slideshow={componentOptions}
       >
-        <ul className="uk-slideshow-items">{children}</ul>
-      </Element>
+        {children}
+      </Base>
     );
   }
 }
