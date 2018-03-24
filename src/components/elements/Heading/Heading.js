@@ -48,14 +48,16 @@ export default class Heading extends React.Component {
       ...rest
     } = this.props;
 
+    const hasLine = (isString(line) && line.length > 0) || line === true;
+
     const classes = classnames(
       className,
       'uk-heading',
-      `uk-${headingClass}`,
-      buildClassName('heading', 'line', line),
+      buildClassName(headingClass),
       {
         'uk-heading-bullet': bullet,
         'uk-heading-divider': divider,
+        'uk-heading-line': hasLine,
         'uk-heading-hero': hero,
         'uk-heading-primary': primary,
       },
@@ -67,7 +69,7 @@ export default class Heading extends React.Component {
         className={classes}
         align={isString(line) ? line : undefined}
       >
-        {line === true ? <span>{children}</span> : children}
+        {hasLine ? <span>{children}</span> : children}
       </Text>
     );
   }

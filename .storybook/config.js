@@ -17,8 +17,8 @@ function loadStories() {
   require('../src/stories/containers/Card');
   require('../src/stories/elements/Close');
   require('../src/stories/elements/Comment');
-  require('../src/stories/style/Cover');
   require('../src/stories/elements/Countdown');
+  require('../src/stories/style/Cover');
   require('../src/stories/containers/DescriptionList');
   require('../src/stories/elements/Divider');
   require('../src/stories/navigation/DotNav');
@@ -26,6 +26,8 @@ function loadStories() {
   require('../src/stories/elements/Dropdown');
   require('../src/stories/layout/Grid');
   require('../src/stories/layout/GridParallax');
+  require('../src/stories/elements/Heading');
+  require('../src/stories/elements/Icon');
   require('../src/stories/elements/Label');
   require('../src/stories/containers/Lightbox');
   require('../src/stories/elements/Link');

@@ -1,6 +1,7 @@
 const BASE_WIDTHS = ['1/2', '1/3', '1/4', '1/5', '1/6'];
 const CHILD_WIDTHS = [...BASE_WIDTHS, 'auto', 'expand'];
 const HORIZONTAL_POSITIONS = ['left', 'center', 'right'];
+// TODO: Split into groups for easier maintenance.
 const ICON_NAMES = [
   'album',
   'arrow-down',
@@ -39,6 +40,7 @@ const ICON_NAMES = [
   'expand',
   'facebook',
   'file',
+  'file-edit',
   'flickr',
   'folder',
   'forward',

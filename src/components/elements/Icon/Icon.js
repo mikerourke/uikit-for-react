@@ -23,6 +23,7 @@ export default class Icon extends React.Component {
   static propTypes = {
     align: Align.propTypes,
     as: customPropTypes.customOrStringElement('a', 'span'),
+    button: PropTypes.bool,
     className: PropTypes.string,
     flex: Flex.propTypes,
     link: PropTypes.bool,
@@ -45,6 +46,7 @@ export default class Icon extends React.Component {
     const {
       align,
       as,
+      button,
       className,
       flex,
       link,
@@ -69,6 +71,7 @@ export default class Icon extends React.Component {
       Utility.getClasses(utility),
       Width.getClasses(width),
       {
+        'uk-icon-button': button,
         'uk-icon-link': link,
       },
     );
