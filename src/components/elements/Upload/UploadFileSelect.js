@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { customPropTypes, getElementType } from '../../../lib';
+import { customPropTypes } from '../../../lib';
 import Base from '../../base';
 
 export default class UploadFileSelect extends React.Component {
@@ -18,13 +18,12 @@ export default class UploadFileSelect extends React.Component {
   };
 
   render() {
-    const { as, children, ...rest } = this.props;
-    const Element = getElementType(UploadFileSelect, as);
+    const { children, ...rest } = this.props;
     return (
-      <Element {...rest} data-uk-form-custom="">
+      <Base {...rest} component={UploadFileSelect} data-uk-form-custom="">
         <input type="file" />
         {children}
-      </Element>
+      </Base>
     );
   }
 }

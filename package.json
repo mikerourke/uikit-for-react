@@ -159,7 +159,9 @@
       "react/prop-types": [
         "error",
         {
-          "ignore": ["className"]
+          "ignore": [
+            "className"
+          ]
         }
       ],
       "react/no-unused-prop-types": "off",
