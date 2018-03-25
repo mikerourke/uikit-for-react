@@ -1,7 +1,21 @@
+import React from 'react';
 import { customPropTypes, HTML } from '../../../lib';
-import { getCustomBase } from '../../base';
+import Base from '../../base';
 
-export default getCustomBase({
-  displayName: 'ModalContent',
-  asType: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
-});
+export default class ModalContent extends React.Component {
+  static displayName = 'ModalContent';
+
+  static propTypes = {
+    ...Base.propTypes,
+    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
+  };
+
+  static defaultProps = {
+    ...Base.defaultProps,
+    as: 'div',
+  };
+
+  render() {
+    return <Base {...this.props} component={ModalContent} />;
+  }
+}

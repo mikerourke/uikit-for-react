@@ -1,8 +1,21 @@
+import React from 'react';
 import { customPropTypes } from '../../../lib';
-import { getCustomBase } from '../../base';
+import Base from '../../base';
 
-export default getCustomBase({
-  displayName: 'FormOption',
-  asType: customPropTypes.customOrStringElement('option'),
-  asDefault: 'option',
-});
+export default class FormOption extends React.Component {
+  static displayName = 'FormOption';
+
+  static propTypes = {
+    ...Base.propTypes,
+    as: customPropTypes.customOrStringElement('option'),
+  };
+
+  static defaultProps = {
+    ...Base.defaultProps,
+    as: 'option',
+  };
+
+  render() {
+    return <Base {...this.props} component={FormOption} />;
+  }
+}

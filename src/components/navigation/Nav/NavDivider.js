@@ -1,9 +1,24 @@
+import React from 'react';
+import classnames from 'classnames';
 import { customPropTypes } from '../../../lib';
-import { getCustomBase } from '../../base';
+import Base from '../../base';
 
-export default getCustomBase({
-  displayName: 'NavDivider',
-  className: 'uk-nav-divider',
-  asType: customPropTypes.customOrStringElement('li'),
-  asDefault: 'li',
-});
+export default class NavDivider extends React.Component {
+  static displayName = 'NavDivider';
+
+  static propTypes = {
+    ...Base.propTypes,
+    as: customPropTypes.customOrStringElement('li'),
+  };
+
+  static defaultProps = {
+    ...Base.defaultProps,
+    as: 'li',
+  };
+
+  render() {
+    const { className, ...rest } = this.props;
+    const classes = classnames(className, 'uk-nav-divider');
+    return <Base {...rest} className={classes} component={NavDivider} />;
+  }
+}

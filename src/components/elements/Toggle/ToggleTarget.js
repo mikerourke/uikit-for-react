@@ -1,7 +1,21 @@
+import React from 'react';
 import { customPropTypes, HTML } from '../../../lib';
-import { getCustomBase } from '../../base';
+import Base from '../../base';
 
-export default getCustomBase({
-  displayName: 'ToggleTarget',
-  asType: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
-});
+export default class ToggleTarget extends React.Component {
+  static displayName = 'ToggleTarget';
+
+  static propTypes = {
+    ...Base.propTypes,
+    as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
+  };
+
+  static defaultProps = {
+    ...Base.defaultProps,
+    as: 'div',
+  };
+
+  render() {
+    return <Base {...this.props} component={ToggleTarget} />;
+  }
+}

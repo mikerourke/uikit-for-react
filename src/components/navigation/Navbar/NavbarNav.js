@@ -1,9 +1,24 @@
+import React from 'react';
+import classnames from 'classnames';
 import { customPropTypes } from '../../../lib';
-import { getCustomBase } from '../../base';
+import Base from '../../base';
 
-export default getCustomBase({
-  displayName: 'NavbarNav',
-  className: 'uk-navbar-nav',
-  asType: customPropTypes.customOrStringElement('ul'),
-  asDefault: 'ul',
-});
+export default class NavbarNav extends React.Component {
+  static displayName = 'NavbarNav';
+
+  static propTypes = {
+    ...Base.propTypes,
+    as: customPropTypes.customOrStringElement('ul'),
+  };
+
+  static defaultProps = {
+    ...Base.defaultProps,
+    as: 'ul',
+  };
+
+  render() {
+    const { className, ...rest } = this.props;
+    const classes = classnames(className, 'uk-navbar-nav');
+    return <Base {...rest} className={classes} component={NavbarNav} />;
+  }
+}

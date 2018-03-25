@@ -1,8 +1,21 @@
+import React from 'react';
 import { customPropTypes } from '../../../lib';
-import { getCustomBase } from '../../base';
+import Base from '../../base';
 
-export default getCustomBase({
-  displayName: 'TableRow',
-  asType: customPropTypes.customOrStringElement('tr'),
-  asDefault: 'tr',
-});
+export default class TableRow extends React.Component {
+  static displayName = 'TableRow';
+
+  static propTypes = {
+    ...Base.propTypes,
+    as: customPropTypes.customOrStringElement('tr'),
+  };
+
+  static defaultProps = {
+    ...Base.defaultProps,
+    as: 'tr',
+  };
+
+  render() {
+    return <Base {...this.props} component={TableRow} />;
+  }
+}

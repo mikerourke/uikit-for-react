@@ -1,4 +1,4 @@
-export Base from './base';
+export Base, { Div } from './base';
 export {
   Accordion,
   AccordionContent,

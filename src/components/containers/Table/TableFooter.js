@@ -1,8 +1,21 @@
+import React from 'react';
 import { customPropTypes } from '../../../lib';
-import { getCustomBase } from '../../base';
+import Base from '../../base';
 
-export default getCustomBase({
-  displayName: 'TableFooter',
-  asType: customPropTypes.customOrStringElement('tfoot'),
-  asDefault: 'tfoot',
-});
+export default class TableFooter extends React.Component {
+  static displayName = 'TableFooter';
+
+  static propTypes = {
+    ...Base.propTypes,
+    as: customPropTypes.customOrStringElement('tfoot'),
+  };
+
+  static defaultProps = {
+    ...Base.defaultProps,
+    as: 'tfoot',
+  };
+
+  render() {
+    return <Base {...this.props} component={TableFooter} />;
+  }
+}

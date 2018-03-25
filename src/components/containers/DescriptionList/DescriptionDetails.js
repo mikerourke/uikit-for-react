@@ -1,8 +1,21 @@
+import React from 'react';
 import { customPropTypes } from '../../../lib';
-import { getCustomBase } from '../../base';
+import Base from '../../base';
 
-export default getCustomBase({
-  displayName: 'DescriptionDetails',
-  asType: customPropTypes.customOrStringElement('dd'),
-  asDefault: 'dd',
-});
+export default class DescriptionDetails extends React.Component {
+  static displayName = 'DescriptionDetails';
+
+  static propTypes = {
+    ...Base.propTypes,
+    as: customPropTypes.customOrStringElement('dd'),
+  };
+
+  static defaultProps = {
+    ...Base.defaultProps,
+    as: 'dd',
+  };
+
+  render() {
+    return <Base {...this.props} component={DescriptionDetails} />;
+  }
+}

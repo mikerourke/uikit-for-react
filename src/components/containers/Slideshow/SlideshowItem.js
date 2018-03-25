@@ -1,8 +1,21 @@
+import React from 'react';
 import { customPropTypes } from '../../../lib';
-import { getCustomBase } from '../../base';
+import Base from '../../base';
 
-export default getCustomBase({
-  displayName: 'SlideshowItem',
-  asType: customPropTypes.customOrStringElement('li'),
-  asDefault: 'li',
-});
+export default class SlideshowItem extends React.Component {
+  static displayName = 'SlideshowItem';
+
+  static propTypes = {
+    ...Base.propTypes,
+    as: customPropTypes.customOrStringElement('li'),
+  };
+
+  static defaultProps = {
+    ...Base.defaultProps,
+    as: 'li',
+  };
+
+  render() {
+    return <Base {...this.props} component={SlideshowItem} />;
+  }
+}
