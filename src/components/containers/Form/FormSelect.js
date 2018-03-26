@@ -45,7 +45,7 @@ export default class FormSelect extends React.Component {
       className,
       'uk-select',
       buildClassName('form', size),
-      buildClassName('form', 'width', formWidth),
+      buildClassName('form-width', formWidth),
       {
         'uk-form-blank': blank,
         'uk-form-danger': danger,
@@ -53,6 +53,6 @@ export default class FormSelect extends React.Component {
       },
     );
 
-    return <Base {...rest} component={FormSelect} className={classes} />;
+    return <Base {...rest} className={classes} component={FormSelect} />;
   }
 }

@@ -9,7 +9,7 @@ const sentence = faker.lorem.sentence();
 const paragraph = faker.lorem.paragraph();
 
 storiesOf('DescriptionList', module)
-  .add('Basic Usage', () => (
+  .add('Usage', () => (
     <Base margin={{ all: 'large' }}>
       <DescriptionList>
         <DescriptionList.Term>Description term</DescriptionList.Term>

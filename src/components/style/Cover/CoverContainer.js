@@ -31,7 +31,6 @@ export default class CoverContainer extends React.Component {
     const { aspectRatio, children, className, viewport, ...rest } = this.props;
 
     const classes = classnames(className, 'uk-cover-container');
-    const componentOptions = getOptionsString(viewport);
     const canvasProps = {
       height: get(aspectRatio, 'height', 600),
       width: get(aspectRatio, 'width', 800),
@@ -42,7 +41,7 @@ export default class CoverContainer extends React.Component {
         {...rest}
         className={classes}
         component={CoverContainer}
-        data-uk-height-viewport={componentOptions}
+        uk-height-viewport={getOptionsString(viewport)}
       >
         {aspectRatio && <canvas {...canvasProps} />}
         {children}

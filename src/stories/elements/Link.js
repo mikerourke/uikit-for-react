@@ -1,12 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Base, Inline, Link, List } from '../../components';
+import { Base, Link, List } from '../../components';
 
 Link.displayName = 'Link';
 
 storiesOf('Link', module)
-  .add('Basic Usage', () => (
+  .add('Usage', () => (
     <Base margin={{ all: 'large' }}>
       <Link href="#">Link</Link>
     </Base>

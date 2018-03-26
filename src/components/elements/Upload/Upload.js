@@ -26,7 +26,6 @@ export default class Upload extends React.Component {
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     beforeAll: PropTypes.func,
     beforeSend: PropTypes.func,
-    children: PropTypes.node,
     clsDragover: PropTypes.string,
     complete: PropTypes.func,
     completeAll: PropTypes.func,

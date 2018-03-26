@@ -3,7 +3,12 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
-import { customPropTypes, getOptionsString, HTML } from '../../../lib';
+import {
+  addEventInvoker,
+  customPropTypes,
+  getOptionsString,
+  HTML,
+} from '../../../lib';
 import Base from '../../base';
 
 export default class ScrollPoint extends React.Component {
@@ -31,8 +36,8 @@ export default class ScrollPoint extends React.Component {
 
   componentDidMount() {
     const element = this.getElement();
-    UIkit.util.on(element, 'beforescroll', this.props.onBeforeScroll);
-    UIkit.util.on(element, 'scrolled', this.props.onScrolled);
+    addEventInvoker(element, 'beforescroll', 'onBeforeScroll', this.props);
+    addEventInvoker(element, 'scrolled', 'onScrolled', this.props);
   }
 
   getElement = () =>
@@ -62,7 +67,7 @@ export default class ScrollPoint extends React.Component {
         baseRef={this.handleRef}
         component={ScrollPoint}
         onClick={this.handleClick}
-        data-uk-scroll={getOptionsString({ duration, offset })}
+        uk-scroll={getOptionsString({ duration, offset })}
         data-uikfr-scroll-element={elementName}
       />
     );

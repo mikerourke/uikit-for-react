@@ -1,4 +1,4 @@
-export Base, { Div } from './base';
+export Base from './base';
 export {
   Accordion,
   AccordionContent,
@@ -155,6 +155,7 @@ export {
 export {
   Cover,
   Hidden,
+  Margin,
   Scroll,
   Scrollspy,
   Sticky,

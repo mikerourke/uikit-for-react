@@ -4,7 +4,7 @@ import { Badge, Base } from '../../components';
 
 Badge.displayName = 'Badge';
 
-storiesOf('Badge', module).add('Basic Usage', () => (
+storiesOf('Badge', module).add('Usage', () => (
   <Base margin={{ all: 'large' }}>
     <Base margin="small">
       <Badge>1</Badge>

@@ -1,11 +1,19 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Base, Button, Dropdown, Grid, Icon, Nav } from '../../components';
+import {
+  Base,
+  Button,
+  Dropdown,
+  Grid,
+  Icon,
+  Margin,
+  Nav,
+} from '../../components';
 
 Button.displayName = 'Button';
 
 storiesOf('Button', module)
-  .add('Basic Usage', () => (
+  .add('Usage', () => (
     <Base margin={{ all: 'large' }}>
       <Button as="a" margin={{ right: 'small' }}>
         Link
@@ -17,26 +25,24 @@ storiesOf('Button', module)
 
   .add('Style modifiers', () => (
     <Base margin={{ all: 'large' }}>
-      <Grid gutter="small" textAlign="center">
-        <Grid.Cell>
-          <Button>Default</Button>
-        </Grid.Cell>
-        <Grid.Cell>
-          <Button primary>Primary</Button>
-        </Grid.Cell>
-        <Grid.Cell>
-          <Button secondary>Secondary</Button>
-        </Grid.Cell>
-        <Grid.Cell>
-          <Button danger>Danger</Button>
-        </Grid.Cell>
-        <Grid.Cell>
-          <Button asText>Text</Button>
-        </Grid.Cell>
-        <Grid.Cell>
-          <Button link>Link</Button>
-        </Grid.Cell>
-      </Grid>
+      <Margin as="p">
+        <Button margin="right">Default</Button>
+        <Button margin="right" primary>
+          Primary
+        </Button>
+        <Button margin="right" secondary>
+          Secondary
+        </Button>
+        <Button margin="right" danger>
+          Danger
+        </Button>
+        <Button margin="right" text>
+          Text
+        </Button>
+        <Button margin="right" link>
+          Link
+        </Button>
+      </Margin>
     </Base>
   ))
 

@@ -25,4 +25,4 @@ export default class AccordionContent extends React.Component {
     const classes = classnames(className, 'uk-accordion-content');
     return <Base {...rest} className={classes} component={AccordionContent} />;
   }
-};
+}

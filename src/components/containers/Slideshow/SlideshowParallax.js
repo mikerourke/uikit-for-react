@@ -12,7 +12,6 @@ export default class SlideshowParallax extends React.Component {
     ...omit(Base.propTypes, 'parallax'),
     animate: PropTypes.object,
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
-    children: PropTypes.node,
     easing: PropTypes.number,
     media: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     target: PropTypes.string,
@@ -39,7 +38,7 @@ export default class SlideshowParallax extends React.Component {
       <Base
         {...rest}
         component={SlideshowParallax}
-        data-uk-slideshow-parallax={componentOptions}
+        uk-slideshow-parallax={componentOptions}
       />
     );
   }

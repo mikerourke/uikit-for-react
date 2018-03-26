@@ -20,6 +20,6 @@ export default class Svg extends React.Component {
   };
 
   render() {
-    return <Base {...this.props} component={Svg} data-uk-svg="" />;
+    return <Base {...this.props} component={Svg} uk-svg="" />;
   }
 }

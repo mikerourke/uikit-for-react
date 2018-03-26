@@ -64,7 +64,11 @@ const getAnimationsOptionString = optionValue => {
       return [...acc, ...getAnimationNames(value)];
     }, []);
 
-    const animationOption = `animation: ${flatten(allNames).join(separator)}`;
+    const flatNameList = flatten(allNames);
+    const animationOption =
+      flatNameList.length === 0
+        ? ''
+        : `animation: ${flatNameList.join(separator)}`;
     const durationOption = isNil(duration) ? '' : `; duration: ${duration}`;
     return `${animationOption}${durationOption}`;
   }

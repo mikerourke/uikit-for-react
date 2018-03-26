@@ -12,7 +12,7 @@ export default class Heading extends React.Component {
     ...Text.propTypes,
     as: customPropTypes.customOrStringElement(HTML.HEADING_ELEMENTS),
     bullet: PropTypes.bool,
-    children: PropTypes.node,
+    children: PropTypes.node.isRequired,
     divider: PropTypes.bool,
     headingClass: PropTypes.oneOf(HTML.HEADING_ELEMENTS),
     hero: PropTypes.bool,

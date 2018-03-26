@@ -1,5 +1,4 @@
 import React from 'react';
-import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import isNil from 'lodash/isNil';
@@ -12,6 +11,7 @@ import {
   joinListProp,
   HTML,
   UIK,
+  addEventInvoker,
 } from '../../../lib';
 import Base from '../../base';
 
@@ -25,7 +25,6 @@ export default class Scrollspy extends React.Component {
       PropTypes.arrayOf(UIK.ANIMATIONS),
     ]),
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
-    children: PropTypes.node,
     delay: PropTypes.number,
     hidden: PropTypes.bool,
     offsetLeft: PropTypes.number,
@@ -37,12 +36,7 @@ export default class Scrollspy extends React.Component {
 
   static defaultProps = {
     ...Base.defaultProps,
-    animation: 'uk-scrollspy-inview',
     as: 'div',
-    delay: 0,
-    hidden: true,
-    offsetLeft: 0,
-    offsetTop: 0,
     onInview: noop,
     onOutview: noop,
   };
@@ -54,8 +48,8 @@ export default class Scrollspy extends React.Component {
 
   componentDidMount() {
     const ref = this.getRef();
-    UIkit.util.on(ref, 'inview', this.props.onInview);
-    UIkit.util.on(ref, 'outview', this.props.onOutview);
+    addEventInvoker(ref, 'inview', 'onInview', this.props);
+    addEventInvoker(ref, 'outview', 'onOutview', this.props);
   }
 
   getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
@@ -94,7 +88,7 @@ export default class Scrollspy extends React.Component {
         baseRef={this.handleRef}
         className={classes}
         component={Scrollspy}
-        data-uk-scrollspy={componentOptions}
+        uk-scrollspy={componentOptions}
       />
     );
   }

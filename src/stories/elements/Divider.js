@@ -5,7 +5,7 @@ import { Base, Divider } from '../../components';
 Divider.displayName = 'Divider';
 
 storiesOf('Divider', module)
-  .add('Basic Usage', () => (
+  .add('Usage', () => (
     <Base margin={{ all: 'large' }}>
       <Divider />
     </Base>

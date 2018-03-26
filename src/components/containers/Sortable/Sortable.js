@@ -1,6 +1,5 @@
 // TODO: Finish this.
 import React from 'react';
-import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
@@ -8,6 +7,7 @@ import isNil from 'lodash/isNil';
 import isBoolean from 'lodash/isBoolean';
 import noop from 'lodash/noop';
 import {
+  addMultipleEventInvokers,
   buildSelector,
   customPropTypes,
   generateSelector,
@@ -24,8 +24,7 @@ export default class Sortable extends React.Component {
     ...Base.propTypes,
     animationDuration: ExtraPropTypes.nonNegativeInteger,
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
-    children: PropTypes.node,
-    className: PropTypes.string,
+    children: PropTypes.node.isRequired,
     clsBase: PropTypes.string,
     clsCustom: PropTypes.string,
     clsDrag: PropTypes.string,
@@ -48,22 +47,11 @@ export default class Sortable extends React.Component {
     ...Base.defaultProps,
     animationDuration: 150,
     as: 'ul',
-    className: '',
-    clsBase: 'uk-sortable',
-    clsCustom: '',
-    clsDrag: 'uk-sortable-drag',
-    clsDragState: 'uk-sortable-dragging',
-    clsEmpty: 'uk-sortable-empty',
-    clsItem: 'uk-sortable-item',
-    clsNoDrag: 'uk-sortable-nodrag',
-    clsPlaceholder: 'uk-sortable-placeholder',
-    group: '',
     onAdded: noop,
     onMoved: noop,
     onRemoved: noop,
     onStart: noop,
     onStop: noop,
-    threshold: 10,
   };
 
   constructor() {
@@ -73,11 +61,14 @@ export default class Sortable extends React.Component {
 
   componentDidMount() {
     const ref = this.getRef();
-    UIkit.util.on(ref, 'added', this.props.onAdded);
-    UIkit.util.on(ref, 'moved', this.props.onMoved);
-    UIkit.util.on(ref, 'removed', this.props.onRemoved);
-    UIkit.util.on(ref, 'start', this.props.onStart);
-    UIkit.util.on(ref, 'stop', this.props.onStop);
+    const ukToPropsEventMap = {
+      added: 'onAdded',
+      moved: 'onMoved',
+      removed: 'onRemoved',
+      start: 'onStart',
+      stop: 'onStop',
+    };
+    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
   }
 
   getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
@@ -139,7 +130,7 @@ export default class Sortable extends React.Component {
         {...rest}
         baseRef={this.handleRef}
         component={Sortable}
-        data-uk-sortable={componentOptions}
+        uk-sortable={componentOptions}
       >
         {this.renderChildren(children)}
       </Base>

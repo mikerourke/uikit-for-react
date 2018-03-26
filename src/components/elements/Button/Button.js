@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import invoke from 'lodash/invoke';
+import isBoolean from 'lodash/isBoolean';
 import isNil from 'lodash/isNil';
-import noop from 'lodash/noop';
 import { buildClassName, customPropTypes, UIK } from '../../../lib';
 import Base from '../../base';
 import ButtonGroup from './ButtonGroup';
@@ -14,8 +14,6 @@ export default class Button extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('a', 'button'),
-    asText: PropTypes.bool,
-    children: PropTypes.node,
     close: PropTypes.bool,
     danger: PropTypes.bool,
     disabled: PropTypes.bool,
@@ -26,12 +24,12 @@ export default class Button extends React.Component {
     primary: PropTypes.bool,
     secondary: PropTypes.bool,
     size: PropTypes.oneOf(['large', 'small']),
+    text: PropTypes.oneOfType([PropTypes.bool, Base.propTypes.text]),
   };
 
   static defaultProps = {
     ...Base.defaultProps,
     as: 'button',
-    asText: false,
     danger: false,
     fullWidth: false,
     link: false,
@@ -46,13 +44,14 @@ export default class Button extends React.Component {
       e.preventDefault();
       return;
     }
-    invoke(this.props, 'onClick', e, this.props);
+    if (!isNil(this.props.onClick)) {
+      invoke(this.props, 'onClick', e, this.props);
+    }
   };
 
   render() {
     const {
       as,
-      asText,
       children,
       className,
       danger,
@@ -63,14 +62,12 @@ export default class Button extends React.Component {
       primary,
       secondary,
       size,
+      text,
       ...rest
     } = this.props;
 
-    const validStyles = UIK.BUTTON_STYLES.map(
-      styleName => (styleName === 'text' ? 'asText' : styleName),
-    );
     const hasDefault =
-      validStyles.reduce(
+      UIK.BUTTON_STYLES.reduce(
         (acc, styleName) => (this.props[styleName] ? acc + 1 : acc),
         0,
       ) === 0;
@@ -83,7 +80,7 @@ export default class Button extends React.Component {
       'uk-button-link': link,
       'uk-button-primary': primary,
       'uk-button-secondary': secondary,
-      'uk-button-text': asText,
+      'uk-button-text': text === true,
       'uk-icon-button': hasIcon,
       'uk-width-1-1': fullWidth,
     });
@@ -96,7 +93,8 @@ export default class Button extends React.Component {
         component={Button}
         disabled={(disabled && this.props.as === 'button') || undefined}
         onClick={this.handleClick}
-        data-uk-icon={hasIcon ? `icon: ${icon}` : undefined}
+        text={!isNil(text) && !isBoolean(text) ? text : undefined}
+        uk-icon={hasIcon ? `icon: ${icon}` : undefined}
       >
         {!hasIcon && children}
       </Base>

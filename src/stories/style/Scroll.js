@@ -4,7 +4,7 @@ import { Base, Button, Scroll } from '../../components';
 
 Scroll.displayName = 'Scroll';
 
-storiesOf('Scroll', module).add('Basic Usage', () => (
+storiesOf('Scroll', module).add('Usage', () => (
   <Base margin={{ all: 'large' }}>
     <Scroll.Scrollable>
       <Scroll.Point

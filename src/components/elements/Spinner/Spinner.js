@@ -16,6 +16,6 @@ export default class Spinner extends React.Component {
   };
 
   render() {
-    return <Base {...this.props} component={Spinner} data-uk-spinner="" />;
+    return <Base {...this.props} component={Spinner} uk-spinner="" />;
   }
 }

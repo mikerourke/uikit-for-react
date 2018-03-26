@@ -16,7 +16,8 @@ export default class ModalDialog extends React.Component {
       props => {
         if (props.padContent && hasChildType(props.children, ModalBody)) {
           return new Error(
-            'You cannot set padContent to true if you have a ModalBody child in ModalDialog.',
+            'You cannot set padContent to true if you have a ModalBody ' +
+              'child in ModalDialog.',
           );
         }
         return null;

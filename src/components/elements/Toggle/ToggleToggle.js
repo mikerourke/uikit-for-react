@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import {
+  addMultipleEventInvokers,
   customPropTypes,
   generateSelector,
   getBaseRef,
@@ -36,7 +37,6 @@ export default class ToggleToggle extends React.Component {
       }),
     ]),
     as: customPropTypes.customOrStringElement('a', 'button'),
-    children: PropTypes.node,
     classToggled: PropTypes.string,
     mediaTrigger: ExtraPropTypes.and([
       PropTypes.oneOfType([PropTypes.oneOf(UIK.BREAKPOINTS), PropTypes.number]),
@@ -73,7 +73,6 @@ export default class ToggleToggle extends React.Component {
     onHide: noop,
     onShow: noop,
     onShown: noop,
-    queued: false,
     toggled: false,
   };
 
@@ -84,12 +83,15 @@ export default class ToggleToggle extends React.Component {
 
   componentDidMount() {
     const ref = this.getRef();
-    UIkit.util.on(ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(ref, 'beforeshow', this.props.onBeforeShow);
-    UIkit.util.on(ref, 'hidden', this.props.onHidden);
-    UIkit.util.on(ref, 'hide', this.props.onHide);
-    UIkit.util.on(ref, 'show', this.props.onShow);
-    UIkit.util.on(ref, 'shown', this.props.onShown);
+    const ukToPropsEventMap = {
+      beforehide: 'onBeforeHide',
+      beforeshow: 'onBeforeShow',
+      hidden: 'onHidden',
+      hide: 'onHide',
+      show: 'onShow',
+      shown: 'onShown',
+    };
+    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -135,7 +137,7 @@ export default class ToggleToggle extends React.Component {
         baseRef={this.handleRef}
         className={classes}
         component={ToggleToggle}
-        data-uk-toggle={componentOptions}
+        uk-toggle={componentOptions}
       />
     );
   }

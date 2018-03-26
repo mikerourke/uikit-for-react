@@ -5,7 +5,7 @@ import { Base, Grid, Tab } from '../../components';
 Tab.displayName = 'Tab';
 
 storiesOf('Tab', module)
-  .add('Basic Usage', () => (
+  .add('Usage', () => (
     <Base margin={{ all: 'large' }}>
       <Tab>
         <Tab.Item active>Left</Tab.Item>

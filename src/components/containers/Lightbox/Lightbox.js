@@ -36,7 +36,6 @@ export default class Lightbox extends React.Component {
       interval: PropTypes.number,
     }),
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
-    children: PropTypes.node,
     defaultIndex: customPropTypes.validateIndex,
     onBeforeHide: PropTypes.func,
     onBeforeItemHide: PropTypes.func,
@@ -58,9 +57,7 @@ export default class Lightbox extends React.Component {
 
   static defaultProps = {
     ...Base.defaultProps,
-    activeIndex: 0,
     as: 'div',
-    defaultIndex: 0,
     onBeforeHide: noop,
     onBeforeItemHide: noop,
     onBeforeItemShow: noop,
@@ -74,9 +71,7 @@ export default class Lightbox extends React.Component {
     onItemShown: noop,
     onShow: noop,
     onShown: noop,
-    pauseOnHover: false,
     shown: false,
-    videoAutoplay: false,
   };
 
   static Item = LightboxItem;
@@ -131,11 +126,11 @@ export default class Lightbox extends React.Component {
 
     const componentOptions = getOptionsString({
       animation: animationName,
-      autoplay: get(autoplay, 'delay', 0),
-      autoplayInterval: get(autoplay, 'interval', 0),
+      autoplay: get(autoplay, 'delay'),
+      autoplayInterval: get(autoplay, 'interval'),
       index: defaultIndex,
       pauseOnHover,
-      velocity: get(animation, 'velocity', 2),
+      velocity: get(animation, 'velocity'),
       videoAutoplay,
     }).replace('uk-animation-', '');
 
@@ -145,7 +140,7 @@ export default class Lightbox extends React.Component {
         className={classes}
         component={Lightbox}
         baseRef={this.handleRef}
-        data-uk-lightbox={componentOptions}
+        uk-lightbox={componentOptions}
       />
     );
   }

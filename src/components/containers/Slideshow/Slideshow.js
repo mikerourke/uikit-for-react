@@ -4,9 +4,12 @@ import UIkit from 'uikit';
 import ExtraPropTypes from 'airbnb-prop-types';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import get from 'lodash/get';
 import isNil from 'lodash/isNil';
+import isPlainObject from 'lodash/isPlainObject';
 import noop from 'lodash/noop';
 import {
+  addMultipleEventInvokers,
   customPropTypes,
   generateSelector,
   getBaseRef,
@@ -32,9 +35,13 @@ export default class Slideshow extends React.Component {
       }),
     ]),
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
-    autoplay: PropTypes.bool,
-    autoplayInterval: PropTypes.number,
-    children: PropTypes.node,
+    autoplay: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.shape({
+        enabled: PropTypes.bool,
+        interval: PropTypes.number,
+      }),
+    ]),
     defaultIndex: customPropTypes.validateIndex,
     finite: PropTypes.bool,
     maxHeight: PropTypes.oneOfType([
@@ -57,13 +64,7 @@ export default class Slideshow extends React.Component {
   };
 
   static defaultProps = {
-    activeIndex: 0,
     as: 'div',
-    autoplay: false,
-    autoplayInterval: 7000,
-    finite: false,
-    maxHeight: false,
-    minHeight: false,
     onBeforeItemHide: noop,
     onBeforeItemShow: noop,
     onItemHidden: noop,
@@ -71,8 +72,6 @@ export default class Slideshow extends React.Component {
     onItemShow: noop,
     onItemShown: noop,
     paused: false,
-    pauseOnHover: false,
-    ratio: '16:9',
   };
 
   static Item = SlideshowItem;
@@ -85,12 +84,15 @@ export default class Slideshow extends React.Component {
 
   componentDidMount() {
     const ref = this.getRef();
-    UIkit.util.on(ref, 'beforeitemhide', this.props.onBeforeItemHide);
-    UIkit.util.on(ref, 'beforeitemshow', this.props.onBeforeItemShow);
-    UIkit.util.on(ref, 'itemhidden', this.props.onItemHidden);
-    UIkit.util.on(ref, 'itemhide', this.props.onItemHide);
-    UIkit.util.on(ref, 'itemshow', this.props.onItemShow);
-    UIkit.util.on(ref, 'itemshown', this.props.onItemShown);
+    const ukToPropsEventMap = {
+      beforeitemhide: 'onBeforeItemHide',
+      beforeitemshow: 'onBeforeItemShow',
+      itemhidden: 'onItemHidden',
+      itemhide: 'onItemHide',
+      itemshow: 'onItemShow',
+      itemshown: 'onItemShown',
+    };
+    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -114,8 +116,6 @@ export default class Slideshow extends React.Component {
     const {
       animation,
       autoplay,
-      autoplayInterval,
-      children,
       className,
       defaultIndex,
       finite,
@@ -131,8 +131,8 @@ export default class Slideshow extends React.Component {
     const componentOptions = getOptionsString({
       activeIndex: defaultIndex,
       animation,
-      autoplay,
-      autoplayInterval,
+      autoplay: isPlainObject(autoplay) ? get(autoplay, 'enabled') : autoplay,
+      autoplayInterval: get(autoplay, 'interval'),
       finite,
       maxHeight,
       minHeight,
@@ -146,10 +146,8 @@ export default class Slideshow extends React.Component {
         baseRef={this.handleRef}
         className={classes}
         component={Slideshow}
-        data-uk-slideshow={componentOptions}
-      >
-        {children}
-      </Base>
+        uk-slideshow={componentOptions}
+      />
     );
   }
 }

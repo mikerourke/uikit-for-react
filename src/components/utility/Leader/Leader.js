@@ -10,7 +10,6 @@ export default class Leader extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
-    children: PropTypes.node,
     fill: PropTypes.string,
     media: PropTypes.oneOfType([
       ExtraPropTypes.nonNegativeInteger,
@@ -30,7 +29,7 @@ export default class Leader extends React.Component {
       <Base
         {...rest}
         component={Leader}
-        data-uk-leader={getOptionsString({ fill, media })}
+        uk-leader={getOptionsString({ fill, media })}
       />
     );
   }

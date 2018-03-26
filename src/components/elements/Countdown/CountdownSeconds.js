@@ -28,13 +28,13 @@ export default class CountdownSeconds extends React.Component {
       'uk-countdown-number',
     );
 
-    const baseComponent = (
+    const BaseComponent = (
       <Base {...rest} className={classes} component={CountdownSeconds} />
     );
-    if (!label) return baseComponent;
+    if (!label) return BaseComponent;
     return (
       <div>
-        {baseComponent}
+        {BaseComponent}
         {label}
       </div>
     );

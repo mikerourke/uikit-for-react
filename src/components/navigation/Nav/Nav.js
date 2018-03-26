@@ -57,9 +57,7 @@ export default class Nav extends React.Component {
     activeIndex: 0,
     as: 'ul',
     center: false,
-    collapsible: false,
     hideOpenAnimation: false,
-    multiple: false,
     primary: false,
   };
 
@@ -123,7 +121,7 @@ export default class Nav extends React.Component {
         baseRef={this.handleRef}
         className={classes}
         component={Nav}
-        data-uk-nav={accordion ? componentOptions : undefined}
+        uk-nav={accordion ? componentOptions : undefined}
       />
     );
   }

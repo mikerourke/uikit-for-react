@@ -13,7 +13,6 @@ export default class TabItem extends React.Component {
     active: PropTypes.bool,
     as: customPropTypes.customOrStringElement('li'),
     children: PropTypes.node.isRequired,
-    className: PropTypes.string,
     disabled: PropTypes.bool,
     href: PropTypes.string,
   };
@@ -22,7 +21,6 @@ export default class TabItem extends React.Component {
     ...Base.defaultProps,
     active: false,
     as: 'li',
-    className: '',
     disabled: false,
     href: '#',
   };

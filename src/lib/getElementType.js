@@ -11,7 +11,7 @@ import get from 'lodash/get';
  * @param {string|Function} asProp Value of the "as" prop.
  * @returns {string|function} A ReactElement type
  */
-const getElementType = (Component, asProp) => {
+export default function getElementType(Component, asProp) {
   const defaultProps = get(Component, 'defaultProps', { as: '' });
 
   // User defined "as" element type:
@@ -21,6 +21,4 @@ const getElementType = (Component, asProp) => {
   if (defaultProps.as) return defaultProps.as;
 
   return 'div';
-};
-
-export default getElementType;
+}

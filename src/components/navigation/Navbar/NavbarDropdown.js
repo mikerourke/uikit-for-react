@@ -36,7 +36,7 @@ export default class NavbarDropdown extends React.Component {
     const classes = classnames(
       className,
       'uk-navbar-dropdown',
-      buildClassName('navbar', 'dropdown', 'width', multiplyWidth),
+      buildClassName('navbar-dropdown-width', multiplyWidth),
     );
 
     const navProps = {

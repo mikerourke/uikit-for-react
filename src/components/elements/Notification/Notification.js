@@ -2,10 +2,9 @@ import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import get from 'lodash/get';
 import noop from 'lodash/noop';
 import without from 'lodash/without';
-import { UIK } from '../../../lib';
+import { addEventInvoker, UIK } from '../../../lib';
 import Base from '../../base';
 
 export default class Notification extends React.Component {
@@ -13,17 +12,11 @@ export default class Notification extends React.Component {
 
   static propTypes = {
     ...Base.propTypes,
-    children: PropTypes.node,
     group: PropTypes.string,
     onClose: PropTypes.func,
-    position: PropTypes.oneOf([
-      'bottom-center',
-      'bottom-left',
-      'bottom-right',
-      'top-center',
-      'top-left',
-      'top-right',
-    ]),
+    position: PropTypes.oneOf(
+      without(UIK.X_Y_POSITIONS, ['center-left', 'center-right']),
+    ),
     shown: PropTypes.bool,
     status: PropTypes.oneOf(without(UIK.STATUS_COLORS, 'muted')),
     timeout: PropTypes.number,
@@ -55,7 +48,7 @@ export default class Notification extends React.Component {
   componentDidUpdate() {
     const notifier = document.querySelector('.uk-notification');
     if (notifier) {
-      UIkit.util.on(notifier, 'close', get(this.props, 'onClose', noop));
+      addEventInvoker(notifier, 'close', 'onClose', this.props);
     }
   }
 

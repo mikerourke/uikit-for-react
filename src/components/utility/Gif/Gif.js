@@ -20,6 +20,6 @@ export default class Gif extends React.Component {
   };
 
   render() {
-    return <Base {...this.props} component={Gif} data-uk-gif="" />;
+    return <Base {...this.props} component={Gif} uk-gif="" />;
   }
 }

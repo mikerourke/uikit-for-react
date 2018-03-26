@@ -6,7 +6,7 @@ import { Base, Card, Grid } from '../../components';
 Grid.displayName = 'Grid';
 
 storiesOf('Grid', module)
-  .add('Basic Usage', () => (
+  .add('Usage', () => (
     <Base margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: 'expand' }} textAlign="center">
         <Grid.Cell>
@@ -98,11 +98,7 @@ storiesOf('Grid', module)
 
   .add('Match height', () => (
     <Base margin={{ all: 'large' }}>
-      <Grid
-        childWidth={{ atSm: 'expand' }}
-        textAlign="center"
-        matchHeight
-      >
+      <Grid childWidth={{ atSm: 'expand' }} textAlign="center" matchHeight>
         <Grid.Cell>
           <Card>Item</Card>
         </Grid.Cell>
@@ -155,10 +151,7 @@ storiesOf('Grid', module)
 
   .add('Child width', () => (
     <Base margin={{ all: 'large' }}>
-      <Grid
-        childWidth={{ atSm: '1/2', atMd: '1/3' }}
-        textAlign="center"
-      >
+      <Grid childWidth={{ atSm: '1/2', atMd: '1/3' }} textAlign="center">
         <Grid.Cell>
           <Card>Item</Card>
         </Grid.Cell>

@@ -1,15 +1,13 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
+import drop from 'lodash/drop';
 import { Button, Base, Grid, Heading, Lightbox } from '../../components';
+import { imageLinks } from '../common';
 
 Lightbox.displayName = 'Lightbox';
 
-const imageLinks = [
-  'https://getuikit.com/docs/images/photo.jpg',
-  'https://getuikit.com/docs/images/dark.jpg',
-  'https://getuikit.com/docs/images/light.jpg',
-];
+const imageLinkValues = drop(Object.values(imageLinks));
 
 class SimpleLightbox extends React.Component {
   state = {
@@ -36,7 +34,7 @@ const AnimationLightbox = props => (
       childWidth={{ atMd: '1/3' }}
       animation={props.animationName.toLowerCase()}
     >
-      {imageLinks.map((imageLink, linkIdx) => (
+      {imageLinkValues.map((imageLink, linkIdx) => (
         <Grid.Cell key={imageLink}>
           <Lightbox.Item
             inline
@@ -52,15 +50,15 @@ const AnimationLightbox = props => (
 );
 
 storiesOf('Lightbox', module)
-  .add('Basic Usage', () => (
+  .add('Usage', () => (
     <SimpleLightbox>
-      <Lightbox.Item source={imageLinks[0]} />
+      <Lightbox.Item source={imageLinkValues[0]} />
     </SimpleLightbox>
   ))
 
   .add('Caption', () => (
     <SimpleLightbox>
-      <Lightbox.Item source={imageLinks[0]} caption="Caption" />
+      <Lightbox.Item source={imageLinkValues[0]} caption="Caption" />
     </SimpleLightbox>
   ))
 
@@ -87,7 +85,7 @@ storiesOf('Lightbox', module)
         onItemShow={action('onItemShow')}
         onItemShown={action('onItemShown')}
       >
-        <Lightbox.Item source={imageLinks[0]} caption="Hooray" />
+        <Lightbox.Item source={imageLinkValues[0]} caption="Hooray" />
       </Lightbox.Panel>
     </Base>
   ));

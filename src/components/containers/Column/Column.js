@@ -16,7 +16,6 @@ export default class Column extends React.Component {
   static propTypes = {
     ...omit(Base.propTypes, ['column', 'columnSpan']),
     as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
-    children: PropTypes.node,
     divider: PropTypes.bool,
     width: customPropTypes.forBreakpoints(UIK.BASE_WIDTHS),
   };

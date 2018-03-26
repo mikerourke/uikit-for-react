@@ -20,8 +20,6 @@ export default class LightboxItem extends React.Component {
   static defaultProps = {
     ...Base.defaultProps,
     as: 'a',
-    caption: '',
-    inline: false,
   };
 
   render() {
@@ -35,9 +33,7 @@ export default class LightboxItem extends React.Component {
       ...rest
     } = this.props;
 
-    const classes = classnames(className, {
-      'uk-inline': inline,
-    });
+    const classes = classnames(className, { 'uk-inline': inline });
 
     return (
       <Base

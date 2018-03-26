@@ -1,6 +1,5 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
-import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
@@ -8,6 +7,7 @@ import get from 'lodash/get';
 import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import {
+  addMultipleEventInvokers,
   buildClassName,
   customPropTypes,
   generateSelector,
@@ -45,7 +45,6 @@ export default class Navbar extends React.Component {
       },
     ]),
     boundaryAlign: PropTypes.bool,
-    children: PropTypes.node,
     container: PropTypes.bool,
     delayHide: PropTypes.number,
     delayShow: PropTypes.number,
@@ -70,9 +69,7 @@ export default class Navbar extends React.Component {
   static defaultProps = {
     ...Base.defaultProps,
     as: 'nav',
-    boundaryAlign: false,
     container: false,
-    dropbar: false,
     onBeforeHide: noop,
     onBeforeShow: noop,
     onHidden: noop,
@@ -97,12 +94,15 @@ export default class Navbar extends React.Component {
 
   componentDidMount() {
     const ref = this.getRef();
-    UIkit.util.on(ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(ref, 'beforeshow', this.props.onBeforeShow);
-    UIkit.util.on(ref, 'hidden', this.props.onHidden);
-    UIkit.util.on(ref, 'hide', this.props.onHide);
-    UIkit.util.on(ref, 'show', this.props.onShow);
-    UIkit.util.on(ref, 'shown', this.props.onShown);
+    const ukToPropsEventMap = {
+      beforehide: 'onBeforeHide',
+      beforeshow: 'onBeforeShow',
+      hidden: 'onHidden',
+      hide: 'onHide',
+      show: 'onShow',
+      shown: 'onShown',
+    };
+    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
   }
 
   getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
@@ -171,7 +171,7 @@ export default class Navbar extends React.Component {
         baseRef={this.handleRef}
         className={classes}
         component={Navbar}
-        data-uk-navbar={componentOptions}
+        uk-navbar={componentOptions}
       >
         <div {...alignProps}>{this.renderChildren(children)}</div>
       </Base>

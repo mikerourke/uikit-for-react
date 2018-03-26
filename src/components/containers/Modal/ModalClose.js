@@ -12,7 +12,6 @@ export default class ModalClose extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('a', 'button'),
-    children: PropTypes.node,
     full: PropTypes.bool,
     large: PropTypes.bool,
     outside: PropTypes.bool,
@@ -47,7 +46,7 @@ export default class ModalClose extends React.Component {
         as={as}
         className={classes}
         component={ModalClose}
-        data-uk-close={isClose ? '' : undefined}
+        uk-close={isClose ? '' : undefined}
       />
     );
   }

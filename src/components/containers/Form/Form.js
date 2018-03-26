@@ -40,7 +40,7 @@ export default class Form extends React.Component {
 
     if (!isNil(custom)) {
       const componentOptions = getOptionsString({
-        target: get(custom, 'selectorTarget', false),
+        target: get(custom, 'selectorTarget'),
       });
 
       return (
@@ -48,7 +48,7 @@ export default class Form extends React.Component {
           {...rest}
           as={get(custom, 'as')}
           component={custom}
-          data-uk-form-custom={componentOptions}
+          uk-form-custom={componentOptions}
         />
       );
     }
@@ -58,6 +58,6 @@ export default class Form extends React.Component {
       'uk-form-stacked': stacked,
     });
 
-    return <Base {...rest} component={Form} className={classes} />;
+    return <Base {...rest} className={classes} component={Form} />;
   }
 }

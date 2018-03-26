@@ -1,11 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Base, Cover, DotNav, Slideshow } from '../../components';
+import { imageLinks } from '../common';
 
 DotNav.displayName = 'DotNav';
 
 storiesOf('DotNav', module)
-  .add('Basic Usage', () => (
+  .add('Usage', () => (
     <Base margin={{ all: 'large' }}>
       <DotNav>
         <DotNav.Item active>Item 1</DotNav.Item>
@@ -34,26 +35,31 @@ storiesOf('DotNav', module)
       <Slideshow position="relative" inverse="light">
         <Slideshow.Items>
           <Slideshow.Item>
-            <Cover src="https://getuikit.com/docs/images/photo.jpg" alt="" />
+            <Cover src={imageLinks.photo} alt="" />
           </Slideshow.Item>
           <Slideshow.Item>
-            <Cover src="https://getuikit.com/docs/images/dark.jpg" alt="" />
+            <Cover src={imageLinks.dark} alt="" />
           </Slideshow.Item>
           <Slideshow.Item>
-            <Cover src="https://getuikit.com/docs/images/size1.jpg" alt="" />
+            <Cover src={imageLinks.sizeOne} alt="" />
           </Slideshow.Item>
         </Slideshow.Items>
         <Base
           position={{
-            vertical: 'bottom',
-            horizontal: 'center',
+            at: 'bottom-center',
             marginSize: 'small',
           }}
         >
           <DotNav>
-            <DotNav.Item slideshowItem={0}>Item 1</DotNav.Item>
-            <DotNav.Item slideshowItem={1}>Item 2</DotNav.Item>
-            <DotNav.Item slideshowItem={2}>Item 3</DotNav.Item>
+            <DotNav.Item itemIn={{ parent: 'slideshow', index: 0 }}>
+              Item 1
+            </DotNav.Item>
+            <DotNav.Item itemIn={{ parent: 'slideshow', index: 1 }}>
+              Item 2
+            </DotNav.Item>
+            <DotNav.Item itemIn={{ parent: 'slideshow', index: 2 }}>
+              Item 3
+            </DotNav.Item>
           </DotNav>
         </Base>
       </Slideshow>

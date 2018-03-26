@@ -10,7 +10,6 @@ export default class Label extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('span'),
-    children: PropTypes.node,
     danger: PropTypes.bool,
     success: PropTypes.bool,
     warning: PropTypes.bool,

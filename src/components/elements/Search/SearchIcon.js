@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import invoke from 'lodash/invoke';
-import noop from 'lodash/noop';
 import { customPropTypes } from '../../../lib';
 import Base from '../../base';
 
@@ -21,7 +20,6 @@ export default class SearchIcon extends React.Component {
     ...Base.defaultProps,
     as: 'span',
     flip: false,
-    onClick: noop,
     toggle: false,
   };
 
@@ -43,7 +41,7 @@ export default class SearchIcon extends React.Component {
         className={classes}
         component={SearchIcon}
         onClick={this.handleClick}
-        data-uk-search-icon=""
+        uk-search-icon=""
       />
     );
   }

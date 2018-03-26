@@ -33,7 +33,7 @@ export default class SlideNavPrevious extends React.Component {
         {...rest}
         className={classes || undefined}
         component={SlideNavPrevious}
-        data-uk-slidenav-previous=""
+        uk-slidenav-previous=""
       />
     );
   }

@@ -16,7 +16,6 @@ export default class Table extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('table'),
-    children: PropTypes.node,
     divider: PropTypes.bool,
     hover: PropTypes.bool,
     justify: PropTypes.bool,

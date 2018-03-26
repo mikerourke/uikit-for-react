@@ -10,7 +10,6 @@ export default class GridCell extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('div'),
-    children: PropTypes.node,
     matchHeight: PropTypes.bool,
   };
 

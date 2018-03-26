@@ -13,6 +13,7 @@ import {
   joinListProp,
   HTML,
   UIK,
+  addMultipleEventInvokers,
 } from '../../../lib';
 import Base from '../../base';
 
@@ -30,7 +31,7 @@ export default class Dropdown extends React.Component {
     }),
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     boundaryAlign: PropTypes.bool,
-    children: PropTypes.node,
+    children: PropTypes.node.isRequired,
     delayHide: PropTypes.number,
     delayShow: PropTypes.number,
     flip: PropTypes.oneOf([true, false, 'x', 'y']),
@@ -55,8 +56,6 @@ export default class Dropdown extends React.Component {
   static defaultProps = {
     ...Base.defaultProps,
     as: 'div',
-    boundaryAlign: false,
-    flip: false,
     onBeforeHide: noop,
     onBeforeShow: noop,
     onHidden: noop,
@@ -75,14 +74,17 @@ export default class Dropdown extends React.Component {
 
   componentDidMount() {
     const ref = this.getRef();
-    UIkit.util.on(ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(ref, 'beforeshow', this.props.onBeforeShow);
-    UIkit.util.on(ref, 'hidden', this.props.onHidden);
-    UIkit.util.on(ref, 'hide', this.props.onHide);
-    UIkit.util.on(ref, 'show', this.props.onShow);
-    UIkit.util.on(ref, 'shown', this.props.onShown);
-    UIkit.util.on(ref, 'stack', this.props.onStack);
-    UIkit.util.on(ref, 'toggle', this.props.onToggle);
+    const ukToPropsEventMap = {
+      beforehide: 'onBeforeHide',
+      beforeshow: 'onBeforeShow',
+      hidden: 'onHidden',
+      hide: 'onHide',
+      show: 'onShow',
+      shown: 'onShown',
+      stack: 'onStack',
+      toggle: 'onToggle',
+    };
+    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -146,7 +148,7 @@ export default class Dropdown extends React.Component {
           baseRef={this.handleRef}
           className={classes}
           component={component || Dropdown}
-          data-uk-dropdown={componentOptions}
+          uk-dropdown={componentOptions}
         >
           {this.renderChildren(children)}
         </Base>

@@ -2,18 +2,16 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { Base, Grid, Marker } from '../../components';
-
-const darkImage = 'https://getuikit.com/docs/images/dark.jpg';
-const lightImage = 'https://getuikit.com/docs/images/light.jpg';
+import { imageLinks } from '../common';
 
 Marker.displayName = 'Marker';
 
-storiesOf('Marker', module).add('Basic Usage', () => (
+storiesOf('Marker', module).add('Usage', () => (
   <Base margin={{ all: 'small' }}>
     <Grid childWidth="1/2">
       <Grid.Cell>
         <Base inline inverse="dark">
-          <img src={lightImage} alt="" />
+          <img src={imageLinks.light} alt="" />
           <Marker
             position="absolute"
             transformCenter
@@ -36,7 +34,7 @@ storiesOf('Marker', module).add('Basic Usage', () => (
       </Grid.Cell>
       <Grid.Cell>
         <Base inline inverse="light">
-          <img src={darkImage} alt="" />
+          <img src={imageLinks.dark} alt="" />
           <Marker
             position="absolute"
             transformCenter

@@ -33,7 +33,7 @@ export default class FormRange extends React.Component {
     });
 
     return (
-      <Base {...rest} type="range" component={FormRange} className={classes} />
+      <Base {...rest} type="range" className={classes} component={FormRange} />
     );
   }
 }

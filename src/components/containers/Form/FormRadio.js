@@ -33,7 +33,7 @@ export default class FormRadio extends React.Component {
     });
 
     return (
-      <Base {...rest} type="radio" component={FormRadio} className={classes} />
+      <Base {...rest} type="radio" className={classes} component={FormRadio} />
     );
   }
 }

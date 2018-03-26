@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import get from 'lodash/get';
-import isNil from 'lodash/isNil';
 import {
   buildBreakpointClasses,
   buildClassName,
@@ -20,7 +19,6 @@ export default class Grid extends React.Component {
 
   static propTypes = {
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
-    children: PropTypes.node,
     childWidth: customPropTypes.forBreakpoints(UIK.CHILD_WIDTHS),
     divider: PropTypes.bool,
     firstColumn: PropTypes.string,
@@ -71,14 +69,12 @@ export default class Grid extends React.Component {
     );
 
     const componentOptions = getOptionsString({
-      firstColumn: isNil(firstColumn) ? 'uk-first-column' : firstColumn,
-      margin: isNil(nextRow)
-        ? 'uk-grid-margin'
-        : buildClassName(
-            'margin',
-            get(nextRow, 'spacing', null),
-            get(nextRow, 'location', null),
-          ),
+      firstColumn,
+      margin: buildClassName(
+        'margin',
+        get(nextRow, 'spacing', null),
+        get(nextRow, 'location', null),
+      ),
     });
 
     return (
@@ -87,7 +83,7 @@ export default class Grid extends React.Component {
         baseRef={this.handleRef}
         className={classes || undefined}
         component={Grid}
-        data-uk-grid={componentOptions}
+        uk-grid={componentOptions || ''}
       />
     );
   }

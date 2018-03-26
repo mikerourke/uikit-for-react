@@ -1,5 +1,4 @@
 import React from 'react';
-import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
@@ -7,6 +6,7 @@ import get from 'lodash/get';
 import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import {
+  addEventInvoker,
   customPropTypes,
   generateSelector,
   getBaseRef,
@@ -36,13 +36,13 @@ export default class Alert extends React.Component {
       }),
     ]),
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
-    children: PropTypes.node,
     closeable: ExtraPropTypes.and([
       PropTypes.bool,
       props => {
         if (props.closeable && hasChildType(props.children, Close)) {
           return new Error(
-            'You cannot have an instance of Close inside an Alert if the "closeable" prop is true.',
+            'You cannot have an instance of Close inside an Alert if the ' +
+            '"closeable" prop is true.',
           );
         }
         return null;
@@ -60,7 +60,6 @@ export default class Alert extends React.Component {
   static defaultProps = {
     ...Base.defaultProps,
     as: 'div',
-    closeable: false,
     closeOptions: Close.defaultProps,
     danger: false,
     onBeforeHide: noop,
@@ -77,8 +76,8 @@ export default class Alert extends React.Component {
 
   componentDidMount() {
     const ref = this.getRef();
-    UIkit.util.on(ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(ref, 'hide', this.props.onHide);
+    addEventInvoker(ref, 'beforehide', 'onBeforeHide', this.props);
+    addEventInvoker(ref, 'hide', 'onHide', this.props);
   }
 
   getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
@@ -136,7 +135,7 @@ export default class Alert extends React.Component {
         baseRef={this.handleRef}
         className={classes}
         component={Alert}
-        data-uk-alert={getOptionsString({ animation })}
+        uk-alert={getOptionsString({ animation })}
       >
         {closeable && <Close {...closeProps} />}
         {this.renderChildren(children)}

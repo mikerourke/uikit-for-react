@@ -10,7 +10,6 @@ export default class Panel extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('div'),
-    children: PropTypes.node,
     scrollable: PropTypes.bool,
   };
 

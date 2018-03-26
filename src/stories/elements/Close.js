@@ -6,7 +6,7 @@ import { Alert, Base, Button, Close, Modal } from '../../components';
 Close.displayName = 'Close';
 
 storiesOf('Close', module)
-  .add('Basic Usage', () => (
+  .add('Usage', () => (
     <Base margin={{ all: 'large' }}>
       <Close />
     </Base>

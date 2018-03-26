@@ -5,7 +5,7 @@ import { Container, Icon } from '../../components';
 Icon.displayName = 'Icon';
 
 storiesOf('Icon', module)
-  .add('Basic Usage', () => (
+  .add('Usage', () => (
     <Container margin={{ all: 'large' }}>
       <Icon margin={{ right: 'small' }} name="check" />
       <Icon as="a" name="heart" />

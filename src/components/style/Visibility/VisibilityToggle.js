@@ -10,7 +10,6 @@ export default class VisibilityToggle extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
-    children: PropTypes.node,
     whenHovered: PropTypes.oneOf(['hidden', 'invisible']).isRequired,
   };
 

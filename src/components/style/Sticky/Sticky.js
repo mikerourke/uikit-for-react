@@ -1,10 +1,10 @@
 import React from 'react';
-import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import classnames from 'classnames';
 import {
+  addEventInvoker,
   customPropTypes,
   findChildByType,
   generateSelector,
@@ -27,7 +27,6 @@ export default class Sticky extends React.Component {
       PropTypes.number,
       PropTypes.string,
     ]),
-    children: PropTypes.node,
     clsActive: PropTypes.string,
     clsInactive: PropTypes.string,
     media: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -42,13 +41,9 @@ export default class Sticky extends React.Component {
 
   static defaultProps = {
     ...Base.defaultProps,
-    animation: false,
     as: 'div',
-    bottom: false,
     onActive: noop,
     onInactive: noop,
-    showOnUp: false,
-    target: false,
   };
 
   constructor() {
@@ -58,8 +53,8 @@ export default class Sticky extends React.Component {
 
   componentDidMount() {
     const ref = this.getRef();
-    UIkit.util.on(ref, 'active', this.props.onActive);
-    UIkit.util.on(ref, 'inactive', this.props.onInactive);
+    addEventInvoker(ref, 'active', 'onActive', this.props);
+    addEventInvoker(ref, 'inactive', 'onInactive', this.props);
   }
 
   getOptionsForNavbar() {
@@ -120,7 +115,7 @@ export default class Sticky extends React.Component {
         baseRef={this.handleRef}
         className={classes}
         component={Sticky}
-        data-uk-sticky={componentOptions}
+        uk-sticky={componentOptions}
       />
     );
   }

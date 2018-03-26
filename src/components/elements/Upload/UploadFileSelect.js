@@ -9,7 +9,6 @@ export default class UploadFileSelect extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('div'),
-    children: PropTypes.node,
   };
 
   static defaultProps = {
@@ -20,7 +19,7 @@ export default class UploadFileSelect extends React.Component {
   render() {
     const { children, ...rest } = this.props;
     return (
-      <Base {...rest} component={UploadFileSelect} data-uk-form-custom="">
+      <Base {...rest} component={UploadFileSelect} uk-form-custom="">
         <input type="file" />
         {children}
       </Base>

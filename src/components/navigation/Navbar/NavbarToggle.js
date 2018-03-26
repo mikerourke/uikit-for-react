@@ -24,7 +24,7 @@ export default class NavbarToggle extends React.Component {
   render() {
     const { className, icon, title, ...rest } = this.props;
 
-    const iconProp = { 'data-uk-navbar-toggle-icon': '' };
+    const iconProp = { 'uk-navbar-toggle-icon': '' };
     const classes = classnames(className, 'uk-navbar-toggle');
 
     if (!isNil(title)) {

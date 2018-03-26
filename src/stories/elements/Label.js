@@ -5,7 +5,7 @@ import { Base, Label } from '../../components';
 Label.displayName = 'Label';
 
 storiesOf('Label', module)
-  .add('Basic Usage', () => (
+  .add('Usage', () => (
     <Base margin={{ all: 'large' }}>
       <Label>Default</Label>
     </Base>

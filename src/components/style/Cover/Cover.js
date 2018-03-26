@@ -11,7 +11,6 @@ export default class Cover extends React.Component {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('img', 'video', 'iframe'),
     automute: PropTypes.bool,
-    children: PropTypes.node,
   };
 
   static defaultProps = {
@@ -28,7 +27,7 @@ export default class Cover extends React.Component {
       <Base
         {...rest}
         component={Cover}
-        data-uk-cover={getOptionsString({ automute })}
+        uk-cover={getOptionsString({ automute })}
       />
     );
   }

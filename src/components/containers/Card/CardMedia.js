@@ -13,21 +13,26 @@ export default class CardMedia extends React.Component {
   static propTypes = {
     alignTo: PropTypes.oneOf(UIK.LOCATIONS),
     as: customPropTypes.customOrStringElement('div'),
+    children: PropTypes.node.isRequired,
     cover: PropTypes.shape({
       height: ExtraPropTypes.nonNegativeInteger,
       width: ExtraPropTypes.nonNegativeInteger,
     }),
-    imgAlt: PropTypes.string,
-    imgSrc: PropTypes.string.isRequired,
   };
 
   static defaultProps = {
     as: 'div',
-    imgAlt: '',
   };
 
+  renderChildren = (children, isCover) =>
+    React.Children.map(children, child =>
+      React.cloneElement(child, {
+        'uk-cover': isCover ? '' : undefined,
+      }),
+    );
+
   render() {
-    const { alignTo, className, cover, imgAlt, imgSrc, ...rest } = this.props;
+    const { alignTo, children, className, cover, ...rest } = this.props;
 
     const isCover = !isNil(cover);
     const classes = classnames(
@@ -41,7 +46,7 @@ export default class CardMedia extends React.Component {
 
     return (
       <Base {...rest} component={CardMedia} className={classes}>
-        <img src={imgSrc} alt={imgAlt} data-uk-cover={isCover || undefined} />
+        {this.renderChildren(children, isCover)}
         {isCover && (
           <canvas height={get(cover, 'height')} width={get(cover, 'width')} />
         )}

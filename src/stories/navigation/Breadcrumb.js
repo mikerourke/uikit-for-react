@@ -4,7 +4,7 @@ import { Breadcrumb, Base } from '../../components';
 
 Breadcrumb.displayName = 'Breadcrumb';
 
-storiesOf('Breadcrumb', module).add('Basic Usage', () => (
+storiesOf('Breadcrumb', module).add('Usage', () => (
   <Base margin={{ all: 'large' }}>
     <Breadcrumb>
       <Breadcrumb.Item>Item</Breadcrumb.Item>

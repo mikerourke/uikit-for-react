@@ -1,8 +1,11 @@
 import React from 'react';
-import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
-import { customPropTypes } from '../../../lib';
+import {
+  addEventInvoker,
+  customPropTypes,
+  getOptionsString,
+} from '../../../lib';
 import Base from '../../base';
 
 export default class Totop extends React.Component {
@@ -23,29 +26,31 @@ export default class Totop extends React.Component {
     as: 'a',
     onBeforeScroll: noop,
     onScrolled: noop,
-    smooth: false,
   };
 
   componentDidMount() {
     const element = document.querySelector('[data-uikfr-scroll-totop]');
     if (!element) return;
-    UIkit.util.on(element, 'beforescroll', this.props.onBeforeScroll);
-    UIkit.util.on(element, 'scrolled', this.props.onScrolled);
+    addEventInvoker(element, 'beforescroll', 'onBeforeScroll', this.props);
+    addEventInvoker(element, 'scrolled', 'onScrolled', this.props);
   }
 
   render() {
     const { scrollDuration, scrollOffset, smooth, ...rest } = this.props;
+
+    const scrollOptions = getOptionsString({
+      duration: scrollDuration,
+      offset: scrollOffset,
+    });
 
     return (
       <Base
         {...rest}
         component={Totop}
         href="#"
-        data-uk-totop=""
-        data-uk-scroll={smooth || undefined}
+        uk-totop=""
+        uk-scroll={smooth ? scrollOptions : undefined}
         data-uikfr-scroll-totop=""
-        duration={scrollDuration}
-        offset={scrollOffset}
       />
     );
   }

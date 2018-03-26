@@ -10,7 +10,6 @@ export default class CommentList extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('ul'),
-    children: PropTypes.node,
     nested: PropTypes.bool,
   };
 
@@ -22,11 +21,7 @@ export default class CommentList extends React.Component {
 
   render() {
     const { children, className, nested, ...rest } = this.props;
-
-    const classes = classnames(className, {
-      'uk-comment-list': !nested,
-    });
-
+    const classes = classnames(className, { 'uk-comment-list': !nested });
     return (
       <Base {...rest} className={classes || undefined} component={CommentList}>
         {React.Children.map(children, child => <li>{child}</li>)}

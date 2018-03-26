@@ -8,7 +8,7 @@ Dropdown.displayName = 'Dropdown';
 const message = faker.lorem.paragraph();
 
 storiesOf('Dropdown', module)
-  .add('Basic Usage', () => (
+  .add('Usage', () => (
     <Base margin={{ all: 'large' }}>
       <Base inline>
         <Dropdown toggle={<Button>Hover</Button>}>{message}</Dropdown>

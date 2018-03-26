@@ -25,7 +25,8 @@ export default class Card extends React.Component {
           hasChildType(props.children, CardContent)
         ) {
           return new Error(
-            'You cannot specify CardContent and CardBody as children, it must be one or the other.',
+            'You cannot specify CardContent and CardBody as children, ' +
+            'it must be one or the other.',
           );
         }
         return null;

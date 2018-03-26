@@ -12,8 +12,6 @@ export default class NavSubNav extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('ul'),
-    children: PropTypes.node,
-
     title: PropTypes.node.isRequired,
   };
 

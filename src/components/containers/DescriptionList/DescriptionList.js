@@ -33,6 +33,6 @@ export default class DescriptionList extends React.Component {
     const classes = classnames(className, 'uk-description-list', {
       'uk-description-list-divider': divider,
     });
-    return <Base {...rest} component={DescriptionList} className={classes} />;
+    return <Base {...rest} className={classes} component={DescriptionList} />;
   }
 }

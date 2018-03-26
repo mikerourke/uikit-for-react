@@ -35,7 +35,7 @@ export default class Icon extends React.Component {
         {...rest}
         className={classes}
         component={Icon}
-        data-uk-icon={getOptionsString({ icon: name, ratio })}
+        uk-icon={getOptionsString({ icon: name, ratio })}
       />
     );
   }

@@ -10,7 +10,6 @@ export default class Tile extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('span'),
-    children: PropTypes.node,
     muted: PropTypes.bool,
     primary: PropTypes.bool,
     secondary: PropTypes.bool,

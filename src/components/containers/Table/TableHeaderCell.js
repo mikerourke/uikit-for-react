@@ -10,7 +10,6 @@ export default class TableHeaderCell extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('th'),
-    children: PropTypes.node,
     expand: PropTypes.bool,
     link: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['reset'])]),
     shrink: PropTypes.bool,

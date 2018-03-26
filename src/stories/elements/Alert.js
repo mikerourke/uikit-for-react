@@ -9,7 +9,7 @@ Alert.displayName = 'Alert';
 const message = faker.lorem.sentence();
 
 storiesOf('Alert', module)
-  .add('Basic Usage', () => (
+  .add('Usage', () => (
     <Base margin={{ all: 'large' }}>
       <Alert>{message}</Alert>
     </Base>

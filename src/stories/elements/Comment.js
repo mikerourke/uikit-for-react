@@ -9,18 +9,17 @@ import {
   SubNav,
   Visibility,
 } from '../../components';
+import { imageLinks } from '../common';
 
 Comment.displayName = 'Comment';
 
-const avatarLink = 'https://getuikit.com/docs/images/avatar.jpg';
-
 storiesOf('Comment', module)
-  .add('Basic Usage', () => (
+  .add('Usage', () => (
     <Base margin={{ all: 'large' }}>
       <Comment>
         <Grid as={Comment.Header} alignItems="middle" gutter="medium">
           <Grid.Cell width="auto">
-            <Comment.Avatar src={avatarLink} width={80} height={80} />
+            <Comment.Avatar src={imageLinks.avatar} width={80} height={80} />
           </Grid.Cell>
           <Grid.Cell width="expand">
             <Comment.Title as="h4" margin="remove">
@@ -44,7 +43,7 @@ storiesOf('Comment', module)
       <Comment primary>
         <Grid as={Comment.Header} alignItems="middle">
           <Grid.Cell width="auto">
-            <Comment.Avatar src={avatarLink} width={80} height={80} />
+            <Comment.Avatar src={imageLinks.avatar} width={80} height={80} />
           </Grid.Cell>
           <Grid.Cell width="expand">
             <Comment.Title as="h4" margin="remove">
@@ -71,7 +70,11 @@ storiesOf('Comment', module)
           <Comment.Header position="relative">
             <Grid alignItems="middle" gutter="medium">
               <Grid.Cell width="auto">
-                <Comment.Avatar src={avatarLink} width={80} height={80} />
+                <Comment.Avatar
+                  src={imageLinks.avatar}
+                  width={80}
+                  height={80}
+                />
               </Grid.Cell>
               <Grid.Cell width="expand">
                 <Comment.Title as="h4" margin="remove">
@@ -85,8 +88,7 @@ storiesOf('Comment', module)
             <Visibility.Toggle
               as={Base}
               position={{
-                horizontal: 'right',
-                vertical: 'top',
+                at: 'top-right',
                 marginSize: 'small',
               }}
               whenHovered="hidden"
@@ -103,7 +105,11 @@ storiesOf('Comment', module)
             <Comment.Header position="relative">
               <Grid alignItems="middle" gutter="medium">
                 <Grid.Cell width="auto">
-                  <Comment.Avatar src={avatarLink} width={80} height={80} />
+                  <Comment.Avatar
+                    src={imageLinks.avatar}
+                    width={80}
+                    height={80}
+                  />
                 </Grid.Cell>
                 <Grid.Cell width="expand">
                   <Comment.Title as="h4" margin="remove">
@@ -117,8 +123,7 @@ storiesOf('Comment', module)
               <Visibility.Toggle
                 as={Base}
                 position={{
-                  horizontal: 'right',
-                  vertical: 'top',
+                  at: 'top-right',
                   marginSize: 'small',
                 }}
                 whenHovered="hidden"
@@ -134,7 +139,11 @@ storiesOf('Comment', module)
             <Comment.Header position="relative">
               <Grid alignItems="middle" gutter="medium">
                 <Grid.Cell width="auto">
-                  <Comment.Avatar src={avatarLink} width={80} height={80} />
+                  <Comment.Avatar
+                    src={imageLinks.avatar}
+                    width={80}
+                    height={80}
+                  />
                 </Grid.Cell>
                 <Grid.Cell width="expand">
                   <Comment.Title as="h4" margin="remove">
@@ -148,8 +157,7 @@ storiesOf('Comment', module)
               <Visibility.Toggle
                 as={Base}
                 position={{
-                  horizontal: 'right',
-                  vertical: 'top',
+                  at: 'top-right',
                   marginSize: 'small',
                 }}
                 whenHovered="hidden"

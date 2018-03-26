@@ -10,7 +10,6 @@ export default class Link extends React.Component {
   static propTypes = {
     ...Text.propTypes,
     as: customPropTypes.customOrStringElement('a'),
-    children: PropTypes.node,
     muted: PropTypes.bool,
     reset: PropTypes.bool,
     text: PropTypes.bool,

@@ -10,7 +10,6 @@ export default class SwitcherGoTo extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement(HTML.INLINE_ELEMENTS),
-    children: PropTypes.node,
     target: PropTypes.oneOfType([
       PropTypes.oneOf(['next', 'previous']),
       ExtraPropTypes.nonNegativeInteger,
@@ -28,7 +27,7 @@ export default class SwitcherGoTo extends React.Component {
       <Base
         {...rest}
         component={SwitcherGoTo}
-        data-uk-switcher-item={target.toString()}
+        uk-switcher-item={target.toString()}
       />
     );
   }

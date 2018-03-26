@@ -39,25 +39,7 @@ export default class Base extends React.Component {
         reverse: PropTypes.bool,
         fast: PropTypes.bool,
         transformCenter: PropTypes.bool,
-        transformOrigin: ExtraPropTypes.and([
-          PropTypes.shape({
-            horizontal: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS).isRequired,
-            vertical: PropTypes.oneOf(UIK.VERTICAL_POSITIONS).isRequired,
-          }),
-          props => {
-            const { horizontal = null, vertical = null } = get(
-              props,
-              ['animation', 'transformOrigin'],
-              {},
-            );
-            if ((horizontal && !vertical) || (!horizontal && vertical)) {
-              return new Error(
-                'You must specify both a horizontal and vertical property for transformOrigin in animation prop',
-              );
-            }
-            return null;
-          },
-        ]),
+        transformOrigin: PropTypes.oneOf(UIK.X_Y_POSITIONS),
       }),
     ]),
     as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
@@ -70,10 +52,7 @@ export default class Base extends React.Component {
         fixed: PropTypes.bool,
         imageUrl: PropTypes.string,
         norepeat: PropTypes.bool,
-        position: PropTypes.shape({
-          horizontal: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
-          vertical: PropTypes.oneOf(UIK.VERTICAL_POSITIONS),
-        }),
+        position: PropTypes.oneOf(UIK.X_Y_POSITIONS),
         size: PropTypes.oneOf(UIK.BACKGROUND_SIZES),
       }),
     ]),
@@ -132,6 +111,10 @@ export default class Base extends React.Component {
     inline: PropTypes.bool,
     inverse: PropTypes.oneOf(['dark', 'light']),
     invisible: PropTypes.bool,
+    itemIn: PropTypes.shape({
+      parent: PropTypes.oneOf(['slideshow']).isRequired,
+      index: PropTypes.number.isRequired,
+    }),
     justifyContent: customPropTypes.forBreakpoints(
       UIK.FLEX_HORIZONTAL_MODIFIERS,
     ),
@@ -184,8 +167,7 @@ export default class Base extends React.Component {
       PropTypes.oneOf(UIK.LOCATIONS),
       PropTypes.oneOf(UIK.CSS_POSITIONS),
       PropTypes.shape({
-        horizontal: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
-        vertical: PropTypes.oneOf(UIK.VERTICAL_POSITIONS),
+        at: PropTypes.oneOf([...UIK.X_Y_POSITIONS, 'center-center']),
         cover: PropTypes.bool,
         marginSize: PropTypes.oneOf(UIK.BASE_SIZES),
         outside: PropTypes.oneOf(['left', 'right']),
@@ -208,9 +190,7 @@ export default class Base extends React.Component {
       overflow: PropTypes.bool,
       scroll: PropTypes.bool,
     }),
-    slideshowItem: PropTypes.number,
     sortableHandle: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-    sorted: PropTypes.bool,
     style: PropTypes.object,
     text: PropTypes.shape({
       align: PropTypes.oneOfType([
@@ -235,8 +215,8 @@ export default class Base extends React.Component {
       UIK.HORIZONTAL_POSITIONS,
       PropTypes.oneOf(['justify']),
     ),
+    toggleFor: PropTypes.oneOf(['animation', 'transition', 'visibility']),
     transformCenter: PropTypes.bool,
-    transitionToggle: PropTypes.bool,
     viewport: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.shape({
@@ -247,7 +227,6 @@ export default class Base extends React.Component {
       }),
     ]),
     visible: PropTypes.oneOf(UIK.BREAKPOINTS),
-    visibleToggle: PropTypes.bool,
     width: customPropTypes.forBreakpoints(UIK.ALL_WIDTHS, PropTypes.number),
     wrap: PropTypes.shape({
       type: PropTypes.oneOf(['nowrap', 'reverse', 'wrap']),
@@ -272,19 +251,15 @@ export default class Base extends React.Component {
     parallax: {},
     resize: false,
     sortableHandle: false,
-    sorted: false,
     style: {},
     transformCenter: false,
-    transitionToggle: false,
-    visibleToggle: false,
   };
 
   getAnimationClasses(animation) {
-    const horizOrigin = get(animation, ['transformOrigin', 'horizontal']);
-    const vertOrigin = get(animation, ['transformOrigin', 'vertical']);
     return classnames(
       buildClassName('animation', animation),
-      buildClassName('transform', 'origin', vertOrigin, horizOrigin),
+      buildClassName('animation', get(animation, 'name')),
+      buildClassName('transform-origin', get(animation, 'transformOrigin')),
       {
         'uk-animation-fast': get(animation, 'fast', false),
         'uk-animation-reverse': get(animation, 'reverse', false),
@@ -300,8 +275,8 @@ export default class Base extends React.Component {
   getBackgroundClasses(background) {
     return classnames(
       buildClassName('background', background),
-      buildClassName('background', 'blend', get(background, 'blendMode')),
-      buildClassName('background', 'image', get(background, 'breakpoint')),
+      buildClassName('background-blend', get(background, 'blendMode')),
+      buildClassName('background-image', get(background, 'breakpoint')),
       buildClassName('background', get(background, 'color')),
       buildClassName('background', get(background, 'size')),
       {
@@ -311,13 +286,21 @@ export default class Base extends React.Component {
     );
   }
 
-  getFlexClasses(alignItems, flex, grow, justifyContent, order, wrap) {
+  getFlexClasses(
+    alignItems,
+    direction,
+    flex,
+    grow,
+    justifyContent,
+    order,
+    wrap,
+  ) {
     return classnames(
       buildClassName('flex', alignItems),
       buildClassName(
         'flex',
-        get(flex, ['direction', 'as']),
-        get(flex, ['direction', 'reverse'], false) ? 'reverse' : '',
+        get(direction, 'as'),
+        get(direction, 'reverse', false) ? 'reverse' : '',
       ),
       buildBreakpointClasses('flex', justifyContent),
       buildClassName('flex', order),
@@ -355,9 +338,8 @@ export default class Base extends React.Component {
   }
 
   getPositionClasses(position) {
-    const horizProp = get(position, 'horizontal');
-    const vertProp = get(position, 'vertical');
-    const isCentered = horizProp === 'center' && vertProp === 'center';
+    const positionAt = get(position, 'at', '');
+    const isCentered = positionAt === 'center-center';
     return classnames(
       buildClassName('position', position),
       buildClassName('position-center', get(position, 'outside'), 'out'),
@@ -366,7 +348,7 @@ export default class Base extends React.Component {
       buildClassName('position', get(position, 'marginSize')),
       buildClassName('position', get(position, 'type')),
       {
-        [buildClassName('position', vertProp, horizProp)]: !isCentered,
+        [buildClassName('position', positionAt)]: !isCentered,
         'uk-position-center': isCentered,
       },
     );
@@ -394,13 +376,16 @@ export default class Base extends React.Component {
   }
 
   getComponentAttributes(
+    itemIn,
     marker,
     overflow,
     parallax,
-    slideshowItem,
     scrollspyNav,
     viewport,
   ) {
+    const itemInName = buildClassName(get(itemIn, 'parent'), 'item');
+    const itemInIndex = get(itemIn, 'index');
+
     const { animate = {}, ...parallaxProps } = parallax;
     const parallaxOptions = getOptionsString({
       ...animate,
@@ -415,17 +400,13 @@ export default class Base extends React.Component {
     });
 
     return {
+      [itemInName]: itemInIndex,
       'uk-marker': marker ? '' : undefined,
-      'data-uk-height-viewport': viewport
-        ? getOptionsString(viewport)
-        : undefined,
-      'data-uk-overflow-auto': overflow === 'auto' ? '' : undefined,
-      'data-uk-overflow-hidden': overflow === 'hidden' ? '' : undefined,
-      'data-uk-parallax': isEmpty(parallax) ? undefined : parallaxOptions,
-      'data-uk-scrollspy-nav': scrollspyNav ? scrollspyNavOptions : undefined,
-      'data-uk-slideshow-item': isNil(slideshowItem)
-        ? undefined
-        : slideshowItem.toString(),
+      'uk-height-viewport': viewport ? getOptionsString(viewport) : undefined,
+      'uk-overflow-auto': overflow === 'auto' ? '' : undefined,
+      'uk-overflow-hidden': overflow === 'hidden' ? '' : undefined,
+      'uk-parallax': isEmpty(parallax) ? undefined : parallaxOptions,
+      'uk-scrollspy-nav': scrollspyNav ? scrollspyNavOptions : undefined,
     };
   }
 
@@ -458,6 +439,7 @@ export default class Base extends React.Component {
       inline,
       inverse,
       invisible,
+      itemIn,
       justifyContent,
       linkStyle,
       margin,
@@ -470,17 +452,14 @@ export default class Base extends React.Component {
       resize,
       responsive,
       scrollspyNav,
-      slideshowItem,
       sortableHandle,
-      sorted,
       style,
       text,
       textAlign,
+      toggleFor,
       transformCenter,
-      transitionToggle,
       viewport,
       visible,
-      visibleToggle,
       width,
       wrap,
       ...rest
@@ -492,7 +471,15 @@ export default class Base extends React.Component {
     const ukClasses = classnames(
       this.getAnimationClasses(animation),
       this.getBackgroundClasses(background),
-      this.getFlexClasses(alignItems, flex, grow, justifyContent, order, wrap),
+      this.getFlexClasses(
+        alignItems,
+        direction,
+        flex,
+        grow,
+        justifyContent,
+        order,
+        wrap,
+      ),
       this.getMarginClasses(margin),
       this.getPositionClasses(position),
       this.getTextClasses(text),
@@ -537,17 +524,18 @@ export default class Base extends React.Component {
         'uk-preserve-width': responsive === false,
         'uk-resize': resize,
         'uk-sorable-handle': sortableHandle === true,
+        'uk-animation-toggle': toggleFor === 'animation',
+        'uk-transition-toggle': toggleFor === 'transition',
+        'uk-visible-toggle': toggleFor === 'visibility',
         'uk-transform-center': transformCenter,
-        'uk-transition-toggle': transitionToggle,
-        'uk-visible-toggle': visibleToggle,
       },
     );
 
     const attributes = this.getComponentAttributes(
+      itemIn,
       marker,
       overflow,
       parallax,
-      slideshowItem,
       scrollspyNav,
       viewport,
     );
@@ -567,7 +555,7 @@ export default class Base extends React.Component {
         style={isEmpty(styles) ? undefined : styles}
         height={customHeight ? undefined : height}
         width={customWidth ? undefined : width}
-        tabIndex={transitionToggle ? 0 : undefined}
+        tabIndex={toggleFor === 'transition' ? 0 : undefined}
         {...attributes}
         {...getValidProps(componentForElement, rest)}
         id={baseId}

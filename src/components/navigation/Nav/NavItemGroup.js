@@ -12,7 +12,6 @@ export default class NavItemGroup extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('ul'),
-    children: PropTypes.node,
     title: PropTypes.node.isRequired,
   };
 
@@ -22,11 +21,11 @@ export default class NavItemGroup extends React.Component {
   };
 
   render() {
-    const { children, className, title, ...rest } = this.props;
+    const { className, title, ...rest } = this.props;
 
     const classes = classnames(className);
-
     const Title = React.isValidElement(title) ? title : <a href="#">{title}</a>;
+
     return (
       <Fragment>
         <Title />
@@ -34,9 +33,7 @@ export default class NavItemGroup extends React.Component {
           {...rest}
           className={classes || undefined}
           component={NavItemGroup}
-        >
-          {children}
-        </Base>
+        />
       </Fragment>
     );
   }

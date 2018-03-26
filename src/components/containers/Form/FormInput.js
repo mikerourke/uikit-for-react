@@ -68,7 +68,7 @@ export default class FormInput extends React.Component {
       className,
       'uk-input',
       buildClassName('form', size),
-      buildClassName('form', 'width', formWidth),
+      buildClassName('form-width', formWidth),
       {
         'uk-form-blank': blank,
         'uk-form-danger': danger,
@@ -76,14 +76,14 @@ export default class FormInput extends React.Component {
       },
     );
 
-    const inputElement = (
-      <Base {...rest} component={FormInput} className={classes} />
+    const InputElement = (
+      <Base {...rest} className={classes} component={FormInput} />
     );
 
     if (!isNil(iconOptions)) {
-      return this.renderWithIcon(iconOptions, inputElement);
+      return this.renderWithIcon(iconOptions, InputElement);
     }
 
-    return inputElement;
+    return InputElement;
   }
 }

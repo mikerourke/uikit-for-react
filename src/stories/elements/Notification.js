@@ -5,7 +5,7 @@ import { Button, Base, Notification } from '../../components';
 
 Notification.displayName = 'Notification';
 
-storiesOf('Notification', module).add('Basic Usage', () => {
+storiesOf('Notification', module).add('Usage', () => {
   class Notifier extends React.Component {
     state = {
       shown: false,

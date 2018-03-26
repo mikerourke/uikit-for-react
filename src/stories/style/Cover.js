@@ -1,16 +1,15 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Base, Cover, Video } from '../../components';
+import { imageLinks, videoSources } from '../common';
 
 Cover.displayName = 'Cover';
 
-const mediaLink = 'https://getuikit.com/docs/images/dark.jpg';
-
 storiesOf('Cover', module)
-  .add('Basic Usage', () => (
+  .add('Usage', () => (
     <Base margin={{ all: 'large' }}>
       <Cover.Container height="medium">
-        <Cover src={mediaLink} />
+        <Cover src={imageLinks.dark} />
       </Cover.Container>
     </Base>
   ))
@@ -19,14 +18,8 @@ storiesOf('Cover', module)
     <Base margin={{ all: 'large' }}>
       <Cover.Container height="medium">
         <Cover as={Video} autoplay loop muted playsInline>
-          <Video.Source
-            src="//www.quirksmode.org/html5/videos/big_buck_bunny.mp4"
-            type="video/mp4"
-          />
-          <Video.Source
-            src="//www.quirksmode.org/html5/videos/big_buck_bunny.ogv"
-            type="video/ogg"
-          />
+          <Video.Source src={videoSources.mp4} type="video/mp4" />
+          <Video.Source src={videoSources.ogg} type="video/ogg" />
         </Cover>
       </Cover.Container>
     </Base>
@@ -37,7 +30,7 @@ storiesOf('Cover', module)
       <Cover.Container height="medium">
         <Cover
           as="iframe"
-          src="//www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent"
+          src={videoSources.embed}
           width={560}
           height={315}
           frameBorder={0}
@@ -50,7 +43,7 @@ storiesOf('Cover', module)
   .add('Responsive height', () => (
     <Base margin={{ all: 'large' }}>
       <Cover.Container aspectRatio={{ height: 200, width: 400 }}>
-        <Cover src={mediaLink} />
+        <Cover src={imageLinks.dark} />
       </Cover.Container>
     </Base>
   ))
@@ -58,7 +51,7 @@ storiesOf('Cover', module)
   .add('Viewport height', () => (
     <Base margin={{ all: 'large' }}>
       <Cover.Container viewport>
-        <Cover src={mediaLink} />
+        <Cover src={imageLinks.dark} />
       </Cover.Container>
     </Base>
   ));

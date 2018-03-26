@@ -8,7 +8,7 @@ Article.displayName = 'Article';
 const leadText = faker.lorem.paragraph();
 const bodyText = faker.lorem.paragraphs(2);
 
-storiesOf('Article', module).add('Basic Usage', () => (
+storiesOf('Article', module).add('Usage', () => (
   <Base margin={{ all: 'large' }}>
     <Article>
       <Article.Title>Heading</Article.Title>
@@ -17,12 +17,12 @@ storiesOf('Article', module).add('Basic Usage', () => (
       <Article.Body as="p">{bodyText}</Article.Body>
       <Grid gutter="small" childWidth="auto">
         <Grid.Cell>
-          <Button as="a" asText>
+          <Button as="a" text>
             Read more
           </Button>
         </Grid.Cell>
         <Grid.Cell>
-          <Button as="a" asText>
+          <Button as="a" text>
             5 Comments
           </Button>
         </Grid.Cell>

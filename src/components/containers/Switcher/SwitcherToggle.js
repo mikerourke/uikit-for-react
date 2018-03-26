@@ -10,7 +10,6 @@ export default class SwitcherToggle extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
-    children: PropTypes.node,
     href: PropTypes.string,
   };
 

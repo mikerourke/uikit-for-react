@@ -6,7 +6,7 @@ import { Base, Card, GridParallax } from '../../components';
 GridParallax.displayName = 'GridParallax';
 
 storiesOf('GridParallax', module)
-  .add('Basic Usage', () => (
+  .add('Usage', () => (
     <Base margin={{ all: 'large' }}>
       <GridParallax childWidth={{ atSm: 'expand' }}>
         <GridParallax.Cell>

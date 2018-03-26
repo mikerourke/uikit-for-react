@@ -3,11 +3,12 @@ import faker from 'faker';
 import range from 'lodash/range';
 import { storiesOf } from '@storybook/react';
 import { Base, Button, Grid, Heading, Modal, Toggle } from '../../components';
+import { imageLinks } from '../common';
 
 Modal.displayName = 'Modal';
 
 storiesOf('Modal', module)
-  .add('Basic Usage', () => (
+  .add('Usage', () => (
     <Base margin={{ all: 'large' }}>
       <Toggle.Togglable>
         <Toggle.Toggle as={Button} margin={{ right: 'small' }}>
@@ -122,7 +123,7 @@ storiesOf('Modal', module)
               <Grid.Cell
                 background={{
                   cover: true,
-                  imageUrl: 'https://getuikit.com/docs/images/photo.jpg',
+                  imageUrl: imageLinks.photo,
                 }}
                 viewport
               />

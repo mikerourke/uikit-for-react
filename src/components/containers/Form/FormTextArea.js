@@ -53,6 +53,6 @@ export default class FormTextArea extends React.Component {
       },
     );
 
-    return <Base {...rest} component={FormTextArea} className={classes} />;
+    return <Base {...rest} className={classes} component={FormTextArea} />;
   }
 }

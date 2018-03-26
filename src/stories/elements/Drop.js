@@ -8,7 +8,7 @@ Drop.displayName = 'Drop';
 const message = faker.lorem.paragraph();
 
 storiesOf('Drop', module)
-  .add('Basic Usage', () => (
+  .add('Usage', () => (
     <Base margin={{ all: 'large' }}>
       <Base inline>
         <Drop toggle={<Button>Hover</Button>}>

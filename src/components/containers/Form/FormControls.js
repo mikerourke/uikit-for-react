@@ -23,6 +23,6 @@ export default class FormControls extends React.Component {
     const classes = classnames(className, 'uk-form-controls', {
       'uk-form-controls-text': alignForText,
     });
-    return <Base {...rest} component={FormControls} className={classes} />;
+    return <Base {...rest} className={classes} component={FormControls} />;
   }
 }

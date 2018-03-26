@@ -9,7 +9,6 @@ export default class OverlayIcon extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('span'),
-    children: PropTypes.node,
   };
 
   static defaultProps = {
@@ -18,8 +17,6 @@ export default class OverlayIcon extends React.Component {
   };
 
   render() {
-    return (
-      <Base {...this.props} component={OverlayIcon} data-uk-overlay-icon="" />
-    );
+    return <Base {...this.props} component={OverlayIcon} uk-overlay-icon="" />;
   }
 }

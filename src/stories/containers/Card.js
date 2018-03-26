@@ -1,24 +1,15 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import {
-  Base,
-  Button,
-  Card,
-  Grid,
-  Label,
-  Link,
-  Text,
-} from '../../components';
+import { Base, Button, Card, Grid, Label, Link, Text } from '../../components';
+import { imageLinks } from '../common';
 
 Card.displayName = 'Card';
 
-const avatarLink = 'https://getuikit.com/docs/images/avatar.jpg';
-const mediaLink = 'https://getuikit.com/docs/images/light.jpg';
 const cardContent = faker.lorem.paragraph();
 
 storiesOf('Card', module)
-  .add('Basic Usage', () => (
+  .add('Usage', () => (
     <Base margin={{ all: 'large' }}>
       <Card width={{ atMd: '1/2' }}>
         <Card.Title>Default</Card.Title>
@@ -88,7 +79,7 @@ storiesOf('Card', module)
 
   .add('Size modifiers', () => (
     <Base margin={{ all: 'large' }}>
-      <Grid childWidth={{ atSm: '1/2' }} matchHeight>
+      <Grid childWidth={{ atSm: '1/2' }}>
         <Grid.Cell>
           <Card size="small">
             <Card.Title>Small</Card.Title>
@@ -114,7 +105,7 @@ storiesOf('Card', module)
               <Base
                 as="img"
                 border="circle"
-                src={avatarLink}
+                src={imageLinks.avatar}
                 width={40}
                 height={40}
               />
@@ -131,7 +122,7 @@ storiesOf('Card', module)
           <p>{cardContent}</p>
         </Card.Body>
         <Card.Footer>
-          <Button as="a" asText>
+          <Button as="a" text>
             Read more
           </Button>
         </Card.Footer>
@@ -142,22 +133,26 @@ storiesOf('Card', module)
   .add('Media', () => (
     <Base margin={{ all: 'large' }}>
       <Grid childWidth={{ atMd: '1/2' }}>
-        <Grid.Cell width="auto">
+        <Grid.Cell>
           <Card>
-            <Card.Media alignTo="top" imgSrc={mediaLink} />
+            <Card.Media alignTo="top">
+              <img src={imageLinks.light} alt="" />
+            </Card.Media>
             <Card.Body>
               <Card.Title>Media Top</Card.Title>
               <p>{cardContent}</p>
             </Card.Body>
           </Card>
         </Grid.Cell>
-        <Grid.Cell width="auto">
+        <Grid.Cell>
           <Card>
             <Card.Body>
               <Card.Title>Media Bottom</Card.Title>
               <p>{cardContent}</p>
             </Card.Body>
-            <Card.Media alignTo="bottom" imgSrc={mediaLink} />
+            <Card.Media alignTo="bottom">
+              <img src={imageLinks.light} alt="" />
+            </Card.Media>
           </Card>
         </Grid.Cell>
       </Grid>
@@ -167,11 +162,9 @@ storiesOf('Card', module)
   .add('Horizontal alignment', () => (
     <Base margin={{ all: 'large' }}>
       <Card as={Grid} childWidth={{ atSm: '1/2' }} gutter="collapse" margin>
-        <Card.Media
-          alignTo="left"
-          cover={{ width: 600, height: 400 }}
-          imgSrc={mediaLink}
-        />
+        <Card.Media alignTo="left" cover={{ width: 600, height: 400 }}>
+          <img src={imageLinks.light} alt="" />
+        </Card.Media>
         <Card.Body>
           <Card.Title>Media Left</Card.Title>
           <p>{cardContent}</p>
@@ -181,9 +174,10 @@ storiesOf('Card', module)
         <Card.Media
           alignTo="right"
           cover={{ width: 600, height: 400 }}
-          imgSrc={mediaLink}
           order={{ last: '@s' }}
-        />
+        >
+          <img src={imageLinks.light} alt="" />
+        </Card.Media>
         <Card.Body>
           <Card.Title>Media Right</Card.Title>
           <p>{cardContent}</p>

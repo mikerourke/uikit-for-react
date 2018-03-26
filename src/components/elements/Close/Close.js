@@ -24,8 +24,6 @@ export default class Close extends React.Component {
     const classes = classnames(className, 'uk-close', {
       'uk-close-large': large,
     });
-    return (
-      <Base {...rest} className={classes} component={Close} data-uk-close="" />
-    );
+    return <Base {...rest} className={classes} component={Close} uk-close="" />;
   }
 }

@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import {
+  addMultipleEventInvokers,
   customPropTypes,
   generateIdentifier,
   generateSelector,
@@ -46,10 +47,6 @@ export default class Modal extends React.Component {
   static defaultProps = {
     ...Base.defaultProps,
     as: 'div',
-    bgClose: true,
-    container: false,
-    escClose: true,
-    full: false,
     onBeforeHide: noop,
     onBeforeShow: noop,
     onHidden: noop,
@@ -57,7 +54,6 @@ export default class Modal extends React.Component {
     onShow: noop,
     onShown: noop,
     shown: false,
-    stack: false,
   };
 
   static Body = ModalBody;
@@ -75,12 +71,15 @@ export default class Modal extends React.Component {
 
   componentDidMount() {
     const ref = this.getRef();
-    UIkit.util.on(ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(ref, 'beforeshow', this.props.onBeforeShow);
-    UIkit.util.on(ref, 'hidden', this.props.onHidden);
-    UIkit.util.on(ref, 'hide', this.props.onHide);
-    UIkit.util.on(ref, 'show', this.props.onShow);
-    UIkit.util.on(ref, 'shown', this.props.onShown);
+    const ukToPropsEventMap = {
+      beforehide: 'onBeforeHide',
+      beforeshow: 'onBeforeShow',
+      hidden: 'onHidden',
+      hide: 'onHide',
+      show: 'onShow',
+      shown: 'onShown',
+    };
+    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -117,14 +116,12 @@ export default class Modal extends React.Component {
       'uk-modal-full': full,
     });
 
-    const componentOptions = getOptionsString({ bgClose, escClose, stack });
-
     let Toggle;
     const identifier = generateIdentifier();
     if (toggle) {
       Toggle = React.cloneElement(toggle, {
         href: `#${identifier}`,
-        'data-uk-toggle': '',
+        'uk-toggle': '',
       });
     }
 
@@ -137,7 +134,7 @@ export default class Modal extends React.Component {
           baseRef={this.handleRef}
           className={classes}
           component={Modal}
-          data-uk-modal={componentOptions}
+          uk-modal={getOptionsString({ bgClose, escClose, stack })}
         />
       </Fragment>
     );

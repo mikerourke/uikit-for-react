@@ -39,6 +39,6 @@ export default class List extends React.Component {
       'uk-list-striped': striped,
     });
 
-    return <Base {...rest} component={List} className={classes} />;
+    return <Base {...rest} className={classes} component={List} />;
   }
 }

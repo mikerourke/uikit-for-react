@@ -33,7 +33,7 @@ export default class SlideNavNext extends React.Component {
         {...rest}
         className={classes || undefined}
         component={SlideNavNext}
-        data-uk-slidenav-next=""
+        uk-slidenav-next=""
       />
     );
   }

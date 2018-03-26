@@ -1,3 +1,5 @@
+export { addEventInvoker, addMultipleEventInvokers } from './addEventInvokers';
+
 export { buildClassName, buildBreakpointClasses } from './buildClasses';
 
 export { default as buildSelector } from './buildSelector';

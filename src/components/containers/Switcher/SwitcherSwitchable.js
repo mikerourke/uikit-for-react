@@ -12,7 +12,7 @@ export default class SwitcherSwitchable extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
-    children: PropTypes.node,
+    children: PropTypes.node.isRequired,
   };
 
   static defaultProps = {
@@ -50,7 +50,6 @@ export default class SwitcherSwitchable extends React.Component {
 
   render() {
     const { children, ...rest } = this.props;
-
     return (
       <Base {...rest} component={SwitcherSwitchable}>
         {this.renderChildren(children)}

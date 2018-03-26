@@ -11,7 +11,6 @@ export default class BreadcrumbItem extends React.Component {
     ...Base.propTypes,
     active: PropTypes.bool,
     as: customPropTypes.customOrStringElement('li'),
-    children: PropTypes.node,
     disabled: PropTypes.bool,
     href: PropTypes.string,
   };

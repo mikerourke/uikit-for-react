@@ -33,9 +33,7 @@ export default class FormCheckbox extends React.Component {
     ...Base.defaultProps,
     as: 'input',
     blank: false,
-    checked: false,
     danger: false,
-    defaultChecked: false,
     label: '',
     success: false,
   };
@@ -83,7 +81,7 @@ export default class FormCheckbox extends React.Component {
       'uk-form-success': success,
     });
 
-    const checkboxInput = (
+    const CheckboxInput = (
       <Base
         {...rest}
         className={classes}
@@ -98,7 +96,7 @@ export default class FormCheckbox extends React.Component {
       return React.cloneElement(labelElement, {
         children: (
           <Fragment>
-            {checkboxInput}
+            {CheckboxInput}
             {labelElement.props.children}
           </Fragment>
         ),
@@ -107,7 +105,7 @@ export default class FormCheckbox extends React.Component {
 
     return (
       <label>
-        {checkboxInput}
+        {CheckboxInput}
         {labelElement}
       </label>
     );

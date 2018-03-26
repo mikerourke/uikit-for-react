@@ -9,7 +9,6 @@ export default class PaginationNext extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('span'),
-    children: PropTypes.node,
   };
 
   static defaultProps = {
@@ -19,11 +18,7 @@ export default class PaginationNext extends React.Component {
 
   render() {
     return (
-      <Base
-        {...this.props}
-        component={PaginationNext}
-        data-uk-pagination-next=""
-      />
+      <Base {...this.props} component={PaginationNext} uk-pagination-next="" />
     );
   }
 }

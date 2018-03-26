@@ -1,10 +1,10 @@
 import React from 'react';
-import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import {
+  addMultipleEventInvokers,
   customPropTypes,
   generateSelector,
   getBaseRef,
@@ -35,16 +35,12 @@ export default class Offcanvas extends React.Component {
   static defaultProps = {
     ...Base.defaultProps,
     as: 'form',
-    bgClose: true,
-    escClose: true,
-    flip: false,
     onBeforeHide: noop,
     onBeforeShow: noop,
     onHidden: noop,
     onHide: noop,
     onShow: noop,
     onShown: noop,
-    overlay: false,
   };
 
   constructor() {
@@ -54,12 +50,15 @@ export default class Offcanvas extends React.Component {
 
   componentDidMount() {
     const ref = this.getRef();
-    UIkit.util.on(ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(ref, 'beforeshow', this.props.onBeforeShow);
-    UIkit.util.on(ref, 'hidden', this.props.onHidden);
-    UIkit.util.on(ref, 'hide', this.props.onHide);
-    UIkit.util.on(ref, 'show', this.props.onShow);
-    UIkit.util.on(ref, 'shown', this.props.onShown);
+    const ukToPropsEventMap = {
+      beforehide: 'onBeforeHide',
+      beforeshow: 'onBeforeShow',
+      hidden: 'onHidden',
+      hide: 'onHide',
+      show: 'onShow',
+      shown: 'onShown',
+    };
+    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
   }
 
   getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
@@ -96,7 +95,7 @@ export default class Offcanvas extends React.Component {
         className={classes}
         component={Offcanvas}
         baseRef={this.handleRef}
-        data-uk-offcanvas={componentOptions}
+        uk-offcanvas={componentOptions}
       />
     );
   }

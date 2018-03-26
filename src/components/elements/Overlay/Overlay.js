@@ -15,7 +15,6 @@ export default class Overlay extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
-    children: PropTypes.node,
     position: Base.propTypes.position.isRequired,
     primary: ExtraPropTypes.mutuallyExclusiveTrueProps('primary', 'simple'),
     simple: PropTypes.bool,

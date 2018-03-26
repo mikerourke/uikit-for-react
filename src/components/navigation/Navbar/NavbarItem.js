@@ -12,7 +12,6 @@ export default class NavbarItem extends React.Component {
     ...Base.propTypes,
     active: PropTypes.bool,
     as: customPropTypes.customOrStringElement('li'),
-    children: PropTypes.node,
     href: PropTypes.string,
   };
 

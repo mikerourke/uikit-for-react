@@ -73,7 +73,7 @@ export default class Countdown extends React.Component {
         baseRef={this.handleRef}
         className={classes}
         component={Countdown}
-        data-uk-countdown={getOptionsString({ date })}
+        uk-countdown={getOptionsString({ date })}
       />
     );
   }

@@ -31,7 +31,7 @@ export default class Video extends React.Component {
       <Base
         {...rest}
         component={Video}
-        data-uk-video={getOptionsString({ automute, autoplay })}
+        uk-video={getOptionsString({ automute, autoplay })}
       />
     );
   }

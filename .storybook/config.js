@@ -10,6 +10,8 @@ UIkit.use(Icons);
 function loadStories() {
   require('../src/stories/containers/Accordion');
   require('../src/stories/elements/Alert');
+  require('../src/stories/style/Align');
+  require('../src/stories/style/Animation');
   require('../src/stories/containers/Article');
   require('../src/stories/elements/Badge');
   require('../src/stories/navigation/Breadcrumb');
