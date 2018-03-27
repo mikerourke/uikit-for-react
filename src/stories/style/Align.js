@@ -4,8 +4,6 @@ import { storiesOf } from '@storybook/react';
 import { Container, Panel, Base } from '../../components';
 import { imageLinks } from '../common';
 
-Panel.displayName = 'Align';
-
 storiesOf('Align', module)
   .add('Usage', () => (
     <Container margin={{ all: 'large' }}>

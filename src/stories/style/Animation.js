@@ -4,8 +4,6 @@ import startCase from 'lodash/startCase';
 import { Container, Grid, Base, Card } from '../../components';
 import { UIK } from '../../lib';
 
-Base.displayName = 'Animation';
-
 const validAnimations = UIK.ANIMATIONS.filter(
   animationName => !/kenburns/g.test(animationName),
 );

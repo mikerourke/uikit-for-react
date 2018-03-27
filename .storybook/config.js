@@ -13,6 +13,7 @@ function loadStories() {
   require('../src/stories/style/Align');
   require('../src/stories/style/Animation');
   require('../src/stories/containers/Article');
+  require('../src/stories/style/Background');
   require('../src/stories/elements/Badge');
   require('../src/stories/navigation/Breadcrumb');
   require('../src/stories/elements/Button');
