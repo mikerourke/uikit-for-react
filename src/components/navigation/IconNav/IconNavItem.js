@@ -1,76 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { omit } from 'lodash';
-import {
-  buildClassName,
-  customPropTypes,
-  getElementType,
-  UIK,
-} from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import omit from 'lodash/omit';
+import { buildClassName, customPropTypes, UIK } from '../../../lib';
+import Base from '../../base';
 import { Icon } from '../../elements';
 
 export default class IconNavItem extends React.Component {
   static displayName = 'IconNavItem';
 
   static propTypes = {
+    ...Base.propTypes,
     active: PropTypes.bool,
     as: customPropTypes.customOrStringElement('li'),
-    className: PropTypes.string,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
     href: PropTypes.string,
     iconName: PropTypes.oneOf(UIK.ICON_NAMES).isRequired,
     iconOptions: PropTypes.shape(omit(Icon.propTypes, 'name')),
-    margin: Margin.propTypes,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     active: false,
     as: 'li',
-    className: '',
     href: '#',
   };
 
   render() {
     const {
       active,
-      as,
       className,
       href,
-      flex,
-      inverse,
-      margin,
-      text,
-      utility,
-      width,
       iconName,
       iconOptions,
       ...rest
     } = this.props;
 
-    const classes = classnames(
-      className,
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-      {
-        [buildClassName('active')]: active,
-      },
-    );
+    const classes = classnames(className, {
+      [buildClassName('active')]: active,
+    });
 
-    const Element = getElementType(IconNavItem, as);
     return (
-      <Element {...rest} className={classes}>
+      <Base {...rest} className={classes} component={IconNavItem}>
         <Icon {...iconOptions} href={href} name={iconName} />
-      </Element>
+      </Base>
     );
   }
 }

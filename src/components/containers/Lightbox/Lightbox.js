@@ -2,18 +2,19 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get, isNil, isPlainObject, noop } from 'lodash';
+import get from 'lodash/get';
+import isNil from 'lodash/isNil';
+import isPlainObject from 'lodash/isPlainObject';
+import noop from 'lodash/noop';
 import {
   customPropTypes,
   generateSelector,
   getBaseRef,
-  getElementType,
   getOptionsString,
-  getValidProps,
   HTML,
   UIK,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import Base from '../../base';
 import LightboxItem from './LightboxItem';
 import LightboxPanel from './LightboxPanel';
 
@@ -21,6 +22,7 @@ export default class Lightbox extends React.Component {
   static displayName = 'Lightbox';
 
   static propTypes = {
+    ...Base.propTypes,
     activeIndex: customPropTypes.validateIndex,
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.LIGHTBOX_ANIMATIONS),
@@ -34,12 +36,7 @@ export default class Lightbox extends React.Component {
       interval: PropTypes.number,
     }),
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
-    children: PropTypes.node,
-    className: PropTypes.string,
     defaultIndex: customPropTypes.validateIndex,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     onBeforeHide: PropTypes.func,
     onBeforeItemHide: PropTypes.func,
     onBeforeItemShow: PropTypes.func,
@@ -56,16 +53,11 @@ export default class Lightbox extends React.Component {
     pauseOnHover: PropTypes.bool,
     shown: PropTypes.bool,
     videoAutoplay: PropTypes.bool,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
-    activeIndex: 0,
+    ...Base.defaultProps,
     as: 'div',
-    className: '',
-    defaultIndex: 0,
     onBeforeHide: noop,
     onBeforeItemHide: noop,
     onBeforeItemShow: noop,
@@ -79,9 +71,7 @@ export default class Lightbox extends React.Component {
     onItemShown: noop,
     onShow: noop,
     onShown: noop,
-    pauseOnHover: false,
     shown: false,
-    videoAutoplay: false,
   };
 
   static Item = LightboxItem;
@@ -120,31 +110,15 @@ export default class Lightbox extends React.Component {
   render() {
     const {
       animation,
-      as,
       autoplay,
       className,
       defaultIndex,
-      flex,
-      inverse,
-      margin,
       pauseOnHover,
       videoAutoplay,
-      text,
-      utility,
-      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(
-      className,
-      this.selector,
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
+    const classes = classnames(className, this.selector);
 
     const animationName = isPlainObject(animation)
       ? get(animation, 'name', 'slide')
@@ -152,21 +126,21 @@ export default class Lightbox extends React.Component {
 
     const componentOptions = getOptionsString({
       animation: animationName,
-      autoplay: get(autoplay, 'delay', 0),
-      autoplayInterval: get(autoplay, 'interval', 0),
+      autoplay: get(autoplay, 'delay'),
+      autoplayInterval: get(autoplay, 'interval'),
       index: defaultIndex,
       pauseOnHover,
-      velocity: get(animation, 'velocity', 2),
+      velocity: get(animation, 'velocity'),
       videoAutoplay,
     }).replace('uk-animation-', '');
 
-    const Element = getElementType(Lightbox, as);
     return (
-      <Element
-        {...getValidProps(Lightbox, rest)}
+      <Base
+        {...rest}
         className={classes}
-        ref={this.handleRef}
-        data-uk-lightbox={componentOptions}
+        component={Lightbox}
+        baseRef={this.handleRef}
+        uk-lightbox={componentOptions}
       />
     );
   }

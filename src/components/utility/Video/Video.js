@@ -1,18 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import {
-  customPropTypes,
-  getElementType,
-  getOptionsString,
-} from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import { customPropTypes, getOptionsString } from '../../../lib';
+import Base from '../../base';
 import VideoSource from './VideoSource';
 
 export default class Video extends React.Component {
   static displayName = 'Video';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('video', 'iframe'),
     automute: PropTypes.bool,
     autoplay: PropTypes.oneOfType([
@@ -20,55 +16,22 @@ export default class Video extends React.Component {
       PropTypes.oneOf(['inview']),
     ]),
     children: customPropTypes.restrictToChildTypes(VideoSource),
-    className: PropTypes.string,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'video',
-    className: '',
   };
 
   static Source = VideoSource;
 
   render() {
-    const {
-      as,
-      automute,
-      autoplay,
-      className,
-      flex,
-      inverse,
-      margin,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
-
-    const classes = classnames(
-      className,
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
-
-    const componentOptions = getOptionsString({ automute, autoplay });
-
-    const Element = getElementType(Video, as);
+    const { automute, autoplay, ...rest } = this.props;
     return (
-      <Element
+      <Base
         {...rest}
-        className={classes || undefined}
-        data-uk-video={componentOptions}
+        component={Video}
+        uk-video={getOptionsString({ automute, autoplay })}
       />
     );
   }

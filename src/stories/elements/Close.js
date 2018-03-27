@@ -1,43 +1,43 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Alert, Block, Button, Close, Modal } from '../../components';
+import { Alert, Base, Button, Close, Modal } from '../../components';
 
 Close.displayName = 'Close';
 
 storiesOf('Close', module)
-  .add('Basic Usage', () => (
-    <Block margin={{ all: 'large' }}>
+  .add('Usage', () => (
+    <Base margin={{ all: 'large' }}>
       <Close />
-    </Block>
+    </Base>
   ))
 
   .add('Large modifier', () => (
-    <Block margin={{ all: 'large' }}>
+    <Base margin={{ all: 'large' }}>
       <Close large />
-    </Block>
+    </Base>
   ))
 
   .add('Close in alerts', () => (
-    <Block margin={{ all: 'large' }}>
+    <Base margin={{ all: 'large' }}>
       <Alert closeable>{faker.lorem.sentence()}</Alert>
-    </Block>
+    </Base>
   ))
 
   .add('Close in modals', () => (
-    <Block margin={{ all: 'large' }}>
+    <Base margin={{ all: 'large' }}>
       <Modal toggle={<Button>Open modal</Button>}>
         <Modal.Dialog padContent>
           <Modal.Close />
           <Modal.Title>Headline</Modal.Title>
           <Modal.Content>
             <p>{faker.lorem.paragraph()}</p>
-            <Block as="p" textAlign="right">
+            <Base as="p" textAlign="right">
               <Modal.Close as={Button}>Cancel</Modal.Close>
               <Button primary>Save</Button>
-            </Block>
+            </Base>
           </Modal.Content>
         </Modal.Dialog>
       </Modal>
-    </Block>
+    </Base>
   ));

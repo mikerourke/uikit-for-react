@@ -1,76 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, getElementType } from '../../../lib';
-import {
-  Align,
-  Flex,
-  Inverse,
-  Margin,
-  Text,
-  Utility,
-  Width,
-} from '../../common';
+import { customPropTypes } from '../../../lib';
+import Base from '../../base';
 
 export default class SlideNavNext extends React.Component {
   static displayName = 'SlideNavNext';
 
   static propTypes = {
-    align: Align.propTypes,
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('a'),
-    className: PropTypes.string,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
     href: PropTypes.string,
-    margin: Margin.propTypes,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
     large: PropTypes.bool,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'a',
-    className: '',
     href: '#',
     large: false,
   };
 
   render() {
-    const {
-      align,
-      as,
-      className,
-      flex,
-      inverse,
-      large,
-      margin,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
+    const { className, large, ...rest } = this.props;
 
-    const classes = classnames(
-      className,
-      Align.getClasses(align),
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-      {
-        'uk-slidenav-large': large,
-      },
-    );
+    const classes = classnames(className, {
+      'uk-slidenav-large': large,
+    });
 
-    const Element = getElementType(SlideNavNext, as);
     return (
-      <Element
+      <Base
         {...rest}
         className={classes || undefined}
-        data-uk-slidenav-next=""
+        component={SlideNavNext}
+        uk-slidenav-next=""
       />
     );
   }

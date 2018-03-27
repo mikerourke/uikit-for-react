@@ -1,70 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import { customPropTypes, getElementType } from '../../../lib';
-import {
-  Align,
-  Flex,
-  Inverse,
-  Margin,
-  Text,
-  Utility,
-  Width,
-} from '../../common';
+import { customPropTypes } from '../../../lib';
+import Base from '../../base';
 
 export default class OverlayIcon extends React.Component {
   static displayName = 'OverlayIcon';
 
   static propTypes = {
-    align: Align.propTypes,
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('span'),
-    children: PropTypes.node,
-    className: PropTypes.string,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'span',
-    className: '',
   };
 
   render() {
-    const {
-      align,
-      as,
-      className,
-      flex,
-      inverse,
-      margin,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
-
-    const classes = classnames(
-      className,
-      Align.getClasses(align),
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
-
-    const Element = getElementType(OverlayIcon, as);
-    return (
-      <Element
-        {...rest}
-        className={classes || undefined}
-        data-uk-overlay-icon=""
-      />
-    );
+    return <Base {...this.props} component={OverlayIcon} uk-overlay-icon="" />;
   }
 }

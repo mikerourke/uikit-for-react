@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import { customPropTypes, getBaseRef } from '../../../lib';
+import Base from '../../base';
 import AccordionContent from './AccordionContent';
 import AccordionTitle from './AccordionTitle';
 
@@ -15,55 +14,44 @@ export default class AccordionPanel extends React.Component {
   static displayName = 'AccordionPanel';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('li'),
-    children: ExtraPropTypes.or([
-      ExtraPropTypes.elementType(AccordionContent),
-      ExtraPropTypes.elementType(AccordionTitle),
-    ]),
-    className: PropTypes.string,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
+    children: customPropTypes.restrictToChildTypes(
+      AccordionContent,
+      AccordionTitle,
+    ),
     open: PropTypes.bool,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'li',
-    className: '',
     open: false,
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.open !== nextProps.open) {
+      const panelRef = this.ref;
+      const titleElement = panelRef.querySelector('.uk-accordion-title');
+      if (titleElement) titleElement.click();
+    }
+  }
+
+  handleRef = element => {
+    if (!element) return;
+    this.ref = getBaseRef(element);
+  };
+
   render() {
-    const {
-      as,
-      className,
-      flex,
-      inverse,
-      margin,
-      open,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
-
-    const classes = classnames(
-      className,
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-      {
-        'uk-open': open,
-      },
+    const { className, open, ...rest } = this.props;
+    const classes = classnames(className, { 'uk-open': open });
+    return (
+      <Base
+        {...rest}
+        baseRef={this.handleRef}
+        className={classes || undefined}
+        component={AccordionPanel}
+      />
     );
-
-    const Element = getElementType(AccordionPanel, as);
-    return <Element {...rest} className={classes} />;
   }
 }

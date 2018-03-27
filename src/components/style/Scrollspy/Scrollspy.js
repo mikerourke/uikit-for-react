@@ -1,55 +1,42 @@
 import React from 'react';
-import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { isNil, noop } from 'lodash';
+import isNil from 'lodash/isNil';
+import noop from 'lodash/noop';
 import {
   customPropTypes,
   generateSelector,
   getBaseRef,
-  getElementType,
   getOptionsString,
-  getValidProps,
   joinListProp,
   HTML,
   UIK,
+  addEventInvoker,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import Base from '../../base';
 
 export default class Scrollspy extends React.Component {
   static displayName = 'Scrollspy';
 
   static propTypes = {
+    ...Base.propTypes,
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.ANIMATIONS),
       PropTypes.arrayOf(UIK.ANIMATIONS),
     ]),
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
-    children: PropTypes.node,
-    className: PropTypes.string,
     delay: PropTypes.number,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
     hidden: PropTypes.bool,
-    margin: Margin.propTypes,
     offsetLeft: PropTypes.number,
     offsetTop: PropTypes.number,
     onInview: PropTypes.func,
     onOutview: PropTypes.func,
     repeat: PropTypes.bool,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
-    animation: 'uk-scrollspy-inview',
+    ...Base.defaultProps,
     as: 'div',
-    className: '',
-    delay: 0,
-    hidden: true,
-    offsetLeft: 0,
-    offsetTop: 0,
     onInview: noop,
     onOutview: noop,
   };
@@ -61,8 +48,8 @@ export default class Scrollspy extends React.Component {
 
   componentDidMount() {
     const ref = this.getRef();
-    UIkit.util.on(ref, 'inview', this.props.onInview);
-    UIkit.util.on(ref, 'outview', this.props.onOutview);
+    addEventInvoker(ref, 'inview', 'onInview', this.props);
+    addEventInvoker(ref, 'outview', 'onOutview', this.props);
   }
 
   getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
@@ -75,33 +62,16 @@ export default class Scrollspy extends React.Component {
   render() {
     const {
       animation,
-      as,
       className,
       delay,
-      flex,
-      inverse,
       hidden,
-      margin,
       offsetLeft,
       offsetTop,
       repeat,
-      text,
-      utility,
-      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(
-      className,
-      'uk-scrollspy',
-      this.selector,
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
+    const classes = classnames(className, 'uk-scrollspy', this.selector);
 
     const componentOptions = getOptionsString({
       cls: joinListProp(animation),
@@ -112,13 +82,13 @@ export default class Scrollspy extends React.Component {
       repeat,
     });
 
-    const Element = getElementType(Scrollspy, as);
     return (
-      <Element
-        {...getValidProps(Scrollspy, rest)}
+      <Base
+        {...rest}
+        baseRef={this.handleRef}
         className={classes}
-        ref={this.handleRef}
-        data-uk-scrollspy={componentOptions}
+        component={Scrollspy}
+        uk-scrollspy={componentOptions}
       />
     );
   }

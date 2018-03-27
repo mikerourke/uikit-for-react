@@ -1,26 +1,26 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, getElementType, HTML } from '../../../lib';
+import { customPropTypes, HTML } from '../../../lib';
+import Base from '../../base';
 
 export default class VisibilityTogglable extends React.Component {
   static displayName = 'VisibilityTogglable';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
-    children: PropTypes.node,
-    className: PropTypes.string,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'div',
-    className: '',
   };
 
   render() {
-    const { as, className, ...rest } = this.props;
+    const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-visible-toggle');
-    const Element = getElementType(VisibilityTogglable, as);
-    return <Element {...rest} className={classes} />;
+    return (
+      <Base {...rest} className={classes} component={VisibilityTogglable} />
+    );
   }
 }

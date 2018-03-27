@@ -2,19 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { get } from 'lodash';
-import {
-  customPropTypes,
-  getElementType,
-  getOptionsString,
-  HTML,
-} from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import get from 'lodash/get';
+import { customPropTypes, getOptionsString, HTML } from '../../../lib';
+import Base from '../../base';
 
 export default class CoverContainer extends React.Component {
   static displayName = 'CoverContainer';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     aspectRatio: PropTypes.shape({
       height: PropTypes.number,
@@ -24,62 +20,32 @@ export default class CoverContainer extends React.Component {
       PropTypes.node,
       ExtraPropTypes.componentWithName('Cover').isRequired,
     ]),
-    className: PropTypes.string,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'div',
-    className: '',
   };
 
   render() {
-    const {
-      as,
-      aspectRatio,
-      children,
-      className,
-      flex,
-      inverse,
-      margin,
-      viewport,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
+    const { aspectRatio, children, className, viewport, ...rest } = this.props;
 
-    const classes = classnames(
-      className,
-      'uk-cover-container',
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
-    const componentOptions = getOptionsString(viewport);
+    const classes = classnames(className, 'uk-cover-container');
     const canvasProps = {
       height: get(aspectRatio, 'height', 600),
       width: get(aspectRatio, 'width', 800),
     };
 
-    const Element = getElementType(CoverContainer, as);
     return (
-      <Element
+      <Base
         {...rest}
         className={classes}
-        data-uk-height-viewport={componentOptions}
+        component={CoverContainer}
+        uk-height-viewport={getOptionsString(viewport)}
       >
         {aspectRatio && <canvas {...canvasProps} />}
         {children}
-      </Element>
+      </Base>
     );
   }
 }

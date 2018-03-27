@@ -1,91 +1,56 @@
 import React from 'react';
-import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import { noop } from 'lodash';
-import { customPropTypes, getElementType, getValidProps } from '../../../lib';
+import noop from 'lodash/noop';
 import {
-  Align,
-  Flex,
-  Inverse,
-  Margin,
-  Text,
-  Utility,
-  Width,
-} from '../../common';
+  addEventInvoker,
+  customPropTypes,
+  getOptionsString,
+} from '../../../lib';
+import Base from '../../base';
 
 export default class Totop extends React.Component {
   static displayName = 'Totop';
 
   static propTypes = {
-    align: Align.propTypes,
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('a'),
-    className: PropTypes.string,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     onBeforeScroll: PropTypes.func,
     onScrolled: PropTypes.func,
     scrollDuration: PropTypes.number,
     scrollOffset: PropTypes.number,
     smooth: PropTypes.bool,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'a',
-    className: '',
     onBeforeScroll: noop,
     onScrolled: noop,
-    smooth: false,
   };
 
   componentDidMount() {
     const element = document.querySelector('[data-uikfr-scroll-totop]');
     if (!element) return;
-    UIkit.util.on(element, 'beforescroll', this.props.onBeforeScroll);
-    UIkit.util.on(element, 'scrolled', this.props.onScrolled);
+    addEventInvoker(element, 'beforescroll', 'onBeforeScroll', this.props);
+    addEventInvoker(element, 'scrolled', 'onScrolled', this.props);
   }
 
   render() {
-    const {
-      as,
-      className,
-      flex,
-      inverse,
-      margin,
-      scrollDuration,
-      scrollOffset,
-      smooth,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
+    const { scrollDuration, scrollOffset, smooth, ...rest } = this.props;
 
-    const classes = classnames(
-      className,
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
+    const scrollOptions = getOptionsString({
+      duration: scrollDuration,
+      offset: scrollOffset,
+    });
 
-    const Element = getElementType(Totop, as);
     return (
-      <Element
-        {...getValidProps(Totop, rest)}
-        className={classes || undefined}
+      <Base
+        {...rest}
+        component={Totop}
         href="#"
-        data-uk-totop=""
-        data-uk-scroll={smooth || undefined}
+        uk-totop=""
+        uk-scroll={smooth ? scrollOptions : undefined}
         data-uikfr-scroll-totop=""
-        duration={scrollDuration}
-        offset={scrollOffset}
       />
     );
   }

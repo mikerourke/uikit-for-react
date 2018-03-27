@@ -2,24 +2,26 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get, isNil, noop } from 'lodash';
+import get from 'lodash/get';
+import isNil from 'lodash/isNil';
+import noop from 'lodash/noop';
 import {
+  addMultipleEventInvokers,
   customPropTypes,
   generateSelector,
   getBaseRef,
-  getElementType,
   getOptionsString,
-  getValidProps,
   HTML,
   UIK,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import Base from '../../base';
 import { Tab } from '../../layout';
 
 export default class SwitcherToggles extends React.Component {
   static displayName = 'SwitcherToggles';
 
   static propTypes = {
+    ...Base.propTypes,
     activeIndex: customPropTypes.validateIndex,
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.ANIMATIONS),
@@ -37,12 +39,7 @@ export default class SwitcherToggles extends React.Component {
       }),
     ]),
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
-    children: PropTypes.node,
-    className: PropTypes.string,
     defaultIndex: customPropTypes.validateIndex,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     onBeforeHide: PropTypes.func,
     onBeforeShow: PropTypes.func,
     onHidden: PropTypes.func,
@@ -52,24 +49,18 @@ export default class SwitcherToggles extends React.Component {
     selectorConnect: PropTypes.string,
     selectorToggle: PropTypes.string,
     swiping: PropTypes.bool,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     activeIndex: 0,
     as: 'ul',
-    className: '',
-    defaultIndex: 0,
     onBeforeHide: noop,
     onBeforeShow: noop,
     onHidden: noop,
     onHide: noop,
     onShow: noop,
     onShown: noop,
-    selectorToggle: '> *',
-    swiping: true,
   };
 
   constructor() {
@@ -79,12 +70,15 @@ export default class SwitcherToggles extends React.Component {
 
   componentDidMount() {
     const ref = this.getRef();
-    UIkit.util.on(ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(ref, 'beforeshow', this.props.onBeforeShow);
-    UIkit.util.on(ref, 'hidden', this.props.onHidden);
-    UIkit.util.on(ref, 'hide', this.props.onHide);
-    UIkit.util.on(ref, 'show', this.props.onShow);
-    UIkit.util.on(ref, 'shown', this.props.onShown);
+    const ukToPropsEventMap = {
+      beforehide: 'onBeforeHide',
+      beforeshow: 'onBeforeShow',
+      hidden: 'onHidden',
+      hide: 'onHide',
+      show: 'onShow',
+      shown: 'onShown',
+    };
+    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
     UIkit.switcher(ref).show(this.props.activeIndex);
   }
 
@@ -98,7 +92,7 @@ export default class SwitcherToggles extends React.Component {
 
   handleRef = element => {
     if (!element) return;
-    this.ref = getBaseRef();
+    this.ref = getBaseRef(element);
   };
 
   render() {
@@ -107,28 +101,13 @@ export default class SwitcherToggles extends React.Component {
       as,
       className,
       defaultIndex,
-      flex,
-      inverse,
-      margin,
       selectorConnect,
       selectorToggle,
       swiping,
-      text,
-      utility,
-      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(
-      className,
-      this.selector,
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
+    const classes = classnames(className, this.selector);
 
     const componentOptions = getOptionsString({
       active: defaultIndex,
@@ -138,15 +117,14 @@ export default class SwitcherToggles extends React.Component {
       toggle: selectorToggle,
     });
 
-    const Element = getElementType(SwitcherToggles, as);
     return (
-      <Element
-        {...getValidProps(SwitcherToggles, rest)}
+      <Base
+        {...rest}
+        as={as}
+        baseRef={this.handleRef}
         className={classes}
-        ref={this.handleRef}
-        data-uk-switcher={
-          get(as, 'type') === Tab ? undefined : componentOptions
-        }
+        component={SwitcherToggles}
+        uk-switcher={get(as, 'type') === Tab ? undefined : componentOptions}
       />
     );
   }

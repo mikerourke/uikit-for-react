@@ -1,71 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import { customPropTypes } from '../../../lib';
+import Base from '../../base';
 
 export default class LightboxItem extends React.Component {
   static displayName = 'LightboxItem';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('a'),
     caption: PropTypes.string,
-    className: PropTypes.string,
-    flex: Flex.propTypes,
     inline: PropTypes.bool,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     poster: PropTypes.string,
     source: PropTypes.string.isRequired,
     type: PropTypes.oneOf(['iframe', 'image', 'video']),
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'a',
-    caption: '',
-    className: '',
-    inline: false,
   };
 
   render() {
     const {
-      as,
       caption,
       className,
-      flex,
       inline,
-      inverse,
-      margin,
       poster,
       source,
       type,
-      text,
-      utility,
-      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(
-      className,
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-      {
-        'uk-inline': inline,
-      },
-    );
+    const classes = classnames(className, { 'uk-inline': inline });
 
-    const Element = getElementType(LightboxItem, as);
     return (
-      <Element
+      <Base
         {...rest}
         className={classes || undefined}
+        component={LightboxItem}
         href={source}
         data-caption={caption || undefined}
         data-poster={poster || undefined}

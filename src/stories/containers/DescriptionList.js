@@ -1,7 +1,7 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Block, DescriptionList } from '../../components';
+import { Base, DescriptionList } from '../../components';
 
 DescriptionList.displayName = 'DescriptionList';
 
@@ -9,8 +9,8 @@ const sentence = faker.lorem.sentence();
 const paragraph = faker.lorem.paragraph();
 
 storiesOf('DescriptionList', module)
-  .add('Basic Usage', () => (
-    <Block margin={{ all: 'large' }}>
+  .add('Usage', () => (
+    <Base margin={{ all: 'large' }}>
       <DescriptionList>
         <DescriptionList.Term>Description term</DescriptionList.Term>
         <DescriptionList.Details>{sentence}</DescriptionList.Details>
@@ -19,11 +19,11 @@ storiesOf('DescriptionList', module)
         <DescriptionList.Term>Description term</DescriptionList.Term>
         <DescriptionList.Details>{paragraph}</DescriptionList.Details>
       </DescriptionList>
-    </Block>
+    </Base>
   ))
 
   .add('Divider modifier', () => (
-    <Block margin={{ all: 'large' }}>
+    <Base margin={{ all: 'large' }}>
       <DescriptionList divider>
         <DescriptionList.Term>Description term</DescriptionList.Term>
         <DescriptionList.Details>{sentence}</DescriptionList.Details>
@@ -32,5 +32,5 @@ storiesOf('DescriptionList', module)
         <DescriptionList.Term>Description term</DescriptionList.Term>
         <DescriptionList.Details>{paragraph}</DescriptionList.Details>
       </DescriptionList>
-    </Block>
+    </Base>
   ));

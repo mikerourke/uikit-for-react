@@ -2,21 +2,24 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { isNil, noop } from 'lodash';
+import isNil from 'lodash/isNil';
+import noop from 'lodash/noop';
 import {
+  addMultipleEventInvokers,
   customPropTypes,
   generateSelector,
   getBaseRef,
-  getElementType,
   getOptionsString,
   HTML,
   UIK,
 } from '../../../lib';
+import Base from '../../base';
 
 export default class Tooltip extends React.Component {
   static displayName = 'Tooltip';
 
   static propTypes = {
+    ...Base.propTypes,
     alignTo: PropTypes.oneOf([
       'bottom',
       'bottom-left',
@@ -43,8 +46,6 @@ export default class Tooltip extends React.Component {
       }),
     ]),
     as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
-    children: PropTypes.node,
-    className: PropTypes.string,
     clsActive: PropTypes.string,
     delay: PropTypes.number,
     offset: PropTypes.number,
@@ -59,8 +60,8 @@ export default class Tooltip extends React.Component {
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'div',
-    className: '',
     onBeforeHide: noop,
     onBeforeShow: noop,
     onHidden: noop,
@@ -77,12 +78,15 @@ export default class Tooltip extends React.Component {
 
   componentDidMount() {
     const ref = this.getRef();
-    UIkit.util.on(ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(ref, 'beforeshow', this.props.onBeforeShow);
-    UIkit.util.on(ref, 'hidden', this.props.onHidden);
-    UIkit.util.on(ref, 'hide', this.props.onHide);
-    UIkit.util.on(ref, 'show', this.props.onShow);
-    UIkit.util.on(ref, 'shown', this.props.onShown);
+    const ukToPropsEventMap = {
+      beforehide: 'onBeforeHide',
+      beforeshow: 'onBeforeShow',
+      hidden: 'onHidden',
+      hide: 'onHide',
+      show: 'onShow',
+      shown: 'onShown',
+    };
+    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -106,17 +110,10 @@ export default class Tooltip extends React.Component {
     const {
       alignTo,
       animation,
-      as,
       className,
       clsActive,
       delay,
       offset,
-      onBeforeHide,
-      onBeforeShow,
-      onHidden,
-      onHide,
-      onShow,
-      onShown,
       shown,
       ...rest
     } = this.props;
@@ -131,13 +128,13 @@ export default class Tooltip extends React.Component {
       pos: alignTo,
     });
 
-    const Element = getElementType(Tooltip, as);
     return (
-      <Element
+      <Base
         {...rest}
+        baseRef={this.handleRef}
         className={classes}
-        ref={this.handleRef}
-        data-uk-tooltip={componentOptions}
+        component={Tooltip}
+        uk-tooltip={componentOptions}
       />
     );
   }

@@ -1,4 +1,7 @@
-import { concat, difference, split, uniq } from 'lodash';
+import concat from 'lodash/concat';
+import difference from 'lodash/difference';
+import split from 'lodash/split';
+import uniq from 'lodash/uniq';
 
 const ALIGN_CLASSES = [
   'uk-align-left',

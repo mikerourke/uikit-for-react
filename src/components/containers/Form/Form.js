@@ -2,22 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { get, isNil } from 'lodash';
-import {
-  customPropTypes,
-  getElementType,
-  getOptionsString,
-  HTML,
-} from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import get from 'lodash/get';
+import isNil from 'lodash/isNil';
+import { customPropTypes, getOptionsString, HTML } from '../../../lib';
+import Base from '../../base';
 
 export default class Form extends React.Component {
   static displayName = 'Form';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('form'),
     children: PropTypes.node.isRequired,
-    className: PropTypes.string,
     custom: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.shape({
@@ -25,67 +21,43 @@ export default class Form extends React.Component {
         selectorTarget: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
       }),
     ]),
-    flex: Flex.propTypes,
     horizontal: ExtraPropTypes.mutuallyExclusiveTrueProps(
       'horizontal',
       'stacked',
     ),
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     stacked: PropTypes.bool,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'form',
-    className: '',
     horizontal: false,
     stacked: false,
   };
 
   render() {
-    const {
-      as,
-      className,
-      custom,
-      flex,
-      horizontal,
-      inverse,
-      margin,
-      stacked,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
+    const { className, custom, horizontal, stacked, ...rest } = this.props;
 
     if (!isNil(custom)) {
       const componentOptions = getOptionsString({
-        target: get(custom, 'selectorTarget', false),
+        target: get(custom, 'selectorTarget'),
       });
 
-      const Element = getElementType(custom, custom);
-      return <Element {...rest} data-uk-form-custom={componentOptions} />;
+      return (
+        <Base
+          {...rest}
+          as={get(custom, 'as')}
+          component={custom}
+          uk-form-custom={componentOptions}
+        />
+      );
     }
 
-    const classes = classnames(
-      className,
-      'uk-form',
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-      {
-        'uk-form-horizontal': horizontal,
-        'uk-form-stacked': stacked,
-      },
-    );
+    const classes = classnames(className, 'uk-form', {
+      'uk-form-horizontal': horizontal,
+      'uk-form-stacked': stacked,
+    });
 
-    const Element = getElementType(Form, as);
-    return <Element {...rest} className={classes} />;
+    return <Base {...rest} className={classes} component={Form} />;
   }
 }

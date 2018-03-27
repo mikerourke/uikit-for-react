@@ -1,15 +1,13 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Button, Block, Grid, Heading, Lightbox } from '../../components';
+import drop from 'lodash/drop';
+import { Button, Base, Grid, Heading, Lightbox } from '../../components';
+import { imageLinks } from '../common';
 
 Lightbox.displayName = 'Lightbox';
 
-const imageLinks = [
-  'https://getuikit.com/docs/images/photo.jpg',
-  'https://getuikit.com/docs/images/dark.jpg',
-  'https://getuikit.com/docs/images/light.jpg',
-];
+const imageLinkValues = drop(Object.values(imageLinks));
 
 class SimpleLightbox extends React.Component {
   state = {
@@ -18,12 +16,12 @@ class SimpleLightbox extends React.Component {
 
   render() {
     return (
-      <Block margin={{ all: 'large' }}>
+      <Base margin={{ all: 'large' }}>
         <Button onClick={() => this.setState({ shown: !this.state.shown })}>
           Open Lightbox
         </Button>
         <Lightbox shown={this.state.shown}>{this.props.children}</Lightbox>
-      </Block>
+      </Base>
     );
   }
 }
@@ -36,7 +34,7 @@ const AnimationLightbox = props => (
       childWidth={{ atMd: '1/3' }}
       animation={props.animationName.toLowerCase()}
     >
-      {imageLinks.map((imageLink, linkIdx) => (
+      {imageLinkValues.map((imageLink, linkIdx) => (
         <Grid.Cell key={imageLink}>
           <Lightbox.Item
             inline
@@ -52,28 +50,28 @@ const AnimationLightbox = props => (
 );
 
 storiesOf('Lightbox', module)
-  .add('Basic Usage', () => (
+  .add('Usage', () => (
     <SimpleLightbox>
-      <Lightbox.Item source={imageLinks[0]} />
+      <Lightbox.Item source={imageLinkValues[0]} />
     </SimpleLightbox>
   ))
 
   .add('Caption', () => (
     <SimpleLightbox>
-      <Lightbox.Item source={imageLinks[0]} caption="Caption" />
+      <Lightbox.Item source={imageLinkValues[0]} caption="Caption" />
     </SimpleLightbox>
   ))
 
   .add('Animations', () => (
-    <Block margin={{ all: 'large' }}>
+    <Base margin={{ all: 'large' }}>
       <AnimationLightbox animationName="Slide" />
       <AnimationLightbox animationName="Fade" />
       <AnimationLightbox animationName="Scale" />
-    </Block>
+    </Base>
   ))
 
   .add('Panel API and Event Listeners', () => (
-    <Block margin={{ all: 'large' }}>
+    <Base margin={{ all: 'large' }}>
       <Lightbox.Panel
         onBeforeHide={action('onBeforeHide')}
         onBeforeItemHide={action('onBeforeItemHide')}
@@ -87,7 +85,7 @@ storiesOf('Lightbox', module)
         onItemShow={action('onItemShow')}
         onItemShown={action('onItemShown')}
       >
-        <Lightbox.Item source={imageLinks[0]} caption="Hooray" />
+        <Lightbox.Item source={imageLinkValues[0]} caption="Hooray" />
       </Lightbox.Panel>
-    </Block>
+    </Base>
   ));

@@ -3,17 +3,19 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { flatten, isNil, noop } from 'lodash';
+import flatten from 'lodash/flatten';
+import isNil from 'lodash/isNil';
+import isUndefined from 'lodash/isUndefined';
+import noop from 'lodash/noop';
 import {
+  addMultipleEventInvokers,
   customPropTypes,
   generateSelector,
   getBaseRef,
-  getElementType,
   getOptionsString,
-  getValidProps,
   HTML,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import Base from '../../base';
 import AccordionContent from './AccordionContent';
 import AccordionPanel from './AccordionPanel';
 import AccordionTitle from './AccordionTitle';
@@ -27,6 +29,7 @@ export default class Accordion extends React.Component {
   static displayName = 'Accordion';
 
   static propTypes = {
+    ...Base.propTypes,
     animation: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.shape({
@@ -35,14 +38,9 @@ export default class Accordion extends React.Component {
       }),
     ]),
     as: customPropTypes.customOrStringElement('ul'),
-    children: PropTypes.node,
-    className: PropTypes.string,
     collapsible: PropTypes.bool,
     defaultIndex: customPropTypes.validateIndex,
-    flex: Flex.propTypes,
     hideOpenAnimation: PropTypes.bool,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     multiple: PropTypes.bool,
     onBeforeHide: PropTypes.func,
     onBeforeShow: PropTypes.func,
@@ -51,30 +49,21 @@ export default class Accordion extends React.Component {
     onShow: PropTypes.func,
     onShown: PropTypes.func,
     openIndex: customPropTypes.validateIndexArray,
+    selectorContent: PropTypes.string,
+    selectorTargets: PropTypes.string,
+    selectorToggle: PropTypes.string,
     transition: PropTypes.oneOf(HTML.CSS_EASING),
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
-    animation: {
-      active: true,
-      duration: 200,
-    },
     as: 'ul',
-    className: '',
-    collapsible: true,
     hideOpenAnimation: false,
-    multiple: false,
     onBeforeHide: noop,
     onBeforeShow: noop,
     onHidden: noop,
     onHide: noop,
     onShow: noop,
     onShown: noop,
-    openIndex: 0,
-    transition: 'ease',
   };
 
   static Content = AccordionContent;
@@ -88,12 +77,15 @@ export default class Accordion extends React.Component {
 
   componentDidMount() {
     const ref = this.getRef();
-    UIkit.util.on(ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(ref, 'beforeshow', this.props.onBeforeShow);
-    UIkit.util.on(ref, 'show', this.props.onShow);
-    UIkit.util.on(ref, 'shown', this.props.onShown);
-    UIkit.util.on(ref, 'hidden', this.props.onHidden);
-    UIkit.util.on(ref, 'hide', this.props.onHide);
+    const ukToPropsEventMap = {
+      beforehide: 'onBeforeHide',
+      beforeshow: 'onBeforeShow',
+      hidden: 'onHidden',
+      hide: 'onHide',
+      show: 'onShow',
+      shown: 'onShown',
+    };
+    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
     this.toggleOpenItems(this.props);
   }
 
@@ -113,13 +105,24 @@ export default class Accordion extends React.Component {
   toggleOpenItems = props => {
     // Don't open or close any items if the user didn't specify an openIndex
     // prop.
-    if (isNil(props.openIndex)) return;
+    if (isUndefined(props.openIndex)) return;
 
     const animate = !props.hideOpenAnimation;
     const openIndices = flatten([props.openIndex]);
-    const accordion = UIkit.accordion(this.getRef());
+    const accordionRef = this.getRef();
+    const accordion = UIkit.accordion(accordionRef);
+    const accordionContents = accordionRef.querySelectorAll('div');
+
+    const getIsOpen = childIndex => {
+      const hiddenItem = accordionContents
+        .item(childIndex)
+        .attributes.getNamedItem('aria-hidden');
+      if (isNil(hiddenItem)) return false;
+      return JSON.parse(hiddenItem.value) === false;
+    };
+
     React.Children.toArray(props.children).forEach((child, childIndex) => {
-      const isOpen = /uk-open/g.test(child.props.className);
+      const isOpen = getIsOpen(childIndex);
       const shouldBeOpen = openIndices.includes(childIndex);
       if ((isOpen && !shouldBeOpen) || (!isOpen && shouldBeOpen)) {
         accordion.toggle(childIndex, animate);
@@ -135,48 +138,38 @@ export default class Accordion extends React.Component {
   render() {
     const {
       animation,
-      as,
       className,
       collapsible,
       defaultIndex,
-      flex,
-      inverse,
-      margin,
       multiple,
+      openIndex,
+      selectorContent,
+      selectorTargets,
+      selectorToggle,
       transition,
-      text,
-      utility,
-      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(
-      className,
-      this.selector,
-      'uk-accordion',
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
+    const classes = classnames(className, this.selector, 'uk-accordion');
 
     const componentOptions = getOptionsString({
       active: defaultIndex,
       animation,
       collapsible,
+      content: selectorContent,
       multiple,
+      targets: selectorTargets,
+      toggle: selectorToggle,
       transition,
     });
 
-    const Element = getElementType(Accordion, as);
     return (
-      <Element
-        {...getValidProps(Accordion, rest)}
+      <Base
+        {...rest}
         className={classes}
-        ref={this.handleRef}
-        data-uk-accordion={componentOptions}
+        component={Accordion}
+        baseRef={this.handleRef}
+        uk-accordion={componentOptions}
       />
     );
   }

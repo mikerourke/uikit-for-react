@@ -1,33 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import { buildClassName, customPropTypes } from '../../../lib';
+import Base from '../../base';
 import { Link } from '../../elements';
 
 export default class TableCell extends React.Component {
   static displayName = 'TableCell';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('td'),
-    children: PropTypes.node,
-    className: PropTypes.string,
     expand: PropTypes.bool,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
     link: PropTypes.bool,
-    margin: Margin.propTypes,
     middle: PropTypes.bool,
     shrink: PropTypes.bool,
     textWrapping: PropTypes.oneOf(['nowrap', 'truncate']),
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'th',
-    className: '',
     expand: false,
     link: false,
     middle: false,
@@ -51,32 +44,19 @@ export default class TableCell extends React.Component {
 
   render() {
     const {
-      as,
       children,
       className,
       expand,
-      flex,
       link,
-      inverse,
-      margin,
       middle,
       shrink,
       textWrapping,
-      text,
-      utility,
-      width,
       ...rest
     } = this.props;
 
     const classes = classnames(
       className,
       buildClassName('text', textWrapping),
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
       {
         'uk-table-expand': expand,
         'uk-table-link': link,
@@ -85,11 +65,10 @@ export default class TableCell extends React.Component {
       },
     );
 
-    const Element = getElementType(TableCell, as);
     return (
-      <Element {...rest} className={classes || undefined}>
+      <Base {...rest} className={classes || undefined} component={TableCell}>
         {this.renderChildren(children)}
-      </Element>
+      </Base>
     );
   }
 }

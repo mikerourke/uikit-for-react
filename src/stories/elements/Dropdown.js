@@ -1,45 +1,45 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Block, Button, Dropdown, Grid } from '../../components';
+import { Base, Button, Dropdown, Grid } from '../../components';
 
 Dropdown.displayName = 'Dropdown';
 
 const message = faker.lorem.paragraph();
 
 storiesOf('Dropdown', module)
-  .add('Basic Usage', () => (
-    <Block margin={{ all: 'large' }}>
-      <Block inline>
+  .add('Usage', () => (
+    <Base margin={{ all: 'large' }}>
+      <Base inline>
         <Dropdown toggle={<Button>Hover</Button>}>{message}</Dropdown>
-      </Block>
-      <Block inline>
+      </Base>
+      <Base inline>
         <Dropdown mode="click" toggle={<Button>Click</Button>}>
           {message}
         </Dropdown>
-      </Block>
-    </Block>
+      </Base>
+    </Base>
   ))
 
   .add('Grid in dropdown', () => (
-    <Block margin={{ all: 'large' }}>
+    <Base margin={{ all: 'large' }}>
       <Dropdown toggle={<Button>Hover</Button>} width="large">
         <Grid childWidth={{ atMd: '1/2' }}>
           <Grid.Cell>{message}</Grid.Cell>
           <Grid.Cell>{message}</Grid.Cell>
         </Grid>
       </Dropdown>
-    </Block>
+    </Base>
   ))
 
   .add('Position', () => (
-    <Block margin={{ all: 'large' }}>
-      <Block inline>
+    <Base margin={{ all: 'large' }}>
+      <Base inline>
         <Dropdown toggle={<Button>Top Right</Button>} position="top-right">
           {message}
         </Dropdown>
-      </Block>
-      <Block inline>
+      </Base>
+      <Base inline>
         <Dropdown
           toggle={<Button>Bottom Justify</Button>}
           position="bottom-justify"
@@ -47,23 +47,23 @@ storiesOf('Dropdown', module)
         >
           {message}
         </Dropdown>
-      </Block>
-      <Block inline>
+      </Base>
+      <Base inline>
         <Dropdown
           toggle={<Button>Right Center</Button>}
           position="right-center"
         >
           {message}
         </Dropdown>
-      </Block>
-    </Block>
+      </Base>
+    </Base>
   ))
 
   .add('Events', () => {
     const handleEvent = eventName => () => console.log(eventName);
 
     return (
-      <Block margin={{ all: 'large' }}>
+      <Base margin={{ all: 'large' }}>
         <Dropdown
           toggle={<Button>Top Right</Button>}
           onBeforeShow={handleEvent('onToggle')}
@@ -76,6 +76,6 @@ storiesOf('Dropdown', module)
         >
           {message}
         </Dropdown>
-      </Block>
+      </Base>
     );
   });

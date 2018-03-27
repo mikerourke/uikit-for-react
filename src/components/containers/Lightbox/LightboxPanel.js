@@ -1,10 +1,11 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import { get, isPlainObject, noop } from 'lodash';
-import { customPropTypes, UIK } from '../../../lib';
+import get from 'lodash/get';
+import isPlainObject from 'lodash/isPlainObject';
+import noop from 'lodash/noop';
+import { addMultipleEventInvokers, customPropTypes, UIK } from '../../../lib';
 import LightboxItem from './LightboxItem';
-import { Inverse } from '../../common';
 
 export default class LightboxPanel extends React.Component {
   static displayName = 'LightboxPanel';
@@ -28,7 +29,6 @@ export default class LightboxPanel extends React.Component {
     children: customPropTypes.restrictToChildTypes(LightboxItem),
     defaultIndex: PropTypes.number,
     delayControls: PropTypes.number,
-    inverse: Inverse.propTypes,
     onBeforeHide: PropTypes.func,
     onBeforeItemHide: PropTypes.func,
     onBeforeItemShow: PropTypes.func,
@@ -74,19 +74,22 @@ export default class LightboxPanel extends React.Component {
   };
 
   static addEventListeners(props, panelElement) {
-    UIkit.util.on(panelElement, 'beforehide', props.onBeforeHide);
-    UIkit.util.on(panelElement, 'beforeitemhide', props.onBeforeItemHide);
-    UIkit.util.on(panelElement, 'beforeitemshow', props.onBeforeItemShow);
-    UIkit.util.on(panelElement, 'beforeshow', props.onBeforeShow);
-    UIkit.util.on(panelElement, 'hidden', props.onHidden);
-    UIkit.util.on(panelElement, 'hide', props.onHide);
-    UIkit.util.on(panelElement, 'itemhidden', props.onItemHidden);
-    UIkit.util.on(panelElement, 'itemhide', props.onItemHide);
-    UIkit.util.on(panelElement, 'itemload', props.onItemLoad);
-    UIkit.util.on(panelElement, 'itemshow', props.onItemShow);
-    UIkit.util.on(panelElement, 'itemshown', props.onItemShown);
-    UIkit.util.on(panelElement, 'show', props.onShow);
-    UIkit.util.on(panelElement, 'shown', props.onShown);
+    const ukToPropsEventMap = {
+      beforehide: 'onBeforeHide',
+      beforeitemhide: 'onBeforeItemHide',
+      beforeitemshow: 'onBeforeItemShow',
+      beforeshow: 'onBeforeShow',
+      hidden: 'onHidden',
+      hide: 'onHide',
+      itemhidden: 'onItemHidden',
+      itemhide: 'onItemHide',
+      itemload: 'onItemLoad',
+      itemshow: 'onItemShow',
+      itemshown: 'onItemShown',
+      show: 'onShow',
+      shown: 'onShown',
+    };
+    addMultipleEventInvokers(panelElement, ukToPropsEventMap, props);
   }
 
   componentDidMount() {
@@ -134,10 +137,8 @@ export default class LightboxPanel extends React.Component {
 
     this.lightboxPanel = UIkit.lightboxPanel({
       animation,
-      autoplay: isPlainObject(autoplay)
-        ? get(autoplay, 'enabled', false)
-        : autoplay,
-      autoplayInterval: get(autoplay, 'interval', 7000),
+      autoplay: isPlainObject(autoplay) ? get(autoplay, 'enabled') : autoplay,
+      autoplayInterval: get(autoplay, 'interval'),
       delayControls,
       index: defaultIndex,
       items,

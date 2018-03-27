@@ -1,12 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Button, Countdown, Block, Grid } from '../../components';
+import { Button, Countdown, Base, Grid } from '../../components';
 
 Countdown.displayName = 'Countdown';
 
 storiesOf('Countdown', module)
-  .add('Basic Usage', () => (
-    <Block margin={{ all: 'large' }}>
+  .add('Usage', () => (
+    <Base margin={{ all: 'large' }}>
       <Countdown
         as={Grid}
         date="2025-01-16T00:00:00+00:00"
@@ -15,49 +15,33 @@ storiesOf('Countdown', module)
       >
         <Grid.Cell>
           <Countdown.Days />
-          <Countdown.Label
-            text={{ align: 'center' }}
-            margin="small"
-            visible="@s"
-          >
+          <Countdown.Label textAlign="center" margin="small" visible="@s">
             Days
           </Countdown.Label>
         </Grid.Cell>
         <Countdown.Separator>:</Countdown.Separator>
         <Grid.Cell>
           <Countdown.Hours />
-          <Countdown.Label
-            text={{ align: 'center' }}
-            margin="small"
-            visible="@s"
-          >
+          <Countdown.Label textAlign="center" margin="small" visible="@s">
             Hours
           </Countdown.Label>
         </Grid.Cell>
         <Countdown.Separator>:</Countdown.Separator>
         <Grid.Cell>
           <Countdown.Minutes />
-          <Countdown.Label
-            text={{ align: 'center' }}
-            margin="small"
-            visible="@s"
-          >
+          <Countdown.Label textAlign="center" margin="small" visible="@s">
             Minutes
           </Countdown.Label>
         </Grid.Cell>
         <Countdown.Separator>:</Countdown.Separator>
         <Grid.Cell>
           <Countdown.Seconds />
-          <Countdown.Label
-            text={{ align: 'center' }}
-            margin="small"
-            visible="@s"
-          >
+          <Countdown.Label textAlign="center" margin="small" visible="@s">
             Seconds
           </Countdown.Label>
         </Grid.Cell>
       </Countdown>
-    </Block>
+    </Base>
   ))
 
   .add('Starting and stopping', () => {
@@ -76,7 +60,7 @@ storiesOf('Countdown', module)
         const buttonLabel = this.state.paused ? 'Continue' : 'Pause';
 
         return (
-          <Block margin={{ all: 'large' }}>
+          <Base margin={{ all: 'large' }}>
             <Button
               onClick={this.handleClick}
               margin={{ bottom: 'large' }}
@@ -94,49 +78,33 @@ storiesOf('Countdown', module)
             >
               <Grid.Cell>
                 <Countdown.Days />
-                <Countdown.Label
-                  text={{ align: 'center' }}
-                  margin="small"
-                  visible="@s"
-                >
+                <Countdown.Label textAlign="center" margin="small" visible="@s">
                   Days
                 </Countdown.Label>
               </Grid.Cell>
               <Countdown.Separator>:</Countdown.Separator>
               <Grid.Cell>
                 <Countdown.Hours />
-                <Countdown.Label
-                  text={{ align: 'center' }}
-                  margin="small"
-                  visible="@s"
-                >
+                <Countdown.Label textAlign="center" margin="small" visible="@s">
                   Hours
                 </Countdown.Label>
               </Grid.Cell>
               <Countdown.Separator>:</Countdown.Separator>
               <Grid.Cell>
                 <Countdown.Minutes />
-                <Countdown.Label
-                  text={{ align: 'center' }}
-                  margin="small"
-                  visible="@s"
-                >
+                <Countdown.Label textAlign="center" margin="small" visible="@s">
                   Minutes
                 </Countdown.Label>
               </Grid.Cell>
               <Countdown.Separator>:</Countdown.Separator>
               <Grid.Cell>
                 <Countdown.Seconds />
-                <Countdown.Label
-                  text={{ align: 'center' }}
-                  margin="small"
-                  visible="@s"
-                >
+                <Countdown.Label textAlign="center" margin="small" visible="@s">
                   Seconds
                 </Countdown.Label>
               </Grid.Cell>
             </Countdown>
-          </Block>
+          </Base>
         );
       }
     }

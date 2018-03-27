@@ -1,64 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import { customPropTypes } from '../../../lib';
+import Base from '../../base';
 
 export default class CommentList extends React.Component {
   static displayName = 'CommentList';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('ul'),
-    children: PropTypes.node,
-    className: PropTypes.string,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     nested: PropTypes.bool,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'ul',
-    className: '',
     nested: false,
   };
 
   render() {
-    const {
-      as,
-      children,
-      className,
-      flex,
-      inverse,
-      margin,
-      nested,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
-
-    const classes = classnames(
-      className,
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-      {
-        'uk-comment-list': !nested,
-      },
-    );
-
-    const Element = getElementType(CommentList, as);
+    const { children, className, nested, ...rest } = this.props;
+    const classes = classnames(className, { 'uk-comment-list': !nested });
     return (
-      <Element {...rest} className={classes || undefined}>
+      <Base {...rest} className={classes || undefined} component={CommentList}>
         {React.Children.map(children, child => <li>{child}</li>)}
-      </Element>
+      </Base>
     );
   }
 }

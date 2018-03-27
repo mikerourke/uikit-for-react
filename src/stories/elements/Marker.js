@@ -1,19 +1,17 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Block, Grid, Marker } from '../../components';
-
-const darkImage = 'https://getuikit.com/docs/images/dark.jpg';
-const lightImage = 'https://getuikit.com/docs/images/light.jpg';
+import { Base, Grid, Marker } from '../../components';
+import { imageLinks } from '../common';
 
 Marker.displayName = 'Marker';
 
-storiesOf('Marker', module).add('Basic Usage', () => (
-  <Block margin={{ all: 'small' }}>
+storiesOf('Marker', module).add('Usage', () => (
+  <Base margin={{ all: 'small' }}>
     <Grid childWidth="1/2">
       <Grid.Cell>
-        <Block inline inverse="dark">
-          <img src={lightImage} alt="" />
+        <Base inline inverse="dark">
+          <img src={imageLinks.light} alt="" />
           <Marker
             position="absolute"
             transformCenter
@@ -32,11 +30,11 @@ storiesOf('Marker', module).add('Basic Usage', () => (
             style={{ left: '80%', top: '70%' }}
             href="#"
           />
-        </Block>
+        </Base>
       </Grid.Cell>
       <Grid.Cell>
-        <Block inline inverse="light">
-          <img src={darkImage} alt="" />
+        <Base inline inverse="light">
+          <img src={imageLinks.dark} alt="" />
           <Marker
             position="absolute"
             transformCenter
@@ -55,8 +53,8 @@ storiesOf('Marker', module).add('Basic Usage', () => (
             style={{ left: '80%', top: '70%' }}
             href="#"
           />
-        </Block>
+        </Base>
       </Grid.Cell>
     </Grid>
-  </Block>
+  </Base>
 ));

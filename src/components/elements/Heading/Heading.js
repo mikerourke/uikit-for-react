@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { isString } from 'lodash';
+import isString from 'lodash/isString';
 import { buildClassName, customPropTypes, HTML } from '../../../lib';
 import Text from '../../style/Text';
 
@@ -12,8 +12,7 @@ export default class Heading extends React.Component {
     ...Text.propTypes,
     as: customPropTypes.customOrStringElement(HTML.HEADING_ELEMENTS),
     bullet: PropTypes.bool,
-    children: PropTypes.node,
-    className: PropTypes.string,
+    children: PropTypes.node.isRequired,
     divider: PropTypes.bool,
     headingClass: PropTypes.oneOf(HTML.HEADING_ELEMENTS),
     hero: PropTypes.bool,
@@ -28,7 +27,6 @@ export default class Heading extends React.Component {
     ...Text.defaultProps,
     as: 'h1',
     bullet: false,
-    className: '',
     divider: false,
     hero: false,
     line: false,

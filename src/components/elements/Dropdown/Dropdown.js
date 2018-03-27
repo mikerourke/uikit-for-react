@@ -2,25 +2,26 @@ import React, { Fragment } from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { isNil, noop } from 'lodash';
+import isNil from 'lodash/isNil';
+import noop from 'lodash/noop';
 import {
   appendClassNamesToChildren,
   customPropTypes,
   generateSelector,
   getBaseRef,
-  getElementType,
   getOptionsString,
   joinListProp,
   HTML,
   UIK,
-  getValidProps,
+  addMultipleEventInvokers,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import Base from '../../base';
 
 export default class Dropdown extends React.Component {
   static displayName = 'Dropdown';
 
   static propTypes = {
+    ...Base.propTypes,
     animation: PropTypes.shape({
       name: PropTypes.oneOfType([
         PropTypes.oneOf(UIK.ANIMATIONS),
@@ -30,14 +31,10 @@ export default class Dropdown extends React.Component {
     }),
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     boundaryAlign: PropTypes.bool,
-    children: PropTypes.node,
-    className: PropTypes.string,
+    children: PropTypes.node.isRequired,
     delayHide: PropTypes.number,
     delayShow: PropTypes.number,
-    flex: Flex.propTypes,
     flip: PropTypes.oneOf([true, false, 'x', 'y']),
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     mode: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.MODES),
       PropTypes.arrayOf(UIK.MODES),
@@ -54,16 +51,11 @@ export default class Dropdown extends React.Component {
     position: PropTypes.oneOf(UIK.DROP_POSITIONS),
     shown: PropTypes.bool,
     toggle: PropTypes.element,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'div',
-    boundaryAlign: false,
-    className: '',
-    flip: false,
     onBeforeHide: noop,
     onBeforeShow: noop,
     onHidden: noop,
@@ -82,14 +74,17 @@ export default class Dropdown extends React.Component {
 
   componentDidMount() {
     const ref = this.getRef();
-    UIkit.util.on(ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(ref, 'beforeshow', this.props.onBeforeShow);
-    UIkit.util.on(ref, 'hidden', this.props.onHidden);
-    UIkit.util.on(ref, 'hide', this.props.onHide);
-    UIkit.util.on(ref, 'show', this.props.onShow);
-    UIkit.util.on(ref, 'shown', this.props.onShown);
-    UIkit.util.on(ref, 'stack', this.props.onStack);
-    UIkit.util.on(ref, 'toggle', this.props.onToggle);
+    const ukToPropsEventMap = {
+      beforehide: 'onBeforeHide',
+      beforeshow: 'onBeforeShow',
+      hidden: 'onHidden',
+      hide: 'onHide',
+      show: 'onShow',
+      shown: 'onShown',
+      stack: 'onStack',
+      toggle: 'onToggle',
+    };
+    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -118,37 +113,21 @@ export default class Dropdown extends React.Component {
   render() {
     const {
       animation,
-      as,
       boundaryAlign,
       children,
       className,
+      component,
       delayHide,
       delayShow,
-      flex,
       flip,
-      inverse,
-      margin,
       mode,
       offset,
       position,
       toggle,
-      text,
-      utility,
-      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(
-      className,
-      this.selector,
-      'uk-dropdown',
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
+    const classes = classnames(className, this.selector, 'uk-dropdown');
 
     const componentOptions = getOptionsString({
       animation,
@@ -161,18 +140,18 @@ export default class Dropdown extends React.Component {
       pos: position,
     });
 
-    const Element = getElementType(Dropdown, as);
     return (
       <Fragment>
         {toggle && toggle}
-        <Element
-          {...getValidProps(Dropdown, rest)}
+        <Base
+          {...rest}
+          baseRef={this.handleRef}
           className={classes}
-          ref={this.handleRef}
-          data-uk-dropdown={componentOptions}
+          component={component || Dropdown}
+          uk-dropdown={componentOptions}
         >
           {this.renderChildren(children)}
-        </Element>
+        </Base>
       </Fragment>
     );
   }

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import { customPropTypes } from '../../../lib';
+import Base from '../../base';
 import CommentAvatar from './CommentAvatar';
 import CommentBody from './CommentBody';
 import CommentHeader from './CommentHeader';
@@ -14,21 +14,15 @@ export default class Comment extends React.Component {
   static displayName = 'Comment';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('article'),
     children: PropTypes.node.isRequired,
-    className: PropTypes.string,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     primary: PropTypes.bool,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'article',
-    className: '',
     primary: false,
   };
 
@@ -40,34 +34,12 @@ export default class Comment extends React.Component {
   static Title = CommentTitle;
 
   render() {
-    const {
-      as,
-      className,
-      flex,
-      inverse,
-      margin,
-      primary,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
+    const { className, primary, ...rest } = this.props;
 
-    const classes = classnames(
-      className,
-      'uk-comment',
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-      {
-        'uk-comment-primary': primary,
-      },
-    );
+    const classes = classnames(className, 'uk-comment', {
+      'uk-comment-primary': primary,
+    });
 
-    const Element = getElementType(Comment, as);
-    return <Element {...rest} className={classes} />;
+    return <Base {...rest} className={classes} component={Comment} />;
   }
 }

@@ -1,56 +1,23 @@
-const BASE_WIDTHS = ['1/2', '1/3', '1/4', '1/5', '1/6'];
-const CHILD_WIDTHS = [...BASE_WIDTHS, 'auto', 'expand'];
-const HORIZONTAL_POSITIONS = ['left', 'center', 'right'];
-// TODO: Split into groups for easier maintenance.
-const ICON_NAMES = [
-  'album',
-  'arrow-down',
-  'arrow-left',
-  'arrow-right',
-  'arrow-up',
+const ICONS_APP = [
   'ban',
-  'behance',
   'bell',
-  'bold',
   'bolt',
   'bookmark',
   'calendar',
   'camera',
   'cart',
   'check',
-  'chevron-down',
-  'chevron-left',
-  'chevron-right',
-  'chevron-up',
   'clock',
   'close',
-  'cloud-download',
-  'cloud-upload',
   'code',
   'cog',
   'comment',
   'commenting',
   'comments',
-  'copy',
-  'credit',
-  'database',
-  'desktop',
-  'download',
-  'dribbble',
-  'expand',
-  'facebook',
-  'file',
-  'file-edit',
-  'flickr',
-  'folder',
-  'forward',
-  'foursquare',
+  'credit-card',
   'future',
-  'git',
-  'github',
-  'github-alt',
-  'google,',
-  'google-plus',
+  'git-branch',
+  'git-fork',
   'grid',
   'happy',
   'hashtag',
@@ -59,170 +26,308 @@ const ICON_NAMES = [
   'home',
   'image',
   'info',
-  'instagram',
-  'italic',
-  'joomla',
-  'laptop',
   'lifesaver',
   'link',
-  'linkedin',
   'list',
   'location',
   'lock',
   'mail',
   'menu',
   'minus',
+  'minus-circle',
   'more',
+  'more-vertical',
   'move',
   'nut',
-  'pagekit',
-  'paint',
+  'paint-bucket',
   'pencil',
-  'phone',
-  'phone-landscape',
-  'pinterest',
   'play',
+  'play-circle',
   'plus',
-  'pull',
-  'push',
+  'plus-circle',
   'question',
-  'quote-right',
+  'receiver',
   'refresh',
-  'reply',
   'rss',
   'search',
-  'server',
   'settings',
-  'shrink',
-  'sign',
+  'sign-in',
+  'sign-out',
   'social',
-  'soundcloud',
   'star',
-  'strikethrough',
   'table',
-  'tablet',
-  'tablet-landscape',
   'tag',
   'thumbnails',
   'trash',
-  'triangle-down',
-  'triangle-left',
-  'triangle-right',
-  'triangle-up',
-  'tripadvisor',
-  'tumblr',
-  'tv',
-  'twitter',
-  'uikit',
   'unlock',
-  'upload',
   'user',
   'users',
-  'video-camera',
-  'vimeo',
   'warning',
+  'world',
+];
+
+const ICONS_BRANDS = [
+  '500px',
+  'behance',
+  'dribbble',
+  'facebook',
+  'flickr',
+  'foursquare',
+  'github',
+  'github-alt',
+  'gitter',
+  'google',
+  'google-plus',
+  'instagram',
+  'joomla',
+  'linkedin',
+  'pagekit',
+  'pinterest',
+  'soundcloud',
+  'tripadvisor',
+  'tumblr',
+  'twitter',
+  'uikit',
+  'vimeo',
   'whatsapp',
   'wordpress',
-  'world',
   'xing',
   'yelp',
   'youtube',
 ];
+
+const ICONS_DEVICES = [
+  'desktop',
+  'laptop',
+  'phone',
+  'phone-landscape',
+  'tablet',
+  'tablet-landscape',
+  'tv',
+];
+
+const ICONS_DIRECTION = [
+  'arrow-down',
+  'arrow-left',
+  'arrow-right',
+  'arrow-up',
+  'chevron-down',
+  'chevron-left',
+  'chevron-right',
+  'chevron-up',
+  'expand',
+  'forward',
+  'reply',
+  'shrink',
+  'triangle-down',
+  'triangle-left',
+  'triangle-right',
+  'triangle-up',
+];
+
+const ICONS_EDITOR = [
+  'bold',
+  'italic',
+  'strikethrough',
+  'video-camera',
+  'quote-right',
+];
+
+const ICONS_STORAGE = [
+  'album',
+  'cloud-download',
+  'cloud-upload',
+  'copy',
+  'database',
+  'download',
+  'file',
+  'file-edit',
+  'folder',
+  'pull',
+  'push',
+  'server',
+  'upload',
+];
+
+const ICON_NAMES = [
+  ...ICONS_APP,
+  ...ICONS_BRANDS,
+  ...ICONS_DEVICES,
+  ...ICONS_DIRECTION,
+  ...ICONS_EDITOR,
+  ...ICONS_STORAGE,
+];
+
+const ANIMATIONS = [
+  'fade',
+  'scale-up',
+  'scale-down',
+  'shake',
+  'slide-left',
+  'slide-top',
+  'slide-bottom',
+  'slide-right',
+  'slide-left-small',
+  'slide-top-small',
+  'slide-bottom-small',
+  'slide-right-small',
+  'slide-left-medium',
+  'slide-top-medium',
+  'slide-bottom-medium',
+  'slide-right-medium',
+  'kenburns',
+];
+
+const AREAS = ['horizontal', 'vertical'];
+
+const BACKGROUND_COLORS = ['default', 'muted', 'primary', 'secondary'];
+
+const BACKGROUND_SIZES = ['cover', 'contain'];
+
 const BASE_SIZES = ['small', 'medium', 'large'];
 
+const BASE_WIDTHS = ['1/2', '1/3', '1/4', '1/5', '1/6'];
+
+const BLEND_MODES = [
+  'multiply',
+  'screen',
+  'overlay',
+  'darken',
+  'lighten',
+  'color-dodge',
+  'color-burn',
+  'hard-light',
+  'soft-light',
+  'difference',
+  'exclusion',
+  'hue',
+  'saturation',
+  'color',
+  'luminosity',
+];
+
+const BREAKPOINTS = ['@s', '@m', '@l', '@xl'];
+
+const BUTTON_STYLES = [
+  'default',
+  'primary',
+  'secondary',
+  'danger',
+  'text',
+  'link',
+];
+
+const CHILD_WIDTHS = [...BASE_WIDTHS, 'auto', 'expand'];
+
+const CSS_POSITIONS = ['absolute', 'fixed', 'relative'];
+
+const HORIZONTAL_POSITIONS = ['left', 'center', 'right'];
+
+const DROP_POSITIONS = [
+  'bottom-left',
+  'bottom-center',
+  'bottom-right',
+  'bottom-justify',
+  'top-left',
+  'top-center',
+  'top-right',
+  'top-justify',
+  'left-top',
+  'left-center',
+  'left-bottom',
+  'right-top',
+  'right-center',
+  'right-bottom',
+];
+
+const FLEX_HORIZONTAL_MODIFIERS = [
+  ...HORIZONTAL_POSITIONS,
+  'around',
+  'between',
+];
+
+const FLEX_VERTICAL_MODIFIERS = ['stretch', 'top', 'middle', 'bottom'];
+
+const FORM_WIDTHS = [...BASE_SIZES, 'xsmall'];
+
+const GRID_SIZES = [...BASE_SIZES, 'xlarge'];
+
+const LIGHTBOX_ANIMATIONS = ['fade', 'scale', 'slide'];
+
+const LOCATIONS = ['top', 'bottom', 'left', 'right'];
+
+const MODES = ['click', 'hover'];
+
+const SLIDESHOW_ANIMATIONS = ['fade', 'pull', 'push', 'scale', 'slide'];
+
+const SPACING_MODIFIERS = [...BASE_SIZES, 'auto', 'remove', 'xlarge'];
+
+const STATUS_COLORS = ['muted', 'primary', 'success', 'warning', 'danger'];
+
+const TEXT_ALIGNMENTS = [...HORIZONTAL_POSITIONS, 'justify'];
+
+const TEXT_VERTICAL_MODIFIERS = ['baseline', 'top', 'middle', 'bottom'];
+
+const VERTICAL_POSITIONS = ['top', 'center', 'bottom'];
+
+const X_Y_POSITIONS = [
+  'top-left',
+  'top-center',
+  'top-right',
+  'center-left',
+  'center-right',
+  'bottom-left',
+  'bottom-center',
+  'bottom-right',
+];
+
+const ALL_WIDTHS = [
+  ...CHILD_WIDTHS,
+  ...BASE_SIZES,
+  '2/3',
+  '2/4',
+  '3/4',
+  '2/5',
+  '3/5',
+  '4/5',
+  '2/6',
+  '3/6',
+  '4/6',
+  '5/6',
+  'xlarge',
+  'xxlarge',
+];
+
 export const UIK = {
-  ANIMATIONS: [
-    'fade',
-    'scale-up',
-    'scale-down',
-    'slide-top',
-    'slide-bottom',
-    'slide-left',
-    'slide-right',
-    'slide-top-small',
-    'slide-bottom-small',
-    'slide-left-small',
-    'slide-right-small',
-    'slide-top-medium',
-    'slide-bottom-medium',
-    'slide-left-medium',
-    'slide-right-medium',
-    'kenburns',
-    'shake',
-  ],
-  AREAS: ['horizontal', 'vertical'],
-  BACKGROUND_COLORS: ['default', 'muted', 'primary', 'secondary'],
-  BACKGROUND_SIZES: ['cover', 'contain'],
-  ALL_WIDTHS: [
-    ...CHILD_WIDTHS,
-    ...BASE_SIZES,
-    '2/3',
-    '2/4',
-    '3/4',
-    '2/5',
-    '3/5',
-    '4/5',
-    '2/6',
-    '3/6',
-    '4/6',
-    '5/6',
-    'xlarge',
-    'xxlarge',
-  ],
+  ALL_WIDTHS,
+  ANIMATIONS,
+  AREAS,
+  BACKGROUND_COLORS,
+  BACKGROUND_SIZES,
   BASE_SIZES,
   BASE_WIDTHS,
-  BLEND_MODES: [
-    'multiply',
-    'screen',
-    'overlay',
-    'darken',
-    'lighten',
-    'color-dodge',
-    'color-burn',
-    'hard-light',
-    'soft-light',
-    'difference',
-    'exclusion',
-    'hue',
-    'saturation',
-    'color',
-    'luminosity',
-  ],
-  BREAKPOINTS: ['@s', '@m', '@l', '@xl'],
-  BUTTON_STYLES: ['default', 'primary', 'secondary', 'danger', 'text', 'link'],
+  BLEND_MODES,
+  BREAKPOINTS,
+  BUTTON_STYLES,
   CHILD_WIDTHS,
-  CSS_POSITIONS: ['absolute', 'fixed', 'relative'],
-  DROP_POSITIONS: [
-    'bottom-left',
-    'bottom-center',
-    'bottom-right',
-    'bottom-justify',
-    'top-left',
-    'top-center',
-    'top-right',
-    'top-justify',
-    'left-top',
-    'left-center',
-    'left-bottom',
-    'right-top',
-    'right-center',
-    'right-bottom',
-  ],
-  FLEX_HORIZONTAL_MODIFIERS: [...HORIZONTAL_POSITIONS, 'around', 'between'],
-  FLEX_VERTICAL_MODIFIERS: ['stretch', 'top', 'middle', 'bottom'],
-  FORM_WIDTHS: [...BASE_SIZES, 'xsmall'],
-  GRID_SIZES: [...BASE_SIZES, 'xlarge'],
+  CSS_POSITIONS,
+  DROP_POSITIONS,
+  FLEX_HORIZONTAL_MODIFIERS,
+  FLEX_VERTICAL_MODIFIERS,
+  FORM_WIDTHS,
+  GRID_SIZES,
   HORIZONTAL_POSITIONS,
   ICON_NAMES,
-  LIGHTBOX_ANIMATIONS: ['fade', 'scale', 'slide'],
-  LOCATIONS: ['top', 'bottom', 'left', 'right'],
-  MODES: ['click', 'hover'],
-  SLIDESHOW_ANIMATIONS: ['fade', 'pull', 'push', 'scale', 'slide'],
-  SPACING_MODIFIERS: [...BASE_SIZES, 'auto', 'remove', 'xlarge'],
-  STATUS_COLORS: ['muted', 'primary', 'success', 'warning', 'danger'],
-  TEXT_ALIGNMENTS: [...HORIZONTAL_POSITIONS, 'justify'],
-  TEXT_VERTICAL_MODIFIERS: ['baseline', 'top', 'middle', 'bottom'],
-  VERTICAL_POSITIONS: ['top', 'center', 'bottom'],
+  LIGHTBOX_ANIMATIONS,
+  LOCATIONS,
+  MODES,
+  SLIDESHOW_ANIMATIONS,
+  SPACING_MODIFIERS,
+  STATUS_COLORS,
+  TEXT_ALIGNMENTS,
+  TEXT_VERTICAL_MODIFIERS,
+  VERTICAL_POSITIONS,
+  X_Y_POSITIONS,
 };
 
 const HTML_BLOCK_ELEMENTS = [
@@ -334,6 +439,8 @@ export const HTML = {
     ...HTML_EMBEDDED_ELEMENTS,
     ...HTML_INLINE_ELEMENTS,
     ...HTML_TEXT_ELEMENTS,
+    'iframe',
+    'source',
   ],
   BLOCK_ELEMENTS: HTML_BLOCK_ELEMENTS,
   EMBEDDED_ELEMENTS: HTML_EMBEDDED_ELEMENTS,

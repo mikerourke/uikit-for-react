@@ -3,21 +3,24 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { isNil, noop } from 'lodash';
+import isNil from 'lodash/isNil';
+import noop from 'lodash/noop';
 import {
+  addMultipleEventInvokers,
   customPropTypes,
   generateSelector,
   getBaseRef,
-  getElementType,
   getOptionsString,
   joinListProp,
   UIK,
 } from '../../../lib';
+import Base from '../../base';
 
 export default class ToggleToggle extends React.Component {
   static displayName = 'ToggleToggle';
 
   static propTypes = {
+    ...Base.propTypes,
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.ANIMATIONS),
       PropTypes.arrayOf(UIK.ANIMATIONS),
@@ -34,8 +37,6 @@ export default class ToggleToggle extends React.Component {
       }),
     ]),
     as: customPropTypes.customOrStringElement('a', 'button'),
-    children: PropTypes.node,
-    className: PropTypes.string,
     classToggled: PropTypes.string,
     mediaTrigger: ExtraPropTypes.and([
       PropTypes.oneOfType([PropTypes.oneOf(UIK.BREAKPOINTS), PropTypes.number]),
@@ -64,15 +65,14 @@ export default class ToggleToggle extends React.Component {
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'button',
-    className: '',
     onBeforeHide: noop,
     onBeforeShow: noop,
     onHidden: noop,
     onHide: noop,
     onShow: noop,
     onShown: noop,
-    queued: false,
     toggled: false,
   };
 
@@ -83,12 +83,15 @@ export default class ToggleToggle extends React.Component {
 
   componentDidMount() {
     const ref = this.getRef();
-    UIkit.util.on(ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(ref, 'beforeshow', this.props.onBeforeShow);
-    UIkit.util.on(ref, 'hidden', this.props.onHidden);
-    UIkit.util.on(ref, 'hide', this.props.onHide);
-    UIkit.util.on(ref, 'show', this.props.onShow);
-    UIkit.util.on(ref, 'shown', this.props.onShown);
+    const ukToPropsEventMap = {
+      beforehide: 'onBeforeHide',
+      beforeshow: 'onBeforeShow',
+      hidden: 'onHidden',
+      hide: 'onHide',
+      show: 'onShow',
+      shown: 'onShown',
+    };
+    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -107,17 +110,10 @@ export default class ToggleToggle extends React.Component {
   render() {
     const {
       animation,
-      as,
       className,
       classToggled,
       mediaTrigger,
       mode,
-      onBeforeHide,
-      onBeforeShow,
-      onHidden,
-      onHide,
-      onShow,
-      onShown,
       queued,
       selectorTarget,
       toggled,
@@ -135,13 +131,13 @@ export default class ToggleToggle extends React.Component {
       target: selectorTarget,
     });
 
-    const Element = getElementType(ToggleToggle, as);
     return (
-      <Element
+      <Base
         {...rest}
+        baseRef={this.handleRef}
         className={classes}
-        ref={this.handleRef}
-        data-uk-toggle={componentOptions}
+        component={ToggleToggle}
+        uk-toggle={componentOptions}
       />
     );
   }

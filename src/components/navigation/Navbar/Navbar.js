@@ -1,21 +1,22 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
-import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { get, isNil, noop } from 'lodash';
+import get from 'lodash/get';
+import isNil from 'lodash/isNil';
+import noop from 'lodash/noop';
 import {
+  addMultipleEventInvokers,
   buildClassName,
   customPropTypes,
   generateSelector,
   getBaseRef,
-  getElementType,
   getOptionsString,
   joinListProp,
   UIK,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import Base from '../../base';
 import NavbarContainer from './NavbarContainer';
 import NavbarDropdown from './NavbarDropdown';
 import NavbarItem from './NavbarItem';
@@ -28,6 +29,7 @@ export default class Navbar extends React.Component {
   static displayName = 'Navbar';
 
   static propTypes = {
+    ...Base.propTypes,
     alignOptions: PropTypes.object,
     alignTo: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS).isRequired,
     as: ExtraPropTypes.and([
@@ -43,8 +45,6 @@ export default class Navbar extends React.Component {
       },
     ]),
     boundaryAlign: PropTypes.bool,
-    children: PropTypes.node,
-    className: PropTypes.string,
     container: PropTypes.bool,
     delayHide: PropTypes.number,
     delayShow: PropTypes.number,
@@ -52,9 +52,6 @@ export default class Navbar extends React.Component {
     dropbarMode: PropTypes.oneOf(['push', 'slide']),
     dropdownAlign: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS),
     duration: PropTypes.number,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     mode: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.MODES),
       PropTypes.arrayOf(UIK.MODES),
@@ -67,17 +64,12 @@ export default class Navbar extends React.Component {
     onShow: PropTypes.func,
     onShown: PropTypes.func,
     transparent: PropTypes.bool,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'nav',
-    boundaryAlign: false,
-    className: '',
     container: false,
-    dropbar: false,
     onBeforeHide: noop,
     onBeforeShow: noop,
     onHidden: noop,
@@ -102,12 +94,15 @@ export default class Navbar extends React.Component {
 
   componentDidMount() {
     const ref = this.getRef();
-    UIkit.util.on(ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(ref, 'beforeshow', this.props.onBeforeShow);
-    UIkit.util.on(ref, 'hidden', this.props.onHidden);
-    UIkit.util.on(ref, 'hide', this.props.onHide);
-    UIkit.util.on(ref, 'show', this.props.onShow);
-    UIkit.util.on(ref, 'shown', this.props.onShown);
+    const ukToPropsEventMap = {
+      beforehide: 'onBeforeHide',
+      beforeshow: 'onBeforeShow',
+      hidden: 'onHidden',
+      hide: 'onHide',
+      show: 'onShow',
+      shown: 'onShown',
+    };
+    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
   }
 
   getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
@@ -129,7 +124,6 @@ export default class Navbar extends React.Component {
     const {
       alignOptions,
       alignTo,
-      as,
       boundaryAlign,
       children,
       className,
@@ -140,33 +134,16 @@ export default class Navbar extends React.Component {
       dropbarMode,
       dropdownAlign,
       duration,
-      flex,
-      inverse,
-      margin,
       mode,
       offset,
       transparent,
-      text,
-      utility,
-      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(
-      className,
-      'uk-navbar',
-      this.selector,
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-      {
-        'uk-navbar-container': container,
-        'uk-navbar-transparent': transparent,
-      },
-    );
+    const classes = classnames(className, 'uk-navbar', this.selector, {
+      'uk-navbar-container': container,
+      'uk-navbar-transparent': transparent,
+    });
 
     const alignProps = {
       ...alignOptions,
@@ -188,16 +165,16 @@ export default class Navbar extends React.Component {
       offset,
     });
 
-    const Element = getElementType(Navbar, as);
     return (
-      <Element
+      <Base
         {...rest}
+        baseRef={this.handleRef}
         className={classes}
-        ref={this.handleRef}
-        data-uk-navbar={componentOptions}
+        component={Navbar}
+        uk-navbar={componentOptions}
       >
         <div {...alignProps}>{this.renderChildren(children)}</div>
-      </Element>
+      </Base>
     );
   }
 }

@@ -1,33 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import { customPropTypes } from '../../../lib';
+import Base from '../../base';
 import ListItem from './ListItem';
 
 export default class List extends React.Component {
   static displayName = 'List';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('ul'),
     bullet: PropTypes.bool,
     children: customPropTypes.restrictToChildTypes(ListItem),
-    className: PropTypes.string,
     divider: PropTypes.bool,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
     large: PropTypes.bool,
-    margin: Margin.propTypes,
     striped: PropTypes.bool,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'ul',
     bullet: false,
-    className: '',
     divider: false,
     large: false,
     striped: false,
@@ -36,40 +30,15 @@ export default class List extends React.Component {
   static Item = ListItem;
 
   render() {
-    const {
-      as,
-      bullet,
-      className,
-      divider,
-      flex,
-      large,
-      inverse,
-      margin,
-      striped,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
+    const { bullet, className, divider, large, striped, ...rest } = this.props;
 
-    const classes = classnames(
-      className,
-      'uk-list',
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-      {
-        'uk-list-bullet': bullet,
-        'uk-list-divider': divider,
-        'uk-list-large': large,
-        'uk-list-striped': striped,
-      },
-    );
+    const classes = classnames(className, 'uk-list', {
+      'uk-list-bullet': bullet,
+      'uk-list-divider': divider,
+      'uk-list-large': large,
+      'uk-list-striped': striped,
+    });
 
-    const Element = getElementType(List, as);
-    return <Element {...rest} className={classes} />;
+    return <Base {...rest} className={classes} component={List} />;
   }
 }

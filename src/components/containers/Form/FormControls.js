@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, getElementType } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import { customPropTypes } from '../../../lib';
+import Base from '../../base';
 
 export default class FormControls extends React.Component {
   static displayName = 'FormControls';
@@ -11,50 +11,18 @@ export default class FormControls extends React.Component {
     as: customPropTypes.customOrStringElement('div'),
     alignForText: PropTypes.bool,
     children: PropTypes.node.isRequired,
-    className: PropTypes.string,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
     as: 'div',
     alignForText: false,
-    className: '',
   };
 
   render() {
-    const {
-      alignForText,
-      as,
-      className,
-      flex,
-      inverse,
-      margin,
-      text,
-      utility,
-      width,
-      ...rest
-    } = this.props;
-
-    const classes = classnames(
-      className,
-      'uk-form-controls',
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-      {
-        'uk-form-controls-text': alignForText,
-      },
-    );
-
-    const Element = getElementType(FormControls, as);
-    return <Element {...rest} className={classes} />;
+    const { alignForText, className, ...rest } = this.props;
+    const classes = classnames(className, 'uk-form-controls', {
+      'uk-form-controls-text': alignForText,
+    });
+    return <Base {...rest} className={classes} component={FormControls} />;
   }
 }

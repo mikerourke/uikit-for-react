@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
-import { flatten, isArray, max } from 'lodash';
+import flatten from 'lodash/flatten';
+import isArray from 'lodash/isArray';
+import max from 'lodash/max';
 
 /**
  * Limits the specified prop to either an HTML element, React Node, or one of
@@ -15,7 +17,7 @@ const customOrStringElement = (...args) =>
     PropTypes.func,
   ]);
 
-const forBreakpoints = (options, validators = []) => {
+const forBreakpoints = (options, validators = [], extrasForShape = {}) => {
   const validValidators = flatten([validators]);
   return PropTypes.oneOfType([
     ...validValidators,
@@ -26,6 +28,7 @@ const forBreakpoints = (options, validators = []) => {
       atMd: PropTypes.oneOf(options),
       atLg: PropTypes.oneOf(options),
       atXl: PropTypes.oneOf(options),
+      ...extrasForShape,
     }),
   ]);
 };

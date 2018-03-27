@@ -1,31 +1,27 @@
 import React from 'react';
-import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { isNil, noop } from 'lodash';
+import isNil from 'lodash/isNil';
+import noop from 'lodash/noop';
 import {
+  addMultipleEventInvokers,
   customPropTypes,
   generateSelector,
   getBaseRef,
-  getElementType,
   getOptionsString,
-  getValidProps,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import Base from '../../base';
 
 export default class Offcanvas extends React.Component {
   static displayName = 'Offcanvas';
 
   static propTypes = {
+    ...Base.propTypes,
     as: customPropTypes.customOrStringElement('form'),
     bgClose: PropTypes.bool,
     children: PropTypes.node.isRequired,
-    className: PropTypes.string,
     escClose: PropTypes.bool,
-    flex: Flex.propTypes,
     flip: PropTypes.bool,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     mode: PropTypes.oneOf(['none', 'push', 'reveal', 'slide']),
     onBeforeHide: PropTypes.func,
     onBeforeShow: PropTypes.func,
@@ -34,24 +30,17 @@ export default class Offcanvas extends React.Component {
     onShow: PropTypes.func,
     onShown: PropTypes.func,
     overlay: PropTypes.bool,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'form',
-    bgClose: true,
-    className: '',
-    escClose: true,
-    flip: false,
     onBeforeHide: noop,
     onBeforeShow: noop,
     onHidden: noop,
     onHide: noop,
     onShow: noop,
     onShown: noop,
-    overlay: false,
   };
 
   constructor() {
@@ -61,12 +50,15 @@ export default class Offcanvas extends React.Component {
 
   componentDidMount() {
     const ref = this.getRef();
-    UIkit.util.on(ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(ref, 'beforeshow', this.props.onBeforeShow);
-    UIkit.util.on(ref, 'hidden', this.props.onHidden);
-    UIkit.util.on(ref, 'hide', this.props.onHide);
-    UIkit.util.on(ref, 'show', this.props.onShow);
-    UIkit.util.on(ref, 'shown', this.props.onShown);
+    const ukToPropsEventMap = {
+      beforehide: 'onBeforeHide',
+      beforeshow: 'onBeforeShow',
+      hidden: 'onHidden',
+      hide: 'onHide',
+      show: 'onShow',
+      shown: 'onShown',
+    };
+    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
   }
 
   getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
@@ -78,32 +70,16 @@ export default class Offcanvas extends React.Component {
 
   render() {
     const {
-      as,
       bgClose,
       className,
       escClose,
       flip,
       mode,
       overlay,
-      flex,
-      inverse,
-      margin,
-      text,
-      utility,
-      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(
-      className,
-      this.selector,
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-    );
+    const classes = classnames(className, this.selector);
 
     const componentOptions = getOptionsString({
       bgClose,
@@ -113,13 +89,13 @@ export default class Offcanvas extends React.Component {
       overlay,
     });
 
-    const Element = getElementType(Offcanvas, as);
     return (
-      <Element
-        {...getValidProps(Offcanvas, rest)}
+      <Base
+        {...rest}
         className={classes}
-        ref={this.handleRef}
-        data-uk-offcanvas={componentOptions}
+        component={Offcanvas}
+        baseRef={this.handleRef}
+        uk-offcanvas={componentOptions}
       />
     );
   }

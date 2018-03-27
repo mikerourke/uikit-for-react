@@ -1,41 +1,95 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { omit } from 'lodash';
-import { customPropTypes, getElementType, HTML } from '../../../lib';
-import { Flex, Margin, Text as textProps, Utility, Width } from '../../common';
+import {
+  buildBreakpointClasses,
+  buildClassName,
+  customPropTypes,
+  HTML,
+  UIK,
+} from '../../../lib';
+import Base from '../../base';
 
 export default class Text extends React.Component {
   static displayName = 'Text';
 
   static propTypes = {
-    ...textProps.propShape,
+    ...Base.propTypes,
+    align: PropTypes.oneOfType([
+      PropTypes.oneOf(['justify']),
+      customPropTypes.forBreakpoints(UIK.HORIZONTAL_POSITIONS),
+    ]),
     as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
-    children: PropTypes.node,
-    className: PropTypes.string,
-    flex: Flex.propTypes,
-    margin: Margin.propTypes,
-    width: Width.propTypes,
+    bold: PropTypes.bool,
+    danger: PropTypes.bool,
+    large: PropTypes.bool,
+    lead: PropTypes.bool,
+    meta: PropTypes.bool,
+    muted: PropTypes.bool,
+    primary: PropTypes.bool,
+    small: PropTypes.bool,
+    success: PropTypes.bool,
+    transform: PropTypes.oneOf(['capitalize', 'lowercase', 'uppercase']),
+    verticalAlign: PropTypes.oneOf(['baseline', 'top', 'middle', 'bottom']),
+    warning: PropTypes.bool,
+    wrapping: PropTypes.oneOf(['break', 'nowrap', 'truncate']),
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'div',
-    className: '',
+    bold: false,
+    danger: false,
+    large: false,
+    lead: false,
+    meta: false,
+    muted: false,
+    primary: false,
+    small: false,
+    success: false,
+    warning: false,
   };
 
   render() {
-    const { as, className, flex, margin, width, ...rest } = this.props;
+    const {
+      align,
+      className,
+      bold,
+      danger,
+      large,
+      lead,
+      meta,
+      muted,
+      primary,
+      small,
+      success,
+      transform,
+      verticalAlign,
+      warning,
+      wrapping,
+      ...rest
+    } = this.props;
 
     const classes = classnames(
       className,
-      textProps.getClasses(rest),
-      Flex.getClasses(flex),
-      Margin.getClasses(margin),
-      Width.getClasses(width),
+      buildBreakpointClasses('text', align),
+      buildClassName('text', transform),
+      buildClassName('text', verticalAlign),
+      buildClassName('text', wrapping),
+      {
+        'uk-text-bold': bold,
+        'uk-text-danger': danger,
+        'uk-text-large': large,
+        'uk-text-lead': lead,
+        'uk-text-meta': meta,
+        'uk-text-muted': muted,
+        'uk-text-primary': primary,
+        'uk-text-small': small,
+        'uk-text-success': success,
+        'uk-text-warning': warning,
+      },
     );
 
-    const elementProps = omit(rest, Object.keys(textProps.propShape));
-    const Element = getElementType(Text, as);
-    return <Element {...elementProps} className={classes || undefined} />;
+    return <Base {...rest} className={classes || undefined} component={Text} />;
   }
 }

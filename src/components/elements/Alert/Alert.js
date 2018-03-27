@@ -1,21 +1,21 @@
 import React from 'react';
-import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { get, isNil, noop } from 'lodash';
+import get from 'lodash/get';
+import isNil from 'lodash/isNil';
+import noop from 'lodash/noop';
 import {
+  addEventInvoker,
   customPropTypes,
   generateSelector,
   getBaseRef,
-  getElementType,
   getOptionsString,
-  getValidProps,
   hasChildType,
   HTML,
   UIK,
 } from '../../../lib';
-import { Flex, Inverse, Margin, Text, Utility, Width } from '../../common';
+import Base from '../../base';
 import Close from '../Close';
 
 /**
@@ -26,6 +26,7 @@ export default class Alert extends React.Component {
   static displayName = 'Alert';
 
   static propTypes = {
+    ...Base.propTypes,
     animation: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.oneOf(UIK.ANIMATIONS),
@@ -35,14 +36,13 @@ export default class Alert extends React.Component {
       }),
     ]),
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
-    children: PropTypes.node,
-    className: PropTypes.string,
     closeable: ExtraPropTypes.and([
       PropTypes.bool,
       props => {
         if (props.closeable && hasChildType(props.children, Close)) {
           return new Error(
-            'You cannot have an instance of Close inside an Alert if the "closeable" prop is true.',
+            'You cannot have an instance of Close inside an Alert if the ' +
+            '"closeable" prop is true.',
           );
         }
         return null;
@@ -50,23 +50,16 @@ export default class Alert extends React.Component {
     ]),
     closeOptions: PropTypes.shape(Close.propTypes),
     danger: PropTypes.bool,
-    flex: Flex.propTypes,
-    inverse: Inverse.propTypes,
-    margin: Margin.propTypes,
     onBeforeHide: PropTypes.func,
     onHide: PropTypes.func,
     primary: PropTypes.bool,
     success: PropTypes.bool,
     warning: PropTypes.bool,
-    text: Text.propTypes,
-    utility: Utility.propTypes,
-    width: Width.propTypes,
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'div',
-    className: '',
-    closeable: false,
     closeOptions: Close.defaultProps,
     danger: false,
     onBeforeHide: noop,
@@ -83,8 +76,8 @@ export default class Alert extends React.Component {
 
   componentDidMount() {
     const ref = this.getRef();
-    UIkit.util.on(ref, 'beforehide', this.props.onBeforeHide);
-    UIkit.util.on(ref, 'hide', this.props.onHide);
+    addEventInvoker(ref, 'beforehide', 'onBeforeHide', this.props);
+    addEventInvoker(ref, 'hide', 'onHide', this.props);
   }
 
   getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
@@ -107,41 +100,23 @@ export default class Alert extends React.Component {
   render() {
     const {
       animation,
-      as,
       children,
       className,
       closeable,
       closeOptions,
       danger,
-      flex,
-      inverse,
-      margin,
       primary,
       success,
       warning,
-      text,
-      utility,
-      width,
       ...rest
     } = this.props;
 
-    const classes = classnames(
-      className,
-      'uk-alert',
-      this.selector,
-      Flex.getClasses(flex),
-      Inverse.getClasses(inverse),
-      Margin.getClasses(margin),
-      Text.getClasses(text),
-      Utility.getClasses(utility),
-      Width.getClasses(width),
-      {
-        'uk-alert-danger': danger,
-        'uk-alert-primary': primary,
-        'uk-alert-success': success,
-        'uk-alert-warning': warning,
-      },
-    );
+    const classes = classnames(className, 'uk-alert', this.selector, {
+      'uk-alert-danger': danger,
+      'uk-alert-primary': primary,
+      'uk-alert-success': success,
+      'uk-alert-warning': warning,
+    });
 
     const closeProps = {
       ...closeOptions,
@@ -154,18 +129,17 @@ export default class Alert extends React.Component {
       ),
     };
 
-    const componentOptions = getOptionsString({ animation });
-    const Element = getElementType(Alert, as);
     return (
-      <Element
-        {...getValidProps(Alert, rest)}
+      <Base
+        {...rest}
+        baseRef={this.handleRef}
         className={classes}
-        ref={this.handleRef}
-        data-uk-alert={componentOptions}
+        component={Alert}
+        uk-alert={getOptionsString({ animation })}
       >
         {closeable && <Close {...closeProps} />}
         {this.renderChildren(children)}
-      </Element>
+      </Base>
     );
   }
 }

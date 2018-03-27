@@ -1,14 +1,12 @@
 import classnames from 'classnames';
-import {
-  first,
-  get,
-  isBoolean,
-  isNil,
-  isPlainObject,
-  isUndefined,
-  kebabCase,
-  some,
-} from 'lodash';
+import first from 'lodash/first';
+import get from 'lodash/get';
+import isBoolean from 'lodash/isBoolean';
+import isNil from 'lodash/isNil';
+import isPlainObject from 'lodash/isPlainObject';
+import isUndefined from 'lodash/isUndefined';
+import kebabCase from 'lodash/kebabCase';
+import some from 'lodash/some';
 
 /**
  * Cleans up the className to ensure it is a valid UIkit class.

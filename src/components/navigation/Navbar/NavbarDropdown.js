@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { omit } from 'lodash';
+import omit from 'lodash/omit';
 import { buildClassName, customPropTypes, getElementType } from '../../../lib';
 import { Dropdown } from '../../elements';
 import NavbarItem from './NavbarItem';
@@ -15,7 +15,6 @@ export default class NavbarDropdown extends React.Component {
     ...Dropdown.propTypes,
     as: customPropTypes.customOrStringElement('div'),
     children: ExtraPropTypes.elementType(NavbarItem),
-    className: PropTypes.string,
     multiplyWidth: PropTypes.oneOf([2, 3, 4, 5]),
     navOptions: PropTypes.object,
   };
@@ -23,7 +22,6 @@ export default class NavbarDropdown extends React.Component {
   static defaultProps = {
     ...Dropdown.defaultProps,
     as: 'div',
-    className: '',
   };
 
   render() {
@@ -38,7 +36,7 @@ export default class NavbarDropdown extends React.Component {
     const classes = classnames(
       className,
       'uk-navbar-dropdown',
-      buildClassName('navbar', 'dropdown', 'width', multiplyWidth),
+      buildClassName('navbar-dropdown-width', multiplyWidth),
     );
 
     const navProps = {
@@ -52,7 +50,7 @@ export default class NavbarDropdown extends React.Component {
 
     const InnerElement = getElementType(navOptions, navOptions.as);
     return (
-      <Dropdown {...rest} className={classes}>
+      <Dropdown {...rest} className={classes} component={NavbarDropdown}>
         <InnerElement {...navProps}>{children}</InnerElement>
       </Dropdown>
     );
