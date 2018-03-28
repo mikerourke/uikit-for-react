@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import { customPropTypes } from '../../../lib';
+import { customPropTypes, HTML } from '../../../lib';
 import Base from '../../base';
 
 export default class ModalTitle extends React.Component {
@@ -8,12 +8,12 @@ export default class ModalTitle extends React.Component {
 
   static propTypes = {
     ...Base.propTypes,
-    as: customPropTypes.customOrStringElement('div'),
+    as: customPropTypes.customOrStringElement(HTML.HEADING_ELEMENTS),
   };
 
   static defaultProps = {
     ...Base.defaultProps,
-    as: 'div',
+    as: 'h2',
   };
 
   render() {
