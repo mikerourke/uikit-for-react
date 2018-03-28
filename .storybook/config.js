@@ -20,6 +20,7 @@ function loadStories() {
   require('../src/stories/containers/Card');
   require('../src/stories/elements/Close');
   require('../src/stories/elements/Comment');
+  require('../src/stories/layout/Container');
   require('../src/stories/elements/Countdown');
   require('../src/stories/style/Cover');
   require('../src/stories/containers/DescriptionList');
@@ -37,6 +38,7 @@ function loadStories() {
   require('../src/stories/elements/Marker');
   require('../src/stories/containers/Modal');
   require('../src/stories/elements/Notification');
+  require('../src/stories/containers/Offcanvas');
   require('../src/stories/style/Scroll');
   require('../src/stories/layout/Tab');
   require('../src/stories/elements/Upload');

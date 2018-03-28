@@ -1,14 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import {
-  Base,
-  Button,
-  Dropdown,
-  Grid,
-  Icon,
-  Margin,
-  Nav,
-} from '../../components';
+import { Base, Button, Dropdown, Icon, Margin, Nav } from '../../components';
 
 Button.displayName = 'Button';
 

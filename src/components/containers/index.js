@@ -47,7 +47,11 @@ export Modal, {
   ModalHeader,
   ModalTitle,
 } from './Modal';
-export Offcanvas, { OffcanvasContent } from './Offcanvas';
+export Offcanvas, {
+  OffcanvasBar,
+  OffcanvasClose,
+  OffcanvasContent,
+} from './Offcanvas';
 export Panel from './Panel';
 export Slideshow, { SlideshowItem } from './Slideshow';
 export Sortable from './Sortable';

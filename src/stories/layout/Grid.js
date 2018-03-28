@@ -23,7 +23,7 @@ storiesOf('Grid', module)
   ))
 
   .add('Gutter modifiers', () => (
-    <Base margin={{ all: 'large' }} nextRow={{ spacing: 'large' }}>
+    <Base margin={{ all: 'large' }} dynamicMargin>
       {['small', 'medium', 'large'].map(gutter => (
         <Grid
           key={gutter}
@@ -133,7 +133,31 @@ storiesOf('Grid', module)
     </Base>
   ))
 
-  .add('Grids and width', () => (
+  .add('JavaScript', () => (
+    <Base margin={{ all: 'large' }}>
+      <Grid
+        childWidth={{ atSm: 'expand' }}
+        textAlign="center"
+        heightMatch="target: > div > .uk-card"
+      >
+        <Grid.Cell>
+          <Card>Item</Card>
+        </Grid.Cell>
+        <Grid.Cell>
+          <Card>
+            Item<br />...
+          </Card>
+        </Grid.Cell>
+        <Grid.Cell>
+          <Card>
+            Item<br />...<br />...
+          </Card>
+        </Grid.Cell>
+      </Grid>
+    </Base>
+  ))
+
+  .add('Grid and width', () => (
     <Base margin={{ all: 'large' }}>
       <Grid textAlign="center">
         <Grid.Cell width={{ atMd: 'auto' }}>
@@ -195,9 +219,9 @@ storiesOf('Grid', module)
     </Base>
   ))
 
-  .add('Component attributes', () => (
+  .add('Component options', () => (
     <Base margin={{ all: 'large' }}>
-      <Grid childWidth={{ atSm: '1/2' }} nextRow={{ spacing: 'large' }}>
+      <Grid childWidth={{ atSm: '1/2' }}>
         <Grid.Cell>
           <Card>Item</Card>
         </Grid.Cell>

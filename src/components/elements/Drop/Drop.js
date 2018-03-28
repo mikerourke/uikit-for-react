@@ -16,6 +16,7 @@ import {
   UIK,
 } from '../../../lib';
 import Base from '../../base';
+import DropBoundary from './DropBoundary';
 
 export default class Drop extends React.Component {
   static displayName = 'Drop';
@@ -66,6 +67,8 @@ export default class Drop extends React.Component {
     onToggle: noop,
     shown: false,
   };
+
+  static Boundary = DropBoundary;
 
   constructor() {
     super();

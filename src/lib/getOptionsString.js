@@ -39,12 +39,13 @@ const getAnimationsOptionString = optionValue => {
   // If the optionValue is a string or array, prepend each animation name with
   // the UIkit class and return as valid string.
   const animationNames = getAnimationNames(optionValue);
-  if (animationNames !== null)
+  if (animationNames !== null && animationNames.length !== 0)
     return `animation: ${joinListProp(animationNames)}`;
 
   // This is meant to handle most cases of the animation component option if
   // passed an object. Some of the more unique cases are handled in the
   // component.
+
   if (isPlainObject(optionValue)) {
     // The duration prop from the object will be appended to the string returned
     // from the function. However, we don't want the duration included in the

@@ -19,8 +19,8 @@ export Countdown, {
   CountdownSeparator,
 } from './Countdown';
 export Divider from './Divider';
-export Drop from './Drop';
-export Dropdown from './Dropdown';
+export Drop, { DropBoundary } from './Drop';
+export Dropdown, { DropdownBoundary } from './Dropdown';
 export Heading from './Heading';
 export Icon from './Icon';
 export Label from './Label';

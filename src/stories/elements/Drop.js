@@ -1,7 +1,8 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Base, Button, Card, Drop, Grid } from '../../components';
+import { action } from '@storybook/addon-actions';
+import { Base, Button, Card, Drop, Grid, Panel } from '../../components';
 
 Drop.displayName = 'Drop';
 
@@ -59,23 +60,68 @@ storiesOf('Drop', module)
     </Base>
   ))
 
-  .add('Events', () => {
-    const handleEvent = eventName => () => console.log(eventName);
-
-    return (
-      <Base margin={{ all: 'large' }}>
-        <Drop
-          toggle={<Button>Top Right</Button>}
-          onBeforeShow={handleEvent('onToggle')}
-          onShow={handleEvent('onShow')}
-          onShown={handleEvent('onShown')}
-          onBeforeHide={handleEvent('onBeforeHide')}
-          onHide={handleEvent('onHide')}
-          onHidden={handleEvent('onHidden')}
-          onStack={handleEvent('onStack')}
-        >
+  .add('Boundary', () => (
+    <Base margin={{ all: 'large' }}>
+      <Panel as={Drop.Boundary} placeholder width={{ atSm: '2/3' }}>
+        <Button float="left">Hover</Button>
+        <Drop boundaryAlign>
           <Card>{message}</Card>
         </Drop>
-      </Base>
-    );
-  });
+        <Button float="right">Hover</Button>
+        <Drop boundaryAlign>
+          <Card>{message}</Card>
+        </Drop>
+      </Panel>
+    </Base>
+  ))
+
+  .add('Boundary alignment', () => (
+    <Base margin={{ all: 'large' }}>
+      <Panel as={Drop.Boundary} placeholder>
+        <Button float="left">Justify</Button>
+        <Drop boundaryAlign position="bottom-justify">
+          <Card>{message}</Card>
+        </Drop>
+        <Button float="right">Center</Button>
+        <Drop boundaryAlign position="bottom-center">
+          <Card>{message}</Card>
+        </Drop>
+      </Panel>
+    </Base>
+  ))
+
+  .add('Offset', () => (
+    <Base margin={{ all: 'large' }}>
+      <Drop toggle={<Button>Hover</Button>} offset={80}>
+        <Card>{message}</Card>
+      </Drop>
+    </Base>
+  ))
+
+  .add('Animation', () => (
+    <Base margin={{ all: 'large' }}>
+      <Drop
+        toggle={<Button>Hover</Button>}
+        animation={{ name: 'slide-top-small', duration: 1000 }}
+      >
+        <Card>{message}</Card>
+      </Drop>
+    </Base>
+  ))
+
+  .add('Events', () => (
+    <Base margin={{ all: 'large' }}>
+      <Drop
+        toggle={<Button>Show</Button>}
+        onBeforeShow={action('onToggle')}
+        onShow={action('onShow')}
+        onShown={action('onShown')}
+        onBeforeHide={action('onBeforeHide')}
+        onHide={action('onHide')}
+        onHidden={action('onHidden')}
+        onStack={action('onStack')}
+      >
+        <Card>{message}</Card>
+      </Drop>
+    </Base>
+  ));

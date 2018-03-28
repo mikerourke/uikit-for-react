@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import get from 'lodash/get';
 import {
   buildBreakpointClasses,
   buildClassName,
@@ -24,10 +23,7 @@ export default class Grid extends React.Component {
     firstColumn: PropTypes.string,
     gutter: PropTypes.oneOf([...UIK.BASE_SIZES, 'collapse']),
     matchHeight: PropTypes.bool,
-    nextRow: PropTypes.shape({
-      spacing: PropTypes.oneOf(UIK.SPACING_MODIFIERS),
-      location: PropTypes.oneOf(UIK.LOCATIONS),
-    }),
+    nextRow: PropTypes.string,
     textAlign: customPropTypes.forBreakpoints(UIK.TEXT_ALIGNMENTS),
   };
 
@@ -68,22 +64,13 @@ export default class Grid extends React.Component {
       },
     );
 
-    const componentOptions = getOptionsString({
-      firstColumn,
-      margin: buildClassName(
-        'margin',
-        get(nextRow, 'spacing', null),
-        get(nextRow, 'location', null),
-      ),
-    });
-
     return (
       <Base
         {...rest}
         baseRef={this.handleRef}
         className={classes || undefined}
         component={Grid}
-        uk-grid={componentOptions || ''}
+        uk-grid={getOptionsString({ firstColumn, margin: nextRow })}
       />
     );
   }

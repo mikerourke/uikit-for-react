@@ -43,6 +43,7 @@ export default class Base extends React.Component {
       }),
     ]),
     as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
+    // TODO: Validate all PropTypes for background, some may have changed.
     background: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.BACKGROUND_COLORS),
       PropTypes.shape({
@@ -54,7 +55,7 @@ export default class Base extends React.Component {
         fixed: PropTypes.bool,
         imageUrl: PropTypes.string,
         norepeat: PropTypes.bool,
-        position: PropTypes.oneOf(UIK.X_Y_POSITIONS),
+        position: PropTypes.oneOf([...UIK.X_Y_POSITIONS, 'center-center']),
         size: PropTypes.oneOf(UIK.BACKGROUND_SIZES),
       }),
     ]),
@@ -95,12 +96,27 @@ export default class Base extends React.Component {
       reverse: PropTypes.bool,
     }),
     display: PropTypes.oneOf(['block', 'inline', 'inline-block']),
+    dynamicMargin: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.shape({
+        firstColumn: PropTypes.string,
+        nextRow: PropTypes.string,
+      }),
+    ]),
     flex: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['inline'])]),
     float: PropTypes.oneOf(['left', 'right']),
     grow: PropTypes.oneOf(['auto', 'full', 'none']),
     height: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.oneOf([...UIK.BASE_SIZES, 'full']),
+    ]),
+    heightMatch: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.string,
+      PropTypes.shape({
+        target: PropTypes.string,
+        row: PropTypes.bool,
+      }),
     ]),
     heightMax: PropTypes.oneOf(UIK.BASE_SIZES),
     hidden: PropTypes.oneOfType([
@@ -138,10 +154,6 @@ export default class Base extends React.Component {
       }),
     ]),
     marker: PropTypes.bool,
-    nextRow: PropTypes.shape({
-      spacing: PropTypes.oneOf(UIK.SPACING_MODIFIERS),
-      location: PropTypes.oneOf(UIK.LOCATIONS),
-    }),
     order: PropTypes.oneOfType([
       PropTypes.oneOf(['first', 'last']),
       PropTypes.shape({
@@ -165,6 +177,7 @@ export default class Base extends React.Component {
       target: PropTypes.string,
       viewport: PropTypes.number,
     }),
+    placeholder: PropTypes.bool,
     position: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.LOCATIONS),
       PropTypes.oneOf(UIK.CSS_POSITIONS),
@@ -242,7 +255,6 @@ export default class Base extends React.Component {
 
   static defaultProps = {
     className: '',
-    clearfix: false,
     flex: false,
     hidden: false,
     inline: false,
@@ -381,6 +393,8 @@ export default class Base extends React.Component {
   }
 
   getComponentAttributes(
+    dynamicMargin,
+    heightMatch,
     itemIn,
     marker,
     overflow,
@@ -404,9 +418,27 @@ export default class Base extends React.Component {
       scroll: get(scrollspyNav, 'scroll'),
     });
 
+    let heightMatchOptions = heightMatch;
+    if (isPlainObject(heightMatch)) {
+      heightMatchOptions = getOptionsString({
+        target: get(heightMatch, 'target'),
+        row: get(heightMatch, 'row'),
+      });
+    }
+
+    let marginOptions = '';
+    if (isPlainObject(dynamicMargin)) {
+      marginOptions = getOptionsString({
+        margin: get(dynamicMargin, 'nextRow'),
+        firstColumn: get(dynamicMargin, 'firstColumn'),
+      });
+    }
+
     return {
       [itemInName]: itemInIndex,
+      'uk-margin': dynamicMargin ? marginOptions : undefined,
       'uk-marker': marker ? '' : undefined,
+      'uk-height-match': heightMatch ? heightMatchOptions : undefined,
       'uk-height-viewport': viewport ? getOptionsString(viewport) : undefined,
       'uk-overflow-auto': overflow === 'auto' ? '' : undefined,
       'uk-overflow-hidden': overflow === 'hidden' ? '' : undefined,
@@ -434,10 +466,12 @@ export default class Base extends React.Component {
       component,
       direction,
       display,
+      dynamicMargin,
       flex,
       float,
       grow,
       height,
+      heightMatch,
       heightMax,
       hidden,
       hoverTransition,
@@ -453,6 +487,7 @@ export default class Base extends React.Component {
       overflow,
       padding,
       parallax,
+      placeholder,
       position,
       resize,
       responsive,
@@ -526,6 +561,7 @@ export default class Base extends React.Component {
         'uk-height-1-1': height === 'full',
         'uk-inline': inline,
         'uk-invisible': invisible,
+        'uk-placeholder': placeholder,
         'uk-preserve-width': responsive === false,
         'uk-resize': resize,
         'uk-sorable-handle': sortableHandle === true,
@@ -537,6 +573,8 @@ export default class Base extends React.Component {
     );
 
     const attributes = this.getComponentAttributes(
+      dynamicMargin,
+      heightMatch,
       itemIn,
       marker,
       overflow,

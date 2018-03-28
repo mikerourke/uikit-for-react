@@ -11,13 +11,17 @@ import {
   getOptionsString,
 } from '../../../lib';
 import Base from '../../base';
+import OffcanvasBar from './OffcanvasBar';
+import OffcanvasClose from './OffcanvasClose';
+import OffcanvasContent from './OffcanvasContent';
+import OffcanvasToggle from './OffcanvasToggle';
 
 export default class Offcanvas extends React.Component {
   static displayName = 'Offcanvas';
 
   static propTypes = {
     ...Base.propTypes,
-    as: customPropTypes.customOrStringElement('form'),
+    as: customPropTypes.customOrStringElement('div'),
     bgClose: PropTypes.bool,
     children: PropTypes.node.isRequired,
     escClose: PropTypes.bool,
@@ -34,7 +38,7 @@ export default class Offcanvas extends React.Component {
 
   static defaultProps = {
     ...Base.defaultProps,
-    as: 'form',
+    as: 'div',
     onBeforeHide: noop,
     onBeforeShow: noop,
     onHidden: noop,
@@ -42,6 +46,11 @@ export default class Offcanvas extends React.Component {
     onShow: noop,
     onShown: noop,
   };
+
+  static Bar = OffcanvasBar;
+  static Close = OffcanvasClose;
+  static Content = OffcanvasContent;
+  static Toggle = OffcanvasToggle;
 
   constructor() {
     super();

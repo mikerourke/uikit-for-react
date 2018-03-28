@@ -10,17 +10,17 @@ export default class Heading extends React.Component {
 
   static propTypes = {
     ...Text.propTypes,
-    as: customPropTypes.customOrStringElement(HTML.HEADING_ELEMENTS),
+    as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
     bullet: PropTypes.bool,
     children: PropTypes.node.isRequired,
     divider: PropTypes.bool,
-    headingClass: PropTypes.oneOf(HTML.HEADING_ELEMENTS),
     hero: PropTypes.bool,
     line: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.oneOf(['center', 'right']),
     ]),
     primary: PropTypes.bool,
+    size: PropTypes.oneOf(HTML.HEADING_ELEMENTS),
   };
 
   static defaultProps = {
@@ -31,6 +31,7 @@ export default class Heading extends React.Component {
     hero: false,
     line: false,
     primary: false,
+    size: 'h1',
   };
 
   render() {
@@ -39,27 +40,22 @@ export default class Heading extends React.Component {
       children,
       className,
       divider,
-      headingClass,
       hero,
       line,
       primary,
+      size,
       ...rest
     } = this.props;
 
     const hasLine = (isString(line) && line.length > 0) || line === true;
 
-    const classes = classnames(
-      className,
-      'uk-heading',
-      buildClassName(headingClass),
-      {
-        'uk-heading-bullet': bullet,
-        'uk-heading-divider': divider,
-        'uk-heading-line': hasLine,
-        'uk-heading-hero': hero,
-        'uk-heading-primary': primary,
-      },
-    );
+    const classes = classnames(className, 'uk-heading', buildClassName(size), {
+      'uk-heading-bullet': bullet,
+      'uk-heading-divider': divider,
+      'uk-heading-line': hasLine,
+      'uk-heading-hero': hero,
+      'uk-heading-primary': primary,
+    });
 
     return (
       <Text

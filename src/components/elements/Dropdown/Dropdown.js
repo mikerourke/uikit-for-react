@@ -16,6 +16,7 @@ import {
   addMultipleEventInvokers,
 } from '../../../lib';
 import Base from '../../base';
+import DropdownBoundary from './DropdownBoundary';
 
 export default class Dropdown extends React.Component {
   static displayName = 'Dropdown';
@@ -66,6 +67,8 @@ export default class Dropdown extends React.Component {
     onToggle: noop,
     shown: false,
   };
+
+  static Boundary = DropdownBoundary;
 
   constructor() {
     super();
