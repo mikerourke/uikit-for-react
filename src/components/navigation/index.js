@@ -1,6 +1,6 @@
 export Breadcrumb, { BreadcrumbItem } from './Breadcrumb';
-export DotNav, { DotNavItem } from './DotNav';
-export IconNav, { IconNavItem } from './IconNav';
+export Dotnav, { DotnavItem } from './Dotnav';
+export Iconnav, { IconnavItem } from './Iconnav';
 export Nav, {
   NavDivider,
   NavHeader,
@@ -22,11 +22,11 @@ export Pagination, {
   PaginationNext,
   PaginationPrevious,
 } from './Pagination';
-export SlideNav, {
-  SlideNavContainer,
-  SlideNavNext,
-  SlideNavPrevious,
-} from './SlideNav';
-export SubNav, { SubNavItem } from './SubNav';
-export ThumbNav, { ThumbNavImage, ThumbNavItem } from './ThumbNav';
+export Slidenav, {
+  SlidenavContainer,
+  SlidenavNext,
+  SlidenavPrevious,
+} from './Slidenav';
+export Subnav, { SubnavItem } from './Subnav';
+export Thumbnav, { ThumbnavImage, ThumbnavItem } from './Thumbnav';
 export Totop from './Totop';

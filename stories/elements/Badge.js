@@ -1,16 +1,16 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Badge, Base } from '../../src/components';
+import { Badge, Block } from '../../src/components';
 
 Badge.displayName = 'Badge';
 
 storiesOf('Badge', module).add('Usage', () => (
-  <Base margin={{ all: 'large' }}>
-    <Base margin="small">
+  <Block margin={{ all: 'large' }}>
+    <Block margin="small">
       <Badge>1</Badge>
-    </Base>
-    <Base margin="small">
+    </Block>
+    <Block margin="small">
       <Badge>100</Badge>
-    </Base>
-  </Base>
+    </Block>
+  </Block>
 ));

@@ -1,7 +1,16 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Base, Button, Card, Grid, Label, Link, Text } from '../../src/components';
+import {
+  Block,
+  Button,
+  Card,
+  Grid,
+  Image,
+  Label,
+  Link,
+  Text,
+} from '../../src/components';
 import { imageLinks } from '../common';
 
 Card.displayName = 'Card';
@@ -10,7 +19,7 @@ const cardContent = faker.lorem.paragraph();
 
 storiesOf('Card', module)
   .add('Usage', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Card width={{ atMd: '1/2' }}>
         <Card.Title>Default</Card.Title>
         <Card.Content>
@@ -18,11 +27,11 @@ storiesOf('Card', module)
           sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </Card.Content>
       </Card>
-    </Base>
+    </Block>
   ))
 
   .add('Style modifiers', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atMd: '1/3' }} gutter="small" matchHeight>
         <Grid.Cell>
           <Card>
@@ -43,11 +52,11 @@ storiesOf('Card', module)
           </Card>
         </Grid.Cell>
       </Grid>
-    </Base>
+    </Block>
   ))
 
   .add('Hover modifier', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: '1/2' }} matchHeight>
         <Grid.Cell>
           <Card hover simple>
@@ -74,11 +83,11 @@ storiesOf('Card', module)
           </Card>
         </Grid.Cell>
       </Grid>
-    </Base>
+    </Block>
   ))
 
   .add('Size modifiers', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: '1/2' }}>
         <Grid.Cell>
           <Card size="small">
@@ -93,17 +102,16 @@ storiesOf('Card', module)
           </Card>
         </Grid.Cell>
       </Grid>
-    </Base>
+    </Block>
   ))
 
   .add('Header & footer', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Card width={{ atMd: '1/2' }}>
         <Card.Header>
           <Grid gutter="small" alignItems="middle">
             <Grid.Cell width="auto">
-              <Base
-                as="img"
+              <Image
                 border="circle"
                 src={imageLinks.avatar}
                 width={40}
@@ -127,11 +135,11 @@ storiesOf('Card', module)
           </Button>
         </Card.Footer>
       </Card>
-    </Base>
+    </Block>
   ))
 
   .add('Media', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atMd: '1/2' }}>
         <Grid.Cell>
           <Card>
@@ -156,11 +164,11 @@ storiesOf('Card', module)
           </Card>
         </Grid.Cell>
       </Grid>
-    </Base>
+    </Block>
   ))
 
   .add('Horizontal alignment', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Card as={Grid} childWidth={{ atSm: '1/2' }} gutter="collapse" margin>
         <Card.Media alignTo="left" cover={{ width: 600, height: 400 }}>
           <img src={imageLinks.light} alt="" />
@@ -183,15 +191,15 @@ storiesOf('Card', module)
           <p>{cardContent}</p>
         </Card.Body>
       </Card>
-    </Base>
+    </Block>
   ))
 
   .add('Badge', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Card width={{ atMd: '1/2' }}>
         <Card.Badge as={Label}>Badge</Card.Badge>
         <Card.Title>Title</Card.Title>
         <Card.Content>{cardContent}</Card.Content>
       </Card>
-    </Base>
+    </Block>
   ));

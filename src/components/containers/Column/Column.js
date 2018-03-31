@@ -17,6 +17,7 @@ export default class Column extends React.Component {
     ...omit(Base.propTypes, ['column', 'columnSpan']),
     as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
     divider: PropTypes.bool,
+    span: PropTypes.bool,
     width: customPropTypes.forBreakpoints(UIK.BASE_WIDTHS),
   };
 
@@ -27,11 +28,16 @@ export default class Column extends React.Component {
   };
 
   render() {
-    const { className, divider, width, ...rest } = this.props;
+    const { className, divider, span, width, ...rest } = this.props;
 
-    const classes = classnames(className, buildBreakpointClasses(width), {
-      'uk-column-divider': divider,
-    });
+    const classes = classnames(
+      className,
+      buildBreakpointClasses('column', width),
+      {
+        'uk-column-divider': divider,
+        'uk-column-span': span,
+      },
+    );
 
     return <Base {...rest} component={Column} className={classes} />;
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Button, Base, Notification } from '../../src/components';
+import { Button, Block, Notification } from '../../src/components';
 
 Notification.displayName = 'Notification';
 
@@ -19,7 +19,7 @@ storiesOf('Notification', module).add('Usage', () => {
 
     render() {
       return (
-        <Base margin={{ all: 'large' }}>
+        <Block margin={{ all: 'large' }}>
           <Button onClick={this.handleClick}>Test</Button>
           <Notification
             shown={this.state.shown}
@@ -30,7 +30,7 @@ storiesOf('Notification', module).add('Usage', () => {
               <Button>Test</Button>
             </div>
           </Notification>
-        </Base>
+        </Block>
       );
     }
   }

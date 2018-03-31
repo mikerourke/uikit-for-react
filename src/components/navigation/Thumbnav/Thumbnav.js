@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes } from '../../../lib';
 import Base from '../../base';
-import ThumbNavImage from './ThumbNavImage';
-import ThumbNavItem from './ThumbNavItem';
+import ThumbnavImage from './ThumbnavImage';
+import ThumbnavItem from './ThumbnavItem';
 
-export default class ThumbNav extends React.Component {
-  static displayName = 'ThumbNav';
+export default class Thumbnav extends React.Component {
+  static displayName = 'Thumbnav';
 
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('ul'),
-    children: customPropTypes.restrictToChildTypes(ThumbNavItem),
+    children: customPropTypes.restrictToChildTypes(ThumbnavItem),
     vertical: PropTypes.bool,
   };
 
@@ -22,8 +22,8 @@ export default class ThumbNav extends React.Component {
     vertical: false,
   };
 
-  static Image = ThumbNavImage;
-  static Item = ThumbNavItem;
+  static Image = ThumbnavImage;
+  static Item = ThumbnavItem;
 
   render() {
     const { className, vertical, ...rest } = this.props;
@@ -33,7 +33,7 @@ export default class ThumbNav extends React.Component {
     });
 
     return (
-      <Base {...rest} className={classes || undefined} component={ThumbNav} />
+      <Base {...rest} className={classes || undefined} component={Thumbnav} />
     );
   }
 }

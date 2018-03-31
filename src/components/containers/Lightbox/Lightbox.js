@@ -52,6 +52,7 @@ export default class Lightbox extends React.Component {
     onShown: PropTypes.func,
     pauseOnHover: PropTypes.bool,
     shown: PropTypes.bool,
+    toggleSelector: PropTypes.string,
     videoAutoplay: PropTypes.bool,
   };
 
@@ -114,6 +115,7 @@ export default class Lightbox extends React.Component {
       className,
       defaultIndex,
       pauseOnHover,
+      toggleSelector,
       videoAutoplay,
       ...rest
     } = this.props;
@@ -130,6 +132,7 @@ export default class Lightbox extends React.Component {
       autoplayInterval: get(autoplay, 'interval'),
       index: defaultIndex,
       pauseOnHover,
+      toggle: toggleSelector,
       velocity: get(animation, 'velocity'),
       videoAutoplay,
     }).replace('uk-animation-', '');

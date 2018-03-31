@@ -1,13 +1,13 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Base, Card, Grid } from '../../src/components';
+import { Block, Card, Grid, Margin } from '../../src/components';
 
 Grid.displayName = 'Grid';
 
 storiesOf('Grid', module)
   .add('Usage', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: 'expand' }} textAlign="center">
         <Grid.Cell>
           <Card>Item</Card>
@@ -19,11 +19,11 @@ storiesOf('Grid', module)
           <Card>Item</Card>
         </Grid.Cell>
       </Grid>
-    </Base>
+    </Block>
   ))
 
   .add('Gutter modifiers', () => (
-    <Base margin={{ all: 'large' }} dynamicMargin>
+    <Margin margin={{ all: 'large' }}>
       {['small', 'medium', 'large'].map(gutter => (
         <Grid
           key={gutter}
@@ -48,26 +48,26 @@ storiesOf('Grid', module)
         textAlign="center"
       >
         <Grid.Cell>
-          <Base as="div" background="muted" padding>
+          <Block background="muted" padding>
             Item
-          </Base>
+          </Block>
         </Grid.Cell>
         <Grid.Cell>
-          <Base as="div" background="primary" padding inverse="light">
+          <Block background="primary" padding inverse="light">
             Item
-          </Base>
+          </Block>
         </Grid.Cell>
         <Grid.Cell>
-          <Base as="div" background="secondary" padding inverse="light">
+          <Block background="secondary" padding inverse="light">
             Item
-          </Base>
+          </Block>
         </Grid.Cell>
       </Grid>
-    </Base>
+    </Margin>
   ))
 
   .add('Nested grid', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth="1/2" textAlign="center">
         <Grid.Cell>
           <Card>Item</Card>
@@ -83,21 +83,21 @@ storiesOf('Grid', module)
           </Grid>
         </Grid.Cell>
       </Grid>
-    </Base>
+    </Block>
   ))
 
   .add('Divider modifier', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: 'expand' }} divider>
         <Grid.Cell>{faker.lorem.paragraph()}</Grid.Cell>
         <Grid.Cell>{faker.lorem.paragraph()}</Grid.Cell>
         <Grid.Cell>{faker.lorem.paragraph()}</Grid.Cell>
       </Grid>
-    </Base>
+    </Block>
   ))
 
   .add('Match height', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: 'expand' }} textAlign="center" matchHeight>
         <Grid.Cell>
           <Card>Item</Card>
@@ -113,11 +113,11 @@ storiesOf('Grid', module)
           </Card>
         </Grid.Cell>
       </Grid>
-    </Base>
+    </Block>
   ))
 
   .add('Match only one cell', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: 'expand' }}>
         <Grid.Cell matchHeight>
           <Card>
@@ -130,11 +130,11 @@ storiesOf('Grid', module)
           <p>{faker.lorem.paragraph()}</p>
         </Grid.Cell>
       </Grid>
-    </Base>
+    </Block>
   ))
 
   .add('JavaScript', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid
         childWidth={{ atSm: 'expand' }}
         textAlign="center"
@@ -154,11 +154,11 @@ storiesOf('Grid', module)
           </Card>
         </Grid.Cell>
       </Grid>
-    </Base>
+    </Block>
   ))
 
   .add('Grid and width', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid textAlign="center">
         <Grid.Cell width={{ atMd: 'auto' }}>
           <Card>Auto</Card>
@@ -170,11 +170,11 @@ storiesOf('Grid', module)
           <Card>Expand</Card>
         </Grid.Cell>
       </Grid>
-    </Base>
+    </Block>
   ))
 
   .add('Child width', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: '1/2', atMd: '1/3' }} textAlign="center">
         <Grid.Cell>
           <Card>Item</Card>
@@ -186,11 +186,11 @@ storiesOf('Grid', module)
           <Card>Item</Card>
         </Grid.Cell>
       </Grid>
-    </Base>
+    </Block>
   ))
 
   .add('Grid and flex', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid
         gutter="small"
         childWidth={{ atSm: '1/4' }}
@@ -216,21 +216,5 @@ storiesOf('Grid', module)
           <Card>Item 6</Card>
         </Grid.Cell>
       </Grid>
-    </Base>
-  ))
-
-  .add('Component options', () => (
-    <Base margin={{ all: 'large' }}>
-      <Grid childWidth={{ atSm: '1/2' }}>
-        <Grid.Cell>
-          <Card>Item</Card>
-        </Grid.Cell>
-        <Grid.Cell>
-          <Card>Item</Card>
-        </Grid.Cell>
-        <Grid.Cell>
-          <Card>Item</Card>
-        </Grid.Cell>
-      </Grid>
-    </Base>
+    </Block>
   ));

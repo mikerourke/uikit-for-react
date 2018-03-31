@@ -29,7 +29,9 @@ export default class ModalClose extends React.Component {
     const { as, className, full, large, outside, ...rest } = this.props;
 
     const isClose = isString(as) || as instanceof Close;
-    let classes = classnames(className, 'uk-modal-close');
+    let classes = classnames(className, {
+      'uk-modal-close': !outside,
+    });
 
     if (isClose) {
       classes = classnames(classes, {
@@ -46,6 +48,7 @@ export default class ModalClose extends React.Component {
         as={as}
         className={classes}
         component={ModalClose}
+        type="button"
         uk-close={isClose ? '' : undefined}
       />
     );

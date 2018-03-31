@@ -1,44 +1,44 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Container, Heading } from '../../src/components';
+import { Block, Heading } from '../../src/components';
 
 Heading.displayName = 'Heading';
 
 storiesOf('Heading', module)
   .add('Heading primary', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Heading as="h1" primary>
         Heading Primary
       </Heading>
-    </Container>
+    </Block>
   ))
 
   .add('Heading hero', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Heading as="h1" hero>
         Heading Hero
       </Heading>
-    </Container>
+    </Block>
   ))
 
   .add('Heading divider', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Heading as="h1" divider>
         Heading Divider
       </Heading>
-    </Container>
+    </Block>
   ))
 
   .add('Heading bullet', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Heading as="h1" bullet>
         Heading Bullet
-      </Heading>
-    </Container>
+      </Heading>,
+    </Block>
   ))
 
   .add('Heading line', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Heading as="h1" line>
         Heading Line
       </Heading>
@@ -48,5 +48,5 @@ storiesOf('Heading', module)
       <Heading as="h1" line="right">
         Heading Line
       </Heading>
-    </Container>
+    </Block>
   ));

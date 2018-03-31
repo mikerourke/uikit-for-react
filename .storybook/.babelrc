@@ -11,16 +11,6 @@
     "react"
   ],
   "plugins": [
-    [
-      "import",
-      [
-        {
-          "libraryName": "lodash",
-          "libraryDirectory": "/",
-          "camel2DashComponentName": false
-        }
-      ]
-    ],
     "transform-export-default",
     "transform-class-properties",
     "transform-object-rest-spread"

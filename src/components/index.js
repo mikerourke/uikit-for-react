@@ -1,4 +1,4 @@
-export Base from './base';
+export Base, { Block, Audio, Canvas, Image, Paragraph, Span } from './base';
 export {
   Accordion,
   AccordionContent,
@@ -123,10 +123,10 @@ export {
 export {
   Breadcrumb,
   BreadcrumbItem,
-  DotNav,
-  DotNavItem,
-  IconNav,
-  IconNavItem,
+  Dotnav,
+  DotnavItem,
+  Iconnav,
+  IconnavItem,
   Nav,
   NavDivider,
   NavHeader,
@@ -145,15 +145,15 @@ export {
   PaginationItem,
   PaginationNext,
   PaginationPrevious,
-  SlideNav,
-  SlideNavContainer,
-  SlideNavNext,
-  SlideNavPrevious,
-  SubNav,
-  SubNavItem,
-  ThumbNav,
-  ThumbNavImage,
-  ThumbNavItem,
+  Slidenav,
+  SlidenavContainer,
+  SlidenavNext,
+  SlidenavPrevious,
+  Subnav,
+  SubnavItem,
+  Thumbnav,
+  ThumbnavImage,
+  ThumbnavItem,
   Totop,
 } from './navigation';
 export {

@@ -1,12 +1,48 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Button, Countdown, Base, Grid } from '../../src/components';
+import { Block, Button, Countdown, Grid } from '../../src/components';
 
 Countdown.displayName = 'Countdown';
 
 storiesOf('Countdown', module)
   .add('Usage', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
+      <Countdown
+        as={Grid}
+        date="2025-01-16T00:00:00+00:00"
+        gutter="small"
+        childWidth="auto"
+      >
+        <Grid.Cell>
+          <Countdown.Days />
+          <Countdown.Label textAlign="center" margin="small" visible="@s">
+            Days
+          </Countdown.Label>
+        </Grid.Cell>
+        <Grid.Cell>
+          <Countdown.Hours />
+          <Countdown.Label textAlign="center" margin="small" visible="@s">
+            Hours
+          </Countdown.Label>
+        </Grid.Cell>
+        <Grid.Cell>
+          <Countdown.Minutes />
+          <Countdown.Label textAlign="center" margin="small" visible="@s">
+            Minutes
+          </Countdown.Label>
+        </Grid.Cell>
+        <Grid.Cell>
+          <Countdown.Seconds />
+          <Countdown.Label textAlign="center" margin="small" visible="@s">
+            Seconds
+          </Countdown.Label>
+        </Grid.Cell>
+      </Countdown>
+    </Block>
+  ))
+
+  .add('Separator', () => (
+    <Block margin={{ all: 'large' }}>
       <Countdown
         as={Grid}
         date="2025-01-16T00:00:00+00:00"
@@ -41,7 +77,7 @@ storiesOf('Countdown', module)
           </Countdown.Label>
         </Grid.Cell>
       </Countdown>
-    </Base>
+    </Block>
   ))
 
   .add('Starting and stopping', () => {
@@ -60,7 +96,7 @@ storiesOf('Countdown', module)
         const buttonLabel = this.state.paused ? 'Continue' : 'Pause';
 
         return (
-          <Base margin={{ all: 'large' }}>
+          <Block margin={{ all: 'large' }}>
             <Button
               onClick={this.handleClick}
               margin={{ bottom: 'large' }}
@@ -104,7 +140,7 @@ storiesOf('Countdown', module)
                 </Countdown.Label>
               </Grid.Cell>
             </Countdown>
-          </Base>
+          </Block>
         );
       }
     }

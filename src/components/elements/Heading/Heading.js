@@ -10,7 +10,11 @@ export default class Heading extends React.Component {
 
   static propTypes = {
     ...Text.propTypes,
-    as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
+    as: customPropTypes.customOrStringElement([
+      ...HTML.HEADING_ELEMENTS,
+      'p',
+      'div',
+    ]),
     bullet: PropTypes.bool,
     children: PropTypes.node.isRequired,
     divider: PropTypes.bool,
@@ -31,11 +35,11 @@ export default class Heading extends React.Component {
     hero: false,
     line: false,
     primary: false,
-    size: 'h1',
   };
 
   render() {
     const {
+      as,
       bullet,
       children,
       className,
@@ -49,7 +53,8 @@ export default class Heading extends React.Component {
 
     const hasLine = (isString(line) && line.length > 0) || line === true;
 
-    const classes = classnames(className, 'uk-heading', buildClassName(size), {
+    const classes = classnames(className, buildClassName(size), {
+      'uk-heading': HTML.HEADING_ELEMENTS.includes(as),
       'uk-heading-bullet': bullet,
       'uk-heading-divider': divider,
       'uk-heading-line': hasLine,
@@ -60,6 +65,7 @@ export default class Heading extends React.Component {
     return (
       <Text
         {...rest}
+        as={as}
         className={classes}
         align={isString(line) ? line : undefined}
       >

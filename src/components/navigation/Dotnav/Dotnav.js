@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes } from '../../../lib';
 import Base from '../../base';
-import DotNavItem from './DotNavItem';
+import DotnavItem from './DotnavItem';
 
-class DotNav extends React.Component {
-  static displayName = 'DotNav';
+class Dotnav extends React.Component {
+  static displayName = 'Dotnav';
 
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('ul'),
-    children: customPropTypes.restrictToChildTypes(DotNavItem),
+    children: customPropTypes.restrictToChildTypes(DotnavItem),
     vertical: PropTypes.bool,
   };
 
@@ -21,7 +21,7 @@ class DotNav extends React.Component {
     vertical: false,
   };
 
-  static Item = DotNavItem;
+  static Item = DotnavItem;
 
   render() {
     const { className, vertical, ...rest } = this.props;
@@ -30,8 +30,8 @@ class DotNav extends React.Component {
       'uk-dotnav-vertical': vertical,
     });
 
-    return <Base {...rest} className={classes} component={DotNav} />;
+    return <Base {...rest} className={classes} component={Dotnav} />;
   }
 }
 
-export default DotNav;
+export default Dotnav;

@@ -2,11 +2,11 @@ import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
 import {
-  Base,
+  Block,
   Comment,
   Grid,
   Link,
-  SubNav,
+  Subnav,
   Visibility,
 } from '../../src/components';
 import { imageLinks } from '../common';
@@ -15,7 +15,7 @@ Comment.displayName = 'Comment';
 
 storiesOf('Comment', module)
   .add('Usage', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Comment>
         <Grid as={Comment.Header} alignItems="middle" gutter="medium">
           <Grid.Cell width="auto">
@@ -25,9 +25,9 @@ storiesOf('Comment', module)
             <Comment.Title as="h4" margin="remove">
               <Link reset>Author</Link>
             </Comment.Title>
-            <Comment.Meta as={SubNav} divider>
-              <SubNav.Item>12 days ago</SubNav.Item>
-              <SubNav.Item>Reply</SubNav.Item>
+            <Comment.Meta as={Subnav} divider margin={{ top: 'remove' }}>
+              <Subnav.Item>12 days ago</Subnav.Item>
+              <Subnav.Item>Reply</Subnav.Item>
             </Comment.Meta>
           </Grid.Cell>
         </Grid>
@@ -35,13 +35,13 @@ storiesOf('Comment', module)
           <p>{faker.lorem.paragraph()}</p>
         </Comment.Body>
       </Comment>
-    </Base>
+    </Block>
   ))
 
   .add('Primary modifier', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Comment primary>
-        <Grid as={Comment.Header} alignItems="middle">
+        <Grid as={Comment.Header} alignItems="middle" gutter="medium">
           <Grid.Cell width="auto">
             <Comment.Avatar src={imageLinks.avatar} width={80} height={80} />
           </Grid.Cell>
@@ -49,9 +49,9 @@ storiesOf('Comment', module)
             <Comment.Title as="h4" margin="remove">
               <Link reset>Author</Link>
             </Comment.Title>
-            <Comment.Meta as={SubNav} divider>
-              <SubNav.Item>12 days ago</SubNav.Item>
-              <SubNav.Item>Reply</SubNav.Item>
+            <Comment.Meta as={Subnav} divider margin={{ top: 'remove' }}>
+              <Subnav.Item>12 days ago</Subnav.Item>
+              <Subnav.Item>Reply</Subnav.Item>
             </Comment.Meta>
           </Grid.Cell>
         </Grid>
@@ -59,12 +59,12 @@ storiesOf('Comment', module)
           <p>{faker.lorem.paragraph()}</p>
         </Comment.Body>
       </Comment>
-    </Base>
+    </Block>
   ))
 
   // TODO: Fix this, the list style isn't working
   .add('Comment list', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Comment.List>
         <Visibility.Togglable as={Comment}>
           <Comment.Header position="relative">
@@ -86,7 +86,7 @@ storiesOf('Comment', module)
               </Grid.Cell>
             </Grid>
             <Visibility.Toggle
-              as={Base}
+              as={Block}
               position={{
                 at: 'top-right',
                 marginSize: 'small',
@@ -121,7 +121,7 @@ storiesOf('Comment', module)
                 </Grid.Cell>
               </Grid>
               <Visibility.Toggle
-                as={Base}
+                as={Block}
                 position={{
                   at: 'top-right',
                   marginSize: 'small',
@@ -155,7 +155,7 @@ storiesOf('Comment', module)
                 </Grid.Cell>
               </Grid>
               <Visibility.Toggle
-                as={Base}
+                as={Block}
                 position={{
                   at: 'top-right',
                   marginSize: 'small',
@@ -171,5 +171,5 @@ storiesOf('Comment', module)
           </Visibility.Togglable>
         </Comment.List>
       </Comment.List>
-    </Base>
+    </Block>
   ));

@@ -32,6 +32,8 @@ export const gifLinks = {
 export const videoSources = {
   mp4: '//www.quirksmode.org/html5/videos/big_buck_bunny.mp4',
   ogg: '//www.quirksmode.org/html5/videos/big_buck_bunny.mp4',
+  youtube: '//www.youtube.com/embed/YE7VzlLtp-4',
+  vimeo: '//player.vimeo.com/video/1084537',
   embed:
     '//www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent',
 };

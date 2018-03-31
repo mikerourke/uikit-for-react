@@ -1,12 +1,12 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Button, Container, Offcanvas, Link } from '../../src/components';
+import { Block, Button, Link, Offcanvas } from '../../src/components';
 
 Offcanvas.displayName = 'Offcanvas';
 
 storiesOf('Offcanvas', module).add('Usage', () => (
-  <Container margin={{ all: 'large' }}>
+  <Block margin={{ all: 'large' }}>
     <Offcanvas.Content>
       <Offcanvas.Toggle as={Button} margin={{ right: 'large' }}>
         Open
@@ -20,5 +20,5 @@ storiesOf('Offcanvas', module).add('Usage', () => (
         </Offcanvas.Bar>
       </Offcanvas>
     </Offcanvas.Content>
-  </Container>
+  </Block>
 ));

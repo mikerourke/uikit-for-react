@@ -2,7 +2,13 @@ import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Accordion, Base, Checkbox, Grid, FormLabel } from '../../src/components';
+import {
+  Accordion,
+  Block,
+  Checkbox,
+  FormLabel,
+  Grid,
+} from '../../src/components';
 
 Accordion.displayName = 'Accordion';
 
@@ -12,7 +18,7 @@ const thirdParagraph = <p>{faker.lorem.paragraph()}</p>;
 
 storiesOf('Accordion', module)
   .add('Usage', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Accordion collapsible>
         <Accordion.Panel>
           <Accordion.Title href="#">Item 1</Accordion.Title>
@@ -27,11 +33,11 @@ storiesOf('Accordion', module)
           <Accordion.Content>{thirdParagraph}</Accordion.Content>
         </Accordion.Panel>
       </Accordion>
-    </Base>
+    </Block>
   ))
 
   .add('No collapsing', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Accordion collapsible={false}>
         <Accordion.Panel>
           <Accordion.Title href="#">Item 1</Accordion.Title>
@@ -46,11 +52,11 @@ storiesOf('Accordion', module)
           <Accordion.Content>{thirdParagraph}</Accordion.Content>
         </Accordion.Panel>
       </Accordion>
-    </Base>
+    </Block>
   ))
 
   .add('Multiple open items', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Accordion collapsible multiple>
         <Accordion.Panel>
           <Accordion.Title href="#">Item 1</Accordion.Title>
@@ -65,7 +71,7 @@ storiesOf('Accordion', module)
           <Accordion.Content>{thirdParagraph}</Accordion.Content>
         </Accordion.Panel>
       </Accordion>
-    </Base>
+    </Block>
   ))
 
   .add('Set open items', () => {
@@ -89,7 +95,7 @@ storiesOf('Accordion', module)
       render() {
         const { openIndices } = this.state;
         return (
-          <Base margin={{ all: 'large' }}>
+          <Block margin={{ all: 'large' }}>
             <Grid>
               {[0, 1, 2].map(panelIndex => (
                 <Checkbox
@@ -115,7 +121,7 @@ storiesOf('Accordion', module)
                 <Accordion.Content>{thirdParagraph}</Accordion.Content>
               </Accordion.Panel>
             </Accordion>
-          </Base>
+          </Block>
         );
       }
     }
@@ -123,7 +129,7 @@ storiesOf('Accordion', module)
   })
 
   .add('Event handlers', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Accordion
         collapsible
         onBeforeHide={action('onBeforeHide')}
@@ -146,5 +152,5 @@ storiesOf('Accordion', module)
           <Accordion.Content>{thirdParagraph}</Accordion.Content>
         </Accordion.Panel>
       </Accordion>
-    </Base>
+    </Block>
   ));

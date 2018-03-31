@@ -4,8 +4,8 @@ import classnames from 'classnames';
 import { customPropTypes } from '../../../lib';
 import Base from '../../base';
 
-export default class SlideNavNext extends React.Component {
-  static displayName = 'SlideNavNext';
+export default class SlidenavNext extends React.Component {
+  static displayName = 'SlidenavNext';
 
   static propTypes = {
     ...Base.propTypes,
@@ -32,7 +32,7 @@ export default class SlideNavNext extends React.Component {
       <Base
         {...rest}
         className={classes || undefined}
-        component={SlideNavNext}
+        component={SlidenavNext}
         uk-slidenav-next=""
       />
     );

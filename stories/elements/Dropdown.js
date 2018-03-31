@@ -2,7 +2,14 @@ import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Base, Button, Dropdown, Grid, Nav, Panel } from '../../src/components';
+import {
+  Block,
+  Button,
+  Dropdown,
+  Grid,
+  Nav,
+  Panel,
+} from '../../src/components';
 
 Dropdown.displayName = 'Dropdown';
 
@@ -22,28 +29,28 @@ const NavExample = () => (
 
 storiesOf('Dropdown', module)
   .add('Usage', () => (
-    <Base margin={{ all: 'large' }}>
-      <Base inline>
+    <Block margin={{ all: 'large' }}>
+      <Block inline>
         <Dropdown toggle={<Button>Hover</Button>}>{message}</Dropdown>
-      </Base>
-      <Base inline>
+      </Block>
+      <Block inline>
         <Dropdown mode="click" toggle={<Button>Click</Button>}>
           {message}
         </Dropdown>
-      </Base>
-    </Base>
+      </Block>
+    </Block>
   ))
 
   .add('Nav in dropdown', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Dropdown toggle={<Button>Hover</Button>} width="large">
         <NavExample />
       </Dropdown>
-    </Base>
+    </Block>
   ))
 
   .add('Grid in dropdown', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Dropdown toggle={<Button>Hover</Button>} width="large">
         <Grid childWidth={{ atMd: '1/2' }}>
           <Grid.Cell>
@@ -54,37 +61,37 @@ storiesOf('Dropdown', module)
           </Grid.Cell>
         </Grid>
       </Dropdown>
-    </Base>
+    </Block>
   ))
 
   .add('Position', () => (
-    <Base margin={{ all: 'large' }} style={{ paddingTop: 300 }}>
-      <Base inline>
+    <Block margin={{ all: 'large' }} style={{ paddingTop: 300 }}>
+      <Block inline>
         <Dropdown toggle={<Button>Top Right</Button>} position="top-right">
           <NavExample />
         </Dropdown>
-      </Base>
-      <Base inline>
+      </Block>
+      <Block inline>
         <Dropdown
           toggle={<Button>Bottom Justify</Button>}
           position="bottom-justify"
         >
           <NavExample />
         </Dropdown>
-      </Base>
-      <Base inline>
+      </Block>
+      <Block inline>
         <Dropdown
           toggle={<Button>Right Center</Button>}
           position="right-center"
         >
           <NavExample />
         </Dropdown>
-      </Base>
-    </Base>
+      </Block>
+    </Block>
   ))
 
   .add('Boundary', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Panel as={Dropdown.Boundary} placeholder width={{ atSm: '2/3' }}>
         <Button float="left">Hover</Button>
         <Dropdown>
@@ -95,11 +102,11 @@ storiesOf('Dropdown', module)
           <NavExample />
         </Dropdown>
       </Panel>
-    </Base>
+    </Block>
   ))
 
   .add('Boundary alignment', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Panel as={Dropdown.Boundary} placeholder>
         <Button float="left">Justify</Button>
         <Dropdown position="bottom-justify" boundaryAlign>
@@ -110,29 +117,29 @@ storiesOf('Dropdown', module)
           <NavExample />
         </Dropdown>
       </Panel>
-    </Base>
+    </Block>
   ))
 
   .add('Offset', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Button>Hover</Button>
       <Dropdown offset={80}>
         <NavExample />
       </Dropdown>
-    </Base>
+    </Block>
   ))
 
   .add('Animation', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Button>Hover</Button>
       <Dropdown animation={{ name: 'slide-top-small', duration: 1000 }}>
         <NavExample />
       </Dropdown>
-    </Base>
+    </Block>
   ))
 
   .add('Event handlers', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Dropdown
         toggle={<Button>Show</Button>}
         onBeforeShow={action('onToggle')}
@@ -145,5 +152,5 @@ storiesOf('Dropdown', module)
       >
         {message}
       </Dropdown>
-    </Base>
+    </Block>
   ));

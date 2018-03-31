@@ -37,7 +37,7 @@ export default class ToggleToggle extends React.Component {
       }),
     ]),
     as: customPropTypes.customOrStringElement('a', 'button'),
-    classToggled: PropTypes.string,
+    clsToggled: PropTypes.string,
     mediaTrigger: ExtraPropTypes.and([
       PropTypes.oneOfType([PropTypes.oneOf(UIK.BREAKPOINTS), PropTypes.number]),
       props => {
@@ -60,7 +60,7 @@ export default class ToggleToggle extends React.Component {
     onShow: PropTypes.func,
     onShown: PropTypes.func,
     queued: PropTypes.bool,
-    selectorTarget: PropTypes.string,
+    target: PropTypes.string,
     toggled: PropTypes.bool,
   };
 
@@ -111,11 +111,10 @@ export default class ToggleToggle extends React.Component {
     const {
       animation,
       className,
-      classToggled,
+      clsToggled,
       mediaTrigger,
       mode,
       queued,
-      selectorTarget,
       toggled,
       ...rest
     } = this.props;
@@ -124,11 +123,10 @@ export default class ToggleToggle extends React.Component {
 
     const componentOptions = getOptionsString({
       animation,
-      cls: classToggled,
+      cls: clsToggled,
       media: mediaTrigger,
       mode: joinListProp(mode, ','),
       queued,
-      target: selectorTarget,
     });
 
     return (

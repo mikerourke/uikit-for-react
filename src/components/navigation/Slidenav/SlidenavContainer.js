@@ -2,18 +2,18 @@ import React from 'react';
 import classnames from 'classnames';
 import { customPropTypes } from '../../../lib';
 import Base from '../../base';
-import SlideNavNext from './SlideNavNext';
-import SlideNavPrevious from './SlideNavPrevious';
+import SlidenavNext from './SlidenavNext';
+import SlidenavPrevious from './SlidenavPrevious';
 
-export default class SlideNavContainer extends React.Component {
-  static displayName = 'SlideNavContainer';
+export default class SlidenavContainer extends React.Component {
+  static displayName = 'SlidenavContainer';
 
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('div'),
     children: customPropTypes.restrictToChildTypes(
-      SlideNavNext,
-      SlideNavPrevious,
+      SlidenavNext,
+      SlidenavPrevious,
     ),
   };
 
@@ -25,6 +25,6 @@ export default class SlideNavContainer extends React.Component {
   render() {
     const { className, ...rest } = this.props;
     const classes = classnames(className, 'uk-slidenav-container');
-    return <Base {...rest} className={classes} component={SlideNavContainer} />;
+    return <Base {...rest} className={classes} component={SlidenavContainer} />;
   }
 }

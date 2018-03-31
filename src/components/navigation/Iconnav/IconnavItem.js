@@ -6,8 +6,8 @@ import { buildClassName, customPropTypes, UIK } from '../../../lib';
 import Base from '../../base';
 import { Icon } from '../../elements';
 
-export default class IconNavItem extends React.Component {
-  static displayName = 'IconNavItem';
+export default class IconnavItem extends React.Component {
+  static displayName = 'IconnavItem';
 
   static propTypes = {
     ...Base.propTypes,
@@ -40,8 +40,8 @@ export default class IconNavItem extends React.Component {
     });
 
     return (
-      <Base {...rest} className={classes} component={IconNavItem}>
-        <Icon {...iconOptions} href={href} name={iconName} />
+      <Base {...rest} className={classes} component={IconnavItem}>
+        <Icon as="a" {...iconOptions} href={href} name={iconName} />
       </Base>
     );
   }

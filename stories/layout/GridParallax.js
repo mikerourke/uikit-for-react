@@ -1,18 +1,24 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import range from 'lodash/range';
-import { Base, Card, GridParallax, Heading, Container } from '../../src/components';
+import {
+  Block,
+  Card,
+  GridParallax,
+  Heading,
+  Container,
+} from '../../src/components';
 
 GridParallax.displayName = 'GridParallax';
 
 storiesOf('GridParallax', module)
   .add('Usage', () => (
-    <Base>
+    <Block>
       <Container textAlign="center" margin={{ top: 'large' }}>
         <Heading>Scroll Down</Heading>
       </Container>
-      <Base style={{ marginTop: 'calc(100vh - 48px)' }}>
-        <Base margin={{ all: 'large' }}>
+      <Block style={{ marginTop: 'calc(100vh - 48px)' }}>
+        <Block margin={{ all: 'large' }}>
           <GridParallax childWidth={{ atSm: 'expand' }}>
             <GridParallax.Cell>
               <Card margin="grid">Item</Card>
@@ -30,18 +36,18 @@ storiesOf('GridParallax', module)
               <Card margin="grid">Item</Card>
             </GridParallax.Cell>
           </GridParallax>
-        </Base>
-      </Base>
-    </Base>
+        </Block>
+      </Block>
+    </Block>
   ))
 
   .add('Wrapping into next line', () => (
-    <Base>
+    <Block>
       <Container textAlign="center" margin={{ top: 'large' }}>
         <Heading>Scroll Down</Heading>
       </Container>
-      <Base style={{ marginTop: 'calc(100vh - 24px)' }}>
-        <Base margin={{ all: 'large' }}>
+      <Block style={{ marginTop: 'calc(100vh - 24px)' }}>
+        <Block margin={{ all: 'large' }}>
           <GridParallax
             translate={200}
             childWidth={{ atSm: '1/2', atMd: '1/3', atLg: '1/4' }}
@@ -53,7 +59,7 @@ storiesOf('GridParallax', module)
               </GridParallax.Cell>
             ))}
           </GridParallax>
-        </Base>
-      </Base>
-    </Base>
+        </Block>
+      </Block>
+    </Block>
   ));

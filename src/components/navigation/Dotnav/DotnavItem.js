@@ -4,8 +4,8 @@ import classnames from 'classnames';
 import { customPropTypes } from '../../../lib';
 import Base from '../../base';
 
-export default class DotNavItem extends React.Component {
-  static displayName = 'DotNavItem';
+export default class DotnavItem extends React.Component {
+  static displayName = 'DotnavItem';
 
   static propTypes = {
     ...Base.propTypes,
@@ -28,7 +28,7 @@ export default class DotNavItem extends React.Component {
     });
 
     return (
-      <Base {...rest} className={classes || undefined} component={DotNavItem}>
+      <Base {...rest} className={classes || undefined} component={DotnavItem}>
         <a href={href}>{children}</a>
       </Base>
     );

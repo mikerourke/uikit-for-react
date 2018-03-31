@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes } from '../../../lib';
 import Base from '../../base';
-import IconNavItem from './IconNavItem';
+import IconnavItem from './IconnavItem';
 
-export default class IconNav extends React.Component {
-  static displayName = 'IconNav';
+export default class Iconnav extends React.Component {
+  static displayName = 'Iconnav';
 
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('ul'),
-    children: customPropTypes.restrictToChildTypes(IconNavItem),
+    children: customPropTypes.restrictToChildTypes(IconnavItem),
     vertical: PropTypes.bool,
   };
 
@@ -21,7 +21,7 @@ export default class IconNav extends React.Component {
     vertical: false,
   };
 
-  static Item = IconNavItem;
+  static Item = IconnavItem;
 
   render() {
     const { className, vertical, ...rest } = this.props;
@@ -30,6 +30,6 @@ export default class IconNav extends React.Component {
       'uk-iconnav-vertical': vertical,
     });
 
-    return <Base {...rest} className={classes} component={IconNav} />;
+    return <Base {...rest} className={classes} component={Iconnav} />;
   }
 }

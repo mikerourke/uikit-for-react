@@ -10,6 +10,7 @@ export default class Link extends React.Component {
   static propTypes = {
     ...Text.propTypes,
     as: customPropTypes.customOrStringElement('a'),
+    heading: PropTypes.bool,
     muted: PropTypes.bool,
     reset: PropTypes.bool,
     text: PropTypes.bool,
@@ -18,15 +19,17 @@ export default class Link extends React.Component {
   static defaultProps = {
     ...Text.defaultProps,
     as: 'a',
+    heading: false,
     muted: false,
     reset: false,
     text: false,
   };
 
   render() {
-    const { className, muted, reset, text, ...rest } = this.props;
+    const { className, heading, muted, reset, text, ...rest } = this.props;
 
     const classes = classnames(className, 'uk-link', {
+      'uk-link-heading': heading,
       'uk-link-muted': muted,
       'uk-link-reset': reset,
       'uk-link-text': text === true,

@@ -56,7 +56,7 @@ export default class ToggleTogglable extends React.Component {
     React.Children.map(children, child => {
       if (child.type === ToggleToggle) {
         return React.cloneElement(child, {
-          selectorTarget: `.${this.selector}`,
+          target: `.${this.selector}`,
         });
       }
       if (child.type === ToggleTarget) {

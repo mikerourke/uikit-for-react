@@ -1,41 +1,49 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import startCase from 'lodash/startCase';
-import { Container, Base, Grid, Panel, Heading } from '../../src/components';
+import { Block, Grid, Heading, Panel } from '../../src/components';
 import { UIK } from '../../src/lib';
 import { imageLinks } from '../common';
 
 storiesOf('Background', module)
   .add('Usage', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: '1/2' }} textAlign="center">
         <Grid.Cell>
           <Panel padding background="default">
-            <Heading as="h4">Default</Heading>
+            <Heading as="p" size="h4">
+              Default
+            </Heading>
           </Panel>
         </Grid.Cell>
         <Grid.Cell>
           <Panel padding background="muted">
-            <Heading as="h4">Muted</Heading>
+            <Heading as="p" size="h4">
+              Muted
+            </Heading>
           </Panel>
         </Grid.Cell>
         <Grid.Cell>
           <Panel padding background="primary" inverse="light">
-            <Heading as="h4">Primary</Heading>
+            <Heading as="p" size="h4">
+              Primary
+            </Heading>
           </Panel>
         </Grid.Cell>
         <Grid.Cell>
           <Panel padding background="secondary" inverse="light">
-            <Heading as="h4">Secondary</Heading>
+            <Heading as="p" size="h4">
+              Secondary
+            </Heading>
           </Panel>
         </Grid.Cell>
       </Grid>
-    </Container>
+    </Block>
   ))
 
   .add('Size modifiers', () => (
-    <Container margin={{ all: 'large' }}>
-      <Grid childWidth={{ atSm: '1/2' }} textAlign="center" inverse="light">
+    <Block margin={{ all: 'large' }}>
+      <Grid childWidth={{ atSm: '1/2' }} inverse="light">
         <Grid.Cell>
           <Panel
             background={{ imageUrl: imageLinks.dark, cover: true }}
@@ -44,26 +52,34 @@ storiesOf('Background', module)
             justifyContent="center"
             alignItems="middle"
           >
-            <Heading as="h4">Default</Heading>
+            <Heading as="p" size="h4">
+              Cover
+            </Heading>
           </Panel>
         </Grid.Cell>
         <Grid.Cell>
           <Panel
-            background={{ imageUrl: imageLinks.dark, contain: true }}
+            background={{
+              imageUrl: imageLinks.dark,
+              contain: true,
+              color: 'muted',
+            }}
             height="medium"
             flex
             justifyContent="center"
             alignItems="middle"
           >
-            <Heading as="h4">Contain</Heading>
+            <Heading as="p" size="h4">
+              Contain
+            </Heading>
           </Panel>
         </Grid.Cell>
       </Grid>
-    </Container>
+    </Block>
   ))
 
   .add('Position modifiers', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: '1/2' }} inverse="light">
         <Grid.Cell>
           <Panel
@@ -77,7 +93,9 @@ storiesOf('Background', module)
             justifyContent="center"
             alignItems="middle"
           >
-            <Heading as="h4">Top Right</Heading>
+            <Heading as="p" size="h4">
+              Top Right
+            </Heading>
           </Panel>
         </Grid.Cell>
         <Grid.Cell>
@@ -92,16 +110,18 @@ storiesOf('Background', module)
             justifyContent="center"
             alignItems="middle"
           >
-            <Heading as="h4">Top Left</Heading>
+            <Heading as="p" size="h4">
+              Top Left
+            </Heading>
           </Panel>
         </Grid.Cell>
       </Grid>
-    </Container>
+    </Block>
   ))
 
   .add('Attachment', () => (
-    <Container margin={{ all: 'large' }}>
-      <Base
+    <Block margin={{ all: 'large' }}>
+      <Block
         background={{
           imageUrl: imageLinks.dark,
           fixed: true,
@@ -110,18 +130,17 @@ storiesOf('Background', module)
         height="medium"
         width="large"
       />
-    </Container>
+    </Block>
   ))
 
   .add('Responsive', () => (
-    <Container margin={{ all: 'large' }}>
-      <Base
+    <Block margin={{ all: 'large' }}>
+      <Block
         background={{
           imageUrl: imageLinks.dark,
           breakpoint: '@m',
           color: 'muted',
           cover: true,
-          position: 'top-right',
         }}
         height="medium"
         width="large"
@@ -135,12 +154,12 @@ storiesOf('Background', module)
         <Heading as="p" size="h4" margin="remove" hidden="@m">
           Image not shown
         </Heading>
-      </Base>
-    </Container>
+      </Block>
+    </Block>
   ))
 
   .add('Blend modes', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid
         childWidth={{ default: '1/2', atSm: '1/3' }}
         inverse="light"
@@ -167,5 +186,5 @@ storiesOf('Background', module)
           </Grid.Cell>
         ))}
       </Grid>
-    </Container>
+    </Block>
   ));

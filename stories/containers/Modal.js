@@ -2,43 +2,53 @@ import React from 'react';
 import faker from 'faker';
 import range from 'lodash/range';
 import { storiesOf } from '@storybook/react';
-import { Base, Button, Grid, Heading, Modal, Toggle } from '../../src/components';
-import { imageLinks } from '../common';
+import {
+  Block,
+  Button,
+  Grid,
+  Heading,
+  Margin,
+  Modal,
+  Paragraph,
+  Toggle,
+  Video,
+} from '../../src/components';
+import { imageLinks, videoSources } from '../common';
 
 Modal.displayName = 'Modal';
 
 storiesOf('Modal', module)
   .add('Usage', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Toggle.Togglable>
         <Toggle.Toggle as={Button} margin={{ right: 'small' }}>
           Open
         </Toggle.Toggle>
         <Toggle.Toggle as="a">Open</Toggle.Toggle>
         <Toggle.Target as={Modal}>
-          <Modal.Dialog padContent>
+          <Modal.Dialog body>
             <Modal.Title>Headline</Modal.Title>
             <Modal.Content as="p">{faker.lorem.paragraph()}</Modal.Content>
-            <Base textAlign="right">
+            <Paragraph textAlign="right">
               <Modal.Close as={Button}>Cancel</Modal.Close>
               <Button primary>Save</Button>
-            </Base>
+            </Paragraph>
           </Modal.Dialog>
         </Toggle.Target>
       </Toggle.Togglable>
-    </Base>
+    </Block>
   ))
 
   .add('Close button', () => (
-    <Base margin={{ all: 'large' }} flex justifyContent="center">
+    <Block margin={{ all: 'large' }} flex>
       <Toggle.Togglable as="div">
         <Toggle.Toggle as={Button} margin={{ right: 'small' }}>
           Default
         </Toggle.Toggle>
         <Toggle.Target as={Modal}>
-          <Modal.Dialog padContent>
+          <Modal.Dialog body>
             <Modal.Close />
-            <Modal.Title>Headline</Modal.Title>
+            <Modal.Title>Default</Modal.Title>
             <Modal.Content as="p">{faker.lorem.paragraph()}</Modal.Content>
           </Modal.Dialog>
         </Toggle.Target>
@@ -46,32 +56,32 @@ storiesOf('Modal', module)
       <Toggle.Togglable as="div">
         <Toggle.Toggle as={Button}>Outside</Toggle.Toggle>
         <Toggle.Target as={Modal}>
-          <Modal.Dialog padContent>
+          <Modal.Dialog body>
             <Modal.Close outside />
             <Modal.Title>Headline</Modal.Title>
             <Modal.Content as="p">{faker.lorem.paragraph()}</Modal.Content>
           </Modal.Dialog>
         </Toggle.Target>
       </Toggle.Togglable>
-    </Base>
+    </Block>
   ))
 
   .add('Center modal', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Toggle.Togglable>
         <Toggle.Toggle as={Button}>Open</Toggle.Toggle>
         <Toggle.Target as={Modal} alignItems="top">
-          <Modal.Dialog padContent margin={{ vertical: 'auto' }}>
+          <Modal.Dialog body margin={{ vertical: 'auto' }}>
             <Modal.Close />
             <Modal.Content as="p">{faker.lorem.paragraph()}</Modal.Content>
           </Modal.Dialog>
         </Toggle.Target>
       </Toggle.Togglable>
-    </Base>
+    </Block>
   ))
 
   .add('Header and footer', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Toggle.Togglable>
         <Toggle.Toggle as={Button}>Open</Toggle.Toggle>
         <Toggle.Target as={Modal}>
@@ -90,26 +100,26 @@ storiesOf('Modal', module)
           </Modal.Dialog>
         </Toggle.Target>
       </Toggle.Togglable>
-    </Base>
+    </Block>
   ))
 
   .add('Container modifier', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Toggle.Togglable>
         <Toggle.Toggle as={Button}>Open</Toggle.Toggle>
         <Toggle.Target as={Modal} container>
-          <Modal.Dialog padContent>
+          <Modal.Dialog body>
             <Modal.Close />
             <Modal.Title>Headline</Modal.Title>
             <Modal.Content as="p">{faker.lorem.paragraph()}</Modal.Content>
           </Modal.Dialog>
         </Toggle.Target>
       </Toggle.Togglable>
-    </Base>
+    </Block>
   ))
 
   .add('Full modifier', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Toggle.Togglable>
         <Toggle.Toggle as={Button}>Open</Toggle.Toggle>
         <Toggle.Target as={Modal} full>
@@ -136,11 +146,11 @@ storiesOf('Modal', module)
           </Modal.Dialog>
         </Toggle.Target>
       </Toggle.Togglable>
-    </Base>
+    </Block>
   ))
 
   .add('Overflow', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Toggle.Togglable>
         <Toggle.Toggle as={Button}>Open</Toggle.Toggle>
         <Toggle.Target as={Modal}>
@@ -163,5 +173,68 @@ storiesOf('Modal', module)
           </Modal.Dialog>
         </Toggle.Target>
       </Toggle.Togglable>
-    </Base>
+    </Block>
+  ))
+
+  .add('Media', () => (
+    <Block margin={{ all: 'large' }}>
+      <Margin as="p">
+        <Toggle as={Button} target="#modal-media-image">
+          Image
+        </Toggle>
+        <Button as="a" target="#modal-media-video">
+          Video
+        </Button>
+        <Button as={Toggle} target="#modal-media-youtube">
+          Youtube
+        </Button>
+        <Button as="a" target="#modal-media-vimeo">
+          Vimeo
+        </Button>
+      </Margin>
+
+      <Modal id="modal-media-image" alignItems="top">
+        <Modal.Dialog width="auto" margin={{ vertical: 'auto' }}>
+          <Modal.Close outside />
+          <Modal.Content as="img" src={imageLinks.photo} />
+        </Modal.Dialog>
+      </Modal>
+      <Modal id="modal-media-video" alignItems="top">
+        <Modal.Dialog width="auto" margin={{ vertical: 'auto' }}>
+          <Modal.Close outside />
+          <Modal.Content as={Video} controls playsInline>
+            <Video.Source src={videoSources.mp4} type="video/mp4" />
+            <Video.Source src={videoSources.ogg} type="video/ogg" />
+          </Modal.Content>
+        </Modal.Dialog>
+      </Modal>
+      <Modal id="modal-media-youtube" alignItems="top">
+        <Modal.Dialog width="auto" margin={{ vertical: 'auto' }}>
+          <Modal.Close outside />
+          <Modal.Content>
+            <Video
+              as="iframe"
+              src={videoSources.youtube}
+              width={560}
+              height={315}
+              frameBorder={0}
+            />
+          </Modal.Content>
+        </Modal.Dialog>
+      </Modal>
+      <Modal id="modal-media-vimeo" alignItems="top">
+        <Modal.Dialog width="auto" margin={{ vertical: 'auto' }}>
+          <Modal.Close outside />
+          <Modal.Content>
+            <Video
+              as="iframe"
+              src={videoSources.vimeo}
+              width={500}
+              height={281}
+              frameBorder={0}
+            />
+          </Modal.Content>
+        </Modal.Dialog>
+      </Modal>
+    </Block>
   ));

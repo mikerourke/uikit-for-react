@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import startCase from 'lodash/startCase';
-import { Container, Grid, Base, Card } from '../../src/components';
+import { Block, Card, Grid, Image } from '../../src/components';
 import { UIK } from '../../src/lib';
 import { imageLinks } from '../common';
 
@@ -16,7 +16,7 @@ const animationDisplayNames = validAnimations.map(animationName => {
 
 storiesOf('Animation', module)
   .add('Usage', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ default: '1/2', atSm: '1/4' }} matchHeight>
         {validAnimations.map((animationName, idx) => (
           <Grid.Cell toggleFor="animation" key={animationName}>
@@ -28,11 +28,11 @@ storiesOf('Animation', module)
           </Grid.Cell>
         ))}
       </Grid>
-    </Container>
+    </Block>
   ))
 
   .add('Reverse modifier', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ default: '1/2', atSm: '1/4' }} matchHeight>
         {validAnimations.map((animationName, idx) => (
           <Grid.Cell toggleFor="animation" key={animationName}>
@@ -44,23 +44,23 @@ storiesOf('Animation', module)
           </Grid.Cell>
         ))}
       </Grid>
-    </Container>
+    </Block>
   ))
 
   .add('Fast modifier', () => (
-    <Container margin={{ all: 'large' }}>
-      <Base width={{ atSm: '1/3' }} toggleFor="animation">
+    <Block margin={{ all: 'large' }}>
+      <Block width={{ atSm: '1/3' }} toggleFor="animation">
         <Card animation={{ name: 'fade', fast: true }}>
           <Card.Content as="p" textAlign="center">
             Fade
           </Card.Content>
         </Card>
-      </Base>
-    </Container>
+      </Block>
+    </Block>
   ))
 
   .add('Origin modifiers', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: '1/3' }} matchHeight>
         <Grid.Cell toggleFor="animation">
           <Card
@@ -93,23 +93,21 @@ storiesOf('Animation', module)
           </Card>
         </Grid.Cell>
       </Grid>
-    </Container>
+    </Block>
   ))
 
   .add('Ken Burns', () => (
-    <Container margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid gutter="large" childWidth={{ atSm: '1/2' }}>
         <Grid.Cell overflow="hidden">
-          <Base
-            as="img"
+          <Image
             src={imageLinks.dark}
             alt="Example image"
             animation="kenburns"
           />
         </Grid.Cell>
         <Grid.Cell overflow="hidden">
-          <Base
-            as="img"
+          <Image
             src={imageLinks.dark}
             alt="Example image"
             animation={{
@@ -119,5 +117,5 @@ storiesOf('Animation', module)
           />
         </Grid.Cell>
       </Grid>
-    </Container>
+    </Block>
   ));

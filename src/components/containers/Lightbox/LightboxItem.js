@@ -11,9 +11,9 @@ export default class LightboxItem extends React.Component {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('a'),
     caption: PropTypes.string,
+    href: PropTypes.string.isRequired,
     inline: PropTypes.bool,
     poster: PropTypes.string,
-    source: PropTypes.string.isRequired,
     type: PropTypes.oneOf(['iframe', 'image', 'video']),
   };
 
@@ -23,15 +23,7 @@ export default class LightboxItem extends React.Component {
   };
 
   render() {
-    const {
-      caption,
-      className,
-      inline,
-      poster,
-      source,
-      type,
-      ...rest
-    } = this.props;
+    const { className, href, inline, poster, type, ...rest } = this.props;
 
     const classes = classnames(className, { 'uk-inline': inline });
 
@@ -40,8 +32,7 @@ export default class LightboxItem extends React.Component {
         {...rest}
         className={classes || undefined}
         component={LightboxItem}
-        href={source}
-        data-caption={caption || undefined}
+        href={href}
         data-poster={poster || undefined}
         data-type={type || undefined}
       />

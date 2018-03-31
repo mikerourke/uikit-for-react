@@ -11,30 +11,30 @@ export default class ModalDialog extends React.Component {
 
   static propTypes = {
     as: customPropTypes.customOrStringElement('div'),
+    body: PropTypes.bool,
     children: ExtraPropTypes.and([
       PropTypes.node,
       props => {
-        if (props.padContent && hasChildType(props.children, ModalBody)) {
+        if (props.body && hasChildType(props.children, ModalBody)) {
           return new Error(
-            'You cannot set padContent to true if you have a ModalBody ' +
+            'You cannot set body to true if you have a ModalBody ' +
               'child in ModalDialog.',
           );
         }
         return null;
       },
     ]),
-    padContent: PropTypes.bool,
   };
 
   static defaultProps = {
     as: 'div',
-    padContent: false,
+    body: false,
   };
 
   render() {
-    const { className, padContent, ...rest } = this.props;
+    const { body, className, ...rest } = this.props;
     const classes = classnames(className, 'uk-modal-dialog', {
-      'uk-modal-body': padContent,
+      'uk-modal-body': body,
     });
     return <Base {...rest} className={classes} component={ModalDialog} />;
   }

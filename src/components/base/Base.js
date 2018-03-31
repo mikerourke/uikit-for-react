@@ -43,7 +43,6 @@ export default class Base extends React.Component {
       }),
     ]),
     as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
-    // TODO: Validate all PropTypes for background, some may have changed.
     background: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.BACKGROUND_COLORS),
       PropTypes.shape({
@@ -60,11 +59,7 @@ export default class Base extends React.Component {
       }),
     ]),
     baseId: PropTypes.string,
-    baseRef: PropTypes.oneOfType([
-      PropTypes.node,
-      PropTypes.func,
-      PropTypes.element,
-    ]),
+    baseRef: PropTypes.func,
     border: PropTypes.oneOf(['circle', 'rounded']),
     boxShadow: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.GRID_SIZES),
@@ -91,10 +86,13 @@ export default class Base extends React.Component {
     ),
     columnSpan: PropTypes.bool,
     component: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
-    direction: PropTypes.shape({
-      as: PropTypes.oneOf(['column', 'row']),
-      reverse: PropTypes.bool,
-    }),
+    direction: PropTypes.oneOfType([
+      PropTypes.oneOf(['column', 'row']),
+      PropTypes.shape({
+        as: PropTypes.oneOf(['column', 'row']),
+        reverse: PropTypes.bool,
+      }),
+    ]),
     display: PropTypes.oneOf(['block', 'inline', 'inline-block']),
     dynamicMargin: PropTypes.oneOfType([
       PropTypes.bool,
@@ -127,6 +125,17 @@ export default class Base extends React.Component {
       without(UIK.ANIMATIONS, ['kenburns', 'shake']),
     ),
     inline: PropTypes.bool,
+    innerRef: props => {
+      let parentName = get(props, ['component', 'type', 'displayName']);
+      if (!parentName) parentName = 'component';
+      if (!isNil(props.baseRef) && !isNil(props.innerRef)) {
+        return new Error(
+          `You cannot specify the innerRef prop on ${parentName} because the ` +
+            ' ref is already being utilized by a library component',
+        );
+      }
+      return null;
+    },
     inverse: PropTypes.oneOf(['dark', 'light']),
     invisible: PropTypes.bool,
     itemIn: PropTypes.shape({
@@ -136,13 +145,17 @@ export default class Base extends React.Component {
     justifyContent: customPropTypes.forBreakpoints(
       UIK.FLEX_HORIZONTAL_MODIFIERS,
     ),
-    linkStyle: PropTypes.oneOf(['muted', 'text']),
+    linkStyle: PropTypes.oneOf(['heading', 'muted', 'reset', 'text']),
     margin: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.oneOf([...UIK.LOCATIONS, ...UIK.SPACING_MODIFIERS, 'grid']),
       PropTypes.shape({
         adjacent: PropTypes.oneOf(['remove']),
         all: marginSpacingPropType,
+        base: PropTypes.oneOfType([
+          PropTypes.bool,
+          PropTypes.oneOf(['auto', 'remove']),
+        ]),
         bottom: marginSpacingPropType,
         left: marginSpacingPropType,
         right: marginSpacingPropType,
@@ -243,14 +256,17 @@ export default class Base extends React.Component {
     ]),
     visible: PropTypes.oneOf(UIK.BREAKPOINTS),
     width: customPropTypes.forBreakpoints(UIK.ALL_WIDTHS, PropTypes.number),
-    wrap: PropTypes.shape({
-      type: PropTypes.oneOf(['nowrap', 'reverse', 'wrap']),
-      alignment: PropTypes.oneOf([
-        ...UIK.FLEX_VERTICAL_MODIFIERS,
-        'around',
-        'between',
-      ]),
-    }),
+    wrap: PropTypes.oneOfType([
+      PropTypes.oneOf(['nowrap', 'reverse', 'wrap']),
+      PropTypes.shape({
+        type: PropTypes.oneOf(['nowrap', 'reverse', 'wrap']),
+        alignment: PropTypes.oneOf([
+          ...UIK.FLEX_VERTICAL_MODIFIERS,
+          'around',
+          'between',
+        ]),
+      }),
+    ]),
   };
 
   static defaultProps = {
@@ -269,8 +285,8 @@ export default class Base extends React.Component {
     transformCenter: false,
   };
 
-  getAnimationClasses(animation) {
-    return classnames(
+  getAnimationClasses = animation =>
+    classnames(
       buildClassName('animation', animation),
       buildClassName('animation', get(animation, 'name')),
       buildClassName('transform-origin', get(animation, 'transformOrigin')),
@@ -284,10 +300,9 @@ export default class Base extends React.Component {
         ),
       },
     );
-  }
 
-  getBackgroundClasses(background) {
-    return classnames(
+  getBackgroundClasses = background =>
+    classnames(
       buildClassName('background', background),
       buildClassName('background-blend', get(background, 'blendMode')),
       buildClassName('background-image', get(background, 'breakpoint')),
@@ -301,9 +316,8 @@ export default class Base extends React.Component {
         'uk-background-norepeat': get(background, 'norepeat'),
       },
     );
-  }
 
-  getFlexClasses(
+  getFlexClasses = (
     alignItems,
     direction,
     flex,
@@ -311,9 +325,10 @@ export default class Base extends React.Component {
     justifyContent,
     order,
     wrap,
-  ) {
-    return classnames(
+  ) => {
+    const classes = classnames(
       buildClassName('flex', alignItems),
+      buildClassName('flex', direction),
       buildClassName(
         'flex',
         get(direction, 'as'),
@@ -323,20 +338,24 @@ export default class Base extends React.Component {
       buildClassName('flex', order),
       buildClassName('flex-first', get(order, 'first')),
       buildClassName('flex-last', get(order, 'last')),
+      buildClassName('flex', wrap),
       buildClassName('flex', get(wrap, 'type')),
-      buildClassName('flex', get(wrap, 'alignment')),
+      buildClassName('flex', get(wrap, 'type'), get(wrap, 'alignment')),
       {
         'uk-flex': flex === true,
+        'uk-flex-wrap-reverse': wrap === 'reverse',
         'uk-flex-inline': flex === 'inline',
         'uk-flex-1': grow === 'full',
       },
     );
-  }
+    return classes.toString().replace('flex-reverse', 'flex-wrap-reverse');
+  };
 
-  getMarginClasses(margin) {
+  getMarginClasses = margin => {
     const allMargins = get(margin, 'all');
     let marginClasses = isNil(allMargins)
       ? [
+          buildClassName('margin', get(margin, 'base')),
           buildClassName('margin', get(margin, 'adjacent'), 'adjacent'),
           buildClassName('margin', get(margin, 'bottom'), 'bottom'),
           buildClassName('margin', get(margin, 'left'), 'left'),
@@ -350,11 +369,12 @@ export default class Base extends React.Component {
     if (margin === true) marginClasses = 'uk-margin';
     return classnames(marginClasses, {
       [buildClassName('margin', margin)]: isString(margin) && margin !== 'grid',
+      'uk-margin': get(margin, 'base') === true,
       'uk-grid-margin': margin === 'grid',
     });
-  }
+  };
 
-  getPositionClasses(position) {
+  getPositionClasses = position => {
     const positionAt = get(position, 'at', '');
     const isCentered = positionAt === 'center-center';
     return classnames(
@@ -369,10 +389,10 @@ export default class Base extends React.Component {
         'uk-position-center': isCentered,
       },
     );
-  }
+  };
 
-  getTextClasses(text) {
-    return classnames(
+  getTextClasses = text =>
+    classnames(
       buildBreakpointClasses('text', get(text, 'align')),
       buildClassName('text', get(text, 'transform')),
       buildClassName('text', get(text, 'verticalAlign')),
@@ -390,9 +410,8 @@ export default class Base extends React.Component {
         'uk-text-warning': get(text, 'warning', false),
       },
     );
-  }
 
-  getComponentAttributes(
+  getComponentAttributes = (
     dynamicMargin,
     heightMatch,
     itemIn,
@@ -401,7 +420,7 @@ export default class Base extends React.Component {
     parallax,
     scrollspyNav,
     viewport,
-  ) {
+  ) => {
     const itemInName = buildClassName(get(itemIn, 'parent'), 'item');
     const itemInIndex = get(itemIn, 'index');
 
@@ -445,7 +464,7 @@ export default class Base extends React.Component {
       'uk-parallax': isEmpty(parallax) ? undefined : parallaxOptions,
       'uk-scrollspy-nav': scrollspyNav ? scrollspyNavOptions : undefined,
     };
-  }
+  };
 
   render() {
     const {
@@ -476,6 +495,7 @@ export default class Base extends React.Component {
       hidden,
       hoverTransition,
       inline,
+      innerRef,
       inverse,
       invisible,
       itemIn,
@@ -602,7 +622,7 @@ export default class Base extends React.Component {
         {...attributes}
         {...getValidProps(componentForElement, rest)}
         id={baseId}
-        ref={baseRef}
+        ref={baseRef || innerRef}
       />
     );
   }

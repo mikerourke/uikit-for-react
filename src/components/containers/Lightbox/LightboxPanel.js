@@ -51,8 +51,6 @@ export default class LightboxPanel extends React.Component {
   };
 
   static defaultProps = {
-    defaultIndex: 0,
-    delayControls: 3000,
     onBeforeHide: noop,
     onBeforeItemHide: noop,
     onBeforeItemShow: noop,
@@ -67,10 +65,7 @@ export default class LightboxPanel extends React.Component {
     onShow: noop,
     onShown: noop,
     paused: false,
-    pauseOnHover: false,
-    preload: 1,
     shown: false,
-    videoAutoplay: false,
   };
 
   static addEventListeners(props, panelElement) {

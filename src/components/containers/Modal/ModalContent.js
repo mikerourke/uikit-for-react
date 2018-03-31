@@ -7,7 +7,7 @@ export default class ModalContent extends React.Component {
 
   static propTypes = {
     ...Base.propTypes,
-    as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
+    as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
   };
 
   static defaultProps = {

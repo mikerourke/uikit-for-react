@@ -65,7 +65,7 @@ export default class Nav extends React.Component {
   static Header = NavHeader;
   static Item = NavItem;
   static ItemGroup = NavItemGroup;
-  static SubNav = NavSubNav;
+  static Subnav = NavSubNav;
 
   constructor() {
     super();

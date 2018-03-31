@@ -18,6 +18,7 @@ export default class Button extends React.Component {
     danger: PropTypes.bool,
     disabled: PropTypes.bool,
     fullWidth: PropTypes.bool,
+    href: PropTypes.string,
     icon: PropTypes.oneOf(UIK.ICON_NAMES),
     link: PropTypes.bool,
     onClick: PropTypes.func,
@@ -57,6 +58,7 @@ export default class Button extends React.Component {
       danger,
       disabled,
       fullWidth,
+      href,
       icon,
       link,
       primary,
@@ -88,13 +90,15 @@ export default class Button extends React.Component {
     return (
       <Base
         {...rest}
-        as={hasIcon ? 'a' : as}
+        as={hasIcon || !isNil(href) ? 'a' : as}
         className={classes}
         component={Button}
         disabled={(disabled && this.props.as === 'button') || undefined}
+        href={href}
         onClick={this.handleClick}
         text={!isNil(text) && !isBoolean(text) ? text : undefined}
-        uk-icon={hasIcon ? `icon: ${icon}` : undefined}
+        icon={hasIcon ? icon : undefined}
+        uk-toggle={this.props.target ? '' : undefined}
       >
         {!hasIcon && children}
       </Base>

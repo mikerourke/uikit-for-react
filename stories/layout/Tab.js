@@ -1,33 +1,33 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Base, Grid, Tab } from '../../src/components';
+import { Block, Grid, Tab } from '../../src/components';
 
 Tab.displayName = 'Tab';
 
 storiesOf('Tab', module)
   .add('Usage', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Tab>
         <Tab.Item active>Left</Tab.Item>
         <Tab.Item>Item</Tab.Item>
         <Tab.Item>Item</Tab.Item>
         <Tab.Item disabled>Disabled</Tab.Item>
       </Tab>
-    </Base>
+    </Block>
   ))
 
   .add('Bottom modifier', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Tab align="bottom">
         <Tab.Item active>Left</Tab.Item>
         <Tab.Item>Item</Tab.Item>
         <Tab.Item>Item</Tab.Item>
       </Tab>
-    </Base>
+    </Block>
   ))
 
   .add('Left/right modifier', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Grid childWidth="1/2">
         <Grid.Cell>
           <Tab align="left">
@@ -44,32 +44,32 @@ storiesOf('Tab', module)
           </Tab>
         </Grid.Cell>
       </Grid>
-    </Base>
+    </Block>
   ))
 
   .add('Alignment', () => (
-    <Base>
-      <Base margin={{ top: 'medium' }}>
+    <Block>
+      <Block margin={{ top: 'medium' }}>
         <Tab justifyContent="center">
           <Tab.Item active>Center</Tab.Item>
           <Tab.Item>Item</Tab.Item>
           <Tab.Item>Item</Tab.Item>
         </Tab>
-      </Base>
-      <Base margin={{ top: 'medium' }}>
+      </Block>
+      <Block margin={{ top: 'medium' }}>
         <Tab justifyContent="right">
           <Tab.Item active>Right</Tab.Item>
           <Tab.Item>Item</Tab.Item>
           <Tab.Item>Item</Tab.Item>
         </Tab>
-      </Base>
-      <Base>
+      </Block>
+      <Block>
         <Tab justifyContent="center" childWidth="expand">
           <Tab.Item active>Justify</Tab.Item>
           <Tab.Item>Item</Tab.Item>
           <Tab.Item>Item</Tab.Item>
           <Tab.Item>Item</Tab.Item>
         </Tab>
-      </Base>
-    </Base>
+      </Block>
+    </Block>
   ));

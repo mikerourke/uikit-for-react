@@ -2,8 +2,8 @@ import React from 'react';
 import { customPropTypes } from '../../../lib';
 import Base from '../../base';
 
-export default class ThumbNavImage extends React.Component {
-  static displayName = 'ThumbNavImage';
+export default class ThumbnavImage extends React.Component {
+  static displayName = 'ThumbnavImage';
 
   static propTypes = {
     ...Base.propTypes,
@@ -16,6 +16,6 @@ export default class ThumbNavImage extends React.Component {
   };
 
   render() {
-    return <Base {...this.props} component={ThumbNavImage} />;
+    return <Base {...this.props} component={ThumbnavImage} />;
   }
 }

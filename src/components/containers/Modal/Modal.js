@@ -8,12 +8,12 @@ import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
   customPropTypes,
-  generateIdentifier,
   generateSelector,
   getBaseRef,
   getOptionsString,
 } from '../../../lib';
 import Base from '../../base';
+import { ToggleToggle } from '../../elements/Toggle';
 import ModalBody from './ModalBody';
 import ModalClose from './ModalClose';
 import ModalContent from './ModalContent';
@@ -33,6 +33,7 @@ export default class Modal extends React.Component {
     container: PropTypes.bool,
     escClose: PropTypes.bool,
     full: PropTypes.bool,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onBeforeHide: PropTypes.func,
     onBeforeShow: PropTypes.func,
     onHidden: PropTypes.func,
@@ -106,6 +107,7 @@ export default class Modal extends React.Component {
       container,
       escClose,
       full,
+      id,
       stack,
       toggle,
       ...rest
@@ -116,21 +118,21 @@ export default class Modal extends React.Component {
       'uk-modal-full': full,
     });
 
-    let Toggle;
-    const identifier = generateIdentifier();
-    if (toggle) {
-      Toggle = React.cloneElement(toggle, {
-        href: `#${identifier}`,
-        'uk-toggle': '',
-      });
-    }
+    let Toggle = null;
+    if (toggle) Toggle = toggle.type;
 
     return (
       <Fragment>
-        {toggle && Toggle}
+        {toggle && (
+          <Toggle
+            {...toggle.props}
+            as={ToggleToggle}
+            target={`.${this.selector}`}
+          />
+        )}
         <Base
           {...rest}
-          baseId={identifier}
+          baseId={id}
           baseRef={this.handleRef}
           className={classes}
           component={Modal}

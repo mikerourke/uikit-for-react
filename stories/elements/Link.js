@@ -1,34 +1,25 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { Base, Link, List } from '../../src/components';
+import { Block, Link, List, Paragraph } from '../../src/components';
 
 Link.displayName = 'Link';
 
 storiesOf('Link', module)
-  .add('Usage', () => (
-    <Base margin={{ all: 'large' }}>
-      <Link href="#">Link</Link>
-    </Base>
-  ))
-
   .add('Link muted', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Link href="#" muted>
         Link
       </Link>
-      <br />
-      <br />
-      <Base as="span" linkStyle="muted">
+      <Paragraph linkStyle="muted">
         Lorem ipsum <a href="#">dolor sit</a> amet, consectetur adipiscing elit,
         sed do <a href="#">eiusmod</a> tempor incididunt ut{' '}
         <a href="#">labore et</a> dolore magna aliqua.
-      </Base>
-    </Base>
+      </Paragraph>
+    </Block>
   ))
 
   .add('Link text', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <List linkStyle="text">
         <List.Item>
           <Link>Link</Link>
@@ -40,13 +31,28 @@ storiesOf('Link', module)
           <Link>Link</Link>
         </List.Item>
       </List>
-    </Base>
+    </Block>
+  ))
+
+  .add('Link heading', () => (
+    <Block margin={{ all: 'large' }}>
+      <h3>
+        <Link heading href="#">
+          Heading
+        </Link>
+      </h3>
+    </Block>
   ))
 
   .add('Link reset', () => (
-    <Base margin={{ all: 'large' }}>
+    <Block margin={{ all: 'large' }}>
       <Link reset href="#">
         Link
       </Link>
-    </Base>
+      <h3>
+        <Link reset href="#">
+          Heading
+        </Link>
+      </h3>
+    </Block>
   ));
