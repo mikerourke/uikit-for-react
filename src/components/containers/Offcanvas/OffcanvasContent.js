@@ -18,8 +18,8 @@ export default class OffcanvasContent extends React.Component {
     as: 'div',
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.selector = generateSelector();
   }
 
@@ -41,7 +41,9 @@ export default class OffcanvasContent extends React.Component {
 
   render() {
     const { children, className, ...rest } = this.props;
+    
     const classes = classnames(className, 'uk-offcanvas-content');
+    
     return (
       <Base {...rest} className={classes} component={OffcanvasContent}>
         {this.renderChildren(children)}

@@ -27,6 +27,7 @@ export default class Video extends React.Component {
 
   render() {
     const { automute, autoplay, ...rest } = this.props;
+
     return (
       <Base
         {...rest}

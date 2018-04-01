@@ -25,9 +25,7 @@ export default class SubnavItem extends React.Component {
   render() {
     const { active, children, className, href, ...rest } = this.props;
 
-    const classes = classnames(className, {
-      'uk-active': active,
-    });
+    const classes = classnames(className, { 'uk-active': active });
 
     return (
       <Base {...rest} className={classes || undefined} component={SubnavItem}>

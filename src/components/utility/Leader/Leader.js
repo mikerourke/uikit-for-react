@@ -25,6 +25,7 @@ export default class Leader extends React.Component {
 
   render() {
     const { fill, media, ...rest } = this.props;
+
     return (
       <Base
         {...rest}

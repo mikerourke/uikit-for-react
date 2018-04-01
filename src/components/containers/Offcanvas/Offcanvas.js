@@ -1,14 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
   customPropTypes,
-  generateSelector,
-  getBaseRef,
   getOptionsString,
+  LibraryComponent,
 } from '../../../lib';
 import Base from '../../base';
 import OffcanvasBar from './OffcanvasBar';
@@ -52,13 +49,12 @@ export default class Offcanvas extends React.Component {
   static Content = OffcanvasContent;
   static Toggle = OffcanvasToggle;
 
-  constructor() {
-    super();
-    this.selector = generateSelector();
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('offcanvas');
   }
 
   componentDidMount() {
-    const ref = this.getRef();
     const ukToPropsEventMap = {
       beforehide: 'onBeforeHide',
       beforeshow: 'onBeforeShow',
@@ -67,28 +63,23 @@ export default class Offcanvas extends React.Component {
       show: 'onShow',
       shown: 'onShown',
     };
-    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
+
+    addMultipleEventInvokers(
+      this.libComp.cssSelector,
+      ukToPropsEventMap,
+      this.props,
+    );
   }
-
-  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
-
-  handleRef = element => {
-    if (!element) return;
-    this.ref = getBaseRef(element);
-  };
 
   render() {
     const {
       bgClose,
-      className,
       escClose,
       flip,
       mode,
       overlay,
       ...rest
     } = this.props;
-
-    const classes = classnames(className, this.selector);
 
     const componentOptions = getOptionsString({
       bgClose,
@@ -101,10 +92,9 @@ export default class Offcanvas extends React.Component {
     return (
       <Base
         {...rest}
-        className={classes}
         component={Offcanvas}
-        baseRef={this.handleRef}
         uk-offcanvas={componentOptions}
+        {...this.libComp.appendProps(this.props)}
       />
     );
   }

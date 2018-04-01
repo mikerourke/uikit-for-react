@@ -18,7 +18,9 @@ export default class SlideshowItems extends React.Component {
 
   render() {
     const { className, ...rest } = this.props;
+
     const classes = classnames(className, 'uk-slideshow-items');
+
     return <Base {...rest} className={classes} component={SlideshowItems} />;
   }
 }

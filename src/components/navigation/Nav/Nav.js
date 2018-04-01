@@ -3,13 +3,11 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import isNil from 'lodash/isNil';
 import {
   customPropTypes,
-  generateSelector,
-  getBaseRef,
   getOptionsString,
   HTML,
+  LibraryComponent,
   UIK,
 } from '../../../lib';
 import Base from '../../base';
@@ -67,26 +65,19 @@ export default class Nav extends React.Component {
   static ItemGroup = NavItemGroup;
   static Subnav = NavSubNav;
 
-  constructor() {
-    super();
-    this.selector = generateSelector();
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('nav');
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.activeIndex !== this.props.activeIndex) {
-      UIkit.nav(this.getRef()).toggle(
+      UIkit.nav(this.libComp.cssSelector).toggle(
         nextProps.activeIndex,
         nextProps.hideOpenAnimation,
       );
     }
   }
-
-  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
-
-  handleRef = element => {
-    if (!element) return;
-    this.ref = getBaseRef(element);
-  };
 
   render() {
     const {
@@ -101,7 +92,7 @@ export default class Nav extends React.Component {
       ...rest
     } = this.props;
 
-    const classes = classnames(className, 'uk-nav', this.selector, {
+    const classes = classnames(className, 'uk-nav', {
       'uk-nav-center': center,
       'uk-nav-default': !primary,
       'uk-nav-parent-icon': accordion,
@@ -122,6 +113,7 @@ export default class Nav extends React.Component {
         className={classes}
         component={Nav}
         uk-nav={accordion ? componentOptions : undefined}
+        {...this.libComp.appendProps(this.props)}
       />
     );
   }

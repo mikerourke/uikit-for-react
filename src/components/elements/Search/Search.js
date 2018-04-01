@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
+import isNil from 'lodash/isNil';
 import { customPropTypes } from '../../../lib';
 import Base from '../../base';
 import SearchIcon from './SearchIcon';
@@ -46,9 +47,9 @@ export default class Search extends React.Component {
 
     return (
       <Base {...rest} className={classes} component={Search}>
-        {icon && icon}
-        {input && input}
-        {children && children}
+        {!isNil(icon) && icon}
+        {!isNil(input) && input}
+        {!isNil(children) && children}
       </Base>
     );
   }

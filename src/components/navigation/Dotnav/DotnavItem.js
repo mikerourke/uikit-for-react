@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes } from '../../../lib';
+import { customPropTypes, renderNavItemChildren } from '../../../lib';
 import Base from '../../base';
 
 export default class DotnavItem extends React.Component {
@@ -23,13 +23,11 @@ export default class DotnavItem extends React.Component {
   render() {
     const { active, children, className, href, ...rest } = this.props;
 
-    const classes = classnames(className, {
-      'uk-active': active,
-    });
+    const classes = classnames(className, { 'uk-active': active });
 
     return (
       <Base {...rest} className={classes || undefined} component={DotnavItem}>
-        <a href={href}>{children}</a>
+        {renderNavItemChildren(children, { href })}
       </Base>
     );
   }

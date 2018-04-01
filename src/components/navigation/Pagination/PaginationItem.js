@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes } from '../../../lib';
+import { customPropTypes, renderNavItemChildren } from '../../../lib';
 import Base from '../../base';
 
 export default class PaginationItem extends React.Component {
@@ -21,7 +21,6 @@ export default class PaginationItem extends React.Component {
     active: false,
     as: 'li',
     disabled: false,
-    href: '#',
   };
 
   render() {
@@ -32,10 +31,13 @@ export default class PaginationItem extends React.Component {
       'uk-disabled': disabled,
     });
 
-    const InnerElement = active || disabled ? 'span' : 'a';
     return (
-      <Base {...rest} className={classes} component={PaginationItem}>
-        <InnerElement href={href}>{children}</InnerElement>
+      <Base
+        {...rest}
+        className={classes || undefined}
+        component={PaginationItem}
+      >
+        {renderNavItemChildren(children, { href, isSpan: active || disabled })}
       </Base>
     );
   }

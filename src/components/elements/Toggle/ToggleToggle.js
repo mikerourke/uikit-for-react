@@ -3,15 +3,13 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
   customPropTypes,
-  generateSelector,
-  getBaseRef,
   getOptionsString,
   joinListProp,
+  LibraryComponent,
   UIK,
 } from '../../../lib';
 import Base from '../../base';
@@ -76,13 +74,15 @@ export default class ToggleToggle extends React.Component {
     toggled: false,
   };
 
-  constructor() {
-    super();
-    this.selector = generateSelector();
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('toggle-toggle');
+    this.toggle = null;
   }
 
   componentDidMount() {
-    const ref = this.getRef();
+    this.toggle = UIkit.toggle(this.libComp.cssSelector);
+
     const ukToPropsEventMap = {
       beforehide: 'onBeforeHide',
       beforeshow: 'onBeforeShow',
@@ -91,21 +91,14 @@ export default class ToggleToggle extends React.Component {
       show: 'onShow',
       shown: 'onShown',
     };
-    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
+    addMultipleEventInvokers(this.toggle, ukToPropsEventMap, this.props);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.toggled !== this.props.toggled) {
-      UIkit.toggle(this.getRef()).toggle();
+      this.toggle.toggle();
     }
   }
-
-  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
-
-  handleRef = element => {
-    if (!element) return;
-    this.ref = getBaseRef(element);
-  };
 
   render() {
     const {
@@ -119,7 +112,7 @@ export default class ToggleToggle extends React.Component {
       ...rest
     } = this.props;
 
-    const classes = classnames(className, 'uk-toggle', this.selector);
+    const classes = classnames(className, 'uk-toggle');
 
     const componentOptions = getOptionsString({
       animation,
@@ -136,6 +129,7 @@ export default class ToggleToggle extends React.Component {
         className={classes}
         component={ToggleToggle}
         uk-toggle={componentOptions}
+        {...this.libComp.appendProps(this.props)}
       />
     );
   }

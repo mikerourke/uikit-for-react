@@ -18,7 +18,9 @@ export default class FormLegend extends React.Component {
 
   render() {
     const { className, ...rest } = this.props;
+
     const classes = classnames(className, 'uk-legend');
+
     return <Base {...rest} className={classes} component={FormLegend} />;
   }
 }

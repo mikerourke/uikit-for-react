@@ -43,6 +43,7 @@ function loadStories() {
   require('../stories/style/Margin');
   require('../stories/elements/Marker');
   require('../stories/containers/Modal');
+  require('../stories/navigation/Nav');
   require('../stories/elements/Notification');
   require('../stories/containers/Offcanvas');
   require('../stories/style/Scroll');

@@ -1,17 +1,15 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import get from 'lodash/get';
-import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
   customPropTypes,
   generateSelector,
-  getBaseRef,
   getOptionsString,
   HTML,
+  LibraryComponent,
   UIK,
 } from '../../../lib';
 import Base from '../../base';
@@ -63,13 +61,14 @@ export default class SwitcherToggles extends React.Component {
     onShown: noop,
   };
 
-  constructor() {
-    super();
-    this.selector = generateSelector();
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('switcher-toggles');
   }
 
   componentDidMount() {
-    const ref = this.getRef();
+    const switcher = UIkit.switcher(this.libComp.cssSelector);
+
     const ukToPropsEventMap = {
       beforehide: 'onBeforeHide',
       beforeshow: 'onBeforeShow',
@@ -78,36 +77,26 @@ export default class SwitcherToggles extends React.Component {
       show: 'onShow',
       shown: 'onShown',
     };
-    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
-    UIkit.switcher(ref).show(this.props.activeIndex);
+    addMultipleEventInvokers(switcher, ukToPropsEventMap, this.props);
+    switcher.show(this.props.activeIndex);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.activeIndex !== this.props.activeIndex) {
-      UIkit.tab(this.getRef()).show(nextProps.activeIndex);
+      UIkit.tab(this.libComp.cssSelector).show(nextProps.activeIndex);
     }
   }
-
-  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
-
-  handleRef = element => {
-    if (!element) return;
-    this.ref = getBaseRef(element);
-  };
 
   render() {
     const {
       animation,
       as,
-      className,
       defaultIndex,
       selectorConnect,
       selectorToggle,
       swiping,
       ...rest
     } = this.props;
-
-    const classes = classnames(className, this.selector);
 
     const componentOptions = getOptionsString({
       active: defaultIndex,
@@ -121,10 +110,9 @@ export default class SwitcherToggles extends React.Component {
       <Base
         {...rest}
         as={as}
-        baseRef={this.handleRef}
-        className={classes}
         component={SwitcherToggles}
         uk-switcher={get(as, 'type') === Tab ? undefined : componentOptions}
+        {...this.libComp.appendProps(this.props)}
       />
     );
   }

@@ -117,7 +117,7 @@ storiesOf('Lightbox', module)
         onItemShow={action('onItemShow')}
         onItemShown={action('onItemShown')}
       >
-        <Lightbox.Item source={imageLinkValues[0]} caption="Hooray" />
+        <Lightbox.Item source={imageLinkValues[0]} caption="Hooray" href="#" />
       </Lightbox.Panel>
     </Block>
   ));

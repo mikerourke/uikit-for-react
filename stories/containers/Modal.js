@@ -1,7 +1,9 @@
+/* eslint-disable no-console */
 import React from 'react';
 import faker from 'faker';
 import range from 'lodash/range';
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 import {
   Block,
   Button,
@@ -179,27 +181,27 @@ storiesOf('Modal', module)
   .add('Media', () => (
     <Block margin={{ all: 'large' }}>
       <Margin as="p">
-        <Toggle as={Button} target="#modal-media-image">
+        <Modal.Toggle as={Button} forModal="modal-media-image">
           Image
-        </Toggle>
-        <Button as="a" target="#modal-media-video">
+        </Modal.Toggle>
+        <Modal.Toggle as={Button} forModal="modal-media-video">
           Video
-        </Button>
-        <Button as={Toggle} target="#modal-media-youtube">
+        </Modal.Toggle>
+        <Modal.Toggle as={Button} forModal="modal-media-youtube">
           Youtube
-        </Button>
-        <Button as="a" target="#modal-media-vimeo">
+        </Modal.Toggle>
+        <Modal.Toggle as={Button} forModal="modal-media-vimeo">
           Vimeo
-        </Button>
+        </Modal.Toggle>
       </Margin>
 
-      <Modal id="modal-media-image" alignItems="top">
+      <Modal modalName="modal-media-image" alignItems="top">
         <Modal.Dialog width="auto" margin={{ vertical: 'auto' }}>
           <Modal.Close outside />
           <Modal.Content as="img" src={imageLinks.photo} />
         </Modal.Dialog>
       </Modal>
-      <Modal id="modal-media-video" alignItems="top">
+      <Modal modalName="modal-media-video" alignItems="top">
         <Modal.Dialog width="auto" margin={{ vertical: 'auto' }}>
           <Modal.Close outside />
           <Modal.Content as={Video} controls playsInline>
@@ -208,7 +210,7 @@ storiesOf('Modal', module)
           </Modal.Content>
         </Modal.Dialog>
       </Modal>
-      <Modal id="modal-media-youtube" alignItems="top">
+      <Modal modalName="modal-media-youtube" alignItems="top">
         <Modal.Dialog width="auto" margin={{ vertical: 'auto' }}>
           <Modal.Close outside />
           <Modal.Content>
@@ -222,7 +224,7 @@ storiesOf('Modal', module)
           </Modal.Content>
         </Modal.Dialog>
       </Modal>
-      <Modal id="modal-media-vimeo" alignItems="top">
+      <Modal modalName="modal-media-vimeo" alignItems="top">
         <Modal.Dialog width="auto" margin={{ vertical: 'auto' }}>
           <Modal.Close outside />
           <Modal.Content>
@@ -236,5 +238,82 @@ storiesOf('Modal', module)
           </Modal.Content>
         </Modal.Dialog>
       </Modal>
+    </Block>
+  ))
+
+  .add('Groups', () => (
+    <Block margin={{ all: 'large' }}>
+      <Margin as="p">
+        <Modal.Toggle as={Button} forModal="modal-group-1">
+          Modal 1
+        </Modal.Toggle>
+        <Modal.Toggle as={Button} forModal="modal-group-2">
+          Modal 2
+        </Modal.Toggle>
+      </Margin>
+
+      <Modal modalName="modal-group-1" alignItems="top">
+        <Modal.Dialog>
+          <Modal.Close />
+          <Modal.Header>
+            <Modal.Title>Headline 1</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>{faker.lorem.paragraph()}</p>
+          </Modal.Body>
+          <Modal.Footer textAlign="right">
+            <Modal.Close as={Button}>Cancel</Modal.Close>
+            <Modal.Toggle as={Button} forModal="modal-group-2" primary>
+              Next
+            </Modal.Toggle>
+          </Modal.Footer>
+        </Modal.Dialog>
+      </Modal>
+      <Modal modalName="modal-group-2" alignItems="top">
+        <Modal.Dialog>
+          <Modal.Close />
+          <Modal.Header>
+            <Modal.Title>Headline 2</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>{faker.lorem.paragraph()}</p>
+          </Modal.Body>
+          <Modal.Footer textAlign="right">
+            <Modal.Close as={Button}>Cancel</Modal.Close>
+            <Modal.Toggle as={Button} forModal="modal-group-1" primary>
+              Next
+            </Modal.Toggle>
+          </Modal.Footer>
+        </Modal.Dialog>
+      </Modal>
+    </Block>
+  ))
+
+  .add('Modal dialogs', () => (
+    <Block margin={{ all: 'large' }}>
+      <Margin as="p">
+        <Modal.Dialog toggle={<Button>Dialog</Button>}>
+          <Modal.Body as="p">UIkit dialog!</Modal.Body>
+        </Modal.Dialog>
+        <Modal.Alert
+          toggle={<Button>Alert</Button>}
+          onClose={action('Alert: onClose')}
+        >
+          UIkit alert!
+        </Modal.Alert>
+        <Modal.Confirm
+          toggle={<Button>Confirm</Button>}
+          onCancel={action('Confirm: onCancel')}
+          onConfirm={action('Confirm: onConfirm')}
+        >
+          UIkit confirm
+        </Modal.Confirm>
+        <Modal.Prompt
+          toggle={<Button>Prompt</Button>}
+          onConfirm={action('Prompt: onConfirm')}
+          label="Name:"
+          placeholder="Your name"
+        />
+      </Margin>
     </Block>
   ));

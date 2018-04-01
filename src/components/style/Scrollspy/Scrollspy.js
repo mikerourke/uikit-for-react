@@ -1,17 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import {
-  customPropTypes,
-  generateSelector,
-  getBaseRef,
-  getOptionsString,
-  joinListProp,
-  HTML,
-  UIK,
   addEventInvoker,
+  customPropTypes,
+  getOptionsString,
+  HTML,
+  joinListProp,
+  LibraryComponent,
+  UIK,
 } from '../../../lib';
 import Base from '../../base';
 
@@ -41,23 +39,16 @@ export default class Scrollspy extends React.Component {
     onOutview: noop,
   };
 
-  constructor() {
-    super();
-    this.selector = generateSelector();
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('scrollspy');
   }
 
   componentDidMount() {
-    const ref = this.getRef();
-    addEventInvoker(ref, 'inview', 'onInview', this.props);
-    addEventInvoker(ref, 'outview', 'onOutview', this.props);
+    const { cssSelector } = this.libComp;
+    addEventInvoker(cssSelector, 'inview', 'onInview', this.props);
+    addEventInvoker(cssSelector, 'outview', 'onOutview', this.props);
   }
-
-  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
-
-  handleRef = element => {
-    if (!element) return;
-    this.ref = getBaseRef(element);
-  };
 
   render() {
     const {
@@ -71,7 +62,7 @@ export default class Scrollspy extends React.Component {
       ...rest
     } = this.props;
 
-    const classes = classnames(className, 'uk-scrollspy', this.selector);
+    const classes = classnames(className, 'uk-scrollspy');
 
     const componentOptions = getOptionsString({
       cls: joinListProp(animation),
@@ -89,6 +80,7 @@ export default class Scrollspy extends React.Component {
         className={classes}
         component={Scrollspy}
         uk-scrollspy={componentOptions}
+        {...this.libComp.appendProps(this.props)}
       />
     );
   }

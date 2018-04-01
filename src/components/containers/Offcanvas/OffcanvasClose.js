@@ -9,7 +9,9 @@ export default class OffcanvasClose extends React.Component {
 
   render() {
     const { className, ...rest } = this.props;
+
     const classes = classnames(className, 'uk-offcanvas-close');
+
     return <Close {...rest} className={classes} component={OffcanvasClose} />;
   }
 }

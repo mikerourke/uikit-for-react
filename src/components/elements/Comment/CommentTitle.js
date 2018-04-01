@@ -18,7 +18,9 @@ export default class CommentTitle extends React.Component {
 
   render() {
     const { className, ...rest } = this.props;
+
     const classes = classnames(className, 'uk-comment-title');
+
     return <Base {...rest} className={classes} component={CommentTitle} />;
   }
 }

@@ -18,7 +18,9 @@ export default class CardTitle extends React.Component {
 
   render() {
     const { className, ...rest } = this.props;
+
     const classes = classnames(className, 'uk-card-title');
+
     return <Base {...rest} className={classes} component={CardTitle} />;
   }
 }

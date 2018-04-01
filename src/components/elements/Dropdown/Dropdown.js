@@ -5,15 +5,15 @@ import classnames from 'classnames';
 import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import {
+  addMultipleEventInvokers,
   appendClassNamesToChildren,
   customPropTypes,
   generateSelector,
-  getBaseRef,
   getOptionsString,
-  joinListProp,
   HTML,
+  joinListProp,
+  LibraryComponent,
   UIK,
-  addMultipleEventInvokers,
 } from '../../../lib';
 import Base from '../../base';
 import DropdownBoundary from './DropdownBoundary';
@@ -70,13 +70,13 @@ export default class Dropdown extends React.Component {
 
   static Boundary = DropdownBoundary;
 
-  constructor() {
-    super();
-    this.selector = generateSelector();
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('dropdown');
   }
 
   componentDidMount() {
-    const ref = this.getRef();
+    this.dropdown = UIkit.dropdown(this.libComp.cssSelector);
     const ukToPropsEventMap = {
       beforehide: 'onBeforeHide',
       beforeshow: 'onBeforeShow',
@@ -87,25 +87,17 @@ export default class Dropdown extends React.Component {
       stack: 'onStack',
       toggle: 'onToggle',
     };
-    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
+    addMultipleEventInvokers(this.dropdown, ukToPropsEventMap, this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    const dropdown = UIkit.dropdown(this.getRef());
     if (nextProps.shown === true && this.props.shown === false) {
-      dropdown.show();
+      this.dropdown.show();
     }
     if (nextProps.shown === false && this.props.shown === true) {
-      dropdown.hide();
+      this.dropdown.hide();
     }
   }
-
-  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
-
-  handleRef = element => {
-    if (!element) return;
-    this.ref = getBaseRef(element);
-  };
 
   renderChildren = children =>
     appendClassNamesToChildren(children, {
@@ -130,7 +122,7 @@ export default class Dropdown extends React.Component {
       ...rest
     } = this.props;
 
-    const classes = classnames(className, this.selector, 'uk-dropdown');
+    const classes = classnames(className, 'uk-dropdown');
 
     const componentOptions = getOptionsString({
       animation,
@@ -145,13 +137,14 @@ export default class Dropdown extends React.Component {
 
     return (
       <Fragment>
-        {toggle && toggle}
+        {!isNil(toggle) && toggle}
         <Base
           {...rest}
           baseRef={this.handleRef}
           className={classes}
           component={component || Dropdown}
           uk-dropdown={componentOptions}
+          {...this.libComp.appendProps(this.props)}
         >
           {this.renderChildren(children)}
         </Base>

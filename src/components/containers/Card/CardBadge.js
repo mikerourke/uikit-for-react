@@ -18,7 +18,9 @@ export default class CardBadge extends React.Component {
 
   render() {
     const { className, ...rest } = this.props;
+
     const classes = classnames(className, 'uk-card-badge');
+
     return <Base {...rest} className={classes} component={CardBadge} />;
   }
 }

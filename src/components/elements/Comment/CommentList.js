@@ -21,7 +21,9 @@ export default class CommentList extends React.Component {
 
   render() {
     const { children, className, nested, ...rest } = this.props;
+
     const classes = classnames(className, { 'uk-comment-list': !nested });
+
     return (
       <Base {...rest} className={classes || undefined} component={CommentList}>
         {React.Children.map(children, child => <li>{child}</li>)}

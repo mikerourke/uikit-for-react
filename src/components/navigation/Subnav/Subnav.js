@@ -27,12 +27,12 @@ export default class Subnav extends React.Component {
 
   render() {
     const { className, divider, pill, ...rest } = this.props;
-
+    
     const classes = classnames(className, 'uk-subnav', {
       'uk-subnav-divider': divider,
       'uk-subnav-pill': pill,
     });
-
+    
     return <Base {...rest} className={classes} component={Subnav} />;
   }
 }

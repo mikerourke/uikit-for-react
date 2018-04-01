@@ -1,12 +1,12 @@
 import React from 'react';
-import { ToggleToggle } from '../../elements';
+import { Toggle } from '../../elements';
 
 export default class OffcanvasToggle extends React.Component {
   static displayName = 'OffcanvasToggle';
-  static propTypes = ToggleToggle.propTypes;
-  static defaultProps = ToggleToggle.defaultProps;
+  static propTypes = Toggle.propTypes;
+  static defaultProps = Toggle.defaultProps;
 
   render() {
-    return <ToggleToggle {...this.props} component={OffcanvasToggle} />;
+    return <Toggle {...this.props} component={OffcanvasToggle} />;
   }
 }

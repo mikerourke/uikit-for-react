@@ -20,3 +20,8 @@ export const generateSelector = () => {
   const generated = generate(VALID_CHARS, 8);
   return `suikfr-${generated}`;
 };
+
+export const generateAttributeValue = attributePrefix => {
+  const generated = generate(VALID_CHARS, 5);
+  return `${attributePrefix}-${generated}`;
+};

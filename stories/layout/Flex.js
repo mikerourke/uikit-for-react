@@ -20,7 +20,7 @@ storiesOf('Flex', module)
 
   .add('Horizontal alignment', () => (
     <Block margin={{ all: 'large' }}>
-      <Flex alignItems="center">
+      <Flex justifyContent="center">
         <Card>Item 1</Card>
         <Card margin="left">Item 2</Card>
         <Card margin="left">Item 3</Card>
@@ -39,8 +39,8 @@ storiesOf('Flex', module)
   ))
 
   .add('Vertical alignment', () => (
-    <Block margin={{ all: 'large' }}>
-      <Flex alignItems="middle" textAlign="center">
+    <Block margin={{ all: 'large' }} viewport>
+      <Flex alignItems="middle" textAlign="center" style={{ height: '100%' }}>
         <Card>Item 1</Card>
         <Card margin="left">Item 2</Card>
         <Card margin="left">Item 3</Card>

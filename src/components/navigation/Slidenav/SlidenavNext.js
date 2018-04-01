@@ -17,16 +17,13 @@ export default class SlidenavNext extends React.Component {
   static defaultProps = {
     ...Base.defaultProps,
     as: 'a',
-    href: '#',
     large: false,
   };
 
   render() {
     const { className, large, ...rest } = this.props;
 
-    const classes = classnames(className, {
-      'uk-slidenav-large': large,
-    });
+    const classes = classnames(className, { 'uk-slidenav-large': large });
 
     return (
       <Base

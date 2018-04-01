@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, hasChildType } from '../../../lib';
-
+import { customPropTypes, hasChildType, renderNavItemChildren } from '../../../lib';
 import Base from '../../base';
 import NavItemGroup from './NavItemGroup';
 import NavSubNav from './NavSubNav';
@@ -22,7 +21,6 @@ export default class NavItem extends React.Component {
     ...Base.defaultProps,
     active: false,
     as: 'li',
-    href: '#',
   };
 
   render() {
@@ -36,11 +34,9 @@ export default class NavItem extends React.Component {
 
     return (
       <Base {...rest} className={classes} component={NavItem}>
-        {hasChildType(children, NavItemGroup) ? (
-          children
-        ) : (
-          <a href={href}>{children}</a>
-        )}
+        {hasChildType(children, NavItemGroup)
+          ? children
+          : renderNavItemChildren(children, { href })}
       </Base>
     );
   }

@@ -24,10 +24,13 @@ export default class NavbarToggle extends React.Component {
   render() {
     const { className, icon, title, ...rest } = this.props;
 
+    const hasIcon = !isNil(icon);
+    const hasTitle = !isNil(title);
+
     const iconProp = { 'uk-navbar-toggle-icon': '' };
     const classes = classnames(className, 'uk-navbar-toggle');
 
-    if (!isNil(title)) {
+    if (hasTitle) {
       return (
         <Base
           {...rest}
@@ -40,8 +43,8 @@ export default class NavbarToggle extends React.Component {
 
     return (
       <Base {...rest} className={classes} component={NavbarToggle}>
-        {icon && React.cloneElement(icon, iconProp)}
-        {title && title}
+        {hasIcon && React.cloneElement(icon, iconProp)}
+        {hasTitle && title}
       </Base>
     );
   }

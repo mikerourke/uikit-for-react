@@ -18,7 +18,9 @@ export default class Placeholder extends React.Component {
 
   render() {
     const { className, ...rest } = this.props;
+
     const classes = classnames(className, 'uk-placeholder');
+
     return <Base {...rest} className={classes} component={Placeholder} />;
   }
 }

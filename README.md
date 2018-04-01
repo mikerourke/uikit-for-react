@@ -43,7 +43,7 @@ React component library for UIkit
 | List             | X     | X         |        |            |
 | Margin           | X     | X         |        |            |
 | Marker           | X     | X         |        |            |
-| Modal            | X     |           |        |            |
+| Modal            | X     | X         |        |            |
 | Nav              | X     |           |        |            |
 | Navbar           | X     |           |        |            |
 | Notification     | X     |           |        |            |

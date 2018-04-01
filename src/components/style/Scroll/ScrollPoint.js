@@ -7,6 +7,7 @@ import {
   addEventInvoker,
   customPropTypes,
   getOptionsString,
+  LibraryComponent,
   HTML,
 } from '../../../lib';
 import Base from '../../base';
@@ -34,29 +35,27 @@ export default class ScrollPoint extends React.Component {
     onScrolled: noop,
   };
 
-  componentDidMount() {
-    const element = this.getElement();
-    addEventInvoker(element, 'beforescroll', 'onBeforeScroll', this.props);
-    addEventInvoker(element, 'scrolled', 'onScrolled', this.props);
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('scroll-point');
   }
 
-  getElement = () =>
-    document.querySelector(
-      `[data-uikfr-scroll-element=${this.props.elementName}]`,
-    );
+  componentDidMount() {
+    const { cssSelector } = this.libComp;
+    addEventInvoker(cssSelector, 'beforescroll', 'onBeforeScroll', this.props);
+    addEventInvoker(cssSelector, 'scrolled', 'onScrolled', this.props);
+  }
 
   handleClick = () => {
     const { goTo, pointIndex } = this.props;
-    const targetIndex = goTo === 'next' ? pointIndex + 1 : pointIndex - 1;
-    const scrollElements = document.querySelectorAll(
-      '[data-uikfr-scroll-element]',
-    );
-    const targetNode = scrollElements.item(targetIndex);
-    const thisNode = this.getElement();
-    UIkit.scroll(thisNode).scrollTo(targetNode);
-  };
+    const { attrName } = this.libComp;
 
-  handleRef = element => (this.ref = element);
+    const targetIndex = goTo === 'next' ? pointIndex + 1 : pointIndex - 1;
+    const scrollElements = document.querySelectorAll(`[${attrName}]`);
+    const targetNode = scrollElements.item(targetIndex);
+
+    UIkit.scroll(this.libComp.cssSelector).scrollTo(targetNode);
+  };
 
   render() {
     const { duration, elementName, offset, pointIndex, ...rest } = this.props;
@@ -64,11 +63,10 @@ export default class ScrollPoint extends React.Component {
     return (
       <Base
         {...rest}
-        baseRef={this.handleRef}
         component={ScrollPoint}
         onClick={this.handleClick}
         uk-scroll={getOptionsString({ duration, offset })}
-        data-uikfr-scroll-element={elementName}
+        {...this.libComp.appendProps(this.props, { attrValue: elementName })}
       />
     );
   }

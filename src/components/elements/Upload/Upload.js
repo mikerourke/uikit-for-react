@@ -4,15 +4,9 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import kebabCase from 'lodash/kebabCase';
-import isNil from 'lodash/isNil';
 import omit from 'lodash/omit';
 import noop from 'lodash/noop';
-import {
-  customPropTypes,
-  generateSelector,
-  getBaseRef,
-  HTML,
-} from '../../../lib';
+import { customPropTypes, HTML, LibraryComponent } from '../../../lib';
 import Base from '../../base';
 import UploadFileSelect from './UploadFileSelect';
 
@@ -88,9 +82,9 @@ export default class Upload extends React.Component {
 
   static FileSelect = UploadFileSelect;
 
-  constructor() {
-    super();
-    this.selector = generateSelector();
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('upload');
   }
 
   componentDidMount() {
@@ -98,6 +92,7 @@ export default class Upload extends React.Component {
     if (fileInput && this.props.multiple) {
       fileInput.setAttribute('multiple', '');
     }
+
     const uploadOptions = Upload.propNames.reduce((acc, propName) => {
       const optionKey =
         propName === 'requestType' ? 'type' : kebabCase(propName);
@@ -106,26 +101,23 @@ export default class Upload extends React.Component {
         [optionKey]: this.props[propName],
       };
     }, {});
-    UIkit.upload(this.getRef(), uploadOptions);
+
+    UIkit.upload(this.libComp.cssSelector, uploadOptions);
   }
-
-  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
-
-  handleRef = element => {
-    if (!element) return;
-    this.ref = getBaseRef(element);
-  };
 
   render() {
     const { className, ...rest } = this.props;
+
     const elementProps = omit(rest, Upload.propNames);
-    const classes = classnames(className, 'uk-upload', this.selector);
+
+    const classes = classnames(className, 'uk-upload');
+
     return (
       <Base
         {...elementProps}
-        baseRef={this.handleRef}
         className={classes}
         component={Upload}
+        {...this.libComp.appendProps(this.props)}
       />
     );
   }

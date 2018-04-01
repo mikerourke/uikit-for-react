@@ -18,7 +18,9 @@ export default class SwitcherContent extends React.Component {
 
   render() {
     const { className, ...rest } = this.props;
+
     const classes = classnames(className, 'uk-switcher');
+
     return <Base {...rest} className={classes} component={SwitcherContent} />;
   }
 }

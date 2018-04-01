@@ -18,7 +18,9 @@ export default class CommentHeader extends React.Component {
 
   render() {
     const { className, ...rest } = this.props;
+
     const classes = classnames(className, 'uk-comment-header');
+
     return <Base {...rest} className={classes} component={CommentHeader} />;
   }
 }

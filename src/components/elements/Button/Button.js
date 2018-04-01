@@ -73,7 +73,9 @@ export default class Button extends React.Component {
         (acc, styleName) => (this.props[styleName] ? acc + 1 : acc),
         0,
       ) === 0;
+    const hasHref = !isNil(href);
     const hasIcon = !isNil(icon);
+    const hasText = !isNil(text);
 
     const classes = classnames(className, buildClassName('button', size), {
       'uk-button': !hasIcon,
@@ -90,14 +92,14 @@ export default class Button extends React.Component {
     return (
       <Base
         {...rest}
-        as={hasIcon || !isNil(href) ? 'a' : as}
+        as={hasIcon || hasHref ? 'a' : as}
         className={classes}
         component={Button}
         disabled={(disabled && this.props.as === 'button') || undefined}
         href={href}
         onClick={this.handleClick}
-        text={!isNil(text) && !isBoolean(text) ? text : undefined}
-        icon={hasIcon ? icon : undefined}
+        text={hasText && !isBoolean(text) ? text : undefined}
+        uk-icon={hasIcon ? icon : undefined}
         uk-toggle={this.props.target ? '' : undefined}
       >
         {!hasIcon && children}

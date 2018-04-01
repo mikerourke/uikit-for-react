@@ -23,7 +23,9 @@ export default class SearchInput extends React.Component {
 
   render() {
     const { className, ...rest } = this.props;
+
     const classes = classnames(className, 'uk-search-input');
+
     return (
       <Base
         {...rest}

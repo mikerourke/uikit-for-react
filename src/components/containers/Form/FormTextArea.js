@@ -45,7 +45,7 @@ export default class FormTextArea extends React.Component {
       className,
       'uk-textarea',
       buildClassName('form', size),
-      buildClassName('form', 'width', formWidth),
+      buildClassName('form-width', formWidth),
       {
         'uk-form-blank': blank,
         'uk-form-danger': danger,

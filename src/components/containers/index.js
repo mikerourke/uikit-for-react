@@ -39,13 +39,17 @@ export Form, {
 export Lightbox, { LightboxItem } from './Lightbox';
 export List, { ListItem } from './List';
 export Modal, {
+  ModalAlert,
   ModalBody,
   ModalClose,
+  ModalConfirm,
   ModalContent,
   ModalDialog,
   ModalFooter,
   ModalHeader,
+  ModalPrompt,
   ModalTitle,
+  ModalToggle,
 } from './Modal';
 export Offcanvas, {
   OffcanvasBar,

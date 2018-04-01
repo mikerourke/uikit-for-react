@@ -26,9 +26,7 @@ export default class ThumbnavItem extends React.Component {
   render() {
     const { active, children, className, ...rest } = this.props;
 
-    const classes = classnames(className, {
-      'uk-active': active,
-    });
+    const classes = classnames(className, { 'uk-active': active });
 
     return (
       <Base {...rest} className={classes || undefined} component={ThumbnavItem}>

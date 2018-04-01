@@ -27,14 +27,18 @@ export default class ToggleTogglable extends React.Component {
           if (childMatchesType(child, ToggleTarget)) targetCount += 1;
           if (childMatchesType(child, ToggleToggle)) toggleCount += 1;
         });
+
         if (targetCount === 0 || toggleCount === 0) {
           return new Error(
-            'You must include a Target and Toggle component in Togglable container.',
+            'You must include a Target and Toggle component in Togglable ' +
+            'container.',
           );
         }
+
         if (targetCount > 1) {
           return new Error(
-            'You cannot have more than one Target component inside of a Togglable container.',
+            'You cannot have more than one Target component inside of a ' +
+            'Togglable container.',
           );
         }
         return null;
@@ -47,8 +51,8 @@ export default class ToggleTogglable extends React.Component {
     as: 'div',
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.selector = generateSelector();
   }
 

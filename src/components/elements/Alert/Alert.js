@@ -3,16 +3,14 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import get from 'lodash/get';
-import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import {
   addEventInvoker,
   customPropTypes,
-  generateSelector,
-  getBaseRef,
   getOptionsString,
   hasChildType,
   HTML,
+  LibraryComponent,
   UIK,
 } from '../../../lib';
 import Base from '../../base';
@@ -42,7 +40,7 @@ export default class Alert extends React.Component {
         if (props.closeable && hasChildType(props.children, Close)) {
           return new Error(
             'You cannot have an instance of Close inside an Alert if the ' +
-            '"closeable" prop is true.',
+              '"closeable" prop is true.',
           );
         }
         return null;
@@ -69,23 +67,16 @@ export default class Alert extends React.Component {
     warning: false,
   };
 
-  constructor() {
-    super();
-    this.selector = generateSelector();
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('alert');
   }
 
   componentDidMount() {
-    const ref = this.getRef();
-    addEventInvoker(ref, 'beforehide', 'onBeforeHide', this.props);
-    addEventInvoker(ref, 'hide', 'onHide', this.props);
+    const { cssSelector } = this.libComp;
+    addEventInvoker(cssSelector, 'beforehide', 'onBeforeHide', this.props);
+    addEventInvoker(cssSelector, 'hide', 'onHide', this.props);
   }
-
-  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
-
-  handleRef = element => {
-    if (!element) return;
-    this.ref = getBaseRef(element);
-  };
 
   renderChildren = children =>
     React.Children.map(children, child => {
@@ -111,7 +102,7 @@ export default class Alert extends React.Component {
       ...rest
     } = this.props;
 
-    const classes = classnames(className, 'uk-alert', this.selector, {
+    const classes = classnames(className, 'uk-alert', {
       'uk-alert-danger': danger,
       'uk-alert-primary': primary,
       'uk-alert-success': success,
@@ -132,10 +123,10 @@ export default class Alert extends React.Component {
     return (
       <Base
         {...rest}
-        baseRef={this.handleRef}
         className={classes}
         component={Alert}
         uk-alert={getOptionsString({ animation })}
+        {...this.libComp.appendProps(this.props)}
       >
         {closeable && <Close {...closeProps} />}
         {this.renderChildren(children)}

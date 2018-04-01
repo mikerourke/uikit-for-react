@@ -31,7 +31,9 @@ export default class Article extends React.Component {
 
   render() {
     const { className, ...rest } = this.props;
+
     const classes = classnames(className, 'uk-article');
+
     return <Base {...rest} component={Article} className={classes} />;
   }
 }

@@ -4,16 +4,14 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import get from 'lodash/get';
-import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
   buildClassName,
   customPropTypes,
-  generateSelector,
-  getBaseRef,
   getOptionsString,
   joinListProp,
+  LibraryComponent,
   UIK,
 } from '../../../lib';
 import Base from '../../base';
@@ -38,7 +36,8 @@ export default class Navbar extends React.Component {
         const elementType = get(props, ['as', 'type'], props.as);
         if (props.container === true && elementType !== 'nav') {
           return new Error(
-            'You must specify a <nav> element for the as prop in Navbar if container is true.',
+            'You must specify a <nav> element for the as prop in Navbar if ' +
+            'container is true.',
           );
         }
         return null;
@@ -87,13 +86,12 @@ export default class Navbar extends React.Component {
   static Subtitle = NavbarSubtitle;
   static Toggle = NavbarToggle;
 
-  constructor() {
-    super();
-    this.selector = generateSelector();
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('navbar');
   }
 
   componentDidMount() {
-    const ref = this.getRef();
     const ukToPropsEventMap = {
       beforehide: 'onBeforeHide',
       beforeshow: 'onBeforeShow',
@@ -102,15 +100,12 @@ export default class Navbar extends React.Component {
       show: 'onShow',
       shown: 'onShown',
     };
-    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
+    addMultipleEventInvokers(
+      this.libComp.cssSelector,
+      ukToPropsEventMap,
+      this.props,
+    );
   }
-
-  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
-
-  handleRef = element => {
-    if (!element) return;
-    this.ref = getBaseRef(element);
-  };
 
   renderChildren = children =>
     React.Children.map(children, child => {
@@ -140,7 +135,7 @@ export default class Navbar extends React.Component {
       ...rest
     } = this.props;
 
-    const classes = classnames(className, 'uk-navbar', this.selector, {
+    const classes = classnames(className, 'uk-navbar', {
       'uk-navbar-container': container,
       'uk-navbar-transparent': transparent,
     });
@@ -172,6 +167,7 @@ export default class Navbar extends React.Component {
         className={classes}
         component={Navbar}
         uk-navbar={componentOptions}
+        {...this.libComp.appendProps(this.props)}
       >
         <div {...alignProps}>{this.renderChildren(children)}</div>
       </Base>

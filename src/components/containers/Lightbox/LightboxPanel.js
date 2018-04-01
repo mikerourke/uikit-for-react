@@ -87,6 +87,11 @@ export default class LightboxPanel extends React.Component {
     addMultipleEventInvokers(panelElement, ukToPropsEventMap, props);
   }
 
+  constructor(props) {
+    super(props);
+    this.lightboxPanel = null;
+  }
+
   componentDidMount() {
     this.lightboxPanel.show(this.props.defaultIndex);
     const panelElement = this.lightboxPanel.$el;

@@ -2,17 +2,15 @@ import React, { Fragment } from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
   appendClassNamesToChildren,
   customPropTypes,
-  generateSelector,
-  getBaseRef,
   getOptionsString,
-  joinListProp,
   HTML,
+  joinListProp,
+  LibraryComponent,
   UIK,
 } from '../../../lib';
 import Base from '../../base';
@@ -70,13 +68,13 @@ export default class Drop extends React.Component {
 
   static Boundary = DropBoundary;
 
-  constructor() {
-    super();
-    this.selector = generateSelector();
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('drop');
   }
 
   componentDidMount() {
-    const ref = this.getRef();
+    this.drop = UIkit.drop(this.libComp.cssSelector);
     const ukToPropsEventMap = {
       beforehide: 'onBeforeHide',
       beforeshow: 'onBeforeShow',
@@ -87,25 +85,17 @@ export default class Drop extends React.Component {
       stack: 'onStack',
       toggle: 'onToggle',
     };
-    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
+    addMultipleEventInvokers(this.drop, ukToPropsEventMap, this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    const drop = UIkit.drop(this.getRef());
     if (nextProps.shown === true && this.props.shown === false) {
-      drop.show();
+      this.drop.show();
     }
     if (nextProps.shown === false && this.props.shown === true) {
-      drop.hide();
+      this.drop.hide();
     }
   }
-
-  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
-
-  handleRef = element => {
-    if (!element) return;
-    this.ref = getBaseRef(element);
-  };
 
   renderChildren = children =>
     appendClassNamesToChildren(children, {
@@ -128,7 +118,7 @@ export default class Drop extends React.Component {
       ...rest
     } = this.props;
 
-    const classes = classnames(className, this.selector, 'uk-drop');
+    const classes = classnames(className, 'uk-drop');
 
     const componentOptions = getOptionsString({
       animation,
@@ -150,6 +140,7 @@ export default class Drop extends React.Component {
           className={classes}
           component={Drop}
           uk-drop={componentOptions}
+          {...this.libComp.appendProps(this.props)}
         >
           {this.renderChildren(children)}
         </Base>

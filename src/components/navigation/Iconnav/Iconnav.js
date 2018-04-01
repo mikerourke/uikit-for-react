@@ -25,11 +25,11 @@ export default class Iconnav extends React.Component {
 
   render() {
     const { className, vertical, ...rest } = this.props;
-
+    
     const classes = classnames(className, 'uk-iconnav', {
       'uk-iconnav-vertical': vertical,
     });
-
+    
     return <Base {...rest} className={classes} component={Iconnav} />;
   }
 }

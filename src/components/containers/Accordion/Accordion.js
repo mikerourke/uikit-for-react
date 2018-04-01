@@ -10,10 +10,9 @@ import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
   customPropTypes,
-  generateSelector,
-  getBaseRef,
   getOptionsString,
   HTML,
+  LibraryComponent,
 } from '../../../lib';
 import Base from '../../base';
 import AccordionContent from './AccordionContent';
@@ -70,13 +69,14 @@ export default class Accordion extends React.Component {
   static Panel = AccordionPanel;
   static Title = AccordionTitle;
 
-  constructor() {
-    super();
-    this.selector = generateSelector();
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('accordion');
+    this.accordion = null;
   }
 
   componentDidMount() {
-    const ref = this.getRef();
+    this.accordion = UIkit.accordion(this.libComp.cssSelector);
     const ukToPropsEventMap = {
       beforehide: 'onBeforeHide',
       beforeshow: 'onBeforeShow',
@@ -85,15 +85,13 @@ export default class Accordion extends React.Component {
       show: 'onShow',
       shown: 'onShown',
     };
-    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
+    addMultipleEventInvokers(this.accordion, ukToPropsEventMap, this.props);
     this.toggleOpenItems(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
     this.toggleOpenItems(nextProps);
   }
-
-  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
 
   /**
    * Loops through each of the accordion items and either toggles them as open
@@ -109,9 +107,7 @@ export default class Accordion extends React.Component {
 
     const animate = !props.hideOpenAnimation;
     const openIndices = flatten([props.openIndex]);
-    const accordionRef = this.getRef();
-    const accordion = UIkit.accordion(accordionRef);
-    const accordionContents = accordionRef.querySelectorAll('div');
+    const accordionContents = this.accordion.$el.querySelectorAll('div');
 
     const getIsOpen = childIndex => {
       const hiddenItem = accordionContents
@@ -125,14 +121,9 @@ export default class Accordion extends React.Component {
       const isOpen = getIsOpen(childIndex);
       const shouldBeOpen = openIndices.includes(childIndex);
       if ((isOpen && !shouldBeOpen) || (!isOpen && shouldBeOpen)) {
-        accordion.toggle(childIndex, animate);
+        this.accordion.toggle(childIndex, animate);
       }
     });
-  };
-
-  handleRef = element => {
-    if (!element) return;
-    this.ref = getBaseRef(element);
   };
 
   render() {
@@ -150,7 +141,7 @@ export default class Accordion extends React.Component {
       ...rest
     } = this.props;
 
-    const classes = classnames(className, this.selector, 'uk-accordion');
+    const classes = classnames(className, 'uk-accordion');
 
     const componentOptions = getOptionsString({
       active: defaultIndex,
@@ -166,10 +157,11 @@ export default class Accordion extends React.Component {
     return (
       <Base
         {...rest}
+        baseId={this.props.id}
         className={classes}
         component={Accordion}
-        baseRef={this.handleRef}
         uk-accordion={componentOptions}
+        {...this.libComp.appendProps(this.props)}
       />
     );
   }

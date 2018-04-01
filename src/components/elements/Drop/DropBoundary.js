@@ -33,7 +33,9 @@ export default class DropBoundary extends React.Component {
 
   render() {
     const { children, className, ...rest } = this.props;
+
     const classes = classnames(className, this.selector);
+
     return (
       <Base {...rest} className={classes} component={DropBoundary}>
         {this.renderChildren(children)}

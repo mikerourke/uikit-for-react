@@ -22,7 +22,9 @@ export default class AccordionTitle extends React.Component {
 
   render() {
     const { className, ...rest } = this.props;
+
     const classes = classnames(className, 'uk-accordion-title');
+
     return <Base {...rest} className={classes} component={AccordionTitle} />;
   }
 }

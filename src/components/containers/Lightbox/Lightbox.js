@@ -3,15 +3,13 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import get from 'lodash/get';
-import isNil from 'lodash/isNil';
 import isPlainObject from 'lodash/isPlainObject';
 import noop from 'lodash/noop';
 import {
   customPropTypes,
-  generateSelector,
-  getBaseRef,
   getOptionsString,
   HTML,
+  LibraryComponent,
   UIK,
 } from '../../../lib';
 import Base from '../../base';
@@ -78,13 +76,14 @@ export default class Lightbox extends React.Component {
   static Item = LightboxItem;
   static Panel = LightboxPanel;
 
-  constructor() {
-    super();
-    this.selector = generateSelector();
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('lightbox');
+    this.lightbox = null;
   }
 
   componentWillReceiveProps(nextProps) {
-    const lightbox = UIkit.lightbox(this.getRef());
+    const lightbox = UIkit.lightbox(this.libComp.cssSelector);
     if (nextProps.activeIndex !== this.props.activeIndex) {
       lightbox.show(nextProps.activeIndex);
     }
@@ -101,26 +100,16 @@ export default class Lightbox extends React.Component {
     LightboxPanel.addEventListeners(this.props, panel);
   }
 
-  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
-
-  handleRef = element => {
-    if (!element) return;
-    this.ref = getBaseRef(element);
-  };
-
   render() {
     const {
       animation,
       autoplay,
-      className,
       defaultIndex,
       pauseOnHover,
       toggleSelector,
       videoAutoplay,
       ...rest
     } = this.props;
-
-    const classes = classnames(className, this.selector);
 
     const animationName = isPlainObject(animation)
       ? get(animation, 'name', 'slide')
@@ -140,10 +129,9 @@ export default class Lightbox extends React.Component {
     return (
       <Base
         {...rest}
-        className={classes}
         component={Lightbox}
-        baseRef={this.handleRef}
         uk-lightbox={componentOptions}
+        {...this.libComp.appendProps(this.props)}
       />
     );
   }

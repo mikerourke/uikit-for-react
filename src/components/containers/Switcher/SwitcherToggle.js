@@ -16,12 +16,13 @@ export default class SwitcherToggle extends React.Component {
   static defaultProps = {
     ...Base.defaultProps,
     as: 'li',
-    href: '#',
   };
 
   render() {
     const { as, children, href, ...rest } = this.props;
+
     const isAsString = isString(as);
+
     return (
       <Base {...rest} as={as} component={SwitcherToggle}>
         {isAsString ? <a href={href}>{children}</a> : children}

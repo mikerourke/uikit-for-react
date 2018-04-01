@@ -2,15 +2,13 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
   buildClassName,
   customPropTypes,
-  generateSelector,
-  getBaseRef,
   getOptionsString,
+  LibraryComponent,
   UIK,
 } from '../../../lib';
 import Base from '../../base';
@@ -66,13 +64,15 @@ export default class Tab extends React.Component {
 
   static Item = TabItem;
 
-  constructor() {
-    super();
-    this.selector = generateSelector();
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('tab');
+    this.tab = null;
   }
 
   componentDidMount() {
-    const ref = this.getRef();
+    this.tab = UIkit.tab(this.libComp.cssSelector);
+
     const ukToPropsEventMap = {
       beforehide: 'onBeforeHide',
       beforeshow: 'onBeforeShow',
@@ -81,22 +81,15 @@ export default class Tab extends React.Component {
       show: 'onShow',
       shown: 'onShown',
     };
-    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
-    UIkit.tab(ref).show(this.props.activeIndex);
+    addMultipleEventInvokers(this.tab, ukToPropsEventMap, this.props);
+    this.tab.show(this.props.activeIndex);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.activeIndex !== this.props.activeIndex) {
-      UIkit.tab(this.getRef()).show(nextProps.activeIndex);
+      this.tab.show(nextProps.activeIndex);
     }
   }
-
-  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
-
-  handleRef = element => {
-    if (!element) return;
-    this.ref = getBaseRef(element);
-  };
 
   render() {
     const {
@@ -109,11 +102,7 @@ export default class Tab extends React.Component {
       ...rest
     } = this.props;
 
-    const classes = classnames(
-      className,
-      this.selector,
-      buildClassName('tab', align),
-    );
+    const classes = classnames(className, buildClassName('tab', align));
 
     const componentOptions = getOptionsString({
       animation,
@@ -129,6 +118,7 @@ export default class Tab extends React.Component {
         className={classes}
         component={Tab}
         uk-tab={componentOptions}
+        {...this.libComp.appendProps(this.props)}
       />
     );
   }

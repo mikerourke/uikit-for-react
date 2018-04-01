@@ -18,7 +18,9 @@ export default class CardHeader extends React.Component {
 
   render() {
     const { className, ...rest } = this.props;
+
     const classes = classnames(className, 'uk-card-header');
+
     return <Base {...rest} className={classes} component={CardHeader} />;
   }
 }

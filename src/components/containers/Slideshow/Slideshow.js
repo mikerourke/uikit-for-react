@@ -1,20 +1,16 @@
-// TODO: Add toggle and pause functionality.
 import React from 'react';
 import UIkit from 'uikit';
 import ExtraPropTypes from 'airbnb-prop-types';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import get from 'lodash/get';
-import isNil from 'lodash/isNil';
 import isPlainObject from 'lodash/isPlainObject';
 import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
   customPropTypes,
-  generateSelector,
-  getBaseRef,
   getOptionsString,
   HTML,
+  LibraryComponent,
   UIK,
 } from '../../../lib';
 import Base from '../../base';
@@ -77,13 +73,15 @@ export default class Slideshow extends React.Component {
   static Item = SlideshowItem;
   static Items = SlideshowItems;
 
-  constructor() {
-    super();
-    this.selector = generateSelector();
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('slideshow');
+    this.slideshow = null;
   }
 
   componentDidMount() {
-    const ref = this.getRef();
+    this.slideshow = UIkit.slideshow(this.libComp.cssSelector);
+
     const ukToPropsEventMap = {
       beforeitemhide: 'onBeforeItemHide',
       beforeitemshow: 'onBeforeItemShow',
@@ -92,31 +90,22 @@ export default class Slideshow extends React.Component {
       itemshow: 'onItemShow',
       itemshown: 'onItemShown',
     };
-    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
+    addMultipleEventInvokers(this.slideshow, ukToPropsEventMap, this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    const slideshow = UIkit.slideshow(this.getRef());
     if (nextProps.paused === true && this.props.paused === false) {
-      slideshow.stopAutoplay();
+      this.slideshow.stopAutoplay();
     }
     if (nextProps.paused === false && this.props.paused === true) {
-      slideshow.startAutoplay();
+      this.slideshow.startAutoplay();
     }
   }
-
-  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
-
-  handleRef = element => {
-    if (!element) return;
-    this.ref = getBaseRef(element);
-  };
 
   render() {
     const {
       animation,
       autoplay,
-      className,
       defaultIndex,
       finite,
       maxHeight,
@@ -125,8 +114,6 @@ export default class Slideshow extends React.Component {
       ratio,
       ...rest
     } = this.props;
-
-    const classes = classnames(className, this.selector);
 
     const componentOptions = getOptionsString({
       activeIndex: defaultIndex,
@@ -143,10 +130,9 @@ export default class Slideshow extends React.Component {
     return (
       <Base
         {...rest}
-        baseRef={this.handleRef}
-        className={classes}
         component={Slideshow}
         uk-slideshow={componentOptions}
+        {...this.libComp.appendProps(this.props)}
       />
     );
   }

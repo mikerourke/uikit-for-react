@@ -4,6 +4,8 @@ export { buildClassName, buildBreakpointClasses } from './buildClasses';
 
 export { default as buildSelector } from './buildSelector';
 
+export { default as LibraryComponent } from './LibraryComponent';
+
 export {
   appendClassNamesToChildren,
   childMatchesType,
@@ -23,7 +25,13 @@ export { default as getValidProps } from './getValidProps';
 
 export { default as joinListProp } from './joinListProp';
 
-export { generateIdentifier, generateSelector } from './generateRandom';
+export { default as renderNavItemChildren } from './renderNavItemChildren';
+
+export {
+  generateIdentifier,
+  generateSelector,
+  generateAttributeValue,
+} from './generateRandom';
 
 export { HTML, UIK } from './constants';
 

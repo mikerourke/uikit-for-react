@@ -20,7 +20,9 @@ export default class VisibilityToggle extends React.Component {
 
   render() {
     const { className, whenHovered, ...rest } = this.props;
+
     const classes = classnames(className, buildClassName(whenHovered, 'hover'));
+
     return <Base {...rest} className={classes} component={VisibilityToggle} />;
   }
 }

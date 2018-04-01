@@ -18,7 +18,9 @@ export default class ButtonGroup extends React.Component {
 
   render() {
     const { className, ...rest } = this.props;
+
     const classes = classnames(className, 'uk-button-group');
+
     return <Base {...rest} className={classes} component={ButtonGroup} />;
   }
 }

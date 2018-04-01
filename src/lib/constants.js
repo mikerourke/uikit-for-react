@@ -449,3 +449,5 @@ export const HTML = {
   TEXT_ELEMENTS: HTML_TEXT_ELEMENTS,
   CSS_EASING: ['ease', 'ease-in', 'ease-out', 'ease-in-out'],
 };
+
+export const VALID_CHARS = '1234567890abcdefghijklmnopqrstuvwxyz-';

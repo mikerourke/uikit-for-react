@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { customPropTypes } from '../../../lib';
 import Base from '../../base';
 

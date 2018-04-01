@@ -1,5 +1,6 @@
 import UIkit from 'uikit';
 import get from 'lodash/get';
+import has from 'lodash/has';
 import invoke from 'lodash/invoke';
 import isNil from 'lodash/isNil';
 import toPairs from 'lodash/toPairs';
@@ -11,10 +12,11 @@ export const addEventInvoker = (
   componentProps,
 ) => {
   if (isNil(ukElement)) return false;
+  const elementRef = has(ukElement, '$el') ? ukElement.$el : ukElement;
   if (!get(componentProps, propsEventName)) return false;
   const invokedEvent = e =>
     invoke(componentProps, propsEventName, e, componentProps);
-  UIkit.util.on(ukElement, ukEventName, invokedEvent);
+  UIkit.util.on(elementRef, ukEventName, invokedEvent);
   return true;
 };
 

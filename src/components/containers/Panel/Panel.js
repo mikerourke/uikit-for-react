@@ -21,9 +21,11 @@ export default class Panel extends React.Component {
 
   render() {
     const { className, scrollable, ...rest } = this.props;
+
     const classes = classnames(className, 'uk-panel', {
       'uk-panel-scrollable': scrollable,
     });
+
     return <Base {...rest} className={classes} component={Panel} />;
   }
 }

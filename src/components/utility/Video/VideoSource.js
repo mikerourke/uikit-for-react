@@ -19,7 +19,9 @@ export default class VideoSource extends React.Component {
 
   render() {
     const { as, ...rest } = this.props;
+
     const Element = getElementType(VideoSource, as);
+
     return <Element {...rest} />;
   }
 }

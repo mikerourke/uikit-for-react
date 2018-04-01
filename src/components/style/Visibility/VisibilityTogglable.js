@@ -18,7 +18,9 @@ export default class VisibilityTogglable extends React.Component {
 
   render() {
     const { className, ...rest } = this.props;
+
     const classes = classnames(className, 'uk-visible-toggle');
+
     return (
       <Base {...rest} className={classes} component={VisibilityTogglable} />
     );

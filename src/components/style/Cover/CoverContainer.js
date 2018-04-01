@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import get from 'lodash/get';
+import isNil from 'lodash/isNil';
 import { customPropTypes, getOptionsString, HTML } from '../../../lib';
 import Base from '../../base';
 
@@ -43,7 +44,7 @@ export default class CoverContainer extends React.Component {
         component={CoverContainer}
         uk-height-viewport={getOptionsString(viewport)}
       >
-        {aspectRatio && <canvas {...canvasProps} />}
+        {!isNil(aspectRatio) && <canvas {...canvasProps} />}
         {children}
       </Base>
     );

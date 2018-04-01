@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import classnames from 'classnames';
 import {
   addEventInvoker,
   customPropTypes,
   findChildByType,
-  generateSelector,
-  getBaseRef,
   getOptionsString,
+  LibraryComponent,
   HTML,
 } from '../../../lib';
 import Base from '../../base';
@@ -46,21 +44,23 @@ export default class Sticky extends React.Component {
     onInactive: noop,
   };
 
-  constructor() {
-    super();
-    this.selector = generateSelector();
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('sticky');
   }
 
   componentDidMount() {
-    const ref = this.getRef();
-    addEventInvoker(ref, 'active', 'onActive', this.props);
-    addEventInvoker(ref, 'inactive', 'onInactive', this.props);
+    const { cssSelector } = this.libComp;
+    addEventInvoker(cssSelector, 'active', 'onActive', this.props);
+    addEventInvoker(cssSelector, 'inactive', 'onInactive', this.props);
   }
 
   getOptionsForNavbar() {
     const { children, clsActive, clsInactive, target } = this.props;
+
     const childNavbar = findChildByType(children, Navbar);
     if (!childNavbar) return {};
+
     return {
       clsActive: classnames(clsActive, 'uk-navbar-sticky'),
       clsInactive: childNavbar.props.transparent
@@ -70,18 +70,10 @@ export default class Sticky extends React.Component {
     };
   }
 
-  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
-
-  handleRef = element => {
-    if (!element) return;
-    this.ref = getBaseRef(element);
-  };
-
   render() {
     const {
       animation,
       bottom,
-      className,
       clsActive,
       clsInactive,
       media,
@@ -92,8 +84,6 @@ export default class Sticky extends React.Component {
       widthElement,
       ...rest
     } = this.props;
-
-    const classes = classnames(className, this.selector);
 
     const componentOptions = getOptionsString({
       animation,
@@ -113,7 +103,6 @@ export default class Sticky extends React.Component {
       <Base
         {...rest}
         baseRef={this.handleRef}
-        className={classes}
         component={Sticky}
         uk-sticky={componentOptions}
       />

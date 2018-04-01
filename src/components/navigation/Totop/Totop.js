@@ -5,6 +5,7 @@ import {
   addEventInvoker,
   customPropTypes,
   getOptionsString,
+  LibraryComponent,
 } from '../../../lib';
 import Base from '../../base';
 
@@ -28,9 +29,13 @@ export default class Totop extends React.Component {
     onScrolled: noop,
   };
 
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('scroll-totop');
+  }
+
   componentDidMount() {
-    const element = document.querySelector('[data-uikfr-scroll-totop]');
-    if (!element) return;
+    const element = this.libComp.domNode;
     addEventInvoker(element, 'beforescroll', 'onBeforeScroll', this.props);
     addEventInvoker(element, 'scrolled', 'onScrolled', this.props);
   }
@@ -50,7 +55,7 @@ export default class Totop extends React.Component {
         href="#"
         uk-totop=""
         uk-scroll={smooth ? scrollOptions : undefined}
-        data-uikfr-scroll-totop=""
+        {...this.libComp.appendProps(this.props)}
       />
     );
   }

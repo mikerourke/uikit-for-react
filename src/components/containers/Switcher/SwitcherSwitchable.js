@@ -20,8 +20,8 @@ export default class SwitcherSwitchable extends React.Component {
     as: 'div',
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.selector = generateSelector();
   }
 
@@ -50,6 +50,7 @@ export default class SwitcherSwitchable extends React.Component {
 
   render() {
     const { children, ...rest } = this.props;
+
     return (
       <Base {...rest} component={SwitcherSwitchable}>
         {this.renderChildren(children)}

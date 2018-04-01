@@ -2,14 +2,12 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
   customPropTypes,
-  generateSelector,
-  getBaseRef,
   getOptionsString,
+  LibraryComponent,
   HTML,
   UIK,
 } from '../../../lib';
@@ -71,13 +69,15 @@ export default class Tooltip extends React.Component {
     shown: false,
   };
 
-  constructor() {
-    super();
-    this.selector = generateSelector();
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('tooltip');
+    this.tooltip = null;
   }
 
   componentDidMount() {
-    const ref = this.getRef();
+    this.tooltip = UIkit.tooltip(this.libComp.cssSelector);
+
     const ukToPropsEventMap = {
       beforehide: 'onBeforeHide',
       beforeshow: 'onBeforeShow',
@@ -86,25 +86,17 @@ export default class Tooltip extends React.Component {
       show: 'onShow',
       shown: 'onShown',
     };
-    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
+    addMultipleEventInvokers(this.tooltip, ukToPropsEventMap, this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    const tooltip = UIkit.tooltip(this.getRef());
     if (nextProps.shown === true && this.props.shown === false) {
-      tooltip.show();
+      this.tooltip.show();
     }
     if (nextProps.shown === false && this.props.shown === true) {
-      tooltip.hide();
+      this.tooltip.hide();
     }
   }
-
-  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
-
-  handleRef = element => {
-    if (!element) return;
-    this.ref = getBaseRef(element);
-  };
 
   render() {
     const {
@@ -118,7 +110,7 @@ export default class Tooltip extends React.Component {
       ...rest
     } = this.props;
 
-    const classes = classnames(className, 'uk-tooltip', this.selector);
+    const classes = classnames(className, 'uk-tooltip');
 
     const componentOptions = getOptionsString({
       animation,
@@ -131,10 +123,10 @@ export default class Tooltip extends React.Component {
     return (
       <Base
         {...rest}
-        baseRef={this.handleRef}
         className={classes}
         component={Tooltip}
         uk-tooltip={componentOptions}
+        {...this.libComp.appendProps(this.props)}
       />
     );
   }

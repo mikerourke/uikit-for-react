@@ -23,6 +23,7 @@ export default class SwitcherGoTo extends React.Component {
 
   render() {
     const { target, ...rest } = this.props;
+
     return (
       <Base
         {...rest}

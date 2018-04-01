@@ -18,7 +18,9 @@ export default class ModalFooter extends React.Component {
 
   render() {
     const { className, ...rest } = this.props;
+
     const classes = classnames(className, 'uk-modal-footer');
+
     return <Base {...rest} className={classes} component={ModalFooter} />;
   }
 }

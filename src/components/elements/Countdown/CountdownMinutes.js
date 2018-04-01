@@ -31,7 +31,9 @@ export default class CountdownMinutes extends React.Component {
     const BaseComponent = (
       <Base {...rest} className={classes} component={CountdownMinutes} />
     );
+
     if (!label) return BaseComponent;
+
     return (
       <div>
         {BaseComponent}

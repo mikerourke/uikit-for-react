@@ -2,6 +2,7 @@ import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
+import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import without from 'lodash/without';
 import { addEventInvoker, UIK } from '../../../lib';
@@ -47,7 +48,7 @@ export default class Notification extends React.Component {
 
   componentDidUpdate() {
     const notifier = document.querySelector('.uk-notification');
-    if (notifier) {
+    if (!isNil(notifier)) {
       addEventInvoker(notifier, 'close', 'onClose', this.props);
     }
   }

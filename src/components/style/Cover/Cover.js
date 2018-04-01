@@ -23,6 +23,7 @@ export default class Cover extends React.Component {
 
   render() {
     const { automute, ...rest } = this.props;
+
     return (
       <Base
         {...rest}

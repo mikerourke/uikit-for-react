@@ -8,19 +8,21 @@ import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
   customPropTypes,
-  generateSelector,
-  getBaseRef,
   getOptionsString,
+  LibraryComponent,
 } from '../../../lib';
 import Base from '../../base';
-import { ToggleToggle } from '../../elements/Toggle';
+import ModalAlert from './ModalAlert';
 import ModalBody from './ModalBody';
 import ModalClose from './ModalClose';
+import ModalConfirm from './ModalConfirm';
 import ModalContent from './ModalContent';
 import ModalDialog from './ModalDialog';
 import ModalFooter from './ModalFooter';
 import ModalHeader from './ModalHeader';
+import ModalPrompt from './ModalPrompt';
 import ModalTitle from './ModalTitle';
+import ModalToggle from './ModalToggle';
 
 export default class Modal extends React.Component {
   static displayName = 'Modal';
@@ -30,16 +32,19 @@ export default class Modal extends React.Component {
     as: customPropTypes.customOrStringElement('div'),
     bgClose: PropTypes.bool,
     children: ExtraPropTypes.elementType(ModalDialog),
+    clsPage: PropTypes.string,
+    clsPanel: PropTypes.string,
     container: PropTypes.bool,
     escClose: PropTypes.bool,
     full: PropTypes.bool,
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    modalName: PropTypes.string,
     onBeforeHide: PropTypes.func,
     onBeforeShow: PropTypes.func,
     onHidden: PropTypes.func,
     onHide: PropTypes.func,
     onShow: PropTypes.func,
     onShown: PropTypes.func,
+    selClose: PropTypes.string,
     shown: PropTypes.bool,
     stack: PropTypes.bool,
     toggle: PropTypes.element,
@@ -57,21 +62,31 @@ export default class Modal extends React.Component {
     shown: false,
   };
 
+  static Alert = ModalAlert;
   static Body = ModalBody;
   static Close = ModalClose;
+  static Confirm = ModalConfirm;
   static Content = ModalContent;
   static Dialog = ModalDialog;
   static Footer = ModalFooter;
   static Header = ModalHeader;
+  static Prompt = ModalPrompt;
   static Title = ModalTitle;
+  static Toggle = ModalToggle;
 
-  constructor() {
-    super();
-    this.selector = generateSelector();
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('modal');
+    this.modal = null;
   }
 
   componentDidMount() {
-    const ref = this.getRef();
+    this.modal = UIkit.modal(this.libComp.cssSelector, {
+      'cls-page': this.props.clsPage,
+      'cls-panel': this.props.clsPanel,
+      'sel-close': this.props.selClose,
+    });
+
     const ukToPropsEventMap = {
       beforehide: 'onBeforeHide',
       beforeshow: 'onBeforeShow',
@@ -80,25 +95,17 @@ export default class Modal extends React.Component {
       show: 'onShow',
       shown: 'onShown',
     };
-    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
+    addMultipleEventInvokers(this.modal, ukToPropsEventMap, this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    const modal = UIkit.modal(this.getRef());
     if (nextProps.shown === true && this.props.shown === false) {
-      modal.show();
+      this.modal.show();
     }
     if (nextProps.shown === false && this.props.shown === true) {
-      modal.hide();
+      this.modal.hide();
     }
   }
-
-  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
-
-  handleRef = element => {
-    if (!element) return;
-    this.ref = getBaseRef(element);
-  };
 
   render() {
     const {
@@ -108,28 +115,23 @@ export default class Modal extends React.Component {
       escClose,
       full,
       id,
+      modalName,
       stack,
       toggle,
       ...rest
     } = this.props;
 
-    const classes = classnames(className, 'uk-modal', this.selector, {
+    const classes = classnames(className, 'uk-modal', {
       'uk-modal-container': container,
       'uk-modal-full': full,
     });
 
-    let Toggle = null;
-    if (toggle) Toggle = toggle.type;
-
     return (
       <Fragment>
-        {toggle && (
-          <Toggle
-            {...toggle.props}
-            as={ToggleToggle}
-            target={`.${this.selector}`}
-          />
-        )}
+        {!isNil(toggle) &&
+          React.cloneElement(toggle, {
+            target: this.libComp.cssSelector,
+          })}
         <Base
           {...rest}
           baseId={id}
@@ -137,6 +139,7 @@ export default class Modal extends React.Component {
           className={classes}
           component={Modal}
           uk-modal={getOptionsString({ bgClose, escClose, stack })}
+          {...this.libComp.appendProps(this.props, { attrValue: modalName })}
         />
       </Fragment>
     );

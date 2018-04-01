@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import isNil from 'lodash/isNil';
 import isBoolean from 'lodash/isBoolean';
 import noop from 'lodash/noop';
 import {
@@ -11,8 +10,8 @@ import {
   buildSelector,
   customPropTypes,
   generateSelector,
-  getBaseRef,
   getOptionsString,
+  LibraryComponent,
   HTML,
 } from '../../../lib';
 import Base from '../../base';
@@ -54,13 +53,13 @@ export default class Sortable extends React.Component {
     onStop: noop,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('sortable');
     this.selector = generateSelector();
   }
 
   componentDidMount() {
-    const ref = this.getRef();
     const ukToPropsEventMap = {
       added: 'onAdded',
       moved: 'onMoved',
@@ -68,15 +67,13 @@ export default class Sortable extends React.Component {
       start: 'onStart',
       stop: 'onStop',
     };
-    addMultipleEventInvokers(ref, ukToPropsEventMap, this.props);
+
+    addMultipleEventInvokers(
+      this.libComp.cssSelector,
+      ukToPropsEventMap,
+      this.props,
+    );
   }
-
-  getRef = () => (isNil(this.ref) ? `.${this.selector}` : this.ref);
-
-  handleRef = element => {
-    if (!element) return;
-    this.ref = getBaseRef(element);
-  };
 
   activateSortedItems = children =>
     React.Children.map(children, child => {
@@ -131,6 +128,7 @@ export default class Sortable extends React.Component {
         baseRef={this.handleRef}
         component={Sortable}
         uk-sortable={componentOptions}
+        {...this.libComp.appendProps(this.props)}
       >
         {this.renderChildren(children)}
       </Base>
