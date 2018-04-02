@@ -114,7 +114,6 @@ export default class Tab extends React.Component {
     return (
       <Base
         {...rest}
-        baseRef={this.handleRef}
         className={classes}
         component={Tab}
         uk-tab={componentOptions}

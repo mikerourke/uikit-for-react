@@ -27,11 +27,7 @@ export { default as joinListProp } from './joinListProp';
 
 export { default as renderNavItemChildren } from './renderNavItemChildren';
 
-export {
-  generateIdentifier,
-  generateSelector,
-  generateAttributeValue,
-} from './generateRandom';
+export { generateIdentifier, generateSelector } from './generateRandom';
 
 export { HTML, UIK } from './constants';
 

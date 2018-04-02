@@ -8,7 +8,7 @@ export default class VideoSource extends React.Component {
 
   static propTypes = {
     as: customPropTypes.customOrStringElement('source'),
-    children: ExtraPropTypes.explicitNull(),
+    children: ExtraPropTypes.restrictedProp(),
     src: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
   };

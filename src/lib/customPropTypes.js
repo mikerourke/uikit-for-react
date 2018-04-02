@@ -64,7 +64,8 @@ const restrictToChildTypes = (...args) => (props, propName, componentName) => {
  */
 const indexValidator = (props, propName, componentName) => {
   const indexProp = props[propName];
-  const maxAllowed = React.Children.count(props.children) - 1;
+  const childrenCount = React.Children.count(props.children);
+  const maxAllowed = childrenCount === 0 ? 0 : childrenCount - 1;
   const maxErrorMessage = `Invalid ${propName} prop passed to ${componentName}, maximum allowed value is ${maxAllowed}.`;
   if (isArray(indexProp)) {
     if (props.multiple && props.multiple === false) {

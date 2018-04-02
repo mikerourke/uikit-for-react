@@ -135,7 +135,6 @@ export default class Modal extends React.Component {
         <Base
           {...rest}
           baseId={id}
-          baseRef={this.handleRef}
           className={classes}
           component={Modal}
           uk-modal={getOptionsString({ bgClose, escClose, stack })}

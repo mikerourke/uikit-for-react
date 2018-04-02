@@ -125,7 +125,6 @@ export default class ToggleToggle extends React.Component {
     return (
       <Base
         {...rest}
-        baseRef={this.handleRef}
         className={classes}
         component={ToggleToggle}
         uk-toggle={componentOptions}

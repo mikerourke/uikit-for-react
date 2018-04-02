@@ -7,7 +7,6 @@ import get from 'lodash/get';
 import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
-  buildClassName,
   customPropTypes,
   getOptionsString,
   joinListProp,
@@ -16,9 +15,8 @@ import {
 } from '../../../lib';
 import Base from '../../base';
 import NavbarContainer from './NavbarContainer';
-import NavbarDropdown from './NavbarDropdown';
 import NavbarItem from './NavbarItem';
-import NavbarNav from './NavbarNav';
+import NavbarSection from './NavbarSection';
 import NavbarSplit from './NavbarSplit';
 import NavbarSubtitle from './NavbarSubtitle';
 import NavbarToggle from './NavbarToggle';
@@ -28,8 +26,6 @@ export default class Navbar extends React.Component {
 
   static propTypes = {
     ...Base.propTypes,
-    alignOptions: PropTypes.object,
-    alignTo: PropTypes.oneOf(UIK.HORIZONTAL_POSITIONS).isRequired,
     as: ExtraPropTypes.and([
       customPropTypes.customOrStringElement('nav', 'div'),
       props => {
@@ -37,13 +33,14 @@ export default class Navbar extends React.Component {
         if (props.container === true && elementType !== 'nav') {
           return new Error(
             'You must specify a <nav> element for the as prop in Navbar if ' +
-            'container is true.',
+              'container is true.',
           );
         }
         return null;
       },
     ]),
     boundaryAlign: PropTypes.bool,
+    children: PropTypes.node.isRequired,
     container: PropTypes.bool,
     delayHide: PropTypes.number,
     delayShow: PropTypes.number,
@@ -79,9 +76,8 @@ export default class Navbar extends React.Component {
   };
 
   static Container = NavbarContainer;
-  static Dropdown = NavbarDropdown;
   static Item = NavbarItem;
-  static Nav = NavbarNav;
+  static Section = NavbarSection;
   static Split = NavbarSplit;
   static Subtitle = NavbarSubtitle;
   static Toggle = NavbarToggle;
@@ -107,20 +103,9 @@ export default class Navbar extends React.Component {
     );
   }
 
-  renderChildren = children =>
-    React.Children.map(children, child => {
-      if (child.type === NavbarItem) return child;
-      return React.cloneElement(child, {
-        className: classnames(child.props.className, 'uk-navbar-item'),
-      });
-    });
-
   render() {
     const {
-      alignOptions,
-      alignTo,
       boundaryAlign,
-      children,
       className,
       container,
       delayHide,
@@ -140,14 +125,6 @@ export default class Navbar extends React.Component {
       'uk-navbar-transparent': transparent,
     });
 
-    const alignProps = {
-      ...alignOptions,
-      className: classnames(
-        alignOptions.className,
-        buildClassName('navbar', alignTo),
-      ),
-    };
-
     const componentOptions = getOptionsString({
       align: dropdownAlign,
       boundaryAlign,
@@ -163,14 +140,11 @@ export default class Navbar extends React.Component {
     return (
       <Base
         {...rest}
-        baseRef={this.handleRef}
         className={classes}
         component={Navbar}
         uk-navbar={componentOptions}
         {...this.libComp.appendProps(this.props)}
-      >
-        <div {...alignProps}>{this.renderChildren(children)}</div>
-      </Base>
+      />
     );
   }
 }

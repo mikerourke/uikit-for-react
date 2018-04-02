@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
@@ -31,6 +32,7 @@ export default class Offcanvas extends React.Component {
     onShow: PropTypes.func,
     onShown: PropTypes.func,
     overlay: PropTypes.bool,
+    toggle: PropTypes.element,
   };
 
   static defaultProps = {
@@ -63,7 +65,6 @@ export default class Offcanvas extends React.Component {
       show: 'onShow',
       shown: 'onShown',
     };
-
     addMultipleEventInvokers(
       this.libComp.cssSelector,
       ukToPropsEventMap,
@@ -78,6 +79,7 @@ export default class Offcanvas extends React.Component {
       flip,
       mode,
       overlay,
+      toggle,
       ...rest
     } = this.props;
 
@@ -90,12 +92,18 @@ export default class Offcanvas extends React.Component {
     });
 
     return (
-      <Base
-        {...rest}
-        component={Offcanvas}
-        uk-offcanvas={componentOptions}
-        {...this.libComp.appendProps(this.props)}
-      />
+      <Fragment>
+        {!isNil(toggle) &&
+          React.cloneElement(toggle, {
+            target: this.libComp.cssSelector,
+          })}
+        <Base
+          {...rest}
+          component={Offcanvas}
+          uk-offcanvas={componentOptions}
+          {...this.libComp.appendProps(this.props)}
+        />
+      </Fragment>
     );
   }
 }

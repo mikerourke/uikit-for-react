@@ -5,14 +5,12 @@ export Nav, {
   NavDivider,
   NavHeader,
   NavItem,
-  NavItemGroup,
-  NavSubNav,
+  NavSubnav,
 } from './Nav';
 export Navbar, {
   NavbarContainer,
-  NavbarDropdown,
   NavbarItem,
-  NavbarNav,
+  NavbarSection,
   NavbarSplit,
   NavbarSubtitle,
   NavbarToggle,

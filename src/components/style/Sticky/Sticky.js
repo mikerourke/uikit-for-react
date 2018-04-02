@@ -99,13 +99,6 @@ export default class Sticky extends React.Component {
       ...this.getOptionsForNavbar(),
     });
 
-    return (
-      <Base
-        {...rest}
-        baseRef={this.handleRef}
-        component={Sticky}
-        uk-sticky={componentOptions}
-      />
-    );
+    return <Base {...rest} component={Sticky} uk-sticky={componentOptions} />;
   }
 }

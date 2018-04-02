@@ -1,4 +1,5 @@
 import React from 'react';
+import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { customPropTypes } from '../../../lib';
 import Base from '../../base';
@@ -9,6 +10,7 @@ export default class NavDivider extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('li'),
+    children: ExtraPropTypes.restrictedProp(),
   };
 
   static defaultProps = {

@@ -7,8 +7,8 @@ import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
   appendClassNamesToChildren,
+  buildClassName,
   customPropTypes,
-  generateSelector,
   getOptionsString,
   HTML,
   joinListProp,
@@ -40,6 +40,7 @@ export default class Dropdown extends React.Component {
       PropTypes.oneOf(UIK.MODES),
       PropTypes.arrayOf(UIK.MODES),
     ]),
+    multiplyWidth: PropTypes.oneOf([2, 3, 4, 5]),
     offset: PropTypes.number,
     onBeforeHide: PropTypes.func,
     onBeforeShow: PropTypes.func,
@@ -76,7 +77,6 @@ export default class Dropdown extends React.Component {
   }
 
   componentDidMount() {
-    this.dropdown = UIkit.dropdown(this.libComp.cssSelector);
     const ukToPropsEventMap = {
       beforehide: 'onBeforeHide',
       beforeshow: 'onBeforeShow',
@@ -87,22 +87,30 @@ export default class Dropdown extends React.Component {
       stack: 'onStack',
       toggle: 'onToggle',
     };
-    addMultipleEventInvokers(this.dropdown, ukToPropsEventMap, this.props);
+    addMultipleEventInvokers(
+      this.libComp.cssSelector,
+      ukToPropsEventMap,
+      this.props,
+    );
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.shown === true && this.props.shown === false) {
-      this.dropdown.show();
-    }
-    if (nextProps.shown === false && this.props.shown === true) {
-      this.dropdown.hide();
+    if (nextProps.shown !== this.props.shown) {
+      const dropdown = UIkit.dropdown(this.libComp.cssSelector);
+
+      if (nextProps.shown === true && this.props.shown === false) {
+        dropdown.show();
+      }
+      if (nextProps.shown === false && this.props.shown === true) {
+        dropdown.hide();
+      }
     }
   }
 
-  renderChildren = children =>
+  renderChildren = (children, isInNavbar) =>
     appendClassNamesToChildren(children, {
       Grid: 'uk-dropdown-grid',
-      Nav: 'uk-dropdown-nav',
+      Nav: isInNavbar ? 'uk-navbar-dropdown-nav' : 'uk-dropdown-nav',
     });
 
   render() {
@@ -116,13 +124,18 @@ export default class Dropdown extends React.Component {
       delayShow,
       flip,
       mode,
+      multiplyWidth,
       offset,
       position,
       toggle,
       ...rest
     } = this.props;
 
-    const classes = classnames(className, 'uk-dropdown');
+    const classes = classnames(
+      className,
+      'uk-dropdown',
+      buildClassName('navbar-dropdown-width', multiplyWidth),
+    );
 
     const componentOptions = getOptionsString({
       animation,
@@ -135,18 +148,19 @@ export default class Dropdown extends React.Component {
       pos: position,
     });
 
+    const isInNavbar = className.includes('navbar');
+
     return (
       <Fragment>
         {!isNil(toggle) && toggle}
         <Base
           {...rest}
-          baseRef={this.handleRef}
           className={classes}
           component={component || Dropdown}
-          uk-dropdown={componentOptions}
+          uk-dropdown={isInNavbar ? undefined : componentOptions}
           {...this.libComp.appendProps(this.props)}
         >
-          {this.renderChildren(children)}
+          {this.renderChildren(children, isInNavbar)}
         </Base>
       </Fragment>
     );

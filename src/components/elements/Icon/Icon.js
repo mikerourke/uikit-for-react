@@ -36,9 +36,9 @@ export default class Icon extends React.Component {
   }
 
   componentDidMount() {
-    const icon = UIkit.icon(this.libComp.cssSelector);
-    // TODO: Test this to make sure it works.
     if (!isNil(this.props.onSvg)) {
+      // TODO: Test this to make sure it works.
+      const icon = UIkit.icon(this.libComp.cssSelector);
       icon.svg.then(this.props.onSvg);
     }
   }

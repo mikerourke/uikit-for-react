@@ -76,7 +76,6 @@ export default class Scrollspy extends React.Component {
     return (
       <Base
         {...rest}
-        baseRef={this.handleRef}
         className={classes}
         component={Scrollspy}
         uk-scrollspy={componentOptions}

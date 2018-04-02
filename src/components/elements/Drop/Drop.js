@@ -74,7 +74,6 @@ export default class Drop extends React.Component {
   }
 
   componentDidMount() {
-    this.drop = UIkit.drop(this.libComp.cssSelector);
     const ukToPropsEventMap = {
       beforehide: 'onBeforeHide',
       beforeshow: 'onBeforeShow',
@@ -85,15 +84,22 @@ export default class Drop extends React.Component {
       stack: 'onStack',
       toggle: 'onToggle',
     };
-    addMultipleEventInvokers(this.drop, ukToPropsEventMap, this.props);
+    addMultipleEventInvokers(
+      this.libComp.cssSelector,
+      ukToPropsEventMap,
+      this.props,
+    );
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.shown === true && this.props.shown === false) {
-      this.drop.show();
-    }
-    if (nextProps.shown === false && this.props.shown === true) {
-      this.drop.hide();
+    if (nextProps.shown !== this.props.shown) {
+      const drop = UIkit.drop(this.libComp.cssSelector);
+      if (nextProps.shown === true && this.props.shown === false) {
+        drop.show();
+      }
+      if (nextProps.shown === false && this.props.shown === true) {
+        drop.hide();
+      }
     }
   }
 
@@ -136,7 +142,6 @@ export default class Drop extends React.Component {
         {toggle && toggle}
         <Base
           {...rest}
-          baseRef={this.handleRef}
           className={classes}
           component={Drop}
           uk-drop={componentOptions}

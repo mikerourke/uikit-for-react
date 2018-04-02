@@ -1,4 +1,8 @@
 /* eslint-disable global-require,no-unused-vars */
+'use strict';
+
+import path from 'path';
+import sortBy from 'lodash/sortBy';
 import 'uikit/src/less/uikit.theme.less';
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons.min';
@@ -7,48 +11,42 @@ import { configure } from '@storybook/react'; // eslint-disable-line
 
 UIkit.use(Icons);
 
+const contextByGroupName = {
+  containers: require.context('../stories/containers', false, /\.js/),
+  elements: require.context('../stories/elements', false, /\.js/),
+  layout: require.context('../stories/layout', false, /\.js/),
+  navigation: require.context('../stories/navigation', false, /\.js/),
+  style: require.context('../stories/style', false, /\.js/),
+};
+
+const loadStoriesByGroup = groupName => {
+  const groupContext = contextByGroupName[groupName];
+  groupContext.keys().forEach(fileName => groupContext(fileName));
+};
+
+const loadStoriesAlphabetically = () => {
+  const allStoriesContext = require.context('../stories', true, /\.js/);
+
+  const filesWithElements = allStoriesContext.keys().map(groupFilePath => ({
+    pathOf: path.dirname(groupFilePath),
+    nameOf: path.basename(groupFilePath),
+  }));
+
+  const storiesToLoad = sortBy(filesWithElements, 'nameOf').reduce(
+    (acc, { pathOf, nameOf }) => [...acc, `${pathOf}/${nameOf}`],
+    [],
+  );
+
+  storiesToLoad.forEach(fileName => allStoriesContext(fileName));
+};
+
 function loadStories() {
-  require('../stories/containers/Accordion');
-  require('../stories/elements/Alert');
-  require('../stories/style/Align');
-  require('../stories/style/Animation');
-  require('../stories/containers/Article');
-  require('../stories/style/Background');
-  require('../stories/elements/Badge');
-  require('../stories/navigation/Breadcrumb');
-  require('../stories/elements/Button');
-  require('../stories/containers/Card');
-  require('../stories/elements/Close');
-  require('../stories/containers/Column');
-  require('../stories/elements/Comment');
-  require('../stories/layout/Container');
-  require('../stories/elements/Countdown');
-  require('../stories/style/Cover');
-  require('../stories/containers/DescriptionList');
-  require('../stories/elements/Divider');
-  require('../stories/navigation/Dotnav');
-  require('../stories/elements/Drop');
-  require('../stories/elements/Dropdown');
-  require('../stories/layout/Flex');
-  require('../stories/layout/Grid');
-  require('../stories/layout/GridParallax');
-  require('../stories/elements/Heading');
-  require('../stories/elements/Icon');
-  require('../stories/navigation/Iconnav');
-  require('../stories/style/Inverse');
-  require('../stories/elements/Label');
-  require('../stories/containers/Lightbox');
-  require('../stories/elements/Link');
-  require('../stories/containers/List');
-  require('../stories/style/Margin');
-  require('../stories/elements/Marker');
-  require('../stories/containers/Modal');
-  require('../stories/navigation/Nav');
-  require('../stories/elements/Notification');
-  require('../stories/containers/Offcanvas');
-  require('../stories/style/Scroll');
-  require('../stories/layout/Tab');
-  require('../stories/elements/Upload');
+  // loadStoriesAlphabetically();
+  // loadStoriesByGroup('containers');
+  // loadStoriesByGroup('elements');
+  // loadStoriesByGroup('layout');
+  loadStoriesByGroup('navigation');
+  // loadStoriesByGroup('style');
 }
 
 configure(loadStories, module);

@@ -10,7 +10,7 @@ export default class Svg extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('img'),
-    children: ExtraPropTypes.explicitNull(),
+    children: ExtraPropTypes.restrictedProp(),
     src: PropTypes.string.isRequired,
   };
 

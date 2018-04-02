@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import isNil from 'lodash/isNil';
 import { customPropTypes, HTML } from '../../../lib';
 import Base from '../../base';
 
@@ -21,13 +22,17 @@ export default class Logo extends React.Component {
   };
 
   render() {
-    const { className, imgSrc, inverse, ...rest } = this.props;
+    const { children, className, imgSrc, inverse, ...rest } = this.props;
 
     const classes = classnames(className, 'uk-logo');
 
+    const hasChildren = !isNil(children);
+    const hasSrc = !isNil(imgSrc);
+
     return (
       <Base {...rest} className={classes} component={Logo}>
-        {imgSrc && <img src={imgSrc} alt="" />}
+        {hasChildren && children}
+        {hasSrc && <img src={imgSrc} alt="" />}
         {inverse && <img className="uk-logo-inverse" src={imgSrc} alt="" />}
       </Base>
     );

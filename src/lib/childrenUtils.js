@@ -106,7 +106,7 @@ export const appendClassNamesToChildren = (children, childOptions) =>
     const name = get(child, ['type', 'displayName'], '');
     const classToAppend = get(childOptions, name);
     return React.cloneElement(child, {
-      className: classnames(child.className, classToAppend),
+      className: classnames(child.props.className, classToAppend),
       children: appendClassNamesToChildren(child.props.children, childOptions),
     });
   });

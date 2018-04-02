@@ -14,8 +14,7 @@ import Base from '../../base';
 import NavDivider from './NavDivider';
 import NavHeader from './NavHeader';
 import NavItem from './NavItem';
-import NavItemGroup from './NavItemGroup';
-import NavSubNav from './NavSubNav';
+import NavSubnav from './NavSubnav';
 
 export default class Nav extends React.Component {
   static displayName = 'Nav';
@@ -62,8 +61,7 @@ export default class Nav extends React.Component {
   static Divider = NavDivider;
   static Header = NavHeader;
   static Item = NavItem;
-  static ItemGroup = NavItemGroup;
-  static Subnav = NavSubNav;
+  static Subnav = NavSubnav;
 
   constructor(props) {
     super(props);
@@ -82,9 +80,10 @@ export default class Nav extends React.Component {
   render() {
     const {
       accordion,
+      activeIndex,
       animation,
       center,
-      className,
+      className = '',
       collapsible,
       multiple,
       primary,
@@ -92,9 +91,12 @@ export default class Nav extends React.Component {
       ...rest
     } = this.props;
 
-    const classes = classnames(className, 'uk-nav', {
+    const isNavbarNav = className.includes('navbar-nav');
+
+    const classes = classnames(className, {
+      'uk-nav': !isNavbarNav,
       'uk-nav-center': center,
-      'uk-nav-default': !primary,
+      'uk-nav-default': !primary && !isNavbarNav,
       'uk-nav-parent-icon': accordion,
       'uk-nav-primary': primary,
     });
@@ -109,7 +111,6 @@ export default class Nav extends React.Component {
     return (
       <Base
         {...rest}
-        baseRef={this.handleRef}
         className={classes}
         component={Nav}
         uk-nav={accordion ? componentOptions : undefined}

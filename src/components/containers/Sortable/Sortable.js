@@ -125,7 +125,6 @@ export default class Sortable extends React.Component {
     return (
       <Base
         {...rest}
-        baseRef={this.handleRef}
         component={Sortable}
         uk-sortable={componentOptions}
         {...this.libComp.appendProps(this.props)}
