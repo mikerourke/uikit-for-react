@@ -24,6 +24,7 @@ export {
   Form,
   FormCheckbox as Checkbox,
   FormControls,
+  FormField,
   FormFieldset,
   FormInput as Input,
   FormLabel,

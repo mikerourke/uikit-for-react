@@ -26,6 +26,7 @@ export DescriptionList, {
 export Form, {
   FormCheckbox,
   FormControls,
+  FormField,
   FormFieldset,
   FormInput,
   FormLabel,

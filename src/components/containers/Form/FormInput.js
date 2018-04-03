@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
+import invoke from 'lodash/invoke';
 import isNil from 'lodash/isNil';
-import { buildClassName, customPropTypes, UIK } from '../../../lib';
+import { buildClassName, customPropTypes, HTML, UIK } from '../../../lib';
 import Base from '../../base';
 import { Icon } from '../../elements';
 
@@ -15,11 +15,6 @@ export default class FormInput extends React.Component {
     as: customPropTypes.customOrStringElement('input'),
     blank: PropTypes.bool,
     danger: PropTypes.bool,
-    formWidth: ExtraPropTypes.mutuallyExclusiveProps(
-      PropTypes.oneOf(UIK.FORM_WIDTHS),
-      'formWidth',
-      'width',
-    ),
     iconOptions: PropTypes.shape({
       ...Icon.propTypes,
       as: PropTypes.oneOf(['a', 'button', 'span']),
@@ -27,6 +22,11 @@ export default class FormInput extends React.Component {
     }),
     size: PropTypes.oneOf(['large', 'small']),
     success: PropTypes.bool,
+    type: PropTypes.oneOf(HTML.INPUT_TYPES),
+    width: PropTypes.oneOfType([
+      PropTypes.oneOf(UIK.FORM_WIDTHS),
+      Base.propTypes.width,
+    ]),
   };
 
   static defaultProps = {
@@ -35,6 +35,15 @@ export default class FormInput extends React.Component {
     blank: false,
     danger: false,
     success: false,
+    type: 'text',
+  };
+
+  handleChange = e => {
+    if (this.props.disabled) {
+      e.preventDefault();
+      return;
+    }
+    invoke(this.props, 'onChange', e, this.props);
   };
 
   renderWithIcon(iconOptions, inputElement) {
@@ -57,19 +66,21 @@ export default class FormInput extends React.Component {
       blank,
       className,
       danger,
-      formWidth,
       iconOptions,
       size,
       success,
+      width,
       ...rest
     } = this.props;
+
+    const isFormWidth = UIK.FORM_WIDTHS.includes(width);
 
     const classes = classnames(
       className,
       'uk-input',
       buildClassName('form', size),
-      buildClassName('form-width', formWidth),
       {
+        [buildClassName('form-width', width)]: isFormWidth,
         'uk-form-blank': blank,
         'uk-form-danger': danger,
         'uk-form-success': success,
@@ -77,7 +88,13 @@ export default class FormInput extends React.Component {
     );
 
     const InputElement = (
-      <Base {...rest} className={classes} component={FormInput} />
+      <Base
+        {...rest}
+        className={classes}
+        component={FormInput}
+        width={!isFormWidth ? width : undefined}
+        onChange={this.handleChange}
+      />
     );
 
     if (!isNil(iconOptions)) {

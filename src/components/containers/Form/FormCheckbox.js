@@ -1,11 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-for */
-// TODO: Make sure the icon thing works.
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import invoke from 'lodash/invoke';
-import { customPropTypes, getBaseRef } from '../../../lib';
+import { customPropTypes, LibraryComponent } from '../../../lib';
 import FormLabel from './FormLabel';
 import Base from '../../base';
 
@@ -16,10 +15,9 @@ export default class FormCheckbox extends React.Component {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('input'),
     blank: PropTypes.bool,
-    checked: PropTypes.bool,
+    children: ExtraPropTypes.restrictedProp(),
     danger: PropTypes.bool,
     disabled: PropTypes.bool,
-    defaultChecked: PropTypes.bool,
     label: PropTypes.oneOfType([
       ExtraPropTypes.elementType(FormLabel),
       ExtraPropTypes.elementType('label'),
@@ -38,16 +36,17 @@ export default class FormCheckbox extends React.Component {
     success: false,
   };
 
-  componentDidMount() {
-    if (!this.props.checked && this.props.defaultChecked) {
-      if (this.ref) this.ref.checked = true;
-    }
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('checkbox');
+    this.checkbox = null;
   }
 
-  handleRef = element => {
-    if (!element) return;
-    this.ref = getBaseRef(element);
-  };
+  componentDidMount() {
+    if (!this.props.checked && this.props.defaultChecked) {
+      this.checkbox.checked = true;
+    }
+  }
 
   handleChange = e => {
     if (this.props.disabled) {
@@ -85,10 +84,11 @@ export default class FormCheckbox extends React.Component {
       <Base
         {...rest}
         className={classes}
+        component={FormCheckbox}
         onChange={this.handleChange}
         onClick={this.handleClick}
-        baseRef={this.handleRef}
         type="checkbox"
+        {...this.libComp.appendProps(this.props)}
       />
     );
 

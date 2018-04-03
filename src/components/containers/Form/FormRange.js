@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import invoke from 'lodash/invoke';
 import { customPropTypes } from '../../../lib';
 import Base from '../../base';
 
@@ -23,6 +24,14 @@ export default class FormRange extends React.Component {
     success: false,
   };
 
+  handleChange = e => {
+    if (this.props.disabled) {
+      e.preventDefault();
+      return;
+    }
+    invoke(this.props, 'onChange', e, this.props);
+  };
+
   render() {
     const { blank, className, danger, success, ...rest } = this.props;
 
@@ -33,7 +42,13 @@ export default class FormRange extends React.Component {
     });
 
     return (
-      <Base {...rest} type="range" className={classes} component={FormRange} />
+      <Base
+        {...rest}
+        type="range"
+        className={classes}
+        onChange={this.handleChange}
+        component={FormRange}
+      />
     );
   }
 }

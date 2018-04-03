@@ -6,6 +6,18 @@ import get from 'lodash/get';
 import isNil from 'lodash/isNil';
 import { customPropTypes, getOptionsString, HTML } from '../../../lib';
 import Base from '../../base';
+import FormCheckbox from './FormCheckbox';
+import FormControls from './FormControls';
+import FormField from './FormField';
+import FormFieldset from './FormFieldset';
+import FormInput from './FormInput';
+import FormLabel from './FormLabel';
+import FormLegend from './FormLegend';
+import FormOption from './FormOption';
+import FormRadio from './FormRadio';
+import FormRange from './FormRange';
+import FormSelect from './FormSelect';
+import FormTextArea from './FormTextArea';
 
 export default class Form extends React.Component {
   static displayName = 'Form';
@@ -34,6 +46,19 @@ export default class Form extends React.Component {
     horizontal: false,
     stacked: false,
   };
+
+  static Checkbox = FormCheckbox;
+  static Controls = FormControls;
+  static Field = FormField;
+  static Fieldset = FormFieldset;
+  static Input = FormInput;
+  static Label = FormLabel;
+  static Legend = FormLegend;
+  static Option = FormOption;
+  static Radio = FormRadio;
+  static Range = FormRange;
+  static Select = FormSelect;
+  static TextArea = FormTextArea;
 
   render() {
     const { className, custom, horizontal, stacked, ...rest } = this.props;

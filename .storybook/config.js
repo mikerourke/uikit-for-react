@@ -42,10 +42,10 @@ const loadStoriesAlphabetically = () => {
 
 function loadStories() {
   // loadStoriesAlphabetically();
-  // loadStoriesByGroup('containers');
+  loadStoriesByGroup('containers');
   // loadStoriesByGroup('elements');
   // loadStoriesByGroup('layout');
-  loadStoriesByGroup('navigation');
+  // loadStoriesByGroup('navigation');
   // loadStoriesByGroup('style');
 }
 

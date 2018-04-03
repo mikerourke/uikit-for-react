@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { buildClassName, customPropTypes, UIK } from '../../../lib';
 import Base from '../../base';
@@ -13,13 +12,12 @@ export default class FormSelect extends React.Component {
     as: customPropTypes.customOrStringElement('select'),
     blank: PropTypes.bool,
     danger: PropTypes.bool,
-    formWidth: ExtraPropTypes.mutuallyExclusiveProps(
-      PropTypes.oneOf(UIK.FORM_WIDTHS),
-      'formWidth',
-      'width',
-    ),
     size: PropTypes.oneOf(['large', 'small']),
     success: PropTypes.bool,
+    width: PropTypes.oneOfType([
+      PropTypes.oneOf(UIK.FORM_WIDTHS),
+      Base.propTypes.width,
+    ]),
   };
 
   static defaultProps = {
@@ -35,24 +33,33 @@ export default class FormSelect extends React.Component {
       blank,
       className,
       danger,
-      formWidth,
       size,
       success,
+      width,
       ...rest
     } = this.props;
+
+    const isFormWidth = UIK.FORM_WIDTHS.includes(width);
 
     const classes = classnames(
       className,
       'uk-select',
       buildClassName('form', size),
-      buildClassName('form-width', formWidth),
       {
+        [buildClassName('form-width', width)]: isFormWidth,
         'uk-form-blank': blank,
         'uk-form-danger': danger,
         'uk-form-success': success,
       },
     );
 
-    return <Base {...rest} className={classes} component={FormSelect} />;
+    return (
+      <Base
+        {...rest}
+        className={classes}
+        component={FormSelect}
+        width={!isFormWidth ? width : undefined}
+      />
+    );
   }
 }

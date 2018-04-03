@@ -371,6 +371,24 @@ const HTML_BLOCK_ELEMENTS = [
 
 const HTML_EMBEDDED_ELEMENTS = ['audio', 'canvas', 'img', 'svg', 'video'];
 
+const HTML_FORM_ELEMENTS = [
+  'button',
+  'datalist',
+  'fieldset',
+  'form',
+  'input',
+  'keygen',
+  'label',
+  'legend',
+  'meter',
+  'optgroup',
+  'option',
+  'output',
+  'progress',
+  'select',
+  'textarea',
+];
+
 const HTML_HEADING_ELEMENTS = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
 
 const HTML_INLINE_ELEMENTS = [
@@ -409,6 +427,32 @@ const HTML_INLINE_ELEMENTS = [
   'progress',
 ];
 
+const HTML_INPUT_TYPES = [
+  'button',
+  'checkbox',
+  'color',
+  'date',
+  'datetime-local',
+  'email',
+  'file',
+  'hidden',
+  'image',
+  'month',
+  'Note',
+  'number',
+  'password',
+  'radio',
+  'range',
+  'reset',
+  'search',
+  'submit',
+  'tel',
+  'text',
+  'time',
+  'url',
+  'week',
+];
+
 const HTML_TEXT_ELEMENTS = [
   'abbr',
   'b',
@@ -437,6 +481,7 @@ export const HTML = {
   ALL_ELEMENTS: [
     ...HTML_BLOCK_ELEMENTS,
     ...HTML_EMBEDDED_ELEMENTS,
+    ...HTML_FORM_ELEMENTS,
     ...HTML_INLINE_ELEMENTS,
     ...HTML_TEXT_ELEMENTS,
     'iframe',
@@ -444,8 +489,10 @@ export const HTML = {
   ],
   BLOCK_ELEMENTS: HTML_BLOCK_ELEMENTS,
   EMBEDDED_ELEMENTS: HTML_EMBEDDED_ELEMENTS,
+  FORM_ELEMENTS: HTML_FORM_ELEMENTS,
   HEADING_ELEMENTS: HTML_HEADING_ELEMENTS,
   INLINE_ELEMENTS: HTML_INLINE_ELEMENTS,
+  INPUT_TYPES: HTML_INPUT_TYPES,
   TEXT_ELEMENTS: HTML_TEXT_ELEMENTS,
   CSS_EASING: ['ease', 'ease-in', 'ease-out', 'ease-in-out'],
 };
