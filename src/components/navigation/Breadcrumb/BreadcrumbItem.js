@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, renderNavItemChildren } from '../../../lib';
+import { customPropTypes, renderNavigationChild } from '../../../lib';
 import Base from '../../base';
 
 export default class BreadcrumbItem extends React.Component {
@@ -24,16 +24,16 @@ export default class BreadcrumbItem extends React.Component {
 
   render() {
     const { active, children, className, disabled, href, ...rest } = this.props;
-    
+
     const classes = classnames(className, { 'uk-disabled': disabled });
-    
+
     return (
       <Base
         {...rest}
         className={classes || undefined}
         component={BreadcrumbItem}
       >
-        {renderNavItemChildren(children, { href, isSpan: active })}
+        {renderNavigationChild(children, { href, isSpan: active })}
       </Base>
     );
   }

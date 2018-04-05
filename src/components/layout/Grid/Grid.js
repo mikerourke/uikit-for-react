@@ -5,7 +5,6 @@ import {
   buildBreakpointClasses,
   buildClassName,
   customPropTypes,
-  getBaseRef,
   getOptionsString,
   HTML,
   UIK,
@@ -35,11 +34,6 @@ export default class Grid extends React.Component {
 
   static Cell = GridCell;
 
-  handleRef = element => {
-    if (!element) return;
-    this.ref = getBaseRef(element);
-  };
-
   render() {
     const {
       childWidth,
@@ -67,7 +61,6 @@ export default class Grid extends React.Component {
     return (
       <Base
         {...rest}
-        baseRef={this.handleRef}
         className={classes || undefined}
         component={Grid}
         uk-grid={getOptionsString({ firstColumn, margin: nextRow })}

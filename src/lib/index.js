@@ -11,8 +11,8 @@ export {
   childMatchesType,
   childrenHaveClass,
   findChildByType,
-  getBaseRef,
   hasChildType,
+  renderNavigationChild,
 } from './childrenUtils';
 
 export { default as customPropTypes } from './customPropTypes';
@@ -24,8 +24,6 @@ export { default as getOptionsString } from './getOptionsString';
 export { default as getValidProps } from './getValidProps';
 
 export { default as joinListProp } from './joinListProp';
-
-export { default as renderNavItemChildren } from './renderNavItemChildren';
 
 export { generateIdentifier, generateSelector } from './generateRandom';
 

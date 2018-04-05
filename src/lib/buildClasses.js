@@ -66,6 +66,14 @@ export const buildClassName = (...args) => {
   return sanitizeClassName(classString);
 };
 
+/**
+ * Builds a className string that accommodates for each of the potential
+ *    breakpoint values passed in.
+ * @param {string} classPrefix Prefix (e.g. uk-margin) to prepend to class name.
+ * @param {Object} propValue Breakpoint object property to extrapolate class
+ *    names from.
+ * @returns {string}
+ */
 export const buildBreakpointClasses = (classPrefix, propValue) =>
   classnames(
     buildClassName(classPrefix, get(propValue, 'default')),

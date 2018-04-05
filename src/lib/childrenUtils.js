@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import classnames from 'classnames';
 import first from 'lodash/first';
 import get from 'lodash/get';
@@ -140,21 +140,28 @@ export const childMatchesType = (child, requiredType) =>
   child.type === requiredType || child.props.as === requiredType;
 
 /**
- * Recurse through the specified element's ref, if no ref is found, return
- *    the specified element.
- * @param {React.Node|HTMLElement} element HTML element or component to check
- *    for ref.
- * @returns {HTMLElement}
+ * Renders the contents of the navigation item (i.e. DotnavItem, NavItem, etc)
+ *    based on the specified props. The default behavior per the docs is to
+ *    render an anchor tag within a <li>. This function determines the item
+ *    to render based on the specified conditions.
+ * @param {React.Children} children Children associated with the React
+ *    component.
+ * @param {string} [href="#"] Anchor href prop to apply to the inner element.
+ * @param {boolean} [isSpan=false] Indicates if the child element should be
+ *    rendered as a <span> (rather than <a>).
+ * @returns {React.Children}
  */
-const recurseRefs = element => {
-  if (!element.ref) return element;
-  return recurseRefs(element.ref);
-};
+export const renderNavigationChild = (
+  children,
+  { href = '#', isSpan = false } = {},
+) => {
+  const childElements = React.Children.toArray(children);
+  const firstElement = first(childElements);
 
-/**
- * Recurses through the refs of the specified element until an HTML Element is
- *    found (not class or React component).
- * @param {React.Node} element Element to recurse for refs.
- * @returns {HTMLElement}
- */
-export const getBaseRef = element => recurseRefs(element);
+  if (get(firstElement, 'type', '') !== 'a') {
+    const InnerElement = isSpan ? 'span' : 'a';
+    return <InnerElement href={href}>{children}</InnerElement>;
+  }
+
+  return children;
+};

@@ -1,6 +1,6 @@
 import generate from 'nanoid/generate';
+import { VALID_CHARS } from './constants';
 
-const VALID_CHARS = '1234567890abcdefghijklmnopqrstuvwxyz-';
 /**
  * This function generates a random ID for adding to DOM elements when
  * selection functionality is required.
@@ -19,9 +19,4 @@ export const generateIdentifier = () => {
 export const generateSelector = () => {
   const generated = generate(VALID_CHARS, 8);
   return `suikfr-${generated}`;
-};
-
-export const generateAttributeValue = attributePrefix => {
-  const generated = generate(VALID_CHARS, 5);
-  return `${attributePrefix}-${generated}`;
 };

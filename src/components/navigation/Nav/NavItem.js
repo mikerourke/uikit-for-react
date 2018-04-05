@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, renderNavItemChildren } from '../../../lib';
+import { customPropTypes, renderNavigationChild } from '../../../lib';
 import Base from '../../base';
 
 export default class NavItem extends React.Component {
@@ -49,7 +49,7 @@ export default class NavItem extends React.Component {
             {children}
           </Fragment>
         ) : (
-          renderNavItemChildren(children, { href })
+          renderNavigationChild(children, { href })
         )}
       </Base>
     );

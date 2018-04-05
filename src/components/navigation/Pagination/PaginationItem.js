@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, renderNavItemChildren } from '../../../lib';
+import { customPropTypes, renderNavigationChild } from '../../../lib';
 import Base from '../../base';
 
 export default class PaginationItem extends React.Component {
@@ -37,7 +37,7 @@ export default class PaginationItem extends React.Component {
         className={classes || undefined}
         component={PaginationItem}
       >
-        {renderNavItemChildren(children, { href, isSpan: active || disabled })}
+        {renderNavigationChild(children, { href, isSpan: active || disabled })}
       </Base>
     );
   }

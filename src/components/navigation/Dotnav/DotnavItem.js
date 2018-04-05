@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, renderNavItemChildren } from '../../../lib';
+import { customPropTypes, renderNavigationChild } from '../../../lib';
 import Base from '../../base';
 
 export default class DotnavItem extends React.Component {
@@ -27,7 +27,7 @@ export default class DotnavItem extends React.Component {
 
     return (
       <Base {...rest} className={classes || undefined} component={DotnavItem}>
-        {renderNavItemChildren(children, { href })}
+        {renderNavigationChild(children, { href })}
       </Base>
     );
   }
