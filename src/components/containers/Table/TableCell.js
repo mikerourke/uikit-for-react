@@ -30,8 +30,7 @@ export default class TableCell extends React.Component {
   resetChildLinks = children =>
     React.Children.map(children, child => {
       if (!React.isValidElement(child)) return child;
-      const childType = child.type;
-      if (childType === 'a' || childType === Link || child.props.href) {
+      if (child.type === 'a' || child.type === Link || child.props.href) {
         return React.cloneElement(child, {
           className: classnames(child.props.className, 'uk-link-reset'),
           children: this.resetChildLinks(child.props.children),

@@ -6,7 +6,6 @@ import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
-  appendClassNamesToChildren,
   buildClassName,
   customPropTypes,
   getOptionsString,
@@ -92,6 +91,19 @@ export default class Dropdown extends React.Component {
       ukToPropsEventMap,
       this.props,
     );
+
+    const firstGrid = LibraryComponent.findFirstWithName('grid');
+    if (firstGrid) {
+      firstGrid.classList.add('uk-dropdown-grid');
+    }
+
+    const navs = LibraryComponent.findAllWithName('nav');
+    if (navs.length !== 0) {
+      const classToAdd = isNil(this.props.multiplyWidth)
+        ? 'uk-dropdown-nav'
+        : 'uk-navbar-dropdown-nav';
+      navs.forEach(navElement => navElement.classList.add(classToAdd));
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -107,17 +119,10 @@ export default class Dropdown extends React.Component {
     }
   }
 
-  renderChildren = (children, isInNavbar) =>
-    appendClassNamesToChildren(children, {
-      Grid: 'uk-dropdown-grid',
-      Nav: isInNavbar ? 'uk-navbar-dropdown-nav' : 'uk-dropdown-nav',
-    });
-
   render() {
     const {
       animation,
       boundaryAlign,
-      children,
       className,
       component,
       delayHide,
@@ -159,9 +164,7 @@ export default class Dropdown extends React.Component {
           component={component || Dropdown}
           uk-dropdown={isInNavbar ? undefined : componentOptions}
           {...this.libComp.appendProps(this.props)}
-        >
-          {this.renderChildren(children, isInNavbar)}
-        </Base>
+        />
       </Fragment>
     );
   }

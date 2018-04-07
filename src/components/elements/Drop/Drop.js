@@ -5,7 +5,6 @@ import classnames from 'classnames';
 import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
-  appendClassNamesToChildren,
   customPropTypes,
   getOptionsString,
   HTML,
@@ -89,6 +88,11 @@ export default class Drop extends React.Component {
       ukToPropsEventMap,
       this.props,
     );
+
+    const firstGrid = LibraryComponent.findFirstWithName('grid');
+    if (firstGrid) {
+      firstGrid.classList.add('uk-drop-grid');
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -103,16 +107,10 @@ export default class Drop extends React.Component {
     }
   }
 
-  renderChildren = children =>
-    appendClassNamesToChildren(children, {
-      Grid: 'uk-drop-grid',
-    });
-
   render() {
     const {
       animation,
       boundaryAlign,
-      children,
       className,
       delayHide,
       delayShow,
@@ -146,9 +144,7 @@ export default class Drop extends React.Component {
           component={Drop}
           uk-drop={componentOptions}
           {...this.libComp.appendProps(this.props)}
-        >
-          {this.renderChildren(children)}
-        </Base>
+        />
       </Fragment>
     );
   }

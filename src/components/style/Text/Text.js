@@ -1,53 +1,22 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  buildBreakpointClasses,
-  buildClassName,
-  customPropTypes,
-  HTML,
-  UIK,
-} from '../../../lib';
+import omit from 'lodash/omit';
+import { customPropTypes, HTML } from '../../../lib';
+import { propTypes, extrapolateClasses } from '../../common/textProps';
 import Base from '../../base';
 
 export default class Text extends React.Component {
   static displayName = 'Text';
 
   static propTypes = {
-    ...Base.propTypes,
-    align: PropTypes.oneOfType([
-      PropTypes.oneOf(['justify']),
-      customPropTypes.forBreakpoints(UIK.HORIZONTAL_POSITIONS),
-    ]),
+    ...omit(Base.propTypes, 'text'),
+    ...propTypes,
     as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
-    bold: PropTypes.bool,
-    danger: PropTypes.bool,
-    large: PropTypes.bool,
-    lead: PropTypes.bool,
-    meta: PropTypes.bool,
-    muted: PropTypes.bool,
-    primary: PropTypes.bool,
-    small: PropTypes.bool,
-    success: PropTypes.bool,
-    transform: PropTypes.oneOf(['capitalize', 'lowercase', 'uppercase']),
-    verticalAlign: PropTypes.oneOf(['baseline', 'top', 'middle', 'bottom']),
-    warning: PropTypes.bool,
-    wrapping: PropTypes.oneOf(['break', 'nowrap', 'truncate']),
   };
 
   static defaultProps = {
     ...Base.defaultProps,
-    as: 'div',
-    bold: false,
-    danger: false,
-    large: false,
-    lead: false,
-    meta: false,
-    muted: false,
-    primary: false,
-    small: false,
-    success: false,
-    warning: false,
+    as: 'span',
   };
 
   render() {
@@ -72,22 +41,22 @@ export default class Text extends React.Component {
 
     const classes = classnames(
       className,
-      buildBreakpointClasses('text', align),
-      buildClassName('text', transform),
-      buildClassName('text', verticalAlign),
-      buildClassName('text', wrapping),
-      {
-        'uk-text-bold': bold,
-        'uk-text-danger': danger,
-        'uk-text-large': large,
-        'uk-text-lead': lead,
-        'uk-text-meta': meta,
-        'uk-text-muted': muted,
-        'uk-text-primary': primary,
-        'uk-text-small': small,
-        'uk-text-success': success,
-        'uk-text-warning': warning,
-      },
+      extrapolateClasses({
+        align,
+        bold,
+        danger,
+        large,
+        lead,
+        meta,
+        muted,
+        primary,
+        small,
+        success,
+        transform,
+        verticalAlign,
+        warning,
+        wrapping,
+      }),
     );
 
     return <Base {...rest} className={classes || undefined} component={Text} />;

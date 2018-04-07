@@ -74,44 +74,6 @@ export const findChildByType = (children, childType) => {
 };
 
 /**
- * Loops through the children of a React component recursively and adds the
- * specified class names to the component whose name matches the key in the
- * childOptions object.
- * @param {React.Children} children Children prop from parent React component.
- * @param {Object} childOptions Component name and class name to append to
- *    child.
- * @returns {Array}
- *
- * @example
- * Component:
- * renderChildren = () =>
- *   appendClassNamesToChildren(this.props.children, { Grid: 'uk-drop-grid });
- * <Drop>
- *   {this.renderChildren()}
- * </Drop
- *
- * When rendered:
- * <Drop>
- *   <Card>
- *     <Grid className="uk-drop-grid">
- *       ...
- *     </Grid>
- *   </Card>
- * </Drop>
- */
-export const appendClassNamesToChildren = (children, childOptions) =>
-  React.Children.map(children, child => {
-    if (!React.isValidElement(child)) return child;
-
-    const name = get(child, ['type', 'displayName'], '');
-    const classToAppend = get(childOptions, name);
-    return React.cloneElement(child, {
-      className: classnames(child.props.className, classToAppend),
-      children: appendClassNamesToChildren(child.props.children, childOptions),
-    });
-  });
-
-/**
  * Evaluates the children specified and returns true if any of the child
  *    elements has the specified CSS class name.
  * @param {React.Children} children Children prop from parent React component.

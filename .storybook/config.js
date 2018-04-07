@@ -41,8 +41,8 @@ const loadStoriesAlphabetically = () => {
 };
 
 function loadStories() {
-  // loadStoriesAlphabetically();
-  loadStoriesByGroup('containers');
+  loadStoriesAlphabetically();
+  // loadStoriesByGroup('containers');
   // loadStoriesByGroup('elements');
   // loadStoriesByGroup('layout');
   // loadStoriesByGroup('navigation');

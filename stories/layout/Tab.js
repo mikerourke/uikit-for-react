@@ -50,21 +50,21 @@ storiesOf('Tab', module)
   .add('Alignment', () => (
     <Block>
       <Block margin={{ top: 'medium' }}>
-        <Tab justifyContent="center">
+        <Tab flex={{ justifyContent: 'center' }}>
           <Tab.Item active>Center</Tab.Item>
           <Tab.Item>Item</Tab.Item>
           <Tab.Item>Item</Tab.Item>
         </Tab>
       </Block>
       <Block margin={{ top: 'medium' }}>
-        <Tab justifyContent="right">
+        <Tab flex={{ justifyContent: 'right' }}>
           <Tab.Item active>Right</Tab.Item>
           <Tab.Item>Item</Tab.Item>
           <Tab.Item>Item</Tab.Item>
         </Tab>
       </Block>
       <Block>
-        <Tab justifyContent="center" childWidth="expand">
+        <Tab flex={{ justifyContent: 'center' }} childWidth="expand">
           <Tab.Item active>Justify</Tab.Item>
           <Tab.Item>Item</Tab.Item>
           <Tab.Item>Item</Tab.Item>

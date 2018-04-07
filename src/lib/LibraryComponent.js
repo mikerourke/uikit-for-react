@@ -8,6 +8,16 @@ import { VALID_CHARS } from './constants';
  * @class
  */
 export default class LibraryComponent {
+  static findAllWithName(componentName) {
+    const cssSelector = `[data-uikfr-${componentName}]`;
+    return document.querySelectorAll(cssSelector);
+  }
+
+  static findFirstWithName(componentName) {
+    const cssSelector = `[data-uikfr-${componentName}]`;
+    return document.querySelector(cssSelector);
+  }
+
   constructor(componentName) {
     this.componentName = componentName;
     this.attrValue = `${componentName}-${generate(VALID_CHARS, 5)}`;

@@ -1,14 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import omit from 'lodash/omit';
 import {
   buildBreakpointClasses,
   buildClassName,
   customPropTypes,
   getOptionsString,
   HTML,
+  LibraryComponent,
   UIK,
 } from '../../../lib';
+import { flexProps } from '../../common';
 import Base from '../../base';
 import GridCell from './GridCell';
 
@@ -16,6 +19,8 @@ export default class Grid extends React.Component {
   static displayName = 'Grid';
 
   static propTypes = {
+    ...omit(Base.propTypes, 'flex'),
+    ...flexProps.propTypes,
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     childWidth: customPropTypes.forBreakpoints(UIK.CHILD_WIDTHS),
     divider: PropTypes.bool,
@@ -27,23 +32,35 @@ export default class Grid extends React.Component {
   };
 
   static defaultProps = {
+    ...Base.defaultProps,
     as: 'div',
-    divider: false,
-    matchHeight: false,
   };
 
   static Cell = GridCell;
 
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('grid');
+  }
+
   render() {
     const {
+      alignItems,
       childWidth,
       className,
+      direction,
+      displayAs,
       divider,
       firstColumn,
+      grow,
       gutter,
+      inline,
+      justifyContent,
       matchHeight,
       nextRow,
+      order,
       textAlign,
+      wrap,
       ...rest
     } = this.props;
 
@@ -52,6 +69,16 @@ export default class Grid extends React.Component {
       buildBreakpointClasses('childWidth', childWidth),
       buildBreakpointClasses('text', textAlign),
       buildClassName('grid', gutter),
+      flexProps.extrapolateClasses({
+        alignItems,
+        direction,
+        displayAs,
+        grow,
+        inline,
+        justifyContent,
+        order,
+        wrap,
+      }),
       {
         'uk-grid-divider': divider,
         'uk-grid-match': matchHeight,
@@ -64,6 +91,7 @@ export default class Grid extends React.Component {
         className={classes || undefined}
         component={Grid}
         uk-grid={getOptionsString({ firstColumn, margin: nextRow })}
+        {...this.libComp.appendProps(this.props)}
       />
     );
   }

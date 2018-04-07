@@ -42,8 +42,12 @@ storiesOf('Flex', module)
     <Block margin={{ all: 'large' }} viewport>
       <Flex alignItems="middle" textAlign="center" style={{ height: '100%' }}>
         <Card>Item 1</Card>
-        <Card margin="left">Item 2</Card>
-        <Card margin="left">Item 3</Card>
+        <Card margin="left">
+          Item 2<br />...
+        </Card>
+        <Card margin="left">
+          Item 3<br />...<br />...
+        </Card>
       </Flex>
     </Block>
   ))
@@ -90,10 +94,10 @@ storiesOf('Flex', module)
   .add('Item order', () => (
     <Block margin={{ all: 'large' }}>
       <Flex>
-        <Card order="last" margin="left">
+        <Card flex={{ order: 'last' }} margin="left">
           Item 1
         </Card>
-        <Card order="first">Item 2</Card>
+        <Card flex={{ order: 'first' }}>Item 2</Card>
         <Card margin="left">Item 3</Card>
       </Flex>
     </Block>

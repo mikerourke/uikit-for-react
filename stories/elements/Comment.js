@@ -62,7 +62,6 @@ storiesOf('Comment', module)
     </Block>
   ))
 
-  // TODO: Fix this, the list style isn't working
   .add('Comment list', () => (
     <Block margin={{ all: 'large' }}>
       <Comment.List>

@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { customPropTypes, generateSelector } from '../../../lib';
 import Base from '../../base';
@@ -10,7 +10,10 @@ export default class OffcanvasContent extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('div'),
-    children: PropTypes.node.isRequired,
+    children: ExtraPropTypes.or([
+      ExtraPropTypes.componentWithName('Offcanvas'),
+      ExtraPropTypes.componentWithName('OffcanvasToggle'),
+    ]).isRequired,
   };
 
   static defaultProps = {
@@ -41,9 +44,9 @@ export default class OffcanvasContent extends React.Component {
 
   render() {
     const { children, className, ...rest } = this.props;
-    
+
     const classes = classnames(className, 'uk-offcanvas-content');
-    
+
     return (
       <Base {...rest} className={classes} component={OffcanvasContent}>
         {this.renderChildren(children)}

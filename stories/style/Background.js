@@ -48,9 +48,10 @@ storiesOf('Background', module)
           <Panel
             background={{ imageUrl: imageLinks.dark, cover: true }}
             height="medium"
-            flex
-            justifyContent="center"
-            alignItems="middle"
+            flex={{
+              alignItems: 'middle',
+              justifyContent: 'center',
+            }}
           >
             <Heading as="p" size="h4">
               Cover
@@ -65,9 +66,10 @@ storiesOf('Background', module)
               color: 'muted',
             }}
             height="medium"
-            flex
-            justifyContent="center"
-            alignItems="middle"
+            flex={{
+              alignItems: 'middle',
+              justifyContent: 'center',
+            }}
           >
             <Heading as="p" size="h4">
               Contain
@@ -89,9 +91,10 @@ storiesOf('Background', module)
               position: 'top-right',
             }}
             height="medium"
-            flex
-            justifyContent="center"
-            alignItems="middle"
+            flex={{
+              alignItems: 'middle',
+              justifyContent: 'center',
+            }}
           >
             <Heading as="p" size="h4">
               Top Right
@@ -106,9 +109,10 @@ storiesOf('Background', module)
               position: 'top-left',
             }}
             height="medium"
-            flex
-            justifyContent="center"
-            alignItems="middle"
+            flex={{
+              alignItems: 'middle',
+              justifyContent: 'center',
+            }}
           >
             <Heading as="p" size="h4">
               Top Left
@@ -120,7 +124,7 @@ storiesOf('Background', module)
   ))
 
   .add('Attachment', () => (
-    <Block margin={{ all: 'large' }}>
+    <Block margin={{ left: 'large' }}>
       <Block
         background={{
           imageUrl: imageLinks.dark,
@@ -129,6 +133,7 @@ storiesOf('Background', module)
         }}
         height="medium"
         width="large"
+        style={{ marginTop: 200, marginBottom: 400 }}
       />
     </Block>
   ))
@@ -144,9 +149,10 @@ storiesOf('Background', module)
         }}
         height="medium"
         width="large"
-        flex
-        justifyContent="center"
-        alignItems="middle"
+        flex={{
+          alignItems: 'middle',
+          justifyContent: 'center',
+        }}
       >
         <Heading as="p" size="h4" margin="remove" visible="@m" inverse="light">
           Image shown
@@ -175,9 +181,10 @@ storiesOf('Background', module)
                 blendMode,
               }}
               height="small"
-              flex
-              justifyContent="center"
-              alignItems="middle"
+              flex={{
+                alignItems: 'middle',
+                justifyContent: 'center',
+              }}
             >
               <Heading as="p" size="h4">
                 {startCase(blendMode)}

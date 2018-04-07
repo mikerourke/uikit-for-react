@@ -1,4 +1,5 @@
 import React from 'react';
+import { LibraryComponent } from '../../../lib';
 import { Toggle } from '../../elements';
 
 export default class OffcanvasToggle extends React.Component {
@@ -6,7 +7,18 @@ export default class OffcanvasToggle extends React.Component {
   static propTypes = Toggle.propTypes;
   static defaultProps = Toggle.defaultProps;
 
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('offcanvas-toggle');
+  }
+
   render() {
-    return <Toggle {...this.props} component={OffcanvasToggle} />;
+    return (
+      <Toggle
+        {...this.props}
+        component={OffcanvasToggle}
+        {...this.libComp.appendProps(this.props)}
+      />
+    );
   }
 }

@@ -7,7 +7,6 @@ export { default as buildSelector } from './buildSelector';
 export { default as LibraryComponent } from './LibraryComponent';
 
 export {
-  appendClassNamesToChildren,
   childMatchesType,
   childrenHaveClass,
   findChildByType,

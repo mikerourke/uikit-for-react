@@ -16,7 +16,6 @@ export default class Cover extends React.Component {
   static defaultProps = {
     ...Base.defaultProps,
     as: 'img',
-    automute: false,
   };
 
   static Container = CoverContainer;

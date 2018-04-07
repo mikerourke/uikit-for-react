@@ -47,7 +47,7 @@ storiesOf('Button', module)
 
   .add('Size modifiers', () => (
     <Block margin={{ all: 'large' }}>
-      <Block margin>
+      <Margin as="p">
         <Button size="small" margin={{ right: 'small' }}>
           Small button
         </Button>
@@ -57,8 +57,8 @@ storiesOf('Button', module)
         <Button size="small" secondary margin={{ right: 'small' }}>
           Small button
         </Button>
-      </Block>
-      <Block margin>
+      </Margin>
+      <Margin as="p">
         <Button size="large" margin={{ right: 'small' }}>
           Large button
         </Button>
@@ -68,7 +68,7 @@ storiesOf('Button', module)
         <Button size="large" secondary margin={{ right: 'small' }}>
           Large button
         </Button>
-      </Block>
+      </Margin>
     </Block>
   ))
 
@@ -95,14 +95,14 @@ storiesOf('Button', module)
           <Button secondary>Button</Button>
         </Button.Group>
       </div>
-      <Block margin>
+      <Block margin="small">
         <Button.Group>
           <Button primary>Button</Button>
           <Button primary>Button</Button>
           <Button primary>Button</Button>
         </Button.Group>
       </Block>
-      <Block margin>
+      <Block>
         <Button.Group>
           <Button danger>Button</Button>
           <Button danger>Button</Button>

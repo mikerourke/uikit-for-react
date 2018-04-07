@@ -1,3 +1,4 @@
+export Animation from './Animation';
 export Cover from './Cover';
 export Hidden from './Hidden';
 export Margin from './Margin';

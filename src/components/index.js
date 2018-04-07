@@ -160,6 +160,7 @@ export {
   Totop,
 } from './navigation';
 export {
+  Animation,
   Cover,
   Hidden,
   Margin,

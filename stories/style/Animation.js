@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import startCase from 'lodash/startCase';
-import { Block, Card, Grid, Image } from '../../src/components';
+import { Animation, Block, Card, Grid, Image } from '../../src/components';
 import { UIK } from '../../src/lib';
 import { imageLinks } from '../common';
 
@@ -20,11 +20,11 @@ storiesOf('Animation', module)
       <Grid childWidth={{ default: '1/2', atSm: '1/4' }} matchHeight>
         {validAnimations.map((animationName, idx) => (
           <Grid.Cell toggleFor="animation" key={animationName}>
-            <Card animation={animationName}>
+            <Animation as={Card} name={animationName}>
               <Card.Content textAlign="center">
                 {animationDisplayNames[idx]}
               </Card.Content>
-            </Card>
+            </Animation>
           </Grid.Cell>
         ))}
       </Grid>
@@ -36,11 +36,11 @@ storiesOf('Animation', module)
       <Grid childWidth={{ default: '1/2', atSm: '1/4' }} matchHeight>
         {validAnimations.map((animationName, idx) => (
           <Grid.Cell toggleFor="animation" key={animationName}>
-            <Card animation={{ name: animationName, reverse: true }}>
+            <Animation as={Card} name={animationName} reverse>
               <Card.Content textAlign="center">
                 {animationDisplayNames[idx]}
               </Card.Content>
-            </Card>
+            </Animation>
           </Grid.Cell>
         ))}
       </Grid>
@@ -50,11 +50,11 @@ storiesOf('Animation', module)
   .add('Fast modifier', () => (
     <Block margin={{ all: 'large' }}>
       <Block width={{ atSm: '1/3' }} toggleFor="animation">
-        <Card animation={{ name: 'fade', fast: true }}>
+        <Animation as={Card} name="fade" fast>
           <Card.Content as="p" textAlign="center">
             Fade
           </Card.Content>
-        </Card>
+        </Animation>
       </Block>
     </Block>
   ))
@@ -63,34 +63,19 @@ storiesOf('Animation', module)
     <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: '1/3' }} matchHeight>
         <Grid.Cell toggleFor="animation">
-          <Card
-            animation={{
-              name: 'scale-up',
-              transformOrigin: 'bottom-right',
-            }}
-          >
+          <Animation as={Card} name="scale-up" transformOrigin="bottom-right">
             <Card.Content textAlign="center">Bottom Right</Card.Content>
-          </Card>
+          </Animation>
         </Grid.Cell>
         <Grid.Cell toggleFor="animation">
-          <Card
-            animation={{
-              name: 'scale-up',
-              transformOrigin: 'top-center',
-            }}
-          >
+          <Animation as={Card} name="scale-up" transformOrigin="top-center">
             <Card.Content textAlign="center">Top Center</Card.Content>
-          </Card>
+          </Animation>
         </Grid.Cell>
         <Grid.Cell toggleFor="animation">
-          <Card
-            animation={{
-              name: 'scale-up',
-              transformOrigin: 'bottom-center',
-            }}
-          >
+          <Animation as={Card} name="scale-up" transformOrigin="bottom-center">
             <Card.Content textAlign="center">Bottom Center</Card.Content>
-          </Card>
+          </Animation>
         </Grid.Cell>
       </Grid>
     </Block>
@@ -100,20 +85,20 @@ storiesOf('Animation', module)
     <Block margin={{ all: 'large' }}>
       <Grid gutter="large" childWidth={{ atSm: '1/2' }}>
         <Grid.Cell overflow="hidden">
-          <Image
+          <Animation
+            as={Image}
             src={imageLinks.dark}
             alt="Example image"
-            animation="kenburns"
+            name="kenburns"
           />
         </Grid.Cell>
         <Grid.Cell overflow="hidden">
-          <Image
+          <Animation
             src={imageLinks.dark}
             alt="Example image"
-            animation={{
-              name: 'kenburns',
-              reverse: true,
-            }}
+            as={Image}
+            name="kenburns"
+            reverse
           />
         </Grid.Cell>
       </Grid>

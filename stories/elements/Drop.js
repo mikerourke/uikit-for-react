@@ -12,12 +12,12 @@ storiesOf('Drop', module)
   .add('Usage', () => (
     <Block margin={{ all: 'large' }}>
       <Block inline>
-        <Drop toggle={<Button>Hover</Button>}>
+        <Drop toggle={<Button type="button">Hover</Button>}>
           <Card>{message}</Card>
         </Drop>
       </Block>
       <Block inline>
-        <Drop mode="click" toggle={<Button>Click</Button>}>
+        <Drop mode="click" toggle={<Button type="button">Click</Button>}>
           <Card>{message}</Card>
         </Drop>
       </Block>
@@ -64,11 +64,11 @@ storiesOf('Drop', module)
     <Block margin={{ all: 'large' }}>
       <Panel as={Drop.Boundary} placeholder width={{ atSm: '2/3' }}>
         <Button float="left">Hover</Button>
-        <Drop boundaryAlign>
+        <Drop>
           <Card>{message}</Card>
         </Drop>
         <Button float="right">Hover</Button>
-        <Drop boundaryAlign>
+        <Drop>
           <Card>{message}</Card>
         </Drop>
       </Panel>

@@ -65,7 +65,7 @@ storiesOf('Dropdown', module)
   ))
 
   .add('Position', () => (
-    <Block margin={{ all: 'large' }} style={{ paddingTop: 300 }}>
+    <Block margin={{ all: 'large' }} style={{ paddingTop: 300, height: 1000 }}>
       <Block inline>
         <Dropdown toggle={<Button>Top Right</Button>} position="top-right">
           <NavExample />

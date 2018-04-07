@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import get from 'lodash/get';
+import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import {
   addEventInvoker,
@@ -76,17 +77,12 @@ export default class Alert extends React.Component {
     const { cssSelector } = this.libComp;
     addEventInvoker(cssSelector, 'beforehide', 'onBeforeHide', this.props);
     addEventInvoker(cssSelector, 'hide', 'onHide', this.props);
-  }
 
-  renderChildren = children =>
-    React.Children.map(children, child => {
-      if (child.type === Close) {
-        return React.cloneElement(child, {
-          className: classnames(child.props.className, 'uk-alert-close'),
-        });
-      }
-      return child;
-    });
+    const firstClose = LibraryComponent.findFirstWithName('close');
+    if (firstClose) {
+      firstClose.classList.add('uk-alert-close');
+    }
+  }
 
   render() {
     const {
@@ -129,7 +125,7 @@ export default class Alert extends React.Component {
         {...this.libComp.appendProps(this.props)}
       >
         {closeable && <Close {...closeProps} />}
-        {this.renderChildren(children)}
+        {!isNil(children) && children}
       </Base>
     );
   }

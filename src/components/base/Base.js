@@ -1,9 +1,11 @@
-/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/forbid-prop-types,prefer-rest-params */
 import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
+import compact from 'lodash/compact';
 import get from 'lodash/get';
+import isBoolean from 'lodash/isBoolean';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import isPlainObject from 'lodash/isPlainObject';
@@ -20,43 +22,28 @@ import {
   HTML,
   UIK,
 } from '../../lib';
-
-const marginSpacingPropType = PropTypes.oneOfType([
-  PropTypes.bool,
-  PropTypes.oneOf(UIK.SPACING_MODIFIERS),
-]);
+import {
+  animationProps,
+  backgroundProps,
+  flexProps,
+  marginProps,
+  positionProps,
+  textProps,
+} from '../common';
 
 export default class Base extends React.Component {
   static displayName = 'Base';
 
   static propTypes = {
-    alignItems: PropTypes.oneOf(UIK.FLEX_VERTICAL_MODIFIERS),
     alignTo: customPropTypes.forBreakpoints(UIK.HORIZONTAL_POSITIONS),
     animation: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.ANIMATIONS),
-      PropTypes.shape({
-        name: PropTypes.oneOf(UIK.ANIMATIONS),
-        reverse: PropTypes.bool,
-        fast: PropTypes.bool,
-        transformCenter: PropTypes.bool,
-        transformOrigin: PropTypes.oneOf(UIK.X_Y_POSITIONS),
-      }),
+      PropTypes.shape(animationProps.propTypes),
     ]),
     as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
     background: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.BACKGROUND_COLORS),
-      PropTypes.shape({
-        blendMode: PropTypes.oneOf(UIK.BLEND_MODES),
-        breakpoint: PropTypes.oneOf(UIK.BREAKPOINTS),
-        color: PropTypes.oneOf(UIK.BACKGROUND_COLORS),
-        contain: PropTypes.bool,
-        cover: PropTypes.bool,
-        fixed: PropTypes.bool,
-        imageUrl: PropTypes.string,
-        norepeat: PropTypes.bool,
-        position: PropTypes.oneOf([...UIK.X_Y_POSITIONS, 'center-center']),
-        size: PropTypes.oneOf(UIK.BACKGROUND_SIZES),
-      }),
+      PropTypes.shape(backgroundProps.propTypes),
     ]),
     baseId: PropTypes.string,
     baseRef: PropTypes.func,
@@ -76,34 +63,13 @@ export default class Base extends React.Component {
       'clearfix',
       'float',
     ),
-    column: customPropTypes.forBreakpoints(
-      UIK.BASE_WIDTHS,
-      PropTypes.shape({
-        width: PropTypes.oneOf(UIK.BASE_WIDTHS),
-        divider: PropTypes.bool,
-      }),
-      { divider: PropTypes.bool },
-    ),
-    columnSpan: PropTypes.bool,
     component: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
-    direction: PropTypes.oneOfType([
-      PropTypes.oneOf(['column', 'row']),
-      PropTypes.shape({
-        as: PropTypes.oneOf(['column', 'row']),
-        reverse: PropTypes.bool,
-      }),
-    ]),
     display: PropTypes.oneOf(['block', 'inline', 'inline-block']),
-    dynamicMargin: PropTypes.oneOfType([
+    flex: PropTypes.oneOfType([
       PropTypes.bool,
-      PropTypes.shape({
-        firstColumn: PropTypes.string,
-        nextRow: PropTypes.string,
-      }),
+      PropTypes.shape(flexProps.propTypes),
     ]),
-    flex: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['inline'])]),
     float: PropTypes.oneOf(['left', 'right']),
-    grow: PropTypes.oneOf(['auto', 'full', 'none']),
     height: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.oneOf([...UIK.BASE_SIZES, 'full']),
@@ -142,38 +108,13 @@ export default class Base extends React.Component {
       parent: PropTypes.oneOf(['slideshow']).isRequired,
       index: PropTypes.number.isRequired,
     }),
-    justifyContent: customPropTypes.forBreakpoints(
-      UIK.FLEX_HORIZONTAL_MODIFIERS,
-    ),
     linkStyle: PropTypes.oneOf(['heading', 'muted', 'reset', 'text']),
     margin: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.oneOf([...UIK.LOCATIONS, ...UIK.SPACING_MODIFIERS, 'grid']),
-      PropTypes.shape({
-        adjacent: PropTypes.oneOf(['remove']),
-        all: marginSpacingPropType,
-        base: PropTypes.oneOfType([
-          PropTypes.bool,
-          PropTypes.oneOf(['auto', 'remove']),
-        ]),
-        bottom: marginSpacingPropType,
-        left: marginSpacingPropType,
-        right: marginSpacingPropType,
-        top: marginSpacingPropType,
-        vertical: PropTypes.oneOfType([
-          PropTypes.bool,
-          PropTypes.oneOf(['auto', 'remove']),
-        ]),
-      }),
+      PropTypes.shape(marginProps.propTypes),
     ]),
     marker: PropTypes.bool,
-    order: PropTypes.oneOfType([
-      PropTypes.oneOf(['first', 'last']),
-      PropTypes.shape({
-        first: PropTypes.oneOf(UIK.BREAKPOINTS),
-        last: PropTypes.oneOf(UIK.BREAKPOINTS),
-      }),
-    ]),
     overflow: PropTypes.oneOf(['auto', 'hidden']),
     padding: PropTypes.oneOfType([
       PropTypes.bool,
@@ -198,14 +139,7 @@ export default class Base extends React.Component {
     position: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.LOCATIONS),
       PropTypes.oneOf(UIK.CSS_POSITIONS),
-      PropTypes.shape({
-        at: PropTypes.oneOf([...UIK.X_Y_POSITIONS, 'center-center']),
-        cover: PropTypes.bool,
-        marginSize: PropTypes.oneOf(UIK.BASE_SIZES),
-        outside: PropTypes.oneOf(['left', 'right']),
-        type: PropTypes.oneOf(UIK.CSS_POSITIONS),
-        zIndexOfOne: PropTypes.bool,
-      }),
+      PropTypes.shape(positionProps.propTypes),
     ]),
     resize: PropTypes.oneOfType([
       PropTypes.bool,
@@ -224,25 +158,7 @@ export default class Base extends React.Component {
     }),
     sortableHandle: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     style: PropTypes.object,
-    text: PropTypes.shape({
-      align: PropTypes.oneOfType([
-        PropTypes.oneOf(['justify']),
-        customPropTypes.forBreakpoints(UIK.HORIZONTAL_POSITIONS),
-      ]),
-      bold: PropTypes.bool,
-      danger: PropTypes.bool,
-      large: PropTypes.bool,
-      lead: PropTypes.bool,
-      meta: PropTypes.bool,
-      muted: PropTypes.bool,
-      primary: PropTypes.bool,
-      small: PropTypes.bool,
-      success: PropTypes.bool,
-      transform: PropTypes.oneOf(['capitalize', 'lowercase', 'uppercase']),
-      verticalAlign: PropTypes.oneOf(['baseline', 'top', 'middle', 'bottom']),
-      warning: PropTypes.bool,
-      wrapping: PropTypes.oneOf(['break', 'nowrap', 'truncate']),
-    }),
+    text: PropTypes.shape(textProps.propTypes),
     textAlign: customPropTypes.forBreakpoints(
       UIK.HORIZONTAL_POSITIONS,
       PropTypes.oneOf(['justify']),
@@ -260,163 +176,20 @@ export default class Base extends React.Component {
     ]),
     visible: PropTypes.oneOf(UIK.BREAKPOINTS),
     width: customPropTypes.forBreakpoints(UIK.ALL_WIDTHS, PropTypes.number),
-    wrap: PropTypes.oneOfType([
-      PropTypes.oneOf(['nowrap', 'reverse', 'wrap']),
-      PropTypes.shape({
-        type: PropTypes.oneOf(['nowrap', 'reverse', 'wrap']),
-        alignment: PropTypes.oneOf([
-          ...UIK.FLEX_VERTICAL_MODIFIERS,
-          'around',
-          'between',
-        ]),
-      }),
-    ]),
   };
 
   static defaultProps = {
     className: '',
-    flex: false,
     hidden: false,
-    inline: false,
     invisible: false,
     margin: false,
     marker: false,
     padding: false,
     parallax: {},
-    resize: false,
-    sortableHandle: false,
     style: {},
-    transformCenter: false,
   };
 
-  getAnimationClasses = animation =>
-    classnames(
-      buildClassName('animation', animation),
-      buildClassName('animation', get(animation, 'name')),
-      buildClassName('transform-origin', get(animation, 'transformOrigin')),
-      {
-        'uk-animation-fast': get(animation, 'fast', false),
-        'uk-animation-reverse': get(animation, 'reverse', false),
-        'uk-animation-transform-center': get(
-          animation,
-          'transformCenter',
-          false,
-        ),
-      },
-    );
-
-  getBackgroundClasses = background =>
-    classnames(
-      buildClassName('background', background),
-      buildClassName('background-blend', get(background, 'blendMode')),
-      buildClassName('background-image', get(background, 'breakpoint')),
-      buildClassName('background', get(background, 'color')),
-      buildClassName('background', get(background, 'position')),
-      buildClassName('background', get(background, 'size')),
-      {
-        'uk-background-contain': get(background, 'contain'),
-        'uk-background-cover': get(background, 'cover'),
-        'uk-background-fixed': get(background, 'fixed'),
-        'uk-background-norepeat': get(background, 'norepeat'),
-      },
-    );
-
-  getFlexClasses = (
-    alignItems,
-    direction,
-    flex,
-    grow,
-    justifyContent,
-    order,
-    wrap,
-  ) => {
-    const classes = classnames(
-      buildClassName('flex', alignItems),
-      buildClassName('flex', direction),
-      buildClassName(
-        'flex',
-        get(direction, 'as'),
-        get(direction, 'reverse', false) ? 'reverse' : '',
-      ),
-      buildBreakpointClasses('flex', justifyContent),
-      buildClassName('flex', order),
-      buildClassName('flex-first', get(order, 'first')),
-      buildClassName('flex-last', get(order, 'last')),
-      buildClassName('flex', wrap),
-      buildClassName('flex', get(wrap, 'type')),
-      buildClassName('flex', get(wrap, 'type'), get(wrap, 'alignment')),
-      {
-        'uk-flex': flex === true,
-        'uk-flex-wrap-reverse': wrap === 'reverse',
-        'uk-flex-inline': flex === 'inline',
-        'uk-flex-1': grow === 'full',
-      },
-    );
-    return classes.toString().replace('flex-reverse', 'flex-wrap-reverse');
-  };
-
-  getMarginClasses = margin => {
-    const allMargins = get(margin, 'all');
-    let marginClasses = isNil(allMargins)
-      ? [
-          buildClassName('margin', get(margin, 'base')),
-          buildClassName('margin', get(margin, 'adjacent'), 'adjacent'),
-          buildClassName('margin', get(margin, 'bottom'), 'bottom'),
-          buildClassName('margin', get(margin, 'left'), 'left'),
-          buildClassName('margin', get(margin, 'right'), 'right'),
-          buildClassName('margin', get(margin, 'top'), 'top'),
-          buildClassName('margin', get(margin, 'vertical'), 'vertical'),
-        ]
-      : UIK.LOCATIONS.map(location =>
-          buildClassName('margin', allMargins, location),
-        );
-    if (margin === true) marginClasses = 'uk-margin';
-    return classnames(marginClasses, {
-      [buildClassName('margin', margin)]: isString(margin) && margin !== 'grid',
-      'uk-margin': get(margin, 'base') === true,
-      'uk-grid-margin': margin === 'grid',
-    });
-  };
-
-  getPositionClasses = position => {
-    const positionAt = get(position, 'at', '');
-    const isCentered = positionAt === 'center-center';
-    return classnames(
-      buildClassName('position', position),
-      buildClassName('position-center', get(position, 'outside'), 'out'),
-      buildClassName('position-cover', get(position, 'cover')),
-      buildClassName('position-z-index', get(position, 'zIndexOfOne')),
-      buildClassName('position', get(position, 'marginSize')),
-      buildClassName('position', get(position, 'type')),
-      {
-        [buildClassName('position', positionAt)]: !isCentered,
-        'uk-position-center': isCentered,
-      },
-    );
-  };
-
-  getTextClasses = text =>
-    classnames(
-      buildBreakpointClasses('text', get(text, 'align')),
-      buildClassName('text', get(text, 'transform')),
-      buildClassName('text', get(text, 'verticalAlign')),
-      buildClassName('text', get(text, 'wrapping')),
-      {
-        'uk-text-bold': get(text, 'bold', false),
-        'uk-text-danger': get(text, 'danger', false),
-        'uk-text-large': get(text, 'large', false),
-        'uk-text-lead': get(text, 'lead', false),
-        'uk-text-meta': get(text, 'meta', false),
-        'uk-text-muted': get(text, 'muted', false),
-        'uk-text-primary': get(text, 'primary', false),
-        'uk-text-small': get(text, 'small', false),
-        'uk-text-success': get(text, 'success', false),
-        'uk-text-warning': get(text, 'warning', false),
-      },
-    );
-
-  getComponentAttributes = (
-    dynamicMargin,
+  getComponentAttributes = ({
     heightMatch,
     itemIn,
     marker,
@@ -424,7 +197,10 @@ export default class Base extends React.Component {
     parallax,
     scrollspyNav,
     viewport,
-  ) => {
+  } = {}) => {
+    const validOptions = compact(Object.values(...arguments));
+    if (validOptions.length === 0) return {};
+
     const itemInName = buildClassName(get(itemIn, 'parent'), 'item');
     const itemInIndex = get(itemIn, 'index');
 
@@ -449,17 +225,8 @@ export default class Base extends React.Component {
       });
     }
 
-    let marginOptions = '';
-    if (isPlainObject(dynamicMargin)) {
-      marginOptions = getOptionsString({
-        margin: get(dynamicMargin, 'nextRow'),
-        firstColumn: get(dynamicMargin, 'firstColumn'),
-      });
-    }
-
     return {
       [itemInName]: itemInIndex,
-      'uk-margin': dynamicMargin ? marginOptions : undefined,
       'uk-marker': marker ? '' : undefined,
       'uk-height-match': heightMatch ? heightMatchOptions : undefined,
       'uk-height-viewport': viewport ? getOptionsString(viewport) : undefined,
@@ -472,7 +239,6 @@ export default class Base extends React.Component {
 
   render() {
     const {
-      alignItems,
       alignTo,
       animation,
       as,
@@ -484,15 +250,10 @@ export default class Base extends React.Component {
       childWidth,
       className,
       clearfix,
-      column,
-      columnSpan,
       component,
-      direction,
       display,
-      dynamicMargin,
       flex,
       float,
-      grow,
       height,
       heightMatch,
       heightMax,
@@ -503,14 +264,13 @@ export default class Base extends React.Component {
       inverse,
       invisible,
       itemIn,
-      justifyContent,
       linkStyle,
       margin,
       marker,
-      order,
       overflow,
       padding,
       parallax,
+      placeholder,
       position,
       resize,
       responsive,
@@ -524,7 +284,6 @@ export default class Base extends React.Component {
       viewport,
       visible,
       width,
-      wrap,
       ...rest
     } = this.props;
 
@@ -532,26 +291,15 @@ export default class Base extends React.Component {
     const customWidth = UIK.ALL_WIDTHS.includes(width) || isPlainObject(width);
 
     const ukClasses = classnames(
-      this.getAnimationClasses(animation),
-      this.getBackgroundClasses(background),
-      this.getFlexClasses(
-        alignItems,
-        direction,
-        flex,
-        grow,
-        justifyContent,
-        order,
-        wrap,
-      ),
-      this.getMarginClasses(margin),
-      this.getPositionClasses(position),
-      this.getTextClasses(text),
+      animationProps.extrapolateClasses(animation),
+      backgroundProps.extrapolateClasses(background),
+      flexProps.extrapolateClasses(flex),
+      marginProps.extrapolateClasses(margin),
+      positionProps.extrapolateClasses(position),
+      textProps.extrapolateClasses(text),
       buildBreakpointClasses('align', alignTo),
       buildBreakpointClasses('child-width', childWidth),
       buildClassName('child-width', childWidth),
-      buildBreakpointClasses('column', column),
-      buildClassName('column', column),
-      buildClassName('column', get(column, 'width')),
       buildClassName('border', border),
       buildClassName('box-shadow', boxShadow),
       buildClassName('box-shadow', get(boxShadow, 'size')),
@@ -579,12 +327,10 @@ export default class Base extends React.Component {
           : false,
         'uk-box-shadow-bottom': get(boxShadow, 'bottom', false),
         'uk-clearfix': clearfix,
-        'uk-column-divider': get(column, 'divider', false),
-        'uk-column-span': columnSpan,
         'uk-height-1-1': height === 'full',
         'uk-inline': inline,
         'uk-invisible': invisible,
-        'uk-placeholder': get(this.props, 'placeholder') === true,
+        'uk-placeholder': placeholder === true,
         'uk-preserve-width': responsive === false,
         'uk-resize': resize,
         'uk-sorable-handle': sortableHandle === true,
@@ -595,8 +341,7 @@ export default class Base extends React.Component {
       },
     );
 
-    const attributes = this.getComponentAttributes(
-      dynamicMargin,
+    const attributes = this.getComponentAttributes({
       heightMatch,
       itemIn,
       marker,
@@ -604,13 +349,9 @@ export default class Base extends React.Component {
       parallax,
       scrollspyNav,
       viewport,
-    );
+    });
     const classes = classnames(className, trim(ukClasses));
-    const imageUrl = get(background, 'imageUrl');
-    const styles = {
-      ...style,
-      backgroundImage: isNil(imageUrl) ? undefined : `url(${imageUrl})`,
-    };
+    const styles = backgroundProps.extrapolateStyle(background, style);
 
     const componentForElement = component || Base;
     const Element = getElementType(componentForElement, as);
@@ -626,6 +367,7 @@ export default class Base extends React.Component {
         {...getValidProps(componentForElement, rest)}
         id={baseId}
         ref={baseRef || innerRef}
+        placeholder={isBoolean(placeholder) ? undefined : placeholder}
       />
     );
   }
