@@ -6,14 +6,13 @@ import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
   customPropTypes,
-  generateSelector,
   getOptionsString,
   HTML,
   LibraryComponent,
   UIK,
 } from '../../lib';
 import Base from '../Base';
-import { Tab } from '../layout/index';
+import Tab from '../Tab';
 
 export default class SwitcherToggles extends React.Component {
   static displayName = 'SwitcherToggles';

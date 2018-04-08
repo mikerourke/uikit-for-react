@@ -9,8 +9,8 @@ import {
   getOptionsString,
   LibraryComponent,
   HTML,
-} from '../../lib/index';
-import Base from '../Base/index';
+} from '../../lib';
+import Base from '../Base';
 
 export default class ScrollPoint extends React.Component {
   static displayName = 'ScrollPoint';

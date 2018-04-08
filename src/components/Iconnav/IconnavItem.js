@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import omit from 'lodash/omit';
 import { customPropTypes, UIK } from '../../lib';
 import Base from '../Base';
-import { Icon } from '../../elements';
+import Icon from '../Icon';
 
 export default class IconnavItem extends React.Component {
   static displayName = 'IconnavItem';
@@ -33,9 +33,9 @@ export default class IconnavItem extends React.Component {
       iconOptions,
       ...rest
     } = this.props;
-    
+
     const classes = classnames(className, { 'uk-active': active });
-    
+
     return (
       <Base {...rest} className={classes} component={IconnavItem}>
         <Icon as="a" {...iconOptions} href={href} name={iconName} />

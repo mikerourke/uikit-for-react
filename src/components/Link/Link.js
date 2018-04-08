@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { customPropTypes } from '../../lib';
-import Text from '../Text/index';
+import Text from '../Text';
 
 export default class Link extends React.Component {
   static displayName = 'Link';

@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import isString from 'lodash/isString';
 import { customPropTypes } from '../../lib';
 import Base from '../Base';
-import { Close } from '../elements/index';
+import Close from '../Close';
 
 export default class ModalClose extends React.Component {
   static displayName = 'ModalClose';

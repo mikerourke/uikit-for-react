@@ -1,9 +1,9 @@
 import React from 'react';
 import classnames from 'classnames';
 import omit from 'lodash/omit';
-import { customPropTypes, HTML } from '../../lib/index';
+import { customPropTypes, HTML } from '../../lib';
 import { propTypes, extrapolateClasses } from '../common/textProps';
-import Base from '../Base/index';
+import Base from '../Base';
 
 export default class Text extends React.Component {
   static displayName = 'Text';

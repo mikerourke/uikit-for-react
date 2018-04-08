@@ -5,7 +5,7 @@ import invoke from 'lodash/invoke';
 import isNil from 'lodash/isNil';
 import { buildClassName, customPropTypes, HTML, UIK } from '../../lib';
 import Base from '../Base';
-import { Icon } from '../elements/index';
+import Icon from '../Icon';
 
 export default class FormInput extends React.Component {
   static displayName = 'FormInput';

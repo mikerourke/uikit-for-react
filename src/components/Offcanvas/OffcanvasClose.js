@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import { Close } from '../elements/index';
+import Close from '../Close';
 
 export default class OffcanvasClose extends React.Component {
   static displayName = 'OffcanvasClose';

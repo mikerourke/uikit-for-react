@@ -1,6 +1,6 @@
 import React from 'react';
 import { LibraryComponent } from '../../lib';
-import { Toggle } from '../elements/index';
+import Toggle from '../Toggle';
 
 export default class OffcanvasToggle extends React.Component {
   static displayName = 'OffcanvasToggle';

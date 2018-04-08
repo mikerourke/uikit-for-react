@@ -1,6 +1,6 @@
 import React from 'react';
 import { customPropTypes } from '../../lib';
-import Text from '../Text/index';
+import Text from '../Text';
 
 export default class ArticleLead extends React.Component {
   static displayName = 'ArticleLead';

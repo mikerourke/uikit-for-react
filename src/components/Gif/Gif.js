@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
-import { customPropTypes } from '../../lib/index';
-import Base from '../Base/index';
+import { customPropTypes } from '../../lib';
+import Base from '../Base';
 
 export default class Gif extends React.Component {
   static displayName = 'Gif';

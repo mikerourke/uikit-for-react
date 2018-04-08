@@ -11,7 +11,7 @@ import {
   LibraryComponent,
   UIK,
 } from '../../lib';
-import { flexProps } from '../common/index';
+import { flexProps } from '../common';
 import Base from '../Base';
 import GridCell from './GridCell';
 

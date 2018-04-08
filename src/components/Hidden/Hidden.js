@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes, HTML, UIK } from '../../lib/index';
-import Base from '../Base/index';
+import { buildClassName, customPropTypes, HTML, UIK } from '../../lib';
+import Base from '../Base';
 
 export default class Hidden extends React.Component {
   static displayName = 'Hidden';

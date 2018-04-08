@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import isNil from 'lodash/isNil';
-import { customPropTypes, HTML } from '../../lib/index';
-import Base from '../Base/index';
+import { customPropTypes, HTML } from '../../lib';
+import Base from '../Base';
 
 export default class Logo extends React.Component {
   static displayName = 'Logo';

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import omit from 'lodash/omit';
 import { customPropTypes } from '../../lib';
-import { flexProps } from '../common/index';
+import { flexProps } from '../common';
 import Base from '../Base';
 
 export default class GridCell extends React.Component {

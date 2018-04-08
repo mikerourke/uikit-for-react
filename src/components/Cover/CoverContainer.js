@@ -4,8 +4,8 @@ import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import get from 'lodash/get';
 import isNil from 'lodash/isNil';
-import { customPropTypes, getOptionsString, HTML } from '../../lib/index';
-import Base from '../Base/index';
+import { customPropTypes, getOptionsString, HTML } from '../../lib';
+import Base from '../Base';
 
 export default class CoverContainer extends React.Component {
   static displayName = 'CoverContainer';

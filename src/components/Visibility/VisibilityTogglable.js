@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
-import { customPropTypes, HTML } from '../../lib/index';
-import Base from '../Base/index';
+import { customPropTypes, HTML } from '../../lib';
+import Base from '../Base';
 
 export default class VisibilityTogglable extends React.Component {
   static displayName = 'VisibilityTogglable';

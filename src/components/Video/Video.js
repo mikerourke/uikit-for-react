@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { customPropTypes, getOptionsString } from '../../lib/index';
-import Base from '../Base/index';
+import { customPropTypes, getOptionsString } from '../../lib';
+import Base from '../Base';
 import VideoSource from './VideoSource';
 
 export default class Video extends React.Component {

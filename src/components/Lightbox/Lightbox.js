@@ -1,7 +1,6 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import get from 'lodash/get';
 import isPlainObject from 'lodash/isPlainObject';
 import noop from 'lodash/noop';

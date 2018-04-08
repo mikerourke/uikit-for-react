@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { customPropTypes, getOptionsString } from '../../lib/index';
-import Base from '../Base/index';
+import { customPropTypes, getOptionsString } from '../../lib';
+import Base from '../Base';
 import CoverContainer from './CoverContainer';
 
 export default class Cover extends React.Component {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import isString from 'lodash/isString';
 import { buildClassName, customPropTypes, HTML } from '../../lib';
-import Text from '../Text/index';
+import Text from '../Text';
 
 export default class Heading extends React.Component {
   static displayName = 'Heading';

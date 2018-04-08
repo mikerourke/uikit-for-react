@@ -1,9 +1,9 @@
 import React from 'react';
 import classnames from 'classnames';
 import omit from 'lodash/omit';
-import { customPropTypes } from '../../lib/index';
+import { customPropTypes } from '../../lib';
 import { propTypes, extrapolateClasses } from '../common/animationProps';
-import Base from '../Base/index';
+import Base from '../Base';
 
 export default class Animation extends React.Component {
   static displayName = 'Animation';

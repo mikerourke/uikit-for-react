@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { customPropTypes, getOptionsString, HTML } from '../../lib/index';
-import Base from '../Base/index';
+import { customPropTypes, getOptionsString, HTML } from '../../lib';
+import Base from '../Base';
 
 export default class Margin extends React.Component {
   static displayName = 'Margin';

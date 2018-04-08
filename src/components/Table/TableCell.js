@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { buildClassName, customPropTypes } from '../../lib';
 import Base from '../Base';
-import { Link } from '../elements/index';
+import Link from '../Link';
 
 export default class TableCell extends React.Component {
   static displayName = 'TableCell';

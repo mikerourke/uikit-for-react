@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import isNil from 'lodash/isNil';
 import { customPropTypes } from '../../lib';
-import { Toggle } from '../elements/index';
+import Toggle from '../Toggle';
 
 export default class ModalToggle extends React.Component {
   static displayName = 'ModalToggle';

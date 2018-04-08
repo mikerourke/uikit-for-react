@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
-import { customPropTypes, getElementType } from '../../lib/index';
+import { customPropTypes, getElementType } from '../../lib';
 
 export default class VideoSource extends React.Component {
   static displayName = 'VideoSource';

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
-import { customPropTypes, getOptionsString, HTML, UIK } from '../../lib/index';
-import Base from '../Base/index';
+import { customPropTypes, getOptionsString, HTML, UIK } from '../../lib';
+import Base from '../Base';
 
 export default class Leader extends React.Component {
   static displayName = 'Leader';

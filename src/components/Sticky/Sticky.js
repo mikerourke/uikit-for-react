@@ -9,9 +9,9 @@ import {
   getOptionsString,
   LibraryComponent,
   HTML,
-} from '../../lib/index';
-import Base from '../Base/index';
-import Navbar from '../Navbar/index';
+} from '../../lib';
+import Base from '../Base';
+import Navbar from '../Navbar';
 
 export default class Sticky extends React.Component {
   static displayName = 'Sticky';

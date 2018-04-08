@@ -10,8 +10,8 @@ import {
   joinListProp,
   LibraryComponent,
   UIK,
-} from '../../lib/index';
-import Base from '../Base/index';
+} from '../../lib';
+import Base from '../Base';
 
 export default class Scrollspy extends React.Component {
   static displayName = 'Scrollspy';
