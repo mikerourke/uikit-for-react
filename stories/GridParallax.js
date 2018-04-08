@@ -4,10 +4,10 @@ import range from 'lodash/range';
 import {
   Block,
   Card,
+  Container,
   GridParallax,
   Heading,
-  Container,
-} from '../../src/components';
+} from '../src/components';
 
 GridParallax.displayName = 'GridParallax';
 

@@ -2,8 +2,8 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Block, Card, Flex, Grid } from '../../src/components';
-import { imageLinks } from '../common';
+import { Block, Card, Flex, Grid } from '../src/components';
+import { imageLinks } from './common';
 
 Flex.displayName = 'Flex';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Block, Column } from '../../src/components';
+import { Block, Column } from '../src/components';
 
 Column.displayName = 'Column';
 

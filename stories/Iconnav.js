@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Iconnav } from '../../src/components';
+import { Block, Iconnav } from '../src/components';
 
 Iconnav.displayName = 'Iconnav';
 

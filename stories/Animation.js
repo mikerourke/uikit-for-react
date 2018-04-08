@@ -1,9 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import startCase from 'lodash/startCase';
-import { Animation, Block, Card, Grid, Image } from '../../src/components';
-import { UIK } from '../../src/lib';
-import { imageLinks } from '../common';
+import { Animation, Block, Card, Grid, Image } from '../src/components';
+import { UIK } from '../src/lib';
+import { imageLinks } from './common';
 
 const validAnimations = UIK.ANIMATIONS.filter(
   animationName => !/kenburns/g.test(animationName),

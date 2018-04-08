@@ -11,25 +11,12 @@ import { configure } from '@storybook/react'; // eslint-disable-line
 
 UIkit.use(Icons);
 
-const contextByGroupName = {
-  containers: require.context('../stories/containers', false, /\.js/),
-  elements: require.context('../stories/elements', false, /\.js/),
-  layout: require.context('../stories/layout', false, /\.js/),
-  navigation: require.context('../stories/navigation', false, /\.js/),
-  style: require.context('../stories/style', false, /\.js/),
-};
-
-const loadStoriesByGroup = groupName => {
-  const groupContext = contextByGroupName[groupName];
-  groupContext.keys().forEach(fileName => groupContext(fileName));
-};
-
 const loadStoriesAlphabetically = () => {
   const allStoriesContext = require.context('../stories', true, /\.js/);
 
-  const filesWithElements = allStoriesContext.keys().map(groupFilePath => ({
-    pathOf: path.dirname(groupFilePath),
-    nameOf: path.basename(groupFilePath),
+  const filesWithElements = allStoriesContext.keys().map(filePath => ({
+    pathOf: path.dirname(filePath),
+    nameOf: path.basename(filePath),
   }));
 
   const storiesToLoad = sortBy(filesWithElements, 'nameOf').reduce(
@@ -42,11 +29,6 @@ const loadStoriesAlphabetically = () => {
 
 function loadStories() {
   loadStoriesAlphabetically();
-  // loadStoriesByGroup('containers');
-  // loadStoriesByGroup('elements');
-  // loadStoriesByGroup('layout');
-  // loadStoriesByGroup('navigation');
-  // loadStoriesByGroup('style');
 }
 
 configure(loadStories, module);

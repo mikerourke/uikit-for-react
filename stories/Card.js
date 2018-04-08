@@ -10,8 +10,8 @@ import {
   Label,
   Link,
   Text,
-} from '../../src/components';
-import { imageLinks } from '../common';
+} from '../src/components';
+import { imageLinks } from './common';
 
 Card.displayName = 'Card';
 

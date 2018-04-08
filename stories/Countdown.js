@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Button, Countdown, Grid } from '../../src/components';
+import { Block, Button, Countdown, Grid } from '../src/components';
 
 Countdown.displayName = 'Countdown';
 

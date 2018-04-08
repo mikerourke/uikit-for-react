@@ -2,7 +2,7 @@ import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Alert, Block } from '../../src/components';
+import { Alert, Block } from '../src/components';
 
 Alert.displayName = 'Alert';
 

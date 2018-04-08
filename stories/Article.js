@@ -2,7 +2,7 @@ import React from 'react';
 import faker from 'faker';
 import range from 'lodash/range';
 import { storiesOf } from '@storybook/react';
-import { Article, Block, Button, Grid, Link } from '../../src/components';
+import { Article, Block, Button, Grid, Link } from '../src/components';
 
 Article.displayName = 'Article';
 

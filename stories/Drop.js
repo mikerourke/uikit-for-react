@@ -2,7 +2,7 @@ import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Block, Button, Card, Drop, Grid, Panel } from '../../src/components';
+import { Block, Button, Card, Drop, Grid, Panel } from '../src/components';
 
 Drop.displayName = 'Drop';
 

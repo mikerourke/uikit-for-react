@@ -2,17 +2,17 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import {
-  Icon,
   Block,
-  Navbar,
-  Nav,
-  Dropdown,
-  Image,
-  Logo,
-  Input,
   Button,
-} from '../../src/components';
-import { imageLinks } from '../common';
+  Dropdown,
+  Icon,
+  Image,
+  Input,
+  Logo,
+  Nav,
+  Navbar,
+} from '../src/components';
+import { imageLinks } from './common';
 
 Navbar.displayName = 'Navbar';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Form, Grid } from '../../src/components';
+import { Block, Form, Grid } from '../src/components';
 
 Form.displayName = 'Form';
 

@@ -14,8 +14,8 @@ import {
   Paragraph,
   Toggle,
   Video,
-} from '../../src/components';
-import { imageLinks, videoSources } from '../common';
+} from '../src/components';
+import { imageLinks, videoSources } from './common';
 
 Modal.displayName = 'Modal';
 

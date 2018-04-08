@@ -1,7 +1,7 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Block, Button, Link, Offcanvas } from '../../src/components';
+import { Block, Button, Link, Offcanvas } from '../src/components';
 
 Offcanvas.displayName = 'Offcanvas';
 

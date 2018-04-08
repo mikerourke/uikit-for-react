@@ -9,7 +9,7 @@ import {
   Nav,
   Navbar,
   Offcanvas,
-} from '../../src/components';
+} from '../src/components';
 
 Nav.displayName = 'Nav';
 

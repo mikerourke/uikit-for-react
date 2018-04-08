@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Grid, Marker } from '../../src/components';
-import { imageLinks } from '../common';
+import { Block, Grid, Marker } from '../src/components';
+import { imageLinks } from './common';
 
 Marker.displayName = 'Marker';
 

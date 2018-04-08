@@ -1,7 +1,7 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Block, Button, Grid } from '../../src/components';
+import { Block, Button, Grid } from '../src/components';
 
 storiesOf('Inverse', module).add('Usage', () => (
   <Block margin={{ all: 'large' }}>

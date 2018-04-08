@@ -8,8 +8,8 @@ import {
   Link,
   Subnav,
   Visibility,
-} from '../../src/components';
-import { imageLinks } from '../common';
+} from '../src/components';
+import { imageLinks } from './common';
 
 Comment.displayName = 'Comment';
 

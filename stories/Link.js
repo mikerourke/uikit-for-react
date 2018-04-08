@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Link, List, Paragraph } from '../../src/components';
+import { Block, Link, List, Paragraph } from '../src/components';
 
 Link.displayName = 'Link';
 

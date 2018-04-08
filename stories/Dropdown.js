@@ -9,7 +9,7 @@ import {
   Grid,
   Nav,
   Panel,
-} from '../../src/components';
+} from '../src/components';
 
 Dropdown.displayName = 'Dropdown';
 

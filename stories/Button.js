@@ -7,7 +7,7 @@ import {
   Icon,
   Margin,
   Nav,
-} from '../../src/components';
+} from '../src/components';
 
 Button.displayName = 'Button';
 

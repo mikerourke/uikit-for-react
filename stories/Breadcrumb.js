@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Breadcrumb, Block } from '../../src/components';
+import { Block, Breadcrumb } from '../src/components';
 
 Breadcrumb.displayName = 'Breadcrumb';
 

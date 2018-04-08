@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Cover, Dotnav, Slideshow } from '../../src/components';
-import { imageLinks } from '../common';
+import { Block, Cover, Dotnav, Slideshow } from '../src/components';
+import { imageLinks } from './common';
 
 Dotnav.displayName = 'Dotnav';
 

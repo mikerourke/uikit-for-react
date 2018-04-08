@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Divider } from '../../src/components';
+import { Block, Divider } from '../src/components';
 
 Divider.displayName = 'Divider';
 

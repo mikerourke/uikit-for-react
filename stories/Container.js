@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Container } from '../../src/components';
+import { Container } from '../src/components';
 
 Container.displayName = 'Container';
 

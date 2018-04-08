@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Button, Upload } from '../../src/components';
+import { Block, Button, Upload } from '../src/components';
 
 Upload.displayName = 'Upload';
 

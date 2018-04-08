@@ -8,7 +8,7 @@ import {
   Close,
   Modal,
   Paragraph,
-} from '../../src/components';
+} from '../src/components';
 
 Close.displayName = 'Close';
 

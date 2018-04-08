@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Label } from '../../src/components';
+import { Block, Label } from '../src/components';
 
 Label.displayName = 'Label';
 

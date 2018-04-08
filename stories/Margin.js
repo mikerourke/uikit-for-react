@@ -2,7 +2,7 @@ import React from 'react';
 import faker from 'faker';
 import range from 'lodash/range';
 import { storiesOf } from '@storybook/react';
-import { Block, Button, Container, Card, Margin } from '../../src/components';
+import { Block, Button, Container, Card, Margin } from '../src/components';
 
 const firstParagraph = faker.lorem.paragraph();
 const secondParagraph = faker.lorem.paragraph();

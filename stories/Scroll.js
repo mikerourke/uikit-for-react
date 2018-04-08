@@ -1,11 +1,11 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Base, Button, Scroll } from '../../src/components';
+import { Block, Button, Scroll } from '../src/components';
 
 Scroll.displayName = 'Scroll';
 
 storiesOf('Scroll', module).add('Usage', () => (
-  <Base margin={{ all: 'large' }}>
+  <Block margin={{ all: 'large' }}>
     <Scroll.Scrollable>
       <Scroll.Point
         as={Button}
@@ -15,17 +15,17 @@ storiesOf('Scroll', module).add('Usage', () => (
       >
         Button 1
       </Scroll.Point>
-      <Base style={{ height: 400 }} margin={{ all: 'large' }} boxShadow="large">
+      <Block style={{ height: 400 }} margin={{ all: 'large' }} boxShadow="large">
         Test 1
-      </Base>
+      </Block>
       <Scroll.Point as={Button}>Button 2</Scroll.Point>
-      <Base style={{ height: 400 }} margin={{ all: 'large' }} boxShadow="large">
+      <Block style={{ height: 400 }} margin={{ all: 'large' }} boxShadow="large">
         Test 2
-      </Base>
+      </Block>
       <Scroll.Point as={Button}>Button 3</Scroll.Point>
-      <Base style={{ height: 400 }} margin={{ all: 'large' }} boxShadow="large">
+      <Block style={{ height: 400 }} margin={{ all: 'large' }} boxShadow="large">
         Test 3
-      </Base>
+      </Block>
     </Scroll.Scrollable>
-  </Base>
+  </Block>
 ));

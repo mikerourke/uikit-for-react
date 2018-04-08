@@ -1,9 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import startCase from 'lodash/startCase';
-import { Block, Grid, Heading, Panel } from '../../src/components';
-import { UIK } from '../../src/lib';
-import { imageLinks } from '../common';
+import { Block, Grid, Heading, Panel } from '../src/components';
+import { UIK } from '../src/lib';
+import { imageLinks } from './common';
 
 storiesOf('Background', module)
   .add('Usage', () => (

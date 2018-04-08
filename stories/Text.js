@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Card, Grid, Text } from '../../src/components';
+import { Block, Card, Grid, Text } from '../src/components';
 
 Text.displayName = 'Text';
 

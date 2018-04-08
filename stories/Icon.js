@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Icon } from '../../src/components';
+import { Block, Icon } from '../src/components';
 
 Icon.displayName = 'Icon';
 

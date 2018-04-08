@@ -1,7 +1,6 @@
 import React from 'react';
-import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Button, Block, Notification } from '../../src/components';
+import { Block, Button, Notification } from '../src/components';
 
 Notification.displayName = 'Notification';
 

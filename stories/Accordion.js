@@ -8,7 +8,7 @@ import {
   Checkbox,
   FormLabel,
   Grid,
-} from '../../src/components';
+} from '../src/components';
 
 Accordion.displayName = 'Accordion';
 

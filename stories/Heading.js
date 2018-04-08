@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Heading } from '../../src/components';
+import { Block, Heading } from '../src/components';
 
 Heading.displayName = 'Heading';
 

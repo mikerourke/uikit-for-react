@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Base, Cover, Video } from '../../src/components';
-import { imageLinks, videoSources } from '../common';
+import { Base, Cover, Video } from '../src/components';
+import { imageLinks, videoSources } from './common';
 
 Cover.displayName = 'Cover';
 

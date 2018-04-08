@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Grid, Tab } from '../../src/components';
+import { Block, Grid, Tab } from '../src/components';
 
 Tab.displayName = 'Tab';
 

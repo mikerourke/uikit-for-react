@@ -1,7 +1,7 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Block, Card, Grid, Margin } from '../../src/components';
+import { Block, Card, Grid, Margin } from '../src/components';
 
 Grid.displayName = 'Grid';
 

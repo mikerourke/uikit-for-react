@@ -1,8 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Block, Button, Grid, Heading, Lightbox } from '../../src/components';
-import { imageLinks, videoSources } from '../common';
+import { Block, Button, Grid, Heading, Lightbox } from '../src/components';
+import { imageLinks, videoSources } from './common';
 
 Lightbox.displayName = 'Lightbox';
 

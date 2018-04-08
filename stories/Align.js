@@ -1,8 +1,8 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Panel, Block, Image } from '../../src/components';
-import { imageLinks } from '../common';
+import { Block, Image, Panel } from '../src/components';
+import { imageLinks } from './common';
 
 storiesOf('Align', module)
   .add('Usage', () => (
