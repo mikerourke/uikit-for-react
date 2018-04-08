@@ -17,7 +17,7 @@ export default class Flex extends React.Component {
   static defaultProps = {
     ...Base.defaultProps,
     as: 'div',
-    displayAs: true,
+    display: true,
   };
 
   render() {
@@ -25,7 +25,7 @@ export default class Flex extends React.Component {
       className,
       alignItems,
       direction,
-      displayAs,
+      display,
       grow,
       inline,
       justifyContent,
@@ -39,7 +39,7 @@ export default class Flex extends React.Component {
       extrapolateClasses({
         alignItems,
         direction,
-        displayAs,
+        display,
         grow,
         inline,
         justifyContent,

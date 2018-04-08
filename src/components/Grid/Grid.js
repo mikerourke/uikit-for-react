@@ -20,11 +20,12 @@ export default class Grid extends React.Component {
 
   static propTypes = {
     ...omit(Base.propTypes, 'flex'),
-    ...flexProps.propTypes,
+    ...omit(flexProps.propTypes, 'display'),
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     childWidth: customPropTypes.forBreakpoints(UIK.CHILD_WIDTHS),
     divider: PropTypes.bool,
     firstColumn: PropTypes.string,
+    flex: PropTypes.bool,
     gutter: PropTypes.oneOf([...UIK.BASE_SIZES, 'collapse']),
     matchHeight: PropTypes.bool,
     nextRow: PropTypes.string,
@@ -34,6 +35,7 @@ export default class Grid extends React.Component {
   static defaultProps = {
     ...Base.defaultProps,
     as: 'div',
+    flex: false,
   };
 
   static Cell = GridCell;
@@ -49,7 +51,7 @@ export default class Grid extends React.Component {
       childWidth,
       className,
       direction,
-      displayAs,
+      flex,
       divider,
       firstColumn,
       grow,
@@ -72,7 +74,7 @@ export default class Grid extends React.Component {
       flexProps.extrapolateClasses({
         alignItems,
         direction,
-        displayAs,
+        display: flex,
         grow,
         inline,
         justifyContent,

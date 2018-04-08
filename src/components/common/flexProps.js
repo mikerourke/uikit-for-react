@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import compact from 'lodash/compact';
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 import {
   buildBreakpointClasses,
   buildClassName,
@@ -18,7 +20,7 @@ export const propTypes = {
       reverse: PropTypes.bool,
     }),
   ]),
-  displayAs: PropTypes.bool,
+  display: PropTypes.bool,
   grow: PropTypes.oneOf(['auto', 'full', 'none']),
   inline: PropTypes.bool,
   justifyContent: customPropTypes.forBreakpoints(UIK.FLEX_HORIZONTAL_MODIFIERS),
@@ -50,13 +52,16 @@ export const extrapolateClasses = (flex = {}) => {
   const {
     alignItems,
     direction,
-    displayAs,
+    display,
     grow,
     inline,
     justifyContent,
     order,
     wrap,
   } = flex;
+
+  const validOptions = compact(Object.values(flex));
+  const flexDisplay = isNil(display) ? validOptions.length !== 0 : display;
 
   const classes = classnames(
     buildClassName('flex', alignItems),
@@ -74,7 +79,7 @@ export const extrapolateClasses = (flex = {}) => {
     buildClassName('flex', get(wrap, 'type')),
     buildClassName('flex', get(wrap, 'type'), get(wrap, 'alignment')),
     {
-      'uk-flex': displayAs,
+      'uk-flex': flexDisplay,
       'uk-flex-inline': inline,
       'uk-flex-wrap-reverse': wrap === 'reverse',
       'uk-flex-1': grow === 'full',

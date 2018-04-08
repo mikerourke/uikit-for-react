@@ -19,8 +19,8 @@ export default class CoverContainer extends React.Component {
     }),
     children: ExtraPropTypes.and([
       PropTypes.node,
-      ExtraPropTypes.componentWithName('Cover').isRequired,
-    ]),
+      ExtraPropTypes.componentWithName('Cover'),
+    ]).isRequired,
   };
 
   static defaultProps = {

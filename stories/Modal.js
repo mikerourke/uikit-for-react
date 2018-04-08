@@ -72,7 +72,7 @@ storiesOf('Modal', module)
     <Block margin={{ all: 'large' }}>
       <Toggle.Togglable>
         <Toggle.Toggle as={Button}>Open</Toggle.Toggle>
-        <Toggle.Target as={Modal} flex={{ alignItems: 'top' }}>
+        <Toggle.Target as={Modal} flex={{ alignItems: 'top', display: false }}>
           <Modal.Dialog body margin={{ vertical: 'auto' }}>
             <Modal.Close />
             <Modal.Content as="p">{faker.lorem.paragraph()}</Modal.Content>
@@ -195,13 +195,19 @@ storiesOf('Modal', module)
         </Modal.Toggle>
       </Margin>
 
-      <Modal modalName="modal-media-image" flex={{ alignItems: 'top' }}>
+      <Modal
+        modalName="modal-media-image"
+        flex={{ alignItems: 'top', display: false }}
+      >
         <Modal.Dialog width="auto" margin={{ vertical: 'auto' }}>
           <Modal.Close outside />
           <Modal.Content as="img" src={imageLinks.photo} />
         </Modal.Dialog>
       </Modal>
-      <Modal modalName="modal-media-video" flex={{ alignItems: 'top' }}>
+      <Modal
+        modalName="modal-media-video"
+        flex={{ alignItems: 'top', display: false }}
+      >
         <Modal.Dialog width="auto" margin={{ vertical: 'auto' }}>
           <Modal.Close outside />
           <Modal.Content as={Video} controls playsInline>
@@ -210,7 +216,10 @@ storiesOf('Modal', module)
           </Modal.Content>
         </Modal.Dialog>
       </Modal>
-      <Modal modalName="modal-media-youtube" flex={{ alignItems: 'top' }}>
+      <Modal
+        modalName="modal-media-youtube"
+        flex={{ alignItems: 'top', display: false }}
+      >
         <Modal.Dialog width="auto" margin={{ vertical: 'auto' }}>
           <Modal.Close outside />
           <Modal.Content>
@@ -224,7 +233,10 @@ storiesOf('Modal', module)
           </Modal.Content>
         </Modal.Dialog>
       </Modal>
-      <Modal modalName="modal-media-vimeo" flex={{ alignItems: 'top' }}>
+      <Modal
+        modalName="modal-media-vimeo"
+        flex={{ alignItems: 'top', display: false }}
+      >
         <Modal.Dialog width="auto" margin={{ vertical: 'auto' }}>
           <Modal.Close outside />
           <Modal.Content>
@@ -252,7 +264,10 @@ storiesOf('Modal', module)
         </Modal.Toggle>
       </Margin>
 
-      <Modal modalName="modal-group-1" flex={{ alignItems: 'top' }}>
+      <Modal
+        modalName="modal-group-1"
+        flex={{ alignItems: 'top', display: false }}
+      >
         <Modal.Dialog>
           <Modal.Close />
           <Modal.Header>
@@ -269,7 +284,10 @@ storiesOf('Modal', module)
           </Modal.Footer>
         </Modal.Dialog>
       </Modal>
-      <Modal modalName="modal-group-2" flex={{ alignItems: 'top' }}>
+      <Modal
+        modalName="modal-group-2"
+        flex={{ alignItems: 'top', display: false }}
+      >
         <Modal.Dialog>
           <Modal.Close />
           <Modal.Header>

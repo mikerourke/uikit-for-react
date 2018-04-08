@@ -11,14 +11,16 @@ export default class GridCell extends React.Component {
 
   static propTypes = {
     ...omit(Base.propTypes, 'flex'),
-    ...flexProps.propTypes,
+    ...omit(flexProps.propTypes, 'display'),
     as: customPropTypes.customOrStringElement('div'),
+    flex: PropTypes.bool,
     matchHeight: PropTypes.bool,
   };
 
   static defaultProps = {
     ...Base.defaultProps,
     as: 'div',
+    flex: false,
   };
 
   render() {
@@ -26,7 +28,7 @@ export default class GridCell extends React.Component {
       alignItems,
       className,
       direction,
-      displayAs,
+      flex,
       grow,
       inline,
       justifyContent,
@@ -41,7 +43,7 @@ export default class GridCell extends React.Component {
       flexProps.extrapolateClasses({
         alignItems,
         direction,
-        displayAs,
+        display: flex,
         grow,
         inline,
         justifyContent,
