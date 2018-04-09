@@ -35,9 +35,9 @@ export default class Totop extends React.Component {
   }
 
   componentDidMount() {
-    const element = this.libComp.domNode;
-    addEventInvoker(element, 'beforescroll', 'onBeforeScroll', this.props);
-    addEventInvoker(element, 'scrolled', 'onScrolled', this.props);
+    const totop = this.libComp.domNode;
+    addEventInvoker(totop, 'beforescroll', 'onBeforeScroll', this.props);
+    addEventInvoker(totop, 'scrolled', 'onScrolled', this.props);
   }
 
   render() {

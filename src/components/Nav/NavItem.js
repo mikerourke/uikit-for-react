@@ -1,7 +1,11 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, renderNavigationChild } from '../../lib';
+import {
+  customPropTypes,
+  LibraryComponent,
+  renderNavigationChild,
+} from '../../lib';
 import Base from '../Base';
 
 export default class NavItem extends React.Component {
@@ -23,6 +27,20 @@ export default class NavItem extends React.Component {
     as: 'li',
   };
 
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('nav-item');
+  }
+
+  componentDidMount() {
+    const dropdowns = this.libComp.findAllChildrenWithName('dropdown');
+    if (dropdowns.length !== 0) {
+      dropdowns.forEach(dropdownElement => {
+        dropdownElement.removeAttribute('uk-dropdown');
+      });
+    }
+  }
+
   render() {
     const {
       active,
@@ -42,7 +60,12 @@ export default class NavItem extends React.Component {
     });
 
     return (
-      <Base {...rest} className={classes || undefined} component={NavItem}>
+      <Base
+        {...rest}
+        className={classes || undefined}
+        component={NavItem}
+        {...this.libComp.appendProps(this.props)}
+      >
         {parent || title ? (
           <Fragment>
             <a href={href}>{title}</a>

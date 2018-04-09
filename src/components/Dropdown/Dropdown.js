@@ -97,7 +97,7 @@ export default class Dropdown extends React.Component {
       firstGrid.classList.add('uk-dropdown-grid');
     }
 
-    const navs = LibraryComponent.findAllWithName('nav');
+    const navs = this.libComp.findAllChildrenWithName('nav');
     if (navs.length !== 0) {
       const classToAdd = isNil(this.props.multiplyWidth)
         ? 'uk-dropdown-nav'
@@ -153,8 +153,6 @@ export default class Dropdown extends React.Component {
       pos: position,
     });
 
-    const isInNavbar = className.includes('navbar');
-
     return (
       <Fragment>
         {!isNil(toggle) && toggle}
@@ -162,7 +160,7 @@ export default class Dropdown extends React.Component {
           {...rest}
           className={classes}
           component={component || Dropdown}
-          uk-dropdown={isInNavbar ? undefined : componentOptions}
+          uk-dropdown={componentOptions}
           {...this.libComp.appendProps(this.props)}
         />
       </Fragment>

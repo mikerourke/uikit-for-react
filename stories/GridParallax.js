@@ -11,7 +11,7 @@ import {
 
 GridParallax.displayName = 'GridParallax';
 
-storiesOf('GridParallax', module)
+storiesOf('Grid Parallax', module)
   .add('Usage', () => (
     <Block>
       <Container textAlign="center" margin={{ top: 'large' }}>

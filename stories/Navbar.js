@@ -11,6 +11,7 @@ import {
   Logo,
   Nav,
   Navbar,
+  Span,
 } from '../src/components';
 import { imageLinks } from './common';
 
@@ -129,7 +130,7 @@ storiesOf('Navbar', module)
           </Navbar.Item>
           <Navbar.Item>
             <form action="javascript:void(0)">
-              <Input formWidth="small" placeholder="Input" type="text" />
+              <Input width="small" placeholder="Input" type="text" />
               <Button>Button</Button>
             </form>
           </Navbar.Item>
@@ -151,6 +152,21 @@ storiesOf('Navbar', module)
               <Nav.Item>Item</Nav.Item>
             </Nav>
           </Navbar.Split>
+        </Navbar.Section>
+      </Navbar>
+    </Block>
+  ))
+
+  .add('Toggle item', () => (
+    <Block margin={{ all: 'large' }}>
+      <Navbar container margin>
+        <Navbar.Section location="left">
+          <Navbar.Toggle />
+        </Navbar.Section>
+      </Navbar>
+      <Navbar container margin>
+        <Navbar.Section location="left">
+          <Navbar.Toggle title={<Span margin={{ left: 'small' }}>Menu</Span>} />
         </Navbar.Section>
       </Navbar>
     </Block>

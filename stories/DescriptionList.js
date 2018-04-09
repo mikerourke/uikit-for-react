@@ -8,7 +8,7 @@ DescriptionList.displayName = 'DescriptionList';
 const sentence = faker.lorem.sentence();
 const paragraph = faker.lorem.paragraph();
 
-storiesOf('DescriptionList', module)
+storiesOf('Description List', module)
   .add('Usage', () => (
     <Block margin={{ all: 'large' }}>
       <DescriptionList>

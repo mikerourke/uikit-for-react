@@ -46,7 +46,6 @@ export default class Base extends React.Component {
       PropTypes.shape(backgroundProps.propTypes),
     ]),
     baseId: PropTypes.string,
-    baseRef: PropTypes.func,
     border: PropTypes.oneOf(['circle', 'rounded']),
     boxShadow: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.GRID_SIZES),
@@ -91,17 +90,7 @@ export default class Base extends React.Component {
       without(UIK.ANIMATIONS, ['kenburns', 'shake']),
     ),
     inline: PropTypes.bool,
-    innerRef: props => {
-      let parentName = get(props, ['component', 'type', 'displayName']);
-      if (!parentName) parentName = 'component';
-      if (!isNil(props.baseRef) && !isNil(props.innerRef)) {
-        return new Error(
-          `You cannot specify the innerRef prop on ${parentName} because the ` +
-            ' ref is already being utilized by a library component',
-        );
-      }
-      return null;
-    },
+    innerRef: PropTypes.func,
     inverse: PropTypes.oneOf(['dark', 'light']),
     invisible: PropTypes.bool,
     itemIn: PropTypes.shape({
@@ -244,7 +233,6 @@ export default class Base extends React.Component {
       as,
       background,
       baseId,
-      baseRef,
       border,
       boxShadow,
       childWidth,
@@ -366,7 +354,7 @@ export default class Base extends React.Component {
         {...attributes}
         {...getValidProps(componentForElement, rest)}
         id={baseId}
-        ref={baseRef || innerRef}
+        ref={innerRef}
         placeholder={isBoolean(placeholder) ? undefined : placeholder}
       />
     );

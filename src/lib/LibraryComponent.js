@@ -2,6 +2,8 @@ import generate from 'nanoid/generate';
 import isNil from 'lodash/isNil';
 import { VALID_CHARS } from './constants';
 
+const getCssSelector = componentName => `[data-uikfr-${componentName}]`;
+
 /**
  * This class is used as a utility by library components that require
  *    added functionality or need to be selected from the DOM.
@@ -9,12 +11,12 @@ import { VALID_CHARS } from './constants';
  */
 export default class LibraryComponent {
   static findAllWithName(componentName) {
-    const cssSelector = `[data-uikfr-${componentName}]`;
+    const cssSelector = getCssSelector(componentName);
     return document.querySelectorAll(cssSelector);
   }
 
   static findFirstWithName(componentName) {
-    const cssSelector = `[data-uikfr-${componentName}]`;
+    const cssSelector = getCssSelector(componentName);
     return document.querySelector(cssSelector);
   }
 
@@ -33,6 +35,16 @@ export default class LibraryComponent {
 
   get cssSelector() {
     return `[${this.attrName}="${this.attrValue}"]`;
+  }
+
+  findFirstChildWithName(childComponentName) {
+    const childCssSelector = getCssSelector(childComponentName);
+    return this.domNode.querySelector(childCssSelector);
+  }
+
+  findAllChildrenWithName(childComponentName) {
+    const childCssSelector = getCssSelector(childComponentName);
+    return this.domNode.querySelectorAll(childCssSelector);
   }
 
   /**

@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
+import compact from 'lodash/compact';
 import first from 'lodash/first';
 import get from 'lodash/get';
 import isString from 'lodash/isString';
@@ -25,18 +25,27 @@ const recurseChildren = (children, callback) =>
     return callback(updatedChild);
   });
 
+const getIfNameMatchesType = (child, childTypeName) => {
+  const possibleNames = [
+    get(child, ['type', 'displayName'], null),
+    get(child, ['type', 'name'], null),
+    get(child, ['props', 'as', 'displayName'], null),
+    get(child, ['props', 'as', 'name'], null),
+  ];
+  const validNames = compact(possibleNames);
+  return validNames.includes(childTypeName);
+};
+
 /**
- * Determines if the specified child React element is of the type specified.
- * Since the childType argument can either be a string or a React element, it
- * needs to be evaluated for each condition.
- * @param {React.Element} child React component to evaluate.
- * @param {React.Element|string} childType String or element to compare to
- *    specified child.
+ * Returns true if the specified child matches the specified type, or if the
+ *    element's "as" component matches the specified type.
+ * @param {React.Node} child React component/element to check.
+ * @param childType Component type to check for.
  * @returns {boolean}
  */
-const getIfIsOfType = (child, childType) =>
+export const childMatchesType = (child, childType) =>
   isString(childType)
-    ? get(child, ['type', 'displayName'], '') === childType
+    ? getIfNameMatchesType(child, childType)
     : child.type === childType;
 
 /**
@@ -51,7 +60,7 @@ const getIfIsOfType = (child, childType) =>
 export const hasChildType = (children, childType) => {
   let countOfChildType = 0;
   recurseChildren(children, child => {
-    if (getIfIsOfType(child, childType)) countOfChildType += 1;
+    if (childMatchesType(child, childType)) countOfChildType += 1;
   });
   return countOfChildType > 0;
 };
@@ -67,7 +76,7 @@ export const hasChildType = (children, childType) => {
 export const findChildByType = (children, childType) => {
   const childrenOfType = [];
   recurseChildren(children, child => {
-    if (getIfIsOfType(child, childType)) childrenOfType.push(child);
+    if (childMatchesType(child, childType)) childrenOfType.push(child);
   });
   if (childrenOfType.length === 0) return null;
   return childrenOfType.length === 1 ? first(childrenOfType) : childrenOfType;
@@ -90,16 +99,6 @@ export const childrenHaveClass = (children, className) => {
   });
   return classCount !== 0;
 };
-
-/**
- * Returns true if the specified child matches the specified type, or if the
- *    element's "as" component matches the specified type.
- * @param {React.Node} child React component/element to check.
- * @param requiredType Component type to check for.
- * @returns {boolean}
- */
-export const childMatchesType = (child, requiredType) =>
-  child.type === requiredType || child.props.as === requiredType;
 
 /**
  * Renders the contents of the navigation item (i.e. DotnavItem, NavItem, etc)

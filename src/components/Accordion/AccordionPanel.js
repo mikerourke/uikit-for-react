@@ -36,8 +36,8 @@ export default class AccordionPanel extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.open !== nextProps.open) {
-      const panelNode = this.libComp.domNode;
-      const titleElement = panelNode.querySelector('.uk-accordion-title');
+      const panel = this.libComp.domNode;
+      const titleElement = panel.querySelector('.uk-accordion-title');
       if (titleElement) titleElement.click();
     }
   }

@@ -23,13 +23,18 @@ export default class NavbarSection extends React.Component {
     as: 'div',
   };
 
+  constructor(props) {
+    super(props);
+    this.libComp = new LibraryComponent('navbar-section');
+  }
+
   componentDidMount() {
-    const firstNav = LibraryComponent.findFirstWithName('nav');
+    const firstNav = this.libComp.findFirstChildWithName('nav');
     if (firstNav) {
       firstNav.classList.add('uk-navbar-nav');
     }
 
-    const dropdowns = LibraryComponent.findAllWithName('dropdown');
+    const dropdowns = this.libComp.findAllChildrenWithName('dropdown');
     if (dropdowns.length !== 0) {
       dropdowns.forEach(dropdownElement => {
         dropdownElement.classList.add('uk-navbar-dropdown');
@@ -42,6 +47,13 @@ export default class NavbarSection extends React.Component {
 
     const classes = classnames(className, buildClassName('navbar', location));
 
-    return <Base {...rest} className={classes} component={NavbarSection} />;
+    return (
+      <Base
+        {...rest}
+        className={classes}
+        component={NavbarSection}
+        {...this.libComp.appendProps(this.props)}
+      />
+    );
   }
 }
