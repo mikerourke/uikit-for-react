@@ -4,7 +4,7 @@ import { Block, Grid, List } from '../src/components';
 
 List.displayName = 'List';
 
-const SimpleList = props => (
+const SharedSimpleList = props => (
   <List {...props}>
     <List.Item>List item 1</List.Item>
     <List.Item>List item 2</List.Item>
@@ -12,45 +12,45 @@ const SimpleList = props => (
   </List>
 );
 
-const LargeList = props => (
+const SharedLargeList = props => (
   <Grid.Cell>
     <h4>{props.title}</h4>
-    <SimpleList large {...props} />
+    <SharedSimpleList large {...props} />
   </Grid.Cell>
 );
 
 storiesOf('List', module)
   .add('Usage', () => (
     <Block margin={{ all: 'large' }}>
-      <SimpleList />
+      <SharedSimpleList />
     </Block>
   ))
 
   .add('Bullet modifier', () => (
     <Block margin={{ all: 'large' }}>
-      <SimpleList bullet />
+      <SharedSimpleList bullet />
     </Block>
   ))
 
   .add('Divider modifier', () => (
     <Block margin={{ all: 'large' }}>
-      <SimpleList divider />
+      <SharedSimpleList divider />
     </Block>
   ))
 
   .add('Striped modifier', () => (
     <Block margin={{ all: 'large' }}>
-      <SimpleList striped />
+      <SharedSimpleList striped />
     </Block>
   ))
 
   .add('Large modifier', () => (
     <Block margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: 'expand' }}>
-        <LargeList title="Default" />
-        <LargeList title="Divider" divider />
-        <LargeList title="Striped" striped />
-        <LargeList title="Bullet" bullet />
+        <SharedLargeList title="Default" />
+        <SharedLargeList title="Divider" divider />
+        <SharedLargeList title="Striped" striped />
+        <SharedLargeList title="Bullet" bullet />
       </Grid>
     </Block>
   ));

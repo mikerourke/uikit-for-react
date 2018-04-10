@@ -1,24 +1,25 @@
 import React from 'react';
-import { LibraryComponent } from '../../lib';
+import PropTypes from 'prop-types';
+import isNil from 'lodash/isNil';
+import { getAttrSelector } from '../../lib';
 import Toggle from '../Toggle';
 
 export default class OffcanvasToggle extends React.Component {
   static displayName = 'OffcanvasToggle';
-  static propTypes = Toggle.propTypes;
+  static propTypes = {
+    ...Toggle.propTypes,
+    target: PropTypes.string.isRequired,
+  };
+
   static defaultProps = Toggle.defaultProps;
 
-  constructor(props) {
-    super(props);
-    this.libComp = new LibraryComponent('offcanvas-toggle');
-  }
-
   render() {
-    return (
-      <Toggle
-        {...this.props}
-        component={OffcanvasToggle}
-        {...this.libComp.appendProps(this.props)}
-      />
-    );
+    const { target, ...rest } = this.props;
+
+    if (isNil(target)) throw new Error('You must specify a target.');
+
+    const selector = getAttrSelector('offcanvas', target);
+
+    return <Toggle {...rest} component={OffcanvasToggle} target={selector} />;
   }
 }

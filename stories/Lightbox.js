@@ -8,7 +8,7 @@ Lightbox.displayName = 'Lightbox';
 
 const imageLinkValues = [imageLinks.photo, imageLinks.dark, imageLinks.light];
 
-class SimpleLightbox extends React.Component {
+class SharedSimpleLightbox extends React.Component {
   state = {
     shown: false,
   };
@@ -25,7 +25,7 @@ class SimpleLightbox extends React.Component {
   }
 }
 
-const AnimationLightbox = props => (
+const SharedAnimationLightbox = props => (
   <Block margin={{ bottom: 'large' }}>
     <Heading as="div" size="h3">
       {props.animationName}
@@ -52,22 +52,22 @@ const AnimationLightbox = props => (
 
 storiesOf('Lightbox', module)
   .add('Usage', () => (
-    <SimpleLightbox>
+    <SharedSimpleLightbox>
       <Lightbox.Item href={imageLinks.photo} />
-    </SimpleLightbox>
+    </SharedSimpleLightbox>
   ))
 
   .add('Caption', () => (
-    <SimpleLightbox>
+    <SharedSimpleLightbox>
       <Lightbox.Item href={imageLinks.photo} caption="Caption" />
-    </SimpleLightbox>
+    </SharedSimpleLightbox>
   ))
 
   .add('Animations', () => (
     <Block margin={{ all: 'large' }}>
-      <AnimationLightbox animationName="Slide" />
-      <AnimationLightbox animationName="Fade" />
-      <AnimationLightbox animationName="Scale" />
+      <SharedAnimationLightbox animationName="Slide" />
+      <SharedAnimationLightbox animationName="Fade" />
+      <SharedAnimationLightbox animationName="Scale" />
     </Block>
   ))
 

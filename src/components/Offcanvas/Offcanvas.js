@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import isNil from 'lodash/isNil';
+import isString from 'lodash/isString';
 import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
@@ -14,7 +15,7 @@ import OffcanvasClose from './OffcanvasClose';
 import OffcanvasContent from './OffcanvasContent';
 import OffcanvasToggle from './OffcanvasToggle';
 
-export default class Offcanvas extends React.Component {
+export default class Offcanvas extends Base {
   static displayName = 'Offcanvas';
 
   static propTypes = {
@@ -32,7 +33,8 @@ export default class Offcanvas extends React.Component {
     onShow: PropTypes.func,
     onShown: PropTypes.func,
     overlay: PropTypes.bool,
-    toggle: PropTypes.element,
+    toggle: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
+      .isRequired,
   };
 
   static defaultProps = {
@@ -91,9 +93,11 @@ export default class Offcanvas extends React.Component {
       overlay,
     });
 
+    const attrValue = isString(toggle) ? toggle : undefined;
+
     return (
       <Fragment>
-        {!isNil(toggle) &&
+        {React.isValidElement(toggle) &&
           React.cloneElement(toggle, {
             target: this.libComp.cssSelector,
           })}
@@ -101,7 +105,7 @@ export default class Offcanvas extends React.Component {
           {...rest}
           component={Offcanvas}
           uk-offcanvas={componentOptions}
-          {...this.libComp.appendProps(this.props)}
+          {...this.libComp.appendProps(this.props, { attrValue })}
         />
       </Fragment>
     );

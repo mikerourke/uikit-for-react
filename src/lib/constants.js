@@ -498,3 +498,5 @@ export const HTML = {
 };
 
 export const VALID_CHARS = '1234567890abcdefghijklmnopqrstuvwxyz-';
+
+export const ATTR_PREFIX = 'data-uikfr';

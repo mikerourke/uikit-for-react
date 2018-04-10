@@ -5,34 +5,30 @@ import { Block, Column } from '../src/components';
 
 Column.displayName = 'Column';
 
+const SharedColumn = props => (
+  <Column {...props}>
+    <p>{faker.lorem.paragraph()}</p>
+    <p>{faker.lorem.paragraph()}</p>
+    <p>{faker.lorem.paragraph()}</p>
+  </Column>
+);
+
 storiesOf('Column', module)
   .add('Usage', () => (
     <Block margin={{ all: 'large' }}>
-      <Column width="1/2">
-        <p>{faker.lorem.paragraph()}</p>
-        <p>{faker.lorem.paragraph()}</p>
-        <p>{faker.lorem.paragraph()}</p>
-      </Column>
+      <SharedColumn width="1/2" />
     </Block>
   ))
 
   .add('Responsive', () => (
     <Block margin={{ all: 'large' }}>
-      <Column width={{ atSm: '1/2', atMd: '1/3', atLg: '1/4' }}>
-        <p>{faker.lorem.paragraph()}</p>
-        <p>{faker.lorem.paragraph()}</p>
-        <p>{faker.lorem.paragraph()}</p>
-      </Column>
+      <SharedColumn width={{ atSm: '1/2', atMd: '1/3', atLg: '1/4' }} />
     </Block>
   ))
 
   .add('Divider modifier', () => (
     <Block margin={{ all: 'large' }}>
-      <Column width="1/2" divider>
-        <p>{faker.lorem.paragraph()}</p>
-        <p>{faker.lorem.paragraph()}</p>
-        <p>{faker.lorem.paragraph()}</p>
-      </Column>
+      <SharedColumn width="1/2" divider />
     </Block>
   ))
 

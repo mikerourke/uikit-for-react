@@ -9,7 +9,7 @@ import has from 'lodash/has';
 export default function getValidProps(Component, props) {
   const { defaultProps = {} } = Component;
   return Object.keys(props).reduce((acc, propName) => {
-    const isIncluded = propName === 'children' || propName === 'className';
+    const isIncluded = propName.match(/children|className/);
     if (has(defaultProps, propName) && !isIncluded) return acc;
     return {
       ...acc,

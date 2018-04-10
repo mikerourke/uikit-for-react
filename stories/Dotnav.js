@@ -5,28 +5,26 @@ import { imageLinks } from './common';
 
 Dotnav.displayName = 'Dotnav';
 
+const SharedDotnav = props => (
+  <Dotnav {...props}>
+    <Dotnav.Item active>Item 1</Dotnav.Item>
+    <Dotnav.Item>Item 2</Dotnav.Item>
+    <Dotnav.Item>Item 3</Dotnav.Item>
+    <Dotnav.Item>Item 4</Dotnav.Item>
+    <Dotnav.Item>Item 5</Dotnav.Item>
+  </Dotnav>
+);
+
 storiesOf('Dotnav', module)
   .add('Usage', () => (
     <Block margin={{ all: 'large' }}>
-      <Dotnav>
-        <Dotnav.Item active>Item 1</Dotnav.Item>
-        <Dotnav.Item>Item 2</Dotnav.Item>
-        <Dotnav.Item>Item 3</Dotnav.Item>
-        <Dotnav.Item>Item 4</Dotnav.Item>
-        <Dotnav.Item>Item 5</Dotnav.Item>
-      </Dotnav>
+      <SharedDotnav />
     </Block>
   ))
 
   .add('Vertical alignment', () => (
     <Block margin={{ all: 'large' }}>
-      <Dotnav vertical>
-        <Dotnav.Item active>Item 1</Dotnav.Item>
-        <Dotnav.Item>Item 2</Dotnav.Item>
-        <Dotnav.Item>Item 3</Dotnav.Item>
-        <Dotnav.Item>Item 4</Dotnav.Item>
-        <Dotnav.Item>Item 5</Dotnav.Item>
-      </Dotnav>
+      <SharedDotnav vertical />
     </Block>
   ))
 

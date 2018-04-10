@@ -16,42 +16,64 @@ export default class Notification extends React.Component {
     group: PropTypes.string,
     onClose: PropTypes.func,
     position: PropTypes.oneOf(
-      without(UIK.X_Y_POSITIONS, ['center-left', 'center-right']),
+      without(UIK.X_Y_POSITIONS, 'center-left', 'center-right'),
     ),
     shown: PropTypes.bool,
     status: PropTypes.oneOf(without(UIK.STATUS_COLORS, 'muted')),
     timeout: PropTypes.number,
+    transitionOnClose: PropTypes.bool,
   };
 
   static defaultProps = {
     ...Base.defaultProps,
-    group: null,
     onClose: noop,
-    position: 'top-center',
     shown: false,
-    status: null,
-    timeout: 5000,
+    transitionOnClose: true,
   };
 
+  static closeAll() {
+    UIkit.notification.closeAll();
+  }
+
+  constructor(props) {
+    super(props);
+    this.notification = null;
+  }
+
+  componentDidMount() {
+    if (this.props.shown === true) this.showNotification();
+  }
+
   componentWillReceiveProps(nextProps) {
-    const { children, group, position, status, timeout } = this.props;
     if (nextProps.shown !== this.props.shown) {
-      UIkit.notification({
-        group,
-        message: renderToStaticMarkup(children),
-        position,
-        status,
-        timeout,
-      });
+      if (nextProps.shown === true) {
+        this.showNotification();
+      }
+      if (nextProps.shown === false) {
+        if (this.notification) {
+          this.notification.close(this.props.transitionOnClose);
+        }
+        this.notification = null;
+      }
     }
   }
 
-  componentDidUpdate() {
-    const notifier = document.querySelector('.uk-notification');
-    if (!isNil(notifier)) {
-      addEventInvoker(notifier, 'close', 'onClose', this.props);
-    }
-  }
+  showNotification = () => {
+    if (!isNil(this.notification)) return;
+
+    const { children, group, position, status, timeout } = this.props;
+    this.notification = UIkit.notification({
+      group,
+      message: renderToStaticMarkup(children),
+      pos: position,
+      status,
+      timeout,
+    });
+
+    addEventInvoker(this.notification, 'close', 'onClose', this.props, {
+      isOnce: true,
+    });
+  };
 
   render() {
     return null;

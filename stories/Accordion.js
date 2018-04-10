@@ -2,13 +2,7 @@ import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import {
-  Accordion,
-  Block,
-  Checkbox,
-  FormLabel,
-  Grid,
-} from '../src/components';
+import { Accordion, Block, Checkbox, FormLabel, Grid } from '../src/components';
 
 Accordion.displayName = 'Accordion';
 
@@ -16,61 +10,39 @@ const firstParagraph = <p>{faker.lorem.paragraph()}</p>;
 const secondParagraph = <p>{faker.lorem.paragraph()}</p>;
 const thirdParagraph = <p>{faker.lorem.paragraph()}</p>;
 
+const SharedAccordion = props => (
+  <Accordion {...props}>
+    <Accordion.Panel>
+      <Accordion.Title href="#">Item 1</Accordion.Title>
+      <Accordion.Content>{firstParagraph}</Accordion.Content>
+    </Accordion.Panel>
+    <Accordion.Panel>
+      <Accordion.Title href="#">Item 2</Accordion.Title>
+      <Accordion.Content>{secondParagraph}</Accordion.Content>
+    </Accordion.Panel>
+    <Accordion.Panel>
+      <Accordion.Title href="#">Item 3</Accordion.Title>
+      <Accordion.Content>{thirdParagraph}</Accordion.Content>
+    </Accordion.Panel>
+  </Accordion>
+);
+
 storiesOf('Accordion', module)
   .add('Usage', () => (
     <Block margin={{ all: 'large' }}>
-      <Accordion collapsible>
-        <Accordion.Panel>
-          <Accordion.Title href="#">Item 1</Accordion.Title>
-          <Accordion.Content>{firstParagraph}</Accordion.Content>
-        </Accordion.Panel>
-        <Accordion.Panel>
-          <Accordion.Title href="#">Item 2</Accordion.Title>
-          <Accordion.Content>{secondParagraph}</Accordion.Content>
-        </Accordion.Panel>
-        <Accordion.Panel>
-          <Accordion.Title href="#">Item 3</Accordion.Title>
-          <Accordion.Content>{thirdParagraph}</Accordion.Content>
-        </Accordion.Panel>
-      </Accordion>
+      <SharedAccordion />
     </Block>
   ))
 
   .add('No collapsing', () => (
     <Block margin={{ all: 'large' }}>
-      <Accordion collapsible={false}>
-        <Accordion.Panel>
-          <Accordion.Title href="#">Item 1</Accordion.Title>
-          <Accordion.Content>{firstParagraph}</Accordion.Content>
-        </Accordion.Panel>
-        <Accordion.Panel>
-          <Accordion.Title href="#">Item 2</Accordion.Title>
-          <Accordion.Content>{secondParagraph}</Accordion.Content>
-        </Accordion.Panel>
-        <Accordion.Panel>
-          <Accordion.Title href="#">Item 3</Accordion.Title>
-          <Accordion.Content>{thirdParagraph}</Accordion.Content>
-        </Accordion.Panel>
-      </Accordion>
+      <SharedAccordion collapsible={false} />
     </Block>
   ))
 
   .add('Multiple open items', () => (
     <Block margin={{ all: 'large' }}>
-      <Accordion collapsible multiple>
-        <Accordion.Panel>
-          <Accordion.Title href="#">Item 1</Accordion.Title>
-          <Accordion.Content>{firstParagraph}</Accordion.Content>
-        </Accordion.Panel>
-        <Accordion.Panel>
-          <Accordion.Title href="#">Item 2</Accordion.Title>
-          <Accordion.Content>{secondParagraph}</Accordion.Content>
-        </Accordion.Panel>
-        <Accordion.Panel>
-          <Accordion.Title href="#">Item 3</Accordion.Title>
-          <Accordion.Content>{thirdParagraph}</Accordion.Content>
-        </Accordion.Panel>
-      </Accordion>
+      <SharedAccordion collapsible multiple />
     </Block>
   ))
 
@@ -107,20 +79,7 @@ storiesOf('Accordion', module)
                 />
               ))}
             </Grid>
-            <Accordion multiple openIndex={openIndices}>
-              <Accordion.Panel>
-                <Accordion.Title href="#">Item 1</Accordion.Title>
-                <Accordion.Content>{firstParagraph}</Accordion.Content>
-              </Accordion.Panel>
-              <Accordion.Panel>
-                <Accordion.Title href="#">Item 2</Accordion.Title>
-                <Accordion.Content>{secondParagraph}</Accordion.Content>
-              </Accordion.Panel>
-              <Accordion.Panel>
-                <Accordion.Title href="#">Item 3</Accordion.Title>
-                <Accordion.Content>{thirdParagraph}</Accordion.Content>
-              </Accordion.Panel>
-            </Accordion>
+            <SharedAccordion multiple openIndex={openIndices} />
           </Block>
         );
       }
@@ -130,7 +89,7 @@ storiesOf('Accordion', module)
 
   .add('Event handlers', () => (
     <Block margin={{ all: 'large' }}>
-      <Accordion
+      <SharedAccordion
         collapsible
         onBeforeHide={action('onBeforeHide')}
         onBeforeShow={action('onBeforeShow')}
@@ -138,19 +97,6 @@ storiesOf('Accordion', module)
         onHide={action('onHide')}
         onShow={action('onShow')}
         onShown={action('onShown')}
-      >
-        <Accordion.Panel open>
-          <Accordion.Title href="#">Item 1</Accordion.Title>
-          <Accordion.Content>{firstParagraph}</Accordion.Content>
-        </Accordion.Panel>
-        <Accordion.Panel>
-          <Accordion.Title href="#">Item 2</Accordion.Title>
-          <Accordion.Content>{secondParagraph}</Accordion.Content>
-        </Accordion.Panel>
-        <Accordion.Panel>
-          <Accordion.Title href="#">Item 3</Accordion.Title>
-          <Accordion.Content>{thirdParagraph}</Accordion.Content>
-        </Accordion.Panel>
-      </Accordion>
+      />
     </Block>
   ));

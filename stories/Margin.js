@@ -7,7 +7,7 @@ import { Block, Button, Container, Card, Margin } from '../src/components';
 const firstParagraph = faker.lorem.paragraph();
 const secondParagraph = faker.lorem.paragraph();
 
-const MarginCards = props => (
+const SharedMarginCards = props => (
   <React.Fragment>
     <Card {...props}>{firstParagraph}</Card>
     <Card {...props}>{secondParagraph}</Card>
@@ -19,37 +19,37 @@ const fullHeight = { height: '100vh' };
 storiesOf('Margin', module)
   .add('Usage', () => (
     <Container margin={{ all: 'large' }} style={fullHeight}>
-      <MarginCards margin />
+      <SharedMarginCards margin />
     </Container>
   ))
 
   .add('Small margin', () => (
     <Container margin={{ all: 'large' }} style={fullHeight}>
-      <MarginCards margin="small" />
+      <SharedMarginCards margin="small" />
     </Container>
   ))
 
   .add('Medium margin', () => (
     <Container margin={{ all: 'large' }} style={fullHeight}>
-      <MarginCards margin="medium" />
+      <SharedMarginCards margin="medium" />
     </Container>
   ))
 
   .add('Large margin', () => (
     <Container margin={{ all: 'large' }} style={fullHeight}>
-      <MarginCards margin="large" />
+      <SharedMarginCards margin="large" />
     </Container>
   ))
 
   .add('X-Large margin', () => (
     <Container margin={{ all: 'large' }} style={fullHeight}>
-      <MarginCards margin="xlarge" />
+      <SharedMarginCards margin="xlarge" />
     </Container>
   ))
 
   .add('Remove margin', () => (
     <Container margin={{ all: 'large' }} style={fullHeight}>
-      <MarginCards margin="remove" />
+      <SharedMarginCards margin="remove" />
     </Container>
   ))
 

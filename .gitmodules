@@ -1,0 +1,3 @@
+[submodule "internals/uikit-site"]
+	path = internals/uikit-site
+	url = git@github.com:uikit/uikit-site

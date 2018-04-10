@@ -7,7 +7,6 @@ import compact from 'lodash/compact';
 import get from 'lodash/get';
 import isBoolean from 'lodash/isBoolean';
 import isEmpty from 'lodash/isEmpty';
-import isNil from 'lodash/isNil';
 import isPlainObject from 'lodash/isPlainObject';
 import isString from 'lodash/isString';
 import trim from 'lodash/trim';
@@ -87,7 +86,7 @@ export default class Base extends React.Component {
       PropTypes.oneOf([...UIK.BREAKPOINTS, 'hover']),
     ]),
     hoverTransition: PropTypes.oneOf(
-      without(UIK.ANIMATIONS, ['kenburns', 'shake']),
+      without(UIK.ANIMATIONS, 'kenburns', 'shake'),
     ),
     inline: PropTypes.bool,
     innerRef: PropTypes.func,

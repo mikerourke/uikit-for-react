@@ -17,7 +17,7 @@ import { imageLinks } from './common';
 
 Navbar.displayName = 'Navbar';
 
-const ExampleNavbar = () => (
+const SharedNav = () => (
   <Nav>
     <Nav.Item active>Active</Nav.Item>
     <Nav.Item parent title="Parent">
@@ -33,9 +33,9 @@ const ExampleNavbar = () => (
   </Nav>
 );
 
-const ExampleNavSection = props => (
+const SharedNavSection = props => (
   <Navbar.Section {...props}>
-    <ExampleNavbar />
+    <SharedNav />
   </Navbar.Section>
 );
 
@@ -43,7 +43,7 @@ storiesOf('Navbar', module)
   .add('Usage', () => (
     <Block margin={{ all: 'large' }}>
       <Navbar container>
-        <ExampleNavSection location="left" />
+        <SharedNavSection location="left" />
       </Navbar>
     </Block>
   ))
@@ -51,8 +51,8 @@ storiesOf('Navbar', module)
   .add('Multiple navigations', () => (
     <Block margin={{ all: 'large' }}>
       <Navbar container>
-        <ExampleNavSection location="left" />
-        <ExampleNavSection location="right" />
+        <SharedNavSection location="left" />
+        <SharedNavSection location="right" />
       </Navbar>
     </Block>
   ))
@@ -60,7 +60,7 @@ storiesOf('Navbar', module)
   .add('Click mode', () => (
     <Block margin={{ all: 'large' }}>
       <Navbar container margin mode="click">
-        <ExampleNavSection location="left" />
+        <SharedNavSection location="left" />
       </Navbar>
     </Block>
   ))
@@ -70,7 +70,7 @@ storiesOf('Navbar', module)
       <Image src={imageLinks.light} />
       <Block position="top">
         <Navbar container transparent>
-          <ExampleNavSection location="left" />
+          <SharedNavSection location="left" />
         </Navbar>
       </Block>
     </Block>
@@ -144,7 +144,7 @@ storiesOf('Navbar', module)
       <Navbar container margin>
         <Navbar.Section location="center">
           <Navbar.Split side="left">
-            <ExampleNavbar />
+            <SharedNav />
           </Navbar.Split>
           <Navbar.Item as={Logo}>Logo</Navbar.Item>
           <Navbar.Split side="right">
@@ -174,9 +174,9 @@ storiesOf('Navbar', module)
 
   .add('Dropdowns', () => (
     <Block margin={{ all: 'large' }}>
-      {['left', 'right'].map(location => (
-        <Navbar container key={location}>
-          <Navbar.Section location={location}>
+      <Navbar container>
+        {['left', 'right'].map(location => (
+          <Navbar.Section key={location} location={location}>
             <Nav>
               <Nav.Item active>Active</Nav.Item>
               <Nav.Item parent title="Parent">
@@ -194,7 +194,7 @@ storiesOf('Navbar', module)
               </Nav.Item>
             </Nav>
           </Navbar.Section>
-        </Navbar>
-      ))}
+        ))}
+      </Navbar>
     </Block>
   ));

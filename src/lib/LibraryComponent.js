@@ -1,8 +1,7 @@
 import generate from 'nanoid/generate';
 import isNil from 'lodash/isNil';
 import { VALID_CHARS } from './constants';
-
-const getCssSelector = componentName => `[data-uikfr-${componentName}]`;
+import { getAttrName, getAttrSelector } from './attributeUtils';
 
 /**
  * This class is used as a utility by library components that require
@@ -10,13 +9,17 @@ const getCssSelector = componentName => `[data-uikfr-${componentName}]`;
  * @class
  */
 export default class LibraryComponent {
+  static buildAttrName(componentName) {
+    return getAttrName(componentName);
+  }
+
   static findAllWithName(componentName) {
-    const cssSelector = getCssSelector(componentName);
+    const cssSelector = getAttrSelector(componentName);
     return document.querySelectorAll(cssSelector);
   }
 
   static findFirstWithName(componentName) {
-    const cssSelector = getCssSelector(componentName);
+    const cssSelector = getAttrSelector(componentName);
     return document.querySelector(cssSelector);
   }
 
@@ -30,7 +33,7 @@ export default class LibraryComponent {
   }
 
   get attrName() {
-    return `data-uikfr-${this.componentName}`;
+    return getAttrName(this.componentName);
   }
 
   get cssSelector() {
@@ -38,12 +41,12 @@ export default class LibraryComponent {
   }
 
   findFirstChildWithName(childComponentName) {
-    const childCssSelector = getCssSelector(childComponentName);
+    const childCssSelector = getAttrSelector(childComponentName);
     return this.domNode.querySelector(childCssSelector);
   }
 
   findAllChildrenWithName(childComponentName) {
-    const childCssSelector = getCssSelector(childComponentName);
+    const childCssSelector = getAttrSelector(childComponentName);
     return this.domNode.querySelectorAll(childCssSelector);
   }
 
@@ -54,8 +57,8 @@ export default class LibraryComponent {
    * @param {string} [attrValue=""] Optional override value for the data
    *    attribute added to the DOM element.
    */
-  appendProps(componentProps, { attrValue = null } = {}) {
-    if (!isNil(attrValue)) this.attrValue = attrValue;
+  appendProps(componentProps, { attrValue = '' } = {}) {
+    if (!isNil(attrValue) && attrValue !== '') this.attrValue = attrValue;
     return {
       [this.attrName]: this.attrValue,
     };

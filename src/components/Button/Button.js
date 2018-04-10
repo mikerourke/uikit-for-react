@@ -31,11 +31,6 @@ export default class Button extends React.Component {
   static defaultProps = {
     ...Base.defaultProps,
     as: 'button',
-    danger: false,
-    fullWidth: false,
-    link: false,
-    primary: false,
-    secondary: false,
   };
 
   static Group = ButtonGroup;

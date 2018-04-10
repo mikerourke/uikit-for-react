@@ -182,7 +182,7 @@ storiesOf('Card', module)
         <Card.Media
           alignTo="right"
           cover={{ width: 600, height: 400 }}
-          flex={{ order: { last: '@s' } }}
+          flex={{ order: { last: '@s' }, display: false }}
         >
           <img src={imageLinks.light} alt="" />
         </Card.Media>

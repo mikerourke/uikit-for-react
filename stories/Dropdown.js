@@ -15,7 +15,7 @@ Dropdown.displayName = 'Dropdown';
 
 const message = faker.lorem.paragraph();
 
-const NavExample = () => (
+const SharedNav = () => (
   <Nav>
     <Nav.Item active>Active</Nav.Item>
     <Nav.Item>Item</Nav.Item>
@@ -44,7 +44,7 @@ storiesOf('Dropdown', module)
   .add('Nav in dropdown', () => (
     <Block margin={{ all: 'large' }}>
       <Dropdown toggle={<Button>Hover</Button>} width="large">
-        <NavExample />
+        <SharedNav />
       </Dropdown>
     </Block>
   ))
@@ -54,10 +54,10 @@ storiesOf('Dropdown', module)
       <Dropdown toggle={<Button>Hover</Button>} width="large">
         <Grid childWidth={{ atMd: '1/2' }}>
           <Grid.Cell>
-            <NavExample />
+            <SharedNav />
           </Grid.Cell>
           <Grid.Cell>
-            <NavExample />
+            <SharedNav />
           </Grid.Cell>
         </Grid>
       </Dropdown>
@@ -68,7 +68,7 @@ storiesOf('Dropdown', module)
     <Block margin={{ all: 'large' }} style={{ paddingTop: 300, height: 1000 }}>
       <Block inline>
         <Dropdown toggle={<Button>Top Right</Button>} position="top-right">
-          <NavExample />
+          <SharedNav />
         </Dropdown>
       </Block>
       <Block inline>
@@ -76,7 +76,7 @@ storiesOf('Dropdown', module)
           toggle={<Button>Bottom Justify</Button>}
           position="bottom-justify"
         >
-          <NavExample />
+          <SharedNav />
         </Dropdown>
       </Block>
       <Block inline>
@@ -84,7 +84,7 @@ storiesOf('Dropdown', module)
           toggle={<Button>Right Center</Button>}
           position="right-center"
         >
-          <NavExample />
+          <SharedNav />
         </Dropdown>
       </Block>
     </Block>
@@ -95,11 +95,11 @@ storiesOf('Dropdown', module)
       <Panel as={Dropdown.Boundary} placeholder width={{ atSm: '2/3' }}>
         <Button float="left">Hover</Button>
         <Dropdown>
-          <NavExample />
+          <SharedNav />
         </Dropdown>
         <Button float="right">Hover</Button>
         <Dropdown>
-          <NavExample />
+          <SharedNav />
         </Dropdown>
       </Panel>
     </Block>
@@ -110,11 +110,11 @@ storiesOf('Dropdown', module)
       <Panel as={Dropdown.Boundary} placeholder>
         <Button float="left">Justify</Button>
         <Dropdown position="bottom-justify" boundaryAlign>
-          <NavExample />
+          <SharedNav />
         </Dropdown>
         <Button float="right">Center</Button>
         <Dropdown position="bottom-center" boundaryAlign>
-          <NavExample />
+          <SharedNav />
         </Dropdown>
       </Panel>
     </Block>
@@ -124,7 +124,7 @@ storiesOf('Dropdown', module)
     <Block margin={{ all: 'large' }}>
       <Button>Hover</Button>
       <Dropdown offset={80}>
-        <NavExample />
+        <SharedNav />
       </Dropdown>
     </Block>
   ))
@@ -133,7 +133,7 @@ storiesOf('Dropdown', module)
     <Block margin={{ all: 'large' }}>
       <Button>Hover</Button>
       <Dropdown animation={{ name: 'slide-top-small', duration: 1000 }}>
-        <NavExample />
+        <SharedNav />
       </Dropdown>
     </Block>
   ))

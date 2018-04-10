@@ -15,6 +15,9 @@ import toPairs from 'lodash/toPairs';
  * @param {string} propsEventName Event name from component props.
  * @param {Object} componentProps Props passed from the component (used to
  *    include in the callback).
+ * @param {Object} [options = {}] Options to apply to the event invoker.
+ * @property {boolean} [options.isOnce = false] Indicates if the UIkit event
+ *    listener should only be called once.
  *
  * @example
  * >> In Accordion.js:
@@ -37,13 +40,15 @@ export const addEventInvoker = (
   ukEventName,
   propsEventName,
   componentProps,
+  { isOnce = false } = {},
 ) => {
   if (isNil(ukElement)) return false;
   const elementRef = has(ukElement, '$el') ? ukElement.$el : ukElement;
   if (!get(componentProps, propsEventName)) return false;
   const invokedEvent = e =>
     invoke(componentProps, propsEventName, e, componentProps);
-  UIkit.util.on(elementRef, ukEventName, invokedEvent);
+  const utilFn = isOnce ? UIkit.util.once : UIkit.util.on;
+  utilFn(elementRef, ukEventName, invokedEvent);
   return true;
 };
 
