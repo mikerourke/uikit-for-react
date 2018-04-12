@@ -1,15 +1,14 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import isNil from 'lodash/isNil';
-import isString from 'lodash/isString';
 import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
   customPropTypes,
   getOptionsString,
-  LibraryComponent,
 } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 import OffcanvasBar from './OffcanvasBar';
 import OffcanvasClose from './OffcanvasClose';
 import OffcanvasContent from './OffcanvasContent';
@@ -33,8 +32,7 @@ export default class Offcanvas extends Base {
     onShow: PropTypes.func,
     onShown: PropTypes.func,
     overlay: PropTypes.bool,
-    toggle: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
-      .isRequired,
+    shown: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -46,6 +44,7 @@ export default class Offcanvas extends Base {
     onHide: noop,
     onShow: noop,
     onShown: noop,
+    shown: false,
   };
 
   static Bar = OffcanvasBar;
@@ -55,7 +54,7 @@ export default class Offcanvas extends Base {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('offcanvas');
+    this.ref = null;
   }
 
   componentDidMount() {
@@ -67,23 +66,25 @@ export default class Offcanvas extends Base {
       show: 'onShow',
       shown: 'onShown',
     };
-    addMultipleEventInvokers(
-      this.libComp.cssSelector,
-      ukToPropsEventMap,
-      this.props,
-    );
+    addMultipleEventInvokers(this.ref, ukToPropsEventMap, this.props);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.shown !== this.props.shown) {
+      const offcanvas = UIkit.offcanvas(this.ref);
+      if (nextProps.shown === true) {
+        offcanvas.show();
+      }
+      if (nextProps.shown === false) {
+        offcanvas.hide();
+      }
+    }
+  }
+
+  handleRef = element => (this.ref = element);
+
   render() {
-    const {
-      bgClose,
-      escClose,
-      flip,
-      mode,
-      overlay,
-      toggle,
-      ...rest
-    } = this.props;
+    const { bgClose, escClose, flip, mode, overlay, ...rest } = this.props;
 
     const componentOptions = getOptionsString({
       bgClose,
@@ -93,21 +94,15 @@ export default class Offcanvas extends Base {
       overlay,
     });
 
-    const attrValue = isString(toggle) ? toggle : undefined;
-
     return (
-      <Fragment>
-        {React.isValidElement(toggle) &&
-          React.cloneElement(toggle, {
-            target: this.libComp.cssSelector,
-          })}
+      <Ref innerRef={this.handleRef}>
         <Base
           {...rest}
+          baseId={this.props.id}
           component={Offcanvas}
           uk-offcanvas={componentOptions}
-          {...this.libComp.appendProps(this.props, { attrValue })}
         />
-      </Fragment>
+      </Ref>
     );
   }
 }

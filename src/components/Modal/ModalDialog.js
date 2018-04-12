@@ -5,8 +5,9 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import isNil from 'lodash/isNil';
-import { customPropTypes, hasChildType, LibraryComponent } from '../../lib';
+import { customPropTypes, hasChildType } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 import ModalBody from './ModalBody';
 
 export default class ModalDialog extends React.Component {
@@ -39,30 +40,28 @@ export default class ModalDialog extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('modal-dialog');
-    this.modal = null;
+    this.ref = null;
   }
 
   componentDidMount() {
     if (isNil(this.props.toggle)) return;
 
     const dialogHtml = renderToStaticMarkup(this.props.children);
-    UIkit.util.on(this.libComp.cssSelector, 'click', e => {
+    UIkit.util.on(this.ref, 'click', e => {
       e.preventDefault();
       e.target.blur();
       UIkit.modal.dialog(dialogHtml);
     });
   }
 
+  handleRef = element => (this.ref = element);
+
   render() {
     const { body, className, toggle, ...rest } = this.props;
 
-    if (!isNil(toggle))
-      return (
-        <span {...this.libComp.appendProps(this.props)}>
-          {this.props.toggle}
-        </span>
-      );
+    if (!isNil(toggle)) {
+      return <Ref innerRef={this.handleRef}>{this.props.toggle}</Ref>;
+    }
 
     const classes = classnames(className, 'uk-modal-dialog', {
       'uk-modal-body': body,

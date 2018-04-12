@@ -10,10 +10,10 @@ import {
   customPropTypes,
   getOptionsString,
   HTML,
-  LibraryComponent,
   UIK,
 } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 import SlideshowItem from './SlideshowItem';
 import SlideshowItems from './SlideshowItems';
 
@@ -75,13 +75,10 @@ export default class Slideshow extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('slideshow');
-    this.slideshow = null;
+    this.ref = null;
   }
 
   componentDidMount() {
-    this.slideshow = UIkit.slideshow(this.libComp.cssSelector);
-
     const ukToPropsEventMap = {
       beforeitemhide: 'onBeforeItemHide',
       beforeitemshow: 'onBeforeItemShow',
@@ -90,17 +87,22 @@ export default class Slideshow extends React.Component {
       itemshow: 'onItemShow',
       itemshown: 'onItemShown',
     };
-    addMultipleEventInvokers(this.slideshow, ukToPropsEventMap, this.props);
+    addMultipleEventInvokers(this.ref, ukToPropsEventMap, this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.paused === true && this.props.paused === false) {
-      this.slideshow.stopAutoplay();
-    }
-    if (nextProps.paused === false && this.props.paused === true) {
-      this.slideshow.startAutoplay();
+    if (nextProps.paused !== this.props.paused) {
+      const slideshow = UIkit.slideshow(this.ref);
+      if (nextProps.paused === true) {
+        slideshow.stopAutoplay();
+      }
+      if (nextProps.paused === false) {
+        slideshow.startAutoplay();
+      }
     }
   }
+
+  handleRef = element => (this.ref = element);
 
   render() {
     const {
@@ -128,12 +130,9 @@ export default class Slideshow extends React.Component {
     });
 
     return (
-      <Base
-        {...rest}
-        component={Slideshow}
-        uk-slideshow={componentOptions}
-        {...this.libComp.appendProps(this.props)}
-      />
+      <Ref innerRef={this.handleRef}>
+        <Base {...rest} component={Slideshow} uk-slideshow={componentOptions} />
+      </Ref>
     );
   }
 }

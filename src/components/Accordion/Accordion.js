@@ -12,9 +12,9 @@ import {
   customPropTypes,
   getOptionsString,
   HTML,
-  LibraryComponent,
 } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 import AccordionContent from './AccordionContent';
 import AccordionPanel from './AccordionPanel';
 import AccordionTitle from './AccordionTitle';
@@ -37,6 +37,7 @@ export default class Accordion extends React.Component {
       }),
     ]),
     as: customPropTypes.customOrStringElement('ul'),
+    children: ExtraPropTypes.childrenOfType(AccordionPanel),
     collapsible: PropTypes.bool,
     defaultIndex: customPropTypes.validateIndex,
     hideOpenAnimation: PropTypes.bool,
@@ -71,12 +72,13 @@ export default class Accordion extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('accordion');
+    this.ref = null;
     this.accordion = null;
   }
 
   componentDidMount() {
-    this.accordion = UIkit.accordion(this.libComp.cssSelector);
+    this.accordion = UIkit.accordion(this.ref);
+
     const ukToPropsEventMap = {
       beforehide: 'onBeforeHide',
       beforeshow: 'onBeforeShow',
@@ -126,6 +128,8 @@ export default class Accordion extends React.Component {
     });
   };
 
+  handleRef = element => (this.ref = element);
+
   render() {
     const {
       animation,
@@ -155,14 +159,15 @@ export default class Accordion extends React.Component {
     });
 
     return (
-      <Base
-        {...rest}
-        baseId={this.props.id}
-        className={classes}
-        component={Accordion}
-        uk-accordion={componentOptions}
-        {...this.libComp.appendProps(this.props)}
-      />
+      <Ref innerRef={this.handleRef}>
+        <Base
+          {...rest}
+          baseId={this.props.id}
+          className={classes}
+          component={Accordion}
+          uk-accordion={componentOptions}
+        />
+      </Ref>
     );
   }
 }

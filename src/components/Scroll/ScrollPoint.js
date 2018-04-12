@@ -7,10 +7,10 @@ import {
   addEventInvoker,
   customPropTypes,
   getOptionsString,
-  LibraryComponent,
   HTML,
 } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 
 export default class ScrollPoint extends React.Component {
   static displayName = 'ScrollPoint';
@@ -19,7 +19,6 @@ export default class ScrollPoint extends React.Component {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
     duration: PropTypes.number,
-    elementName: PropTypes.string,
     goTo: PropTypes.oneOf(['next', 'previous']),
     offset: PropTypes.number,
     onBeforeScroll: PropTypes.func,
@@ -37,37 +36,38 @@ export default class ScrollPoint extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('scroll-point');
+    this.ref = null;
   }
 
   componentDidMount() {
-    const { cssSelector } = this.libComp;
-    addEventInvoker(cssSelector, 'beforescroll', 'onBeforeScroll', this.props);
-    addEventInvoker(cssSelector, 'scrolled', 'onScrolled', this.props);
+    addEventInvoker(this.ref, 'beforescroll', 'onBeforeScroll', this.props);
+    addEventInvoker(this.ref, 'scrolled', 'onScrolled', this.props);
   }
 
   handleClick = () => {
     const { goTo, pointIndex } = this.props;
-    const { attrName } = this.libComp;
 
     const targetIndex = goTo === 'next' ? pointIndex + 1 : pointIndex - 1;
-    const scrollElements = document.querySelectorAll(`[${attrName}]`);
+    const scrollElements = document.querySelectorAll('[uk-scroll]');
     const targetNode = scrollElements.item(targetIndex);
 
-    UIkit.scroll(this.libComp.cssSelector).scrollTo(targetNode);
+    UIkit.scroll(this.ref).scrollTo(targetNode);
   };
 
+  handleRef = element => (this.ref = element);
+
   render() {
-    const { duration, elementName, offset, pointIndex, ...rest } = this.props;
+    const { duration, offset, pointIndex, ...rest } = this.props;
 
     return (
-      <Base
-        {...rest}
-        component={ScrollPoint}
-        onClick={this.handleClick}
-        uk-scroll={getOptionsString({ duration, offset })}
-        {...this.libComp.appendProps(this.props, { attrValue: elementName })}
-      />
+      <Ref innerRef={this.handleRef}>
+        <Base
+          {...rest}
+          component={ScrollPoint}
+          onClick={this.handleClick}
+          uk-scroll={getOptionsString({ duration, offset })}
+        />
+      </Ref>
     );
   }
 }

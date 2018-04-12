@@ -4,14 +4,9 @@ import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import isPlainObject from 'lodash/isPlainObject';
 import noop from 'lodash/noop';
-import {
-  customPropTypes,
-  getOptionsString,
-  HTML,
-  LibraryComponent,
-  UIK,
-} from '../../lib';
+import { customPropTypes, getOptionsString, HTML, UIK } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 import LightboxItem from './LightboxItem';
 import LightboxPanel from './LightboxPanel';
 
@@ -77,20 +72,23 @@ export default class Lightbox extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('lightbox');
+    this.ref = null;
     this.lightbox = null;
   }
 
+  componentDidMount() {
+    this.lightbox = UIkit.lightbox(this.ref)
+  }
+
   componentWillReceiveProps(nextProps) {
-    const lightbox = UIkit.lightbox(this.libComp.cssSelector);
     if (nextProps.activeIndex !== this.props.activeIndex) {
-      lightbox.show(nextProps.activeIndex);
+      this.lightbox.show(nextProps.activeIndex);
     }
     if (nextProps.shown === true && this.props.shown === false) {
-      lightbox.show(nextProps.activeIndex || 0);
+      this.lightbox.show(nextProps.activeIndex || 0);
     }
     if (nextProps.shown === false && this.props.shown === true) {
-      lightbox.hide();
+      this.lightbox.hide();
     }
 
     // Add event listeners to the Lightbox Panel after it appears.
@@ -98,6 +96,8 @@ export default class Lightbox extends React.Component {
     if (!panel) return;
     LightboxPanel.addEventListeners(this.props, panel);
   }
+
+  handleRef = element => (this.ref = element);
 
   render() {
     const {
@@ -126,12 +126,13 @@ export default class Lightbox extends React.Component {
     }).replace('uk-animation-', '');
 
     return (
-      <Base
-        {...rest}
-        component={Lightbox}
-        uk-lightbox={componentOptions}
-        {...this.libComp.appendProps(this.props)}
-      />
+      <Ref innerRef={this.handleRef}>
+        <Base
+          {...rest}
+          component={Lightbox}
+          uk-lightbox={componentOptions}
+        />
+      </Ref>
     );
   }
 }

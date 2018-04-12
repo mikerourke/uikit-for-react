@@ -25,7 +25,7 @@ class SharedNotifier extends React.Component {
 
   handleClose = () => {
     this.setState({ shown: false });
-    this.props.onClose();
+    if (this.props.onClose) this.props.onClose();
   };
 
   render() {

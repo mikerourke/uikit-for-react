@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import invoke from 'lodash/invoke';
-import { customPropTypes, LibraryComponent } from '../../lib';
+import { customPropTypes } from '../../lib';
 import Base from '../Base';
 import FormLabel from './FormLabel';
 
@@ -37,12 +37,7 @@ export default class FormRadio extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('radio');
-    this.radio = null;
-  }
-
-  componentDidMount() {
-    this.radio = this.libComp.domNode;
+    this.ref = null;
   }
 
   handleChange = e => {
@@ -85,7 +80,6 @@ export default class FormRadio extends React.Component {
         onChange={this.handleChange}
         onClick={this.handleClick}
         type="radio"
-        {...this.libComp.appendProps(this.props)}
       />
     );
 

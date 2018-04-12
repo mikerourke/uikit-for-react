@@ -11,10 +11,10 @@ import {
   getOptionsString,
   hasChildType,
   HTML,
-  LibraryComponent,
   UIK,
 } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 import Close from '../Close';
 
 /**
@@ -70,19 +70,20 @@ export default class Alert extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('alert');
+    this.ref = null;
   }
 
   componentDidMount() {
-    const { cssSelector } = this.libComp;
-    addEventInvoker(cssSelector, 'beforehide', 'onBeforeHide', this.props);
-    addEventInvoker(cssSelector, 'hide', 'onHide', this.props);
+    addEventInvoker(this.ref, 'beforehide', 'onBeforeHide', this.props);
+    addEventInvoker(this.ref, 'hide', 'onHide', this.props);
 
-    const firstClose = LibraryComponent.findFirstWithName('close');
+    const firstClose = this.ref.querySelector('.uk-close, [uk-close]');
     if (firstClose) {
       firstClose.classList.add('uk-alert-close');
     }
   }
+
+  handleRef = element => (this.ref = element);
 
   render() {
     const {
@@ -117,16 +118,17 @@ export default class Alert extends React.Component {
     };
 
     return (
-      <Base
-        {...rest}
-        className={classes}
-        component={Alert}
-        uk-alert={getOptionsString({ animation })}
-        {...this.libComp.appendProps(this.props)}
-      >
-        {closeable && <Close {...closeProps} />}
-        {!isNil(children) && children}
-      </Base>
+      <Ref innerRef={this.handleRef}>
+        <Base
+          {...rest}
+          className={classes}
+          component={Alert}
+          uk-alert={getOptionsString({ animation })}
+        >
+          {closeable && <Close {...closeProps} />}
+          {!isNil(children) && children}
+        </Base>
+      </Ref>
     );
   }
 }

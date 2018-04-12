@@ -7,11 +7,11 @@ import {
   addMultipleEventInvokers,
   customPropTypes,
   getOptionsString,
-  LibraryComponent,
   HTML,
   UIK,
 } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 
 export default class Tooltip extends React.Component {
   static displayName = 'Tooltip';
@@ -71,12 +71,12 @@ export default class Tooltip extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('tooltip');
+    this.ref = null;
     this.tooltip = null;
   }
 
   componentDidMount() {
-    this.tooltip = UIkit.tooltip(this.libComp.cssSelector);
+    this.tooltip = UIkit.tooltip(this.ref);
 
     const ukToPropsEventMap = {
       beforehide: 'onBeforeHide',
@@ -90,13 +90,17 @@ export default class Tooltip extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.shown === true && this.props.shown === false) {
-      this.tooltip.show();
-    }
-    if (nextProps.shown === false && this.props.shown === true) {
-      this.tooltip.hide();
+    if (nextProps.shown !== this.props.shown) {
+      if (nextProps.shown === true) {
+        this.tooltip.show();
+      }
+      if (nextProps.shown === false) {
+        this.tooltip.hide();
+      }
     }
   }
+
+  handleRef = element => (this.ref = element);
 
   render() {
     const {
@@ -121,13 +125,14 @@ export default class Tooltip extends React.Component {
     });
 
     return (
-      <Base
-        {...rest}
-        className={classes}
-        component={Tooltip}
-        uk-tooltip={componentOptions}
-        {...this.libComp.appendProps(this.props)}
-      />
+      <Ref innerRef={this.handleRef}>
+        <Base
+          {...rest}
+          className={classes}
+          component={Tooltip}
+          uk-tooltip={componentOptions}
+        />
+      </Ref>
     );
   }
 }

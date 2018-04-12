@@ -7,13 +7,19 @@ Text.displayName = 'Text';
 storiesOf('Text', module)
   .add('Style modifiers', () => (
     <Block margin={{ all: 'large' }}>
-      <Text lead>
-        Add this class to highlight text, for example in article subtitles.
-      </Text>
-      <Text meta>
-        Add this class to a paragraph which contains meta data about an article
-        or similar.
-      </Text>
+      <Grid gutter="small">
+        <Grid.Cell>
+          <Text lead>
+            Add this class to highlight text, for example in article subtitles.
+          </Text>
+        </Grid.Cell>
+        <Grid.Cell>
+          <Text meta>
+            Add this class to a paragraph which contains meta data about an
+            article or similar.
+          </Text>
+        </Grid.Cell>
+      </Grid>
     </Block>
   ))
 

@@ -8,10 +8,11 @@ import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
   customPropTypes,
+  generateSelector,
   getOptionsString,
-  LibraryComponent,
 } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 import ModalAlert from './ModalAlert';
 import ModalBody from './ModalBody';
 import ModalClose from './ModalClose';
@@ -76,12 +77,13 @@ export default class Modal extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('modal');
+    this.ref = null;
     this.modal = null;
+    this.selector = generateSelector();
   }
 
   componentDidMount() {
-    this.modal = UIkit.modal(this.libComp.cssSelector, {
+    this.modal = UIkit.modal(this.ref, {
       'cls-page': this.props.clsPage,
       'cls-panel': this.props.clsPanel,
       'sel-close': this.props.selClose,
@@ -99,13 +101,17 @@ export default class Modal extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.shown === true && this.props.shown === false) {
-      this.modal.show();
-    }
-    if (nextProps.shown === false && this.props.shown === true) {
-      this.modal.hide();
+    if (nextProps.shown !== this.props.shown) {
+      if (nextProps.shown === true) {
+        this.modal.show();
+      }
+      if (nextProps.shown === false) {
+        this.modal.hide();
+      }
     }
   }
+
+  handleRef = element => (this.ref = element);
 
   render() {
     const {
@@ -114,14 +120,13 @@ export default class Modal extends React.Component {
       container,
       escClose,
       full,
-      id,
       modalName,
       stack,
       toggle,
       ...rest
     } = this.props;
 
-    const classes = classnames(className, 'uk-modal', {
+    const classes = classnames(className, 'uk-modal', this.selector, {
       'uk-modal-container': container,
       'uk-modal-full': full,
     });
@@ -130,16 +135,18 @@ export default class Modal extends React.Component {
       <Fragment>
         {!isNil(toggle) &&
           React.cloneElement(toggle, {
-            target: this.libComp.cssSelector,
+            target: `.${this.selector}`,
           })}
-        <Base
-          {...rest}
-          baseId={id}
-          className={classes}
-          component={Modal}
-          uk-modal={getOptionsString({ bgClose, escClose, stack })}
-          {...this.libComp.appendProps(this.props, { attrValue: modalName })}
-        />
+        <Ref innerRef={this.handleRef}>
+          <Base
+            {...rest}
+            baseId={this.props.id}
+            className={classes}
+            component={Modal}
+            modal-name={modalName}
+            uk-modal={getOptionsString({ bgClose, escClose, stack })}
+          />
+        </Ref>
       </Fragment>
     );
   }

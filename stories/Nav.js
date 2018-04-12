@@ -225,18 +225,21 @@ storiesOf('Nav', module)
 
   .add('Nav in Offcanvas', () => (
     <Block margin={{ all: 'large' }}>
-      <Offcanvas toggle={<Button>Open</Button>}>
-        <Offcanvas.Bar>
-          <Nav>
-            <Nav.Item active>Active</Nav.Item>
-            <Nav.Item>Item</Nav.Item>
-            <Nav.Header>Header</Nav.Header>
-            <Nav.Item>Item</Nav.Item>
-            <Nav.Item>Item</Nav.Item>
-            <Nav.Divider />
-            <Nav.Item>Item</Nav.Item>
-          </Nav>
-        </Offcanvas.Bar>
-      </Offcanvas>
+      <Offcanvas.Content>
+        <Offcanvas.Toggle as={Button}>Open</Offcanvas.Toggle>
+        <Offcanvas>
+          <Offcanvas.Bar>
+            <Nav>
+              <Nav.Item active>Active</Nav.Item>
+              <Nav.Item>Item</Nav.Item>
+              <Nav.Header>Header</Nav.Header>
+              <Nav.Item>Item</Nav.Item>
+              <Nav.Item>Item</Nav.Item>
+              <Nav.Divider />
+              <Nav.Item>Item</Nav.Item>
+            </Nav>
+          </Offcanvas.Bar>
+        </Offcanvas>
+      </Offcanvas.Content>
     </Block>
   ));

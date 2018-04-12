@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import invoke from 'lodash/invoke';
-import { customPropTypes, LibraryComponent } from '../../lib';
-import FormLabel from './FormLabel';
+import { customPropTypes } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
+import FormLabel from './FormLabel';
 
 export default class FormCheckbox extends React.Component {
   static displayName = 'FormCheckbox';
@@ -38,13 +39,12 @@ export default class FormCheckbox extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('checkbox');
-    this.checkbox = null;
+    this.ref = null;
   }
 
   componentDidMount() {
     if (!this.props.checked && this.props.defaultChecked) {
-      this.checkbox.checked = true;
+      this.ref.setAttribute('checked', true);
     }
   }
 
@@ -64,6 +64,8 @@ export default class FormCheckbox extends React.Component {
     invoke(this.props, 'onClick', e, this.props);
   };
 
+  handleRef = element => (this.ref = element);
+
   render() {
     const {
       blank,
@@ -81,15 +83,16 @@ export default class FormCheckbox extends React.Component {
     });
 
     const CheckboxInput = (
-      <Base
-        {...rest}
-        className={classes}
-        component={FormCheckbox}
-        onChange={this.handleChange}
-        onClick={this.handleClick}
-        type="checkbox"
-        {...this.libComp.appendProps(this.props)}
-      />
+      <Ref innerRef={this.handleRef}>
+        <Base
+          {...rest}
+          className={classes}
+          component={FormCheckbox}
+          onChange={this.handleChange}
+          onClick={this.handleClick}
+          type="checkbox"
+        />
+      </Ref>
     );
 
     if (React.isValidElement(labelElement)) {

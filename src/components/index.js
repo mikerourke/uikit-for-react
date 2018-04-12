@@ -155,7 +155,7 @@ export Table, {
 export Text from './Text';
 export Thumbnav, { ThumbnavImage, ThumbnavItem } from './Thumbnav';
 export Tile from './Tile';
-export Toggle, { ToggleToggle, ToggleTarget, ToggleTogglable } from './Toggle';
+export Toggle, { ToggleTarget, ToggleTogglable } from './Toggle';
 export Tooltip from './Tooltip';
 export Totop from './Totop';
 export Upload, { UploadFileSelect } from './Upload';

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { customPropTypes, generateIdentifier, HTML } from '../../lib';
+import { customPropTypes, HTML } from '../../lib';
 import Base from '../Base';
 import ScrollPoint from './ScrollPoint';
 
@@ -25,7 +25,6 @@ export default class ScrollScrollable extends React.Component {
         const currentIndex = this.pointIndex;
         this.pointIndex += 1;
         return React.cloneElement(child, {
-          elementName: generateIdentifier(),
           pointIndex: currentIndex,
           children: this.activateScrollPoints(child.props.children),
         });

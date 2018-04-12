@@ -8,10 +8,10 @@ import {
   getOptionsString,
   HTML,
   joinListProp,
-  LibraryComponent,
   UIK,
 } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 
 export default class Scrollspy extends React.Component {
   static displayName = 'Scrollspy';
@@ -41,14 +41,15 @@ export default class Scrollspy extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('scrollspy');
+    this.ref = null;
   }
 
   componentDidMount() {
-    const { cssSelector } = this.libComp;
-    addEventInvoker(cssSelector, 'inview', 'onInview', this.props);
-    addEventInvoker(cssSelector, 'outview', 'onOutview', this.props);
+    addEventInvoker(this.ref, 'inview', 'onInview', this.props);
+    addEventInvoker(this.ref, 'outview', 'onOutview', this.props);
   }
+
+  handleRef = element => (this.ref = element);
 
   render() {
     const {
@@ -74,13 +75,14 @@ export default class Scrollspy extends React.Component {
     });
 
     return (
-      <Base
-        {...rest}
-        className={classes}
-        component={Scrollspy}
-        uk-scrollspy={componentOptions}
-        {...this.libComp.appendProps(this.props)}
-      />
+      <Ref innerRef={this.handleRef}>
+        <Base
+          {...rest}
+          className={classes}
+          component={Scrollspy}
+          uk-scrollspy={componentOptions}
+        />
+      </Ref>
     );
   }
 }

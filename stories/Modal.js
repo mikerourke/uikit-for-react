@@ -23,10 +23,10 @@ storiesOf('Modal', module)
   .add('Usage', () => (
     <Block margin={{ all: 'large' }}>
       <Toggle.Togglable>
-        <Toggle.Toggle as={Button} margin={{ right: 'small' }}>
+        <Toggle as={Button} margin={{ right: 'small' }}>
           Open
-        </Toggle.Toggle>
-        <Toggle.Toggle as="a">Open</Toggle.Toggle>
+        </Toggle>
+        <Toggle as="a">Open</Toggle>
         <Toggle.Target as={Modal}>
           <Modal.Dialog body>
             <Modal.Title>Headline</Modal.Title>
@@ -44,9 +44,9 @@ storiesOf('Modal', module)
   .add('Close button', () => (
     <Block margin={{ all: 'large' }} flex>
       <Toggle.Togglable as="div">
-        <Toggle.Toggle as={Button} margin={{ right: 'small' }}>
+        <Toggle as={Button} margin={{ right: 'small' }}>
           Default
-        </Toggle.Toggle>
+        </Toggle>
         <Toggle.Target as={Modal}>
           <Modal.Dialog body>
             <Modal.Close />
@@ -56,7 +56,7 @@ storiesOf('Modal', module)
         </Toggle.Target>
       </Toggle.Togglable>
       <Toggle.Togglable as="div">
-        <Toggle.Toggle as={Button}>Outside</Toggle.Toggle>
+        <Toggle as={Button}>Outside</Toggle>
         <Toggle.Target as={Modal}>
           <Modal.Dialog body>
             <Modal.Close outside />
@@ -71,7 +71,7 @@ storiesOf('Modal', module)
   .add('Center modal', () => (
     <Block margin={{ all: 'large' }}>
       <Toggle.Togglable>
-        <Toggle.Toggle as={Button}>Open</Toggle.Toggle>
+        <Toggle as={Button}>Open</Toggle>
         <Toggle.Target as={Modal} flex={{ alignItems: 'top', display: false }}>
           <Modal.Dialog body margin={{ vertical: 'auto' }}>
             <Modal.Close />
@@ -85,7 +85,7 @@ storiesOf('Modal', module)
   .add('Header and footer', () => (
     <Block margin={{ all: 'large' }}>
       <Toggle.Togglable>
-        <Toggle.Toggle as={Button}>Open</Toggle.Toggle>
+        <Toggle as={Button}>Open</Toggle>
         <Toggle.Target as={Modal}>
           <Modal.Dialog>
             <Modal.Close />
@@ -108,7 +108,7 @@ storiesOf('Modal', module)
   .add('Container modifier', () => (
     <Block margin={{ all: 'large' }}>
       <Toggle.Togglable>
-        <Toggle.Toggle as={Button}>Open</Toggle.Toggle>
+        <Toggle as={Button}>Open</Toggle>
         <Toggle.Target as={Modal} container>
           <Modal.Dialog body>
             <Modal.Close />
@@ -123,7 +123,7 @@ storiesOf('Modal', module)
   .add('Full modifier', () => (
     <Block margin={{ all: 'large' }}>
       <Toggle.Togglable>
-        <Toggle.Toggle as={Button}>Open</Toggle.Toggle>
+        <Toggle as={Button}>Open</Toggle>
         <Toggle.Target as={Modal} full>
           <Modal.Dialog>
             <Modal.Close full large />
@@ -154,7 +154,7 @@ storiesOf('Modal', module)
   .add('Overflow', () => (
     <Block margin={{ all: 'large' }}>
       <Toggle.Togglable>
-        <Toggle.Toggle as={Button}>Open</Toggle.Toggle>
+        <Toggle as={Button}>Open</Toggle>
         <Toggle.Target as={Modal}>
           <Modal.Dialog>
             <Modal.Close />

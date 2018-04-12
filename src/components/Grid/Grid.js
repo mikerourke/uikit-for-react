@@ -8,7 +8,6 @@ import {
   customPropTypes,
   getOptionsString,
   HTML,
-  LibraryComponent,
   UIK,
 } from '../../lib';
 import { flexProps } from '../common';
@@ -39,11 +38,6 @@ export default class Grid extends React.Component {
   };
 
   static Cell = GridCell;
-
-  constructor(props) {
-    super(props);
-    this.libComp = new LibraryComponent('grid');
-  }
 
   render() {
     const {
@@ -93,7 +87,6 @@ export default class Grid extends React.Component {
         className={classes || undefined}
         component={Grid}
         uk-grid={getOptionsString({ firstColumn, margin: nextRow })}
-        {...this.libComp.appendProps(this.props)}
       />
     );
   }

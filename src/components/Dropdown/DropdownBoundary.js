@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { customPropTypes, LibraryComponent, HTML } from '../../lib';
+import classnames from 'classnames';
+import { customPropTypes, HTML, generateSelector } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 
 export default class DropdownBoundary extends React.Component {
   static displayName = 'DropdownBoundary';
@@ -19,25 +21,30 @@ export default class DropdownBoundary extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('dropdown-boundary');
+    this.ref = null;
+    this.selector = generateSelector();
   }
 
   componentDidMount() {
-    const dropdowns = LibraryComponent.findAllWithName('dropdown');
+    const dropdowns = this.ref.querySelectorAll('[uk-dropdown]');
     if (dropdowns.length !== 0) {
       dropdowns.forEach(dropdownElement =>
-        dropdownElement.setAttribute('boundary', this.libComp.cssSelector),
+        dropdownElement.setAttribute('boundary', `.${this.selector}`),
       );
     }
   }
 
+  handleRef = element => (this.ref = element);
+
   render() {
+    const { className, ...rest } = this.props;
+
+    const classes = classnames(className, this.selector);
+
     return (
-      <Base
-        {...this.props}
-        component={DropdownBoundary}
-        {...this.libComp.appendProps(this.props)}
-      />
+      <Ref innerRef={this.handleRef}>
+        <Base {...rest} className={classes} component={DropdownBoundary} />
+      </Ref>
     );
   }
 }
