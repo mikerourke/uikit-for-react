@@ -3,14 +3,9 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import {
-  customPropTypes,
-  getOptionsString,
-  HTML,
-  LibraryComponent,
-  UIK,
-} from '../../lib';
+import { customPropTypes, getOptionsString, HTML, UIK } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 import NavDivider from './NavDivider';
 import NavHeader from './NavHeader';
 import NavItem from './NavItem';
@@ -65,17 +60,21 @@ export default class Nav extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('nav');
+    this.ref = null;
+    this.nav = null;
+  }
+
+  componentDidMount() {
+    this.nav = UIkit.nav(this.ref);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.activeIndex !== this.props.activeIndex) {
-      UIkit.nav(this.libComp.cssSelector).toggle(
-        nextProps.activeIndex,
-        nextProps.hideOpenAnimation,
-      );
+      this.nav.toggle(nextProps.activeIndex, nextProps.hideOpenAnimation);
     }
   }
+
+  handleRef = element => (this.ref = element);
 
   render() {
     const {
@@ -109,13 +108,14 @@ export default class Nav extends React.Component {
     });
 
     return (
-      <Base
-        {...rest}
-        className={classes}
-        component={Nav}
-        uk-nav={accordion ? componentOptions : undefined}
-        {...this.libComp.appendProps(this.props)}
-      />
+      <Ref innerRef={this.handleRef}>
+        <Base
+          {...rest}
+          className={classes}
+          component={Nav}
+          uk-nav={accordion ? componentOptions : undefined}
+        />
+      </Ref>
     );
   }
 }

@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
@@ -9,10 +10,10 @@ import {
   getOptionsString,
   HTML,
   joinListProp,
-  LibraryComponent,
   UIK,
 } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 import DropBoundary from './DropBoundary';
 
 export default class Drop extends React.Component {
@@ -69,10 +70,13 @@ export default class Drop extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('drop');
+    this.ref = null;
+    this.drop = null;
   }
 
   componentDidMount() {
+    this.drop = UIkit.drop(this.ref);
+
     const ukToPropsEventMap = {
       beforehide: 'onBeforeHide',
       beforeshow: 'onBeforeShow',
@@ -83,13 +87,9 @@ export default class Drop extends React.Component {
       stack: 'onStack',
       toggle: 'onToggle',
     };
-    addMultipleEventInvokers(
-      this.libComp.cssSelector,
-      ukToPropsEventMap,
-      this.props,
-    );
+    addMultipleEventInvokers(this.drop, ukToPropsEventMap, this.props);
 
-    const firstGrid = LibraryComponent.findFirstWithName('grid');
+    const firstGrid = this.ref.querySelector('[uk-grid]');
     if (firstGrid) {
       firstGrid.classList.add('uk-drop-grid');
     }
@@ -97,15 +97,16 @@ export default class Drop extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.shown !== this.props.shown) {
-      const drop = UIkit.drop(this.libComp.cssSelector);
-      if (nextProps.shown === true && this.props.shown === false) {
-        drop.show();
+      if (nextProps.shown === true) {
+        this.drop.show();
       }
-      if (nextProps.shown === false && this.props.shown === true) {
-        drop.hide();
+      if (nextProps.shown === false) {
+        this.drop.hide();
       }
     }
   }
+
+  handleRef = element => (this.ref = element);
 
   render() {
     const {
@@ -137,14 +138,15 @@ export default class Drop extends React.Component {
 
     return (
       <Fragment>
-        {toggle && toggle}
-        <Base
-          {...rest}
-          className={classes}
-          component={Drop}
-          uk-drop={componentOptions}
-          {...this.libComp.appendProps(this.props)}
-        />
+        {!isNil(toggle) && toggle}
+        <Ref innerRef={this.handleRef}>
+          <Base
+            {...rest}
+            className={classes}
+            component={Drop}
+            uk-drop={componentOptions}
+          />
+        </Ref>
       </Fragment>
     );
   }

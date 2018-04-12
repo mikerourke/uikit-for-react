@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, LibraryComponent } from '../../lib';
+import { customPropTypes } from '../../lib';
 import Base from '../Base';
 
 export default class Close extends React.Component {
@@ -18,11 +18,6 @@ export default class Close extends React.Component {
     as: 'a',
   };
 
-  constructor(props) {
-    super(props);
-    this.libComp = new LibraryComponent('close');
-  }
-
   render() {
     const { className, large, ...rest } = this.props;
 
@@ -30,14 +25,6 @@ export default class Close extends React.Component {
       'uk-close-large': large,
     });
 
-    return (
-      <Base
-        {...rest}
-        className={classes}
-        component={Close}
-        uk-close=""
-        {...this.libComp.appendProps(this.props)}
-      />
-    );
+    return <Base {...rest} className={classes} component={Close} uk-close="" />;
   }
 }

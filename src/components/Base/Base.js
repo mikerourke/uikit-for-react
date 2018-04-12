@@ -45,6 +45,7 @@ export default class Base extends React.Component {
       PropTypes.shape(backgroundProps.propTypes),
     ]),
     baseId: PropTypes.string,
+    baseRef: PropTypes.element,
     border: PropTypes.oneOf(['circle', 'rounded']),
     boxShadow: PropTypes.oneOfType([
       PropTypes.oneOf(UIK.GRID_SIZES),
@@ -89,7 +90,6 @@ export default class Base extends React.Component {
       without(UIK.ANIMATIONS, 'kenburns', 'shake'),
     ),
     inline: PropTypes.bool,
-    innerRef: PropTypes.func,
     inverse: PropTypes.oneOf(['dark', 'light']),
     invisible: PropTypes.bool,
     itemIn: PropTypes.shape({
@@ -232,6 +232,7 @@ export default class Base extends React.Component {
       as,
       background,
       baseId,
+      baseRef,
       border,
       boxShadow,
       childWidth,
@@ -247,7 +248,6 @@ export default class Base extends React.Component {
       hidden,
       hoverTransition,
       inline,
-      innerRef,
       inverse,
       invisible,
       itemIn,
@@ -285,12 +285,11 @@ export default class Base extends React.Component {
       positionProps.extrapolateClasses(position),
       textProps.extrapolateClasses(text),
       buildBreakpointClasses('align', alignTo),
-      buildBreakpointClasses('child-width', childWidth),
-      buildClassName('child-width', childWidth),
       buildClassName('border', border),
       buildClassName('box-shadow', boxShadow),
       buildClassName('box-shadow', get(boxShadow, 'size')),
       buildClassName('box-shadow-hover', get(boxShadow, 'hoverSize')),
+      buildBreakpointClasses('child-width', childWidth),
       buildClassName('display', display),
       buildClassName('height-max', heightMax),
       buildClassName('hidden', hidden),
@@ -303,7 +302,6 @@ export default class Base extends React.Component {
       buildClassName('padding-remove', get(padding, 'remove')),
       buildClassName('responsive', responsive),
       buildBreakpointClasses('text', textAlign),
-      buildClassName('text', textAlign),
       buildClassName('transition', hoverTransition),
       buildClassName('visible', visible),
       {
@@ -353,7 +351,7 @@ export default class Base extends React.Component {
         {...attributes}
         {...getValidProps(componentForElement, rest)}
         id={baseId}
-        ref={innerRef}
+        ref={baseRef}
         placeholder={isBoolean(placeholder) ? undefined : placeholder}
       />
     );

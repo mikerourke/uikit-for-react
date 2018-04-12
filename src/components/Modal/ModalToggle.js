@@ -26,7 +26,7 @@ export default class ModalToggle extends React.Component {
       <Toggle
         {...rest}
         component={ModalToggle}
-        target={isNil(target) ? `[data-uikfr-modal="${forModal}"]` : target}
+        target={isNil(target) ? `[modal-name="${forModal}"]` : target}
       />
     );
   }

@@ -1,13 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
-import {
-  addEventInvoker,
-  customPropTypes,
-  getOptionsString,
-  LibraryComponent,
-} from '../../lib';
+import { addEventInvoker, customPropTypes, getOptionsString } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 
 export default class Totop extends React.Component {
   static displayName = 'Totop';
@@ -31,14 +27,15 @@ export default class Totop extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('scroll-totop');
+    this.ref = null;
   }
 
   componentDidMount() {
-    const totop = this.libComp.domNode;
-    addEventInvoker(totop, 'beforescroll', 'onBeforeScroll', this.props);
-    addEventInvoker(totop, 'scrolled', 'onScrolled', this.props);
+    addEventInvoker(this.ref, 'beforescroll', 'onBeforeScroll', this.props);
+    addEventInvoker(this.ref, 'scrolled', 'onScrolled', this.props);
   }
+
+  handleRef = element => (this.ref = element);
 
   render() {
     const { scrollDuration, scrollOffset, smooth, ...rest } = this.props;
@@ -49,14 +46,15 @@ export default class Totop extends React.Component {
     });
 
     return (
-      <Base
-        {...rest}
-        component={Totop}
-        href="#"
-        uk-totop=""
-        uk-scroll={smooth ? scrollOptions : undefined}
-        {...this.libComp.appendProps(this.props)}
-      />
+      <Ref innerRef={this.handleRef}>
+        <Base
+          {...rest}
+          component={Totop}
+          href="#"
+          uk-totop=""
+          uk-scroll={smooth ? scrollOptions : undefined}
+        />
+      </Ref>
     );
   }
 }

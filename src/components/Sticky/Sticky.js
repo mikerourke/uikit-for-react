@@ -7,11 +7,11 @@ import {
   customPropTypes,
   findChildByType,
   getOptionsString,
-  LibraryComponent,
   HTML,
 } from '../../lib';
 import Base from '../Base';
 import Navbar from '../Navbar';
+import Ref from '../Ref';
 
 export default class Sticky extends React.Component {
   static displayName = 'Sticky';
@@ -46,13 +46,12 @@ export default class Sticky extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('sticky');
+    this.ref = null;
   }
 
   componentDidMount() {
-    const { cssSelector } = this.libComp;
-    addEventInvoker(cssSelector, 'active', 'onActive', this.props);
-    addEventInvoker(cssSelector, 'inactive', 'onInactive', this.props);
+    addEventInvoker(this.ref, 'active', 'onActive', this.props);
+    addEventInvoker(this.ref, 'inactive', 'onInactive', this.props);
   }
 
   getOptionsForNavbar() {
@@ -69,6 +68,8 @@ export default class Sticky extends React.Component {
       target: classnames(target, 'uk-navbar-container'),
     };
   }
+
+  handleRef = element => (this.ref = element);
 
   render() {
     const {
@@ -99,6 +100,10 @@ export default class Sticky extends React.Component {
       ...this.getOptionsForNavbar(),
     });
 
-    return <Base {...rest} component={Sticky} uk-sticky={componentOptions} />;
+    return (
+      <Ref innerRef={this.handleRef}>
+        <Base {...rest} component={Sticky} uk-sticky={componentOptions} />
+      </Ref>
+    );
   }
 }

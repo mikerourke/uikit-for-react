@@ -58,6 +58,10 @@ export default class Notification extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    UIkit.notification.closeAll();
+  }
+
   showNotification = () => {
     if (!isNil(this.notification)) return;
 

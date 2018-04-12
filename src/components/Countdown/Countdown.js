@@ -2,13 +2,9 @@ import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  customPropTypes,
-  getOptionsString,
-  HTML,
-  LibraryComponent,
-} from '../../lib';
+import { customPropTypes, getOptionsString, HTML } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 import CountdownDays from './CountdownDays';
 import CountdownHours from './CountdownHours';
 import CountdownLabel from './CountdownLabel';
@@ -42,18 +38,26 @@ export default class Countdown extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('countdown');
+    this.ref = null;
+    this.countdown = null;
+  }
+
+  componentDidMount() {
+    this.countdown = UIkit.countdown(this.ref);
   }
 
   componentWillReceiveProps(nextProps) {
-    const countdown = UIkit.countdown(this.libComp.cssSelector);
-    if (nextProps.paused === true && this.props.paused === false) {
-      countdown.stop();
-    }
-    if (nextProps.paused === false && this.props.paused === true) {
-      countdown.start();
+    if (this.props.paused !== nextProps.paused) {
+      if (this.props.paused === false) {
+        this.countdown.stop();
+      }
+      if (this.props.paused === true) {
+        this.countdown.start();
+      }
     }
   }
+
+  handleRef = element => (this.ref = element);
 
   render() {
     const { className, date, paused, ...rest } = this.props;
@@ -61,13 +65,14 @@ export default class Countdown extends React.Component {
     const classes = classnames(className, 'uk-countdown');
 
     return (
-      <Base
-        {...rest}
-        className={classes}
-        component={Countdown}
-        uk-countdown={getOptionsString({ date })}
-        {...this.libComp.appendProps(this.props)}
-      />
+      <Ref innerRef={this.handleRef}>
+        <Base
+          {...rest}
+          className={classes}
+          component={Countdown}
+          uk-countdown={getOptionsString({ date })}
+        />
+      </Ref>
     );
   }
 }

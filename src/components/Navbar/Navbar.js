@@ -10,10 +10,10 @@ import {
   customPropTypes,
   getOptionsString,
   joinListProp,
-  LibraryComponent,
   UIK,
 } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 import NavbarContainer from './NavbarContainer';
 import NavbarItem from './NavbarItem';
 import NavbarSection from './NavbarSection';
@@ -84,7 +84,7 @@ export default class Navbar extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('navbar');
+    this.ref = null;
   }
 
   componentDidMount() {
@@ -96,12 +96,10 @@ export default class Navbar extends React.Component {
       show: 'onShow',
       shown: 'onShown',
     };
-    addMultipleEventInvokers(
-      this.libComp.cssSelector,
-      ukToPropsEventMap,
-      this.props,
-    );
+    addMultipleEventInvokers(this.ref, ukToPropsEventMap, this.props);
   }
+
+  handleRef = element => (this.ref = element);
 
   render() {
     const {
@@ -138,13 +136,14 @@ export default class Navbar extends React.Component {
     });
 
     return (
-      <Base
-        {...rest}
-        className={classes}
-        component={Navbar}
-        uk-navbar={componentOptions}
-        {...this.libComp.appendProps(this.props)}
-      />
+      <Ref innerRef={this.handleRef}>
+        <Base
+          {...rest}
+          className={classes}
+          component={Navbar}
+          uk-navbar={componentOptions}
+        />
+      </Ref>
     );
   }
 }

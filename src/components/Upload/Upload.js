@@ -6,8 +6,9 @@ import classnames from 'classnames';
 import kebabCase from 'lodash/kebabCase';
 import omit from 'lodash/omit';
 import noop from 'lodash/noop';
-import { customPropTypes, HTML, LibraryComponent } from '../../lib';
+import { customPropTypes, HTML } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 import UploadFileSelect from './UploadFileSelect';
 
 export default class Upload extends React.Component {
@@ -84,7 +85,7 @@ export default class Upload extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('upload');
+    this.ref = null;
   }
 
   componentDidMount() {
@@ -102,8 +103,10 @@ export default class Upload extends React.Component {
       };
     }, {});
 
-    UIkit.upload(this.libComp.cssSelector, uploadOptions);
+    UIkit.upload(this.ref, uploadOptions);
   }
+
+  handleRef = element => (this.ref = element);
 
   render() {
     const { className, ...rest } = this.props;
@@ -113,12 +116,9 @@ export default class Upload extends React.Component {
     const classes = classnames(className, 'uk-upload');
 
     return (
-      <Base
-        {...elementProps}
-        className={classes}
-        component={Upload}
-        {...this.libComp.appendProps(this.props)}
-      />
+      <Ref innerRef={this.handleRef}>
+        <Base {...elementProps} className={classes} component={Upload} />
+      </Ref>
     );
   }
 }

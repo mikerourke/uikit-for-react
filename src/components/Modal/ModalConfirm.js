@@ -1,8 +1,9 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
+import invoke from 'lodash/invoke';
 import noop from 'lodash/noop';
-import { LibraryComponent } from '../../lib';
+import Ref from '../Ref';
 
 export default class ModalConfirm extends React.Component {
   static displayName = 'ModalConfirm';
@@ -20,21 +21,25 @@ export default class ModalConfirm extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('modal-confirm');
+    this.ref = null;
   }
 
   componentDidMount() {
     const { children, onCancel, onConfirm } = this.props;
-    UIkit.util.on(this.libComp.cssSelector, 'click', e => {
+    UIkit.util.on(this.ref, 'click', e => {
       e.preventDefault();
       e.target.blur();
       UIkit.modal.confirm(children).then(onConfirm, onCancel);
     });
   }
 
+  handleRef = element => (this.ref = element);
+
   render() {
     return (
-      <span {...this.libComp.appendProps(this.props)}>{this.props.toggle}</span>
+      <Ref innerRef={this.handleRef}>
+        <span>{this.props.toggle}</span>
+      </Ref>
     );
   }
 }

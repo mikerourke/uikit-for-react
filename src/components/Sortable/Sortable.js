@@ -11,10 +11,10 @@ import {
   customPropTypes,
   generateSelector,
   getOptionsString,
-  LibraryComponent,
   HTML,
 } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 
 export default class Sortable extends React.Component {
   static displayName = 'Sortable';
@@ -55,7 +55,7 @@ export default class Sortable extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('sortable');
+    this.ref = null;
     this.selector = generateSelector();
   }
 
@@ -68,11 +68,7 @@ export default class Sortable extends React.Component {
       stop: 'onStop',
     };
 
-    addMultipleEventInvokers(
-      this.libComp.cssSelector,
-      ukToPropsEventMap,
-      this.props,
-    );
+    addMultipleEventInvokers(this.ref, ukToPropsEventMap, this.props);
   }
 
   activateSortedItems = children =>
@@ -86,6 +82,8 @@ export default class Sortable extends React.Component {
       }
       return child;
     });
+
+  handleRef = element => (this.ref = element);
 
   renderChildren = children => this.activateSortedItems(children);
 
@@ -123,14 +121,11 @@ export default class Sortable extends React.Component {
     });
 
     return (
-      <Base
-        {...rest}
-        component={Sortable}
-        uk-sortable={componentOptions}
-        {...this.libComp.appendProps(this.props)}
-      >
-        {this.renderChildren(children)}
-      </Base>
+      <Ref innerRef={this.handleRef}>
+        <Base {...rest} component={Sortable} uk-sortable={componentOptions}>
+          {this.renderChildren(children)}
+        </Base>
+      </Ref>
     );
   }
 }

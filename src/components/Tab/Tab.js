@@ -8,10 +8,10 @@ import {
   buildClassName,
   customPropTypes,
   getOptionsString,
-  LibraryComponent,
   UIK,
 } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 import TabItem from './TabItem';
 
 export default class Tab extends React.Component {
@@ -54,6 +54,7 @@ export default class Tab extends React.Component {
   static defaultProps = {
     ...Base.defaultProps,
     activeIndex: 0,
+    as: 'ul',
     onBeforeHide: noop,
     onBeforeShow: noop,
     onHidden: noop,
@@ -66,12 +67,12 @@ export default class Tab extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('tab');
+    this.ref = null;
     this.tab = null;
   }
 
   componentDidMount() {
-    this.tab = UIkit.tab(this.libComp.cssSelector);
+    this.tab = UIkit.tab(this.ref);
 
     const ukToPropsEventMap = {
       beforehide: 'onBeforeHide',
@@ -90,6 +91,8 @@ export default class Tab extends React.Component {
       this.tab.show(nextProps.activeIndex);
     }
   }
+
+  handleRef = element => (this.ref = element);
 
   render() {
     const {
@@ -112,13 +115,14 @@ export default class Tab extends React.Component {
     });
 
     return (
-      <Base
-        {...rest}
-        className={classes}
-        component={Tab}
-        uk-tab={componentOptions}
-        {...this.libComp.appendProps(this.props)}
-      />
+      <Ref innerRef={this.handleRef}>
+        <Base
+          {...rest}
+          className={classes}
+          component={Tab}
+          uk-tab={componentOptions}
+        />
+      </Ref>
     );
   }
 }

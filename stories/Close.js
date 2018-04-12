@@ -39,13 +39,11 @@ storiesOf('Close', module)
         <Modal.Dialog body>
           <Modal.Close />
           <Modal.Title>Headline</Modal.Title>
-          <Modal.Content>
-            <p>{faker.lorem.paragraph()}</p>
-            <Paragraph textAlign="right">
-              <Modal.Close as={Button}>Cancel</Modal.Close>
-              <Button primary>Save</Button>
-            </Paragraph>
-          </Modal.Content>
+          <Modal.Content as="p">{faker.lorem.paragraph()}</Modal.Content>
+          <Paragraph textAlign="right">
+            <Modal.Close as={Button}>Cancel</Modal.Close>
+            <Button primary>Save</Button>
+          </Paragraph>
         </Modal.Dialog>
       </Modal>
     </Block>

@@ -11,10 +11,10 @@ import {
   getOptionsString,
   HTML,
   joinListProp,
-  LibraryComponent,
   UIK,
 } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 import DropdownBoundary from './DropdownBoundary';
 
 export default class Dropdown extends React.Component {
@@ -72,10 +72,13 @@ export default class Dropdown extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('dropdown');
+    this.ref = null;
+    this.dropdown = null;
   }
 
   componentDidMount() {
+    this.dropdown = UIkit.dropdown(this.ref);
+
     const ukToPropsEventMap = {
       beforehide: 'onBeforeHide',
       beforeshow: 'onBeforeShow',
@@ -86,38 +89,26 @@ export default class Dropdown extends React.Component {
       stack: 'onStack',
       toggle: 'onToggle',
     };
-    addMultipleEventInvokers(
-      this.libComp.cssSelector,
-      ukToPropsEventMap,
-      this.props,
-    );
+    addMultipleEventInvokers(this.dropdown, ukToPropsEventMap, this.props);
 
-    const firstGrid = LibraryComponent.findFirstWithName('grid');
+    const firstGrid = document.querySelector('.uk-grid, [uk-grid]');
     if (firstGrid) {
       firstGrid.classList.add('uk-dropdown-grid');
-    }
-
-    const navs = this.libComp.findAllChildrenWithName('nav');
-    if (navs.length !== 0) {
-      const classToAdd = isNil(this.props.multiplyWidth)
-        ? 'uk-dropdown-nav'
-        : 'uk-navbar-dropdown-nav';
-      navs.forEach(navElement => navElement.classList.add(classToAdd));
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.shown !== this.props.shown) {
-      const dropdown = UIkit.dropdown(this.libComp.cssSelector);
-
-      if (nextProps.shown === true && this.props.shown === false) {
-        dropdown.show();
+      if (nextProps.shown === true) {
+        this.dropdown.show();
       }
-      if (nextProps.shown === false && this.props.shown === true) {
-        dropdown.hide();
+      if (nextProps.shown === false) {
+        this.dropdown.hide();
       }
     }
   }
+
+  handleRef = element => (this.ref = element);
 
   render() {
     const {
@@ -156,13 +147,14 @@ export default class Dropdown extends React.Component {
     return (
       <Fragment>
         {!isNil(toggle) && toggle}
-        <Base
-          {...rest}
-          className={classes}
-          component={component || Dropdown}
-          uk-dropdown={componentOptions}
-          {...this.libComp.appendProps(this.props)}
-        />
+        <Ref innerRef={this.handleRef}>
+          <Base
+            {...rest}
+            className={classes}
+            component={component || Dropdown}
+            uk-dropdown={componentOptions}
+          />
+        </Ref>
       </Fragment>
     );
   }

@@ -8,10 +8,10 @@ import {
   customPropTypes,
   getOptionsString,
   HTML,
-  LibraryComponent,
   UIK,
 } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 import Tab from '../Tab';
 
 export default class SwitcherToggles extends React.Component {
@@ -62,11 +62,11 @@ export default class SwitcherToggles extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('switcher-toggles');
+    this.ref = null;
   }
 
   componentDidMount() {
-    const switcher = UIkit.switcher(this.libComp.cssSelector);
+    const switcher = UIkit.switcher(this.ref);
 
     const ukToPropsEventMap = {
       beforehide: 'onBeforeHide',
@@ -82,9 +82,12 @@ export default class SwitcherToggles extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.activeIndex !== this.props.activeIndex) {
-      UIkit.tab(this.libComp.cssSelector).show(nextProps.activeIndex);
+      // TODO: Find out why you're using a tab element.
+      UIkit.tab(this.ref).show(nextProps.activeIndex);
     }
   }
+
+  handleRef = element => (this.ref = element);
 
   render() {
     const {
@@ -106,13 +109,14 @@ export default class SwitcherToggles extends React.Component {
     });
 
     return (
-      <Base
-        {...rest}
-        as={as}
-        component={SwitcherToggles}
-        uk-switcher={get(as, 'type') === Tab ? undefined : componentOptions}
-        {...this.libComp.appendProps(this.props)}
-      />
+      <Ref innerRef={this.handleRef}>
+        <Base
+          {...rest}
+          as={as}
+          component={SwitcherToggles}
+          uk-switcher={get(as, 'type') === Tab ? undefined : componentOptions}
+        />
+      </Ref>
     );
   }
 }

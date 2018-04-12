@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes, LibraryComponent } from '../../lib';
+import { buildClassName, customPropTypes } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 
 export default class NavbarSplit extends React.Component {
   static displayName = 'NavbarSplit';
@@ -20,22 +21,26 @@ export default class NavbarSplit extends React.Component {
 
   constructor(props) {
     super(props);
-    this.libComp = new LibraryComponent('navbar-split');
+    this.ref = null;
   }
 
   componentDidMount() {
-    const firstNav = this.libComp.findFirstChildWithName('nav');
+    const firstNav = this.ref.querySelector('.uk-nav, [uk-nav]');
     if (firstNav) {
       firstNav.classList.add('uk-navbar-nav');
     }
 
-    const dropdowns = this.libComp.findAllChildrenWithName('dropdown');
+    const dropdowns = this.ref.querySelectorAll('.uk-dropdown, [uk-dropdown]');
     if (dropdowns.length !== 0) {
       dropdowns.forEach(dropdownElement => {
         dropdownElement.classList.add('uk-navbar-dropdown');
+        const nav = dropdownElement.querySelector('.uk-nav');
+        if (nav) nav.classList.add('uk-navbar-dropdown-nav');
       });
     }
   }
+
+  handleRef = element => (this.ref = element);
 
   render() {
     const { className, side, ...rest } = this.props;
@@ -46,12 +51,9 @@ export default class NavbarSplit extends React.Component {
     );
 
     return (
-      <Base
-        {...rest}
-        className={classes}
-        component={NavbarSplit}
-        {...this.libComp.appendProps(this.props)}
-      />
+      <Ref innerRef={this.handleRef}>
+        <Base {...rest} className={classes} component={NavbarSplit} />
+      </Ref>
     );
   }
 }

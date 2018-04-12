@@ -10,7 +10,6 @@ import {
 } from '../../lib';
 import Base from '../Base';
 import ToggleTarget from './ToggleTarget';
-import ToggleToggle from './ToggleToggle';
 
 export default class ToggleTogglable extends React.Component {
   static displayName = 'ToggleTogglable';
@@ -24,8 +23,8 @@ export default class ToggleTogglable extends React.Component {
         let targetCount = 0;
         let toggleCount = 0;
         React.Children.forEach(props.children, child => {
-          if (childMatchesType(child, ToggleTarget)) targetCount += 1;
-          if (childMatchesType(child, ToggleToggle)) toggleCount += 1;
+          if (child.type === ToggleTarget) targetCount += 1;
+          if (child.type.name === 'Toggle') toggleCount += 1;
         });
 
         if (targetCount === 0 || toggleCount === 0) {
@@ -58,7 +57,7 @@ export default class ToggleTogglable extends React.Component {
 
   renderChildren = children =>
     React.Children.map(children, child => {
-      if (child.type === ToggleToggle) {
+      if (child.type.name === 'Toggle') {
         return React.cloneElement(child, {
           target: `.${this.selector}`,
         });
