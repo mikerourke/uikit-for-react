@@ -14,7 +14,7 @@ import OffcanvasClose from './OffcanvasClose';
 import OffcanvasContent from './OffcanvasContent';
 import OffcanvasToggle from './OffcanvasToggle';
 
-export default class Offcanvas extends Base {
+export default class Offcanvas extends React.Component {
   static displayName = 'Offcanvas';
 
   static propTypes = {
@@ -33,6 +33,7 @@ export default class Offcanvas extends Base {
     onShown: PropTypes.func,
     overlay: PropTypes.bool,
     shown: PropTypes.bool,
+    toggleIndex: PropTypes.number,
   };
 
   static defaultProps = {
@@ -84,7 +85,15 @@ export default class Offcanvas extends Base {
   handleRef = element => (this.ref = element);
 
   render() {
-    const { bgClose, escClose, flip, mode, overlay, ...rest } = this.props;
+    const {
+      bgClose,
+      escClose,
+      flip,
+      mode,
+      overlay,
+      toggleIndex,
+      ...rest
+    } = this.props;
 
     const componentOptions = getOptionsString({
       bgClose,
@@ -95,7 +104,7 @@ export default class Offcanvas extends Base {
     });
 
     return (
-      <Ref innerRef={this.handleRef}>
+      <Ref innerRef={this.handleRef} data-index={toggleIndex}>
         <Base
           {...rest}
           baseId={this.props.id}

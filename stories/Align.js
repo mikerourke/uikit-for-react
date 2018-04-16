@@ -1,12 +1,12 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Block, Image, Panel } from '../src/components';
+import { Division, Image, Panel } from '../src/components';
 import { imageLinks } from './common';
 
 storiesOf('Align', module)
   .add('Usage', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Panel>
         <Image
           alignTo="left"
@@ -19,11 +19,11 @@ storiesOf('Align', module)
         <p>{faker.lorem.paragraph()}</p>
         <p>{faker.lorem.paragraph()}</p>
       </Panel>
-    </Block>
+    </Division>
   ))
 
   .add('Responsive', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Panel>
         <Image
           alignTo={{
@@ -39,5 +39,5 @@ storiesOf('Align', module)
         <p>{faker.lorem.paragraph()}</p>
         <p>{faker.lorem.paragraph()}</p>
       </Panel>
-    </Block>
+    </Division>
   ));

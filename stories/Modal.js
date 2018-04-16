@@ -5,7 +5,7 @@ import range from 'lodash/range';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import {
-  Block,
+  Division,
   Button,
   Grid,
   Heading,
@@ -21,7 +21,7 @@ Modal.displayName = 'Modal';
 
 storiesOf('Modal', module)
   .add('Usage', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Toggle.Togglable>
         <Toggle as={Button} margin={{ right: 'small' }}>
           Open
@@ -38,11 +38,11 @@ storiesOf('Modal', module)
           </Modal.Dialog>
         </Toggle.Target>
       </Toggle.Togglable>
-    </Block>
+    </Division>
   ))
 
   .add('Close button', () => (
-    <Block margin={{ all: 'large' }} flex>
+    <Division margin={{ all: 'large' }} flex>
       <Toggle.Togglable as="div">
         <Toggle as={Button} margin={{ right: 'small' }}>
           Default
@@ -65,11 +65,11 @@ storiesOf('Modal', module)
           </Modal.Dialog>
         </Toggle.Target>
       </Toggle.Togglable>
-    </Block>
+    </Division>
   ))
 
   .add('Center modal', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Toggle.Togglable>
         <Toggle as={Button}>Open</Toggle>
         <Toggle.Target as={Modal} flex={{ alignItems: 'top', display: false }}>
@@ -79,11 +79,11 @@ storiesOf('Modal', module)
           </Modal.Dialog>
         </Toggle.Target>
       </Toggle.Togglable>
-    </Block>
+    </Division>
   ))
 
   .add('Header and footer', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Toggle.Togglable>
         <Toggle as={Button}>Open</Toggle>
         <Toggle.Target as={Modal}>
@@ -102,11 +102,11 @@ storiesOf('Modal', module)
           </Modal.Dialog>
         </Toggle.Target>
       </Toggle.Togglable>
-    </Block>
+    </Division>
   ))
 
   .add('Container modifier', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Toggle.Togglable>
         <Toggle as={Button}>Open</Toggle>
         <Toggle.Target as={Modal} container>
@@ -117,11 +117,11 @@ storiesOf('Modal', module)
           </Modal.Dialog>
         </Toggle.Target>
       </Toggle.Togglable>
-    </Block>
+    </Division>
   ))
 
   .add('Full modifier', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Toggle.Togglable>
         <Toggle as={Button}>Open</Toggle>
         <Toggle.Target as={Modal} full>
@@ -148,11 +148,11 @@ storiesOf('Modal', module)
           </Modal.Dialog>
         </Toggle.Target>
       </Toggle.Togglable>
-    </Block>
+    </Division>
   ))
 
   .add('Overflow', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Toggle.Togglable>
         <Toggle as={Button}>Open</Toggle>
         <Toggle.Target as={Modal}>
@@ -175,11 +175,11 @@ storiesOf('Modal', module)
           </Modal.Dialog>
         </Toggle.Target>
       </Toggle.Togglable>
-    </Block>
+    </Division>
   ))
 
   .add('Media', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Margin as="p">
         <Modal.Toggle as={Button} forModal="modal-media-image">
           Image
@@ -250,11 +250,11 @@ storiesOf('Modal', module)
           </Modal.Content>
         </Modal.Dialog>
       </Modal>
-    </Block>
+    </Division>
   ))
 
   .add('Groups', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Margin as="p">
         <Modal.Toggle as={Button} forModal="modal-group-1">
           Modal 1
@@ -304,11 +304,11 @@ storiesOf('Modal', module)
           </Modal.Footer>
         </Modal.Dialog>
       </Modal>
-    </Block>
+    </Division>
   ))
 
   .add('Modal dialogs', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Margin as="p">
         <Modal.Dialog toggle={<Button>Dialog</Button>}>
           <Modal.Body as="p">UIkit dialog!</Modal.Body>
@@ -333,5 +333,5 @@ storiesOf('Modal', module)
           placeholder="Your name"
         />
       </Margin>
-    </Block>
+    </Division>
   ));

@@ -3,6 +3,7 @@ import get from 'lodash/get';
 import has from 'lodash/has';
 import invoke from 'lodash/invoke';
 import isNil from 'lodash/isNil';
+import noop from 'lodash/noop';
 import toPairs from 'lodash/toPairs';
 
 /**
@@ -45,6 +46,7 @@ export const addEventInvoker = (
   if (isNil(ukElement)) return false;
   const elementRef = has(ukElement, '$el') ? ukElement.$el : ukElement;
   if (!get(componentProps, propsEventName)) return false;
+  if (componentProps[propsEventName] === noop) return false;
   const invokedEvent = e =>
     invoke(componentProps, propsEventName, e, componentProps);
   const utilFn = isOnce ? UIkit.util.once : UIkit.util.on;

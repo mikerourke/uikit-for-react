@@ -6,10 +6,13 @@ export { default as buildSelector } from './buildSelector';
 
 export {
   childMatchesType,
+  childMatchesOneOfTypes,
   childrenHaveClass,
   findChildByType,
   hasChildType,
+  recurseChildren,
   renderNavigationChild,
+  renderToggleChildren,
 } from './childrenUtils';
 
 export { default as customPropTypes } from './customPropTypes';
@@ -22,7 +25,7 @@ export { default as getValidProps } from './getValidProps';
 
 export { default as joinListProp } from './joinListProp';
 
-export { generateIdentifier, generateSelector } from './generateRandom';
+export { default as generateIdentifier } from './generateIdentifier';
 
 export { HTML, UIK } from './constants';
 

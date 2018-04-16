@@ -2,7 +2,7 @@ import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Accordion, Block, Checkbox, FormLabel, Grid } from '../src/components';
+import { Accordion, Division, Checkbox, FormLabel, Grid } from '../src/components';
 
 Accordion.displayName = 'Accordion';
 
@@ -29,21 +29,21 @@ const SharedAccordion = props => (
 
 storiesOf('Accordion', module)
   .add('Usage', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <SharedAccordion />
-    </Block>
+    </Division>
   ))
 
   .add('No collapsing', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <SharedAccordion collapsible={false} />
-    </Block>
+    </Division>
   ))
 
   .add('Multiple open items', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <SharedAccordion collapsible multiple />
-    </Block>
+    </Division>
   ))
 
   .add('Set open items', () => {
@@ -67,7 +67,7 @@ storiesOf('Accordion', module)
       render() {
         const { openIndices } = this.state;
         return (
-          <Block margin={{ all: 'large' }}>
+          <Division margin={{ all: 'large' }}>
             <Grid>
               {[0, 1, 2].map(panelIndex => (
                 <Checkbox
@@ -80,7 +80,7 @@ storiesOf('Accordion', module)
               ))}
             </Grid>
             <SharedAccordion multiple openIndex={openIndices} />
-          </Block>
+          </Division>
         );
       }
     }
@@ -88,7 +88,7 @@ storiesOf('Accordion', module)
   })
 
   .add('Event handlers', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <SharedAccordion
         collapsible
         onBeforeHide={action('onBeforeHide')}
@@ -98,5 +98,5 @@ storiesOf('Accordion', module)
         onShow={action('onShow')}
         onShown={action('onShown')}
       />
-    </Block>
+    </Division>
   ));

@@ -8,7 +8,7 @@ import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
   customPropTypes,
-  generateSelector,
+  generateIdentifier,
   getOptionsString,
 } from '../../lib';
 import Base from '../Base';
@@ -79,7 +79,7 @@ export default class Modal extends React.Component {
     super(props);
     this.ref = null;
     this.modal = null;
-    this.selector = generateSelector();
+    this.linkingClass = generateIdentifier();
   }
 
   componentDidMount() {
@@ -126,7 +126,7 @@ export default class Modal extends React.Component {
       ...rest
     } = this.props;
 
-    const classes = classnames(className, 'uk-modal', this.selector, {
+    const classes = classnames(className, 'uk-modal', this.linkingClass, {
       'uk-modal-container': container,
       'uk-modal-full': full,
     });
@@ -135,7 +135,7 @@ export default class Modal extends React.Component {
       <Fragment>
         {!isNil(toggle) &&
           React.cloneElement(toggle, {
-            target: `.${this.selector}`,
+            target: `.${this.linkingClass}`,
           })}
         <Ref innerRef={this.handleRef}>
           <Base

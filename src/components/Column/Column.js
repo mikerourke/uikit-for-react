@@ -2,12 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import classnames from 'classnames';
-import {
-  buildBreakpointClasses,
-  customPropTypes,
-  HTML,
-  UIK,
-} from '../../lib';
+import { buildBreakpointClasses, customPropTypes, HTML, UIK } from '../../lib';
 import Base from '../Base';
 
 export default class Column extends React.Component {

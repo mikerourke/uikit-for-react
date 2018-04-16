@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Grid, List } from '../src/components';
+import { Division, Grid, List } from '../src/components';
 
 List.displayName = 'List';
 
@@ -21,36 +21,36 @@ const SharedLargeList = props => (
 
 storiesOf('List', module)
   .add('Usage', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <SharedSimpleList />
-    </Block>
+    </Division>
   ))
 
   .add('Bullet modifier', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <SharedSimpleList bullet />
-    </Block>
+    </Division>
   ))
 
   .add('Divider modifier', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <SharedSimpleList divider />
-    </Block>
+    </Division>
   ))
 
   .add('Striped modifier', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <SharedSimpleList striped />
-    </Block>
+    </Division>
   ))
 
   .add('Large modifier', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: 'expand' }}>
         <SharedLargeList title="Default" />
         <SharedLargeList title="Divider" divider />
         <SharedLargeList title="Striped" striped />
         <SharedLargeList title="Bullet" bullet />
       </Grid>
-    </Block>
+    </Division>
   ));

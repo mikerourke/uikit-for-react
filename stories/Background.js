@@ -1,13 +1,13 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import startCase from 'lodash/startCase';
-import { Block, Grid, Heading, Panel } from '../src/components';
+import { Division, Grid, Heading, Panel } from '../src/components';
 import { UIK } from '../src/lib';
 import { imageLinks } from './common';
 
 storiesOf('Background', module)
   .add('Usage', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: '1/2' }} textAlign="center">
         <Grid.Cell>
           <Panel padding background="default">
@@ -38,11 +38,11 @@ storiesOf('Background', module)
           </Panel>
         </Grid.Cell>
       </Grid>
-    </Block>
+    </Division>
   ))
 
   .add('Size modifiers', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: '1/2' }} inverse="light">
         <Grid.Cell>
           <Panel
@@ -77,11 +77,11 @@ storiesOf('Background', module)
           </Panel>
         </Grid.Cell>
       </Grid>
-    </Block>
+    </Division>
   ))
 
   .add('Position modifiers', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: '1/2' }} inverse="light">
         <Grid.Cell>
           <Panel
@@ -120,12 +120,12 @@ storiesOf('Background', module)
           </Panel>
         </Grid.Cell>
       </Grid>
-    </Block>
+    </Division>
   ))
 
   .add('Attachment', () => (
-    <Block margin={{ left: 'large' }}>
-      <Block
+    <Division margin={{ left: 'large' }}>
+      <Division
         background={{
           imageUrl: imageLinks.dark,
           fixed: true,
@@ -135,12 +135,12 @@ storiesOf('Background', module)
         width="large"
         style={{ marginTop: 200, marginBottom: 400 }}
       />
-    </Block>
+    </Division>
   ))
 
   .add('Responsive', () => (
-    <Block margin={{ all: 'large' }}>
-      <Block
+    <Division margin={{ all: 'large' }}>
+      <Division
         background={{
           imageUrl: imageLinks.dark,
           breakpoint: '@m',
@@ -160,12 +160,12 @@ storiesOf('Background', module)
         <Heading as="p" size="h4" margin="remove" hidden="@m">
           Image not shown
         </Heading>
-      </Block>
-    </Block>
+      </Division>
+    </Division>
   ))
 
   .add('Blend modes', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Grid
         childWidth={{ default: '1/2', atSm: '1/3' }}
         inverse="light"
@@ -193,5 +193,5 @@ storiesOf('Background', module)
           </Grid.Cell>
         ))}
       </Grid>
-    </Block>
+    </Division>
   ));

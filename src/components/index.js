@@ -12,7 +12,7 @@ export Article, {
   ArticleTitle,
 } from './Article';
 export Badge from './Badge';
-export Base, { Audio, Block, Canvas, Image, Paragraph, Span } from './Base';
+export Base, { Audio, Division, Canvas, Image, Paragraph, Span } from './Base';
 export Breadcrumb, { BreadcrumbItem } from './Breadcrumb';
 export Button, { ButtonGroup } from './Button';
 export Card, {

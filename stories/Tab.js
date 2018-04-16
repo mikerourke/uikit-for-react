@@ -1,33 +1,33 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Grid, Tab } from '../src/components';
+import { Division, Grid, Tab } from '../src/components';
 
 Tab.displayName = 'Tab';
 
 storiesOf('Tab', module)
   .add('Usage', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Tab>
         <Tab.Item active>Left</Tab.Item>
         <Tab.Item>Item</Tab.Item>
         <Tab.Item>Item</Tab.Item>
         <Tab.Item disabled>Disabled</Tab.Item>
       </Tab>
-    </Block>
+    </Division>
   ))
 
   .add('Bottom modifier', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Tab align="bottom">
         <Tab.Item active>Left</Tab.Item>
         <Tab.Item>Item</Tab.Item>
         <Tab.Item>Item</Tab.Item>
       </Tab>
-    </Block>
+    </Division>
   ))
 
   .add('Left/right modifier', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Grid childWidth="1/2">
         <Grid.Cell>
           <Tab align="left">
@@ -44,32 +44,32 @@ storiesOf('Tab', module)
           </Tab>
         </Grid.Cell>
       </Grid>
-    </Block>
+    </Division>
   ))
 
   .add('Alignment', () => (
-    <Block>
-      <Block margin={{ top: 'medium' }}>
+    <Division>
+      <Division margin={{ top: 'medium' }}>
         <Tab flex={{ justifyContent: 'center' }}>
           <Tab.Item active>Center</Tab.Item>
           <Tab.Item>Item</Tab.Item>
           <Tab.Item>Item</Tab.Item>
         </Tab>
-      </Block>
-      <Block margin={{ top: 'medium' }}>
+      </Division>
+      <Division margin={{ top: 'medium' }}>
         <Tab flex={{ justifyContent: 'right' }}>
           <Tab.Item active>Right</Tab.Item>
           <Tab.Item>Item</Tab.Item>
           <Tab.Item>Item</Tab.Item>
         </Tab>
-      </Block>
-      <Block>
+      </Division>
+      <Division>
         <Tab flex={{ justifyContent: 'center' }} childWidth="expand">
           <Tab.Item active>Justify</Tab.Item>
           <Tab.Item>Item</Tab.Item>
           <Tab.Item>Item</Tab.Item>
           <Tab.Item>Item</Tab.Item>
         </Tab>
-      </Block>
-    </Block>
+      </Division>
+    </Division>
   ));

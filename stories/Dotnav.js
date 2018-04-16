@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Cover, Dotnav, Slideshow } from '../src/components';
+import { Division, Cover, Dotnav, Slideshow } from '../src/components';
 import { imageLinks } from './common';
 
 Dotnav.displayName = 'Dotnav';
@@ -17,19 +17,19 @@ const SharedDotnav = props => (
 
 storiesOf('Dotnav', module)
   .add('Usage', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <SharedDotnav />
-    </Block>
+    </Division>
   ))
 
   .add('Vertical alignment', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <SharedDotnav vertical />
-    </Block>
+    </Division>
   ))
 
   .add('Position as overlay', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Slideshow position="relative" inverse="light">
         <Slideshow.Items>
           <Slideshow.Item>
@@ -42,7 +42,7 @@ storiesOf('Dotnav', module)
             <Cover src={imageLinks.sizeOne} alt="" />
           </Slideshow.Item>
         </Slideshow.Items>
-        <Block
+        <Division
           position={{
             at: 'bottom-center',
             marginSize: 'small',
@@ -59,7 +59,7 @@ storiesOf('Dotnav', module)
               Item 3
             </Dotnav.Item>
           </Dotnav>
-        </Block>
+        </Division>
       </Slideshow>
-    </Block>
+    </Division>
   ));

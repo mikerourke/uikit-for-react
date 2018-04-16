@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, HTML, generateSelector } from '../../lib';
+import { customPropTypes, generateIdentifier, HTML } from '../../lib';
 import Base from '../Base';
 import Ref from '../Ref';
 
@@ -22,14 +22,14 @@ export default class DropdownBoundary extends React.Component {
   constructor(props) {
     super(props);
     this.ref = null;
-    this.selector = generateSelector();
+    this.linkingClass = generateIdentifier();
   }
 
   componentDidMount() {
     const dropdowns = this.ref.querySelectorAll('[uk-dropdown]');
     if (dropdowns.length !== 0) {
       dropdowns.forEach(dropdownElement =>
-        dropdownElement.setAttribute('boundary', `.${this.selector}`),
+        dropdownElement.setAttribute('boundary', `.${this.linkingClass}`),
       );
     }
   }
@@ -39,7 +39,7 @@ export default class DropdownBoundary extends React.Component {
   render() {
     const { className, ...rest } = this.props;
 
-    const classes = classnames(className, this.selector);
+    const classes = classnames(className, this.linkingClass);
 
     return (
       <Ref innerRef={this.handleRef}>

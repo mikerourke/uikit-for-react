@@ -1,12 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Form, Grid } from '../src/components';
+import { Division, Form, Grid } from '../src/components';
 
 Form.displayName = 'Form';
 
 storiesOf('Form', module)
   .add('Usage', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Form>
         <Form.Fieldset>
           <Form.Legend>Legend</Form.Legend>
@@ -35,11 +35,11 @@ storiesOf('Form', module)
           </Form.Field>
         </Form.Fieldset>
       </Form>
-    </Block>
+    </Division>
   ))
 
   .add('States modifiers', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Form.Field margin>
         <Form.Input
           danger
@@ -64,11 +64,11 @@ storiesOf('Form', module)
           value="disabled"
         />
       </Form.Field>
-    </Block>
+    </Division>
   ))
 
   .add('Size modifiers', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Form>
         <Form.Field margin>
           <Form.Input size="large" width="medium" placeholder="Large" />
@@ -80,11 +80,11 @@ storiesOf('Form', module)
           <Form.Input size="small" width="medium" placeholder="Small" />
         </Form.Field>
       </Form>
-    </Block>
+    </Division>
   ))
 
   .add('Width modifiers', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Form>
         <Form.Field margin>
           <Form.Input width="large" placeholder="Large" />
@@ -102,15 +102,15 @@ storiesOf('Form', module)
           <Form.Input width="1/2" placeholder="uk-width-1-2" />
         </Form.Field>
       </Form>
-    </Block>
+    </Division>
   ))
 
   .add('Blank modifier', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Form>
         <Form.Field margin>
           <Form.Input blank width="medium" placeholder="Form blank" />
         </Form.Field>
       </Form>
-    </Block>
+    </Division>
   ));

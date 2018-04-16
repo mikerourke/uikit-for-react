@@ -2,7 +2,7 @@ import React from 'react';
 import faker from 'faker';
 import range from 'lodash/range';
 import { storiesOf } from '@storybook/react';
-import { Block, Button, Container, Card, Margin } from '../src/components';
+import { Division, Button, Container, Card, Margin } from '../src/components';
 
 const firstParagraph = faker.lorem.paragraph();
 const secondParagraph = faker.lorem.paragraph();
@@ -60,16 +60,16 @@ storiesOf('Margin', module)
         width={{ atSm: '1/2' }}
         textAlign="center"
       >
-        Block element
+        Division element
       </Card>
-      <Block flex height="medium" background="muted" margin textAlign="center">
+      <Division flex height="medium" background="muted" margin textAlign="center">
         <Card
           margin={{ base: 'auto', vertical: 'auto' }}
           width={{ atSm: '1/2' }}
         >
           Flex item
         </Card>
-      </Block>
+      </Division>
     </Container>
   ))
 

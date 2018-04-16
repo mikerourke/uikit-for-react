@@ -5,7 +5,14 @@ import isString from 'lodash/isString';
 import { buildClassName, UIK } from '../../lib';
 
 const propTypes = {
-  at: PropTypes.oneOf([...UIK.X_Y_POSITIONS, 'center-center']),
+  at: PropTypes.oneOf([
+    ...UIK.LOCATIONS,
+    ...UIK.X_Y_POSITIONS,
+    ...UIK.CSS_POSITIONS,
+    'cover',
+    'center',
+    'center-center',
+  ]),
   cover: PropTypes.bool,
   marginSize: PropTypes.oneOf(UIK.BASE_SIZES),
   outside: PropTypes.oneOf(['left', 'right']),
@@ -24,13 +31,13 @@ const extrapolateClasses = (position = {}) => {
   return classnames(
     buildClassName('position', position),
     buildClassName('position-center', outside, 'out'),
-    buildClassName('position-cover', cover),
-    buildClassName('position-z-index', zIndexOfOne),
     buildClassName('position', marginSize),
     buildClassName('position', type),
     {
       [buildClassName('position', at)]: !isCentered,
       'uk-position-center': isCentered,
+      'uk-position-cover': cover,
+      'uk-position-z-index': zIndexOfOne,
     },
   );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Block, Button, Card, Drop, Grid, Panel } from '../src/components';
+import { Division, Button, Card, Drop, Grid, Panel } from '../src/components';
 
 Drop.displayName = 'Drop';
 
@@ -10,22 +10,22 @@ const message = faker.lorem.paragraph();
 
 storiesOf('Drop', module)
   .add('Usage', () => (
-    <Block margin={{ all: 'large' }}>
-      <Block inline>
+    <Division margin={{ all: 'large' }}>
+      <Division inline>
         <Drop toggle={<Button type="button">Hover</Button>}>
           <Card>{message}</Card>
         </Drop>
-      </Block>
-      <Block inline>
+      </Division>
+      <Division inline>
         <Drop mode="click" toggle={<Button type="button">Click</Button>}>
           <Card>{message}</Card>
         </Drop>
-      </Block>
-    </Block>
+      </Division>
+    </Division>
   ))
 
   .add('Grid in drop', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Drop toggle={<Button>Hover</Button>} width="large">
         <Card>
           <Grid childWidth={{ atMd: '1/2' }}>
@@ -34,34 +34,34 @@ storiesOf('Drop', module)
           </Grid>
         </Card>
       </Drop>
-    </Block>
+    </Division>
   ))
 
   .add('Position', () => (
-    <Block margin={{ all: 'large' }} viewport style={{ paddingTop: 300 }}>
-      <Block inline>
+    <Division margin={{ all: 'large' }} viewport style={{ paddingTop: 300 }}>
+      <Division inline>
         <Drop toggle={<Button>Top Right</Button>} position="top-right">
           <Card>{message}</Card>
         </Drop>
-      </Block>
-      <Block inline>
+      </Division>
+      <Division inline>
         <Drop
           toggle={<Button>Bottom Justify</Button>}
           position="bottom-justify"
         >
           <Card>{message}</Card>
         </Drop>
-      </Block>
-      <Block inline>
+      </Division>
+      <Division inline>
         <Drop toggle={<Button>Right Center</Button>} position="right-center">
           <Card>{message}</Card>
         </Drop>
-      </Block>
-    </Block>
+      </Division>
+    </Division>
   ))
 
   .add('Boundary', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Panel as={Drop.Boundary} placeholder width={{ atSm: '2/3' }}>
         <Button float="left">Hover</Button>
         <Drop>
@@ -72,11 +72,11 @@ storiesOf('Drop', module)
           <Card>{message}</Card>
         </Drop>
       </Panel>
-    </Block>
+    </Division>
   ))
 
   .add('Boundary alignment', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Panel as={Drop.Boundary} placeholder>
         <Button float="left">Justify</Button>
         <Drop boundaryAlign position="bottom-justify">
@@ -87,30 +87,30 @@ storiesOf('Drop', module)
           <Card>{message}</Card>
         </Drop>
       </Panel>
-    </Block>
+    </Division>
   ))
 
   .add('Offset', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Drop toggle={<Button>Hover</Button>} offset={80}>
         <Card>{message}</Card>
       </Drop>
-    </Block>
+    </Division>
   ))
 
   .add('Animation', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Drop
         toggle={<Button>Hover</Button>}
         animation={{ name: 'slide-top-small', duration: 1000 }}
       >
         <Card>{message}</Card>
       </Drop>
-    </Block>
+    </Division>
   ))
 
   .add('Event handlers', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Drop
         toggle={<Button>Show</Button>}
         onBeforeShow={action('onToggle')}
@@ -123,5 +123,5 @@ storiesOf('Drop', module)
       >
         <Card>{message}</Card>
       </Drop>
-    </Block>
+    </Division>
   ));

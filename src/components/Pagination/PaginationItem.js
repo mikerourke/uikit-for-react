@@ -11,7 +11,6 @@ export default class PaginationItem extends React.Component {
     ...Base.propTypes,
     active: PropTypes.bool,
     as: customPropTypes.customOrStringElement('li'),
-    children: PropTypes.number,
     disabled: PropTypes.bool,
     href: PropTypes.string,
   };

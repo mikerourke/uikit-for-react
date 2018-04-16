@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Block, Button, Grid, Heading, Lightbox } from '../src/components';
+import { Division, Button, Grid, Heading, Lightbox } from '../src/components';
 import { imageLinks, videoSources } from './common';
 
 Lightbox.displayName = 'Lightbox';
@@ -15,18 +15,18 @@ class SharedSimpleLightbox extends React.Component {
 
   render() {
     return (
-      <Block margin={{ all: 'large' }}>
+      <Division margin={{ all: 'large' }}>
         <Button onClick={() => this.setState({ shown: !this.state.shown })}>
           Open Lightbox
         </Button>
         <Lightbox shown={this.state.shown}>{this.props.children}</Lightbox>
-      </Block>
+      </Division>
     );
   }
 }
 
 const SharedAnimationLightbox = props => (
-  <Block margin={{ bottom: 'large' }}>
+  <Division margin={{ bottom: 'large' }}>
     <Heading as="div" size="h3">
       {props.animationName}
     </Heading>
@@ -47,7 +47,7 @@ const SharedAnimationLightbox = props => (
         </Grid.Cell>
       ))}
     </Lightbox>
-  </Block>
+  </Division>
 );
 
 storiesOf('Lightbox', module)
@@ -64,15 +64,15 @@ storiesOf('Lightbox', module)
   ))
 
   .add('Animations', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <SharedAnimationLightbox animationName="Slide" />
       <SharedAnimationLightbox animationName="Fade" />
       <SharedAnimationLightbox animationName="Scale" />
-    </Block>
+    </Division>
   ))
 
   .add('Content sources', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Lightbox>
         <Lightbox.Item as={Button} href={imageLinks.photo} caption="Image">
           Image
@@ -99,11 +99,11 @@ storiesOf('Lightbox', module)
           Google Maps
         </Lightbox.Item>
       </Lightbox>
-    </Block>
+    </Division>
   ))
 
   .add('Panel API and Event Listeners', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Lightbox.Panel
         onBeforeHide={action('onBeforeHide')}
         onBeforeItemHide={action('onBeforeItemHide')}
@@ -119,5 +119,5 @@ storiesOf('Lightbox', module)
       >
         <Lightbox.Item source={imageLinkValues[0]} caption="Hooray" href="#" />
       </Lightbox.Panel>
-    </Block>
+    </Division>
   ));

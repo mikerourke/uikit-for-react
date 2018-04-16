@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import {
-  Block,
+  Division,
   Button,
   Card,
   Dropdown,
@@ -15,20 +15,20 @@ Nav.displayName = 'Nav';
 
 storiesOf('Nav', module)
   .add('Usage', () => (
-    <Block margin={{ all: 'large' }}>
-      <Block width={{ atSm: '1/2', atMd: '2/5' }}>
+    <Division margin={{ all: 'large' }}>
+      <Division width={{ atSm: '1/2', atMd: '2/5' }}>
         <Nav>
           <Nav.Item active>Active</Nav.Item>
           <Nav.Item>Item</Nav.Item>
           <Nav.Item>Item</Nav.Item>
         </Nav>
-      </Block>
-    </Block>
+      </Division>
+    </Division>
   ))
 
   .add('Nested navs', () => (
-    <Block margin={{ all: 'large' }}>
-      <Block width={{ atSm: '1/2', atMd: '2/5' }}>
+    <Division margin={{ all: 'large' }}>
+      <Division width={{ atSm: '1/2', atMd: '2/5' }}>
         <Nav>
           <Nav.Item active>Active</Nav.Item>
           <Nav.Item parent title="Parent">
@@ -43,13 +43,13 @@ storiesOf('Nav', module)
             </Nav.Subnav>
           </Nav.Item>
         </Nav>
-      </Block>
-    </Block>
+      </Division>
+    </Division>
   ))
 
   .add('Accordion', () => (
-    <Block margin={{ all: 'large' }}>
-      <Block width={{ atSm: '1/2', atMd: '2/5' }}>
+    <Division margin={{ all: 'large' }}>
+      <Division width={{ atSm: '1/2', atMd: '2/5' }}>
         <Nav accordion>
           <Nav.Item active>Active</Nav.Item>
           <Nav.Item parent title="Parent">
@@ -70,13 +70,13 @@ storiesOf('Nav', module)
             </Nav.Subnav>
           </Nav.Item>
         </Nav>
-      </Block>
-    </Block>
+      </Division>
+    </Division>
   ))
 
   .add('Multiple open subnavs', () => (
-    <Block margin={{ all: 'large' }}>
-      <Block width={{ atSm: '1/2', atMd: '2/5' }}>
+    <Division margin={{ all: 'large' }}>
+      <Division width={{ atSm: '1/2', atMd: '2/5' }}>
         <Nav accordion multiple>
           <Nav.Item active>Active</Nav.Item>
           <Nav.Item parent title="Parent">
@@ -97,13 +97,13 @@ storiesOf('Nav', module)
             </Nav.Subnav>
           </Nav.Item>
         </Nav>
-      </Block>
-    </Block>
+      </Division>
+    </Division>
   ))
 
   .add('Header and divider', () => (
-    <Block margin={{ all: 'large' }}>
-      <Block width={{ atSm: '1/2', atMd: '2/5' }}>
+    <Division margin={{ all: 'large' }}>
+      <Division width={{ atSm: '1/2', atMd: '2/5' }}>
         <Nav>
           <Nav.Header>Header</Nav.Header>
           <Nav.Item>Item</Nav.Item>
@@ -111,12 +111,12 @@ storiesOf('Nav', module)
           <Nav.Divider />
           <Nav.Item>Item</Nav.Item>
         </Nav>
-      </Block>
-    </Block>
+      </Division>
+    </Division>
   ))
 
   .add('Default modifier', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Card width={{ atSm: '1/2' }}>
         <Nav accordion>
           <Nav.Item active>Active</Nav.Item>
@@ -145,12 +145,12 @@ storiesOf('Nav', module)
           </Nav.Item>
         </Nav>
       </Card>
-    </Block>
+    </Division>
   ))
 
   .add('Primary modifier', () => (
-    <Block margin={{ all: 'large' }}>
-      <Block width={{ atSm: '1/2' }}>
+    <Division margin={{ all: 'large' }}>
+      <Division width={{ atSm: '1/2' }}>
         <Nav primary accordion>
           <Nav.Item active>Active</Nav.Item>
           <Nav.Item parent title="Parent">
@@ -167,12 +167,12 @@ storiesOf('Nav', module)
           </Nav.Item>
           <Nav.Item>Item</Nav.Item>
         </Nav>
-      </Block>
-    </Block>
+      </Division>
+    </Division>
   ))
 
   .add('Center modifier', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Card width={{ atSm: '1/2' }}>
         <Nav center accordion>
           <Nav.Item active>Active</Nav.Item>
@@ -180,11 +180,11 @@ storiesOf('Nav', module)
           <Nav.Item>Item</Nav.Item>
         </Nav>
       </Card>
-    </Block>
+    </Division>
   ))
 
   .add('Nav in Dropdown', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Dropdown toggle={<Button>Hover</Button>}>
         <Nav>
           <Nav.Item active>Active</Nav.Item>
@@ -196,11 +196,11 @@ storiesOf('Nav', module)
           <Nav.Item>Item</Nav.Item>
         </Nav>
       </Dropdown>
-    </Block>
+    </Division>
   ))
 
   .add('Nav in Navbar', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Navbar container>
         <Navbar.Section location="left">
           <Nav>
@@ -220,11 +220,11 @@ storiesOf('Nav', module)
           </Nav>
         </Navbar.Section>
       </Navbar>
-    </Block>
+    </Division>
   ))
 
   .add('Nav in Offcanvas', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Offcanvas.Content>
         <Offcanvas.Toggle as={Button}>Open</Offcanvas.Toggle>
         <Offcanvas>
@@ -241,5 +241,5 @@ storiesOf('Nav', module)
           </Offcanvas.Bar>
         </Offcanvas>
       </Offcanvas.Content>
-    </Block>
+    </Division>
   ));

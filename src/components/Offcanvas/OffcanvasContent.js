@@ -1,7 +1,10 @@
 import React from 'react';
-import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
-import { customPropTypes, generateSelector } from '../../lib';
+import {
+  customPropTypes,
+  generateIdentifier,
+  renderToggleChildren,
+} from '../../lib';
 import Base from '../Base';
 
 export default class OffcanvasContent extends React.Component {
@@ -10,10 +13,10 @@ export default class OffcanvasContent extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('div'),
-    children: ExtraPropTypes.or([
-      ExtraPropTypes.componentWithName('Offcanvas'),
-      ExtraPropTypes.componentWithName('OffcanvasToggle'),
-    ]).isRequired,
+    children: customPropTypes.mustContainChildOfType(
+      'Offcanvas',
+      'OffcanvasToggle',
+    ),
   };
 
   static defaultProps = {
@@ -23,24 +26,8 @@ export default class OffcanvasContent extends React.Component {
 
   constructor(props) {
     super(props);
-    this.selector = generateSelector();
+    this.linkingClass = generateIdentifier();
   }
-
-  renderChildren = children =>
-    React.Children.map(children, child => {
-      if (child.type.name === 'Offcanvas') {
-        return React.cloneElement(child, {
-          className: classnames(child.props.className, this.selector),
-        });
-      }
-
-      if (child.type.name === 'OffcanvasToggle') {
-        return React.cloneElement(child, {
-          target: `.${this.selector}`,
-        });
-      }
-      return child;
-    });
 
   render() {
     const { children, className, ...rest } = this.props;
@@ -49,7 +36,12 @@ export default class OffcanvasContent extends React.Component {
 
     return (
       <Base {...rest} className={classes} component={OffcanvasContent}>
-        {this.renderChildren(children)}
+        {renderToggleChildren(
+          children,
+          'Offcanvas',
+          'OffcanvasToggle',
+          this.linkingClass,
+        )}
       </Base>
     );
   }

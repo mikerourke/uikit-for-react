@@ -3,7 +3,7 @@ import faker from 'faker';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import {
-  Block,
+  Division,
   Button,
   Dropdown,
   Grid,
@@ -29,28 +29,28 @@ const SharedNav = () => (
 
 storiesOf('Dropdown', module)
   .add('Usage', () => (
-    <Block margin={{ all: 'large' }}>
-      <Block inline>
+    <Division margin={{ all: 'large' }}>
+      <Division inline>
         <Dropdown toggle={<Button>Hover</Button>}>{message}</Dropdown>
-      </Block>
-      <Block inline>
+      </Division>
+      <Division inline>
         <Dropdown mode="click" toggle={<Button>Click</Button>}>
           {message}
         </Dropdown>
-      </Block>
-    </Block>
+      </Division>
+    </Division>
   ))
 
   .add('Nav in dropdown', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Dropdown toggle={<Button>Hover</Button>} width="large">
         <SharedNav />
       </Dropdown>
-    </Block>
+    </Division>
   ))
 
   .add('Grid in dropdown', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Dropdown toggle={<Button>Hover</Button>} width="large">
         <Grid childWidth={{ atMd: '1/2' }}>
           <Grid.Cell>
@@ -61,37 +61,37 @@ storiesOf('Dropdown', module)
           </Grid.Cell>
         </Grid>
       </Dropdown>
-    </Block>
+    </Division>
   ))
 
   .add('Position', () => (
-    <Block margin={{ all: 'large' }} style={{ paddingTop: 300, height: 1000 }}>
-      <Block inline>
+    <Division margin={{ all: 'large' }} style={{ paddingTop: 300, height: 1000 }}>
+      <Division inline>
         <Dropdown toggle={<Button>Top Right</Button>} position="top-right">
           <SharedNav />
         </Dropdown>
-      </Block>
-      <Block inline>
+      </Division>
+      <Division inline>
         <Dropdown
           toggle={<Button>Bottom Justify</Button>}
           position="bottom-justify"
         >
           <SharedNav />
         </Dropdown>
-      </Block>
-      <Block inline>
+      </Division>
+      <Division inline>
         <Dropdown
           toggle={<Button>Right Center</Button>}
           position="right-center"
         >
           <SharedNav />
         </Dropdown>
-      </Block>
-    </Block>
+      </Division>
+    </Division>
   ))
 
   .add('Boundary', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Panel as={Dropdown.Boundary} placeholder width={{ atSm: '2/3' }}>
         <Button float="left">Hover</Button>
         <Dropdown>
@@ -102,11 +102,11 @@ storiesOf('Dropdown', module)
           <SharedNav />
         </Dropdown>
       </Panel>
-    </Block>
+    </Division>
   ))
 
   .add('Boundary alignment', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Panel as={Dropdown.Boundary} placeholder>
         <Button float="left">Justify</Button>
         <Dropdown position="bottom-justify" boundaryAlign>
@@ -117,29 +117,29 @@ storiesOf('Dropdown', module)
           <SharedNav />
         </Dropdown>
       </Panel>
-    </Block>
+    </Division>
   ))
 
   .add('Offset', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Button>Hover</Button>
       <Dropdown offset={80}>
         <SharedNav />
       </Dropdown>
-    </Block>
+    </Division>
   ))
 
   .add('Animation', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Button>Hover</Button>
       <Dropdown animation={{ name: 'slide-top-small', duration: 1000 }}>
         <SharedNav />
       </Dropdown>
-    </Block>
+    </Division>
   ))
 
   .add('Event handlers', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Dropdown
         toggle={<Button>Show</Button>}
         onBeforeShow={action('onToggle')}
@@ -152,5 +152,5 @@ storiesOf('Dropdown', module)
       >
         {message}
       </Dropdown>
-    </Block>
+    </Division>
   ));

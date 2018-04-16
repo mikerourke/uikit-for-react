@@ -1,31 +1,40 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Button, Scroll } from '../src/components';
+import { action } from '@storybook/addon-actions';
+import { Division, Button, Scroll } from '../src/components';
 
 Scroll.displayName = 'Scroll';
 
-storiesOf('Scroll', module).add('Usage', () => (
-  <Block margin={{ all: 'large' }}>
-    <Scroll.Scrollable>
-      <Scroll.Point
-        as={Button}
-        icon="chevron-down"
-        goTo="next"
-        onScrolled={() => console.log('Hooray')}
-      >
-        Button 1
-      </Scroll.Point>
-      <Block style={{ height: 400 }} margin={{ all: 'large' }} boxShadow="large">
-        Test 1
-      </Block>
-      <Scroll.Point as={Button}>Button 2</Scroll.Point>
-      <Block style={{ height: 400 }} margin={{ all: 'large' }} boxShadow="large">
-        Test 2
-      </Block>
-      <Scroll.Point as={Button}>Button 3</Scroll.Point>
-      <Block style={{ height: 400 }} margin={{ all: 'large' }} boxShadow="large">
-        Test 3
-      </Block>
-    </Scroll.Scrollable>
-  </Block>
-));
+storiesOf('Scroll', module)
+  .add('Usage', () => (
+    <Division margin={{ all: 'large' }}>
+      <Scroll.Scrollable>
+        <Scroll.Point as={Button} primary goTo="next">
+          Scroll Down
+        </Scroll.Point>
+        <Division style={{ height: 2000 }} />
+        <Scroll.Point as={Button} primary goTo="#top">
+          Scroll Up
+        </Scroll.Point>
+      </Scroll.Scrollable>
+    </Division>
+  ))
+
+  .add('Callback after scroll', () => (
+    <Division margin={{ all: 'large' }}>
+      <Scroll.Scrollable>
+        <Scroll.Point
+          as={Button}
+          primary
+          goTo="next"
+          onScrolled={action('onScrolled')}
+        >
+          Down with callback
+        </Scroll.Point>
+        <Division style={{ height: 2000 }} />
+        <Scroll.Point as={Button} primary goTo="#top">
+          Scroll Up
+        </Scroll.Point>
+      </Scroll.Scrollable>
+    </Division>
+  ));

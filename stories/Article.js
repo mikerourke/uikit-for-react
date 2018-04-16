@@ -2,7 +2,7 @@ import React from 'react';
 import faker from 'faker';
 import range from 'lodash/range';
 import { storiesOf } from '@storybook/react';
-import { Article, Block, Button, Grid, Link } from '../src/components';
+import { Article, Division, Button, Grid, Link } from '../src/components';
 
 Article.displayName = 'Article';
 
@@ -10,7 +10,7 @@ const leadText = faker.lorem.paragraph();
 const bodyText = faker.lorem.paragraphs(2);
 
 storiesOf('Article', module).add('Usage', () => (
-  <Block margin={{ all: 'large' }}>
+  <Division margin={{ all: 'large' }}>
     <Article>
       <Article.Title>
         <Link reset>Heading</Link>
@@ -34,5 +34,5 @@ storiesOf('Article', module).add('Usage', () => (
         </Grid.Cell>
       </Grid>
     </Article>
-  </Block>
+  </Division>
 ));

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, generateSelector, HTML } from '../../lib';
+import { customPropTypes, generateIdentifier, HTML } from '../../lib';
 import Base from '../Base';
 import Ref from '../Ref';
 
@@ -22,14 +22,14 @@ export default class DropBoundary extends React.Component {
   constructor(props) {
     super(props);
     this.ref = null;
-    this.selector = generateSelector();
+    this.linkingClass = generateIdentifier();
   }
 
   componentDidMount() {
     const drops = this.ref.querySelectorAll('[uk-drop]');
     if (drops.length !== 0) {
       drops.forEach(dropElement =>
-        dropElement.setAttribute('boundary', `.${this.selector}`),
+        dropElement.setAttribute('boundary', `.${this.linkingClass}`),
       );
     }
   }
@@ -39,7 +39,7 @@ export default class DropBoundary extends React.Component {
   render() {
     const { className, ...rest } = this.props;
 
-    const classes = classnames(className, this.selector);
+    const classes = classnames(className, this.linkingClass);
 
     return (
       <Ref innerRef={this.handleRef}>

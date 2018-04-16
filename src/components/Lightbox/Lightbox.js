@@ -77,7 +77,7 @@ export default class Lightbox extends React.Component {
   }
 
   componentDidMount() {
-    this.lightbox = UIkit.lightbox(this.ref)
+    this.lightbox = UIkit.lightbox(this.ref);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -127,11 +127,7 @@ export default class Lightbox extends React.Component {
 
     return (
       <Ref innerRef={this.handleRef}>
-        <Base
-          {...rest}
-          component={Lightbox}
-          uk-lightbox={componentOptions}
-        />
+        <Base {...rest} component={Lightbox} uk-lightbox={componentOptions} />
       </Ref>
     );
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Block, DescriptionList } from '../src/components';
+import { Division, DescriptionList } from '../src/components';
 
 DescriptionList.displayName = 'DescriptionList';
 
@@ -21,13 +21,13 @@ const SharedDescriptionList = props => (
 
 storiesOf('Description List', module)
   .add('Usage', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <SharedDescriptionList />
-    </Block>
+    </Division>
   ))
 
   .add('Divider modifier', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <SharedDescriptionList divider />
-    </Block>
+    </Division>
   ));

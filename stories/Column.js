@@ -1,7 +1,7 @@
 import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
-import { Block, Column } from '../src/components';
+import { Division, Column } from '../src/components';
 
 Column.displayName = 'Column';
 
@@ -15,25 +15,25 @@ const SharedColumn = props => (
 
 storiesOf('Column', module)
   .add('Usage', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <SharedColumn width="1/2" />
-    </Block>
+    </Division>
   ))
 
   .add('Responsive', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <SharedColumn width={{ atSm: '1/2', atMd: '1/3', atLg: '1/4' }} />
-    </Block>
+    </Division>
   ))
 
   .add('Divider modifier', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <SharedColumn width="1/2" divider />
-    </Block>
+    </Division>
   ))
 
   .add('Span all columns', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Column width="1/2" divider>
         <p>{faker.lorem.paragraph()}</p>
         <p>{faker.lorem.paragraph()}</p>
@@ -50,5 +50,5 @@ storiesOf('Column', module)
         </Column>
         <p>{faker.lorem.paragraph()}</p>
       </Column>
-    </Block>
+    </Division>
   ));

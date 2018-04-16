@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { customPropTypes, generateSelector, HTML } from '../../lib';
+import { customPropTypes, generateIdentifier, HTML } from '../../lib';
 import Base from '../Base';
 import SwitcherContent from './SwitcherContent';
 import SwitcherToggles from './SwitcherToggles';
@@ -22,7 +22,7 @@ export default class SwitcherSwitchable extends React.Component {
 
   constructor(props) {
     super(props);
-    this.selector = generateSelector();
+    this.linkingClass = generateIdentifier();
   }
 
   updateSwitchElements = children =>
@@ -32,14 +32,14 @@ export default class SwitcherSwitchable extends React.Component {
         return React.cloneElement(child, {
           selectorConnect: classnames(
             child.props.selectorConnect,
-            this.selector,
+            this.linkingClass,
           ),
           children: this.updateSwitchElements(child.props.children),
         });
       }
       if (child.type === SwitcherContent) {
         return React.cloneElement(child, {
-          className: classnames(child.props.className, this.selector),
+          className: classnames(child.props.className, this.linkingClass),
           children: this.updateSwitchElements(child.props.children),
         });
       }

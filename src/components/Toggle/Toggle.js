@@ -62,6 +62,7 @@ export default class Toggle extends React.Component {
     queued: PropTypes.bool,
     target: PropTypes.string,
     toggled: PropTypes.bool,
+    toggleIndex: PropTypes.number,
   };
 
   static defaultProps = {
@@ -117,6 +118,7 @@ export default class Toggle extends React.Component {
       mode,
       queued,
       toggled,
+      toggleIndex,
       ...rest
     } = this.props;
 
@@ -131,7 +133,7 @@ export default class Toggle extends React.Component {
     });
 
     return (
-      <Ref innerRef={this.handleRef}>
+      <Ref innerRef={this.handleRef} data-index={toggleIndex}>
         <Base
           {...rest}
           className={classes}

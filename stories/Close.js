@@ -3,7 +3,7 @@ import faker from 'faker';
 import { storiesOf } from '@storybook/react';
 import {
   Alert,
-  Block,
+  Division,
   Button,
   Close,
   Modal,
@@ -14,27 +14,27 @@ Close.displayName = 'Close';
 
 storiesOf('Close', module)
   .add('Usage', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Close />
-    </Block>
+    </Division>
   ))
 
   .add('Large modifier', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Close large />
-    </Block>
+    </Division>
   ))
 
   .add('Close in alerts', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Alert closeable>
         <p>{faker.lorem.sentence()}</p>
       </Alert>
-    </Block>
+    </Division>
   ))
 
   .add('Close in modals', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Modal toggle={<Button>Open modal</Button>}>
         <Modal.Dialog body>
           <Modal.Close />
@@ -46,5 +46,5 @@ storiesOf('Close', module)
           </Paragraph>
         </Modal.Dialog>
       </Modal>
-    </Block>
+    </Division>
   ));

@@ -1,12 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Card, Grid, Text } from '../src/components';
+import { Division, Card, Grid, Text } from '../src/components';
 
 Text.displayName = 'Text';
 
 storiesOf('Text', module)
   .add('Style modifiers', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Grid gutter="small">
         <Grid.Cell>
           <Text lead>
@@ -20,24 +20,24 @@ storiesOf('Text', module)
           </Text>
         </Grid.Cell>
       </Grid>
-    </Block>
+    </Division>
   ))
 
   .add('Font size', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Text small>Add this class to decrease the font size.</Text>
       <Text large>Add this class to increase the font size.</Text>
-    </Block>
+    </Division>
   ))
 
   .add('Font weight', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       Add the bold prop to create <Text bold>bold text</Text>
-    </Block>
+    </Division>
   ))
 
   .add('Text transform', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Text transform="uppercase">
         Add this class to transform your text to uppercase.
       </Text>
@@ -47,11 +47,11 @@ storiesOf('Text', module)
       <Text transform="lowercase">
         Add this class to transform your text to lowercase.
       </Text>
-    </Block>
+    </Division>
   ))
 
   .add('Text color', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Text muted>Add this class to mute your text.</Text>
       <Text primary>
         Add this class to emphasize additional text information.
@@ -59,26 +59,26 @@ storiesOf('Text', module)
       <Text success>Add this class to indicate success.</Text>
       <Text warning>Add this class to indicate a warning.</Text>
       <Text danger>Add this class to indicate danger.</Text>
-    </Block>
+    </Division>
   ))
 
   .add('Text background', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Text>Add background</Text>
-    </Block>
+    </Division>
   ))
 
   .add('Text alignment', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Text align="left">Aligns text to the left.</Text>
       <Text align="right">Aligns text to the right.</Text>
       <Text align="center">Centers text horizontally.</Text>
       <Text align="justify">Justifies text.</Text>
-    </Block>
+    </Division>
   ))
 
   .add('Responsive', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Grid childWidth={{ atSm: '1/3' }} gutter="small">
         {['left', 'right', 'center'].map(textAlign => (
           <Grid.Cell key={textAlign}>
@@ -91,5 +91,5 @@ storiesOf('Text', module)
           </Grid.Cell>
         ))}
       </Grid>
-    </Block>
+    </Division>
   ));

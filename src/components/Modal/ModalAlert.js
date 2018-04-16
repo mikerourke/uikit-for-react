@@ -3,7 +3,6 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import Ref from '../Ref';
-import invoke from 'lodash/invoke';
 
 export default class ModalAlert extends React.Component {
   static displayName = 'ModalAlert';

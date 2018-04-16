@@ -1,15 +1,15 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Grid, Marker } from '../src/components';
+import { Division, Grid, Marker } from '../src/components';
 import { imageLinks } from './common';
 
 Marker.displayName = 'Marker';
 
 storiesOf('Marker', module).add('Usage', () => (
-  <Block margin={{ all: 'small' }}>
+  <Division margin={{ all: 'small' }}>
     <Grid childWidth="1/2">
       <Grid.Cell>
-        <Block inline inverse="dark">
+        <Division inline inverse="dark">
           <img src={imageLinks.light} alt="" />
           <Marker
             position="absolute"
@@ -29,10 +29,10 @@ storiesOf('Marker', module).add('Usage', () => (
             style={{ left: '80%', top: '70%' }}
             href="#"
           />
-        </Block>
+        </Division>
       </Grid.Cell>
       <Grid.Cell>
-        <Block inline inverse="light">
+        <Division inline inverse="light">
           <img src={imageLinks.dark} alt="" />
           <Marker
             position="absolute"
@@ -52,8 +52,8 @@ storiesOf('Marker', module).add('Usage', () => (
             style={{ left: '80%', top: '70%' }}
             href="#"
           />
-        </Block>
+        </Division>
       </Grid.Cell>
     </Grid>
-  </Block>
+  </Division>
 ));

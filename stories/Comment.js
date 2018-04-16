@@ -2,7 +2,7 @@ import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
 import {
-  Block,
+  Division,
   Comment,
   Grid,
   Link,
@@ -15,7 +15,7 @@ Comment.displayName = 'Comment';
 
 storiesOf('Comment', module)
   .add('Usage', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Comment>
         <Grid as={Comment.Header} alignItems="middle" gutter="medium">
           <Grid.Cell width="auto">
@@ -35,11 +35,11 @@ storiesOf('Comment', module)
           <p>{faker.lorem.paragraph()}</p>
         </Comment.Body>
       </Comment>
-    </Block>
+    </Division>
   ))
 
   .add('Primary modifier', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Comment primary>
         <Grid as={Comment.Header} alignItems="middle" gutter="medium">
           <Grid.Cell width="auto">
@@ -59,11 +59,11 @@ storiesOf('Comment', module)
           <p>{faker.lorem.paragraph()}</p>
         </Comment.Body>
       </Comment>
-    </Block>
+    </Division>
   ))
 
   .add('Comment list', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Comment.List>
         <Visibility.Togglable as={Comment}>
           <Comment.Header position="relative">
@@ -85,7 +85,7 @@ storiesOf('Comment', module)
               </Grid.Cell>
             </Grid>
             <Visibility.Toggle
-              as={Block}
+              as={Division}
               position={{
                 at: 'top-right',
                 marginSize: 'small',
@@ -120,7 +120,7 @@ storiesOf('Comment', module)
                 </Grid.Cell>
               </Grid>
               <Visibility.Toggle
-                as={Block}
+                as={Division}
                 position={{
                   at: 'top-right',
                   marginSize: 'small',
@@ -154,7 +154,7 @@ storiesOf('Comment', module)
                 </Grid.Cell>
               </Grid>
               <Visibility.Toggle
-                as={Block}
+                as={Division}
                 position={{
                   at: 'top-right',
                   marginSize: 'small',
@@ -170,5 +170,5 @@ storiesOf('Comment', module)
           </Visibility.Togglable>
         </Comment.List>
       </Comment.List>
-    </Block>
+    </Division>
   ));

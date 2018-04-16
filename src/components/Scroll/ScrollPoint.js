@@ -2,6 +2,8 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
+import ExtraPropTypes from 'airbnb-prop-types';
+import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import {
   addEventInvoker,
@@ -19,7 +21,24 @@ export default class ScrollPoint extends React.Component {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
     duration: PropTypes.number,
-    goTo: PropTypes.oneOf(['next', 'previous']),
+    goTo: ExtraPropTypes.and([
+      PropTypes.oneOfType([
+        PropTypes.oneOf(['next', 'previous']),
+        PropTypes.string,
+      ]),
+      props => {
+        const { goTo } = props;
+        if (!['next', 'previous'].includes(goTo)) {
+          if (goTo.charAt(0) !== '#') {
+            return new Error(
+              `The goTo prop is missing a hash, it needs to be #${goTo}.`,
+            );
+          }
+          return null;
+        }
+        return null;
+      },
+    ]),
     offset: PropTypes.number,
     onBeforeScroll: PropTypes.func,
     onScrolled: PropTypes.func,
@@ -37,21 +56,32 @@ export default class ScrollPoint extends React.Component {
   constructor(props) {
     super(props);
     this.ref = null;
+    this.scroll = null;
   }
 
   componentDidMount() {
-    addEventInvoker(this.ref, 'beforescroll', 'onBeforeScroll', this.props);
-    addEventInvoker(this.ref, 'scrolled', 'onScrolled', this.props);
+    this.scroll = UIkit.scroll(this.ref);
+    addEventInvoker(this.scroll, 'beforescroll', 'onBeforeScroll', this.props);
+    addEventInvoker(this.scroll, 'scrolled', 'onScrolled', this.props);
   }
 
-  handleClick = () => {
+  handleClick = event => {
+    event.preventDefault();
     const { goTo, pointIndex } = this.props;
 
-    const targetIndex = goTo === 'next' ? pointIndex + 1 : pointIndex - 1;
-    const scrollElements = document.querySelectorAll('[uk-scroll]');
-    const targetNode = scrollElements.item(targetIndex);
+    const targetIndex = {
+      next: pointIndex + 1,
+      previous: pointIndex - 1,
+      default: null,
+    }[goTo];
 
-    UIkit.scroll(this.ref).scrollTo(targetNode);
+    const scrollElements = document.querySelectorAll('[uk-scroll]');
+    const targetNode = isNil(targetIndex)
+      ? goTo
+      : scrollElements.item(targetIndex);
+
+    // TODO: Fix this, its firing the onScrolled event twice due to UIkit specifying a click handler.
+    this.scroll.scrollTo(targetNode);
   };
 
   handleRef = element => (this.ref = element);

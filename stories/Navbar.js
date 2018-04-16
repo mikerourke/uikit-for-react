@@ -2,7 +2,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import {
-  Block,
+  Division,
   Button,
   Dropdown,
   Icon,
@@ -41,43 +41,43 @@ const SharedNavSection = props => (
 
 storiesOf('Navbar', module)
   .add('Usage', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Navbar container>
         <SharedNavSection location="left" />
       </Navbar>
-    </Block>
+    </Division>
   ))
 
   .add('Multiple navigations', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Navbar container>
         <SharedNavSection location="left" />
         <SharedNavSection location="right" />
       </Navbar>
-    </Block>
+    </Division>
   ))
 
   .add('Click mode', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Navbar container margin mode="click">
         <SharedNavSection location="left" />
       </Navbar>
-    </Block>
+    </Division>
   ))
 
   .add('Transparent modifier', () => (
-    <Block margin={{ all: 'large' }} position="relative">
+    <Division margin={{ all: 'large' }} position="relative">
       <Image src={imageLinks.light} />
-      <Block position="top">
+      <Division position="top">
         <Navbar container transparent>
           <SharedNavSection location="left" />
         </Navbar>
-      </Block>
-    </Block>
+      </Division>
+    </Division>
   ))
 
   .add('Subtitle', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Navbar container>
         <Navbar.Section location="left">
           <Nav>
@@ -109,11 +109,11 @@ storiesOf('Navbar', module)
           </Nav>
         </Navbar.Section>
       </Navbar>
-    </Block>
+    </Division>
   ))
 
   .add('Content item', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Navbar container margin>
         <Navbar.Section location="left">
           <Navbar.Item as={Logo}>Logo</Navbar.Item>
@@ -136,11 +136,11 @@ storiesOf('Navbar', module)
           </Navbar.Item>
         </Navbar.Section>
       </Navbar>
-    </Block>
+    </Division>
   ))
 
   .add('Centered logo', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Navbar container margin>
         <Navbar.Section location="center">
           <Navbar.Split side="left">
@@ -154,11 +154,11 @@ storiesOf('Navbar', module)
           </Navbar.Split>
         </Navbar.Section>
       </Navbar>
-    </Block>
+    </Division>
   ))
 
   .add('Toggle item', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Navbar container margin>
         <Navbar.Section location="left">
           <Navbar.Toggle />
@@ -169,11 +169,11 @@ storiesOf('Navbar', module)
           <Navbar.Toggle title={<Span margin={{ left: 'small' }}>Menu</Span>} />
         </Navbar.Section>
       </Navbar>
-    </Block>
+    </Division>
   ))
 
   .add('Dropdowns', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Navbar container>
         {['left', 'right'].map(location => (
           <Navbar.Section key={location} location={location}>
@@ -196,5 +196,5 @@ storiesOf('Navbar', module)
           </Navbar.Section>
         ))}
       </Navbar>
-    </Block>
+    </Division>
   ));

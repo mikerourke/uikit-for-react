@@ -1,19 +1,19 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Label } from '../src/components';
+import { Division, Label } from '../src/components';
 
 Label.displayName = 'Label';
 
 storiesOf('Label', module)
   .add('Usage', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Label>Default</Label>
-    </Block>
+    </Division>
   ))
 
   .add('Style modifiers', () => (
-    <Block margin={{ all: 'large' }}>
-      <Block margin>
+    <Division margin={{ all: 'large' }}>
+      <Division margin>
         <Label margin={{ right: 'small' }}>Default</Label>
         <Label margin={{ right: 'small' }} success>
           Success
@@ -22,6 +22,6 @@ storiesOf('Label', module)
           Warning
         </Label>
         <Label danger>Danger</Label>
-      </Block>
-    </Block>
+      </Division>
+    </Division>
   ));

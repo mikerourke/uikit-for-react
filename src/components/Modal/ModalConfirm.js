@@ -1,7 +1,6 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import invoke from 'lodash/invoke';
 import noop from 'lodash/noop';
 import Ref from '../Ref';
 

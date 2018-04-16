@@ -69,6 +69,7 @@ export default class Base extends React.Component {
       PropTypes.shape(flexProps.propTypes),
     ]),
     float: PropTypes.oneOf(['left', 'right']),
+    forTarget: PropTypes.string,
     height: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.oneOf([...UIK.BASE_SIZES, 'full']),
@@ -112,21 +113,41 @@ export default class Base extends React.Component {
         size: PropTypes.oneOf(['large', 'small']),
       }),
     ]),
-    parallax: PropTypes.shape({
-      animate: PropTypes.object,
-      easing: PropTypes.number,
-      media: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-      target: PropTypes.string,
-      viewport: PropTypes.number,
-    }),
+    parallax: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.shape({
+        x: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        y: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        bgx: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        bgy: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        rotate: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        scale: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        color: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        backgroundColor: PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.number,
+        ]),
+        borderColor: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        opacity: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        blur: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        hue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        grayscale: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        invert: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        saturate: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        sepia: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        easing: PropTypes.number,
+        media: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        target: PropTypes.string,
+        viewport: PropTypes.number,
+      }),
+    ]),
     placeholder: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.number,
       PropTypes.string,
     ]),
     position: PropTypes.oneOfType([
-      PropTypes.oneOf(UIK.LOCATIONS),
-      PropTypes.oneOf(UIK.CSS_POSITIONS),
+      positionProps.propTypes.at,
       PropTypes.shape(positionProps.propTypes),
     ]),
     resize: PropTypes.oneOfType([
@@ -192,12 +213,6 @@ export default class Base extends React.Component {
     const itemInName = buildClassName(get(itemIn, 'parent'), 'item');
     const itemInIndex = get(itemIn, 'index');
 
-    const { animate = {}, ...parallaxProps } = parallax;
-    const parallaxOptions = getOptionsString({
-      ...animate,
-      ...parallaxProps,
-    });
-
     const scrollspyNavOptions = getOptionsString({
       cls: get(scrollspyNav, 'clsActive'),
       offset: get(scrollspyNav, 'offset'),
@@ -212,6 +227,14 @@ export default class Base extends React.Component {
         row: get(heightMatch, 'row'),
       });
     }
+
+    const parallaxTarget = get(parallax, 'target');
+    const parallaxOptions = getOptionsString({
+      ...parallax,
+      target: parallaxTarget
+        ? `[data-for-target="${parallaxTarget}"]`
+        : undefined,
+    });
 
     return {
       [itemInName]: itemInIndex,
@@ -242,6 +265,7 @@ export default class Base extends React.Component {
       display,
       flex,
       float,
+      forTarget,
       height,
       heightMatch,
       heightMax,
@@ -353,6 +377,7 @@ export default class Base extends React.Component {
         id={baseId}
         ref={baseRef}
         placeholder={isBoolean(placeholder) ? undefined : placeholder}
+        data-for-target={forTarget}
       />
     );
   }

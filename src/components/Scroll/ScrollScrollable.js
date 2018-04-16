@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { customPropTypes, HTML } from '../../lib';
+import {
+  childMatchesType,
+  customPropTypes,
+  HTML,
+  recurseChildren,
+} from '../../lib';
 import Base from '../Base';
 import ScrollPoint from './ScrollPoint';
 
@@ -18,23 +23,17 @@ export default class ScrollScrollable extends React.Component {
     as: 'div',
   };
 
-  activateScrollPoints = children =>
-    React.Children.map(children, child => {
-      if (!React.isValidElement(child)) return child;
-      if (child.type === ScrollPoint) {
-        const currentIndex = this.pointIndex;
-        this.pointIndex += 1;
+  renderChildren = children => {
+    let pointIndex = 0;
+    return recurseChildren(children, child => {
+      if (childMatchesType(child, ScrollPoint)) {
+        pointIndex += 1;
         return React.cloneElement(child, {
-          pointIndex: currentIndex,
-          children: this.activateScrollPoints(child.props.children),
+          pointIndex: pointIndex - 1,
         });
       }
       return child;
     });
-
-  renderChildren = children => {
-    this.pointIndex = 0;
-    return this.activateScrollPoints(children);
   };
 
   render() {

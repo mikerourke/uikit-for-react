@@ -1,23 +1,24 @@
 import React from 'react';
-import compact from 'lodash/compact';
+import classnames from 'classnames';
 import first from 'lodash/first';
 import get from 'lodash/get';
+import isNil from 'lodash/isNil';
 import isString from 'lodash/isString';
 
 /**
  * Loops through the children of a React component recursively and applies the
- * specified callback function.
+ *   specified callback function.
  * @param {React.Children} children React children components to loop through.
  * @param {Function} callback Function to apply to the children.
  * @returns {any[]}
  */
-const recurseChildren = (children, callback) =>
+export const recurseChildren = (children, callback) =>
   React.Children.map(children, child => {
     if (!React.isValidElement(child)) return child;
 
     let updatedChild = child;
-    const grandchildren = get(child, ['props', 'children'], []);
-    if (grandchildren.length !== 0) {
+    const grandchildren = get(child, ['props', 'children']);
+    if (grandchildren) {
       updatedChild = React.cloneElement(child, {
         children: recurseChildren(grandchildren, callback),
       });
@@ -25,28 +26,86 @@ const recurseChildren = (children, callback) =>
     return callback(updatedChild);
   });
 
+/**
+ * Recursively gets all of the children within the specified children
+ *    argument and returns as an array.
+ * @param {React.Children} children Children from component.
+ * @return {Array}
+ */
+export const getAllChildren = children => {
+  const runningChildren = [];
+  recurseChildren(children, child => {
+    runningChildren.push(child);
+    return child;
+  });
+  return runningChildren;
+};
+
+/**
+ * Returns the type name of the child (for a component) as well as the "as"
+ *    type name (if applicable).
+ * @param {React.Node} child Child to evaluate.
+ * @returns {{typeName: *, asTypeName: *}}
+ */
+export const getChildTypeNames = child => ({
+  typeName: get(child, ['type', 'name'], ''),
+  asTypeName: get(child, ['props', 'as', 'name'], ''),
+});
+
+/**
+ * Returns true if the name of the specified child element matches the specified
+ *    type name (class name or displayName).
+ * @param {React.Node} child Child node to evaluate.
+ * @param {string} childTypeName Name of the child type to check.
+ * @returns {boolean}
+ */
 const getIfNameMatchesType = (child, childTypeName) => {
-  const possibleNames = [
-    get(child, ['type', 'displayName'], null),
-    get(child, ['type', 'name'], null),
-    get(child, ['props', 'as', 'displayName'], null),
-    get(child, ['props', 'as', 'name'], null),
-  ];
-  const validNames = compact(possibleNames);
-  return validNames.includes(childTypeName);
+  const { typeName, asTypeName } = getChildTypeNames(child);
+  return childTypeName === typeName || childTypeName === asTypeName;
+};
+
+/**
+ * Returns true if the type of the specified child element matches the specified
+ *    type (Component class).
+ * @param {React.Node} child Child node to evaluate.
+ * @param {Object} typeToMatch Type of the child to check.
+ * @returns {boolean}
+ */
+const getIfTypeMatches = (child, typeToMatch) => {
+  const childType = get(child, 'type');
+  const childAsType = get(child, ['as', 'type']);
+  return typeToMatch === childType || typeToMatch === childAsType;
 };
 
 /**
  * Returns true if the specified child matches the specified type, or if the
  *    element's "as" component matches the specified type.
  * @param {React.Node} child React component/element to check.
- * @param childType Component type to check for.
+ * @param {string|Object} [childType] Component type to check for.
  * @returns {boolean}
  */
-export const childMatchesType = (child, childType) =>
-  isString(childType)
+export const childMatchesType = (child, childType) => {
+  if (isNil(childType)) return false;
+
+  return isString(childType)
     ? getIfNameMatchesType(child, childType)
-    : child.type === childType;
+    : getIfTypeMatches(child, childType);
+};
+
+/**
+ * Returns true if the specified child matches one of the specified types, or
+ *    if the element's "as" component matches one of the specified types.
+ * @param {React.Node} child React component/element to check.
+ * @param {Array} childTypes Component types to check for.
+ * @returns {boolean}
+ */
+export const childMatchesOneOfTypes = (child, childTypes) => {
+  const countFound = childTypes.reduce(
+    (acc, childType) => (childMatchesType(child, childType) ? acc + 1 : acc),
+    0,
+  );
+  return countFound > 0;
+};
 
 /**
  * Returns true if the specified children for the parent component contains an
@@ -125,4 +184,45 @@ export const renderNavigationChild = (
   }
 
   return children;
+};
+
+/**
+ * Adds a selector to the "target" prop of a Toggle element within a toggleable
+ *    container and appends the selector to the "className" prop of the Target
+ *    element.
+ * @param {React.Children} children Children associated with the React
+ *    component.
+ * @param {string} targetName Name of target (toggled) component (e.g.
+ *    "Offcanvas").
+ * @param {string} toggleName Name of the toggling component (e.g.
+ *    "OffcanvasToggle").
+ * @param {string} linkingClass Class name to append to the attributes of the
+ *    toggled and toggling elements.
+ */
+export const renderToggleChildren = (
+  children,
+  targetName,
+  toggleName,
+  linkingClass,
+) => {
+  const getLinkingClass = child => {
+    const toggleIndex = get(child, ['props', 'toggleIndex']);
+    return isNil(toggleIndex) ? linkingClass : `${linkingClass}-${toggleIndex}`;
+  };
+
+  return recurseChildren(children, child => {
+    const classToUse = getLinkingClass(child);
+
+    if (childMatchesType(child, targetName)) {
+      return React.cloneElement(child, {
+        className: classnames(child.props.className, classToUse),
+      });
+    }
+    if (childMatchesType(child, toggleName)) {
+      return React.cloneElement(child, {
+        target: `.${classToUse}`,
+      });
+    }
+    return child;
+  });
 };

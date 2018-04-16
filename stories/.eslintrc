@@ -3,6 +3,7 @@
     "max-len": "off",
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
+    "react/no-array-index-key": "off",
     "import/extensions": "off",
     "jsx-a11y/anchor-is-valid": "off",
     "import/no-unresolved": [

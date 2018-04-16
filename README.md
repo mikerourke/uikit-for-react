@@ -34,7 +34,7 @@ React component library for UIkit
 | Grid             | X     | X         |        |            |
 | Grid Parallax    | X     | X         |        |            |
 | Heading          | X     | X         |        |            |
-| Icon             | X     |           |        |            |
+| Icon             | X     | X         |        |            |
 | Iconnav          | X     | X         |        |            |
 | Inverse          | X     | X         |        |            |
 | Label            | X     | X         |        |            |
@@ -44,19 +44,19 @@ React component library for UIkit
 | Margin           | X     | X         |        |            |
 | Marker           | X     | X         |        |            |
 | Modal            | X     | X         |        |            |
-| Nav              | X     |           |        |            |
-| Navbar           | X     |           |        |            |
-| Notification     | X     |           |        |            |
-| Off-canvas       | X     |           |        |            |
-| Overlay          | X     |           |        |            |
-| Padding          | X     |           |        |            |
-| Pagination       | X     |           |        |            |
-| Parallax         | X     |           |        |            |
-| Placeholder      | X     |           |        |            |
-| Position         | X     |           |        |            |
+| Nav              | X     | X         |        |            |
+| Navbar           | X     | X         |        |            |
+| Notification     | X     | X         |        |            |
+| Off-canvas       | X     | X         |        |            |
+| Overlay          | X     | X         |        |            |
+| Padding          | X     | X         |        |            |
+| Pagination       | X     | X         |        |            |
+| Parallax         | X     | X         |        |            |
+| Placeholder      | X     | X         |        |            |
+| Position         | X     | X         |        |            |
 | Print            | X     |           |        |            |
-| Progress         | X     |           |        |            |
-| Scroll           | X     |           |        |            |
+| Progress         | X     | !         |        |            |
+| Scroll           | X     | !         |        |            |
 | Scrollspy        | X     |           |        |            |
 | Search           | X     |           |        |            |
 | Section          | X     |           |        |            |

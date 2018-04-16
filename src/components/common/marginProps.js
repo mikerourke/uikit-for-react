@@ -13,6 +13,7 @@ const marginSpacingPropType = PropTypes.oneOfType([
 const propTypes = {
   adjacent: PropTypes.oneOf(['remove']),
   all: marginSpacingPropType,
+  auto: PropTypes.bool,
   base: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.oneOf(['auto', 'remove']),
@@ -36,7 +37,17 @@ const extrapolateClasses = (margin = {}) => {
 
   if (isEmpty(margin)) return '';
 
-  const { adjacent, all, base, bottom, left, right, top, vertical } = margin;
+  const {
+    adjacent,
+    all,
+    auto,
+    base,
+    bottom,
+    left,
+    right,
+    top,
+    vertical,
+  } = margin;
 
   const marginClasses = isNil(all)
     ? [
@@ -50,7 +61,10 @@ const extrapolateClasses = (margin = {}) => {
       ]
     : UIK.LOCATIONS.map(location => buildClassName('margin', all, location));
 
-  return classnames(marginClasses, { 'uk-margin': base === true });
+  return classnames(marginClasses, {
+    'uk-margin': base === true,
+    'uk-margin-auto': auto,
+  });
 };
 
 export default {

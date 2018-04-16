@@ -9,7 +9,7 @@ import {
   addMultipleEventInvokers,
   buildSelector,
   customPropTypes,
-  generateSelector,
+  generateIdentifier,
   getOptionsString,
   HTML,
 } from '../../lib';
@@ -56,7 +56,7 @@ export default class Sortable extends React.Component {
   constructor(props) {
     super(props);
     this.ref = null;
-    this.selector = generateSelector();
+    this.linkingClass = generateIdentifier();
   }
 
   componentDidMount() {
@@ -76,7 +76,7 @@ export default class Sortable extends React.Component {
       if (!React.isValidElement(child)) return child;
       if (child.props.sorted) {
         return React.cloneElement(child, {
-          className: classnames(child.props.className, this.selector),
+          className: classnames(child.props.className, this.linkingClass),
           children: this.activateSortedItems(child.props.children),
         });
       }
@@ -116,7 +116,7 @@ export default class Sortable extends React.Component {
       clsNoDrag,
       clsPlaceholder,
       group: isBoolean(group) ? 'sortable-group' : group,
-      handle: buildSelector(selectorHandle, this.selector),
+      handle: buildSelector(selectorHandle, this.linkingClass),
       threshold,
     });
 

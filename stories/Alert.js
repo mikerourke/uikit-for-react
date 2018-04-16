@@ -2,7 +2,7 @@ import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Alert, Block } from '../src/components';
+import { Alert, Division } from '../src/components';
 
 Alert.displayName = 'Alert';
 
@@ -10,22 +10,22 @@ const message = faker.lorem.sentence();
 
 storiesOf('Alert', module)
   .add('Usage', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Alert>{message}</Alert>
-    </Block>
+    </Division>
   ))
 
   .add('Close button', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Alert closeable>
         <h3>Notice</h3>
         <p>{message}</p>
       </Alert>
-    </Block>
+    </Division>
   ))
 
   .add('Style modifiers', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Alert closeable primary>
         {message}
       </Alert>
@@ -38,11 +38,11 @@ storiesOf('Alert', module)
       <Alert closeable danger>
         {message}
       </Alert>
-    </Block>
+    </Division>
   ))
 
   .add('Event handlers', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Alert
         closeable
         primary
@@ -51,5 +51,5 @@ storiesOf('Alert', module)
       >
         {message}
       </Alert>
-    </Block>
+    </Division>
   ));

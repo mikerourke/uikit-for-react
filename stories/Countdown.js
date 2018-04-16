@@ -1,12 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Button, Countdown, Grid } from '../src/components';
+import { Division, Button, Countdown, Grid } from '../src/components';
 
 Countdown.displayName = 'Countdown';
 
 storiesOf('Countdown', module)
   .add('Usage', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Countdown
         as={Grid}
         date="2025-01-16T00:00:00+00:00"
@@ -38,11 +38,11 @@ storiesOf('Countdown', module)
           </Countdown.Label>
         </Grid.Cell>
       </Countdown>
-    </Block>
+    </Division>
   ))
 
   .add('Separator', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <Countdown
         as={Grid}
         date="2025-01-16T00:00:00+00:00"
@@ -77,7 +77,7 @@ storiesOf('Countdown', module)
           </Countdown.Label>
         </Grid.Cell>
       </Countdown>
-    </Block>
+    </Division>
   ))
 
   .add('Starting and stopping', () => {
@@ -96,7 +96,7 @@ storiesOf('Countdown', module)
         const buttonLabel = this.state.paused ? 'Continue' : 'Pause';
 
         return (
-          <Block margin={{ all: 'large' }}>
+          <Division margin={{ all: 'large' }}>
             <Button
               onClick={this.handleClick}
               margin={{ bottom: 'large' }}
@@ -140,7 +140,7 @@ storiesOf('Countdown', module)
                 </Countdown.Label>
               </Grid.Cell>
             </Countdown>
-          </Block>
+          </Division>
         );
       }
     }

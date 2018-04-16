@@ -3,7 +3,6 @@ import UIkit from 'uikit';
 import PropTypes from 'prop-types';
 import ExtraPropTypes from 'airbnb-prop-types';
 import Ref from '../Ref';
-import invoke from 'lodash/invoke';
 
 export default class ModalPrompt extends React.Component {
   static displayName = 'ModalPrompt';

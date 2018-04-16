@@ -2,7 +2,7 @@ import React from 'react';
 import Base from './Base';
 
 export default Base;
-export const Block = props => <Base {...props} as="div" />;
+export const Division = props => <Base {...props} as="div" />;
 export const Span = props => <Base {...props} as="span" />;
 export const Paragraph = props => <Base {...props} as="p" />;
 

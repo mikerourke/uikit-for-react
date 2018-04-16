@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Block, Iconnav } from '../src/components';
+import { Division, Iconnav } from '../src/components';
 
 Iconnav.displayName = 'Iconnav';
 
@@ -15,13 +15,13 @@ const SharedIconnav = props => (
 
 storiesOf('Iconnav', module)
   .add('Usage', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <SharedIconnav />
-    </Block>
+    </Division>
   ))
 
   .add('Vertical alignment', () => (
-    <Block margin={{ all: 'large' }}>
+    <Division margin={{ all: 'large' }}>
       <SharedIconnav vertical />
-    </Block>
+    </Division>
   ));
