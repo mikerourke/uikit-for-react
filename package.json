@@ -16,7 +16,8 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "prettier": "prettier --write \"{src,__{tests,mocks}__}/**/*.js\"",
-    "lint": "eslint --ext .js ./src/components ./src/lib && echo No linting errors."
+    "lint": "eslint --ext .js ./src/components ./src/lib && echo No linting errors.",
+    "update-modules": "sh ./internals/scripts/updateSubs.sh"
   },
   "dependencies": {
     "airbnb-prop-types": "^2.8.1",
