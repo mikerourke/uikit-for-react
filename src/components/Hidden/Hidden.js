@@ -13,9 +13,9 @@ export default class Hidden extends React.Component {
     breakpoint: PropTypes.oneOf(UIK.BREAKPOINTS),
     children: PropTypes.node.isRequired,
     hide: PropTypes.bool,
+    howerOut: PropTypes.oneOf(['hidden', 'invisible']),
     noTouchOnly: PropTypes.bool,
     touchOnly: PropTypes.bool,
-    whenHovered: PropTypes.oneOf(['hidden', 'invisible']),
   };
 
   static defaultProps = {
@@ -31,15 +31,15 @@ export default class Hidden extends React.Component {
       breakpoint,
       className,
       hide,
+      howerOut,
       noTouchOnly,
       touchOnly,
-      whenHovered,
       ...rest
     } = this.props;
 
     const classes = classnames(
       className,
-      buildClassName(whenHovered, 'hover'),
+      buildClassName(howerOut, 'hover'),
       buildClassName('hidden', breakpoint),
       {
         'uk-hidden': hide,

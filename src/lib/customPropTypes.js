@@ -7,11 +7,7 @@ import isArray from 'lodash/isArray';
 import isNil from 'lodash/isNil';
 import isString from 'lodash/isString';
 import max from 'lodash/max';
-import {
-  childMatchesType,
-  getChildTypeNames,
-  getAllChildren,
-} from './childrenUtils';
+import { getChildTypeNames, getAllChildren } from './childrenUtils';
 
 /**
  * Limits the specified prop to either an HTML element, React Node, or one of
@@ -75,22 +71,6 @@ const forBreakpoints = (options, validators = [], extrasForShape = {}) => {
   ]);
 };
 
-/**
- * Loops through the specified valid child types and determines if the specified
- *    child matches on of those types.  If it doesn't, return false.
- * @param {React.Node} child Child node to evaluate.
- * @param {Array} validChildTypes Array of valid types to compare against child.
- * @returns {boolean}
- */
-const validateChildTypes = (child, validChildTypes) => {
-  const invalidCount = validChildTypes.reduce(
-    (acc, validChildType) =>
-      childMatchesType(child, validChildType) ? acc : acc + 1,
-    0,
-  );
-  return invalidCount === 0;
-};
-
 const getNamesOfChildTypes = childTypes =>
   childTypes.map(
     childType => (isString(childType) ? childType : get(childType, 'name', '')),
@@ -106,12 +86,20 @@ const restrictToChildTypes = (...args) => (props, propName) => {
   const arrayOfChildren = React.Children.toArray(childenFromProps);
 
   const childTypes = [...args];
-  const validChildren = arrayOfChildren.filter(child =>
-    validateChildTypes(child, childTypes),
-  );
   const validChildTypeNames = getNamesOfChildTypes(childTypes);
+  let invalidCount = 0;
+  arrayOfChildren.forEach(child => {
+    const { typeName, asTypeName } = getChildTypeNames(child);
+    if (
+      !validChildTypeNames.includes(typeName) &&
+      !validChildTypeNames.includes(asTypeName)
+    ) {
+      invalidCount += 1;
+    }
+  });
 
-  if (arrayOfChildren.length !== validChildren.length) {
+  // if (arrayOfChildren.length !== validChildren.length) {
+  if (invalidCount !== 0) {
     return new Error(
       `Only the following components are allowed: ${validChildTypeNames}`,
     );

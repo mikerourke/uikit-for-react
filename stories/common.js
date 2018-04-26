@@ -1,4 +1,7 @@
-const IMAGE_URL = 'https://getuikit.com/docs/images';
+// const IMAGE_URL = 'https://getuikit.com/docs/images';
+// Images are served from the /uikit-site/docs/images directory (specified -s in
+// storybook script).
+const IMAGE_URL = '';
 
 export const imageLinks = {
   avatar: `${IMAGE_URL}/avatar.jpg`,
@@ -11,11 +14,13 @@ export const imageLinks = {
   sizeV: `${IMAGE_URL}/size-v.jpg`,
   sizeOne: `${IMAGE_URL}/size1.jpg`,
   sizeTwo: `${IMAGE_URL}/size2.jpg`,
-  sliderOne: `${IMAGE_URL}/slider1.jpg`,
-  sliderTwo: `${IMAGE_URL}/slider2.jpg`,
-  sliderThree: `${IMAGE_URL}/slider3.jpg`,
-  sliderFour: `${IMAGE_URL}/slider4.jpg`,
-  sliderFive: `${IMAGE_URL}/slider5.jpg`,
+  forSliders: [
+    `${IMAGE_URL}/slider1.jpg`,
+    `${IMAGE_URL}/slider2.jpg`,
+    `${IMAGE_URL}/slider3.jpg`,
+    `${IMAGE_URL}/slider4.jpg`,
+    `${IMAGE_URL}/slider5.jpg`,
+  ],
 };
 
 export const svgLinks = {
@@ -37,3 +42,6 @@ export const videoSources = {
   embed:
     '//www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent',
 };
+
+export const loremSentence =
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.';

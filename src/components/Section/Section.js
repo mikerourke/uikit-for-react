@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes, HTML, UIK } from '../../lib';
+import isNil from 'lodash/isNil';
+import { buildClassName, customPropTypes, hasChildType, HTML } from '../../lib';
 import Base from '../Base';
 
 export default class Section extends React.Component {
@@ -10,11 +11,13 @@ export default class Section extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
-    background: PropTypes.oneOf(UIK.BACKGROUND_COLORS),
     children: PropTypes.node.isRequired,
+    muted: PropTypes.bool,
     overlap: PropTypes.bool,
     padding: PropTypes.oneOf(['xsmall', 'small', 'large', 'xlarge', 'remove']),
     preserveColor: PropTypes.bool,
+    primary: PropTypes.bool,
+    secondary: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -26,26 +29,37 @@ export default class Section extends React.Component {
 
   render() {
     const {
-      background,
+      children,
       className,
+      muted,
       overlap,
       padding,
       preserveColor,
+      primary,
+      secondary,
       ...rest
     } = this.props;
 
-    const paddingClass = padding.replace('remove', 'remove-vertical');
+    const paddingClass =
+      !isNil(padding) && padding.replace('remove', 'remove-vertical');
     const classes = classnames(
       className,
-      'uk-section',
-      buildClassName('section', background),
       buildClassName('section', paddingClass),
       {
+        'uk-section': !hasChildType(children, 'Section'),
+        'uk-section-muted': muted,
         'uk-section-overlap': overlap,
-        'uk-section-preserve-color': preserveColor,
+        'uk-preserve-color': preserveColor,
+        'uk-section-primary': primary,
+        'uk-section-secondary': secondary,
+        'uk-section-default': !primary && !secondary && !muted,
       },
     );
 
-    return <Base {...rest} className={classes} component={Section} />;
+    return (
+      <Base {...rest} className={classes} component={Section}>
+        {children}
+      </Base>
+    );
   }
 }

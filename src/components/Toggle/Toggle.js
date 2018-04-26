@@ -21,21 +21,6 @@ export default class Toggle extends React.Component {
 
   static propTypes = {
     ...Base.propTypes,
-    animation: PropTypes.oneOfType([
-      PropTypes.oneOf(UIK.ANIMATIONS),
-      PropTypes.arrayOf(UIK.ANIMATIONS),
-      PropTypes.shape({
-        in: PropTypes.oneOfType([
-          PropTypes.oneOf(UIK.ANIMATIONS),
-          PropTypes.arrayOf(UIK.ANIMATIONS),
-        ]),
-        out: PropTypes.oneOfType([
-          PropTypes.oneOf(UIK.ANIMATIONS),
-          PropTypes.arrayOf(UIK.ANIMATIONS),
-        ]),
-        duration: PropTypes.number,
-      }),
-    ]),
     as: customPropTypes.customOrStringElement('a', 'button'),
     clsToggled: PropTypes.string,
     mediaTrigger: ExtraPropTypes.and([
@@ -61,6 +46,21 @@ export default class Toggle extends React.Component {
     onShown: PropTypes.func,
     queued: PropTypes.bool,
     target: PropTypes.string,
+    toggleAnimation: PropTypes.oneOfType([
+      PropTypes.oneOf(UIK.ANIMATIONS),
+      PropTypes.arrayOf(UIK.ANIMATIONS),
+      PropTypes.shape({
+        in: PropTypes.oneOfType([
+          PropTypes.oneOf(UIK.ANIMATIONS),
+          PropTypes.arrayOf(UIK.ANIMATIONS),
+        ]),
+        out: PropTypes.oneOfType([
+          PropTypes.oneOf(UIK.ANIMATIONS),
+          PropTypes.arrayOf(UIK.ANIMATIONS),
+        ]),
+        duration: PropTypes.number,
+      }),
+    ]),
     toggled: PropTypes.bool,
     toggleIndex: PropTypes.number,
   };
@@ -111,12 +111,12 @@ export default class Toggle extends React.Component {
 
   render() {
     const {
-      animation,
       className,
       clsToggled,
       mediaTrigger,
       mode,
       queued,
+      toggleAnimation,
       toggled,
       toggleIndex,
       ...rest
@@ -125,7 +125,7 @@ export default class Toggle extends React.Component {
     const classes = classnames(className, 'uk-toggle');
 
     const componentOptions = getOptionsString({
-      animation,
+      animation: toggleAnimation,
       cls: clsToggled,
       media: mediaTrigger,
       mode: joinListProp(mode, ','),

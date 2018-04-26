@@ -1,28 +1,26 @@
 import React from 'react';
 import UIkit from 'uikit';
 import PropTypes from 'prop-types';
-import ExtraPropTypes from 'airbnb-prop-types';
 import get from 'lodash/get';
 import isPlainObject from 'lodash/isPlainObject';
 import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
-  childTypeNameLike,
   customPropTypes,
   getOptionsString,
   HTML,
-  recurseChildren,
   UIK,
 } from '../../lib';
 import Base from '../Base';
 import Ref from '../Ref';
-import SlideshowItem from './SlideshowItem';
-import SlideshowItems from './SlideshowItems';
-import SlideshowNext from './SlideshowNext';
-import SlideshowPrevious from './SlideshowPrevious';
+import SliderContainer from './SliderContainer';
+import SliderItem from './SliderItem';
+import SliderItems from './SliderItems';
+import SliderNext from './SliderNext';
+import SliderPrevious from './SliderPrevious';
 
-export default class Slideshow extends React.Component {
-  static displayName = 'Slideshow';
+export default class Slider extends React.Component {
+  static displayName = 'Slider';
 
   static propTypes = {
     ...Base.propTypes,
@@ -42,16 +40,10 @@ export default class Slideshow extends React.Component {
         interval: PropTypes.number,
       }),
     ]),
+    center: PropTypes.bool,
+    children: PropTypes.node,
     defaultIndex: customPropTypes.validateIndex,
     finite: PropTypes.bool,
-    maxHeight: PropTypes.oneOfType([
-      PropTypes.bool,
-      ExtraPropTypes.nonNegativeInteger,
-    ]),
-    minHeight: PropTypes.oneOfType([
-      PropTypes.bool,
-      ExtraPropTypes.nonNegativeInteger,
-    ]),
     onBeforeItemHide: PropTypes.func,
     onBeforeItemShow: PropTypes.func,
     onItemHidden: PropTypes.func,
@@ -60,7 +52,7 @@ export default class Slideshow extends React.Component {
     onItemShown: PropTypes.func,
     paused: PropTypes.bool,
     pauseOnHover: PropTypes.bool,
-    ratio: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+    sets: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -74,10 +66,11 @@ export default class Slideshow extends React.Component {
     paused: false,
   };
 
-  static Item = SlideshowItem;
-  static Items = SlideshowItems;
-  static Next = SlideshowNext;
-  static Previous = SlideshowPrevious;
+  static Container = SliderContainer;
+  static Item = SliderItem;
+  static Items = SliderItems;
+  static Next = SliderNext;
+  static Previous = SliderPrevious;
 
   constructor(props) {
     super(props);
@@ -98,50 +91,33 @@ export default class Slideshow extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.paused !== this.props.paused) {
-      const slideshow = UIkit.slideshow(this.ref);
+      const slider = UIkit.slider(this.ref);
       if (nextProps.paused === true) {
-        slideshow.stopAutoplay();
+        slider.stopAutoplay();
       }
       if (nextProps.paused === false) {
-        slideshow.startAutoplay();
+        slider.startAutoplay();
       }
     }
 
     if (nextProps.activeIndex !== this.props.activeIndex) {
-      UIkit.slideshow(this.ref).show(nextProps.activeIndex);
+      UIkit.slider(this.ref).show(nextProps.activeIndex);
     }
   }
 
   handleRef = element => (this.ref = element);
-
-  renderChildren = children =>
-    recurseChildren(children, child => {
-      if (childTypeNameLike(child, /Next/g)) {
-        return React.cloneElement(child, {
-          'uk-slideshow-item': 'next',
-        });
-      }
-      if (childTypeNameLike(child, /Previous/g)) {
-        return React.cloneElement(child, {
-          'uk-slideshow-item': 'previous',
-        });
-      }
-      return child;
-    });
 
   render() {
     const {
       activeIndex,
       animation,
       autoplay,
-      children,
+      center,
       defaultIndex,
       finite,
-      maxHeight,
-      minHeight,
       paused,
       pauseOnHover,
-      ratio,
+      sets,
       ...rest
     } = this.props;
 
@@ -150,18 +126,15 @@ export default class Slideshow extends React.Component {
       animation,
       autoplay: isPlainObject(autoplay) ? get(autoplay, 'enabled') : autoplay,
       autoplayInterval: get(autoplay, 'interval'),
+      center,
       finite,
-      maxHeight,
-      minHeight,
       pauseOnHover,
-      ratio,
+      sets,
     });
 
     return (
       <Ref innerRef={this.handleRef}>
-        <Base {...rest} component={Slideshow} uk-slideshow={componentOptions}>
-          {this.renderChildren(children)}
-        </Base>
+        <Base {...rest} component={Slider} uk-slider={componentOptions} />
       </Ref>
     );
   }

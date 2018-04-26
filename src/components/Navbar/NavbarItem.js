@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import { customPropTypes } from '../../lib';
+import { childMatchesType, customPropTypes, recurseChildren } from '../../lib';
 import Base from '../Base';
 
 export default class NavbarItem extends React.Component {
@@ -16,11 +16,25 @@ export default class NavbarItem extends React.Component {
     as: 'div',
   };
 
+  renderChildren = children =>
+    recurseChildren(children, child => {
+      if (childMatchesType(child, 'Search')) {
+        return React.cloneElement(child, {
+          className: classnames(child.props.className, 'uk-search-navbar'),
+        });
+      }
+      return child;
+    });
+
   render() {
-    const { className, ...rest } = this.props;
+    const { children, className, ...rest } = this.props;
 
     const classes = classnames(className, 'uk-navbar-item');
 
-    return <Base {...rest} className={classes} component={NavbarItem} />;
+    return (
+      <Base {...rest} className={classes} component={NavbarItem}>
+        {this.renderChildren(children)}
+      </Base>
+    );
   }
 }

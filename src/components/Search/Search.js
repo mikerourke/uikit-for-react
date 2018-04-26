@@ -15,13 +15,13 @@ export default class Search extends React.Component {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('form'),
     children: customPropTypes.restrictToChildTypes(SearchIcon, SearchInput),
-    icon: ExtraPropTypes.mutuallyExclusiveProps(
-      ExtraPropTypes.elementType(SearchIcon),
+    iconOptions: ExtraPropTypes.mutuallyExclusiveProps(
+      PropTypes.shape(SearchIcon.propTypes),
       'icon',
       'children',
     ),
-    input: ExtraPropTypes.mutuallyExclusiveProps(
-      ExtraPropTypes.elementType(SearchInput),
+    inputOptions: ExtraPropTypes.mutuallyExclusiveProps(
+      PropTypes.shape(SearchInput.propTypes),
       'input',
       'children',
     ),
@@ -38,7 +38,14 @@ export default class Search extends React.Component {
   static Input = SearchInput;
 
   render() {
-    const { children, className, icon, input, large, ...rest } = this.props;
+    const {
+      children,
+      className,
+      iconOptions,
+      inputOptions,
+      large,
+      ...rest
+    } = this.props;
 
     const classes = classnames(className, 'uk-search', {
       'uk-search-default': !large,
@@ -47,8 +54,8 @@ export default class Search extends React.Component {
 
     return (
       <Base {...rest} className={classes} component={Search}>
-        {!isNil(icon) && icon}
-        {!isNil(input) && input}
+        {!isNil(iconOptions) && <SearchIcon {...iconOptions} />}
+        {!isNil(inputOptions) && <SearchInput {...inputOptions} />}
         {!isNil(children) && children}
       </Base>
     );

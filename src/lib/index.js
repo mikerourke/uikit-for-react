@@ -8,6 +8,7 @@ export {
   childMatchesType,
   childMatchesOneOfTypes,
   childrenHaveClass,
+  childTypeNameLike,
   findChildByType,
   hasChildType,
   recurseChildren,

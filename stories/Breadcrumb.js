@@ -13,4 +13,15 @@ storiesOf('Breadcrumb', module).add('Usage', () => (
       <Breadcrumb.Item active>Active</Breadcrumb.Item>
     </Breadcrumb>
   </Division>
+))
+
+  .add('Scrollspy Nav', () => (
+  <Division margin={{ all: 'large' }}>
+    <Breadcrumb scrollspy={{ clsActive: 'uk-active' }}>
+      <Breadcrumb.Item>Item</Breadcrumb.Item>
+      <Breadcrumb.Item>Item</Breadcrumb.Item>
+      <Breadcrumb.Item disabled>Disabled</Breadcrumb.Item>
+      <Breadcrumb.Item active>Active</Breadcrumb.Item>
+    </Breadcrumb>
+  </Division>
 ));

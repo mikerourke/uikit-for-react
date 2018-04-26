@@ -11,7 +11,7 @@ export default class SearchInput extends React.Component {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('input'),
     autofocus: PropTypes.bool,
-    placeholder: PropTypes.string,
+    placeholder: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   };
 
   static defaultProps = {

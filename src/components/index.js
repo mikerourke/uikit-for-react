@@ -121,7 +121,7 @@ export Panel from './Panel';
 export Placeholder from './Placeholder';
 export Progress from './Progress';
 export Scroll, { ScrollPoint, ScrollScrollable } from './Scroll';
-export Scrollspy from './Scrollspy';
+export Scrollspy, { ScrollspyItem, ScrollspyNav } from './Scrollspy';
 export Search, { SearchIcon, SearchInput } from './Search';
 export Section from './Section';
 export Slidenav, {
@@ -129,7 +129,19 @@ export Slidenav, {
   SlidenavNext,
   SlidenavPrevious,
 } from './Slidenav';
-export Slideshow, { SlideshowItem, SlideshowItems } from './Slideshow';
+export Slider, {
+  SliderContainer,
+  SliderItem,
+  SliderItems,
+  SliderNext,
+  SliderPrevious,
+} from './Slider';
+export Slideshow, {
+  SlideshowItem,
+  SlideshowItems,
+  SlideshowNext,
+  SlideshowPrevious,
+} from './Slideshow';
 export Sortable from './Sortable';
 export Spinner from './Spinner';
 export Sticky from './Sticky';

@@ -10,7 +10,7 @@ export default class VisibilityToggle extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
-    whenHovered: PropTypes.oneOf(['hidden', 'invisible']).isRequired,
+    howerOut: PropTypes.oneOf(['hidden', 'invisible']).isRequired,
   };
 
   static defaultProps = {
@@ -19,9 +19,9 @@ export default class VisibilityToggle extends React.Component {
   };
 
   render() {
-    const { className, whenHovered, ...rest } = this.props;
+    const { className, howerOut, ...rest } = this.props;
 
-    const classes = classnames(className, buildClassName(whenHovered, 'hover'));
+    const classes = classnames(className, buildClassName(howerOut, 'hover'));
 
     return <Base {...rest} className={classes} component={VisibilityToggle} />;
   }

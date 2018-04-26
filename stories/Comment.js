@@ -90,7 +90,7 @@ storiesOf('Comment', module)
                 at: 'top-right',
                 marginSize: 'small',
               }}
-              whenHovered="hidden"
+              howerOut="hidden"
             >
               <Link muted>Reply</Link>
             </Visibility.Toggle>
@@ -125,7 +125,7 @@ storiesOf('Comment', module)
                   at: 'top-right',
                   marginSize: 'small',
                 }}
-                whenHovered="hidden"
+                howerOut="hidden"
               >
                 <Link muted>Reply</Link>
               </Visibility.Toggle>
@@ -159,7 +159,7 @@ storiesOf('Comment', module)
                   at: 'top-right',
                   marginSize: 'small',
                 }}
-                whenHovered="hidden"
+                howerOut="hidden"
               >
                 <Link muted>Reply</Link>
               </Visibility.Toggle>

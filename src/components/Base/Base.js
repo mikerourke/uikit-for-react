@@ -158,13 +158,6 @@ export default class Base extends React.Component {
       PropTypes.bool,
       PropTypes.oneOf(['height', 'width']),
     ]),
-    scrollspyNav: PropTypes.shape({
-      clsActive: PropTypes.string,
-      offset: PropTypes.number,
-      onItemActive: PropTypes.func,
-      overflow: PropTypes.bool,
-      scroll: PropTypes.bool,
-    }),
     sortableHandle: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     style: PropTypes.object,
     text: PropTypes.shape(textProps.propTypes),
@@ -189,11 +182,6 @@ export default class Base extends React.Component {
 
   static defaultProps = {
     className: '',
-    hidden: false,
-    invisible: false,
-    margin: false,
-    marker: false,
-    padding: false,
     parallax: {},
     style: {},
   };
@@ -204,7 +192,6 @@ export default class Base extends React.Component {
     marker,
     overflow,
     parallax,
-    scrollspyNav,
     viewport,
   } = {}) => {
     const validOptions = compact(Object.values(...arguments));
@@ -212,13 +199,6 @@ export default class Base extends React.Component {
 
     const itemInName = buildClassName(get(itemIn, 'parent'), 'item');
     const itemInIndex = get(itemIn, 'index');
-
-    const scrollspyNavOptions = getOptionsString({
-      cls: get(scrollspyNav, 'clsActive'),
-      offset: get(scrollspyNav, 'offset'),
-      overflow: get(scrollspyNav, 'overflow'),
-      scroll: get(scrollspyNav, 'scroll'),
-    });
 
     let heightMatchOptions = heightMatch;
     if (isPlainObject(heightMatch)) {
@@ -244,7 +224,6 @@ export default class Base extends React.Component {
       'uk-overflow-auto': overflow === 'auto' ? '' : undefined,
       'uk-overflow-hidden': overflow === 'hidden' ? '' : undefined,
       'uk-parallax': isEmpty(parallax) ? undefined : parallaxOptions,
-      'uk-scrollspy-nav': scrollspyNav ? scrollspyNavOptions : undefined,
     };
   };
 
@@ -285,7 +264,6 @@ export default class Base extends React.Component {
       position,
       resize,
       responsive,
-      scrollspyNav,
       sortableHandle,
       style,
       text,
@@ -356,7 +334,6 @@ export default class Base extends React.Component {
       marker,
       overflow,
       parallax,
-      scrollspyNav,
       viewport,
     });
     const classes = classnames(className, trim(ukClasses));

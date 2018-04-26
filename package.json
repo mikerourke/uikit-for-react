@@ -13,7 +13,7 @@
     "LICENSE.md"
   ],
   "scripts": {
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6006 -s ./internals/uikit-site/docs/images",
     "build-storybook": "build-storybook",
     "prettier": "prettier --write \"{src,__{tests,mocks}__}/**/*.js\"",
     "lint": "eslint --ext .js ./src/components ./src/lib && echo No linting errors.",

@@ -3,7 +3,6 @@ import classnames from 'classnames';
 import first from 'lodash/first';
 import get from 'lodash/get';
 import isNil from 'lodash/isNil';
-import isString from 'lodash/isString';
 
 /**
  * Loops through the children of a React component recursively and applies the
@@ -52,29 +51,9 @@ export const getChildTypeNames = child => ({
   asTypeName: get(child, ['props', 'as', 'name'], ''),
 });
 
-/**
- * Returns true if the name of the specified child element matches the specified
- *    type name (class name or displayName).
- * @param {React.Node} child Child node to evaluate.
- * @param {string} childTypeName Name of the child type to check.
- * @returns {boolean}
- */
-const getIfNameMatchesType = (child, childTypeName) => {
+export const childTypeNameLike = (child, regex) => {
   const { typeName, asTypeName } = getChildTypeNames(child);
-  return childTypeName === typeName || childTypeName === asTypeName;
-};
-
-/**
- * Returns true if the type of the specified child element matches the specified
- *    type (Component class).
- * @param {React.Node} child Child node to evaluate.
- * @param {Object} typeToMatch Type of the child to check.
- * @returns {boolean}
- */
-const getIfTypeMatches = (child, typeToMatch) => {
-  const childType = get(child, 'type');
-  const childAsType = get(child, ['as', 'type']);
-  return typeToMatch === childType || typeToMatch === childAsType;
+  return regex.test(typeName) || regex.test(asTypeName);
 };
 
 /**
@@ -86,10 +65,15 @@ const getIfTypeMatches = (child, typeToMatch) => {
  */
 export const childMatchesType = (child, childType) => {
   if (isNil(childType)) return false;
-
-  return isString(childType)
-    ? getIfNameMatchesType(child, childType)
-    : getIfTypeMatches(child, childType);
+  const { typeName, asTypeName } = getChildTypeNames(child);
+  const childTypeName = get(childType, 'name');
+  return (
+    childType === typeName ||
+    childType === asTypeName ||
+    childType === get(child, 'type') ||
+    childTypeName === typeName ||
+    childTypeName === asTypeName
+  );
 };
 
 /**
