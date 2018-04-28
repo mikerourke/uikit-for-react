@@ -1,12 +1,8 @@
 import React from 'react';
-import ExtraPropTypes from 'airbnb-prop-types';
-import {
-  customPropTypes,
-  generateIdentifier,
-  HTML,
-  renderToggleChildren,
-} from '../../lib';
+import PropTypes from 'prop-types';
+import { customPropTypes, generateIdentifier, HTML } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 
 export default class ToggleTogglable extends React.Component {
   static displayName = 'ToggleTogglable';
@@ -14,10 +10,7 @@ export default class ToggleTogglable extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement(HTML.ALL_ELEMENTS),
-    children: ExtraPropTypes.and([
-      customPropTypes.limitToOneOfChildType('ToggleTarget'),
-      customPropTypes.mustContainChildOfType('Toggle'),
-    ]),
+    children: PropTypes.node.isRequired,
   };
 
   static defaultProps = {
@@ -27,20 +20,29 @@ export default class ToggleTogglable extends React.Component {
 
   constructor(props) {
     super(props);
+    this.ref = null;
     this.linkingClass = generateIdentifier();
   }
 
+  componentDidMount() {
+    // TODO: Fix this because it's not working.
+    const attrName = 'data-toggle-target';
+    const toggles = this.ref.querySelectorAll('[uk-toggle]');
+    if (toggles.length !== 0) {
+      toggles.forEach(toggleElement =>
+        toggleElement.setAttribute('target', `[${attrName}]`),
+      );
+    }
+    // const targets = this.ref.querySelectorAll(`[${attrName}]`);
+  }
+
+  handleRef = element => (this.ref = element);
+
   render() {
-    const { children, ...rest } = this.props;
     return (
-      <Base {...rest} component={ToggleTogglable}>
-        {renderToggleChildren(
-          children,
-          'Toggle',
-          'ToggleTarget',
-          this.linkingClass,
-        )}
-      </Base>
+      <Ref innerRef={this.handleRef}>
+        <Base {...this.props} component={ToggleTogglable} />
+      </Ref>
     );
   }
 }

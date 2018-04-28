@@ -18,13 +18,13 @@ storiesOf('Scrollspy', module)
         style={{ paddingTop: 800 }}
       >
         <Grid.Cell>
-          <Scrollspy as={Card} animation="slide-left" repeat>
+          <Scrollspy as={Card} inviewAnimation="slide-left" repeat>
             <Card.Title>Left</Card.Title>
             <p>{faker.lorem.paragraph()}</p>
           </Scrollspy>
         </Grid.Cell>
         <Grid.Cell>
-          <Scrollspy as={Card} animation="slide-right" repeat>
+          <Scrollspy as={Card} inviewAnimation="slide-right" repeat>
             <Card.Title>Right</Card.Title>
             <p>{faker.lorem.paragraph()}</p>
           </Scrollspy>
@@ -44,8 +44,8 @@ storiesOf('Scrollspy', module)
         inviewAnimation="fade"
       >
         {range(0, 6).map(idx => (
-          <Grid.Cell key={idx}>
-            <Card as={Scrollspy.Item}>
+          <Grid.Cell key={idx} as={Scrollspy.Item}>
+            <Card>
               <Card.Title>Fade</Card.Title>
               <p>{sentence}</p>
             </Card>

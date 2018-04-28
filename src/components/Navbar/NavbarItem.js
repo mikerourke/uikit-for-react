@@ -1,7 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
-import { childMatchesType, customPropTypes, recurseChildren } from '../../lib';
+import { customPropTypes } from '../../lib';
 import Base from '../Base';
+import Ref from '../Ref';
 
 export default class NavbarItem extends React.Component {
   static displayName = 'NavbarItem';
@@ -16,25 +17,32 @@ export default class NavbarItem extends React.Component {
     as: 'div',
   };
 
-  renderChildren = children =>
-    recurseChildren(children, child => {
-      if (childMatchesType(child, 'Search')) {
-        return React.cloneElement(child, {
-          className: classnames(child.props.className, 'uk-search-navbar'),
-        });
-      }
-      return child;
-    });
+  constructor(props) {
+    super(props);
+    this.ref = null;
+  }
+
+  componentDidMount() {
+    const searches = this.ref.querySelectorAll('.uk-search');
+    if (searches.length !== 0) {
+      searches.forEach(searchElement => {
+        searchElement.classList.add('uk-search-navbar');
+        searchElement.classList.remove('uk-search-default');
+      });
+    }
+  }
+
+  handleRef = element => (this.ref = element);
 
   render() {
-    const { children, className, ...rest } = this.props;
+    const { className, ...rest } = this.props;
 
     const classes = classnames(className, 'uk-navbar-item');
 
     return (
-      <Base {...rest} className={classes} component={NavbarItem}>
-        {this.renderChildren(children)}
-      </Base>
+      <Ref innerRef={this.handleRef}>
+        <Base {...rest} className={classes} component={NavbarItem} />
+      </Ref>
     );
   }
 }

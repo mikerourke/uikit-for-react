@@ -92,6 +92,7 @@ const getAnimationsOptionString = optionValue => {
 export default function getOptionsString(props) {
   if (isUndefined(props)) return undefined;
   if (!isPlainObject(props)) return '';
+
   const optionPairs = toPairs(props).reduce((acc, [key, value]) => {
     if (value === '' || isNil(value)) return acc;
 

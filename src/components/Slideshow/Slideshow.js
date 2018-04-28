@@ -7,11 +7,9 @@ import isPlainObject from 'lodash/isPlainObject';
 import noop from 'lodash/noop';
 import {
   addMultipleEventInvokers,
-  childTypeNameLike,
   customPropTypes,
   getOptionsString,
   HTML,
-  recurseChildren,
   UIK,
 } from '../../lib';
 import Base from '../Base';
@@ -27,13 +25,6 @@ export default class Slideshow extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     activeIndex: customPropTypes.validateIndex,
-    animation: PropTypes.oneOfType([
-      PropTypes.oneOf(UIK.SLIDESHOW_ANIMATIONS),
-      PropTypes.shape({
-        name: PropTypes.oneOf(UIK.SLIDESHOW_ANIMATIONS),
-        velocity: PropTypes.number,
-      }),
-    ]),
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
     autoplay: PropTypes.oneOfType([
       PropTypes.bool,
@@ -61,6 +52,13 @@ export default class Slideshow extends React.Component {
     paused: PropTypes.bool,
     pauseOnHover: PropTypes.bool,
     ratio: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+    transition: PropTypes.oneOfType([
+      PropTypes.oneOf(UIK.SLIDESHOW_ANIMATIONS),
+      PropTypes.shape({
+        name: PropTypes.oneOf(UIK.SLIDESHOW_ANIMATIONS),
+        velocity: PropTypes.number,
+      }),
+    ]),
   };
 
   static defaultProps = {
@@ -114,27 +112,10 @@ export default class Slideshow extends React.Component {
 
   handleRef = element => (this.ref = element);
 
-  renderChildren = children =>
-    recurseChildren(children, child => {
-      if (childTypeNameLike(child, /Next/g)) {
-        return React.cloneElement(child, {
-          'uk-slideshow-item': 'next',
-        });
-      }
-      if (childTypeNameLike(child, /Previous/g)) {
-        return React.cloneElement(child, {
-          'uk-slideshow-item': 'previous',
-        });
-      }
-      return child;
-    });
-
   render() {
     const {
       activeIndex,
-      animation,
       autoplay,
-      children,
       defaultIndex,
       finite,
       maxHeight,
@@ -142,12 +123,12 @@ export default class Slideshow extends React.Component {
       paused,
       pauseOnHover,
       ratio,
+      transition,
       ...rest
     } = this.props;
 
     const componentOptions = getOptionsString({
       activeIndex: defaultIndex,
-      animation,
       autoplay: isPlainObject(autoplay) ? get(autoplay, 'enabled') : autoplay,
       autoplayInterval: get(autoplay, 'interval'),
       finite,
@@ -155,13 +136,16 @@ export default class Slideshow extends React.Component {
       minHeight,
       pauseOnHover,
       ratio,
+      transition,
     });
+    const validOptions = componentOptions.replace(
+      'transition: ',
+      'animation: ',
+    );
 
     return (
       <Ref innerRef={this.handleRef}>
-        <Base {...rest} component={Slideshow} uk-slideshow={componentOptions}>
-          {this.renderChildren(children)}
-        </Base>
+        <Base {...rest} component={Slideshow} uk-slideshow={validOptions} />
       </Ref>
     );
   }

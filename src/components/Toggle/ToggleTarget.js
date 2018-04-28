@@ -16,6 +16,8 @@ export default class ToggleTarget extends React.Component {
   };
 
   render() {
-    return <Base {...this.props} component={ToggleTarget} />;
+    return (
+      <Base {...this.props} component={ToggleTarget} data-toggle-target="" />
+    );
   }
 }

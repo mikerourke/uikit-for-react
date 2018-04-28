@@ -177,7 +177,10 @@ export default class Base extends React.Component {
       }),
     ]),
     visible: PropTypes.oneOf(UIK.BREAKPOINTS),
-    width: customPropTypes.forBreakpoints(UIK.ALL_WIDTHS, PropTypes.number),
+    width: PropTypes.oneOfType([
+      PropTypes.oneOf(['full']),
+      customPropTypes.forBreakpoints(UIK.ALL_WIDTHS, PropTypes.number),
+    ]),
   };
 
   static defaultProps = {
@@ -325,6 +328,7 @@ export default class Base extends React.Component {
         'uk-transition-toggle': toggleFor === 'transition',
         'uk-visible-toggle': toggleFor === 'visibility',
         'uk-transform-center': transformCenter,
+        'uk-width-1-1': width === 'full',
       },
     );
 
@@ -347,7 +351,7 @@ export default class Base extends React.Component {
         className={classes || undefined}
         style={isEmpty(styles) ? undefined : styles}
         height={customHeight ? undefined : height}
-        width={customWidth ? undefined : width}
+        width={customWidth && width !== 'full' ? undefined : width}
         tabIndex={toggleFor === 'transition' ? 0 : undefined}
         {...attributes}
         {...getValidProps(componentForElement, rest)}

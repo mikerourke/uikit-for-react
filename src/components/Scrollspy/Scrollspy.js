@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import flatten from 'lodash/flatten';
 import isNil from 'lodash/isNil';
@@ -8,13 +7,10 @@ import noop from 'lodash/noop';
 import {
   addEventInvoker,
   buildClassName,
-  childMatchesType,
   customPropTypes,
-  generateIdentifier,
   getOptionsString,
   HTML,
   joinListProp,
-  recurseChildren,
   UIK,
 } from '../../lib';
 import Base from '../Base';
@@ -27,10 +23,7 @@ export default class Scrollspy extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement(HTML.BLOCK_ELEMENTS),
-    children: ExtraPropTypes.requiredBy(
-      'group',
-      customPropTypes.mustContainChildOfType(ScrollspyItem),
-    ),
+    children: PropTypes.node.isRequired,
     clsInview: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.arrayOf(PropTypes.string),
@@ -47,11 +40,7 @@ export default class Scrollspy extends React.Component {
     onInview: PropTypes.func,
     onOutview: PropTypes.func,
     repeat: PropTypes.bool,
-    target: ExtraPropTypes.mutuallyExclusiveProps(
-      PropTypes.string,
-      'group',
-      'target',
-    ),
+    target: PropTypes.string,
   };
 
   static defaultProps = {
@@ -66,7 +55,6 @@ export default class Scrollspy extends React.Component {
   constructor(props) {
     super(props);
     this.ref = null;
-    this.linkedAttr = generateIdentifier();
   }
 
   componentDidMount() {
@@ -76,19 +64,8 @@ export default class Scrollspy extends React.Component {
 
   handleRef = element => (this.ref = element);
 
-  renderChildren = children =>
-    recurseChildren(children, child => {
-      if (childMatchesType(child, ScrollspyItem)) {
-        return React.cloneElement(child, {
-          groupName: this.linkedAttr,
-        });
-      }
-      return child;
-    });
-
   render() {
     const {
-      children,
       className,
       clsInview,
       delay,
@@ -118,21 +95,20 @@ export default class Scrollspy extends React.Component {
     });
 
     const classes = classnames(className, 'uk-scrollspy');
-    const selector = `[data-scrollspy-item="${this.linkedAttr}"]`;
     let targetToUse = this.props.target ? this.props.target : undefined;
-    if (isNil(targetToUse) && group === true) targetToUse = selector;
+    if (isNil(targetToUse) && group === true)
+      targetToUse = '[data-scrollspy-item]';
 
     return (
       <Ref innerRef={this.handleRef}>
         <Base
           {...rest}
+          ref={this.testRef}
           className={classes}
           component={Scrollspy}
           uk-scrollspy={componentOptions}
           target={targetToUse}
-        >
-          {this.renderChildren(children)}
-        </Base>
+        />
       </Ref>
     );
   }

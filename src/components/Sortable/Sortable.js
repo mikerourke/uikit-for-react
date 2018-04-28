@@ -12,6 +12,7 @@ import {
   generateIdentifier,
   getOptionsString,
   HTML,
+  recurseChildren,
 } from '../../lib';
 import Base from '../Base';
 import Ref from '../Ref';
@@ -71,8 +72,10 @@ export default class Sortable extends React.Component {
     addMultipleEventInvokers(this.ref, ukToPropsEventMap, this.props);
   }
 
-  activateSortedItems = children =>
-    React.Children.map(children, child => {
+  handleRef = element => (this.ref = element);
+
+  renderChildren = children =>
+    recurseChildren(children, child => {
       if (!React.isValidElement(child)) return child;
       if (child.props.sorted) {
         return React.cloneElement(child, {
@@ -82,10 +85,6 @@ export default class Sortable extends React.Component {
       }
       return child;
     });
-
-  handleRef = element => (this.ref = element);
-
-  renderChildren = children => this.activateSortedItems(children);
 
   render() {
     const {

@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import { customPropTypes, generateIdentifier, HTML } from '../../lib';
 import Base from '../Base';
-import SwitcherContent from './SwitcherContent';
-import SwitcherToggles from './SwitcherToggles';
 
 export default class SwitcherSwitchable extends React.Component {
   static displayName = 'SwitcherSwitchable';
@@ -25,36 +22,22 @@ export default class SwitcherSwitchable extends React.Component {
     this.linkingClass = generateIdentifier();
   }
 
-  updateSwitchElements = children =>
-    React.Children.map(children, child => {
-      if (!React.isValidElement(child)) return child;
-      if (child.type === SwitcherToggles) {
-        return React.cloneElement(child, {
-          selectorConnect: classnames(
-            child.props.selectorConnect,
-            this.linkingClass,
-          ),
-          children: this.updateSwitchElements(child.props.children),
-        });
-      }
-      if (child.type === SwitcherContent) {
-        return React.cloneElement(child, {
-          className: classnames(child.props.className, this.linkingClass),
-          children: this.updateSwitchElements(child.props.children),
-        });
-      }
-      return child;
-    });
-
-  renderChildren = children => this.updateSwitchElements(children);
+  componentDidMount() {
+    const toggles = this.ref.querySelectorAll('[uk-switcher]');
+    if (toggles.length !== 0) {
+      toggles.forEach(toggleElement =>
+        toggleElement.setAttribute('connect', this.linkingClass),
+      );
+    }
+    const contents = this.ref.querySelectorAll('[data-switcher-content]');
+    if (contents.length !== 0) {
+      contents.forEach(contentElement =>
+        contentElement.classList.add(this.linkingClass),
+      );
+    }
+  }
 
   render() {
-    const { children, ...rest } = this.props;
-
-    return (
-      <Base {...rest} component={SwitcherSwitchable}>
-        {this.renderChildren(children)}
-      </Base>
-    );
+    return <Base {...this.props} component={SwitcherSwitchable} />;
   }
 }

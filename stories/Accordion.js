@@ -2,7 +2,13 @@ import React from 'react';
 import faker from 'faker';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Accordion, Division, Checkbox, FormLabel, Grid } from '../src/components';
+import {
+  Accordion,
+  Division,
+  Checkbox,
+  FormLabel,
+  Grid,
+} from '../src/components';
 
 Accordion.displayName = 'Accordion';
 

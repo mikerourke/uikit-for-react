@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ExtraPropTypes from 'airbnb-prop-types';
 import classnames from 'classnames';
 import { customPropTypes } from '../../lib';
 import Base from '../Base';
 import Ref from '../Ref';
-import AccordionContent from './AccordionContent';
-import AccordionTitle from './AccordionTitle';
 
 /**
  * Component with the required Content and Title elements.
@@ -18,10 +15,7 @@ export default class AccordionPanel extends React.Component {
   static propTypes = {
     ...Base.propTypes,
     as: customPropTypes.customOrStringElement('li'),
-    children: ExtraPropTypes.or([
-      ExtraPropTypes.elementType(AccordionContent),
-      ExtraPropTypes.elementType(AccordionTitle),
-    ]),
+    children: PropTypes.node.isRequired,
     open: PropTypes.bool,
   };
 

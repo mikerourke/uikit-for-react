@@ -42,7 +42,6 @@ export default class ScrollPoint extends React.Component {
     offset: PropTypes.number,
     onBeforeScroll: PropTypes.func,
     onScrolled: PropTypes.func,
-    pointIndex: PropTypes.number,
   };
 
   static defaultProps = {
@@ -67,15 +66,20 @@ export default class ScrollPoint extends React.Component {
 
   handleClick = event => {
     event.preventDefault();
-    const { goTo, pointIndex } = this.props;
+    const { goTo } = this.props;
+
+    let thisIndex;
+    const scrollElements = document.querySelectorAll('[uk-scroll]');
+    scrollElements.forEach((element, idx) => {
+      if (element === this.ref) thisIndex = idx;
+    });
 
     const targetIndex = {
-      next: pointIndex + 1,
-      previous: pointIndex - 1,
+      next: thisIndex + 1,
+      previous: thisIndex - 1,
       default: null,
     }[goTo];
 
-    const scrollElements = document.querySelectorAll('[uk-scroll]');
     const targetNode = isNil(targetIndex)
       ? goTo
       : scrollElements.item(targetIndex);
@@ -87,7 +91,7 @@ export default class ScrollPoint extends React.Component {
   handleRef = element => (this.ref = element);
 
   render() {
-    const { duration, offset, pointIndex, ...rest } = this.props;
+    const { duration, offset, ...rest } = this.props;
 
     return (
       <Ref innerRef={this.handleRef}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { buildClassName, customPropTypes } from '../../lib';
+import { buildClassName, customPropTypes, recurseChildren } from '../../lib';
 import Base from '../Base';
 import Link from '../Link';
 
@@ -27,8 +27,8 @@ export default class TableCell extends React.Component {
     shrink: false,
   };
 
-  resetChildLinks = children =>
-    React.Children.map(children, child => {
+  renderChildren = children =>
+    recurseChildren(children, child => {
       if (!React.isValidElement(child)) return child;
       if (child.type === 'a' || child.type === Link || child.props.href) {
         return React.cloneElement(child, {
@@ -38,8 +38,6 @@ export default class TableCell extends React.Component {
       }
       return child;
     });
-
-  renderChildren = children => this.resetChildLinks(children);
 
   render() {
     const {
